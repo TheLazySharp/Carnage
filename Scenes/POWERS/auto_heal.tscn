@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://btqhj866y1b7a"]
+
+[ext_resource type="Script" uid="uid://c0wwtq43aqi3w" path="res://Scripts/POWERS/auto_heal.gd" id="1_fyq4n"]
+[ext_resource type="Resource" uid="uid://dndeopvupbih1" path="res://Resources/Weapons/auto_heal.tres" id="2_ln6gu"]
+
+[node name="auto_heal" type="Node2D"]
+script = ExtResource("1_fyq4n")
+heal_data = ExtResource("2_ln6gu")
+
+[node name="HealingTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="HealingTimer" to="." method="_on_healing_timer_timeout"]

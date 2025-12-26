@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=5 format=3 uid="uid://dndeopvupbih1"]
+
+[ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="1_77njp"]
+[ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="2_f1nep"]
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="3_j4663"]
+[ext_resource type="Texture2D" uid="uid://bia7ha37fn5c5" path="res://Assets/powers/LIFE_1.png" id="4_77njp"]
+
+[resource]
+script = ExtResource("3_j4663")
+weapon_name = "AutoHeal"
+weapon_icon = ExtResource("4_77njp")
+weapon_scene_uid = "uid://btqhj866y1b7a"
+max_level = 10
+dmg = 0
+dmg_on_resources = 0
+healing_power = 5
+radius = 0
+speed_rotation = 0
+fire_rate = 2.0
+resources = [[ExtResource("1_77njp"), 50], [ExtResource("2_f1nep"), 0]]
+levelup_text = "+1 HP"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

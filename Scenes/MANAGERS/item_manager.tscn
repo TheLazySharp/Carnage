@@ -1,0 +1,10 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpgg0nlelogwr"]
+
+[ext_resource type="Script" path="res://Scripts/item_manager.gd" id="1_u33us"]
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="2_aymgh"]
+[ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="3_epxgm"]
+[ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="4_3pwu8"]
+
+[node name="ItemManager" type="Node"]
+script = ExtResource("1_u33us")
+items = Array[ExtResource("2_aymgh")]([ExtResource("3_epxgm"), ExtResource("4_3pwu8")])

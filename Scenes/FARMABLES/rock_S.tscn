@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddmur5pgkwh63"]
+
+[ext_resource type="Script" uid="uid://c7jrfcuojl0h8" path="res://Scripts/ITEMS/ressource.gd" id="1_ba250"]
+[ext_resource type="Resource" uid="uid://b1hqbwovjlm65" path="res://Resources/Rocks/rock_S.tres" id="2_ba250"]
+[ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="3_8jm1n"]
+[ext_resource type="Texture2D" uid="uid://bbrx5j8n7tcxc" path="res://Assets/Props/rock_S.png" id="4_cryjd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1bi01"]
+radius = 3.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fdxtt"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5te5h"]
+radius = 67.02985
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bi01"]
+radius = 4.1231055
+
+[node name="RockS" type="CharacterBody2D" groups=["ressources"]]
+y_sort_enabled = true
+collision_layer = 32
+collision_mask = 5
+script = ExtResource("1_ba250")
+farmable = ExtResource("2_ba250")
+loot = ExtResource("3_8jm1n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+texture = ExtResource("4_cryjd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_1bi01")
+
+[node name="Hitbox" type="Area2D" parent="." groups=["ressources"]]
+visible = false
+collision_layer = 32
+collision_mask = 1024
+
+[node name="HitShape" type="CollisionShape2D" parent="Hitbox"]
+visible = false
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_fdxtt")
+
+[node name="DetectionZone" type="Area2D" parent="." groups=["ressources"]]
+visible = false
+collision_layer = 4096
+collision_mask = 16
+
+[node name="DetectionArea" type="CollisionShape2D" parent="DetectionZone"]
+position = Vector2(0, -36)
+shape = SubResource("CircleShape2D_5te5h")
+debug_color = Color(0.650404, 0.5191356, 0.073032714, 0.41960785)
+
+[node name="FarmPoint" type="Marker2D" parent="DetectionZone"]
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="FarmZone" type="Area2D" parent="DetectionZone/FarmPoint"]
+collision_layer = 2048
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone/FarmPoint/FarmZone"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_1bi01")
+debug_color = Color(1.1551381e-06, 0.43978947, 0.25867897, 0.41960785)

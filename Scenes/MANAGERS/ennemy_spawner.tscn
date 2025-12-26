@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://v787in61o7y6"]
+
+[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/MANAGERS/ennemy_spawner.gd" id="1_cuqad"]
+
+[node name="ennemy_spawner" type="Node2D"]
+script = ExtResource("1_cuqad")
+
+[node name="SpawnPoint0" type="Marker2D" parent="."]
+
+[node name="SpawnPoint1" type="Marker2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

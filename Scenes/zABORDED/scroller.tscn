@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bex3dw3trmah0"]
+
+[ext_resource type="Script" uid="uid://c8y82dp0hfhk6" path="res://Scripts/zABORDED/scroller.gd" id="1_oo3tf"]
+
+[node name="Scroller" type="Marker2D"]
+script = ExtResource("1_oo3tf")

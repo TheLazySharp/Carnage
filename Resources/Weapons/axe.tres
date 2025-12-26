@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=5 format=3 uid="uid://m78cavmqijx3"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_4n384"]
+[ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="1_wf5uq"]
+[ext_resource type="Texture2D" uid="uid://bt72hplsdjxw6" path="res://Assets/weapons/axe.png" id="2_omxwl"]
+[ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="2_ygkli"]
+
+[resource]
+script = ExtResource("1_4n384")
+weapon_name = "Axe"
+weapon_icon = ExtResource("2_omxwl")
+weapon_scene_uid = "uid://dh2o1j6s8uxlw"
+max_level = 10
+dmg = 10
+speed = 5.0
+resources = [[ExtResource("1_wf5uq"), 100], [ExtResource("2_ygkli"), 10]]
+levelup_text = "Dmg +"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

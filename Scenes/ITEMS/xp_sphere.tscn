@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://5uh2knats63k"]
+
+[ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/UI/xp-sheet.png" id="1_2agxn"]
+[ext_resource type="Script" uid="uid://bo0y708xsebx2" path="res://Scripts/ITEMS/xp_sphere.gd" id="1_i8ppg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obv3a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8ppg"]
+atlas = ExtResource("1_2agxn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvdyb"]
+atlas = ExtResource("1_2agxn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7c2nv"]
+atlas = ExtResource("1_2agxn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ts882"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8ppg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvdyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7c2nv")
+}],
+"loop": true,
+"name": &"blooming",
+"speed": 8.0
+}]
+
+[node name="Node2D" type="Area2D" groups=["collectables"]]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+z_as_relative = false
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("1_i8ppg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_obv3a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_ts882")
+animation = &"blooming"
+autoplay = "blooming"
+frame = 2
+frame_progress = 0.53871137
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

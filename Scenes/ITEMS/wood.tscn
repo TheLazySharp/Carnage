@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cboxieb7gmlys"]
+
+[ext_resource type="Texture2D" uid="uid://chbyq6op0mitq" path="res://Assets/Props/WOOD.png" id="1_wy180"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfydv"]
+size = Vector2(31, 16)
+
+[node name="Wood" type="StaticBody2D"]
+z_as_relative = false
+y_sort_enabled = true
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_tfydv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wy180")
+offset = Vector2(0, -8)

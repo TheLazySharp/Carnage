@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4e12yx6gttoi"]
+
+[ext_resource type="Texture2D" uid="uid://b13sboa2xorxd" path="res://Assets/VFX/white_stain_10R.png" id="1_7qjkv"]
+[ext_resource type="Script" uid="uid://cxsws31tqd1ei" path="res://Scripts/VFX/blood_particles.gd" id="2_piaeq"]
+
+[node name="BloodParticles" type="CPUParticles2D"]
+z_as_relative = false
+amount = 5
+texture = ExtResource("1_7qjkv")
+lifetime = 5.0
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 150.0
+linear_accel_min = -290.0
+linear_accel_max = -290.0
+damping_min = 100.0
+damping_max = 100.0
+angle_min = -45.0
+angle_max = 45.0
+color = Color(0.513617, 0.0005715767, 0.00031313868, 1)
+script = ExtResource("2_piaeq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

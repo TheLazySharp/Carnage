@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://q118ck5rk3al"]
+
+[ext_resource type="Script" uid="uid://dw15g7jhxhi42" path="res://Scripts/INVENTORY/inventory.gd" id="1_0n8tc"]
+[ext_resource type="Script" uid="uid://ct3mne72gdm1m" path="res://Scripts/UI/control_drop_data.gd" id="1_k1vlg"]
+[ext_resource type="Script" uid="uid://cqpjpm262dhpg" path="res://Scripts/INVENTORY/item_slot.gd" id="1_k5gp2"]
+[ext_resource type="Texture2D" uid="uid://chbyq6op0mitq" path="res://Assets/Props/WOOD.png" id="2_yxepq"]
+[ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="3_k1vlg"]
+[ext_resource type="FontFile" uid="uid://cy0lbkvt1xb4p" path="res://Fonts/Cute Dino.otf" id="6_trvqw"]
+[ext_resource type="Script" uid="uid://1t8qggq4muf7" path="res://Scripts/INVENTORY/item_quantity_label.gd" id="7_aqnmd"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="DropItemToWorld" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k1vlg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_bottom = 320.0
+grow_horizontal = 0
+
+[node name="Inventory" type="Panel" parent="HBoxContainer"]
+z_index = 5
+layout_mode = 2
+script = ExtResource("1_0n8tc")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Inventory"]
+z_index = 5
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Inventory/MarginContainer"]
+z_index = 5
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="ItemSlot0" type="Panel" parent="HBoxContainer/Inventory/MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("1_k5gp2")
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/Inventory/MarginContainer/GridContainer/ItemSlot0"]
+z_index = 6
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_yxepq")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/Inventory/MarginContainer/GridContainer/ItemSlot0"]
+z_index = 7
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -31.333313
+offset_top = -8.833332
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_trvqw")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("7_aqnmd")
+item = ExtResource("3_k1vlg")

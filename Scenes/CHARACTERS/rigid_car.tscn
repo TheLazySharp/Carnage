@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://bx50mtpiyyt2j"]
+
+[ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/rigid_car.gd" id="1_rsha1"]
+[ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_frphp"]
+[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="2_hwwk2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ddvet"]
+radius = 11.0
+height = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rsha1"]
+radius = 19.235384
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwwk2"]
+radius = 9.0
+height = 40.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o4qls"]
+height = 42.0
+
+[node name="RigidCar" type="CharacterBody2D" groups=["player"]]
+collision_mask = 10
+script = ExtResource("1_rsha1")
+acceleration = 300.0
+max_speed = 500.0
+max_drift_damping = 8.0
+min_drift_speed = 20.0
+damages_text = ExtResource("2_frphp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5707964
+texture = ExtResource("2_hwwk2")
+offset = Vector2(0, 12)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." groups=["player"]]
+visible = false
+z_as_relative = false
+shape = SubResource("CapsuleShape2D_ddvet")
+
+[node name="RearLeft" type="Marker2D" parent="."]
+position = Vector2(-26, -9)
+
+[node name="RearRight" type="Marker2D" parent="."]
+position = Vector2(-26, 9)
+
+[node name="CollectZone" type="Area2D" parent="." groups=["player"]]
+visible = false
+collision_layer = 256
+collision_mask = 512
+
+[node name="CollectZone" type="CollisionShape2D" parent="CollectZone"]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_rsha1")
+debug_color = Color(0.65457684, 0.5179122, 0, 0.41960785)
+
+[node name="TakingDamages" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+collision_mask = 0
+
+[node name="Hitshape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-12, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_hwwk2")
+disabled = true
+debug_color = Color(0.9344128, 0.1669651, 0.49408865, 0.41960785)
+
+[node name="BodyParts" type="Area2D" parent="." groups=["player"]]
+collision_layer = 1024
+collision_mask = 2
+
+[node name="Right" type="CollisionShape2D" parent="BodyParts"]
+position = Vector2(-12, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_o4qls")
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="CollectZone" to="." method="_on_collect_zone_entered"]
+[connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
+[connection signal="area_entered" from="BodyParts" to="." method="_on_body_parts_area_entered"]
+[connection signal="body_entered" from="BodyParts" to="." method="_on_body_parts_collision"]

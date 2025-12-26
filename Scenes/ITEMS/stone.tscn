@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://deiw0l1t78l02"]
+
+[ext_resource type="Texture2D" uid="uid://d2kvcvkievhvo" path="res://Assets/Props/STONE.png" id="1_8gxtq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfydv"]
+size = Vector2(23, 16)
+
+[node name="Stone" type="StaticBody2D"]
+z_as_relative = false
+y_sort_enabled = true
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -8)
+shape = SubResource("RectangleShape2D_tfydv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("1_8gxtq")
+offset = Vector2(0, -8)

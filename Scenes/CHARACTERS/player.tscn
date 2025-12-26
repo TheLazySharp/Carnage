@@ -1,0 +1,282 @@
+[gd_scene load_steps=34 format=3 uid="uid://bfqfkdast3fls"]
+
+[ext_resource type="Script" uid="uid://dwdl5qvpdnxvn" path="res://Scripts/CHARACTERS/player.gd" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://b6qr2q1f85sj2" path="res://Assets/Characters/BEAVER_01-sheet.png" id="2_6t5aa"]
+[ext_resource type="Shader" uid="uid://ypa4o84aameq" path="res://Shaders/player_damaged.gdshader" id="2_vgqql"]
+[ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="3_fx506"]
+[ext_resource type="AnimationLibrary" uid="uid://bnb2413glx753" path="res://Animations/beaver_animations.res" id="5_8erm5"]
+[ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="5_fkybt"]
+[ext_resource type="Texture2D" uid="uid://dunmm61xfpgu8" path="res://Assets/UI/GREEN_CROSS.png" id="6_tx1dd"]
+[ext_resource type="Script" uid="uid://b5xr8p1whdk1b" path="res://Scripts/CHARACTERS/juniors.gd" id="6_x3wgy"]
+[ext_resource type="PackedScene" uid="uid://c85qduc5wj1ay" path="res://Scenes/CHARACTERS/beaver_jr.tscn" id="7_3smsa"]
+[ext_resource type="Script" uid="uid://fnmf6ggiekl1" path="res://Scripts/UI/arc.gd" id="9_f1ek2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fkybt"]
+shader = ExtResource("2_vgqql")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_value = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3wgy"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ek2"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx1dd"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dp3o"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(256, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(288, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd4e3"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(320, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(352, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igrcy"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(384, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fs7ks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkybt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3wgy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3smsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8erm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ek2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx1dd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gymyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu2lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukyrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dp3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4iuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd4e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqcod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igrcy")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 15.0
+}]
+
+[sub_resource type="Curve" id="Curve_gymyn"]
+_data = [Vector2(0.047619045, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pu2lt"]
+curve = SubResource("Curve_gymyn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f1ek2"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(50, 50, 0)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(1, -10, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_pu2lt")
+color = Color(0.06663332, 0.93757516, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f60y1"]
+radius = 11.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgqql"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8erm5"]
+radius = 50.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1ek2"]
+radius = 19.235384
+
+[node name="BeaverSr" type="CharacterBody2D" groups=["player"]]
+z_index = 20
+z_as_relative = false
+collision_mask = 40
+script = ExtResource("1_v0iea")
+semi_auto_shoot = true
+damages_text = ExtResource("5_fkybt")
+
+[node name="Weapons" type="Node2D" parent="."]
+position = Vector2(0, -16)
+script = ExtResource("3_fx506")
+
+[node name="Visuals" type="Node2D" parent="."]
+z_as_relative = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
+root_node = NodePath("../..")
+libraries = {
+&"beaver_animations": ExtResource("5_8erm5")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+z_as_relative = false
+material = SubResource("ShaderMaterial_fkybt")
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_fs7ks")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.81844985
+
+[node name="HealingVFX" type="GPUParticles2D" parent="Visuals"]
+visible = false
+amount = 40
+texture = ExtResource("6_tx1dd")
+process_material = SubResource("ParticleProcessMaterial_f1ek2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_f60y1")
+
+[node name="TakingDamages" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="." groups=["player"]]
+visible = false
+collision_mask = 2
+
+[node name="Hitshape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_vgqql")
+debug_color = Color(0.9344128, 0.1669651, 0.49408865, 0.41960785)
+
+[node name="MarkerDamages" type="Marker2D" parent="."]
+position = Vector2(0, -34)
+
+[node name="Juniors" type="Node2D" parent="."]
+visible = false
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("6_x3wgy")
+junior_scene = ExtResource("7_3smsa")
+
+[node name="Junior0" type="Marker2D" parent="Juniors"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-20, 15)
+
+[node name="Junior1" type="Marker2D" parent="Juniors"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(20, 15)
+
+[node name="Junior2" type="Marker2D" parent="Juniors"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(40, 0)
+
+[node name="Junior3" type="Marker2D" parent="Juniors"]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-40, 0)
+
+[node name="HealingZone" type="Area2D" parent="."]
+visible = false
+z_as_relative = false
+collision_layer = 128
+collision_mask = 64
+
+[node name="HealingWorldArea" type="Node2D" parent="HealingZone"]
+z_as_relative = false
+script = ExtResource("9_f1ek2")
+
+[node name="HealingShape" type="CollisionShape2D" parent="HealingZone"]
+z_as_relative = false
+shape = SubResource("CircleShape2D_8erm5")
+debug_color = Color(0, 0.6487369, 0.18108371, 0.41960785)
+
+[node name="HealingTimer" type="Timer" parent="."]
+
+[node name="CollectZone" type="Area2D" parent="." groups=["player"]]
+visible = false
+collision_layer = 256
+collision_mask = 512
+
+[node name="CollectZone" type="CollisionShape2D" parent="CollectZone"]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_f1ek2")
+debug_color = Color(0.65457684, 0.5179122, 0, 0.41960785)
+
+[connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
+[connection signal="area_entered" from="HealingZone" to="." method="_on_healing_zone_entered"]
+[connection signal="area_exited" from="HealingZone" to="." method="_on_healing_zone_exited"]
+[connection signal="timeout" from="HealingTimer" to="." method="_on_healing_timer_timeout"]
+[connection signal="area_entered" from="CollectZone" to="." method="_on_collect_zone_entered"]

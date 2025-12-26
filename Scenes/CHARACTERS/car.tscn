@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://kp5nhaoh8dft"]
+
+[ext_resource type="Script" uid="uid://cvakypsqi805v" path="res://Scripts/CHARACTERS/car.gd" id="1_ddvet"]
+[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="1_tq6mt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ddvet"]
+radius = 11.0
+height = 42.0
+
+[node name="Car" type="CharacterBody2D"]
+collision_mask = 8
+script = ExtResource("1_ddvet")
+steering_angle = 25
+friction = -150
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5707964
+texture = ExtResource("1_tq6mt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+z_as_relative = false
+shape = SubResource("CapsuleShape2D_ddvet")
+
+[node name="SkidMarks" type="Node2D" parent="."]
+
+[node name="LeftMark" type="Line2D" parent="SkidMarks"]
+width = 6.0
+default_color = Color(0, 0, 0, 0.7058824)
+texture_mode = 1
+antialiased = true
+
+[node name="RightMark" type="Line2D" parent="SkidMarks"]
+width = 6.0
+default_color = Color(0, 0, 0, 0.7058824)
+texture_mode = 1
+antialiased = true

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://bdcx24kagdrwh"]
+
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="1_8nr64"]
+[ext_resource type="Texture2D" uid="uid://chbyq6op0mitq" path="res://Assets/Props/WOOD.png" id="1_g4adp"]
+[ext_resource type="PackedScene" uid="uid://cboxieb7gmlys" path="res://Scenes/ITEMS/wood.tscn" id="2_oipia"]
+
+[resource]
+script = ExtResource("1_8nr64")
+item_name = "wood"
+icon = ExtResource("1_g4adp")
+tileset_ID = 8
+tile_atlas_pos = Vector2i(6, 13)
+item_scene = ExtResource("2_oipia")
+quantity = 1000
+metadata/_custom_type_script = "uid://ctc62ptewno8k"

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=5 format=3 uid="uid://e1uwi0uago1h"]
+
+[ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="1_4ebu5"]
+[ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="2_so33w"]
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="3_bjtsb"]
+[ext_resource type="Texture2D" uid="uid://na5jtkncpm0y" path="res://Assets/weapons/stone_ammo.png" id="4_4ebu5"]
+
+[resource]
+script = ExtResource("3_bjtsb")
+weapon_name = "Stone"
+weapon_icon = ExtResource("4_4ebu5")
+weapon_scene_uid = "uid://dww6b787qn3x0"
+max_level = 10
+dmg = 2
+dmg_on_resources = 0
+atk_range = 100.0
+radius = 0
+speed = 400.0
+speed_rotation = 0
+resources = [[ExtResource("1_4ebu5"), 0], [ExtResource("2_so33w"), 20]]
+levelup_text = "Dmg +"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=7 format=3 uid="uid://ewkqgn8g8vxg"]
+
+[ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="1_8fglk"]
+[ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="2_en8se"]
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="3_s33ng"]
+[ext_resource type="Texture2D" uid="uid://dpavnu14nu2x" path="res://Assets/weapons/slingshot.png" id="4_8fglk"]
+[ext_resource type="Resource" uid="uid://e1uwi0uago1h" path="res://Resources/Weapons/stone_ammo.tres" id="4_en8se"]
+[ext_resource type="PackedScene" uid="uid://dww6b787qn3x0" path="res://Scenes/WEAPONS/stone_ammo.tscn" id="5_s33ng"]
+
+[resource]
+script = ExtResource("3_s33ng")
+weapon_name = "Slingshot"
+weapon_icon = ExtResource("4_8fglk")
+weapon_scene_uid = "uid://bf606njwyoo0l"
+weapon_ammo_scene = ExtResource("5_s33ng")
+weapon_ammo_res = ExtResource("4_en8se")
+max_level = 35
+dmg = 0
+dmg_on_resources = 0
+speed_rotation = 0
+fire_rate = 0.5
+resources = [[ExtResource("1_8fglk"), 30], [ExtResource("2_en8se"), 5]]
+levelup_text = "+ Fire rate"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

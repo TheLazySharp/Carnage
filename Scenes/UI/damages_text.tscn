@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://pej2qquyboig"]
+
+[ext_resource type="Script" uid="uid://c06gbngeptquw" path="res://Scripts/UI/damages_text.gd" id="1_61n2r"]
+[ext_resource type="FontFile" uid="uid://cy0lbkvt1xb4p" path="res://Fonts/Cute Dino.otf" id="2_gshsr"]
+
+[node name="DamagesText" type="Marker2D"]
+z_index = 20
+script = ExtResource("1_61n2r")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -15.0
+offset_right = 63.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7194535, 2.5509298e-06, 5.7756904e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_gshsr")
+theme_override_font_sizes/font_size = 48
+text = "200"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

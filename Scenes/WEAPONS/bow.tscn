@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://3g0m43hcvlsk"]
+
+[ext_resource type="Script" uid="uid://dm53cpnuwqyir" path="res://Scripts/WEAPONS/bow.gd" id="1_nxj5y"]
+[ext_resource type="Resource" uid="uid://bsa4806plmw2s" path="res://Resources/Weapons/bow.tres" id="2_g80ry"]
+
+[node name="Bow" type="Node2D"]
+z_index = 20
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_nxj5y")
+bow_data = ExtResource("2_g80ry")
+
+[node name="Sprite" type="ColorRect" parent="."]
+visible = false
+offset_left = -1.0
+offset_top = -4.0
+offset_right = 1.0
+color = Color(0.0146401, 0, 0.81067, 1)
+
+[node name="FirePoint" type="Marker2D" parent="."]
+position = Vector2(0, -6)
+
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 0.4
+
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

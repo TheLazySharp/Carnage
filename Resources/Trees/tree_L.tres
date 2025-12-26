@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FarmableData" load_steps=2 format=3 uid="uid://0ncr6lct1wh5"]
+
+[ext_resource type="Script" uid="uid://dnovvdh2yganp" path="res://Resources/Scripts/farmable_data.gd" id="1_i3gh5"]
+
+[resource]
+script = ExtResource("1_i3gh5")
+farmable_name = "tree_L"
+life = 80
+loot_quantity = 30
+metadata/_custom_type_script = "uid://dnovvdh2yganp"
