@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://gmjjc1vmgcds"]
+[gd_scene load_steps=4 format=3 uid="uid://gmjjc1vmgcds"]
 
 [ext_resource type="Script" uid="uid://ddjt1ymblxnbi" path="res://Scripts/SCENES/main_menu.gd" id="1_ovrvl"]
-[ext_resource type="Resource" uid="uid://bsa4806plmw2s" path="res://Resources/Weapons/bow.tres" id="2_ghgot"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="3_ghgot"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
@@ -14,7 +13,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ovrvl")
-bow_data = ExtResource("2_ghgot")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1

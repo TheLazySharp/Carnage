@@ -1,15 +1,14 @@
 extends Node
 
-const AXE = preload("uid://m78cavmqijx3")
-const BOW = preload("uid://bsa4806plmw2s")
-const ARROW = preload("uid://b8nw2s85q3f0a")
-const AUTO_HEAL = preload("uid://dndeopvupbih1")
-const SLINGSHOT = preload("uid://ewkqgn8g8vxg")
-const STONE_AMMO = preload("uid://e1uwi0uago1h")
+const BULLET = preload("uid://b8nw2s85q3f0a")
+const REVOLVER = preload("uid://ewkqgn8g8vxg")
+const MINIGUN = preload("uid://byammqyru2apq")
+const MG_BULLET = preload("uid://tmw3kk1tg1re")
+
+
 
 
 var weapon_scenes: Array[Array]
-
 
 var weapons : Array[WeaponData]
 var unequipped_weapons: Array[WeaponData]
@@ -21,24 +20,26 @@ signal new_weapon_data(new_weapon: WeaponData, weapon_list : Array, weapon_show:
 
 func _ready() -> void:
 	XPManager.update_level.connect(shuffle_new_weapon)
-	load_weapons()
+	#load_weapons()
 
 
 
 func load_weapons():
-	init_weapon(BOW)
-	init_weapon(ARROW)
-	locked_weapon(SLINGSHOT)
-	locked_weapon(AXE)
-	locked_weapon(AUTO_HEAL)
-	weapon_scenes.append(["bow", "uid://3g0m43hcvlsk", preload("uid://3g0m43hcvlsk")])
-	weapon_scenes.append(["arrow", "uid://bjuws4ysoivbu", preload("uid://bjuws4ysoivbu")])
-	weapon_scenes.append(["axe", "uid://dh2o1j6s8uxlw", preload("uid://dh2o1j6s8uxlw")])
-	weapon_scenes.append(["auto_heal", "uid://btqhj866y1b7a", preload("uid://btqhj866y1b7a")])
-	weapon_scenes.append(["slingshot", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
-	weapon_scenes.append(["stone", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
+	locked_weapon(REVOLVER)
+	locked_weapon(MINIGUN)
+	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
+	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
+	weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
+	weapon_scenes.append(["minigun", "uid://c6wus6ofti85w", preload("uid://c6wus6ofti85w")])
 	
-
+	print("INIT WEAPONS :")
+	for j in weapons.size():
+		print(weapons[j].weapon_name)
+	print("UNEQUIPPED :")
+	for k in unequipped_weapons.size():
+		print(unequipped_weapons[k].weapon_name)
+	if unequipped_weapons.is_empty() :
+		print("empty")
 
 
 func copy_weapons() -> Array :
@@ -90,11 +91,11 @@ func unequip_weapon(_old_weapon: WeaponData) -> void:
 
 func shuffle_new_weapon(new_current_level):
 	player_current_level = new_current_level
-	if player_current_level % 2 == 0 : 
-		if unequipped_weapons.size()>0:
-			unequipped_weapons.shuffle()
-			emit_signal("new_weapon_data", unequipped_weapons[0], unequipped_weapons, true)
-	else: return
+	#if player_current_level % 2 == 0 : 
+	if unequipped_weapons.size()>0:
+		unequipped_weapons.shuffle()
+		emit_signal("new_weapon_data", unequipped_weapons[0], unequipped_weapons, true)
+	#else: return
 
 
 func unload() -> void:

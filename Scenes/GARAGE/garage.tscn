@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cs311xlcqlrt0"]
 
-[ext_resource type="Script" uid="uid://ll5vynm3wl3q" path="res://Scripts/SCENES/dam.gd" id="1_rjd84"]
+[ext_resource type="Script" uid="uid://ll5vynm3wl3q" path="res://Scripts/SCENES/garage.gd" id="1_rjd84"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_4uf12"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cx0hi"]
@@ -59,8 +59,8 @@ theme_override_constants/separation = 30
 [node name="Craft" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_4uf12")
 theme_override_font_sizes/font_size = 56
@@ -71,8 +71,8 @@ flat = true
 [node name="Manage" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_4uf12")
 theme_override_font_sizes/font_size = 56
@@ -83,8 +83,8 @@ flat = true
 [node name="NextDay" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_4uf12")
 theme_override_font_sizes/font_size = 56

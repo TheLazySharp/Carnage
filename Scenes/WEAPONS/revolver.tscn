@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf606njwyoo0l"]
+
+[ext_resource type="Script" uid="uid://b3l5ddu70je5u" path="res://Scripts/WEAPONS/slingshot.gd" id="1_c46wd"]
+[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="2_4mk6m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c46wd"]
+radius = 5.0
+
+[node name="Revolver" type="Node2D"]
+script = ExtResource("1_c46wd")
+slingshot_data = ExtResource("2_4mk6m")
+
+[node name="FireRate" type="Timer" parent="."]
+
+[node name="FirePoint" type="Marker2D" parent="."]
+
+[node name="FireRange" type="Area2D" parent="."]
+collision_layer = 8192
+collision_mask = 2
+
+[node name="FireRangeShape" type="CollisionShape2D" parent="FireRange"]
+shape = SubResource("CircleShape2D_c46wd")
+
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
+[connection signal="area_entered" from="FireRange" to="." method="_on_fire_range_entered"]
+[connection signal="area_exited" from="FireRange" to="." method="_on_fire_range_exited"]
+[connection signal="body_entered" from="FireRange" to="." method="_on_fire_range_body_entered"]
+[connection signal="body_exited" from="FireRange" to="." method="_on_fire_range_body_exited"]

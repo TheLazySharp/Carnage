@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=5 format=3 uid="uid://ewkqgn8g8vxg"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_c65e2"]
+[ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/bullet.tres" id="2_e4v8e"]
+[ext_resource type="PackedScene" uid="uid://dww6b787qn3x0" path="res://Scenes/WEAPONS/bullet.tscn" id="3_c65e2"]
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="4_fvhad"]
+
+[resource]
+script = ExtResource("1_c65e2")
+weapon_name = "Revolver"
+weapon_icon = ExtResource("4_fvhad")
+weapon_scene_uid = "uid://bf606njwyoo0l"
+weapon_ammo_scene = ExtResource("3_c65e2")
+weapon_ammo_res = ExtResource("2_e4v8e")
+max_level = 35
+dmg = 0
+dmg_on_resources = 0
+speed_rotation = 0
+fire_rate = 0.5
+levelup_text = "+ Fire rate"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

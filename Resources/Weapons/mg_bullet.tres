@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://tmw3kk1tg1re"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_mcb0t"]
+[ext_resource type="Texture2D" uid="uid://dld63d0r7lmc8" path="res://Assets/weapons/long_bullet.png" id="2_mcb0t"]
+
+[resource]
+script = ExtResource("1_mcb0t")
+weapon_name = "Minigun Am"
+weapon_icon = ExtResource("2_mcb0t")
+weapon_scene_uid = "uid://doe8o0sd0xuas"
+max_level = 10
+dmg = 1
+dmg_on_resources = 0
+atk_range = 1000.0
+radius = 0
+speed = 1000.0
+speed_rotation = 0
+levelup_text = "Dmg +"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

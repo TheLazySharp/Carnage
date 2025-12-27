@@ -81,20 +81,20 @@ func get_focus():
 
 
 func _on_button_pressed(button_id) -> void:
-	var nb_resource_ok = 0
-	
+	#var nb_resource_ok = 0
+	#
 	if button_id < weapons.size():
 		weapon = weapons[button_id]
 	elif button_id == weapons.size():
 		weapon = new_weapon
 	
 
-	for i in weapon.resources.size():
-		resource = weapon.resources[i][0]
-		if resource.quantity >= weapon.resources[i][1]:
-			nb_resource_ok +=1
+	#for i in weapon.resources.size():
+		#resource = weapon.resources[i][0]
+		#if resource.quantity >= weapon.resources[i][1]:
+			#nb_resource_ok +=1
 	
-	if nb_resource_ok == weapon.resources.size() and weapon.current_level < weapon.max_level :
+	if weapon.current_level < weapon.max_level :
 		button_selected_id = button_id
 		slot_buttons[button_id].add_theme_stylebox_override("normal", selected_button_style_box)
 		weapon_levelup_ok = true
@@ -118,9 +118,9 @@ func _on_confirm_pressed() -> void:
 
 		else: 
 			WeaponsManager.equip_weapon(weapon)
-			for i in weapon.resources.size():
-				resource = weapon.resources[i][0]
-				resource.quantity -= weapon.resources[i][1]
+			#for i in weapon.resources.size():
+				#resource = weapon.resources[i][0]
+				#resource.quantity -= weapon.resources[i][1]
 		emit_signal("game_paused", game_is_paused)
 		hide()
 		weapon_levelup_ok = false
@@ -130,9 +130,9 @@ func _on_confirm_pressed() -> void:
 
 func weapon_level_up(weapon_id: int):
 	weapons[weapon_id].current_level +=1
-	for i in weapon.resources.size():
-		resource = weapons[weapon_id].resources[i][0]
-		resource.quantity -= weapon.resources[i][1]
+	#for i in weapon.resources.size():
+		#resource = weapons[weapon_id].resources[i][0]
+		#resource.quantity -= weapon.resources[i][1]
 
 func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array, weapon_show : bool):
 	new_weapon = new_weapon_to_equiped

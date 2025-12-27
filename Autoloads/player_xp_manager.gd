@@ -8,7 +8,6 @@ var total_levels:int = 50
 
 var animation:= false
 
-
 signal update_xp(current_xp: int)
 signal update_max_xp_target(target_xp: int)
 signal animation_play(animation_ok : bool)

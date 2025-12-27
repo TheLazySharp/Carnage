@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=5 format=3 uid="uid://byammqyru2apq"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_nojgw"]
+[ext_resource type="Resource" uid="uid://tmw3kk1tg1re" path="res://Resources/Weapons/mg_bullet.tres" id="2_nojgw"]
+[ext_resource type="PackedScene" uid="uid://doe8o0sd0xuas" path="res://Scenes/WEAPONS/mg_bullet.tscn" id="3_7o8d1"]
+[ext_resource type="Texture2D" uid="uid://ct3fv10tajqes" path="res://Assets/weapons/minigun.png" id="3_sioub"]
+
+[resource]
+script = ExtResource("1_nojgw")
+weapon_name = "Minigun"
+weapon_icon = ExtResource("3_sioub")
+weapon_scene_uid = "uid://c6wus6ofti85w"
+weapon_ammo_scene = ExtResource("3_7o8d1")
+weapon_ammo_res = ExtResource("2_nojgw")
+max_level = 35
+dmg = 0
+dmg_on_resources = 0
+speed_rotation = 0
+fire_rate = 0.2
+cool_down = 4.0
+nb_ammo = 10
+levelup_text = "+ 1 bullet"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6wus6ofti85w"]
+
+[ext_resource type="Script" uid="uid://ct245npeeo2wy" path="res://Scripts/WEAPONS/minigun.gd" id="1_skg3x"]
+[ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/minigun.tres" id="2_yyjxs"]
+
+[node name="Minigun" type="Node2D"]
+z_index = 20
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_skg3x")
+minigun_data = ExtResource("2_yyjxs")
+
+[node name="Sprite" type="ColorRect" parent="."]
+visible = false
+offset_left = -1.0
+offset_top = -4.0
+offset_right = 1.0
+color = Color(0.0146401, 0, 0.81067, 1)
+
+[node name="FirePoint" type="Marker2D" parent="."]
+
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 0.4
+
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

@@ -27,6 +27,8 @@ func _process(_delta: float) -> void:
 	if weapon:
 		if weapon.is_equiped:
 			anim_upgrade.stop()
+			anim_upgrade.reset_section()
+			
 			if weapon.current_level < weapon.max_level:
 				set_text("Lvl " + str(weapon.current_level) + " -> Lvl " + str(weapon.current_level+1))
 				

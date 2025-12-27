@@ -63,19 +63,31 @@ var is_taking_damages:=false
 @onready var speed_label: Label = $"../CanvasLayer/Board/Speed"
 var display_max_speed : int = 250
 
+#AUDIO
+@onready var start_engine: AudioStreamPlayer = $Audio/StartEngine
+var can_drive:=false
+
+@onready var ready_go: Label = $/root/World/CanvasLayer/Start/ReadyGo
+
+
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
 	max_life = StatsManager.max_life
 	current_life = max_life
 	life_bar.max_value = max_life
 	life_bar.value = current_life
+	print(rotation)
+	if visible:
+		ready_go.get_parent().show()
+		ready_go.text = "READY ?"
+		start_engine.play()
 
 func _process(_delta: float) -> void:
 	if !game_paused:
 		speed_label.text  = str(roundi(velocity.length()/max_speed * display_max_speed))
 
 func _physics_process(delta):
-	if not game_paused:
+	if not game_paused and can_drive:
 		var forward := Vector2.RIGHT.rotated(rotation)
 		var lateral := forward.rotated(PI / 2)
 
@@ -273,3 +285,10 @@ func _on_body_parts_area_entered(area: Area2D) -> void:
 		if enemy.is_in_group("ennemies") and "get_damages" in enemy:
 			enemy.get_damages(dmg)
 		else : return
+
+
+func _on_start_engine_finished() -> void:
+	can_drive = true
+	ready_go.text = "GO !"
+	await get_tree().create_timer(2).timeout
+	ready_go.get_parent().hide()

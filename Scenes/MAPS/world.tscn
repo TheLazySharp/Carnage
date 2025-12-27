@@ -1,18 +1,14 @@
-[gd_scene load_steps=117 format=4 uid="uid://c6msxridefxxd"]
+[gd_scene load_steps=109 format=4 uid="uid://c6msxridefxxd"]
 
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="1_1cojt"]
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_5ukr8"]
 [ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="1_ux4l1"]
 [ext_resource type="PackedScene" uid="uid://qeeykcnwceiw" path="res://Scenes/UI/selection_wheel.tscn" id="2_1cojt"]
-[ext_resource type="Script" uid="uid://dw15g7jhxhi42" path="res://Scripts/INVENTORY/inventory.gd" id="2_axeuq"]
-[ext_resource type="AudioStream" uid="uid://cuccmoqncxuj3" path="res://Audio/Song/palabras-perdidas-en-8-bits-263566.mp3" id="2_jgm5j"]
-[ext_resource type="Script" uid="uid://cqpjpm262dhpg" path="res://Scripts/INVENTORY/item_slot.gd" id="3_1cojt"]
+[ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Audio/Song/fight-for-the-future-336841.mp3" id="3_07qvx"]
 [ext_resource type="Script" uid="uid://bdiix0s1bmolp" path="res://Scripts/UI/xp_bar.gd" id="3_yq1aw"]
 [ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="4_pyn1s"]
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="5_no8kt"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="6_kimld"]
-[ext_resource type="Script" uid="uid://1t8qggq4muf7" path="res://Scripts/INVENTORY/item_quantity_label.gd" id="7_xbk3s"]
-[ext_resource type="Script" uid="uid://bbmi55q0v0pkw" path="res://Scripts/INVENTORY/inventory_icon.gd" id="8_1cojt"]
 [ext_resource type="Texture2D" uid="uid://tlhptwaxxjid" path="res://Assets/Tilsets/g_terrain1.png" id="8_xsxod"]
 [ext_resource type="Texture2D" uid="uid://dryv8jkv3b2ud" path="res://Assets/Tilsets/g_terrain2.png" id="9_8dcyp"]
 [ext_resource type="Texture2D" uid="uid://cm864gogrroh8" path="res://Shaders/daynightcycle-gradient-texture.tres" id="10_pyn1s"]
@@ -35,7 +31,6 @@
 [ext_resource type="Script" uid="uid://dcbcfendqddxe" path="res://Scripts/LEVELUP/levelup_label.gd" id="40_gq5tr"]
 [ext_resource type="Script" uid="uid://bnfkyuguhwr7h" path="res://Scripts/LEVELUP/levelup_icon.gd" id="40_wpjs7"]
 [ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="41_sl775"]
-[ext_resource type="Script" uid="uid://ck821kjqn1evq" path="res://Scripts/LEVELUP/levelup_item_cost.gd" id="43_5brd2"]
 [ext_resource type="Texture2D" uid="uid://bwrvswxwsubhg" path="res://Assets/UI/dashboard_352_144.png" id="48_4n5nh"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_ux4l1"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="49_2jlsx"]
@@ -796,11 +791,6 @@ sources/12 = SubResource("TileSetAtlasSource_jgm5j")
 sources/13 = SubResource("TileSetAtlasSource_kimld")
 sources/14 = SubResource("TileSetAtlasSource_4n5nh")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0pcbe"]
-bg_color = Color(0.103743516, 0.103743546, 0.10374347, 1)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0pcbe"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0a5o"]
 bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)
 border_width_left = 2
@@ -919,9 +909,9 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(0.00014022214, 0.004978749, 0.9595127),
+"transitions": PackedFloat32Array(1, 0.999999, 1),
 "update": 0,
-"values": [Color(1, 1, 0, 1), Color(1, 1, 0, 1), Color(1, 1, 0, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 0, 1), Color(1, 1, 0, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -933,7 +923,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.005320761, 0.25273615, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [null, 24, 16]
+"values": [null, 20, 16]
 }
 
 [sub_resource type="Animation" id="Animation_jgm5j"]
@@ -968,8 +958,6 @@ _data = {
 &"IfNew": SubResource("Animation_ux4l1"),
 &"RESET": SubResource("Animation_jgm5j")
 }
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl775"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axeuq"]
 bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
@@ -1013,8 +1001,9 @@ blend_mode = 2
 script = ExtResource("1_ux4l1")
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="AudioManager"]
-stream = ExtResource("2_jgm5j")
+stream = ExtResource("3_07qvx")
 volume_db = -15.0
+autoplay = true
 bus = &"background"
 
 [node name="DayManager" type="Node" parent="."]
@@ -1082,96 +1071,6 @@ anchor_bottom = 1.0
 offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Inventory" type="Panel" parent="CanvasLayer"]
-visible = false
-z_index = 5
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -234.0
-offset_bottom = 320.0
-grow_horizontal = 0
-script = ExtResource("2_axeuq")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Inventory"]
-z_index = 5
-layout_mode = 0
-offset_right = 156.0
-offset_bottom = 80.0
-scale = Vector2(1.5, 1.5)
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Inventory/MarginContainer"]
-z_index = 5
-layout_mode = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 4
-
-[node name="ItemSlot0" type="Panel" parent="CanvasLayer/Inventory/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("3_1cojt")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Inventory/MarginContainer/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-script = ExtResource("8_1cojt")
-
-[node name="Label" type="Label" parent="CanvasLayer/Inventory/MarginContainer/GridContainer/ItemSlot0"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-script = ExtResource("7_xbk3s")
-
-[node name="SelectionMask" type="ColorRect" parent="CanvasLayer/Inventory/MarginContainer/GridContainer/ItemSlot0"]
-visible = false
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(0.92941177, 0.85882354, 0, 0.3372549)
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Inventory/MarginContainer/GridContainer/ItemSlot0"]
-visible = false
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
 
 [node name="Gear" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -1626,9 +1525,9 @@ theme_override_constants/separation = 30
 
 [node name="Skip" type="Button" parent="CanvasLayer/Leveling/MainButtons"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 56
@@ -1638,9 +1537,9 @@ flat = true
 
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/MainButtons"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 56
@@ -1696,9 +1595,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 6.0
-offset_top = 9.500008
+offset_top = 18.500008
 offset_right = -6.0
-offset_bottom = 28.16668
+offset_bottom = 37.16668
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -1734,8 +1633,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -77.0
+offset_left = -168.0
 offset_top = -29.5
+offset_right = -3.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_kimld")
@@ -1754,155 +1654,42 @@ offset_right = 65.0
 offset_bottom = 34.5
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("40_gq5tr")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0"]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -42.5
+offset_right = 20.0
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/IconBkg"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.517
-anchor_top = 0.347
-anchor_right = 0.517
-anchor_bottom = 0.347
-offset_left = -20.060005
-offset_top = -19.96
-offset_right = 19.939995
-offset_bottom = 20.04
-grow_horizontal = 2
-script = ExtResource("40_wpjs7")
-
-[node name="Costs" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0"]
-z_index = 5
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -50.5
-offset_right = 84.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sl775")
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs"]
-z_index = 5
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.51100004
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.51100004
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.980003
-offset_top = -17.75
-offset_right = 37.019997
-offset_bottom = 16.25
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 2
-
-[node name="ItemSlot0" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer/ItemSlot0"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
-
-[node name="ItemSlot1" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer/ItemSlot1"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot0/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
+script = ExtResource("40_wpjs7")
 
 [node name="WeaponSlot1" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer"]
 clip_contents = true
@@ -1927,9 +1714,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 6.0
-offset_top = 9.500008
+offset_top = 18.500008
 offset_right = -6.0
-offset_bottom = 28.16668
+offset_bottom = 37.16668
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -1965,8 +1752,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -77.0
+offset_left = -168.0
 offset_top = -29.5
+offset_right = -3.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_kimld")
@@ -1985,155 +1773,42 @@ offset_right = 65.0
 offset_bottom = 34.5
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("40_gq5tr")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1"]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -42.5
+offset_right = 20.0
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/IconBkg"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.517
-anchor_top = 0.347
-anchor_right = 0.517
-anchor_bottom = 0.347
-offset_left = -20.060005
-offset_top = -19.96
-offset_right = 19.939995
-offset_bottom = 20.04
-grow_horizontal = 2
-script = ExtResource("40_wpjs7")
-
-[node name="Costs" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1"]
-z_index = 5
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -50.5
-offset_right = 84.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sl775")
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs"]
-z_index = 5
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.51100004
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.51100004
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.980003
-offset_top = -17.75
-offset_right = 37.019997
-offset_bottom = 16.25
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 2
-
-[node name="ItemSlot0" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer/ItemSlot0"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
-
-[node name="ItemSlot1" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer/ItemSlot1"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot1/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
+script = ExtResource("40_wpjs7")
 
 [node name="WeaponSlot2" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer"]
 clip_contents = true
@@ -2158,9 +1833,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 6.0
-offset_top = 9.500008
+offset_top = 18.500008
 offset_right = -6.0
-offset_bottom = 28.16668
+offset_bottom = 37.16668
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -2196,8 +1871,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -77.0
+offset_left = -168.0
 offset_top = -29.5
+offset_right = -3.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_kimld")
@@ -2216,155 +1892,42 @@ offset_right = 65.0
 offset_bottom = 34.5
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("40_gq5tr")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2"]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -42.5
+offset_right = 20.0
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/IconBkg"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.517
-anchor_top = 0.347
-anchor_right = 0.517
-anchor_bottom = 0.347
-offset_left = -20.060005
-offset_top = -19.96
-offset_right = 19.939995
-offset_bottom = 20.04
-grow_horizontal = 2
-script = ExtResource("40_wpjs7")
-
-[node name="Costs" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2"]
-z_index = 5
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -50.5
-offset_right = 84.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sl775")
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs"]
-z_index = 5
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.51100004
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.51100004
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.980003
-offset_top = -17.75
-offset_right = 37.019997
-offset_bottom = 16.25
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 2
-
-[node name="ItemSlot0" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer/ItemSlot0"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
-
-[node name="ItemSlot1" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer/ItemSlot1"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot2/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
+script = ExtResource("40_wpjs7")
 
 [node name="WeaponSlot3" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer"]
 clip_contents = true
@@ -2389,9 +1952,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 6.0
-offset_top = 9.500008
+offset_top = 18.500008
 offset_right = -6.0
-offset_bottom = 28.16668
+offset_bottom = 37.16668
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -2427,8 +1990,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -77.0
+offset_left = -168.0
 offset_top = -29.5
+offset_right = -3.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_kimld")
@@ -2447,155 +2011,42 @@ offset_right = 65.0
 offset_bottom = 34.5
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("40_gq5tr")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3"]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -42.5
+offset_right = 20.0
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/IconBkg"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.517
-anchor_top = 0.347
-anchor_right = 0.517
-anchor_bottom = 0.347
-offset_left = -20.060005
-offset_top = -19.96
-offset_right = 19.939995
-offset_bottom = 20.04
-grow_horizontal = 2
-script = ExtResource("40_wpjs7")
-
-[node name="Costs" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3"]
-z_index = 5
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -50.5
-offset_right = 84.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sl775")
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs"]
-z_index = 5
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.51100004
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.51100004
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.980003
-offset_top = -17.75
-offset_right = 37.019997
-offset_bottom = 16.25
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 2
-
-[node name="ItemSlot0" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer/ItemSlot0"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
-
-[node name="ItemSlot1" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer/ItemSlot1"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot3/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
+script = ExtResource("40_wpjs7")
 
 [node name="WeaponSlot4" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer"]
 clip_contents = true
@@ -2620,9 +2071,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 6.0
-offset_top = 9.500008
+offset_top = 18.500008
 offset_right = -6.0
-offset_bottom = 28.16668
+offset_bottom = 37.16668
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -2658,8 +2109,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -77.0
+offset_left = -168.0
 offset_top = -29.5
+offset_right = -3.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_kimld")
@@ -2678,155 +2130,42 @@ offset_right = 65.0
 offset_bottom = 34.5
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("40_gq5tr")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4"]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -42.5
+offset_right = 20.0
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/IconBkg"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.517
-anchor_top = 0.347
-anchor_right = 0.517
-anchor_bottom = 0.347
-offset_left = -20.060005
-offset_top = -19.96
-offset_right = 19.939995
-offset_bottom = 20.04
-grow_horizontal = 2
-script = ExtResource("40_wpjs7")
-
-[node name="Costs" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4"]
-z_index = 5
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -50.5
-offset_right = 84.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sl775")
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs"]
-z_index = 5
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.51100004
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.51100004
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -36.980003
-offset_top = -17.75
-offset_right = 37.019997
-offset_bottom = 16.25
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
-columns = 2
-
-[node name="ItemSlot0" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer/ItemSlot0"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer/ItemSlot0"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
-
-[node name="ItemSlot1" type="Panel" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0pcbe")
-script = ExtResource("43_5brd2")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.70000005
-offset_top = -0.70000005
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_0pcbe")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer/ItemSlot1"]
-z_index = 7
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -31.333313
-offset_top = -8.833332
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="NoItemMask" type="ColorRect" parent="CanvasLayer/Leveling/MarginContainer/GridContainer/WeaponSlot4/Costs/GridContainer/ItemSlot1"]
-z_index = 6
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 32.999996
-color = Color(1, 0, 0, 0.3372549)
+script = ExtResource("40_wpjs7")
 
 [node name="Board" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -2929,6 +2268,33 @@ show_percentage = false
 position = Vector2(49, 78)
 texture = ExtResource("50_hp83p")
 
+[node name="Start" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReadyGo" type="Label" parent="CanvasLayer/Start"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -96.0
+offset_right = 156.0
+offset_bottom = -30.666656
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 56
+text = "READY ?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Car" parent="." instance=ExtResource("48_ux4l1")]
 position = Vector2(1000, 1000)
 skid_marks_path = NodePath("../SkidMarks")
@@ -2948,10 +2314,10 @@ position_smoothing_enabled = true
 script = ExtResource("51_kimld")
 
 [node name="SpawnPoint0" type="Marker2D" parent="Car/Camera2D/ennemy_spawner"]
-position = Vector2(-1, -457)
+position = Vector2(-4, -461)
 
 [node name="SpawnPoint1" type="Marker2D" parent="Car/Camera2D/ennemy_spawner"]
-position = Vector2(10, 463)
+position = Vector2(9, 393)
 
 [node name="Timer" type="Timer" parent="Car/Camera2D/ennemy_spawner"]
 wait_time = 1.5

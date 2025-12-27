@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bx50mtpiyyt2j"]
+[gd_scene load_steps=9 format=3 uid="uid://bx50mtpiyyt2j"]
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_frphp"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="2_hwwk2"]
+[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Audio/SFX/car-engine-starting-43705.mp3" id="4_frphp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ddvet"]
 radius = 11.0
@@ -79,7 +80,14 @@ shape = SubResource("CapsuleShape2D_o4qls")
 
 [node name="Weapons" type="Node2D" parent="."]
 
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="StartEngine" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_frphp")
+bus = &"SFX"
+
 [connection signal="area_entered" from="CollectZone" to="." method="_on_collect_zone_entered"]
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
 [connection signal="area_entered" from="BodyParts" to="." method="_on_body_parts_area_entered"]
 [connection signal="body_entered" from="BodyParts" to="." method="_on_body_parts_collision"]
+[connection signal="finished" from="Audio/StartEngine" to="." method="_on_start_engine_finished"]

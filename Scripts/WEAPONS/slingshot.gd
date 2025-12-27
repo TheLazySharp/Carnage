@@ -1,6 +1,6 @@
 extends Node2D
 
-const STONE = preload("uid://dww6b787qn3x0")
+const BULLET = preload("uid://dww6b787qn3x0")
 
 
 @export var slingshot_data: WeaponData
@@ -16,7 +16,7 @@ var max_lvl : int
 var can_shoot :=true
 
 var max_bullet_count : int = 200
-var bullet_pool : Array[StoneAmmo]
+var bullet_pool : Array[AmmoREV]
 var bonus_bullet: int = 0
 var targets: Array[Node2D]
 
@@ -54,8 +54,8 @@ func shoot_from_pool()-> void :
 func _on_fire_rate_timeout() -> void:
 	can_shoot = true
 	
-func get_bullet_from_pool() -> StoneAmmo:
-	var bullet : StoneAmmo
+func get_bullet_from_pool() -> AmmoREV:
+	var bullet : AmmoREV
 	if bullet_pool.is_empty():
 		create_bullet_pool(1)
 		bullet = bullet_pool[0]
@@ -78,14 +78,14 @@ func get_nearest_target() -> Node2D:
 
 func create_bullet_pool(nb_bullets: int):
 	for i in nb_bullets:
-		var bullet : StoneAmmo = STONE.instantiate()
+		var bullet : AmmoREV = BULLET.instantiate()
 		bullet.desactivate()
 		get_node("/root/World/Bullets").add_child(bullet)
 		bullet_pool.append(bullet)
-	print(bullet_pool.size(), " stones have been pooled")
+	print(bullet_pool.size(), " bullets have been pooled")
 
 	
-func add_bullet_to_pool(bullet: StoneAmmo):
+func add_bullet_to_pool(bullet: AmmoREV):
 	bullet_pool.append(bullet)
 	#print("enemy desactivated - pool size : ",enemies_pool.size())
 

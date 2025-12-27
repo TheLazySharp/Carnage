@@ -16,8 +16,6 @@ func _ready() -> void:
 	weapon_list = WeaponsManager.weapons
 	
 
-
-
 func _process(_delta: float) -> void:
 	if i < weapon_list.size():
 		weapon = weapon_list[i]

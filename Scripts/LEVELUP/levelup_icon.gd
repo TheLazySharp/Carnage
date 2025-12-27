@@ -12,7 +12,7 @@ var i: int
 
 func _ready() -> void:
 	WeaponsManager.new_weapon_data.connect(_update_weapons_list)
-	icon_name = get_parent().name
+	icon_name = get_parent().get_parent().name
 	i = icon_name.to_int()
 	weapon_list = WeaponsManager.weapons
 	

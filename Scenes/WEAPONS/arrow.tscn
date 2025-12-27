@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bjuws4ysoivbu"]
 
-[ext_resource type="Script" uid="uid://da80m3xjk2lov" path="res://Scripts/WEAPONS/bullet.gd" id="1_0c3t6"]
-[ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/arrow.tres" id="2_h1b56"]
-[ext_resource type="Texture2D" uid="uid://cb8bd11dwcpip" path="res://Assets/weapons/arrow.png" id="3_mw077"]
+[ext_resource type="Script" uid="uid://da80m3xjk2lov" path="res://Scripts/WEAPONS/arrow.gd" id="1_0c3t6"]
+[ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/bullet.tres" id="2_h1b56"]
+[ext_resource type="Texture2D" path="res://Assets/weapons/arrow.png" id="3_mw077"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oduel"]
 blend_mode = 1

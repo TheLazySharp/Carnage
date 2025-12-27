@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://doe8o0sd0xuas"]
+
+[ext_resource type="Script" uid="uid://ciwqjh6u3c0kp" path="res://Scripts/WEAPONS/ammo_mg.gd" id="1_64sch"]
+[ext_resource type="Resource" uid="uid://tmw3kk1tg1re" path="res://Resources/Weapons/mg_bullet.tres" id="2_0f2xj"]
+[ext_resource type="Texture2D" uid="uid://ddcsjwsk00oer" path="res://Assets/weapons/long_bullet_H.png" id="3_0f2xj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sbm0e"]
+radius = 10.049875
+
+[node name="MinigunBullet" type="Area2D" groups=["bullets"]]
+z_as_relative = false
+scale = Vector2(0.8, 0.8)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_64sch")
+bullet_data = ExtResource("2_0f2xj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+z_as_relative = false
+position = Vector2(0, -16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_0f2xj")
+offset = Vector2(0, 8)
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+z_as_relative = false
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_sbm0e")
+
+[connection signal="area_entered" from="." to="." method="_on_area_hit"]
+[connection signal="body_entered" from="." to="." method="_on_body_hit"]

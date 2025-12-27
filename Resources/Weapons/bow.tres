@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="1_5snio"]
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_mg1ew"]
 [ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="2_ikj8i"]
-[ext_resource type="Texture2D" uid="uid://cbsbieb7v7mgs" path="res://Assets/weapons/bow.png" id="2_mg1ew"]
+[ext_resource type="Texture2D" path="res://Assets/weapons/bow.png" id="2_mg1ew"]
 [ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/arrow.tres" id="4_kg1k2"]
 [ext_resource type="PackedScene" uid="uid://bjuws4ysoivbu" path="res://Scenes/WEAPONS/arrow.tscn" id="5_ttq2s"]
 
