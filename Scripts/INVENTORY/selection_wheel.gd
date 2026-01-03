@@ -23,7 +23,7 @@ signal item_selected(item_i:int)
 
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
-	items = InventoryManager.copy_items()
+	#items = InventoryManager.copy_items()
 	
 func _draw():
 	if not game_paused:

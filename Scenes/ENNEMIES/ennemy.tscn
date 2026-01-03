@@ -345,7 +345,8 @@ radius = 4.0
 height = 10.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gvr15"]
-height = 28.0
+radius = 11.0
+height = 32.0
 
 [node name="Ennemy" type="CharacterBody2D" groups=["ennemies"]]
 z_index = 20
@@ -367,7 +368,6 @@ animation = &"right"
 autoplay = "up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["ennemies"]]
-position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_1b0bn")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -399,7 +399,8 @@ collision_layer = 2
 collision_mask = 9220
 
 [node name="HitShape" type="CollisionShape2D" parent="Hitbox" groups=["ennemies"]]
-position = Vector2(0, -1)
+position = Vector2(2, -1)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_gvr15")
 debug_color = Color(0.88270926, 0.06722261, 0.79457116, 0.41960785)
 

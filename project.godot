@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="CAR NAGE"
+config/name="CARNAGE"
 run/main_scene="uid://gmjjc1vmgcds"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://Assets/icon.svg"

@@ -1,9 +1,11 @@
 extends Node
 
+#RESOURCES
 const BULLET = preload("uid://b8nw2s85q3f0a")
 const REVOLVER = preload("uid://ewkqgn8g8vxg")
 const MINIGUN = preload("uid://byammqyru2apq")
 const MG_BULLET = preload("uid://tmw3kk1tg1re")
+const FLAMER = preload("uid://c5l0xm4m5tt65")
 
 
 
@@ -25,12 +27,14 @@ func _ready() -> void:
 
 
 func load_weapons():
-	locked_weapon(REVOLVER)
-	locked_weapon(MINIGUN)
-	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
-	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
-	weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
-	weapon_scenes.append(["minigun", "uid://c6wus6ofti85w", preload("uid://c6wus6ofti85w")])
+	#locked_weapon(REVOLVER)
+	#locked_weapon(MINIGUN)
+	locked_weapon(FLAMER)
+	#weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
+	#weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
+	#weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
+	#weapon_scenes.append(["minigun", "uid://c6wus6ofti85w", preload("uid://c6wus6ofti85w")])
+	weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
 	
 	print("INIT WEAPONS :")
 	for j in weapons.size():

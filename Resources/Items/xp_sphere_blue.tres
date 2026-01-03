@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="XPData" load_steps=3 format=3 uid="uid://b1rnp8w8r7smq"]
+
+[ext_resource type="Script" uid="uid://dn8nsdhymv3bd" path="res://Resources/Scripts/xp_data.gd" id="1_aae0p"]
+[ext_resource type="Texture2D" uid="uid://1pf8g48fa1uj" path="res://Assets/UI/xp.png" id="1_f04gt"]
+
+[resource]
+script = ExtResource("1_aae0p")
+item_name = "Blue"
+icon = ExtResource("1_f04gt")
+xp_value = 1
+metadata/_custom_type_script = "uid://dn8nsdhymv3bd"

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcsapykrdl5tf"]
+
+[ext_resource type="Script" uid="uid://0bso11uww135" path="res://Scripts/ITEMS/collectable.gd" id="1_11sbo"]
+[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="1_30o3h"]
+[ext_resource type="Resource" uid="uid://7clle8xan4lf" path="res://Resources/Items/woodbox.tres" id="2_twgfl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hcfh"]
+size = Vector2(32, 32)
+
+[node name="Woodbox" type="Area2D"]
+collision_layer = 512
+script = ExtResource("1_11sbo")
+collectable_data = ExtResource("2_twgfl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6hcfh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_30o3h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

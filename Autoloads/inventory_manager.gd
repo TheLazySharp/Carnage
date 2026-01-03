@@ -1,18 +1,9 @@
 extends Node
 
-@export var items : Array[ItemData]
-
-
-const STONE = preload("uid://budr5sdv8v70c")
-const WOOD = preload("uid://bdcx24kagdrwh")
+@export var auto_parts : int
 
 
 
 func _ready() -> void:
-	items.append(STONE)
-	items.append(WOOD)
-	print(items)
+	auto_parts = 0
 	
-	
-func copy_items() -> Array:
-	return items

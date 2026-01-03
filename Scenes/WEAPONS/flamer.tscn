@@ -1,0 +1,183 @@
+[gd_scene load_steps=25 format=3 uid="uid://baidslgub6j8k"]
+
+[ext_resource type="Script" uid="uid://h3t1t4ebugvh" path="res://Scripts/WEAPONS/flamer.gd" id="1_me5q5"]
+[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flamer.tres" id="2_660u5"]
+[ext_resource type="Texture2D" uid="uid://tno1wabl440u" path="res://Assets/VFX/FlamethrowerCycle1.png" id="3_yfmy1"]
+[ext_resource type="Texture2D" uid="uid://bv8dvxda7o7o1" path="res://Assets/VFX/FlamethrowerFinish1.png" id="4_pyit4"]
+[ext_resource type="Texture2D" uid="uid://bw6sttdbp45by" path="res://Assets/VFX/FlamethrowerStart1.png" id="5_pyit4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc61k"]
+atlas = ExtResource("3_yfmy1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sswqd"]
+atlas = ExtResource("3_yfmy1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huv7q"]
+atlas = ExtResource("3_yfmy1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bruel"]
+atlas = ExtResource("3_yfmy1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xenf"]
+atlas = ExtResource("3_yfmy1")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvd7y"]
+atlas = ExtResource("3_yfmy1")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w46mu"]
+atlas = ExtResource("4_pyit4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0j8hj"]
+atlas = ExtResource("4_pyit4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xd1el"]
+atlas = ExtResource("4_pyit4")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6srla"]
+atlas = ExtResource("4_pyit4")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33bqb"]
+atlas = ExtResource("4_pyit4")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyfhs"]
+atlas = ExtResource("4_pyit4")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wib0n"]
+atlas = ExtResource("5_pyit4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlra4"]
+atlas = ExtResource("5_pyit4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddb6k"]
+atlas = ExtResource("5_pyit4")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uepw5"]
+atlas = ExtResource("5_pyit4")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tximj"]
+atlas = ExtResource("5_pyit4")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c88fx"]
+atlas = ExtResource("5_pyit4")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wib0n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc61k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sswqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huv7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bruel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xenf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvd7y")
+}],
+"loop": true,
+"name": &"fire_cycle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w46mu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0j8hj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xd1el")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6srla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33bqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyfhs")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"fire_end",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wib0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlra4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddb6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uepw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tximj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c88fx")
+}],
+"loop": false,
+"name": &"fire_start",
+"speed": 12.0
+}]
+
+[node name="FlameLuncher" type="Area2D" groups=["weapons"]]
+collision_layer = 1024
+collision_mask = 2
+script = ExtResource("1_me5q5")
+flamer_data = ExtResource("2_660u5")
+
+[node name="FireRate" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wib0n")
+animation = &"fire_start"
+offset = Vector2(32, 8)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." groups=["weapons"]]
+position = Vector2(0, 8)
+polygon = PackedVector2Array(0, -1, 3, -4, 33, -11, 42.71731, -12.388187, 61, -15, 61, 6, 0, 3)
+
+[node name="BurnRate" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_start_flamer_finished"]
+[connection signal="timeout" from="BurnRate" to="." method="_on_burn_rate_timeout"]

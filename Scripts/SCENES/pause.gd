@@ -26,6 +26,7 @@ func _on_commands_pressed() -> void:
 
 func _on_quit_to_menu_pressed() -> void:
 	SceneManager.unload_game()
+	TimeManager.current_day = 0
 	SceneManager.load_level(menu_scene)
 
 func get_focus():

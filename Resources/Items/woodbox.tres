@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CollectableData" load_steps=3 format=3 uid="uid://7clle8xan4lf"]
+
+[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="1_exw84"]
+[ext_resource type="Script" uid="uid://ci5hmuuj0ko68" path="res://Resources/Scripts/collectable_data.gd" id="2_exw84"]
+
+[resource]
+script = ExtResource("2_exw84")
+icon = ExtResource("1_exw84")
+name = "Woodbox"
+nb_collectable = 100
+metadata/_custom_type_script = "uid://ci5hmuuj0ko68"

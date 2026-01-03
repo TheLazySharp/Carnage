@@ -219,9 +219,10 @@ func get_rear_center() -> Vector2:
 	return (rear_left.global_position + rear_right.global_position) * 0.5
 
 
-func _on_collect_zone_entered(area: Area2D) -> void:
-	if area.is_in_group("collectables") and !game_is_over:
-		XPManager.get_xp(1)
+func _on_collect_zone_entered(_area: Area2D) -> void:
+	pass
+	#if area.is_in_group("collectables") and !game_is_over:
+		#XPManager.get_xp(1)
 
 func _on_game_paused(game_on_pause) -> void:
 	game_paused = game_on_pause

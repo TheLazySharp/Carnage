@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://5uh2knats63k"]
+[gd_scene load_steps=9 format=3 uid="uid://5uh2knats63k"]
 
 [ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/UI/xp-sheet.png" id="1_2agxn"]
 [ext_resource type="Script" uid="uid://bo0y708xsebx2" path="res://Scripts/ITEMS/xp_sphere.gd" id="1_i8ppg"]
+[ext_resource type="Resource" uid="uid://b1rnp8w8r7smq" path="res://Resources/Items/xp_sphere_blue.tres" id="2_0v53g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obv3a"]
 
@@ -40,6 +41,7 @@ z_as_relative = false
 collision_layer = 512
 collision_mask = 256
 script = ExtResource("1_i8ppg")
+xp_data = ExtResource("2_0v53g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

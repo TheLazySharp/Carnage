@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=4 uid="uid://c6msxridefxxd"]
+[gd_scene load_steps=110 format=4 uid="uid://c6msxridefxxd"]
 
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="1_1cojt"]
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_5ukr8"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://dgjjb27shy4tk" path="res://Scripts/SCENES/pause.gd" id="18_yq1aw"]
 [ext_resource type="Script" uid="uid://p1kmh86var1g" path="res://Scripts/UI/stats_screen.gd" id="19_no8kt"]
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="36_kimld"]
+[ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/woodbox.tscn" id="37_l5eev"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="38_kimld"]
 [ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/UI/leveling.gd" id="39_yb0r4"]
 [ext_resource type="Script" uid="uid://0p0bcp7yhybh" path="res://Scripts/LEVELUP/levelup_label_upgrade.gd" id="40_0nur5"]
@@ -2341,6 +2342,17 @@ z_index = 50
 
 [node name="VFX" type="Node2D" parent="."]
 z_index = 50
+
+[node name="Collectables" type="Node2D" parent="."]
+
+[node name="Woodbox" parent="Collectables" instance=ExtResource("37_l5eev")]
+position = Vector2(1100, 1000)
+
+[node name="Woodbox2" parent="Collectables" instance=ExtResource("37_l5eev")]
+position = Vector2(1300, 1000)
+
+[node name="Woodbox3" parent="Collectables" instance=ExtResource("37_l5eev")]
+position = Vector2(1200, 1100)
 
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Resume" to="CanvasLayer/Pause" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Commands" to="CanvasLayer/Pause" method="_on_commands_pressed"]

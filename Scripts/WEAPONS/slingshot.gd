@@ -100,15 +100,3 @@ func _on_fire_range_exited(area: Area2D) -> void:
 		if area.is_in_group("ennemies"):
 			targets.erase(area)
 			#print("enemy exit - total = ",targets.size())
-
-
-#func _on_fire_range_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("ennemies"):
-		#targets.append(body)
-		#print("enemy in range - total = ",targets.size())
-#
-#
-#func _on_fire_range_body_exited(body: Node2D) -> void:
-	#if body.is_in_group("ennemies"):
-		#targets.erase(body)
-		#print("enemy exit - total = ",targets.size())

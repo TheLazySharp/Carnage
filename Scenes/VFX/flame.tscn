@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c27fkv37p7tfv"]
+
+[sub_resource type="Curve" id="Curve_f5jwf"]
+_data = [Vector2(0, 0.3146068), 0.0, 0.0, 0, 0, Vector2(0.4057143, 0.92134833), 0.0, 0.0, 0, 0, Vector2(0.7828572, 1), 0.0, 0.0, 0, 0, Vector2(0.9942857, 0.32584274), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_msnxs"]
+offsets = PackedFloat32Array(0, 0.295302, 0.58389264, 0.8187919, 1)
+colors = PackedColorArray(0.9999998, 0.53554267, 0.2537555, 1, 0.96862745, 0.24313726, 0, 1, 0.7392886, 0, 0.03341092, 1, 0.47479695, 1.1130236e-06, 3.6098064e-07, 1, 0.92596686, 0.2336219, 0, 1)
+
+[node name="Flame" type="CPUParticles2D"]
+amount = 300
+lifetime = 0.4
+speed_scale = 0.65
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 4.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_f5jwf")
+color_ramp = SubResource("Gradient_msnxs")
