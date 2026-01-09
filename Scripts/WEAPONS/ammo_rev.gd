@@ -56,24 +56,19 @@ func _physics_process(delta: float) -> void:
 	
 	if start_position.distance_to(global_position) > max_range:
 		if not game_paused:
-			#if trail: trail.emit_signal("finished")
 			desactivate()
 
 
-func _on_area_hit(_area: Area2D) -> void:
-	pass
-	#trail.emit_signal("finished")
-	#hitbox.set_deferred("disabled", true)
-	#reset_bullet()
+func _on_area_hit(area: Area2D) -> void:
+	if area.is_in_group("walls"):
+		desactivate()
 
 
 func _on_body_hit(body: Node2D) -> void:
 	if "get_damages" in body and body.is_in_group("ennemies") and is_active:
 		body.get_damages(damages)
-		#if trail: trail.emit_signal("finished")
 		desactivate()
-	else:
-		#if trail: trail.emit_signal("finished")
+	elif body.is_in_group("walls"):
 		desactivate()
 
 func _on_game_paused(game_on_pause) -> void:

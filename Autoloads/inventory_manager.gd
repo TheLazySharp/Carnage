@@ -1,6 +1,6 @@
 extends Node
 
-@export var auto_parts : int
+var auto_parts : int
 
 
 

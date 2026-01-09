@@ -8,7 +8,6 @@ var max_range
 var damages
 var current_lvl
 var max_lvl
-#@onready var trail: CPUParticles2D = $VFX
 
 var velocity : Vector2
 var start_position : Vector2
@@ -35,16 +34,11 @@ func _process(_delta: float) -> void:
 func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 	global_position = from_position
 	start_position = from_position
-	#if trail: trail.global_position = global_position
 	velocity = direction.normalized() * speed
 	self.show()
 	is_active = true
 	set_physics_process(true)
-	#if trail:
-		#trail.restart()
-		#trail.show()
 	rotation = angle
-	#print("stone shot")
 
 
 func _physics_process(delta: float) -> void:
@@ -55,24 +49,19 @@ func _physics_process(delta: float) -> void:
 	
 	if abs(self.global_position - start_position).length() > max_range:
 		if not game_paused:
-			#if trail: trail.emit_signal("finished")
 			desactivate()
 
 
-func _on_area_hit(_area: Area2D) -> void:
-	pass
-	#trail.emit_signal("finished")
-	#hitbox.set_deferred("disabled", true)
-	#reset_bullet()
+func _on_area_hit(area: Area2D) -> void:
+	if area.is_in_group("walls"):
+		desactivate()
 
 
 func _on_body_hit(body: Node2D) -> void:
 	if "get_damages" in body and body.is_in_group("ennemies") and is_active:
 		body.get_damages(damages)
-		#if trail: trail.emit_signal("finished")
 		desactivate()
-	else:
-		#if trail: trail.emit_signal("finished")
+	elif body.is_in_group("walls"):
 		desactivate()
 
 func _on_game_paused(game_on_pause) -> void:

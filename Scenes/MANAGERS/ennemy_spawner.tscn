@@ -9,6 +9,24 @@ script = ExtResource("1_cuqad")
 
 [node name="SpawnPoint1" type="Marker2D" parent="."]
 
+[node name="SpawnPoint2" type="Marker2D" parent="."]
+
+[node name="SpawnPoint3" type="Marker2D" parent="."]
+
+[node name="SpawnPoint4" type="Marker2D" parent="."]
+
+[node name="SpawnPoint5" type="Marker2D" parent="."]
+
+[node name="SpawnPoint6" type="Marker2D" parent="."]
+
+[node name="SpawnPoint7" type="Marker2D" parent="."]
+
+[node name="SpawnPoint8" type="Marker2D" parent="."]
+
+[node name="SpawnPoint9" type="Marker2D" parent="."]
+
+[node name="SpawnPoint10" type="Marker2D" parent="."]
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true

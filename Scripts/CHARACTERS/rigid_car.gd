@@ -68,7 +68,7 @@ var display_max_speed : int = 250
 var can_drive:=false
 
 @onready var ready_go: Label = $/root/World/CanvasLayer/Start/ReadyGo
-
+signal start_time(game_start: bool)
 
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
@@ -290,6 +290,7 @@ func _on_body_parts_area_entered(area: Area2D) -> void:
 
 func _on_start_engine_finished() -> void:
 	can_drive = true
+	emit_signal("start_time", can_drive)
 	ready_go.text = "GO !"
 	await get_tree().create_timer(2).timeout
 	ready_go.get_parent().hide()

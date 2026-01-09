@@ -12,11 +12,11 @@ const BULLET = preload("uid://doe8o0sd0xuas")
 var nb_ammo: int
 var nb_bullet: = 0
 var cool_down : float
-#var fire_rate : float
 var current_lvl: int
 var max_lvl : int
 var can_shoot := true
 var next_bullet := false
+var raycastON:= false
 
 var max_bullet_count : int = 400
 var bullet_pool : Array[AmmoMG]
@@ -24,6 +24,11 @@ var bullet_index : int = 0
 var bullet_spread_angle: float = 10
 
 var bonus_bullet: int = 0
+
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
+@onready var sprite_sight: Sprite2D = $SpriteSight
+
+var offset_Y := 12
 
 func _ready() -> void:
 	if minigun_data.bonus:
@@ -34,19 +39,28 @@ func _ready() -> void:
 	max_lvl = minigun_data.max_level
 	create_bullet_pool(max_bullet_count)
 	can_shoot = true
+	next_bullet = false
+	raycastON = true
 
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(minigun_data.current_level,0,max_lvl)
 	nb_ammo = minigun_data.nb_ammo + current_lvl + bonus_bullet
-	if can_shoot:
-		shoot_from_pool()
+	if raycastON and ray_cast_2d.is_colliding():
+		if ray_cast_2d.get_collider().is_in_group("ennemies"):
+			can_shoot = true
+			raycastON = false
+			shoot_from_pool()
+		
+		#else : can_shoot = false
 
 func _physics_process(_delta: float) -> void:
-	global_position = get_parent().global_position
-
+	global_position = Vector2(get_parent().global_position.x, get_parent().global_position.y - offset_Y)
+	
+	
+	
 func shoot_from_pool()-> void :
-	can_shoot = false
+	if !can_shoot : return
 	timer.start()
 	if next_bullet:
 		next_bullet = false
@@ -64,10 +78,10 @@ func _on_fire_rate_timeout() -> void:
 		nb_bullet += 1
 		shoot_from_pool()
 	else :
-		await get_tree().create_timer(cool_down).timeout
 		nb_bullet = 0
-		can_shoot = true
+		can_shoot = false
 		next_bullet = true
+		raycastON = true
 		
 		
 
@@ -88,9 +102,8 @@ func create_bullet_pool(nb_bullets: int):
 		bullet.desactivate()
 		get_node("/root/World/Bullets").add_child(bullet)
 		bullet_pool.append(bullet)
-	print(bullet_pool.size(), " arrows have been pooled")
+	print(bullet_pool.size(), "Mg bullets have been pooled")
 
 	
 func add_bullet_to_pool(bullet: AmmoMG):
 	bullet_pool.append(bullet)
-	#print("enemy desactivated - pool size : ",enemies_pool.size())

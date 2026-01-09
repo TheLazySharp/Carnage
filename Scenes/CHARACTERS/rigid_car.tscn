@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bx50mtpiyyt2j"]
+[gd_scene load_steps=10 format=3 uid="uid://bx50mtpiyyt2j"]
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_frphp"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="2_hwwk2"]
 [ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Audio/SFX/car-engine-starting-43705.mp3" id="4_frphp"]
+[ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ddvet"]
 radius = 9.0
@@ -83,6 +84,7 @@ shape = SubResource("CapsuleShape2D_o4qls")
 
 [node name="Weapons" type="Node2D" parent="."]
 position = Vector2(7, 0)
+script = ExtResource("4_mlgtv")
 
 [node name="Audio" type="Node2D" parent="."]
 

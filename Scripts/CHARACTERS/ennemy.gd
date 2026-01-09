@@ -10,7 +10,7 @@ var player: Node = null
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @onready var target: Node2D = $"/root/World/Car"
-@onready var ennemy_spawner: Node2D = $/root/World/Car/Camera2D/ennemy_spawner
+@onready var ennemy_spawner: Node2D = $/root/World/Spawners/ennemy_spawner
 
 @onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false

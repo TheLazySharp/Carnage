@@ -164,7 +164,7 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wib0n")
-animation = &"fire_start"
+animation = &"fire_cycle"
 offset = Vector2(32, 8)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." groups=["weapons"]]
