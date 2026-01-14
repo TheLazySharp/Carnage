@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjejm12m72yja"
-path="res://.godot/imported/viper_blk.png-a0574e18dd5999d1f6f064549dccdbb1.ctex"
+uid="uid://7e3axyq4s1m0"
+path="res://.godot/imported/police.png-aec23c34b1fa3c4bb56328940508f795.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/viper_blk.png"
-dest_files=["res://.godot/imported/viper_blk.png-a0574e18dd5999d1f6f064549dccdbb1.ctex"]
+source_file="res://Assets/Characters/Cars/police.png"
+dest_files=["res://.godot/imported/police.png-aec23c34b1fa3c4bb56328940508f795.ctex"]
 
 [params]
 

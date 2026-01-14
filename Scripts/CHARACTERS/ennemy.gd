@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @export var max_life: int = 10
 @onready var current_life: int
-var damages_on_player: float = 10
+var damages_on_player: float = 1
 var speed: float = 40
 var player: Node = null
 

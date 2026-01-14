@@ -1,9 +1,9 @@
-[gd_scene load_steps=130 format=4 uid="uid://c6msxridefxxd"]
+[gd_scene load_steps=135 format=4 uid="uid://c6msxridefxxd"]
 
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="1_1cojt"]
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_5ukr8"]
 [ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="1_ux4l1"]
-[ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Audio/Song/fight-for-the-future-336841.mp3" id="3_07qvx"]
+[ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Assets/Audio/Song/fight-for-the-future-336841.mp3" id="3_07qvx"]
 [ext_resource type="Script" uid="uid://bdiix0s1bmolp" path="res://Scripts/UI/xp_bar.gd" id="3_yq1aw"]
 [ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="4_pyn1s"]
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="5_no8kt"]
@@ -31,6 +31,8 @@
 [ext_resource type="Texture2D" uid="uid://yu2kg5j30a7h" path="res://Assets/Props/building 5.png" id="22_jgm5j"]
 [ext_resource type="Texture2D" uid="uid://ds7n0qefl3svp" path="res://Assets/Props/wall_H.png" id="23_wpjs7"]
 [ext_resource type="Texture2D" uid="uid://cxoune2ptoi3r" path="res://Assets/Props/wall_V.png" id="24_gq5tr"]
+[ext_resource type="Script" uid="uid://bsc7r81ttmpl6" path="res://Scripts/UI/preleveling_label.gd" id="34_sl775"]
+[ext_resource type="Script" uid="uid://bcrbhuf4ic2fu" path="res://Scripts/UI/preleveling_icon.gd" id="35_5brd2"]
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="36_kimld"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="38_kimld"]
 [ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/UI/leveling.gd" id="39_yb0r4"]
@@ -41,7 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/woodbox.tscn" id="43_gq5tr"]
 [ext_resource type="Texture2D" uid="uid://bwrvswxwsubhg" path="res://Assets/UI/dashboard_352_144.png" id="48_4n5nh"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_ux4l1"]
-[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="49_2jlsx"]
+[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="49_2jlsx"]
 [ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="50_hp83p"]
 [ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/MANAGERS/ennemy_spawner.gd" id="51_kimld"]
 
@@ -947,6 +949,44 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
 
+[sub_resource type="Animation" id="Animation_5brd2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Prelevelling/NewLevel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [48]
+}
+
+[sub_resource type="Animation" id="Animation_sl775"]
+resource_name = "new_level"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Prelevelling/NewLevel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.4991496),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [48, 64, 48]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0nur5"]
+_data = {
+&"RESET": SubResource("Animation_5brd2"),
+&"new_level": SubResource("Animation_sl775")
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5brd2"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 5
@@ -955,13 +995,13 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb0r4"]
-bg_color = Color(0.93237364, 0.43690613, 0, 1)
+bg_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 draw_center = false
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.9764706, 0.42745098, 0.078431375, 1)
+border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -1587,6 +1627,115 @@ theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 48
 text = "Healing Power : "
 
+[node name="Prelevelling" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 143.0
+offset_bottom = -156.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PreLevelingBkgd" type="ColorRect" parent="CanvasLayer/Prelevelling"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.13333334, 0.13333334, 0.8627451)
+
+[node name="Label" type="Label" parent="CanvasLayer/Prelevelling"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 64
+text = "LEVEL UP !"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+
+[node name="NewLevel" type="Label" parent="CanvasLayer/Prelevelling"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -171.0
+offset_right = 199.5
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 48
+text = "Level 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("34_sl775")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Prelevelling/NewLevel"]
+root_node = NodePath("../../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_0nur5")
+}
+autoplay = "new_level"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Prelevelling"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -84.5
+offset_right = 59.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5
+script = ExtResource("35_5brd2")
+
+[node name="MainButtons" type="HBoxContainer" parent="CanvasLayer/Prelevelling"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.0
+offset_top = -99.5
+offset_right = 77.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Ok" type="Button" parent="CanvasLayer/Prelevelling/MainButtons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "OK !"
+flat = true
+
 [node name="Leveling" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
@@ -1622,7 +1771,7 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 64
-text = "LEVEL UP !"
+text = "UPGRADE YOUR WEAPONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
@@ -2364,6 +2513,18 @@ theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 32
 text = "FUEL"
 
+[node name="LifeLabel" type="Label" parent="CanvasLayer/Board/Fuel"]
+layout_mode = 0
+offset_left = 206.0
+offset_top = 770.0
+offset_right = 310.0
+offset_bottom = 807.3333
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 16
+text = "1000/1000"
+
 [node name="FuelGauge" type="ProgressBar" parent="CanvasLayer/Board/Fuel"]
 layout_mode = 1
 anchors_preset = 4
@@ -2383,7 +2544,7 @@ fill_mode = 3
 show_percentage = false
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/Fuel/FuelGauge"]
-position = Vector2(49, 78)
+position = Vector2(50, 56)
 texture = ExtResource("50_hp83p")
 
 [node name="Start" type="Control" parent="CanvasLayer"]
@@ -2415,7 +2576,6 @@ vertical_alignment = 1
 
 [node name="Car" parent="." instance=ExtResource("48_ux4l1")]
 position = Vector2(187, 990)
-acceleration = 150.0
 skid_marks_path = NodePath("../SkidMarks")
 
 [node name="Camera2D" type="Camera2D" parent="Car"]
@@ -2534,6 +2694,7 @@ autostart = true
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Resume" to="CanvasLayer/Pause" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Commands" to="CanvasLayer/Pause" method="_on_commands_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Quit to menu" to="CanvasLayer/Pause" method="_on_quit_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Prelevelling/MainButtons/Ok" to="CanvasLayer/Leveling" method="_on_prelevelling_ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/Leveling/MainButtons/Skip" to="CanvasLayer/Leveling" method="_on_skip_pressed"]
 [connection signal="pressed" from="CanvasLayer/Leveling/MainButtons/Confirm" to="CanvasLayer/Leveling" method="_on_confirm_pressed"]
 [connection signal="timeout" from="Spawners/ennemy_spawner/Timer" to="Spawners/ennemy_spawner" method="_on_timer_timeout"]

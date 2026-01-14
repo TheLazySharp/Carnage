@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bx50mtpiyyt2j"]
+[gd_scene load_steps=19 format=3 uid="uid://bx50mtpiyyt2j"]
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_frphp"]
-[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="2_hwwk2"]
-[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Audio/SFX/car-engine-starting-43705.mp3" id="4_frphp"]
+[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/car-engine-starting-43705.mp3" id="4_frphp"]
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
+[ext_resource type="Texture2D" uid="uid://rnoitvnqcl3t" path="res://Assets/VFX/EXPLO-sheet.png" id="6_m5ekh"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ddvet"]
-radius = 9.0
-height = 36.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_mlgtv"]
+radius = 11.045361
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsha1"]
 radius = 28.01785
@@ -20,26 +19,96 @@ height = 40.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o4qls"]
 height = 42.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4qls"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ly7qr"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uqhq"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gswtl"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0c68"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbj0p"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjiw1"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wjan"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpuix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4qls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ly7qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uqhq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gswtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0c68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbj0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjiw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wjan")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Explosion",
+"speed": 7.0
+}]
+
 [node name="RigidCar" type="CharacterBody2D" groups=["player"]]
 collision_mask = 522
 script = ExtResource("1_rsha1")
-acceleration = 300.0
-max_speed = 500.0
-max_drift_damping = 8.0
-min_drift_speed = 20.0
 damages_text = ExtResource("2_frphp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="CarSprite" type="Sprite2D" parent="."]
 rotation = 1.5707964
-texture = ExtResource("2_hwwk2")
 offset = Vector2(0, 12)
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." groups=["player"]]
-visible = false
 z_as_relative = false
-position = Vector2(-12, 0)
+position = Vector2(-3, 0)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_ddvet")
+shape = SubResource("CircleShape2D_mlgtv")
+
+[node name="CollisionShape2" type="CollisionShape2D" parent="." groups=["player"]]
+z_as_relative = false
+position = Vector2(-22, 0)
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_mlgtv")
 
 [node name="RearLeft" type="Marker2D" parent="."]
 position = Vector2(-26, -9)
@@ -92,7 +161,13 @@ script = ExtResource("4_mlgtv")
 stream = ExtResource("4_frphp")
 bus = &"SFX"
 
-[connection signal="area_entered" from="CollectZone" to="." method="_on_collect_zone_entered"]
+[node name="VFX" type="Node2D" parent="."]
+
+[node name="CarExplosion" type="AnimatedSprite2D" parent="VFX"]
+position = Vector2(-13, 0)
+sprite_frames = SubResource("SpriteFrames_tpuix")
+animation = &"Explosion"
+
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
 [connection signal="area_entered" from="BodyParts" to="." method="_on_body_parts_area_entered"]
 [connection signal="body_entered" from="BodyParts" to="." method="_on_body_parts_collision"]

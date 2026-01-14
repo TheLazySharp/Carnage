@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CarData" load_steps=4 format=3 uid="uid://b7vsscuy32osn"]
+
+[ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="1_1koc4"]
+[ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_qw2tv"]
+[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/car-engine-starting-43705.mp3" id="3_1ucdh"]
+
+[resource]
+script = ExtResource("2_qw2tv")
+car_name = "Pick Up"
+acceleration = 100
+max_speed = 300
+turn_speed = 1.5
+velocity_floor = 30
+drift_turn_bonus = 3.0
+max_life = 500
+display_max_speed = 190
+start_engine_Sound = ExtResource("3_1ucdh")
+car_sprite = ExtResource("1_1koc4")
+metadata/_custom_type_script = "uid://cgs6g466ko5c0"

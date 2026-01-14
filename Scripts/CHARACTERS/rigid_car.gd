@@ -1,81 +1,110 @@
 extends CharacterBody2D
 
-@export var acceleration := 950.0
-@export var max_speed := 720.0
-@export var friction := 500.0
-@export var turn_speed := 3.2
+var player : CarData
 
-# Drift tuning
-@export var drift_grip := 0.015
-@export var normal_grip := 0.18
-@export var drift_turn_bonus := 3.2
-
-@export var max_drift_damping := 3.5
-@export var min_drift_speed := 150.0
-
-@export var snap_grip := 0.75
-@export var snap_speed := 8.0
-
-var current_grip := normal_grip
+#CAR DATA
+var acceleration
+var max_speed
+var friction
+var turn_speed
+var drift_grip
+var normal_grip
+var drift_turn_bonus
+var max_drift_damping
+var min_drift_speed
+var snap_grip
+var snap_speed
+var current_grip
 var was_drifting := false
+var skid_spacing
+var skid_lifetime
+var skid_fade_speed
+var max_life
+var dmg
+var velocity_floor
+var display_max_speed
+var start_engine_sound : AudioStreamMP3
+@onready var car_sprite: Sprite2D = $CarSprite
+
 
 #SKID
-
 @export var skid_marks_path: NodePath
-
-@export var skid_spacing := 8.0
-@export var skid_lifetime := 2.5
-@export var skid_fade_speed := 1.5
-
 @onready var skid_parent: Node2D = get_node(skid_marks_path)
-
 @onready var rear_left: Marker2D = $RearLeft
 @onready var rear_right: Marker2D = $RearRight
-
-
 var left_line: Line2D = null
 var right_line: Line2D = null
-
 var last_left_pos := Vector2.ZERO
 var last_right_pos := Vector2.ZERO
 
+#DRIFT
 var drifting_last_frame := false
 
+#GAME
 signal game_over(game_is_over: bool)
 var game_is_over:= false
-
 @onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
-
-#UI
-
-var max_life: int
-var current_life: int
-
-@onready var life_bar: ProgressBar = $"../CanvasLayer/Board/Fuel/FuelGauge"
-
-@export var damages_text: PackedScene
-#@onready var damages_text_pos = get_node("MarkerDamages")
-@onready var taking_damages: Timer = $TakingDamages
-
 var is_taking_damages:=false
-
-@onready var speed_label: Label = $"../CanvasLayer/Board/Speed"
-var display_max_speed : int = 250
-
-#AUDIO
-@onready var start_engine: AudioStreamPlayer = $Audio/StartEngine
 var can_drive:=false
-
 @onready var ready_go: Label = $/root/World/CanvasLayer/Start/ReadyGo
 signal start_time(game_start: bool)
 
+
+#UI
+var current_life: int
+@onready var life_bar: ProgressBar = $"../CanvasLayer/Board/Fuel/FuelGauge"
+@onready var life_label: Label = $"../CanvasLayer/Board/Fuel/LifeLabel"
+@export var damages_text: PackedScene
+#@onready var damages_text_pos = get_node("MarkerDamages")
+@onready var taking_damages: Timer = $TakingDamages
+@onready var speed_label: Label = $"../CanvasLayer/Board/Speed"
+@onready var car_explosion: AnimatedSprite2D = $VFX/CarExplosion
+@onready var start_engine: AudioStreamPlayer = $Audio/StartEngine
+
+
 func _ready() -> void:
+	player = CarManager.selected_car
+	
+	#DRIVING
+	acceleration = player.acceleration
+	max_speed = player.max_speed
+	friction = player.friction
+	turn_speed = player.turn_speed
+	velocity_floor = player.velocity_floor
+
+	#DRIFT
+	drift_grip = player.drift_grip
+	normal_grip = player.normal_grip
+	drift_turn_bonus = player.drift_turn_bonus
+	max_drift_damping = player.max_drift_damping
+	min_drift_speed = player.min_drift_speed
+	snap_grip = player.snap_grip
+	snap_speed = player.snap_speed
+	current_grip = normal_grip
+	
+	#SKIDS
+	skid_spacing = player.skid_spacing
+	skid_lifetime = player.skid_lifetime
+	skid_fade_speed = player.skid_fade_speed
+	
+	#STATS
+	max_life = player.max_life
+	display_max_speed = player.display_max_speed
+	dmg = player.dmg
+	
+	#AUDIO
+	start_engine_sound = player.start_engine_Sound
+	start_engine.stream  = start_engine_sound
+	
+	#VFX
+	car_sprite.texture = player.car_sprite
+
 	gm_scene.game_paused.connect(_on_game_paused)
-	max_life = StatsManager.max_life
 	current_life = max_life
 	life_bar.max_value = max_life
 	life_bar.value = current_life
+	life_label.text = str(current_life) + "/" + str(max_life)
 	print(rotation)
 	if visible:
 		ready_go.get_parent().show()
@@ -85,6 +114,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if !game_paused:
 		speed_label.text  = str(roundi(velocity.length()/max_speed * display_max_speed))
+		life_label.text = str(current_life) + "/" + str(max_life)
+		
 
 func _physics_process(delta):
 	if not game_paused and can_drive:
@@ -145,7 +176,7 @@ func _physics_process(delta):
 		was_drifting = drifting
 		move_and_slide()
 
-		# --- GESTION DES TRACES ---
+		#SKIDS
 		if drifting and not drifting_last_frame:
 			start_skid()
 
@@ -219,37 +250,33 @@ func get_rear_center() -> Vector2:
 	return (rear_left.global_position + rear_right.global_position) * 0.5
 
 
-func _on_collect_zone_entered(_area: Area2D) -> void:
-	pass
-	#if area.is_in_group("collectables") and !game_is_over:
-		#XPManager.get_xp(1)
-
 func _on_game_paused(game_on_pause) -> void:
 	game_paused = game_on_pause
 	
-#func take_damages(damages: int) -> void:
-	#if not game_paused and !game_is_over :
-		#is_taking_damages = true
-		#current_life -= damages
-		#life_bar.value = current_life
-		##display_damages(damages)
-		#print(str(current_life))
-		##animation_player.play("beaver_animations/flash")
-		#taking_damages.start()
-		#
-		#if current_life <=0:
-			#current_life = 0
-			#play_death()
-			#return
-			#
-		#if is_taking_damages:return
+func take_damages(damages: int) -> void:
+	if not game_paused and !game_is_over and velocity.length() < velocity_floor:
+		is_taking_damages = true
+		current_life -= damages
+		life_bar.value = current_life
+		#display_damages(damages)
+		print(str(current_life))
+		#animation_player.play("beaver_animations/flash")
+		taking_damages.start()
+		
+		if current_life <=0:
+			current_life = 0
+			play_death()
+			return
+			
+		if is_taking_damages:return
 		
 func play_death() -> void:
 	is_taking_damages = false
-	#animation_player.stop()
+	car_sprite.hide()
+	car_explosion.play("Explosion")
 	game_is_over = true
 	#animated_sprite.hide()
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(3).timeout
 	emit_signal("game_over", game_is_over)
 
 
@@ -265,9 +292,9 @@ func play_death() -> void:
 		##text.global_position = Vector2(damages_text_pos.global_position.x + text_offsetX, damages_text_pos.global_position.y + text_offsetY)
 #
 #
-#func _on_taking_damages_timeout() -> void:
-	#is_taking_damages = false
-	##animation_player.stop()
+func _on_taking_damages_timeout() -> void:
+	is_taking_damages = false
+	#animation_player.stop()
 
 
 #func _on_body_parts_collision(body: Node2D) -> void:
@@ -280,9 +307,8 @@ func play_death() -> void:
 
 
 func _on_body_parts_area_entered(area: Area2D) -> void:
-	if !game_paused:
+	if !game_paused and velocity.length() >= velocity_floor:
 		var enemy = area.get_parent()
-		var dmg = 15
 		if enemy.is_in_group("ennemies") and "get_damages" in enemy:
 			enemy.get_damages(dmg)
 		else : return

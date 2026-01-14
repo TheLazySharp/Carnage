@@ -17,6 +17,7 @@ var max_lvl : int
 var can_shoot := true
 var next_bullet := false
 var raycastON:= false
+var is_firing:= false
 
 var max_bullet_count : int = 400
 var bullet_pool : Array[AmmoMG]
@@ -30,7 +31,12 @@ var bonus_bullet: int = 0
 
 var offset_Y := 12
 
+@onready var gm_scene: Node = $"/root/World/game_manager"
+var game_paused:=false
+
 func _ready() -> void:
+	gm_scene.game_paused.connect(_on_game_paused)
+
 	if minigun_data.bonus:
 		bonus_bullet = 35
 	else : bonus_bullet = 0
@@ -52,7 +58,11 @@ func _process(_delta: float) -> void:
 			raycastON = false
 			shoot_from_pool()
 		
-		#else : can_shoot = false
+	if is_firing and game_paused and !timer.paused:
+		timer.paused = true
+	
+	if is_firing and !game_paused and timer.paused:
+		timer.paused = false
 
 func _physics_process(_delta: float) -> void:
 	global_position = Vector2(get_parent().global_position.x, get_parent().global_position.y - offset_Y)
@@ -62,7 +72,8 @@ func _physics_process(_delta: float) -> void:
 func shoot_from_pool()-> void :
 	if !can_shoot : return
 	timer.start()
-	if next_bullet:
+	is_firing = true
+	if next_bullet and !game_paused:
 		next_bullet = false
 		if nb_bullet <= nb_ammo:
 			var angle : float = player.rotation
@@ -80,6 +91,7 @@ func _on_fire_rate_timeout() -> void:
 	else :
 		nb_bullet = 0
 		can_shoot = false
+		is_firing = false
 		next_bullet = true
 		raycastON = true
 		
@@ -107,3 +119,6 @@ func create_bullet_pool(nb_bullets: int):
 	
 func add_bullet_to_pool(bullet: AmmoMG):
 	bullet_pool.append(bullet)
+
+func _on_game_paused(game_on_pause) -> void:
+	game_paused = game_on_pause

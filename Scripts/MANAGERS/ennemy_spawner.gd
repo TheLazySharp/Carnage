@@ -29,7 +29,7 @@ func _on_timer_timeout() -> void:
 		for spawn_point in self.get_children():
 			if spawn_point.name.to_int() == r and spawn_point.is_class("Marker2D"):
 				pick_enemy_from_pool(Vector2(spawn_point.global_position.x,spawn_point.global_position.y))
-				print("enemy spawned on : ",spawn_point)
+				#print("enemy spawned on : ",spawn_point)
 
 
 func pick_enemy_from_pool(starting_position: Vector2) -> void:
@@ -42,13 +42,13 @@ func create_enemies_pool(nb_enemies: int):
 		enemy.desactivate()
 		get_node("/root/World/Enemies").add_child(enemy)
 		enemies_pool.append(enemy)
-	print(enemies_pool.size(), " Enemies have been pooled")
+	#print(enemies_pool.size(), " Enemies have been pooled")
 
 
 func get_enemy_from_pool() -> Enemy:
 	var enemy : Enemy
 	if enemies_pool.is_empty():
-		print("enemy pool is empty")
+		#print("enemy pool is empty")
 		create_enemies_pool(1)
 		enemy = enemies_pool[0]
 	else:

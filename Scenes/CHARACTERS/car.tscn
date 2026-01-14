@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://kp5nhaoh8dft"]
 
 [ext_resource type="Script" uid="uid://cvakypsqi805v" path="res://Scripts/CHARACTERS/car.gd" id="1_ddvet"]
-[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/viper_blk.png" id="1_tq6mt"]
+[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="1_tq6mt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ddvet"]
 radius = 11.0

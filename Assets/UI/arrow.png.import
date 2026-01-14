@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6qr2q1f85sj2"
-path="res://.godot/imported/BEAVER_01-sheet.png-3fc308cea56855aff83c44188ebc5f00.ctex"
+uid="uid://bqlx6iu4ihme6"
+path="res://.godot/imported/arrow.png-9dcb681970842640c88d497f644507db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/BEAVER_01-sheet.png"
-dest_files=["res://.godot/imported/BEAVER_01-sheet.png-3fc308cea56855aff83c44188ebc5f00.ctex"]
+source_file="res://Assets/UI/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-9dcb681970842640c88d497f644507db.ctex"]
 
 [params]
 
