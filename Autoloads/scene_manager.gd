@@ -4,6 +4,7 @@ var scenes: Dictionary[String,String] = {
 	"MainMenu" : "uid://gmjjc1vmgcds",
 	"CarSelection" : "uid://b0ibe3gvcqm4q",
 	"GameOver" : "uid://c6ue1qnj30p5b",
+	"EndDay" : "uid://dkpvtoel7hhai",
 	"Garage" : "uid://cs311xlcqlrt0",
 	"Level00" : "uid://dp8fuljm28ogu",
 	"Level01" : "uid://c6msxridefxxd"

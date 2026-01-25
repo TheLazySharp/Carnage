@@ -59,10 +59,11 @@ func _on_game_paused(game_on_pause) -> void:
 	game_paused = game_on_pause
 
 func throw_fire():
-	is_firing = true
-	sprite.play("fire_start")
-	await get_tree().create_timer(0.5).timeout
-	sprite.play("fire_cycle")
+	if flamer_data.weapon_is_active:
+		is_firing = true
+		sprite.play("fire_start")
+		await get_tree().create_timer(0.5).timeout
+		sprite.play("fire_cycle")
 
 
 

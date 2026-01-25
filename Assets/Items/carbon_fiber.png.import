@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k2ub5qoq42mw"
-path="res://.godot/imported/Wolf_Idle.png-f8b3088be567f9d50aa96c541a27fbe4.ctex"
+uid="uid://1rjil1fyuxu"
+path="res://.godot/imported/carbon_fiber.png-96da73f868e1b2d053724b4bef5069b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mobs/Wolf_Idle.png"
-dest_files=["res://.godot/imported/Wolf_Idle.png-f8b3088be567f9d50aa96c541a27fbe4.ctex"]
+source_file="res://Assets/Items/carbon_fiber.png"
+dest_files=["res://.godot/imported/carbon_fiber.png-96da73f868e1b2d053724b4bef5069b6.ctex"]
 
 [params]
 

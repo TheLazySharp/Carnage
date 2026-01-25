@@ -7,5 +7,5 @@
 script = ExtResource("2_exw84")
 icon = ExtResource("1_exw84")
 name = "Woodbox"
-nb_collectable = 100
+nb_collectable = 500
 metadata/_custom_type_script = "uid://ci5hmuuj0ko68"

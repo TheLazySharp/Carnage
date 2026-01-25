@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7ox7o2wgyn6h"
-path="res://.godot/imported/Wolf_Walk.png-a7c9ea4f3284c66032fbe8945e17fd19.ctex"
+uid="uid://cp0ixjalbeulk"
+path="res://.godot/imported/zombie01_walk_sprite.png-753cfde7a98b5a681e5242885e2e3ab9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mobs/Wolf_Walk.png"
-dest_files=["res://.godot/imported/Wolf_Walk.png-a7c9ea4f3284c66032fbe8945e17fd19.ctex"]
+source_file="res://Assets/Characters/Enemies/zombie01_walk_sprite.png"
+dest_files=["res://.godot/imported/zombie01_walk_sprite.png-753cfde7a98b5a681e5242885e2e3ab9.ctex"]
 
 [params]
 

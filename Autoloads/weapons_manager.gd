@@ -32,17 +32,17 @@ func load_weapons():
 	weapon_scenes.append(["minigun", "uid://c6wus6ofti85w", preload("uid://c6wus6ofti85w")])
 	weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
 	
-	check_weapons()
+	#check_weapons()
 	
-func check_weapons():
-	print("EQUIPPED WEAPONS :")
-	for j in weapons.size():
-		print(weapons[j].weapon_name)
-	print("UNEQUIPPED :")
-	for k in unequipped_weapons.size():
-		print(unequipped_weapons[k].weapon_name)
-	if unequipped_weapons.is_empty() :
-		print("empty")
+#func check_weapons():
+	#print("EQUIPPED WEAPONS :")
+	#for j in weapons.size():
+		#print(weapons[j].weapon_name)
+	#print("UNEQUIPPED :")
+	#for k in unequipped_weapons.size():
+		#print(unequipped_weapons[k].weapon_name)
+	#if unequipped_weapons.is_empty() :
+		#print("empty")
 
 
 func copy_weapons() -> Array :
@@ -68,18 +68,18 @@ func equip_weapon(new_weapon: WeaponData) -> void:
 			
 			if new_weapon.weapon_ammo_res !=null and new_weapon.weapon_ammo_scene != null:
 				init_weapon(new_weapon.weapon_ammo_res)
-				print(new_weapon.weapon_ammo_res.weapon_name," is equiped : ", new_weapon.weapon_ammo_res.is_equiped)
+				#print(new_weapon.weapon_ammo_res.weapon_name," is equiped : ", new_weapon.weapon_ammo_res.is_equiped)
 
-			print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
+			#print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
 			
-			print("MAJ WEAPONS :")
-			for j in weapons.size():
-				print(weapons[j].weapon_name)
-			print("UNEQUIPPED :")
-			for k in unequipped_weapons.size():
-				print(unequipped_weapons[k].weapon_name)
-			if unequipped_weapons.is_empty() :
-				print("empty")
+			#print("MAJ WEAPONS :")
+			#for j in weapons.size():
+				#print(weapons[j].weapon_name)
+			#print("UNEQUIPPED :")
+			#for k in unequipped_weapons.size():
+				#print(unequipped_weapons[k].weapon_name)
+			#if unequipped_weapons.is_empty() :
+				#print("empty")
 			return
 
 func equip_ammo(weapon_with_ammo: WeaponData) -> PackedScene:

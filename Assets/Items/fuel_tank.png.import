@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0dryrsmgmtlj"
-path="res://.godot/imported/Wolf_Death.png-566ac0f50c9078ecc942d787a1e695e3.ctex"
+uid="uid://c32m7ll3ka4tp"
+path="res://.godot/imported/fuel_tank.png-ba1b2299ba8bf61503e74246645a3703.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Mobs/Wolf_Death.png"
-dest_files=["res://.godot/imported/Wolf_Death.png-566ac0f50c9078ecc942d787a1e695e3.ctex"]
+source_file="res://Assets/Items/fuel_tank.png"
+dest_files=["res://.godot/imported/fuel_tank.png-ba1b2299ba8bf61503e74246645a3703.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1uim3nohmup7"
-path="res://.godot/imported/zombie01_walk_LEFT.png-ec4b39eaeefdcd160b31a302c315afd9.ctex"
+uid="uid://cdkjtcaxrglrp"
+path="res://.godot/imported/BOSS_WRHSE-sheet.png-471750eb4b8bde4c73119df8f737568e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/zombie01_walk_LEFT.png"
-dest_files=["res://.godot/imported/zombie01_walk_LEFT.png-ec4b39eaeefdcd160b31a302c315afd9.ctex"]
+source_file="res://Assets/Props/BOSS_WRHSE-sheet.png"
+dest_files=["res://.godot/imported/BOSS_WRHSE-sheet.png-471750eb4b8bde4c73119df8f737568e.ctex"]
 
 [params]
 

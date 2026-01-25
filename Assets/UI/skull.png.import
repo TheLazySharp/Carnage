@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iqs8u821hvqq"
-path="res://.godot/imported/zombie01_walk_UP.png-c37ad961c9cbbc177bf5f85bc2d53c83.ctex"
+uid="uid://ers5f6abq1k"
+path="res://.godot/imported/skull.png-527fa228a832edf29a1c397933bb02e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/zombie01_walk_UP.png"
-dest_files=["res://.godot/imported/zombie01_walk_UP.png-c37ad961c9cbbc177bf5f85bc2d53c83.ctex"]
+source_file="res://Assets/UI/skull.png"
+dest_files=["res://.godot/imported/skull.png-527fa228a832edf29a1c397933bb02e6.ctex"]
 
 [params]
 

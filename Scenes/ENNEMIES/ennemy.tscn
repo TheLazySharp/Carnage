@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_gvr15"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="3_1b0bn"]
 [ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="4_0akt1"]
-[ext_resource type="Texture2D" uid="uid://cp0ixjalbeulk" path="res://Assets/Characters/zombie01_walk_sprite.png" id="5_0akt1"]
-[ext_resource type="Texture2D" uid="uid://b1uim3nohmup7" path="res://Assets/Characters/zombie01_walk_LEFT.png" id="6_aj7fl"]
-[ext_resource type="Texture2D" uid="uid://qscn8atwc0hm" path="res://Assets/Characters/zombie01_walk_RIGHT.png" id="7_63ifu"]
-[ext_resource type="Texture2D" uid="uid://iqs8u821hvqq" path="res://Assets/Characters/zombie01_walk_UP.png" id="8_57ln3"]
+[ext_resource type="Texture2D" uid="uid://cp0ixjalbeulk" path="res://Assets/Characters/Enemies/zombie01_walk_sprite.png" id="5_0akt1"]
+[ext_resource type="Texture2D" uid="uid://b1uim3nohmup7" path="res://Assets/Characters/Enemies/zombie01_walk_LEFT.png" id="6_aj7fl"]
+[ext_resource type="Texture2D" uid="uid://qscn8atwc0hm" path="res://Assets/Characters/Enemies/zombie01_walk_RIGHT.png" id="7_63ifu"]
+[ext_resource type="Texture2D" uid="uid://iqs8u821hvqq" path="res://Assets/Characters/Enemies/zombie01_walk_UP.png" id="8_57ln3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6oam"]
 atlas = ExtResource("5_0akt1")
@@ -379,6 +379,7 @@ simplify_path = true
 simplify_epsilon = 10.0
 
 [node name="path_Timer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 autostart = true
 

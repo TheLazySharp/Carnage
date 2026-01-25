@@ -23,6 +23,7 @@ TimeManager="*res://Autoloads/time_manager.gd"
 InventoryManager="*res://Autoloads/inventory_manager.gd"
 WeaponsManager="*res://Autoloads/weapons_manager.gd"
 CarManager="*res://Autoloads/cars_manager.gd"
+StatsManager="*res://Autoloads/stats_manager.gd"
 
 [display]
 
@@ -226,10 +227,6 @@ go_previous={
 2d_physics/layer_12="farmzone"
 2d_physics/layer_13="resourceRange"
 2d_physics/layer_14="weaponRange"
-
-[navigation]
-
-2d/merge_rasterizer_cell_scale=0.5
 
 [rendering]
 

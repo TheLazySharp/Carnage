@@ -25,3 +25,4 @@ func _process(_delta: float) -> void:
 
 func _on_game_paused(game_on_pause) -> void:
 	game_paused = game_on_pause
+ 

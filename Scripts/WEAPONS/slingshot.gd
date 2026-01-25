@@ -41,7 +41,7 @@ func _physics_process(_delta: float) -> void:
 func shoot_from_pool()-> void :
 	if !can_shoot: return
 	if targets.is_empty(): return
-	else:
+	elif slingshot_data.weapon_is_active:
 		can_shoot = false
 		fire_rate.start()
 

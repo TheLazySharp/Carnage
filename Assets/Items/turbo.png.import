@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qscn8atwc0hm"
-path="res://.godot/imported/zombie01_walk_RIGHT.png-41ad732e247b2ee6d0567b0a9cebc86f.ctex"
+uid="uid://b0qia31ffr14m"
+path="res://.godot/imported/turbo.png-0b68844de32b921f28bfda45f1f68882.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/zombie01_walk_RIGHT.png"
-dest_files=["res://.godot/imported/zombie01_walk_RIGHT.png-41ad732e247b2ee6d0567b0a9cebc86f.ctex"]
+source_file="res://Assets/Items/turbo.png"
+dest_files=["res://.godot/imported/turbo.png-0b68844de32b921f28bfda45f1f68882.ctex"]
 
 [params]
 

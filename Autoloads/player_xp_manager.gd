@@ -6,8 +6,14 @@ var current_xp: int
 var current_level_target_xp: int
 var total_levels:int = 50
 
-var animation:= false
 
+var available_upgrades:= 0
+var total_upgrades:=0
+var upgrade_cost: int
+var x: int
+
+
+var animation:= false
 signal update_xp(current_xp: int)
 signal update_max_xp_target(target_xp: int)
 signal animation_play(animation_ok : bool)
@@ -15,8 +21,8 @@ signal update_level(current_level: int)
 
 func _ready() -> void:
 	for i in (total_levels+1):
-		@warning_ignore("integer_division")
-		xp_levels.append(round( (4 * (i**2) ) * 0.2 )+3)
+		#@warning_ignore("integer_division")
+		xp_levels.append(roundi( (4 * (i**2) ) * 0.2 )+3)
 	current_level = 1
 
 	current_level_target_xp = xp_levels[current_level]
@@ -27,17 +33,25 @@ func _ready() -> void:
 	emit_signal("update_level",current_level)
 	
 	
+	total_upgrades = 1
+	x = roundi(((total_upgrades + 81)-92)*0.02)
+	upgrade_cost = roundi(((x + 0.1)*((total_upgrades+81)**2))+1)
+	
 func _process(_delta: float) -> void:
+	x = roundi(((total_upgrades + 81)-92)*0.02)
+	upgrade_cost = roundi(((x + 0.1)*((total_upgrades+81)**2))+1)
+	
 	if current_xp >= current_level_target_xp:
 		level_up()
-
+	
+	available_upgrades = current_level - total_upgrades
+	
 func get_xp(xp) -> void:
 	current_xp += xp
 	emit_signal("update_xp", current_xp)
 	
 
 func level_up() -> void:
-
 	current_level += 1
 	current_level_target_xp = xp_levels[current_level]
 	current_xp -= xp_levels[current_level-1]
@@ -58,3 +72,8 @@ func unload() -> void:
 	emit_signal("update_xp", current_xp)
 	emit_signal("update_max_xp_target", current_level_target_xp)
 	emit_signal("update_level",current_level)
+
+func cost_formula(i : int) -> int:
+	x = roundi(((total_upgrades + i + 81)-92)*0.02)
+	upgrade_cost = roundi(((x + 0.1)*((total_upgrades + i + 81)**2))+1)
+	return upgrade_cost

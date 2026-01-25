@@ -3,7 +3,14 @@ extends Node
 @onready var gm_scene: Node = $"/root/World/game_manager"
 @onready var time_label: Label = $TimeUI/Time
 @onready var day_label: Label = $TimeUI/Day
+@onready var horde: Label = $"../CanvasLayer/Texts/Horde"
+@onready var horde_animation: AnimationPlayer = $"../CanvasLayer/Texts/Horde/HordeAnimation"
 
+@onready var barb_wire_collision: CollisionShape2D = $"../BarbWire/BarbWireCollision"
+
+
+@onready var world_environment: WorldEnvironment = $"../WorldEnvironment"
+@onready var directional_light_2d: DirectionalLight2D = $"../DirectionalLight2D"
 
 @onready var day_night_cycle: CanvasModulate = $"/root/World/DayAndNightCycle"
 @export var gradient_light: GradientTexture1D
@@ -13,7 +20,7 @@ var game_paused:=false
 var timer_stopped :=false
 var time_remaining: float
 var critical_time: float = 0.1
-var hut_scene:= "uid://cs311xlcqlrt0"
+var end_day_scene:= "uid://dkpvtoel7hhai"
 
 @onready var player: CharacterBody2D = $"../Car"
 var game_start:=false
@@ -43,8 +50,10 @@ func _process(delta: float) -> void:
 	elif game_start: 
 		time_remaining -=delta
 		time_label.text = mmss_timer(time_remaining)
-		var value = time_remaining / TimeManager.day_lenght + 0.4 #to improve
-		day_night_cycle.color = gradient_light.gradient.sample(value)
+		var value = time_remaining / TimeManager.day_lenght + 0.3 #to improve
+		directional_light_2d.color = gradient_light.gradient.sample(value)
+
+
 	
 	if time_remaining <= TimeManager.day_lenght * critical_time and !game_paused:
 		time_animation_player.play("time_warning")
@@ -63,7 +72,9 @@ func _on_game_paused(game_on_pause) -> void:
 func on_day_end():
 	timer_stopped = true
 	emit_signal("day_ended", timer_stopped)
-	SceneManager.load_level(hut_scene)
+	horde.show()
+	horde_animation.play("blinking")
+	barb_wire_collision.set_deferred("disabled", true)
 
 func _on_game_start(game_has_started):
 	game_start = game_has_started

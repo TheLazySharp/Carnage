@@ -7,11 +7,11 @@
 [resource]
 script = ExtResource("2_3q1mo")
 car_name = "Taxi"
-acceleration = 250
-max_speed = 400
+base_acceleration = 250
+base_max_speed = 400
 friction = 300.0
 turn_speed = 2.5
-display_max_speed = 210
+base_display_max_speed = 210
 start_engine_Sound = ExtResource("3_p4whg")
 car_sprite = ExtResource("1_afiu2")
 metadata/_custom_type_script = "uid://cgs6g466ko5c0"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp0ixjalbeulk"
-path="res://.godot/imported/zombie01_walk_sprite.png-aae079a497dbeed73f441ebef7e93177.ctex"
+uid="uid://bn3oteja0m4nn"
+path="res://.godot/imported/sedan_sport.png-62cef4a3576ef1de968bbddf84b1e3cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/zombie01_walk_sprite.png"
-dest_files=["res://.godot/imported/zombie01_walk_sprite.png-aae079a497dbeed73f441ebef7e93177.ctex"]
+source_file="res://Assets/Characters/Cars/sedan_sport.png"
+dest_files=["res://.godot/imported/sedan_sport.png-62cef4a3576ef1de968bbddf84b1e3cd.ctex"]
 
 [params]
 

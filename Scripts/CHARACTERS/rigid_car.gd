@@ -47,9 +47,12 @@ var game_is_over:= false
 var game_paused:=false
 var is_taking_damages:=false
 var can_drive:=false
-@onready var ready_go: Label = $/root/World/CanvasLayer/Start/ReadyGo
+@onready var ready_go: Label = $/root/World/CanvasLayer/Texts/ReadyGo
 signal start_time(game_start: bool)
 
+@onready var gate: CharacterBody2D = $"../StartingGate"
+#var full_command : bool
+var forward_only : bool
 
 #UI
 var current_life: int
@@ -65,10 +68,13 @@ var current_life: int
 
 func _ready() -> void:
 	player = CarManager.selected_car
+	gm_scene.game_paused.connect(_on_game_paused)
+	gate.full_command.connect(_on_full_command)
+	gate.forward_only.connect(_on_forward_only)
 	
 	#DRIVING
-	acceleration = player.acceleration
-	max_speed = player.max_speed
+	acceleration = player.acceleration + player.carbon_lvl * 10 - player.shield_lvl * 5
+	max_speed = player.max_speed + player.engine_lvl * 10
 	friction = player.friction
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
@@ -100,14 +106,14 @@ func _ready() -> void:
 	#VFX
 	car_sprite.texture = player.car_sprite
 
-	gm_scene.game_paused.connect(_on_game_paused)
+	
 	current_life = max_life
 	life_bar.max_value = max_life
 	life_bar.value = current_life
 	life_label.text = str(current_life) + "/" + str(max_life)
 	print(rotation)
 	if visible:
-		ready_go.get_parent().show()
+		ready_go.show()
 		ready_go.text = "READY ?"
 		start_engine.play()
 
@@ -115,7 +121,7 @@ func _process(_delta: float) -> void:
 	if !game_paused:
 		speed_label.text  = str(roundi(velocity.length()/max_speed * display_max_speed))
 		life_label.text = str(current_life) + "/" + str(max_life)
-		
+	#update_stats()
 
 func _physics_process(delta):
 	if not game_paused and can_drive:
@@ -126,7 +132,12 @@ func _physics_process(delta):
 		var throttle := Input.get_action_strength("accelerate") - Input.get_action_strength("brake")
 		var steer := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		var drifting := Input.is_action_pressed("drift")
-
+		
+		if forward_only:
+			throttle = Input.get_action_strength("accelerate")
+			steer = 0
+			drifting = false
+		
 		# ----------------- ACCELERATION -----------------
 		if throttle != 0:
 			velocity += forward * throttle * acceleration * delta
@@ -278,8 +289,7 @@ func play_death() -> void:
 	#animated_sprite.hide()
 	await get_tree().create_timer(3).timeout
 	emit_signal("game_over", game_is_over)
-
-
+	
 	
 #func display_damages(_damages)-> void:
 	#if !game_is_over:
@@ -319,4 +329,11 @@ func _on_start_engine_finished() -> void:
 	emit_signal("start_time", can_drive)
 	ready_go.text = "GO !"
 	await get_tree().create_timer(2).timeout
-	ready_go.get_parent().hide()
+	ready_go.hide()
+
+func _on_full_command(full_command : bool):
+	if !full_command:
+		can_drive = false
+		
+func _on_forward_only(car_only_forward : bool):
+	forward_only = car_only_forward

@@ -71,17 +71,18 @@ func _physics_process(_delta: float) -> void:
 	
 func shoot_from_pool()-> void :
 	if !can_shoot : return
-	timer.start()
-	is_firing = true
-	if next_bullet and !game_paused:
-		next_bullet = false
-		if nb_bullet <= nb_ammo:
-			var angle : float = player.rotation
-			var bullet = get_bullet_from_pool()
-			var dir = Vector2.RIGHT.rotated(angle)
-			bullet.fire(fire_point.global_position,dir,angle)
-			print(nb_bullet)
-	
+	if minigun_data.weapon_is_active:
+		timer.start()
+		is_firing = true
+		if next_bullet and !game_paused:
+			next_bullet = false
+			if nb_bullet <= nb_ammo:
+				var angle : float = player.rotation
+				var bullet = get_bullet_from_pool()
+				var dir = Vector2.RIGHT.rotated(angle)
+				bullet.fire(fire_point.global_position,dir,angle)
+				#print(nb_bullet)
+		
 
 func _on_fire_rate_timeout() -> void:
 	if nb_bullet <= nb_ammo:

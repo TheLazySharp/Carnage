@@ -3,6 +3,7 @@ extends Resource
 class_name WeaponData
 
 @export var weapon_name : String
+@export var weapon_is_active:=true
 @export var weapon_icon: Texture2D
 @export var weapon_scene_uid : String
 @export var weapon_ammo_scene : PackedScene

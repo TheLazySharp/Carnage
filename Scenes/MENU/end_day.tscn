@@ -1,0 +1,141 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkpvtoel7hhai"]
+
+[ext_resource type="Script" uid="uid://ll5vynm3wl3q" path="res://Scripts/SCENES/end_day.gd" id="1_rjd84"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_4uf12"]
+[ext_resource type="Texture2D" uid="uid://dj5q528ksj8is" path="res://Assets/Characters/Cars/cab.png" id="3_jggmw"]
+[ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="4_1ftow"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cx0hi"]
+
+[node name="EndDay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rjd84")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 111.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_font_sizes/font_size = 64
+text = "THE GARAGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = 15.0
+offset_right = 139.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Upgrades" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
+text = "UPGRADES"
+flat = true
+
+[node name="NextDay" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
+text = "NEXT DAY"
+flat = true
+
+[node name="Menu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
+text = "Main Menu"
+flat = true
+
+[node name="CarIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 48)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.42400002
+anchor_top = 0.282
+anchor_right = 0.42400002
+anchor_bottom = 0.282
+offset_left = -57.72003
+offset_top = -61.600006
+offset_right = 58.27997
+offset_bottom = 61.399994
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jggmw")
+stretch_mode = 5
+
+[node name="Parts" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 672.0
+offset_top = 184.0
+offset_right = 765.0
+offset_bottom = 275.0
+texture = ExtResource("4_1ftow")
+stretch_mode = 5
+
+[node name="PartsQuantity" type="Label" parent="Parts"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_4uf12")
+text = "1000"
+
+[connection signal="pressed" from="VBoxContainer/Upgrades" to="." method="_on_upgrades_pressed"]
+[connection signal="pressed" from="VBoxContainer/NextDay" to="." method="_on_next_day_pressed"]
+[connection signal="pressed" from="VBoxContainer/Menu" to="." method="_on_menu_pressed"]
