@@ -2,12 +2,12 @@ extends TileMapLayer
 
 @onready var drop_layer: TileMapLayer = $"../Drop"
 
-func _use_tile_data_runtime_update(coords):
+func _use_tile_data_runtime_update(coords : Vector2i) -> bool:
 	if coords in drop_layer.get_used_cells_by_id(8):
 		return true
 	return false
 
-func _tile_data_runtime_update(coords, tile_data):
+func _tile_data_runtime_update(coords : Vector2i, tile_data : Variant) -> void:
 	if coords in drop_layer.get_used_cells_by_id(8):
 		tile_data.set_navigation_polygon(0,null)
 

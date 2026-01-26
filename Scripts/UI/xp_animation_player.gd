@@ -11,7 +11,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func _play_animation(animation_is_playing):
+func _play_animation(animation_is_playing : bool) -> void:
 	animation = animation_is_playing
 	if animation:
 		play("level_up_anim")

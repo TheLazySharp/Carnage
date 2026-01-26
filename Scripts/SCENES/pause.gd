@@ -4,7 +4,7 @@ extends Control
 @onready var commands: Button = $VBoxContainer/Commands
 @onready var quit_to_menu: Button = $"VBoxContainer/Quit to menu"
 
-var menu_scene = "uid://gmjjc1vmgcds"
+var menu_scene: String = "uid://gmjjc1vmgcds"
 
 var game_on_pause:= false
 
@@ -29,7 +29,7 @@ func _on_quit_to_menu_pressed() -> void:
 	TimeManager.current_day = 0
 	SceneManager.load_level(menu_scene)
 
-func get_focus():
+func get_focus() -> void:
 	resume.grab_focus()
 
 

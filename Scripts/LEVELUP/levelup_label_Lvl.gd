@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 			
 	else: set_text(str(""))
 	
-func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array,_weapon_show : bool):
+func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array,_weapon_show : bool) -> void:
 	new_weapon = new_weapon_to_equiped
 	unequiped_weapons = new_weapons_list
 	

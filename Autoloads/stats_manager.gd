@@ -13,7 +13,7 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func update_car_stats(car : CarData):
+func update_car_stats(car : CarData) -> void:
 	#car = CarManager.selected_car
 	if car:
 		car.acceleration = car.base_acceleration + car.carbon_lvl * 5 - car.shield_lvl * 5 + car.turbo_lvl * 10

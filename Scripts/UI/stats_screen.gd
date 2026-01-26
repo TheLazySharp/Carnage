@@ -1,6 +1,6 @@
 extends Control
 
-var player = CarManager.selected_car
+var player : CarData = CarManager.selected_car
 @onready var max_health: Label = $VBoxContainer/MaxHealth
 @onready var speed: Label = $VBoxContainer/Speed
 @onready var healing_pow: Label = $VBoxContainer/HealingPow
@@ -23,6 +23,6 @@ func _process(_delta: float) -> void:
 	if game_paused and Input.is_action_just_released("show_stats"):
 		hide()
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
  

@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var collectable_data : CollectableData
-var nb_piston
+var nb_piston : int
 
 @onready var sprite: Sprite2D = $Sprite2D
 

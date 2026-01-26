@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cs311xlcqlrt0"]
+[gd_scene format=3 uid="uid://cs311xlcqlrt0"]
 
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="1_nn5ok"]
 [ext_resource type="Script" uid="uid://2unrirt1gcu5" path="res://Scripts/SCENES/garage.gd" id="1_w8qls"]
@@ -17,7 +17,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3thmm"]
 
-[node name="Garage" type="Control"]
+[node name="Garage" type="Control" unique_id=308197400]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w8qls")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=179635283]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=1824510589]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -53,7 +53,7 @@ vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=236688325]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 0
 offset_left = 320.0
@@ -62,11 +62,11 @@ offset_right = 1074.0
 offset_bottom = 213.0
 theme_override_constants/separation = 10
 
-[node name="LvlPanel" type="Panel" parent="HBoxContainer"]
+[node name="LvlPanel" type="Panel" parent="HBoxContainer" unique_id=2077011680]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/LvlPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/LvlPanel" unique_id=207869233]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 17.0
@@ -74,20 +74,20 @@ offset_right = 211.0
 offset_bottom = 121.0
 theme_override_constants/separation = 10
 
-[node name="CurrentLvlTxt" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer"]
+[node name="CurrentLvlTxt" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer" unique_id=96745647]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "level :"
 
-[node name="AvailUpgradeTxt" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer"]
+[node name="AvailUpgradeTxt" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer" unique_id=1594937451]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "Available 
 upgrades :"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/LvlPanel"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/LvlPanel" unique_id=1843600437]
 clip_contents = true
 layout_mode = 0
 offset_left = 202.0
@@ -96,14 +96,14 @@ offset_right = 326.0
 offset_bottom = 81.0
 theme_override_constants/separation = 10
 
-[node name="CurrentLvlQ" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer2"]
+[node name="CurrentLvlQ" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer2" unique_id=688124039]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "99"
 horizontal_alignment = 2
 
-[node name="AvailupgradeQ" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer2"]
+[node name="AvailupgradeQ" type="Label" parent="HBoxContainer/LvlPanel/VBoxContainer2" unique_id=600396810]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -111,11 +111,11 @@ text = "
 10"
 horizontal_alignment = 2
 
-[node name="GearPanel" type="Panel" parent="HBoxContainer"]
+[node name="GearPanel" type="Panel" parent="HBoxContainer" unique_id=2002797426]
 custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
 
-[node name="Parts" type="TextureRect" parent="HBoxContainer/GearPanel"]
+[node name="Parts" type="TextureRect" parent="HBoxContainer/GearPanel" unique_id=1886032697]
 layout_mode = 1
 offset_left = -27.0
 offset_top = 14.0
@@ -124,7 +124,7 @@ offset_bottom = 105.0
 texture = ExtResource("4_t7ggm")
 stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GearPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GearPanel" unique_id=1385434572]
 layout_mode = 0
 offset_left = 44.0
 offset_top = 16.0
@@ -132,25 +132,25 @@ offset_right = 245.0
 offset_bottom = 120.0
 theme_override_constants/separation = 10
 
-[node name="TotalTxt" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer"]
+[node name="TotalTxt" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer" unique_id=134727135]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "TOTAL :"
 
-[node name="Cost" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer"]
+[node name="Cost" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer" unique_id=690881539]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "COST :"
 
-[node name="RequestedTxt" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer"]
+[node name="RequestedTxt" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer" unique_id=893347798]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "Requested :"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/GearPanel"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/GearPanel" unique_id=171978501]
 clip_contents = true
 layout_mode = 0
 offset_left = 252.0
@@ -159,35 +159,35 @@ offset_right = 376.0
 offset_bottom = 120.0
 theme_override_constants/separation = 10
 
-[node name="TotalQ" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer2"]
+[node name="TotalQ" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer2" unique_id=1574440097]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "1000"
 horizontal_alignment = 2
 
-[node name="CostQ" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer2"]
+[node name="CostQ" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer2" unique_id=258899557]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "1000"
 horizontal_alignment = 2
 
-[node name="RequestedQ" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer2"]
+[node name="RequestedQ" type="Label" parent="HBoxContainer/GearPanel/VBoxContainer2" unique_id=711404652]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "100000"
 horizontal_alignment = 2
 
-[node name="StatPanel" type="Panel" parent="."]
+[node name="StatPanel" type="Panel" parent="." unique_id=2025218826]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 80.0
 offset_right = 311.0
 offset_bottom = 795.0
 
-[node name="CarName" type="Label" parent="StatPanel"]
+[node name="CarName" type="Label" parent="StatPanel" unique_id=1389764269]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -199,7 +199,7 @@ text = "SEDAN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CarIcon" type="TextureRect" parent="StatPanel"]
+[node name="CarIcon" type="TextureRect" parent="StatPanel" unique_id=183897566]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -213,7 +213,7 @@ rotation = 1.5707964
 texture = ExtResource("3_t7ggm")
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StatPanel" unique_id=1724273980]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -224,50 +224,50 @@ offset_bottom = 122.0
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="Stats" type="VBoxContainer" parent="StatPanel/HBoxContainer"]
+[node name="Stats" type="VBoxContainer" parent="StatPanel/HBoxContainer" unique_id=358445100]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Fuel" type="Label" parent="StatPanel/HBoxContainer/Stats"]
+[node name="Fuel" type="Label" parent="StatPanel/HBoxContainer/Stats" unique_id=341358846]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "Fuel :"
 vertical_alignment = 1
 
-[node name="Speed" type="Label" parent="StatPanel/HBoxContainer/Stats"]
+[node name="Speed" type="Label" parent="StatPanel/HBoxContainer/Stats" unique_id=934471085]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "SPEED :"
 vertical_alignment = 1
 
-[node name="Torque" type="Label" parent="StatPanel/HBoxContainer/Stats"]
+[node name="Torque" type="Label" parent="StatPanel/HBoxContainer/Stats" unique_id=632225561]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "Torque :"
 vertical_alignment = 1
 
-[node name="Dmg" type="Label" parent="StatPanel/HBoxContainer/Stats"]
+[node name="Dmg" type="Label" parent="StatPanel/HBoxContainer/Stats" unique_id=118576302]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "DMG :"
 vertical_alignment = 1
 
-[node name="Drift" type="Label" parent="StatPanel/HBoxContainer/Stats"]
+[node name="Drift" type="Label" parent="StatPanel/HBoxContainer/Stats" unique_id=933146037]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
 text = "Drift :"
 vertical_alignment = 1
 
-[node name="Levels" type="VBoxContainer" parent="StatPanel/HBoxContainer"]
+[node name="Levels" type="VBoxContainer" parent="StatPanel/HBoxContainer" unique_id=2143662711]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Fuel_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels"]
+[node name="Fuel_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels" unique_id=489675187]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -275,7 +275,7 @@ text = "1000"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Speed_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels"]
+[node name="Speed_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels" unique_id=759821550]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -283,7 +283,7 @@ text = "200"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Torque_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels"]
+[node name="Torque_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels" unique_id=979611507]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -291,7 +291,7 @@ text = "100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Dmg_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels"]
+[node name="Dmg_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels" unique_id=1318042127]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -299,7 +299,7 @@ text = "100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Drift_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels"]
+[node name="Drift_lvl" type="Label" parent="StatPanel/HBoxContainer/Levels" unique_id=773651350]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -307,11 +307,11 @@ text = "10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Upgrade" type="VBoxContainer" parent="StatPanel/HBoxContainer"]
+[node name="Upgrade" type="VBoxContainer" parent="StatPanel/HBoxContainer" unique_id=251310388]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Fuel_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade"]
+[node name="Fuel_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade" unique_id=574606055]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -320,7 +320,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
-[node name="Speed_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade"]
+[node name="Speed_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade" unique_id=1427513969]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -329,7 +329,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
-[node name="Torque_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade"]
+[node name="Torque_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade" unique_id=542175002]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -338,7 +338,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
-[node name="Dmg_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade"]
+[node name="Dmg_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade" unique_id=1498998161]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -347,7 +347,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
-[node name="Drift_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade"]
+[node name="Drift_upgrade" type="Label" parent="StatPanel/HBoxContainer/Upgrade" unique_id=509102222]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_nn5ok")
 theme_override_font_sizes/font_size = 24
@@ -356,7 +356,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="StatPanel"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="StatPanel" unique_id=2015606175]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -370,7 +370,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="Confirm" type="Button" parent="StatPanel/VBoxContainer2"]
+[node name="Confirm" type="Button" parent="StatPanel/VBoxContainer2" unique_id=627258193]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -383,7 +383,7 @@ theme_override_font_sizes/font_size = 24
 text = "CONFIRM"
 flat = true
 
-[node name="Back" type="Button" parent="StatPanel/VBoxContainer2"]
+[node name="Back" type="Button" parent="StatPanel/VBoxContainer2" unique_id=1381319762]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -396,29 +396,29 @@ theme_override_font_sizes/font_size = 24
 text = "Back"
 flat = true
 
-[node name="UpgradePanel" type="Panel" parent="."]
+[node name="UpgradePanel" type="Panel" parent="." unique_id=1684608771]
 layout_mode = 0
 offset_left = 320.0
 offset_top = 220.0
 offset_right = 1070.0
 offset_bottom = 800.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UpgradePanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradePanel" unique_id=1344572833]
 layout_mode = 0
 offset_right = 403.0
 offset_bottom = 466.0
 theme_override_constants/separation = 25
 
-[node name="Engine" type="HBoxContainer" parent="UpgradePanel/VBoxContainer"]
+[node name="Engine" type="HBoxContainer" parent="UpgradePanel/VBoxContainer" unique_id=1637748415]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Engine"]
+[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Engine" unique_id=663922559]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
 
-[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Engine/Icon"]
+[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Engine/Icon" unique_id=634593640]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 1
 anchors_preset = 15
@@ -428,12 +428,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_p2ls2")
 
-[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Engine"]
+[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Engine" unique_id=1684247133]
 custom_minimum_size = Vector2(120, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Engine/Label"]
+[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Engine/Label" unique_id=425835100]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -447,12 +447,12 @@ theme_override_font_sizes/font_size = 24
 text = "Engine"
 vertical_alignment = 1
 
-[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Engine"]
+[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Engine" unique_id=652526323]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="EngineLvl" type="Label" parent="UpgradePanel/VBoxContainer/Engine/Lvl"]
+[node name="EngineLvl" type="Label" parent="UpgradePanel/VBoxContainer/Engine/Lvl" unique_id=971215712]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -466,14 +466,14 @@ theme_override_font_sizes/font_size = 24
 text = "Lvl 99"
 vertical_alignment = 1
 
-[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Engine"]
+[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Engine" unique_id=655244662]
 custom_minimum_size = Vector2(40, 35)
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="EngineUp" type="Button" parent="UpgradePanel/VBoxContainer/Engine/ButtonUp"]
+[node name="EngineUp" type="Button" parent="UpgradePanel/VBoxContainer/Engine/ButtonUp" unique_id=1167822882]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -485,14 +485,14 @@ icon = ExtResource("6_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Engine"]
+[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Engine" unique_id=267449006]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="EngineDown" type="Button" parent="UpgradePanel/VBoxContainer/Engine/ButtonDown"]
+[node name="EngineDown" type="Button" parent="UpgradePanel/VBoxContainer/Engine/ButtonDown" unique_id=1095415010]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -504,16 +504,16 @@ icon = ExtResource("7_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="Turbo" type="HBoxContainer" parent="UpgradePanel/VBoxContainer"]
+[node name="Turbo" type="HBoxContainer" parent="UpgradePanel/VBoxContainer" unique_id=1705877576]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo"]
+[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo" unique_id=758097968]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
 
-[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Turbo/Icon"]
+[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Turbo/Icon" unique_id=1860415879]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 1
 anchors_preset = 15
@@ -523,12 +523,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_eb3v0")
 
-[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo"]
+[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo" unique_id=1064975601]
 custom_minimum_size = Vector2(120, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Turbo/Label"]
+[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Turbo/Label" unique_id=244469567]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -542,12 +542,12 @@ theme_override_font_sizes/font_size = 24
 text = "Turbo"
 vertical_alignment = 1
 
-[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo"]
+[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo" unique_id=1476857558]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="TurboLvl" type="Label" parent="UpgradePanel/VBoxContainer/Turbo/Lvl"]
+[node name="TurboLvl" type="Label" parent="UpgradePanel/VBoxContainer/Turbo/Lvl" unique_id=388887177]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -561,12 +561,12 @@ theme_override_font_sizes/font_size = 24
 text = "Lvl 99"
 vertical_alignment = 1
 
-[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo"]
+[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo" unique_id=1011890009]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="TurboUp" type="Button" parent="UpgradePanel/VBoxContainer/Turbo/ButtonUp"]
+[node name="TurboUp" type="Button" parent="UpgradePanel/VBoxContainer/Turbo/ButtonUp" unique_id=927753592]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -578,14 +578,14 @@ icon = ExtResource("6_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo"]
+[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Turbo" unique_id=536201944]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="TurboDown" type="Button" parent="UpgradePanel/VBoxContainer/Turbo/ButtonDown"]
+[node name="TurboDown" type="Button" parent="UpgradePanel/VBoxContainer/Turbo/ButtonDown" unique_id=204834858]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -597,16 +597,16 @@ icon = ExtResource("7_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="Shield" type="HBoxContainer" parent="UpgradePanel/VBoxContainer"]
+[node name="Shield" type="HBoxContainer" parent="UpgradePanel/VBoxContainer" unique_id=1611162894]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Shield"]
+[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Shield" unique_id=1616385785]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
 
-[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Shield/Icon"]
+[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Shield/Icon" unique_id=1774623307]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 1
 anchors_preset = 15
@@ -616,12 +616,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_efqn2")
 
-[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Shield"]
+[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Shield" unique_id=1463381354]
 custom_minimum_size = Vector2(120, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Shield/Label"]
+[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Shield/Label" unique_id=1152865008]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -635,12 +635,12 @@ theme_override_font_sizes/font_size = 24
 text = "Shield"
 vertical_alignment = 1
 
-[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Shield"]
+[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Shield" unique_id=1035605429]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="ShieldLvl" type="Label" parent="UpgradePanel/VBoxContainer/Shield/Lvl"]
+[node name="ShieldLvl" type="Label" parent="UpgradePanel/VBoxContainer/Shield/Lvl" unique_id=1689400639]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -654,12 +654,12 @@ theme_override_font_sizes/font_size = 24
 text = "Lvl 99"
 vertical_alignment = 1
 
-[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Shield"]
+[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Shield" unique_id=1784328151]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="ShieldUp" type="Button" parent="UpgradePanel/VBoxContainer/Shield/ButtonUp"]
+[node name="ShieldUp" type="Button" parent="UpgradePanel/VBoxContainer/Shield/ButtonUp" unique_id=1609544282]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -671,14 +671,14 @@ icon = ExtResource("6_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Shield"]
+[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Shield" unique_id=798196210]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="ShieldDown" type="Button" parent="UpgradePanel/VBoxContainer/Shield/ButtonDown"]
+[node name="ShieldDown" type="Button" parent="UpgradePanel/VBoxContainer/Shield/ButtonDown" unique_id=489127951]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -690,16 +690,16 @@ icon = ExtResource("7_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="Carbon" type="HBoxContainer" parent="UpgradePanel/VBoxContainer"]
+[node name="Carbon" type="HBoxContainer" parent="UpgradePanel/VBoxContainer" unique_id=1331665810]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon"]
+[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon" unique_id=1486315269]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
 
-[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Carbon/Icon"]
+[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Carbon/Icon" unique_id=1776938507]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 1
 anchors_preset = 15
@@ -709,12 +709,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_g3154")
 
-[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon"]
+[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon" unique_id=818600426]
 custom_minimum_size = Vector2(120, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Carbon/Label"]
+[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Carbon/Label" unique_id=664284334]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -728,12 +728,12 @@ theme_override_font_sizes/font_size = 24
 text = "Carbon"
 vertical_alignment = 1
 
-[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon"]
+[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon" unique_id=1713268231]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="CarbonLvl" type="Label" parent="UpgradePanel/VBoxContainer/Carbon/Lvl"]
+[node name="CarbonLvl" type="Label" parent="UpgradePanel/VBoxContainer/Carbon/Lvl" unique_id=1599987193]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -747,12 +747,12 @@ theme_override_font_sizes/font_size = 24
 text = "Lvl 99"
 vertical_alignment = 1
 
-[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon"]
+[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon" unique_id=529630459]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="CarbonUp" type="Button" parent="UpgradePanel/VBoxContainer/Carbon/ButtonUp"]
+[node name="CarbonUp" type="Button" parent="UpgradePanel/VBoxContainer/Carbon/ButtonUp" unique_id=545079928]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -764,14 +764,14 @@ icon = ExtResource("6_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon"]
+[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Carbon" unique_id=107388068]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="CarbonDown" type="Button" parent="UpgradePanel/VBoxContainer/Carbon/ButtonDown"]
+[node name="CarbonDown" type="Button" parent="UpgradePanel/VBoxContainer/Carbon/ButtonDown" unique_id=886636373]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -783,16 +783,16 @@ icon = ExtResource("7_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="Tank" type="HBoxContainer" parent="UpgradePanel/VBoxContainer"]
+[node name="Tank" type="HBoxContainer" parent="UpgradePanel/VBoxContainer" unique_id=1106899698]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Tank"]
+[node name="Icon" type="Panel" parent="UpgradePanel/VBoxContainer/Tank" unique_id=2086608655]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
 
-[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Tank/Icon"]
+[node name="Icon" type="TextureRect" parent="UpgradePanel/VBoxContainer/Tank/Icon" unique_id=2072074843]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 1
 anchors_preset = 15
@@ -802,12 +802,12 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_efqn2")
 
-[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Tank"]
+[node name="Label" type="Panel" parent="UpgradePanel/VBoxContainer/Tank" unique_id=1918275445]
 custom_minimum_size = Vector2(120, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Tank/Label"]
+[node name="Label" type="Label" parent="UpgradePanel/VBoxContainer/Tank/Label" unique_id=1756185816]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -821,12 +821,12 @@ theme_override_font_sizes/font_size = 24
 text = "Tank"
 vertical_alignment = 1
 
-[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Tank"]
+[node name="Lvl" type="Panel" parent="UpgradePanel/VBoxContainer/Tank" unique_id=780532742]
 custom_minimum_size = Vector2(94, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="TankLvl" type="Label" parent="UpgradePanel/VBoxContainer/Tank/Lvl"]
+[node name="TankLvl" type="Label" parent="UpgradePanel/VBoxContainer/Tank/Lvl" unique_id=551705965]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -840,12 +840,12 @@ theme_override_font_sizes/font_size = 24
 text = "Lvl 99"
 vertical_alignment = 1
 
-[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Tank"]
+[node name="ButtonUp" type="Panel" parent="UpgradePanel/VBoxContainer/Tank" unique_id=1378355834]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="TankUp" type="Button" parent="UpgradePanel/VBoxContainer/Tank/ButtonUp"]
+[node name="TankUp" type="Button" parent="UpgradePanel/VBoxContainer/Tank/ButtonUp" unique_id=697658417]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -857,14 +857,14 @@ icon = ExtResource("6_6lwu2")
 flat = true
 vertical_icon_alignment = 2
 
-[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Tank"]
+[node name="ButtonDown" type="Panel" parent="UpgradePanel/VBoxContainer/Tank" unique_id=2123164680]
 custom_minimum_size = Vector2(40, 94)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
 
-[node name="TankDown" type="Button" parent="UpgradePanel/VBoxContainer/Tank/ButtonDown"]
+[node name="TankDown" type="Button" parent="UpgradePanel/VBoxContainer/Tank/ButtonDown" unique_id=278849871]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

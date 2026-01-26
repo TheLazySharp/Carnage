@@ -51,10 +51,10 @@ func _on_warp_zone_body_entered(body: Node2D) -> void:
 
 
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 	
-func _on_day_ended(day_is_ended):
+func _on_day_ended(day_is_ended : bool) -> void :
 	day_ended = day_is_ended
 	if day_ended:
 		sprite.play("opening")

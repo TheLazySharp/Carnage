@@ -38,6 +38,7 @@ func _process(_delta: float) -> void:
 	
 func _on_warp_zone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and day_ended:
+		body.global_position = self.global_position
 		if !WeaponsManager.weapons.is_empty():
 			for i in WeaponsManager.weapons.size():
 				WeaponsManager.weapons[i].weapon_is_active = false
@@ -49,10 +50,10 @@ func _on_warp_zone_body_entered(body: Node2D) -> void:
 
 
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 	
-func _on_day_ended(day_is_ended):
+func _on_day_ended(day_is_ended : bool) -> void:
 	day_ended = day_is_ended
 	if day_ended:
 		sprite.play("opening")

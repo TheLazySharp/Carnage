@@ -16,14 +16,14 @@ extends Node
 @export var gradient_light: GradientTexture1D
 @onready var time_animation_player: AnimationPlayer = $TimeUI/Time/TimeAnimationPlayer
 
-var game_paused:=false
-var timer_stopped :=false
+var game_paused: bool = false
+var timer_stopped :bool = false
 var time_remaining: float
 var critical_time: float = 0.1
-var end_day_scene:= "uid://dkpvtoel7hhai"
+var end_day_scene: String = "uid://dkpvtoel7hhai"
 
 @onready var player: CharacterBody2D = $"../Car"
-var game_start:=false
+var game_start: bool = false
 @onready var enemies_spawner_timer: Timer = $"../Spawners/ennemy_spawner/Timer"
 
 var enemies_spawner_base_rate: float
@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 	elif game_start: 
 		time_remaining -=delta
 		time_label.text = mmss_timer(time_remaining)
-		var value = time_remaining / TimeManager.day_lenght + 0.3 #to improve
+		var value : float = time_remaining / TimeManager.day_lenght + 0.3 #to improve
 		directional_light_2d.color = gradient_light.gradient.sample(value)
 
 
@@ -66,15 +66,15 @@ func mmss_timer(total_seconds: float) -> String:
 	return mmss_string 
 
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool ) -> void:
 	game_paused = game_on_pause
 	
-func on_day_end():
+func on_day_end() -> void:
 	timer_stopped = true
 	emit_signal("day_ended", timer_stopped)
 	horde.show()
 	horde_animation.play("blinking")
 	barb_wire_collision.set_deferred("disabled", true)
 
-func _on_game_start(game_has_started):
+func _on_game_start(game_has_started : bool) -> void:
 	game_start = game_has_started

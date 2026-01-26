@@ -20,7 +20,7 @@ var game_paused:=false
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var path_timer: Timer = $path_Timer
-@onready var damages_text_pos = get_node("MarkerDamages")
+@onready var damages_text_pos : Marker2D = get_node("MarkerDamages")
 
 #@onready var color_rect = get_node("ColorRect")
 @onready var damage_timer: Timer = $DamageTimer_Get
@@ -42,14 +42,14 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not game_paused:
 		if not navigation_agent.is_target_reached():
-			var nav_point_direction = to_local(navigation_agent.get_next_path_position()).normalized()
+			var nav_point_direction : Vector2 = to_local(navigation_agent.get_next_path_position()).normalized()
 			velocity = nav_point_direction * speed
 			move_and_slide()
 			
 
 func _process(_delta: float) -> void:
 	if is_activated:
-		var dir = target.global_position - global_position
+		var dir : Vector2 = target.global_position - global_position
 		if abs(dir.x) > abs(dir.y):
 			if dir.x > 0:
 				sprite.play("right")
@@ -90,7 +90,7 @@ func get_damages(damages: int) -> void:
 		display_damages(damages)
 	
 
-func activate(spawn_position: Vector2):
+func activate(spawn_position: Vector2) -> void:
 	if !is_activated:
 		is_activated = true
 		global_position = spawn_position
@@ -104,7 +104,7 @@ func activate(spawn_position: Vector2):
 		current_life = max_life
 
 
-func desactivate():
+func desactivate() -> void:
 	set_process(false)
 	set_physics_process(false)
 	self.is_activated = false
@@ -120,7 +120,7 @@ func _on_damage_timer_timeout() -> void:
 	#color_rect.color = base_color
 	pass
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool ) -> void:
 	game_paused = game_on_pause
 
 
@@ -149,17 +149,17 @@ func _on_damage_timer_on_player_timeout() -> void:
 			player.take_damages(damages_on_player)
 			print(self.name, " atk @ : ",damages_on_player, " / is active : ",is_activated)
 
-func display_damages(damages)-> void:
+func display_damages(damages : int)-> void:
 	if is_activated:
-		var text = damages_text.instantiate()
-		var text_offsetX = RandomNumberGenerator.new().randf_range(-10,10)
-		var text_offsetY = RandomNumberGenerator.new().randf_range(-10,0)
+		var text : Node2D = damages_text.instantiate()
+		var text_offsetX : float = RandomNumberGenerator.new().randf_range(-10,10)
+		var text_offsetY : float = RandomNumberGenerator.new().randf_range(-10,0)
 		text.this_label_text = str(damages)
 		add_child(text)
 		text.global_position = Vector2(damages_text_pos.global_position.x + text_offsetX, damages_text_pos.global_position.y + text_offsetY)
 
-func blow_up(blood_position: Vector2):
+func blow_up(blood_position: Vector2) -> void:
 	if blood_particles:
-		var blood = blood_particles.instantiate()
+		var blood : CPUParticles2D = blood_particles.instantiate()
 		get_node("/root/World/VFX").add_child(blood)
 		blood.global_position = blood_position

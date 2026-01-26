@@ -22,7 +22,7 @@ func _ready() -> void:
 	#load_weapons()
 
 
-func load_weapons():
+func load_weapons() -> void:
 	locked_weapon(REVOLVER)
 	locked_weapon(MINIGUN)
 	locked_weapon(FLAMER)
@@ -52,7 +52,7 @@ func init_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = true
 	weapons.append(new_weapon)
 
-func locked_weapon(new_weapon: WeaponData):
+func locked_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = false
 	unequipped_weapons.append(new_weapon)
 
@@ -90,7 +90,7 @@ func unequip_weapon(_old_weapon: WeaponData) -> void:
 	pass
 	
 
-func shuffle_new_weapon(new_current_level):
+func shuffle_new_weapon(new_current_level : int) -> void:
 	player_current_level = new_current_level
 	#if player_current_level % 2 == 0 : 
 	if unequipped_weapons.size()>0:
@@ -106,9 +106,9 @@ func unload() -> void:
 	unequipped_weapons.clear()
 	#CHECK SI BESOIN DE INIT DE NOUVEAU
 
-func reinit_weapons():
+func reinit_weapons() -> void:
 	for i in weapon_scenes.size():
-		var scene = weapon_scenes[i]
+		var scene : Array =  weapon_scenes[i]
 		for j in weapons.size():
 			if scene[1] == weapons[j].weapon_scene_uid:
 				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()

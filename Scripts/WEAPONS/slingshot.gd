@@ -45,10 +45,10 @@ func shoot_from_pool()-> void :
 		can_shoot = false
 		fire_rate.start()
 
-		var target = get_nearest_target()
-		var bullet = get_bullet_from_pool()
-		var dir = fire_point.global_position.direction_to(target.global_position)
-		var angle = dir.angle()
+		var target : Node2D = get_nearest_target()
+		var bullet : AmmoREV = get_bullet_from_pool()
+		var dir : Vector2= fire_point.global_position.direction_to(target.global_position)
+		var angle : float = dir.angle()
 		bullet.fire(fire_point.global_position,dir,angle)
 
 func _on_fire_rate_timeout() -> void:
@@ -66,17 +66,17 @@ func get_bullet_from_pool() -> AmmoREV:
 
 func get_nearest_target() -> Node2D:
 	if targets.is_empty(): return
-	var nearest_target = targets[0]
-	var shorter_distance = nearest_target.global_position.distance_squared_to(fire_point.global_position)
+	var nearest_target : Node2D = targets[0]
+	var shorter_distance : float = nearest_target.global_position.distance_squared_to(fire_point.global_position)
 	for i in targets.size():
-		var target = targets[i]
-		var distance = target.global_position.distance_squared_to(fire_point.global_position)
+		var target : Node2D= targets[i]
+		var distance : float = target.global_position.distance_squared_to(fire_point.global_position)
 		if distance < shorter_distance :
 			nearest_target = target
 			shorter_distance = distance
 	return nearest_target
 
-func create_bullet_pool(nb_bullets: int):
+func create_bullet_pool(nb_bullets: int) -> void:
 	for i in nb_bullets:
 		var bullet : AmmoREV = BULLET.instantiate()
 		bullet.desactivate()
@@ -85,7 +85,7 @@ func create_bullet_pool(nb_bullets: int):
 	print(bullet_pool.size(), " bullets have been pooled")
 
 	
-func add_bullet_to_pool(bullet: AmmoREV):
+func add_bullet_to_pool(bullet: AmmoREV) -> void:
 	bullet_pool.append(bullet)
 	#print("enemy desactivated - pool size : ",enemies_pool.size())
 

@@ -27,5 +27,5 @@ func _on_timer_timeout() -> void:
 	if self:
 		queue_free()
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

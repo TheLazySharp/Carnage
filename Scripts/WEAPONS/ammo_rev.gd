@@ -3,11 +3,11 @@ extends Area2D
 
 @export var bullet_data: WeaponData
 
-var speed
-var max_range
-var damages
-var current_lvl
-var max_lvl
+var speed : float
+var max_range : float
+var damages : int
+var current_lvl : int
+var max_lvl : int
 #@onready var trail: CPUParticles2D = $VFX
 
 var velocity : Vector2
@@ -28,7 +28,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(bullet_data.current_level,0,max_lvl)
-	damages = bullet_data.dmg + (current_lvl * .1 * 28) #améliorer la formule d'augmentation des dégats
+	damages = roundi(bullet_data.dmg + (current_lvl * .1 * 28)) #améliorer la formule d'augmentation des dégats
 	
 
 
@@ -49,7 +49,7 @@ func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not game_paused:
-		var next_position = global_position + velocity * delta
+		var next_position : Vector2 = global_position + velocity * delta
 		global_position = next_position
 
 		
@@ -71,7 +71,7 @@ func _on_body_hit(body: Node2D) -> void:
 	elif body.is_in_group("walls"):
 		desactivate()
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 

@@ -40,12 +40,12 @@ func shoot_from_pool()-> void :
 	if !can_shoot: return
 	can_shoot = false
 	timer.start()
-	var start_angle = -((nb_ammo - 1) * bullet_spread_angle) * .5
+	var start_angle : float = -((nb_ammo - 1) * bullet_spread_angle) * .5
 	print("nb bullet before fire : ",bullet_pool.size())
 	for i in nb_ammo:
 		var angle : float = deg_to_rad(start_angle + i * bullet_spread_angle)
-		var bullet = get_bullet_from_pool()
-		var dir = Vector2.UP.rotated(angle)
+		var bullet : Bullet = get_bullet_from_pool()
+		var dir : Vector2 = Vector2.UP.rotated(angle)
 		bullet.fire(fire_point.global_position,dir,angle)
 		#print(i," / ",nb_ammo, " / ", bullet.visible)
 	print("nb bullet after fire : ",bullet_pool.size())
@@ -67,7 +67,7 @@ func get_bullet_from_pool() -> Bullet:
 
 
 
-func create_bullet_pool(nb_bullets: int):
+func create_bullet_pool(nb_bullets: int) -> void:
 	for i in nb_bullets:
 		var bullet : Bullet = BULLET.instantiate()
 		bullet.desactivate()
@@ -76,6 +76,6 @@ func create_bullet_pool(nb_bullets: int):
 	print(bullet_pool.size(), " arrows have been pooled")
 
 	
-func add_bullet_to_pool(bullet: Bullet):
+func add_bullet_to_pool(bullet: Bullet) -> void:
 	bullet_pool.append(bullet)
 	#print("enemy desactivated - pool size : ",enemies_pool.size())

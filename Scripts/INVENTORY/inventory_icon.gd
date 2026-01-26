@@ -20,6 +20,6 @@ func _ready() -> void:
 		self.texture = item.icon
 	
 
-func _draw():
+func _draw() -> void:
 	if item:
 		draw_texture_rect(item.icon,Rect2(position+ Vector2((32-item.icon.get_size().x) * .5, (32-item.icon.get_size().y) * .5),item.icon.get_size()),false)

@@ -78,8 +78,8 @@ func shoot_from_pool()-> void :
 			next_bullet = false
 			if nb_bullet <= nb_ammo:
 				var angle : float = player.rotation
-				var bullet = get_bullet_from_pool()
-				var dir = Vector2.RIGHT.rotated(angle)
+				var bullet : AmmoMG = get_bullet_from_pool()
+				var dir : Vector2 = Vector2.RIGHT.rotated(angle)
 				bullet.fire(fire_point.global_position,dir,angle)
 				#print(nb_bullet)
 		
@@ -109,7 +109,7 @@ func get_bullet_from_pool() -> AmmoMG:
 		bullet_pool.remove_at(0)
 	return bullet
 
-func create_bullet_pool(nb_bullets: int):
+func create_bullet_pool(nb_bullets: int) -> void:
 	for i in nb_bullets:
 		var bullet : AmmoMG = BULLET.instantiate()
 		bullet.desactivate()
@@ -118,8 +118,8 @@ func create_bullet_pool(nb_bullets: int):
 	print(bullet_pool.size(), "Mg bullets have been pooled")
 
 	
-func add_bullet_to_pool(bullet: AmmoMG):
+func add_bullet_to_pool(bullet: AmmoMG) -> void:
 	bullet_pool.append(bullet)
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

@@ -10,6 +10,6 @@ func _process(_delta: float) -> void:
 	#text = "Lvl " + str(player_xp_manager.current_level)
 	pass
 
-func _update_level(current_level):
+func _update_level(current_level : int) -> void:
 	text = "Lvl " + str(current_level)
 	print("new level received : ",current_level)

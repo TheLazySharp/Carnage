@@ -59,7 +59,7 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func level_up(new_current_level):
+func level_up(new_current_level : int) -> void:
 	prelevelling.show()
 	ok_button.grab_focus()
 	player_current_level = new_current_level
@@ -68,7 +68,7 @@ func level_up(new_current_level):
 
 
 
-func upgrade_weapons():
+func upgrade_weapons() -> void:
 	get_focus()
 	for i in slot_buttons.size():
 		if i < weapons.size():
@@ -89,11 +89,11 @@ func _on_skip_pressed() -> void:
 	hide()
 
 
-func get_focus():
+func get_focus() -> void:
 	slot_buttons[0].grab_focus()
 
 
-func _on_button_pressed(button_id) -> void:
+func _on_button_pressed(button_id : int) -> void:
 
 	if button_id < weapons.size():
 		weapon = weapons[button_id]
@@ -137,10 +137,10 @@ func _on_confirm_pressed() -> void:
 	else: return
 	
 
-func weapon_level_up(weapon_id: int):
+func weapon_level_up(weapon_id: int) -> void:
 	weapons[weapon_id].current_level +=1
 
-func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array, weapon_show : bool):
+func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array, weapon_show : bool) -> void:
 	new_weapon = new_weapon_to_equiped
 	unequiped_weapons = new_weapons_list
 	new_weapon_show = weapon_show

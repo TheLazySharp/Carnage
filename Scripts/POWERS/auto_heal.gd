@@ -1,11 +1,11 @@
 extends Node2D
 
 @export var heal_data : WeaponData
-var healing_power
+var healing_power : int
 var is_active:= true
-var auto_heal_rythme
-var current_lvl
-var max_lvl
+var auto_heal_rythme : float
+var current_lvl : int
+var max_lvl : int
 
 
 @onready var healing_timer: Timer = $HealingTimer
@@ -35,11 +35,11 @@ func _on_healing_timer_timeout() -> void:
 		is_active = true
 		auto_heal(healing_power)
 	
-func auto_heal(life_up):
+func auto_heal(life_up : int) -> void :
 	if "auto_heal" in beaver_sr and !game_paused:
 		healing_timer.start()
 		beaver_sr.auto_heal(life_up)
 		is_active = false
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

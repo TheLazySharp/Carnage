@@ -13,8 +13,8 @@ var i : int
 @onready var drift: Label = $Stats/Drift
 
 
-var first_scene = "uid://c6msxridefxxd"
-var menu_scene = "uid://gmjjc1vmgcds"
+var first_scene : String = "uid://c6msxridefxxd"
+var menu_scene : String = "uid://gmjjc1vmgcds"
 
 @onready var next: Button = $RightArrow/Next
 
@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 		update_car_data()
 	
 
-func update_car_data():
+func update_car_data() -> void:
 	displayed_car = CarManager.cars[i]
 	StatsManager.update_car_stats(displayed_car)
 	car_name.text = displayed_car.car_name

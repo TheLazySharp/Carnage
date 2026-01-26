@@ -1,9 +1,9 @@
 extends Marker2D
 
-@onready var label = get_node("Label")
-var this_label_text = 0
+@onready var label : Label = get_node("Label")
+var this_label_text : int = 0
 
-func _ready():
+func _ready() -> void:
 	label.set_text(str(this_label_text))
 
 func _on_timer_timeout() -> void:

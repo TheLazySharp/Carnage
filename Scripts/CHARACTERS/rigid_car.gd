@@ -3,26 +3,26 @@ extends CharacterBody2D
 var player : CarData
 
 #CAR DATA
-var acceleration
-var max_speed
-var friction
-var turn_speed
-var drift_grip
-var normal_grip
-var drift_turn_bonus
-var max_drift_damping
-var min_drift_speed
-var snap_grip
-var snap_speed
-var current_grip
-var was_drifting := false
-var skid_spacing
-var skid_lifetime
-var skid_fade_speed
-var max_life
-var dmg
-var velocity_floor
-var display_max_speed
+var acceleration : float
+var max_speed : int
+var friction : float
+var turn_speed : float
+var drift_grip : float
+var normal_grip : float
+var drift_turn_bonus : float
+var max_drift_damping : float
+var min_drift_speed : float
+var snap_grip : float
+var snap_speed : float
+var current_grip : float
+var was_drifting : bool = false
+var skid_spacing : float
+var skid_lifetime : float
+var skid_fade_speed : float
+var max_life : int
+var dmg : int
+var velocity_floor : int
+var display_max_speed : int
 var start_engine_sound : AudioStreamMP3
 @onready var car_sprite: Sprite2D = $CarSprite
 
@@ -123,7 +123,7 @@ func _process(_delta: float) -> void:
 		life_label.text = str(current_life) + "/" + str(max_life)
 	#update_stats()
 
-func _physics_process(delta):
+func _physics_process(delta : float) -> void:
 	if not game_paused and can_drive:
 		var forward := Vector2.RIGHT.rotated(rotation)
 		var lateral := forward.rotated(PI / 2)
@@ -148,7 +148,7 @@ func _physics_process(delta):
 
 		# ----------------- ROTATION -----------------
 		var speed := velocity.dot(forward)
-		var steer_factor = clamp(abs(speed) / max_speed, 0.25, 1.0)
+		var steer_factor : float = clamp(abs(speed) / max_speed, 0.25, 1.0)
 
 		if drifting:
 			steer *= drift_turn_bonus
@@ -168,7 +168,7 @@ func _physics_process(delta):
 
 		# ----------------- DAMPING NFSU2 -----------------
 		if drifting and abs(steer) > 0.05 and forward_velocity.length() > min_drift_speed:
-			var damping = lerp(0.0, max_drift_damping, slip_angle)
+			var damping : float = lerp(0.0, max_drift_damping, slip_angle)
 			forward_velocity *= (1.0 - damping * delta)
 
 		# ----------------- GRIP -----------------
@@ -220,7 +220,7 @@ func _physics_process(delta):
 		drifting_last_frame = drifting
 
 
-func start_skid():
+func start_skid() -> void:
 	if !game_paused:
 		left_line = create_skid_line()
 		right_line = create_skid_line()
@@ -261,7 +261,7 @@ func get_rear_center() -> Vector2:
 	return (rear_left.global_position + rear_right.global_position) * 0.5
 
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause :bool) -> void:
 	game_paused = game_on_pause
 	
 func take_damages(damages: int) -> void:
@@ -318,7 +318,7 @@ func _on_taking_damages_timeout() -> void:
 
 func _on_body_parts_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:
-		var enemy = area.get_parent()
+		var enemy : Enemy = area.get_parent()
 		if enemy.is_in_group("ennemies") and "get_damages" in enemy:
 			enemy.get_damages(dmg)
 		else : return
@@ -331,9 +331,9 @@ func _on_start_engine_finished() -> void:
 	await get_tree().create_timer(2).timeout
 	ready_go.hide()
 
-func _on_full_command(full_command : bool):
+func _on_full_command(full_command : bool) -> void:
 	if !full_command:
 		can_drive = false
 		
-func _on_forward_only(car_only_forward : bool):
+func _on_forward_only(car_only_forward : bool) -> void:
 	forward_only = car_only_forward

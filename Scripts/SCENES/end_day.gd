@@ -8,9 +8,9 @@ extends Control
 @onready var parts_quantity: Label = $Parts/PartsQuantity
 
 
-var garage_scene = "uid://cs311xlcqlrt0"
-var next_scene = "uid://c6msxridefxxd"
-var menu_scene = "uid://gmjjc1vmgcds"
+var garage_scene : String = "uid://cs311xlcqlrt0"
+var next_scene : String = "uid://c6msxridefxxd"
+var menu_scene : String= "uid://gmjjc1vmgcds"
 
 
 func _ready() -> void:

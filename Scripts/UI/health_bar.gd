@@ -27,5 +27,5 @@ func _on_animation_finished(anim: StringName) -> void:
 		if current_value == value:
 			animation_player.stop()
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

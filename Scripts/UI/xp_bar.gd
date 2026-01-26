@@ -13,10 +13,10 @@ func _process(_delta: float) -> void:
 	#max_value = player_xp_manager.current_level_target_xp
 	pass
 
-func _update_xp(current_xp)-> void:
+func _update_xp(current_xp : int)-> void:
 	value = current_xp
 	#print("current xp received = ",value)
 
-func _update_max_xp(max_xp) -> void:
+func _update_max_xp(max_xp : int) -> void:
 	max_value = max_xp
 	#print("current max xp received = ",max_value)

@@ -5,8 +5,8 @@ extends Control
 @onready var quit: Button = $VBoxContainer/Quit
 
 
-var car_selection = "uid://b0ibe3gvcqm4q"
-var menu_scene = "uid://gmjjc1vmgcds"
+var car_selection : String = "uid://b0ibe3gvcqm4q"
+var menu_scene : String= "uid://gmjjc1vmgcds"
 
 
 func _ready() -> void:

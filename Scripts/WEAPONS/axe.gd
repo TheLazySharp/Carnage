@@ -2,14 +2,14 @@ extends Area2D
 
 @export var axe_data : WeaponData
 
-var speed_rotation
-var speed
+var speed_rotation : float
+var speed : float
 var d := 0.0
-var radius
+var radius : float
 var offset_position: Vector2
-var dmg
-var dmg_on_resources
-var current_lvl
+var dmg : int
+var dmg_on_resources : int
+var current_lvl : int
 var max_lvl: int
 
 @onready var gm_scene: Node = $"/root/World/game_manager"
@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(axe_data.current_level,0,max_lvl)
-	dmg = axe_data.dmg + (current_lvl * .1 * 45) #améliorer la formule d'augmentation des dégats
+	dmg = roundi(axe_data.dmg + (current_lvl * .1 * 45)) #améliorer la formule d'augmentation des dégats
 
 func _physics_process(delta: float) -> void:
 	offset_position = get_parent().global_position
@@ -40,7 +40,7 @@ func _on_body_entered(body: Node2D) -> void:
 			body.get_damages(dmg)
 		else : return
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 

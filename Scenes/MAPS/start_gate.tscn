@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://drgsya7gbwrgk"]
+[gd_scene format=3 uid="uid://drgsya7gbwrgk"]
 
 [ext_resource type="Script" uid="uid://dwkuodh1i2f7c" path="res://Scripts/ITEMS/starting_gate.gd" id="1_nokyq"]
 [ext_resource type="Texture2D" uid="uid://cdkjtcaxrglrp" path="res://Assets/Props/BOSS_WRHSE-sheet.png" id="1_t157o"]
@@ -159,39 +159,39 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nokyq"]
 size = Vector2(10, 88)
 
-[node name="StartingGate" type="CharacterBody2D"]
+[node name="StartingGate" type="CharacterBody2D" unique_id=2130535962]
 collision_layer = 8
 collision_mask = 7
 script = ExtResource("1_nokyq")
 
-[node name="UpCollision" type="CollisionShape2D" parent="."]
+[node name="UpCollision" type="CollisionShape2D" parent="." unique_id=1664311723]
 shape = SubResource("SegmentShape2D_4h4ig")
 
-[node name="DownCollision" type="CollisionShape2D" parent="."]
+[node name="DownCollision" type="CollisionShape2D" parent="." unique_id=285272973]
 shape = SubResource("SegmentShape2D_qa4qg")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1963023055]
 shape = SubResource("RectangleShape2D_owa5c")
 disabled = true
 debug_color = Color(0.9495829, 3.85046e-06, 0.57516646, 0.41960785)
 
-[node name="WarpZone" type="Area2D" parent="."]
+[node name="WarpZone" type="Area2D" parent="." unique_id=263739394]
 position = Vector2(-34, 0)
 collision_layer = 8
 
-[node name="WarpShape" type="CollisionShape2D" parent="WarpZone"]
+[node name="WarpShape" type="CollisionShape2D" parent="WarpZone" unique_id=97822565]
 position = Vector2(11, 0)
 shape = SubResource("RectangleShape2D_xk2sk")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1763816433]
 sprite_frames = SubResource("SpriteFrames_f7vu6")
 animation = &"opening"
 autoplay = "opening"
 
-[node name="ExitZone" type="Area2D" parent="."]
+[node name="ExitZone" type="Area2D" parent="." unique_id=1684149838]
 collision_layer = 8
 
-[node name="ExitShape" type="CollisionShape2D" parent="ExitZone"]
+[node name="ExitShape" type="CollisionShape2D" parent="ExitZone" unique_id=788728747]
 position = Vector2(45, 0)
 shape = SubResource("RectangleShape2D_nokyq")
 

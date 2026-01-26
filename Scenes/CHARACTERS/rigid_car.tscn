@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bx50mtpiyyt2j"]
+[gd_scene format=3 uid="uid://bx50mtpiyyt2j"]
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_frphp"]
@@ -89,81 +89,81 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="RigidCar" type="CharacterBody2D" groups=["player"]]
-collision_mask = 522
+[node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
+collision_mask = 538
 script = ExtResource("1_rsha1")
 damages_text = ExtResource("2_frphp")
 
-[node name="CarSprite" type="Sprite2D" parent="."]
+[node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
 rotation = 1.5707964
 offset = Vector2(0, 12)
 
-[node name="CollisionShape" type="CollisionShape2D" parent="." groups=["player"]]
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
 z_as_relative = false
 position = Vector2(-3, 0)
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_mlgtv")
 
-[node name="CollisionShape2" type="CollisionShape2D" parent="." groups=["player"]]
+[node name="CollisionShape2" type="CollisionShape2D" parent="." unique_id=1721602903 groups=["player"]]
 z_as_relative = false
 position = Vector2(-22, 0)
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_mlgtv")
 
-[node name="RearLeft" type="Marker2D" parent="."]
+[node name="RearLeft" type="Marker2D" parent="." unique_id=269822107]
 position = Vector2(-26, -9)
 
-[node name="RearRight" type="Marker2D" parent="."]
+[node name="RearRight" type="Marker2D" parent="." unique_id=278920196]
 position = Vector2(-26, 9)
 
-[node name="CollectZone" type="Area2D" parent="." groups=["player"]]
+[node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
 visible = false
 collision_layer = 256
 collision_mask = 512
 
-[node name="CollectZone" type="CollisionShape2D" parent="CollectZone" groups=["player"]]
+[node name="CollectZone" type="CollisionShape2D" parent="CollectZone" unique_id=765999217 groups=["player"]]
 position = Vector2(-12, 0)
 shape = SubResource("CircleShape2D_rsha1")
 debug_color = Color(0.65457684, 0.5179122, 0, 0.41960785)
 
-[node name="TakingDamages" type="Timer" parent="."]
+[node name="TakingDamages" type="Timer" parent="." unique_id=331584337]
 wait_time = 0.3
 one_shot = true
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1336259982]
 visible = false
 collision_mask = 0
 
-[node name="Hitshape" type="CollisionShape2D" parent="Hitbox"]
+[node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532]
 position = Vector2(-12, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_hwwk2")
 disabled = true
 debug_color = Color(0.9344128, 0.1669651, 0.49408865, 0.41960785)
 
-[node name="BodyParts" type="Area2D" parent="." groups=["player"]]
+[node name="BodyParts" type="Area2D" parent="." unique_id=1322909894 groups=["player"]]
 visible = false
 collision_layer = 1024
 collision_mask = 2
 
-[node name="Right" type="CollisionShape2D" parent="BodyParts"]
+[node name="Right" type="CollisionShape2D" parent="BodyParts" unique_id=1287662315]
 position = Vector2(-12, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_o4qls")
 
-[node name="Weapons" type="Node2D" parent="."]
+[node name="Weapons" type="Node2D" parent="." unique_id=997323365]
 position = Vector2(7, 0)
 script = ExtResource("4_mlgtv")
 
-[node name="Audio" type="Node2D" parent="."]
+[node name="Audio" type="Node2D" parent="." unique_id=939854383]
 
-[node name="StartEngine" type="AudioStreamPlayer" parent="Audio"]
+[node name="StartEngine" type="AudioStreamPlayer" parent="Audio" unique_id=1712606456]
 stream = ExtResource("4_frphp")
 bus = &"SFX"
 
-[node name="VFX" type="Node2D" parent="."]
+[node name="VFX" type="Node2D" parent="." unique_id=1012362398]
 
-[node name="CarExplosion" type="AnimatedSprite2D" parent="VFX"]
+[node name="CarExplosion" type="AnimatedSprite2D" parent="VFX" unique_id=985797068]
 position = Vector2(-13, 0)
 sprite_frames = SubResource("SpriteFrames_tpuix")
 animation = &"Explosion"

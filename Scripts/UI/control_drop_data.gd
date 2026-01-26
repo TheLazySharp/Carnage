@@ -20,7 +20,7 @@ func _drop_data(_at_position: Vector2, _data: Variant) -> void:
 
 	#or quantity -1
 
-func update_drop_completion_status(drop_completed) -> void:
+func update_drop_completion_status(drop_completed : bool) -> void:
 	is_drop_completed = drop_completed
 	if is_drop_completed:
 		drop_tile_OK = false

@@ -46,7 +46,7 @@ func _process(_delta: float) -> void:
 	
 	available_upgrades = current_level - total_upgrades
 	
-func get_xp(xp) -> void:
+func get_xp(xp : int) -> void:
 	current_xp += xp
 	emit_signal("update_xp", current_xp)
 	

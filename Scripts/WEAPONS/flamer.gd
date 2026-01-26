@@ -1,11 +1,11 @@
 extends Area2D
 
 @export var flamer_data : WeaponData
-var dmg
+var dmg : int
 
-var cool_down
-var current_lvl
-var max_lvl
+var cool_down : float
+var current_lvl : int
+var max_lvl : int
 var fire:= true
 var is_firing:= false
 var burning: = true
@@ -33,7 +33,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(flamer_data.current_level,0,max_lvl)
-	dmg = flamer_data.dmg + (current_lvl * .1 * 28) #améliorer la formule d'augmentation des dégats
+	dmg = roundi(flamer_data.dmg + (current_lvl * .1 * 28)) #améliorer la formule d'augmentation des dégats
 	#if fire:
 		#throw_fire()
 	
@@ -55,10 +55,10 @@ func _process(_delta: float) -> void:
 	if is_firing and !game_paused and fire_rate.paused:
 		fire_rate.paused = false
 	
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
-func throw_fire():
+func throw_fire() -> void:
 	if flamer_data.weapon_is_active:
 		is_firing = true
 		sprite.play("fire_start")
@@ -67,7 +67,7 @@ func throw_fire():
 
 
 
-func burn_enemies():
+func burn_enemies() -> void:
 	if !targets.is_empty() and burning:
 		burning = false
 		burn_rate.start()

@@ -44,6 +44,6 @@ func drop_item()-> void:
 
 
 
-func update_selection(item_selected) -> void:
+func update_selection(item_selected : int) -> void:
 	selection = item_selected
 	print("tilemap received i : ",selection)

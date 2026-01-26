@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://qeeykcnwceiw"]
+[gd_scene format=3 uid="uid://qeeykcnwceiw"]
 
 [ext_resource type="Script" uid="uid://djapeldd1re2" path="res://Scripts/INVENTORY/selection_wheel.gd" id="1_w8kca"]
 
-[node name="SelectionWheel" type="Control"]
+[node name="SelectionWheel" type="Control" unique_id=487257703]
 visible = false
 layout_mode = 3
 anchors_preset = 8

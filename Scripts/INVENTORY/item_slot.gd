@@ -14,7 +14,7 @@ signal dropped_item(item_dropped : ItemData)
 @onready var no_item_mask: ColorRect = $NoItemMask
 
 @onready var selection_wheel: Control = $"/root/World/CanvasLayer/SelectionWheel"
-var selection:int = -1
+var selection: int = -1
 
 
 func _ready() -> void:
@@ -55,8 +55,8 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 	if item == null or item.quantity == 0:
 		return
 	
-	var preview = duplicate()
-	var c = Control.new()
+	var preview : Node = duplicate()
+	var c : Control = Control.new()
 	c.add_child(preview)
 	preview.position -= Vector2(16,16) #half of the tile size
 	preview.self_modulate = Color.TRANSPARENT
@@ -67,7 +67,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 	emit_signal("dropped_item", item)
 	return self
 
-func update_selection(item_selected) -> void:
+func update_selection(item_selected : int) -> void:
 	selection = item_selected
 	#print("icon received i : ",selection)
 	

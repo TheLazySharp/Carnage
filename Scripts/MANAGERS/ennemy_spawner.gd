@@ -23,16 +23,16 @@ func _process(_delta: float) -> void:
 	zombies_q.text = str(nb_active_enemies)
 	
 	
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 	
 
 func _on_timer_timeout() -> void:
-	if not game_paused and auto_spawn:
-		var r = RandomNumberGenerator.new().randi_range(0,10)
+	if not game_paused and auto_spawn and nb_active_enemies <= max_enemy_count:
+		var r : int = RandomNumberGenerator.new().randi_range(0,10)
 		for spawn_point in self.get_children():
 			if spawn_point.name.to_int() == r and spawn_point.is_class("Marker2D"):
-				var enemy = create_enemies()
+				var enemy : Enemy = create_enemies()
 				enemy.activate(spawn_point.global_position)
 				#print("enemy spawned on : ",spawn_point)
 

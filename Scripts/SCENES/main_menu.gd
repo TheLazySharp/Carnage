@@ -4,7 +4,7 @@ extends Control
 @onready var quit: Button = $VBoxContainer/Quit
 
 
-var car_selection = "uid://b0ibe3gvcqm4q"
+var car_selection : String = "uid://b0ibe3gvcqm4q"
 
 func _ready() -> void:
 	start.grab_focus()

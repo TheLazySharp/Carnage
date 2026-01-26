@@ -25,14 +25,14 @@ func _process(_delta: float) -> void:
 	zombies_q.text = str(nb_active_enemies)
 	
 	
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 	
 
 func _on_timer_timeout() -> void:
 	if not game_paused and auto_spawn:
 		#var random_spawn_point : Node2D
-		var r = RandomNumberGenerator.new().randi_range(0,10)
+		var r : int = RandomNumberGenerator.new().randi_range(0,10)
 		for spawn_point in self.get_children():
 			if spawn_point.name.to_int() == r and spawn_point.is_class("Marker2D"):
 				pick_enemy_from_pool(Vector2(spawn_point.global_position.x,spawn_point.global_position.y))
@@ -43,7 +43,7 @@ func pick_enemy_from_pool(starting_position: Vector2) -> void:
 	get_enemy_from_pool().activate(starting_position)
 
 
-func create_enemies_pool(nb_enemies: int):
+func create_enemies_pool(nb_enemies: int) -> void:
 	for i in nb_enemies:
 		var enemy : Enemy = ENEMY.instantiate()
 		enemy.desactivate()
@@ -63,7 +63,7 @@ func get_enemy_from_pool() -> Enemy:
 		enemies_pool.remove_at(0)
 	return enemy
 	
-func add_enemy_to_pool(enemy: Enemy):
+func add_enemy_to_pool(enemy: Enemy) -> void:
 	enemies_pool.append(enemy)
 	
 func activated_enemies(n : int) -> int:

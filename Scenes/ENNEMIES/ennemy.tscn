@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://c31g0smlywes2"]
+[gd_scene load_steps=61 format=3 uid="uid://c31g0smlywes2"]
 
 [ext_resource type="Script" uid="uid://b2k0wdgpd2gde" path="res://Scripts/CHARACTERS/ennemy.gd" id="1_uq27j"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_gvr15"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://b1uim3nohmup7" path="res://Assets/Characters/Enemies/zombie01_walk_LEFT.png" id="6_aj7fl"]
 [ext_resource type="Texture2D" uid="uid://qscn8atwc0hm" path="res://Assets/Characters/Enemies/zombie01_walk_RIGHT.png" id="7_63ifu"]
 [ext_resource type="Texture2D" uid="uid://iqs8u821hvqq" path="res://Assets/Characters/Enemies/zombie01_walk_UP.png" id="8_57ln3"]
+[ext_resource type="Script" uid="uid://sn54tu4gkdhw" path="res://Scripts/STATES/enemy_sm.gd" id="9_63ifu"]
+[ext_resource type="Script" uid="uid://bfe53jrbcnaeb" path="res://Scripts/STATES/enemy_idle.gd" id="10_57ln3"]
+[ext_resource type="Script" uid="uid://bfuqfd7v7wobh" path="res://Scripts/STATES/enemy_chase.gd" id="11_oxihe"]
+[ext_resource type="Script" uid="uid://doxsywpwh6db7" path="res://Scripts/STATES/enemy_horde.gd" id="12_vuwk1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6oam"]
 atlas = ExtResource("5_0akt1")
@@ -348,6 +352,9 @@ height = 10.0
 radius = 11.0
 height = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_oxihe"]
+radius = 142.00352
+
 [node name="Ennemy" type="CharacterBody2D" groups=["ennemies"]]
 z_index = 20
 z_as_relative = false
@@ -368,6 +375,7 @@ animation = &"right"
 autoplay = "up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["ennemies"]]
+visible = false
 shape = SubResource("CapsuleShape2D_1b0bn")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -378,10 +386,9 @@ path_metadata_flags = 0
 simplify_path = true
 simplify_epsilon = 10.0
 
-[node name="path_Timer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="PathTimer" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
-autostart = true
 
 [node name="MarkerDamages" type="Marker2D" parent="."]
 position = Vector2(0, -22)
@@ -395,6 +402,7 @@ wait_time = 0.1
 wait_time = 0.3
 
 [node name="Hitbox" type="Area2D" parent="." groups=["ennemies"]]
+visible = false
 z_index = 21
 collision_layer = 2
 collision_mask = 9220
@@ -405,9 +413,32 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_gvr15")
 debug_color = Color(0.88270926, 0.06722261, 0.79457116, 0.41960785)
 
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("9_63ifu")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("10_57ln3")
+metadata/_custom_type_script = "uid://bfe53jrbcnaeb"
+
+[node name="Chase" type="Node" parent="StateMachine"]
+script = ExtResource("11_oxihe")
+metadata/_custom_type_script = "uid://bfuqfd7v7wobh"
+
+[node name="Horde" type="Node" parent="StateMachine"]
+script = ExtResource("12_vuwk1")
+metadata/_custom_type_script = "uid://doxsywpwh6db7"
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_oxihe")
+
 [connection signal="tree_exited" from="." to="." method="_on_ennemy_death"]
-[connection signal="timeout" from="path_Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PathTimer" to="StateMachine/Chase" method="_on_path_timer_timeout"]
 [connection signal="timeout" from="DamageTimer_Get" to="." method="_on_damage_timer_timeout"]
 [connection signal="timeout" from="DamageTimer_OnPlayer" to="." method="_on_damage_timer_on_player_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_exited"]
+[connection signal="body_entered" from="DetectionArea" to="StateMachine/Idle" method="_on_detection_area_body_entered"]

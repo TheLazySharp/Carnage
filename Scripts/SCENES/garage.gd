@@ -4,7 +4,7 @@ var car := CarManager.selected_car
 	#----------TEST---------------#
 #var car : CarData
 
-var end_oy_day_scene:= "uid://dkpvtoel7hhai"
+var end_oy_day_scene : String = "uid://dkpvtoel7hhai"
 
 #CAR
 @onready var car_name: Label = $StatPanel/CarName
@@ -38,7 +38,7 @@ var carbon_base_lvl: int
 var tank_base_lvl: int
 
 var total_upgrade_cost:=0
-@onready var base_available_upgrades = XPManager.available_upgrades
+@onready var base_available_upgrades : int = XPManager.available_upgrades
 
 
 #GEAR PARTS
@@ -92,6 +92,7 @@ func _ready() -> void:
 	turbo_base_lvl = car.turbo_lvl
 	shield_base_lvl = car.shield_lvl
 	carbon_base_lvl = car.carbon_lvl
+	tank_base_lvl = car.tank_lvl
 	
 	car_name.text = car.car_name
 	car_icon.texture = car.car_sprite
@@ -115,7 +116,7 @@ func _process(_delta: float) -> void:
 
 
 
-func update_stats():
+func update_stats() -> void:
 	StatsManager.update_car_stats(car)
 	
 	fuel_lvl.text = str(car.max_life)
@@ -134,6 +135,7 @@ func update_stats():
 	turbo_lvl.text = "Lvl " + str(car.turbo_lvl)
 	shield_lvl.text = "Lvl " + str(car.shield_lvl)
 	carbon_lvl.text = "Lvl " + str(car.carbon_lvl)
+	tank_lvl.text = "Lvl " + str(car.tank_lvl)
 	
 	availupgrade.text = str(XPManager.available_upgrades)
 	requested_q.text = str(XPManager.upgrade_cost)

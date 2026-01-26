@@ -42,19 +42,19 @@ func pause_status()-> void:
 			pause_manager.hide()
 		else: return
 
-func _update_game_over(game_over):
+func _update_game_over(game_over : bool) -> void:
 	game_is_over = game_over
 	if game_is_over:
 		SceneManager.load_level(game_over_scene)
 
-func _update_pause_status(day_ended):
+func _update_pause_status(day_ended : bool) -> void:
 	game_on_pause = day_ended
 
-func _update_ingame_pause(ingame_pause):
+func _update_ingame_pause(ingame_pause : bool) -> void:
 	game_on_pause = ingame_pause
 	pause_status()
 
-func _leveling_pause(leveling_pause):
+func _leveling_pause(leveling_pause : bool) -> void:
 	game_on_pause = leveling_pause
 	emit_signal("game_paused", game_on_pause)
 	

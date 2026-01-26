@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://d4e12yx6gttoi"]
+[gd_scene format=3 uid="uid://d4e12yx6gttoi"]
 
 [ext_resource type="Texture2D" uid="uid://b13sboa2xorxd" path="res://Assets/VFX/white_stain_10R.png" id="1_7qjkv"]
 [ext_resource type="Script" uid="uid://cxsws31tqd1ei" path="res://Scripts/VFX/blood_particles.gd" id="2_piaeq"]
 
-[node name="BloodParticles" type="CPUParticles2D"]
+[node name="BloodParticles" type="CPUParticles2D" unique_id=627298022]
 z_as_relative = false
 amount = 5
 texture = ExtResource("1_7qjkv")
@@ -24,7 +24,7 @@ angle_max = 45.0
 color = Color(0.513617, 0.0005715767, 0.00031313868, 1)
 script = ExtResource("2_piaeq")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=506954702]
 wait_time = 5.0
 one_shot = true
 autostart = true

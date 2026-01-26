@@ -3,11 +3,11 @@ extends Area2D
 
 @export var arrow_data: WeaponData
 
-var speed
-var max_range
-var damages
-var current_lvl
-var max_lvl
+var speed : float
+var max_range : float
+var damages : int
+var current_lvl : int
+var max_lvl : int
 @onready var trail: CPUParticles2D = $VFX
 
 var velocity : Vector2
@@ -48,7 +48,7 @@ func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not game_paused:
-		var next_position = global_position + velocity * delta
+		var next_position : Vector2 = global_position + velocity * delta
 		global_position = next_position
 		#if self.global_position.y <= (self.start_position.y - 50) :
 			#trail.global_position = global_position
@@ -72,7 +72,7 @@ func _on_area_hit(_area: Area2D) -> void:
 func _on_body_hit(body: Node2D) -> void:
 	if "get_damages" in body and body.is_in_group("ennemies") and is_active and body.visible:
 		current_lvl = clampi(arrow_data.current_level,0,max_lvl)
-		damages = arrow_data.dmg + (current_lvl * .1 * 28) #améliorer la formule d'augmentation des dégats
+		damages = roundi(arrow_data.dmg + (current_lvl * .1 * 28)) #améliorer la formule d'augmentation des dégats
 		body.get_damages(damages)
 		trail.emit_signal("finished")
 		desactivate()
@@ -81,7 +81,7 @@ func _on_body_hit(body: Node2D) -> void:
 		trail.emit_signal("finished")
 		desactivate()
 
-func _on_game_paused(game_on_pause) -> void:
+func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 

@@ -8,11 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="CARNAGE"
 run/main_scene="uid://gmjjc1vmgcds"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://Assets/icon.svg"
 
 [autoload]
@@ -24,6 +28,10 @@ InventoryManager="*res://Autoloads/inventory_manager.gd"
 WeaponsManager="*res://Autoloads/weapons_manager.gd"
 CarManager="*res://Autoloads/cars_manager.gd"
 StatsManager="*res://Autoloads/stats_manager.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
 
 [display]
 
@@ -217,9 +225,8 @@ go_previous={
 2d_physics/layer_2="ennemy"
 2d_physics/layer_3="bullet"
 2d_physics/layer_4="walls"
-2d_physics/layer_5="juniorRadar"
+2d_physics/layer_5="enemyDetection"
 2d_physics/layer_6="ressources"
-2d_physics/layer_7="juniorHit"
 2d_physics/layer_8="healingzone"
 2d_physics/layer_9="collectzones"
 2d_physics/layer_10="collectables"
@@ -227,6 +234,10 @@ go_previous={
 2d_physics/layer_12="farmzone"
 2d_physics/layer_13="resourceRange"
 2d_physics/layer_14="weaponRange"
+
+[physics]
+
+2d/solver/solver_iterations=8
 
 [rendering]
 
