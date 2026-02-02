@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://c31g0smlywes2"]
+[gd_scene format=3 uid="uid://c31g0smlywes2"]
 
 [ext_resource type="Script" uid="uid://b2k0wdgpd2gde" path="res://Scripts/CHARACTERS/ennemy.gd" id="1_uq27j"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_gvr15"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bfe53jrbcnaeb" path="res://Scripts/STATES/enemy_idle.gd" id="10_57ln3"]
 [ext_resource type="Script" uid="uid://bfuqfd7v7wobh" path="res://Scripts/STATES/enemy_chase.gd" id="11_oxihe"]
 [ext_resource type="Script" uid="uid://doxsywpwh6db7" path="res://Scripts/STATES/enemy_horde.gd" id="12_vuwk1"]
+[ext_resource type="Script" uid="uid://c6cihr87a2nuw" path="res://Scripts/STATES/enemy_attack.gd" id="13_pgnhj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c6oam"]
 atlas = ExtResource("5_0akt1")
@@ -355,18 +356,19 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_oxihe"]
 radius = 142.00352
 
-[node name="Ennemy" type="CharacterBody2D" groups=["ennemies"]]
+[node name="Ennemy" type="CharacterBody2D" unique_id=1186896104 groups=["ennemies"]]
 z_index = 20
 z_as_relative = false
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 9
+motion_mode = 1
 script = ExtResource("1_uq27j")
 damages_text = ExtResource("2_gvr15")
 xp_scene = ExtResource("3_1b0bn")
 blood_particles = ExtResource("4_0akt1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=313442171]
 z_as_relative = false
 y_sort_enabled = true
 scale = Vector2(0.7, 0.7)
@@ -374,69 +376,70 @@ sprite_frames = SubResource("SpriteFrames_j5v2q")
 animation = &"right"
 autoplay = "up"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["ennemies"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324095049 groups=["ennemies"]]
 visible = false
 shape = SubResource("CapsuleShape2D_1b0bn")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=748882352]
 path_desired_distance = 5.0
-target_desired_distance = 5.0
+path_max_distance = 150.0
 path_postprocessing = 1
 path_metadata_flags = 0
 simplify_path = true
 simplify_epsilon = 10.0
+debug_enabled = true
 
-[node name="PathTimer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
-
-[node name="MarkerDamages" type="Marker2D" parent="."]
+[node name="MarkerDamages" type="Marker2D" parent="." unique_id=851039847]
 position = Vector2(0, -22)
 
-[node name="DamageTimer_Get" type="Timer" parent="."]
+[node name="DamageTimer_Get" type="Timer" parent="." unique_id=947202453]
 wait_time = 0.1
 
-[node name="Visuals" type="Node" parent="."]
+[node name="Visuals" type="Node" parent="." unique_id=40556897]
 
-[node name="DamageTimer_OnPlayer" type="Timer" parent="."]
+[node name="DamageTimer_OnPlayer" type="Timer" parent="." unique_id=340256879]
 wait_time = 0.3
 
-[node name="Hitbox" type="Area2D" parent="." groups=["ennemies"]]
+[node name="Hitbox" type="Area2D" parent="." unique_id=326414836 groups=["ennemies"]]
 visible = false
 z_index = 21
 collision_layer = 2
 collision_mask = 9220
 
-[node name="HitShape" type="CollisionShape2D" parent="Hitbox" groups=["ennemies"]]
+[node name="HitShape" type="CollisionShape2D" parent="Hitbox" unique_id=1084871669 groups=["ennemies"]]
 position = Vector2(2, -1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_gvr15")
 debug_color = Color(0.88270926, 0.06722261, 0.79457116, 0.41960785)
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=1142951743 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("9_63ifu")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1940536822]
 script = ExtResource("10_57ln3")
 metadata/_custom_type_script = "uid://bfe53jrbcnaeb"
 
-[node name="Chase" type="Node" parent="StateMachine"]
+[node name="Chase" type="Node" parent="StateMachine" unique_id=1105129892]
 script = ExtResource("11_oxihe")
 metadata/_custom_type_script = "uid://bfuqfd7v7wobh"
 
-[node name="Horde" type="Node" parent="StateMachine"]
+[node name="Horde" type="Node" parent="StateMachine" unique_id=24146772]
 script = ExtResource("12_vuwk1")
 metadata/_custom_type_script = "uid://doxsywpwh6db7"
 
-[node name="DetectionArea" type="Area2D" parent="."]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=426153517]
+script = ExtResource("13_pgnhj")
+metadata/_custom_type_script = "uid://c6cihr87a2nuw"
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1507323193]
 collision_layer = 16
 
-[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea"]
+[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=1057956329]
 shape = SubResource("CircleShape2D_oxihe")
 
 [connection signal="tree_exited" from="." to="." method="_on_ennemy_death"]
-[connection signal="timeout" from="PathTimer" to="StateMachine/Chase" method="_on_path_timer_timeout"]
+[connection signal="target_reached" from="NavigationAgent2D" to="StateMachine/Chase" method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="DamageTimer_Get" to="." method="_on_damage_timer_timeout"]
 [connection signal="timeout" from="DamageTimer_OnPlayer" to="." method="_on_damage_timer_on_player_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_entered"]

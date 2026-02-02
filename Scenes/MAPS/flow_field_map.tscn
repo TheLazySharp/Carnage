@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cyg3iq6oddcld"]
+
+[ext_resource type="Texture2D" uid="uid://dfuy1xjv56bej" path="res://Assets/UI/flow_field_arrows.png" id="1_pdvcm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wklop"]
+texture = ExtResource("1_pdvcm")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tk0nn"]
+sources/0 = SubResource("TileSetAtlasSource_wklop")
+
+[node name="FlowFieldMap" type="TileMapLayer" unique_id=1993194370]
+tile_set = SubResource("TileSet_tk0nn")

@@ -7,6 +7,7 @@ var damages_on_player: float = 1
 var speed: float = 40
 var player: Node = null
 var is_from_the_horde:=false
+var nb_xp: int =1
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -31,6 +32,7 @@ var game_paused:=false
 @onready var collision_box: CollisionShape2D = $CollisionShape2D
 
 @export var blood_particles : PackedScene = null
+
 
 func _ready() -> void:
 	randomize()
@@ -89,12 +91,15 @@ func _on_game_paused(game_on_pause : bool) -> void:
 func on_death() -> void:
 	blow_up(global_position)
 	collision_box.set_deferred("disabled",true)
-	var xp :=xp_scene.instantiate()
-	get_parent().add_child(xp)
-	xp.spawn(global_position)
+	if nb_xp ==1:
+		nb_xp = 0
+		var xp :=xp_scene.instantiate()
+		get_parent().add_child(xp)
+		xp.spawn(global_position)
 	ennemy_spawner.activated_enemies(-1)
 	StatsManager.frags +=1
-	queue_free()
+	SignalManager.emit_signal("enemy_is_dead",self)
+	
 
 func _on_hitbox_entered(area: Area2D) -> void:
 	if not area.is_in_group("player"): return #mettre junior dedans

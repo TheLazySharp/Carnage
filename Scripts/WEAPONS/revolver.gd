@@ -3,7 +3,7 @@ extends Node2D
 const BULLET = preload("uid://dww6b787qn3x0")
 
 
-@export var slingshot_data: WeaponData
+@export var revolver_data: WeaponData
 
 @onready var fire_rate: Timer = $FireRate
 @onready var fire_point: Marker2D = $FirePoint
@@ -22,26 +22,26 @@ var targets: Array[Node2D]
 
 
 func _ready() -> void:
-	if slingshot_data.bonus:
+	if revolver_data.bonus:
 		bonus_bullet = 35
 	else : bonus_bullet = 0
-	fire_rate.wait_time = slingshot_data.fire_rate
-	max_lvl = slingshot_data.max_level
-	fire_range.shape.radius = slingshot_data.radius
+	fire_rate.wait_time = revolver_data.fire_rate
+	max_lvl = revolver_data.max_level
+	fire_range.shape.radius = revolver_data.radius
 	create_bullet_pool(max_bullet_count)
 
 func _process(_delta: float) -> void:
-	current_lvl = clampi(slingshot_data.current_level,0,max_lvl)
-	nb_ammo = slingshot_data.nb_ammo + current_lvl + bonus_bullet
+	current_lvl = clampi(revolver_data.current_level,0,max_lvl)
+	nb_ammo = revolver_data.nb_ammo + current_lvl + bonus_bullet
 	shoot_from_pool()
 
 func _physics_process(_delta: float) -> void:
 	global_position = get_parent().global_position
 
 func shoot_from_pool()-> void :
-	if !can_shoot: return
+	if !can_shoot or !revolver_data.weapon_is_active: return
 	if targets.is_empty(): return
-	elif slingshot_data.weapon_is_active:
+	elif revolver_data.weapon_is_active:
 		can_shoot = false
 		fire_rate.start()
 

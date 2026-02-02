@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
 [ext_resource type="Texture2D" uid="uid://rnoitvnqcl3t" path="res://Assets/VFX/EXPLO-sheet.png" id="6_m5ekh"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mlgtv"]
-radius = 11.045361
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
+height = 42.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsha1"]
 radius = 28.01785
@@ -91,6 +91,12 @@ animations = [{
 
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
 collision_mask = 538
+motion_mode = 1
+wall_min_slide_angle = 1.3962634
+platform_on_leave = 2
+platform_floor_layers = 0
+platform_wall_layers = 8
+safe_margin = 0.2
 script = ExtResource("1_rsha1")
 damages_text = ExtResource("2_frphp")
 
@@ -100,15 +106,9 @@ offset = Vector2(0, 12)
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
 z_as_relative = false
-position = Vector2(-3, 0)
+position = Vector2(-12, 0)
 rotation = 1.5707964
-shape = SubResource("CircleShape2D_mlgtv")
-
-[node name="CollisionShape2" type="CollisionShape2D" parent="." unique_id=1721602903 groups=["player"]]
-z_as_relative = false
-position = Vector2(-22, 0)
-rotation = 1.5707964
-shape = SubResource("CircleShape2D_mlgtv")
+shape = SubResource("CapsuleShape2D_ly7qr")
 
 [node name="RearLeft" type="Marker2D" parent="." unique_id=269822107]
 position = Vector2(-26, -9)

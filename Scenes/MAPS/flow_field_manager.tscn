@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cw24hp3lk0hkn"]
+
+[ext_resource type="Script" uid="uid://c8gh4x8kgukrb" path="res://Scripts/zFlowFields/flow_field_manager.gd" id="1_am3sn"]
+
+[node name="FlowFieldManager" type="Node2D" unique_id=833201185]
+script = ExtResource("1_am3sn")
+field_size = Vector2(64, 64)
+show_debug_arrows = true
+
+[node name="Refresher" type="Timer" parent="." unique_id=220569646]
+autostart = true
+
+[connection signal="timeout" from="Refresher" to="." method="_on_refresher_timeout"]

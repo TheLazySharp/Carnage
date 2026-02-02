@@ -19,3 +19,4 @@ func unload_game() -> void:
 	XPManager.unload()
 	WeaponsManager.unload()
 	InventoryManager.unload()
+	StatsManager.unload()

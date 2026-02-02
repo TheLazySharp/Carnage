@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dww6b787qn3x0"]
+[gd_scene format=3 uid="uid://dww6b787qn3x0"]
 
 [ext_resource type="Script" uid="uid://bg5e1pk6xqu8m" path="res://Scripts/WEAPONS/ammo_rev.gd" id="1_wseha"]
 [ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/bullet.tres" id="2_1y1lp"]
@@ -8,7 +8,7 @@
 radius = 2.0
 height = 7.9999995
 
-[node name="Bullet" type="Area2D" groups=["bullets"]]
+[node name="Bullet" type="Area2D" unique_id=1598410154 groups=["bullets"]]
 z_as_relative = false
 scale = Vector2(0.5, 0.5)
 collision_layer = 4
@@ -16,14 +16,14 @@ collision_mask = 10
 script = ExtResource("1_wseha")
 bullet_data = ExtResource("2_1y1lp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1682892409]
 modulate = Color(1.353256, 1.353256, 1.353256, 1)
 z_as_relative = false
 position = Vector2(2, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4v88u")
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=6404617]
 z_as_relative = false
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_4v88u")

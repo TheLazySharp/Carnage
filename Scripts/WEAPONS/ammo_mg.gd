@@ -12,7 +12,7 @@ var max_lvl : int
 var velocity : Vector2
 var start_position : Vector2
 
-@onready var parent_weapon: Node2D = $/root/World/Car/Weapons/Minigun
+@onready var parent_weapon: Node2D = $"/root/World/Car/Weapons/Minigun"
 
 @onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:= false

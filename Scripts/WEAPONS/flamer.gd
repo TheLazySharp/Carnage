@@ -59,6 +59,7 @@ func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 func throw_fire() -> void:
+	if !flamer_data.weapon_is_active: return
 	if flamer_data.weapon_is_active:
 		is_firing = true
 		sprite.play("fire_start")

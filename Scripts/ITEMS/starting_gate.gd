@@ -39,13 +39,11 @@ func _process(_delta: float) -> void:
 func _on_warp_zone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and day_ended:
 		body.global_position = self.global_position
-		if !WeaponsManager.weapons.is_empty():
-			for i in WeaponsManager.weapons.size():
-				WeaponsManager.weapons[i].weapon_is_active = false
+		WeaponsManager.activate_weapons(false)
 		sprite.play("closing")
 		car_ok = false
 		emit_signal("full_command", car_ok)
-		await get_tree().create_timer(4).timeout
+		await get_tree().create_timer(3).timeout
 		SceneManager.load_level(end_day_scene)
 
 

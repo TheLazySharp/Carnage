@@ -112,6 +112,7 @@ func _ready() -> void:
 	life_bar.value = current_life
 	life_label.text = str(current_life) + "/" + str(max_life)
 	print(rotation)
+	
 	if visible:
 		ready_go.show()
 		ready_go.text = "READY ?"
@@ -185,8 +186,14 @@ func _physics_process(delta : float) -> void:
 		velocity = forward_velocity + lateral_velocity
 
 		was_drifting = drifting
-		move_and_slide()
+		
+		var collision : KinematicCollision2D = move_and_collide(velocity * delta)
+		
+		if collision:
+			var n := collision.get_normal()
+			velocity = velocity.slide(n)*0.5
 
+		
 		#SKIDS
 		if drifting and not drifting_last_frame:
 			start_skid()
@@ -283,6 +290,8 @@ func take_damages(damages: int) -> void:
 		
 func play_death() -> void:
 	is_taking_damages = false
+	WeaponsManager.activate_weapons(false)
+	WeaponsManager.unload()
 	car_sprite.hide()
 	car_explosion.play("Explosion")
 	game_is_over = true
@@ -327,6 +336,7 @@ func _on_body_parts_area_entered(area: Area2D) -> void:
 func _on_start_engine_finished() -> void:
 	can_drive = true
 	emit_signal("start_time", can_drive)
+	WeaponsManager.activate_weapons(true)
 	ready_go.text = "GO !"
 	await get_tree().create_timer(2).timeout
 	ready_go.hide()

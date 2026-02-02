@@ -113,3 +113,8 @@ func reinit_weapons() -> void:
 			if scene[1] == weapons[j].weapon_scene_uid:
 				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
 				get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
+
+func activate_weapons(active: bool)-> void:
+	if !weapons.is_empty():
+		for i in weapons.size():
+			weapons[i].weapon_is_active = active

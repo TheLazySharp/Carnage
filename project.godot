@@ -28,6 +28,7 @@ InventoryManager="*res://Autoloads/inventory_manager.gd"
 WeaponsManager="*res://Autoloads/weapons_manager.gd"
 CarManager="*res://Autoloads/cars_manager.gd"
 StatsManager="*res://Autoloads/stats_manager.gd"
+SignalManager="*uid://b24sd62rqu8jc"
 
 [debug]
 
@@ -237,6 +238,7 @@ go_previous={
 
 [physics]
 
+2d/physics_engine="GodotPhysics2D"
 2d/solver/solver_iterations=8
 
 [rendering]

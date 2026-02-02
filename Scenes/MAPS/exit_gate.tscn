@@ -159,7 +159,6 @@ script = ExtResource("1_neajv")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1603290278]
 shape = SubResource("RectangleShape2D_owa5c")
-disabled = true
 debug_color = Color(0.9495829, 3.85046e-06, 0.57516646, 0.41960785)
 
 [node name="WarpZone" type="Area2D" parent="." unique_id=1728789634]
@@ -173,7 +172,6 @@ shape = SubResource("RectangleShape2D_xk2sk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=211758734]
 sprite_frames = SubResource("SpriteFrames_f7vu6")
 animation = &"opening"
-autoplay = "opening"
 
 [node name="ExitZone" type="Area2D" parent="." unique_id=1746456161]
 collision_layer = 8

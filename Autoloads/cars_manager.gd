@@ -12,10 +12,10 @@ const SEDAN = preload("uid://dubbw5mialr30")
 
 
 func _ready() -> void:
+	cars.append(SEDAN)
 	cars.append(PICKUP_WHITE)
 	cars.append(VIPER_BLK)
 	cars.append(POLICE)
 	cars.append(TAXI)
-	cars.append(SEDAN)
 	
 	#selected_car = cars[0]

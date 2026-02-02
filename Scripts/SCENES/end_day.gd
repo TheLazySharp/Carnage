@@ -26,6 +26,7 @@ func _on_upgrades_pressed() -> void:
 
 func _on_next_day_pressed() -> void:
 	SceneManager.load_level(next_scene)
+	WeaponsManager.activate_weapons(true)
 
 
 func _on_menu_pressed() -> void:

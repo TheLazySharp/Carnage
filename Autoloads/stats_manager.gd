@@ -21,3 +21,6 @@ func update_car_stats(car : CarData) -> void:
 		car.max_life = car.base_max_life + car.shield_lvl * 5 + car.tank_lvl * 10
 		car.display_max_speed = car.base_display_max_speed + car.engine_lvl * 5
 		car.dmg = car.base_dmg + car.shield_lvl * 5
+
+func unload() -> void:
+	frags = 0

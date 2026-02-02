@@ -1,24 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf606njwyoo0l"]
+[gd_scene format=3 uid="uid://bf606njwyoo0l"]
 
-[ext_resource type="Script" uid="uid://b3l5ddu70je5u" path="res://Scripts/WEAPONS/slingshot.gd" id="1_c46wd"]
+[ext_resource type="Script" uid="uid://b3l5ddu70je5u" path="res://Scripts/WEAPONS/revolver.gd" id="1_c46wd"]
 [ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="2_4mk6m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c46wd"]
 radius = 5.0
 
-[node name="Revolver" type="Node2D"]
+[node name="Revolver" type="Node2D" unique_id=1723170442]
 script = ExtResource("1_c46wd")
-slingshot_data = ExtResource("2_4mk6m")
+revolver_data = ExtResource("2_4mk6m")
 
-[node name="FireRate" type="Timer" parent="."]
+[node name="FireRate" type="Timer" parent="." unique_id=626312836]
 
-[node name="FirePoint" type="Marker2D" parent="."]
+[node name="FirePoint" type="Marker2D" parent="." unique_id=1257893933]
 
-[node name="FireRange" type="Area2D" parent="."]
+[node name="FireRange" type="Area2D" parent="." unique_id=918928167]
 collision_layer = 8192
 collision_mask = 2
 
-[node name="FireRangeShape" type="CollisionShape2D" parent="FireRange"]
+[node name="FireRangeShape" type="CollisionShape2D" parent="FireRange" unique_id=586941298]
 shape = SubResource("CircleShape2D_c46wd")
 
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

@@ -70,7 +70,7 @@ func _physics_process(_delta: float) -> void:
 	
 	
 func shoot_from_pool()-> void :
-	if !can_shoot : return
+	if !can_shoot or !minigun_data.weapon_is_active : return
 	if minigun_data.weapon_is_active:
 		timer.start()
 		is_firing = true

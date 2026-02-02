@@ -37,6 +37,8 @@ func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
 	day_label.text = "DAY "+str(TimeManager.current_day)
 	enemies_spawner_base_rate = enemies_spawner_timer.wait_time
+	#TEST
+	#enemies_spawner_timer.wait_time = 0.3
 
 
 func _process(delta: float) -> void:
