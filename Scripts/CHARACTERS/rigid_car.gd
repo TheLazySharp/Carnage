@@ -338,7 +338,7 @@ func _on_start_engine_finished() -> void:
 	emit_signal("start_time", can_drive)
 	WeaponsManager.activate_weapons(true)
 	ready_go.text = "GO !"
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(SceneManager.ready_go_timer).timeout
 	ready_go.hide()
 
 func _on_full_command(full_command : bool) -> void:

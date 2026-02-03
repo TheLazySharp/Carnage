@@ -6,11 +6,12 @@ var scenes: Dictionary[String,String] = {
 	"GameOver" : "uid://c6ue1qnj30p5b",
 	"EndDay" : "uid://dkpvtoel7hhai",
 	"Garage" : "uid://cs311xlcqlrt0",
-	"Level00" : "uid://dp8fuljm28ogu",
+	"Tuto" : "uid://ci6t4884t7q6r",
 	"Level01" : "uid://c6msxridefxxd"
 }
 
-
+var tuto_completed: bool = false
+var ready_go_timer: float = 2.0
 
 func load_level(uid: String) -> void:
 	get_tree().call_deferred("change_scene_to_file", uid)

@@ -228,6 +228,7 @@ go_previous={
 2d_physics/layer_4="walls"
 2d_physics/layer_5="enemyDetection"
 2d_physics/layer_6="ressources"
+2d_physics/layer_7="tuto"
 2d_physics/layer_8="healingzone"
 2d_physics/layer_9="collectzones"
 2d_physics/layer_10="collectables"

@@ -2,7 +2,7 @@ extends Control
 
 @onready var resume: Button = $VBoxContainer/Resume
 @onready var commands: Button = $VBoxContainer/Commands
-@onready var quit_to_menu: Button = $"VBoxContainer/Quit to menu"
+@onready var quit_to_menu: Button = $"VBoxContainer/QuitToMenu"
 
 var menu_scene: String = "uid://gmjjc1vmgcds"
 
@@ -13,6 +13,11 @@ signal quit_pause(game_on_pause: bool)
 func _ready() -> void:
 	resume.grab_focus()
 	
+func _process(_delta: float) -> void:
+	if !SceneManager.tuto_completed:
+		quit_to_menu.hide()
+	else:
+		quit_to_menu.show()
 	
 
 func _on_resume_pressed() -> void:
