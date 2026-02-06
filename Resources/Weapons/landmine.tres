@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cve8xcjafip0"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_c1wns"]
+[ext_resource type="Texture2D" uid="uid://8mov6qwwya8t" path="res://Assets/weapons/landmine.png" id="2_c1wns"]
+
+[resource]
+script = ExtResource("1_c1wns")
+weapon_name = "Landmine"
+weapon_icon = ExtResource("2_c1wns")
+weapon_scene_uid = "uid://b6sojfyjbslm1"
+max_level = 35
+dmg = 10
+dmg_on_resources = 0
+radius = 0
+speed_rotation = 0
+levelup_text = "+ dmg"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

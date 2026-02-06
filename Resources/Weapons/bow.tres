@@ -1,25 +1,22 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=7 format=3 uid="uid://bsa4806plmw2s"]
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bsa4806plmw2s"]
 
-[ext_resource type="Resource" uid="uid://bdcx24kagdrwh" path="res://Resources/Items/wood.tres" id="1_5snio"]
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_mg1ew"]
-[ext_resource type="Resource" uid="uid://budr5sdv8v70c" path="res://Resources/Items/stone.tres" id="2_ikj8i"]
-[ext_resource type="Texture2D" path="res://Assets/weapons/bow.png" id="2_mg1ew"]
-[ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/arrow.tres" id="4_kg1k2"]
 [ext_resource type="PackedScene" uid="uid://bjuws4ysoivbu" path="res://Scenes/WEAPONS/arrow.tscn" id="5_ttq2s"]
+
+[sub_resource type="Resource" id="Resource_mg1ew"]
+metadata/__load_path__ = "res://Resources/Weapons/arrow.tres"
 
 [resource]
 script = ExtResource("1_mg1ew")
 weapon_name = "Bow"
-weapon_icon = ExtResource("2_mg1ew")
 weapon_scene_uid = "uid://3g0m43hcvlsk"
 weapon_ammo_scene = ExtResource("5_ttq2s")
-weapon_ammo_res = ExtResource("4_kg1k2")
+weapon_ammo_res = SubResource("Resource_mg1ew")
 max_level = 35
 dmg = 0
 dmg_on_resources = 0
 radius = 0
 speed_rotation = 0
 fire_rate = 0.4
-resources = [[ExtResource("1_5snio"), 100], [ExtResource("2_ikj8i"), 0]]
 levelup_text = "+1 arrow"
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

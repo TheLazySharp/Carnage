@@ -6,6 +6,9 @@ const REVOLVER = preload("uid://ewkqgn8g8vxg")
 const MINIGUN = preload("uid://byammqyru2apq")
 const MG_BULLET = preload("uid://tmw3kk1tg1re")
 const FLAMER = preload("uid://c5l0xm4m5tt65")
+const MINE_LAUNCHER = preload("uid://cxd60bmbatyvi")
+const LANDMINE = preload("uid://cve8xcjafip0")
+
 
 var weapon_scenes: Array[Array]
 
@@ -19,30 +22,40 @@ signal new_weapon_data(new_weapon: WeaponData, weapon_list : Array, weapon_show:
 
 func _ready() -> void:
 	XPManager.update_level.connect(shuffle_new_weapon)
-	#load_weapons()
+	
+
+	
+	
 
 
 func load_weapons() -> void:
 	locked_weapon(REVOLVER)
 	locked_weapon(MINIGUN)
 	locked_weapon(FLAMER)
+	locked_weapon(MINE_LAUNCHER)
 	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
 	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
 	weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
 	weapon_scenes.append(["minigun", "uid://c6wus6ofti85w", preload("uid://c6wus6ofti85w")])
 	weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
+	weapon_scenes.append(["mine_launcher", "uid://c8ohbftuu83c8", preload("uid://c8ohbftuu83c8")])
+	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
 	
-	#check_weapons()
+func test_weapons() ->void:
+	equip_weapon(MINE_LAUNCHER)
+	check_weapons()
 	
-#func check_weapons():
-	#print("EQUIPPED WEAPONS :")
-	#for j in weapons.size():
-		#print(weapons[j].weapon_name)
-	#print("UNEQUIPPED :")
-	#for k in unequipped_weapons.size():
-		#print(unequipped_weapons[k].weapon_name)
-	#if unequipped_weapons.is_empty() :
-		#print("empty")
+	
+	
+func check_weapons() -> void:
+	print("EQUIPPED WEAPONS :")
+	for j in weapons.size():
+		print(weapons[j].weapon_name)
+	print("UNEQUIPPED :")
+	for k in unequipped_weapons.size():
+		print(unequipped_weapons[k].weapon_name)
+	if unequipped_weapons.is_empty() :
+		print("empty")
 
 
 func copy_weapons() -> Array :
@@ -64,7 +77,8 @@ func equip_weapon(new_weapon: WeaponData) -> void:
 			var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
 			get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
 			init_weapon(new_weapon)
-			unequipped_weapons.remove_at(0)
+			if !unequipped_weapons.is_empty():
+				unequipped_weapons.remove_at(0)
 			
 			if new_weapon.weapon_ammo_res !=null and new_weapon.weapon_ammo_scene != null:
 				init_weapon(new_weapon.weapon_ammo_res)

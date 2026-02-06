@@ -5,6 +5,8 @@ extends Node2D
 var game_paused:=false
 
 @onready var car: CharacterBody2D = $Car
+@onready var garage_arrow: AnimatedSprite2D = $Car/TutoArrow/GarageArrow
+
 var game_started:bool=false
 
 @onready var tuto_label: Label = $CanvasLayer/Training/Label
@@ -51,7 +53,7 @@ const WOODBOX = preload("uid://dcsapykrdl5tf")
 @onready var enemies_ok: Button = $CanvasLayer/Training/EnemiesPanel/Ok
 
 #STEP11
-const ENEMY = preload("uid://c31g0smlywes2")
+const ENEMY = preload("uid://dgt25kdq0ormg")
 @onready var marker_enemies: Marker2D = $Steps/Enemies
 @onready var arrow_10_to_11: AnimatedSprite2D = $Steps/Arrow10To11
 @onready var enemies_timer: Timer = $Steps/EnemiesTimer
@@ -61,6 +63,9 @@ const ENEMY = preload("uid://c31g0smlywes2")
 @onready var end_panel: Panel = $CanvasLayer/Training/EndPanel
 @onready var end_ok: Button = $CanvasLayer/Training/EndPanel/Ok
 
+#STEP13
+signal tuto_end
+var skip_tuto : bool = false
 
 var current_step: int = 0
 
@@ -106,7 +111,7 @@ func steps(step : int) -> void:
 			tuto_label.show()
 			accelarate_sprite.play("zone")
 			accelarate_sprite.show()
-		
+
 		2:
 			accelarate_sprite.hide()
 			accelarate_sprite.stop()
@@ -125,7 +130,7 @@ func steps(step : int) -> void:
 			back_sprite.hide()
 			back_sprite.get_parent().set_deferred("disabled",true)
 			
-			tuto_label.text = "Use the right stick to move"
+			tuto_label.text = "Use the left stick to move"
 			arrow_2_to_3.play("moving")
 			arrow_2_to_3.show()
 			move_sprite.play("zone")
@@ -229,8 +234,12 @@ func steps(step : int) -> void:
 			
 		13:
 			end_panel.hide()
-			SceneManager.tuto_completed = true
-			
+			garage_arrow.play("moving")
+			garage_arrow.show()
+			tuto_label.text = "Go back to your garage"
+			tuto_label.show()
+			emit_signal("tuto_end")
+
 
 func _on_accelerate_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and Input.is_action_pressed("accelerate") and current_step == 1:
@@ -277,3 +286,10 @@ func _on_woodbox_timer_timeout() -> void:
 func _on_enemies_timer_timeout() -> void:
 	if get_node("/root/World/Enemies").get_child_count() == 0 and current_step == 11:
 		steps(12)
+
+
+func _on_check_point_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player") and !skip_tuto:
+		if SceneManager.tuto_completed:
+			skip_tuto = true
+			emit_signal("tuto_end")

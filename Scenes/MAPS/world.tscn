@@ -1195,6 +1195,31 @@ _data = {
 &"new_level": SubResource("Animation_sl775")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axeuq"]
+bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+skew = Vector2(0, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 3.0
+expand_margin_top = 2.0
+expand_margin_right = 3.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(0, 0.5)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5brd2"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 5
@@ -1276,31 +1301,6 @@ _data = {
 &"IfNew": SubResource("Animation_ux4l1"),
 &"RESET": SubResource("Animation_jgm5j")
 }
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axeuq"]
-bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
-skew = Vector2(0, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 3.0
-expand_margin_top = 2.0
-expand_margin_right = 3.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
-bg_color = Color(0, 0, 0, 1)
-skew = Vector2(0, 0.5)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
 
 [sub_resource type="Animation" id="Animation_4n5nh"]
 length = 0.001
@@ -2086,6 +2086,120 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "OK !"
 flat = true
 
+[node name="Board" type="Control" parent="CanvasLayer" unique_id=853771382]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -486.0
+offset_top = -151.0
+offset_right = -136.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Dashboard" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1454058244]
+texture = ExtResource("48_4n5nh")
+centered = false
+
+[node name="Car" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1943354457]
+position = Vector2(176, 72)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("49_2jlsx")
+script = ExtResource("43_0nur5")
+
+[node name="Speed" type="Label" parent="CanvasLayer/Board" unique_id=900412374]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.57142854
+anchor_top = 0.1
+anchor_right = 0.9257143
+anchor_bottom = 0.6066667
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 48
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+justification_flags = 35
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Board/Speed" unique_id=1149933007]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 70.0
+offset_right = 121.0
+offset_bottom = 107.33333
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 32
+text = "MPH"
+
+[node name="Fuel" type="Control" parent="CanvasLayer/Board" unique_id=595376615]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -724.0
+offset_right = -154.0
+offset_bottom = -724.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Board/Fuel" unique_id=1818417014]
+visible = false
+layout_mode = 0
+offset_left = 208.0
+offset_top = 703.0
+offset_right = 312.0
+offset_bottom = 740.3333
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 32
+text = "FUEL"
+
+[node name="LifeLabel" type="Label" parent="CanvasLayer/Board/Fuel" unique_id=81239408]
+layout_mode = 0
+offset_left = 206.0
+offset_top = 770.0
+offset_right = 310.0
+offset_bottom = 807.3333
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_kimld")
+theme_override_font_sizes/font_size = 16
+text = "1000/1000"
+
+[node name="FuelGauge" type="ProgressBar" parent="CanvasLayer/Board/Fuel" unique_id=894934517]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 186.0
+offset_top = 669.0
+offset_right = 206.0
+offset_bottom = 770.0
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_axeuq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1cojt")
+step = 5.0
+value = 75.0
+rounded = true
+fill_mode = 3
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/Fuel/FuelGauge" unique_id=1503179586]
+position = Vector2(50, 56)
+texture = ExtResource("50_hp83p")
+
 [node name="Leveling" type="Control" parent="CanvasLayer" unique_id=67494046]
 visible = false
 layout_mode = 3
@@ -2104,11 +2218,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -90.0
+offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.13333334, 0.13333334, 0.13333334, 0.8627451)
 
-[node name="Label" type="Label" parent="CanvasLayer/Leveling" unique_id=1985146927]
+[node name="Label" type="Label" parent="CanvasLayer/Leveling/LevelingBkgd" unique_id=1985146927]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -2126,21 +2242,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 
-[node name="MainButtons" type="HBoxContainer" parent="CanvasLayer/Leveling" unique_id=1799777878]
+[node name="MainButtons" type="HBoxContainer" parent="CanvasLayer/Leveling/LevelingBkgd" unique_id=1799777878]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -201.0
+offset_left = -283.5
 offset_top = -99.5
-offset_right = 201.0
+offset_right = 283.5
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 30
 
-[node name="Skip" type="Button" parent="CanvasLayer/Leveling/MainButtons" unique_id=1933003547]
+[node name="Skip" type="Button" parent="CanvasLayer/Leveling/LevelingBkgd/MainButtons" unique_id=1933003547]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
@@ -2152,7 +2268,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "Skip"
 flat = true
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/MainButtons" unique_id=32029039]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/LevelingBkgd/MainButtons" unique_id=32029039]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
@@ -2774,120 +2890,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("40_wpjs7")
 
-[node name="Board" type="Control" parent="CanvasLayer" unique_id=853771382]
-layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -486.0
-offset_top = -151.0
-offset_right = -136.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Dashboard" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1454058244]
-texture = ExtResource("48_4n5nh")
-centered = false
-
-[node name="Car" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1943354457]
-position = Vector2(176, 72)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("49_2jlsx")
-script = ExtResource("43_0nur5")
-
-[node name="Speed" type="Label" parent="CanvasLayer/Board" unique_id=900412374]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.57142854
-anchor_top = 0.1
-anchor_right = 0.9257143
-anchor_bottom = 0.6066667
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = 0
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 48
-text = "200"
-horizontal_alignment = 2
-vertical_alignment = 2
-justification_flags = 35
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="CanvasLayer/Board/Speed" unique_id=1149933007]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 70.0
-offset_right = 121.0
-offset_bottom = 107.33333
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 32
-text = "MPH"
-
-[node name="Fuel" type="Control" parent="CanvasLayer/Board" unique_id=595376615]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -154.0
-offset_top = -724.0
-offset_right = -154.0
-offset_bottom = -724.0
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Board/Fuel" unique_id=1818417014]
-visible = false
-layout_mode = 0
-offset_left = 208.0
-offset_top = 703.0
-offset_right = 312.0
-offset_bottom = 740.3333
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 32
-text = "FUEL"
-
-[node name="LifeLabel" type="Label" parent="CanvasLayer/Board/Fuel" unique_id=81239408]
-layout_mode = 0
-offset_left = 206.0
-offset_top = 770.0
-offset_right = 310.0
-offset_bottom = 807.3333
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 16
-text = "1000/1000"
-
-[node name="FuelGauge" type="ProgressBar" parent="CanvasLayer/Board/Fuel" unique_id=894934517]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 186.0
-offset_top = 669.0
-offset_right = 206.0
-offset_bottom = 770.0
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_axeuq")
-theme_override_styles/fill = SubResource("StyleBoxFlat_1cojt")
-step = 5.0
-value = 75.0
-rounded = true
-fill_mode = 3
-show_percentage = false
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/Fuel/FuelGauge" unique_id=1503179586]
-position = Vector2(50, 56)
-texture = ExtResource("50_hp83p")
-
 [node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
 layout_mode = 3
 anchors_preset = 15
@@ -2965,6 +2967,8 @@ z_as_relative = false
 
 [node name="VFX" type="Node2D" parent="." unique_id=1933595906]
 z_index = 50
+
+[node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788]
 
@@ -3084,12 +3088,6 @@ script = ExtResource("51_2jlsx")
 
 [node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="Spawners/ennemy_spawner/SpawnPoint10" unique_id=339041960]
 
-[node name="SpawnPoint11" type="Marker2D" parent="Spawners/ennemy_spawner" unique_id=1064906732]
-position = Vector2(285.84253, 995.71375)
-script = ExtResource("51_2jlsx")
-
-[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="Spawners/ennemy_spawner/SpawnPoint11" unique_id=2100060022]
-
 [node name="Timer" type="Timer" parent="Spawners/ennemy_spawner" unique_id=766464847]
 wait_time = 1.5
 autostart = true
@@ -3116,6 +3114,6 @@ shape = SubResource("RectangleShape2D_283wp")
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Commands" to="CanvasLayer/Pause" method="_on_commands_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/QuitToMenu" to="CanvasLayer/Pause" method="_on_quit_to_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/Prelevelling/MainButtons/Ok" to="CanvasLayer/Leveling" method="_on_prelevelling_ok_pressed"]
-[connection signal="pressed" from="CanvasLayer/Leveling/MainButtons/Skip" to="CanvasLayer/Leveling" method="_on_skip_pressed"]
-[connection signal="pressed" from="CanvasLayer/Leveling/MainButtons/Confirm" to="CanvasLayer/Leveling" method="_on_confirm_pressed"]
+[connection signal="pressed" from="CanvasLayer/Leveling/LevelingBkgd/MainButtons/Skip" to="CanvasLayer/Leveling" method="_on_skip_pressed"]
+[connection signal="pressed" from="CanvasLayer/Leveling/LevelingBkgd/MainButtons/Confirm" to="CanvasLayer/Leveling" method="_on_confirm_pressed"]
 [connection signal="timeout" from="Spawners/ennemy_spawner/Timer" to="Spawners/ennemy_spawner" method="_on_timer_timeout"]

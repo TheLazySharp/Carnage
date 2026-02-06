@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CarData" load_steps=4 format=3 uid="uid://ol2ay5qpng31"]
+[gd_resource type="Resource" script_class="CarData" format=3 uid="uid://ol2ay5qpng31"]
 
 [ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="1_kb2i4"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="2_63dal"]
@@ -7,6 +7,8 @@
 [resource]
 script = ExtResource("1_kb2i4")
 car_name = "Speeder"
+base_max_speed = 700
+friction = 700.0
 start_engine_Sound = ExtResource("4_63dal")
 car_sprite = ExtResource("2_63dal")
 metadata/_custom_type_script = "uid://cgs6g466ko5c0"

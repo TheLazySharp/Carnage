@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_frphp"]
+[ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="3_m5ekh"]
 [ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/car-engine-starting-43705.mp3" id="4_frphp"]
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
 [ext_resource type="Texture2D" uid="uid://rnoitvnqcl3t" path="res://Assets/VFX/EXPLO-sheet.png" id="6_m5ekh"]
+[ext_resource type="Texture2D" uid="uid://q1vqg1yau86s" path="res://Assets/UI/arrow_moving_sheet.png" id="7_ly7qr"]
+[ext_resource type="Script" uid="uid://dlf5xknkxwusr" path="res://Scripts/UI/garage_arrow.gd" id="8_4uqhq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 height = 42.0
@@ -89,8 +92,51 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpuix"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyq23"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3qw6"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdvgx"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iish4"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_in73v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpuix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyq23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3qw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdvgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iish4")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 8.0
+}]
+
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
-collision_mask = 538
+collision_mask = 1562
 motion_mode = 1
 wall_min_slide_angle = 1.3962634
 platform_on_leave = 2
@@ -102,6 +148,7 @@ damages_text = ExtResource("2_frphp")
 
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
 rotation = 1.5707964
+texture = ExtResource("3_m5ekh")
 offset = Vector2(0, 12)
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
@@ -167,6 +214,19 @@ bus = &"SFX"
 position = Vector2(-13, 0)
 sprite_frames = SubResource("SpriteFrames_tpuix")
 animation = &"Explosion"
+
+[node name="MineMarker" type="Marker2D" parent="." unique_id=1503101015]
+position = Vector2(-37.539063, -0.0234375)
+
+[node name="TutoArrow" type="Marker2D" parent="." unique_id=841650673]
+position = Vector2(33.367096, -0.36032867)
+
+[node name="GarageArrow" type="AnimatedSprite2D" parent="TutoArrow" unique_id=1849266520]
+visible = false
+sprite_frames = SubResource("SpriteFrames_in73v")
+animation = &"moving"
+frame_progress = 0.8817457
+script = ExtResource("8_4uqhq")
 
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
 [connection signal="area_entered" from="BodyParts" to="." method="_on_body_parts_area_entered"]

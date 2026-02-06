@@ -37,5 +37,6 @@ func create_boss(nb_enemies: int) -> void:
 		get_node("/root/World/Horde").add_child(enemy)
 		enemy.apply_scale(Vector2(4,4))
 		enemy.max_life = 500
+		enemy.damages_on_player = 20
 		enemy.is_from_the_horde = true
 		enemy.activate(horde_spawn_point.global_position)

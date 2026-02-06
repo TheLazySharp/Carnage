@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c8ohbftuu83c8"]
+
+[ext_resource type="Script" uid="uid://cyfbcbceoas4a" path="res://Scripts/WEAPONS/mine_launcher.gd" id="1_un1ip"]
+[ext_resource type="Resource" uid="uid://cxd60bmbatyvi" path="res://Resources/Weapons/mine_launcher.tres" id="2_64b42"]
+
+[node name="MineLauncher" type="Node2D" unique_id=661466393]
+script = ExtResource("1_un1ip")
+launcher_data = ExtResource("2_64b42")
+
+[node name="CoolDown" type="Timer" parent="." unique_id=601628467]
+autostart = true
+
+[connection signal="timeout" from="CoolDown" to="." method="_on_cool_down_timeout"]

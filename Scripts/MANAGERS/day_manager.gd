@@ -23,6 +23,7 @@ var critical_time: float = 0.1
 var end_day_scene: String = "uid://dkpvtoel7hhai"
 
 @onready var player: CharacterBody2D = $"../Car"
+@onready var garage_arrow: AnimatedSprite2D = $"../Car/TutoArrow/GarageArrow"
 var game_start: bool = false
 @onready var enemies_spawner_timer: Timer = $"../Spawners/ennemy_spawner/Timer"
 
@@ -37,6 +38,7 @@ func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
 	day_label.text = "DAY "+str(TimeManager.current_day)
 	enemies_spawner_base_rate = enemies_spawner_timer.wait_time
+	
 	#TEST
 	#enemies_spawner_timer.wait_time = 0.3
 
@@ -74,6 +76,8 @@ func _on_game_paused(game_on_pause : bool ) -> void:
 func on_day_end() -> void:
 	timer_stopped = true
 	emit_signal("day_ended", timer_stopped)
+	garage_arrow.play("moving")
+	garage_arrow.show()
 	horde.show()
 	horde_animation.play("blinking")
 	barb_wire_collision.set_deferred("disabled", true)

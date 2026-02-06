@@ -35,7 +35,6 @@
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="33_fiq40"]
 [ext_resource type="Script" uid="uid://dgjjb27shy4tk" path="res://Scripts/SCENES/pause.gd" id="34_nssc7"]
 [ext_resource type="Script" uid="uid://p1kmh86var1g" path="res://Scripts/UI/stats_screen.gd" id="35_agr30"]
-[ext_resource type="Texture2D" uid="uid://bxgdr3qp32q2b" path="res://Assets/Props/garage.png" id="41_d4n4o"]
 [ext_resource type="Texture2D" uid="uid://bwrvswxwsubhg" path="res://Assets/UI/dashboard_352_144.png" id="43_haqlr"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="44_hiso2"]
 [ext_resource type="Script" uid="uid://dwy6awbv47hjd" path="res://Scripts/UI/board_car.gd" id="45_c7u0r"]
@@ -46,7 +45,6 @@
 [ext_resource type="Texture2D" uid="uid://b5eagdtlkye4v" path="res://Assets/VFX/arrows_zone.png" id="49_b358a"]
 [ext_resource type="Texture2D" uid="uid://q1vqg1yau86s" path="res://Assets/UI/arrow_moving_sheet.png" id="50_sdos0"]
 [ext_resource type="PackedScene" uid="uid://drgsya7gbwrgk" path="res://Scenes/MAPS/start_gate.tscn" id="52_6osf8"]
-[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/MANAGERS/ennemy_spawner.gd" id="52_sdos0"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="53_45mg7"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
@@ -1157,9 +1155,6 @@ _data = {
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdos0"]
 bg_color = Color(0.07284262, 0.072842635, 0.072842576, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_knb8w"]
-size = Vector2(20, 125)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_sdos0"]
 atlas = ExtResource("49_b358a")
 region = Rect2(0, 0, 32, 32)
@@ -1682,7 +1677,6 @@ libraries/ = SubResource("AnimationLibrary_q12la")
 script = ExtResource("33_fiq40")
 
 [node name="Pause" type="Control" parent="CanvasLayer" unique_id=1073593593]
-visible = false
 z_index = 100
 layout_mode = 3
 anchors_preset = 15
@@ -2259,18 +2253,16 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 21.0
-offset_top = 13.0
+offset_top = 22.0
 offset_right = -19.0
-offset_bottom = 174.0
+offset_bottom = 139.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = 6
 theme_override_constants/paragraph_spacing = 10
 theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "Congrats for completing the tutorial ! A lot more awaits you !
-Each day you will explore the cities around you to search for gear parts, trying to survive many threats.
-Come back to your garage before the night comes. 
-A greater danger will be unleash in the dark. 
-When ready, you will fight it !"
+text = "Congrats !
+this tutorial is nothing compare to what you will face very soon !
+You can drive here or press start to go back to the menu when you are ready."
 autowrap_mode = 2
 uppercase = true
 
@@ -2295,37 +2287,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "OK !"
 flat = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Training/EndPanel" unique_id=1528863181]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 288.5
-offset_top = -43.0
-offset_right = 361.5
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 150
-
-[node name="Garage" type="TextureRect" parent="CanvasLayer/Training/EndPanel/HBoxContainer" unique_id=1464249064]
-layout_mode = 2
-texture = ExtResource("41_d4n4o")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Training/EndPanel/HBoxContainer/Garage" unique_id=560108225]
-layout_mode = 0
-offset_left = -33.5
-offset_top = 71.0
-offset_right = 99.5
-offset_bottom = 94.0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "garage"
-horizontal_alignment = 1
-
 [node name="Car" parent="." unique_id=2034565894 instance=ExtResource("47_dm4wc")]
 position = Vector2(155, 992)
 skid_marks_path = NodePath("../SkidMarks")
@@ -2346,13 +2307,6 @@ z_as_relative = false
 y_sort_enabled = true
 
 [node name="Steps" type="Node2D" parent="." unique_id=637709069]
-
-[node name="CheckPointArea" type="Area2D" parent="Steps" unique_id=728695659]
-position = Vector2(178.51283, 991.7379)
-collision_layer = 64
-
-[node name="CheckPointShape" type="CollisionShape2D" parent="Steps/CheckPointArea" unique_id=1487990681]
-shape = SubResource("RectangleShape2D_knb8w")
 
 [node name="AccelerateArea" type="Area2D" parent="Steps" unique_id=196225094]
 z_index = 5
@@ -2507,15 +2461,6 @@ z_index = 50
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788]
 
-[node name="Spawners" type="Node2D" parent="." unique_id=483220455]
-
-[node name="ennemy_spawner" type="Node2D" parent="Spawners" unique_id=1640586167]
-script = ExtResource("52_sdos0")
-
-[node name="Timer" type="Timer" parent="Spawners/ennemy_spawner" unique_id=766464847]
-wait_time = 1.5
-autostart = true
-
 [node name="StartingGate" parent="." unique_id=2128654809 instance=ExtResource("52_6osf8")]
 z_index = 1
 position = Vector2(114, 991)
@@ -2541,7 +2486,6 @@ shape = SubResource("RectangleShape2D_283wp")
 [connection signal="pressed" from="CanvasLayer/Training/ResourcesPanel/Ok" to="." method="_on_ok_resources_pressed"]
 [connection signal="pressed" from="CanvasLayer/Training/EnemiesPanel/Ok" to="." method="_on_enemies_ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/Training/EndPanel/Ok" to="." method="_on_end_ok_pressed"]
-[connection signal="body_exited" from="Steps/CheckPointArea" to="." method="_on_check_point_area_body_exited"]
 [connection signal="body_entered" from="Steps/AccelerateArea" to="." method="_on_accelerate_area_body_entered"]
 [connection signal="body_entered" from="Steps/BackArea" to="." method="_on_back_area_body_entered"]
 [connection signal="body_entered" from="Steps/MoveArea" to="." method="_on_move_area_body_entered"]
@@ -2551,4 +2495,3 @@ shape = SubResource("RectangleShape2D_283wp")
 [connection signal="body_entered" from="Steps/DriftArea4" to="." method="_on_drift_area_4_body_entered"]
 [connection signal="timeout" from="Steps/WoodboxTimer" to="." method="_on_woodbox_timer_timeout"]
 [connection signal="timeout" from="Steps/EnemiesTimer" to="." method="_on_enemies_timer_timeout"]
-[connection signal="timeout" from="Spawners/ennemy_spawner/Timer" to="Spawners/ennemy_spawner" method="_on_timer_timeout"]

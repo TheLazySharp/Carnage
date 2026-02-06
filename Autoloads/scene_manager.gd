@@ -10,7 +10,10 @@ var scenes: Dictionary[String,String] = {
 	"Level01" : "uid://c6msxridefxxd"
 }
 
+#TEST = true
 var tuto_completed: bool = false
+
+
 var ready_go_timer: float = 2.0
 
 func load_level(uid: String) -> void:

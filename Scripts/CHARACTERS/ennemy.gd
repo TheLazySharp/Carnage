@@ -102,25 +102,23 @@ func on_death() -> void:
 	
 
 func _on_hitbox_entered(area: Area2D) -> void:
-	if not area.is_in_group("player"): return #mettre junior dedans
-	#print("ennemy hits player")
+	if not area.is_in_group("player"): return
 	player = area.get_parent()
-	if "take_damages" in player:
-		player.take_damages(damages_on_player)
+	if "get_damages_from_mob" in player:
+		player.get_damages_from_mob(damages_on_player)
 	damage_timer_on_player.start()
 
 
 func _on_hitbox_exited(area: Area2D) -> void:
 	if not area.is_in_group("player"): return
-	#print("ennemy exit player")
 	player = null
 	damage_timer_on_player.stop()
 		
 
 func _on_damage_timer_on_player_timeout() -> void:
 	if player == null: return
-	if "take_damages" in player:
-		player.take_damages(damages_on_player)
+	if "get_damages_from_mob" in player:
+		player.get_damages_from_mob(damages_on_player)
 
 
 func display_damages(damages : int)-> void:

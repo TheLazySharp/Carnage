@@ -5,6 +5,7 @@ var player : CarData
 #CAR DATA
 var acceleration : float
 var max_speed : int
+var max_backward_speed : int
 var friction : float
 var turn_speed : float
 var drift_grip : float
@@ -68,6 +69,10 @@ var current_life: int
 
 func _ready() -> void:
 	player = CarManager.selected_car
+	
+	##TEST
+	#WeaponsManager.test_weapons()
+	
 	gm_scene.game_paused.connect(_on_game_paused)
 	gate.full_command.connect(_on_full_command)
 	gate.forward_only.connect(_on_forward_only)
@@ -75,9 +80,11 @@ func _ready() -> void:
 	#DRIVING
 	acceleration = player.acceleration + player.carbon_lvl * 10 - player.shield_lvl * 5
 	max_speed = player.max_speed + player.engine_lvl * 10
+	max_backward_speed = roundi(max_speed * 0.4)
 	friction = player.friction
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
+	
 
 	#DRIFT
 	drift_grip = player.drift_grip
@@ -105,8 +112,6 @@ func _ready() -> void:
 	
 	#VFX
 	car_sprite.texture = player.car_sprite
-
-	
 	current_life = max_life
 	life_bar.max_value = max_life
 	life_bar.value = current_life
@@ -146,7 +151,10 @@ func _physics_process(delta : float) -> void:
 			velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 		velocity = velocity.limit_length(max_speed)
-
+		
+		if throttle < 0 : 
+			velocity = velocity.limit_length(max_backward_speed)
+			
 		# ----------------- ROTATION -----------------
 		var speed := velocity.dot(forward)
 		var steer_factor : float = clamp(abs(speed) / max_speed, 0.25, 1.0)
@@ -271,13 +279,13 @@ func get_rear_center() -> Vector2:
 func _on_game_paused(game_on_pause :bool) -> void:
 	game_paused = game_on_pause
 	
-func take_damages(damages: int) -> void:
+func get_damages_from_mob(damages: int) -> void:
 	if not game_paused and !game_is_over and velocity.length() < velocity_floor:
 		is_taking_damages = true
 		current_life -= damages
 		life_bar.value = current_life
 		#display_damages(damages)
-		print(str(current_life))
+		print("car get ",damages," dmg. Current life : ",str(current_life))
 		#animation_player.play("beaver_animations/flash")
 		taking_damages.start()
 		
@@ -288,7 +296,21 @@ func take_damages(damages: int) -> void:
 			
 		if is_taking_damages:return
 		
+func get_damages(damages: int) -> void:
+	if not game_paused and !game_is_over:
+		current_life -= damages
+		life_bar.value = current_life
+		#display_damages(damages)
+		print("car get ",damages," dmg. Current life : ",str(current_life))
+		
+		if current_life <=0:
+			current_life = 0
+			play_death()
+			return
+
+
 func play_death() -> void:
+	can_drive = false
 	is_taking_damages = false
 	WeaponsManager.activate_weapons(false)
 	WeaponsManager.unload()

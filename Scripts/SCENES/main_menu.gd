@@ -23,6 +23,7 @@ func _on_start_pressed() -> void:
 			WeaponsManager.load_weapons()
 		SceneManager.load_level(tuto_scene)
 	else:
+		SceneManager.unload_game()
 		SceneManager.load_level(car_selection)
 
 

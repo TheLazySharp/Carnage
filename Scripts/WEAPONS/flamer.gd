@@ -14,6 +14,7 @@ var targets: Array[Node2D]
 
 @onready var player: Sprite2D =  $"/root/World/Car/CarSprite"
 
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_pol: CollisionPolygon2D = $CollisionPolygon2D
 

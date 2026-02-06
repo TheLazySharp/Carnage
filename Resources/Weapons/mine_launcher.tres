@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cxd60bmbatyvi"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_nf6y3"]
+[ext_resource type="Resource" uid="uid://cve8xcjafip0" path="res://Resources/Weapons/landmine.tres" id="2_8dhid"]
+[ext_resource type="Texture2D" uid="uid://dgnvhqoy4xb3a" path="res://Assets/weapons/mine_launcher.png" id="2_nf6y3"]
+[ext_resource type="PackedScene" uid="uid://b6sojfyjbslm1" path="res://Scenes/WEAPONS/landmine.tscn" id="3_bsrqv"]
+
+[resource]
+script = ExtResource("1_nf6y3")
+weapon_name = "Mine Launcher"
+weapon_icon = ExtResource("2_nf6y3")
+weapon_scene_uid = "uid://c8ohbftuu83c8"
+weapon_ammo_scene = ExtResource("3_bsrqv")
+weapon_ammo_res = ExtResource("2_8dhid")
+max_level = 35
+dmg = 0
+dmg_on_resources = 0
+radius = 0
+speed_rotation = 0
+cool_down = 5.0
+levelup_text = "+ rate"
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

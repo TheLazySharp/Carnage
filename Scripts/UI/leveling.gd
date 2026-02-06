@@ -7,7 +7,8 @@ var game_is_paused: = false
 
 @onready var prelevelling: Control = $"../Prelevelling"
 
-@onready var confirm: Button = $MainButtons/Confirm
+@onready var confirm: Button = $LevelingBkgd/MainButtons/Confirm
+
 @onready var ok_button: Button = $"../Prelevelling/MainButtons/Ok"
 
 @onready var weapon_slot_container: GridContainer = $MarginContainer/GridContainer
