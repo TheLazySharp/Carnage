@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cy0lbkvt1xb4p"
-path="res://.godot/imported/Cute Dino.otf-c14b3d71a72678233e0fc0d97a35cb09.fontdata"
+uid="uid://qio5vvtexp32"
+path="res://.godot/imported/Aero.ttf-761cdfa5b450d4502651625027fe5436.fontdata"
 
 [deps]
 
-source_file="res://Fonts/Cute Dino.otf"
-dest_files=["res://.godot/imported/Cute Dino.otf-c14b3d71a72678233e0fc0d97a35cb09.fontdata"]
+source_file="res://Fonts/Aero.ttf"
+dest_files=["res://.godot/imported/Aero.ttf-761cdfa5b450d4502651625027fe5436.fontdata"]
 
 [params]
 
@@ -23,7 +23,7 @@ allow_system_fallback=true
 force_autohinter=false
 modulate_color_glyphs=false
 hinting=1
-subpixel_positioning=0
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null

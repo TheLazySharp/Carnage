@@ -13,14 +13,14 @@ var enemy_groups_index : int = 0
 var game_paused:=false
 
 func _ready() -> void:
-	#if enemies_arrays.size() == 0:
-		#var enemies_group : Array = []
-		#enemies_arrays.append(enemies_group)
+	if enemies_arrays.size() == 0:
+		var enemies_group : Array = []
+		enemies_arrays.append(enemies_group)
 	SignalManager.connect("enemy_chasing",enemy_chasing)
 	SignalManager.connect("enemy_is_dead",_on_enemy_death)
 	SignalManager.connect("enemy_exiting_chase",_on_exiting_chase)
 	gm_scene.game_paused.connect(_on_game_paused)
-	#print("nb enemies arrays :", enemies_arrays.size())
+	print("nb enemies arrays :", enemies_arrays.size())
 
 func _process(delta: float) -> void:
 	if game_paused: return
@@ -64,14 +64,7 @@ func enemy_chasing(enemy : Enemy)-> void:
 		var new_enemies_group : Array = []
 		new_enemies_group.append(enemy)
 		enemies_arrays.append(new_enemies_group)
-		
-		
-		#var navigation_agent : NavigationAgent2D = enemy.get_node("NavigationAgent2D")
-		#navigation_agent.target_position = target.global_position
-		#var next_pos : Vector2 = navigation_agent.get_next_path_position()
-		#enemy.get_node("StateMachine/Chase").update_dir(next_pos)
-		
-		
+
 
 
 func _on_enemy_death(dead_enemy : Enemy) -> void : 
@@ -82,7 +75,8 @@ func _on_enemy_death(dead_enemy : Enemy) -> void :
 				if array[j] == dead_enemy:
 					array.remove_at(j)
 					dead_enemy.queue_free()
-					return
+					break
+	else : dead_enemy.queue_free()
 
 func _on_exiting_chase(exited_enemy : Enemy) -> void: 
 	if !enemies_arrays[0].is_empty():
@@ -91,7 +85,7 @@ func _on_exiting_chase(exited_enemy : Enemy) -> void:
 			for j in range(array.size()-1,-1,-1):
 				if array[j] == exited_enemy:
 					array.erase(exited_enemy)
-					return
+					break
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

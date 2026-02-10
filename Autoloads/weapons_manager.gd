@@ -14,6 +14,7 @@ var weapon_scenes: Array[Array]
 
 var weapons : Array[WeaponData]
 var unequipped_weapons: Array[WeaponData]
+var ammunitions : Array[WeaponData]
 
 var weapon : WeaponData
 var player_current_level: int
@@ -24,27 +25,24 @@ func _ready() -> void:
 	XPManager.update_level.connect(shuffle_new_weapon)
 	
 
-	
-	
-
-
 func load_weapons() -> void:
 	locked_weapon(REVOLVER)
 	locked_weapon(MINIGUN)
-	locked_weapon(FLAMER)
+	#locked_weapon(FLAMER)
 	locked_weapon(MINE_LAUNCHER)
 	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
 	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
 	weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
 	weapon_scenes.append(["minigun", "uid://c6wus6ofti85w", preload("uid://c6wus6ofti85w")])
-	weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
+	#weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
 	weapon_scenes.append(["mine_launcher", "uid://c8ohbftuu83c8", preload("uid://c8ohbftuu83c8")])
 	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
+	print("weapons loaded")
 	
 func test_weapons() ->void:
-	equip_weapon(MINE_LAUNCHER)
+	#equip_weapon(FLAMER)
+	#weapons[0].dmg = 10
 	check_weapons()
-	
 	
 	
 func check_weapons() -> void:
@@ -58,12 +56,20 @@ func check_weapons() -> void:
 		print("empty")
 
 
+
 func copy_weapons() -> Array :
 	return weapons
 
 func init_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = true
+	new_weapon.weapon_is_active = true
 	weapons.append(new_weapon)
+
+func init_ammo(new_ammo : WeaponData) -> void: 
+	new_ammo.is_equiped = true
+	new_ammo.weapon_is_active = true
+	ammunitions.append(new_ammo)
+	print(new_ammo.weapon_name," add to ammunitions")
 
 func locked_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = false
@@ -81,27 +87,32 @@ func equip_weapon(new_weapon: WeaponData) -> void:
 				unequipped_weapons.remove_at(0)
 			
 			if new_weapon.weapon_ammo_res !=null and new_weapon.weapon_ammo_scene != null:
-				init_weapon(new_weapon.weapon_ammo_res)
+				init_ammo(new_weapon.weapon_ammo_res)
 				#print(new_weapon.weapon_ammo_res.weapon_name," is equiped : ", new_weapon.weapon_ammo_res.is_equiped)
 
-			#print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
+			print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
 			
-			#print("MAJ WEAPONS :")
-			#for j in weapons.size():
-				#print(weapons[j].weapon_name)
-			#print("UNEQUIPPED :")
-			#for k in unequipped_weapons.size():
-				#print(unequipped_weapons[k].weapon_name)
-			#if unequipped_weapons.is_empty() :
-				#print("empty")
+			print("MAJ WEAPONS :")
+			for j in weapons.size():
+				print(weapons[j].weapon_name)
+			print("UNEQUIPPED :")
+			for k in unequipped_weapons.size():
+				print(unequipped_weapons[k].weapon_name)
+			if unequipped_weapons.is_empty() :
+				print("empty")
 			return
 
-func equip_ammo(weapon_with_ammo: WeaponData) -> PackedScene:
-	var ammo : PackedScene = weapon_with_ammo.weapon_ammo_scene
-	return ammo
+func equip_ammo() -> void:
+	if !weapons.is_empty() and ammunitions.is_empty():
+		for i in weapons.size():
+			var weapon_to_reload : WeaponData = weapons[i]
+			if weapon_to_reload.weapon_ammo_res !=null and weapon_to_reload.weapon_ammo_scene != null:
+				init_ammo(weapon_to_reload.weapon_ammo_res)
+				
 
-func unequip_weapon(_old_weapon: WeaponData) -> void:
-	pass
+
+func unequip_ammo() -> void:
+	ammunitions.clear()
 	
 
 func shuffle_new_weapon(new_current_level : int) -> void:
@@ -118,7 +129,10 @@ func unload() -> void:
 		weapons[i].current_level = 0
 	weapons.clear()
 	unequipped_weapons.clear()
+	weapon_scenes.clear()
+	ammunitions.clear()
 	#CHECK SI BESOIN DE INIT DE NOUVEAU
+
 
 func reinit_weapons() -> void:
 	for i in weapon_scenes.size():
@@ -128,7 +142,16 @@ func reinit_weapons() -> void:
 				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
 				get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
 
+
+
 func activate_weapons(active: bool)-> void:
 	if !weapons.is_empty():
 		for i in weapons.size():
 			weapons[i].weapon_is_active = active
+
+
+func weapon_stat(weap : WeaponData) -> void:
+	if weap.weapon_ammo_res != null:
+		weap.dmg = weap.weapon_ammo_res.dmg
+
+	

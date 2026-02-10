@@ -18,5 +18,5 @@ dmg_on_resources = 0
 radius = 0
 speed_rotation = 0
 cool_down = 5.0
-levelup_text = "+ rate"
+description = "Drop a landmine a the rear of the car at a regular rate"
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

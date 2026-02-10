@@ -43,6 +43,6 @@ func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 func _on_navigation_agent_2d_target_reached() -> void:
-	print("target reached")
+	#print("target reached")
 	state_changed.emit(self,"attack")
 	

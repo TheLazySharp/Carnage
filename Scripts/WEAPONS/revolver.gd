@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(revolver_data.current_level,0,max_lvl)
-	nb_ammo = revolver_data.nb_ammo + current_lvl + bonus_bullet
+	fire_rate.wait_time = revolver_data.fire_rate - current_lvl * 0.02
 	shoot_from_pool()
 
 func _physics_process(_delta: float) -> void:

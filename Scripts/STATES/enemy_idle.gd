@@ -32,7 +32,7 @@ func update(delta : float)-> void:
 	if enemy.is_from_the_horde:
 		enemy.is_from_the_horde = false
 		state_changed.emit(self,"horde")
-		
+
 
 func physics_update(_delta: float)-> void:
 	if !game_paused:

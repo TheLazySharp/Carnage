@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkpvtoel7hhai"]
+[gd_scene format=3 uid="uid://dkpvtoel7hhai"]
 
 [ext_resource type="Script" uid="uid://ll5vynm3wl3q" path="res://Scripts/SCENES/end_day.gd" id="1_rjd84"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_4uf12"]
@@ -7,7 +7,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cx0hi"]
 
-[node name="EndDay" type="Control"]
+[node name="EndDay" type="Control" unique_id=479493250]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rjd84")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1413409709]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=784841935]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -43,7 +43,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1977822817]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -58,7 +58,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="Upgrades" type="Button" parent="VBoxContainer"]
+[node name="Upgrades" type="Button" parent="VBoxContainer" unique_id=593613350]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -70,7 +70,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
 text = "UPGRADES"
 flat = true
 
-[node name="NextDay" type="Button" parent="VBoxContainer"]
+[node name="NextDay" type="Button" parent="VBoxContainer" unique_id=1917605737]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -82,7 +82,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
 text = "NEXT DAY"
 flat = true
 
-[node name="Menu" type="Button" parent="VBoxContainer"]
+[node name="Menu" type="Button" parent="VBoxContainer" unique_id=623180664]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -94,7 +94,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
 text = "Main Menu"
 flat = true
 
-[node name="CarIcon" type="TextureRect" parent="."]
+[node name="CarIcon" type="TextureRect" parent="." unique_id=1115480994]
 custom_minimum_size = Vector2(32, 48)
 layout_mode = 1
 anchors_preset = -1
@@ -111,7 +111,7 @@ grow_vertical = 2
 texture = ExtResource("3_jggmw")
 stretch_mode = 5
 
-[node name="Parts" type="TextureRect" parent="."]
+[node name="Parts" type="TextureRect" parent="." unique_id=1649896609]
 layout_mode = 0
 offset_left = 672.0
 offset_top = 184.0
@@ -120,7 +120,7 @@ offset_bottom = 275.0
 texture = ExtResource("4_1ftow")
 stretch_mode = 5
 
-[node name="PartsQuantity" type="Label" parent="Parts"]
+[node name="PartsQuantity" type="Label" parent="Parts" unique_id=1544805412]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

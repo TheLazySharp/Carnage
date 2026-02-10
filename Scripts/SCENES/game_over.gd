@@ -15,10 +15,10 @@ func _ready() -> void:
 func _on_restart_pressed() -> void:
 	SceneManager.load_level(car_selection)
 	SceneManager.unload_game()
-	WeaponsManager.load_weapons()
 
 
 func _on_menu_pressed() -> void:
+	WeaponsManager.unload()
 	SceneManager.load_level(menu_scene)
 	SceneManager.unload_game()
 

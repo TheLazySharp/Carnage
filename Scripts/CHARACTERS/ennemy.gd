@@ -8,6 +8,7 @@ var speed: float = 40
 var player: Node = null
 var is_from_the_horde:=false
 var nb_xp: int =1
+var is_dead : bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -59,11 +60,9 @@ func _process(_delta: float) -> void:
 		else : 
 			sprite.play("up")
 
-	if current_life <=0:
+	if current_life <=0 and !is_dead:
 		current_life = 0
 		on_death()
-
-
 
 
 func get_damages(damages: int) -> void:
@@ -89,6 +88,7 @@ func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 func on_death() -> void:
+	is_dead = true
 	blow_up(global_position)
 	collision_box.set_deferred("disabled",true)
 	if nb_xp ==1:

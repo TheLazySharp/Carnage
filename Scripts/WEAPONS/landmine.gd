@@ -27,11 +27,15 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	current_lvl = clampi(mine_data.current_level,0,max_lvl)
 	dmg = roundi(mine_data.dmg + (current_lvl * .1 * 28)) #améliorer la formule d'augmentation des dégats
-
+	
 	
 	
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+	if game_paused and animation_explosion.is_playing():
+		animation_explosion.pause()
+	if !game_paused and !animation_explosion.is_playing():
+		animation_explosion.play()
 
 
 func explosion()-> void:

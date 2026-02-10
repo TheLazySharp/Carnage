@@ -51,6 +51,10 @@ var can_drive:=false
 @onready var ready_go: Label = $/root/World/CanvasLayer/Texts/ReadyGo
 signal start_time(game_start: bool)
 
+@onready var explosives: Node2D = $"../Explosives"
+
+
+
 @onready var gate: CharacterBody2D = $"../StartingGate"
 #var full_command : bool
 var forward_only : bool
@@ -71,7 +75,7 @@ func _ready() -> void:
 	player = CarManager.selected_car
 	
 	##TEST
-	#WeaponsManager.test_weapons()
+	WeaponsManager.test_weapons()
 	
 	gm_scene.game_paused.connect(_on_game_paused)
 	gate.full_command.connect(_on_full_command)
@@ -318,7 +322,7 @@ func play_death() -> void:
 	car_explosion.play("Explosion")
 	game_is_over = true
 	#animated_sprite.hide()
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(2).timeout
 	emit_signal("game_over", game_is_over)
 	
 	
@@ -359,6 +363,7 @@ func _on_start_engine_finished() -> void:
 	can_drive = true
 	emit_signal("start_time", can_drive)
 	WeaponsManager.activate_weapons(true)
+	#empty_explosives()
 	ready_go.text = "GO !"
 	await get_tree().create_timer(SceneManager.ready_go_timer).timeout
 	ready_go.hide()
@@ -369,3 +374,9 @@ func _on_full_command(full_command : bool) -> void:
 		
 func _on_forward_only(car_only_forward : bool) -> void:
 	forward_only = car_only_forward
+	
+#func empty_explosives() -> void:
+	#if explosives.get_child_count()>0:
+		#for i in range(explosives.get_child_count()-1,-1,-1):
+			#explosives.get_child(i).queue_free()
+			#print("explosives empty")

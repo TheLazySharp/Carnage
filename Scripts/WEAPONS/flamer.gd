@@ -58,6 +58,10 @@ func _process(_delta: float) -> void:
 	
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+	if game_paused and sprite.is_playing():
+		sprite.pause()
+	if !game_paused and !sprite.is_playing():
+		sprite.play()
 
 func throw_fire() -> void:
 	if !flamer_data.weapon_is_active: return

@@ -24,3 +24,4 @@ func update_car_stats(car : CarData) -> void:
 
 func unload() -> void:
 	frags = 0
+	

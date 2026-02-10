@@ -34,6 +34,7 @@ func _on_game_paused(game_on_pause : bool) -> void:
 
 
 func _on_cool_down_timeout() -> void:
+	if !launcher_data.weapon_is_active: return
 	drop_mine(mine_marker.global_position)
 
 func drop_mine(drop_pos: Vector2)-> void:

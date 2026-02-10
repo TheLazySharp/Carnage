@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=3 format=3 uid="uid://c5l0xm4m5tt65"]
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://c5l0xm4m5tt65"]
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_4icbo"]
 [ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="2_q6pc4"]
@@ -15,5 +15,5 @@ radius = 0
 speed_rotation = 0
 fire_rate = 4.0
 cool_down = 6.0
-levelup_text = "+ dmg"
+description = "Shot fire in front of the car once an enemy enter is range area"
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

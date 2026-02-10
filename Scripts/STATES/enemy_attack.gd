@@ -14,7 +14,8 @@ func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
 
 func enter()-> void:
-	print("enemy attacking")
+	pass
+	#print("enemy attacking")
 
 
 func exit()-> void:

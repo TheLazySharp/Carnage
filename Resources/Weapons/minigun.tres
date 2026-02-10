@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=5 format=3 uid="uid://byammqyru2apq"]
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://byammqyru2apq"]
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_nojgw"]
 [ext_resource type="Resource" uid="uid://tmw3kk1tg1re" path="res://Resources/Weapons/mg_bullet.tres" id="2_nojgw"]
@@ -19,5 +19,5 @@ speed_rotation = 0
 fire_rate = 0.2
 cool_down = 2.0
 nb_ammo = 10
-levelup_text = "+ 1 bullet"
+description = "Shot bullets on sight"
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

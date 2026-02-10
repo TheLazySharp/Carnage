@@ -20,7 +20,7 @@ class_name WeaponData
 @export var cool_down: float
 @export var nb_ammo: int = 1
 var is_equiped: = false
-@export var levelup_text : String
+@export var description : String
 
 var current_level: int = 0
 var crafted:=false

@@ -8,6 +8,8 @@ signal game_paused(game_on_pause: bool)
 @onready var day_manager: Node = $"../DayManager"
 @onready var pause_manager: Control = $"../CanvasLayer/Pause"
 @onready var leveling: Control = $"../CanvasLayer/Leveling"
+@onready var weapons_container: MarginContainer = $"../CanvasLayer/Leveling/WeaponsContainer"
+@onready var ammo_container: MarginContainer = $"../CanvasLayer/Leveling/AmmoContainer"
 
 var game_over_scene:= "uid://c6ue1qnj30p5b"
 
@@ -18,6 +20,8 @@ func _ready() -> void:
 	day_manager.day_ended.connect(_update_pause_status)
 	pause_manager.quit_pause.connect(_update_ingame_pause)
 	leveling.game_paused.connect(_leveling_pause)
+	weapons_container.game_paused.connect(_leveling_pause)
+	ammo_container.game_paused.connect(_leveling_pause)
 	
 func _process(_delta: float) -> void:
 	process_inputs()
@@ -57,4 +61,3 @@ func _update_ingame_pause(ingame_pause : bool) -> void:
 func _leveling_pause(leveling_pause : bool) -> void:
 	game_on_pause = leveling_pause
 	emit_signal("game_paused", game_on_pause)
-	
