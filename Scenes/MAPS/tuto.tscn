@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="33_fiq40"]
 [ext_resource type="Script" uid="uid://dgjjb27shy4tk" path="res://Scripts/SCENES/pause.gd" id="34_nssc7"]
 [ext_resource type="Script" uid="uid://p1kmh86var1g" path="res://Scripts/UI/stats_screen.gd" id="35_agr30"]
+[ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="40_nedco"]
 [ext_resource type="Texture2D" uid="uid://bxgdr3qp32q2b" path="res://Assets/Props/garage.png" id="41_d4n4o"]
 [ext_resource type="Texture2D" uid="uid://bwrvswxwsubhg" path="res://Assets/UI/dashboard_352_144.png" id="43_haqlr"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="44_hiso2"]
@@ -2029,7 +2030,7 @@ offset_left = -199.5
 offset_right = 199.5
 offset_bottom = 97.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_fonts/font = ExtResource("40_nedco")
 theme_override_font_sizes/font_size = 56
 text = "tuto here"
 horizontal_alignment = 1
@@ -2039,15 +2040,15 @@ vertical_alignment = 1
 visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.53000003
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.53000003
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -402.40002
-offset_top = -150.0
-offset_right = 402.59998
-offset_bottom = 150.0
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
@@ -2063,11 +2064,12 @@ offset_bottom = 139.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = 6
 theme_override_constants/paragraph_spacing = 10
-theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 32
 text = "In this game, you need to pick up spare parts contained in wood boxes spread on the road.
+
 With these spare parts you will be able to upgrade your car !"
 autowrap_mode = 2
-uppercase = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Training/ResourcesPanel" unique_id=1262482143]
 custom_minimum_size = Vector2(64, 64)
@@ -2077,10 +2079,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -143.00002
-offset_top = -33.5
-offset_right = 143.00002
-offset_bottom = 33.5
+offset_left = -142.5
+offset_top = -8.0
+offset_right = 143.5
+offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 150
@@ -2092,12 +2094,13 @@ expand_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer/WoodBoxes" unique_id=539785371]
 layout_mode = 0
-offset_left = -33.5
-offset_top = 71.0
-offset_right = 99.5
-offset_bottom = 94.0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "woodboxes"
+offset_left = -33.0
+offset_top = 75.0
+offset_right = 100.0
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 24
+text = "Wood boxes"
 horizontal_alignment = 1
 
 [node name="SpareParts" type="TextureRect" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer" unique_id=1538339420]
@@ -2107,12 +2110,13 @@ expand_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer/SpareParts" unique_id=1972246368]
 layout_mode = 0
-offset_left = -42.5
-offset_top = 71.0
-offset_right = 104.5
-offset_bottom = 94.0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "SPARE PARTS"
+offset_left = -42.0
+offset_top = 75.0
+offset_right = 105.0
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 24
+text = "Spare parts"
 horizontal_alignment = 1
 
 [node name="Ok" type="Button" parent="CanvasLayer/Training/ResourcesPanel" unique_id=1357431777]
@@ -2140,15 +2144,15 @@ flat = true
 visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.53000003
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.53000003
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -402.40002
-offset_top = -150.0
-offset_right = 402.59998
-offset_bottom = 150.0
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
@@ -2164,11 +2168,12 @@ offset_bottom = 139.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = 6
 theme_override_constants/paragraph_spacing = 10
-theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "be carefull of the dead walking in the city. collect xp by killing them.
-at first, just try to hit them. when you level up, you will put weapons on your car."
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 32
+text = "Be carefull of the dead walking in the city. Collect XP by killing them.
+
+At first, just try to hit them. Once you level up, you will put weapons on your car."
 autowrap_mode = 2
-uppercase = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Training/EnemiesPanel" unique_id=164052513]
 custom_minimum_size = Vector2(64, 64)
@@ -2179,9 +2184,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -142.5
-offset_top = -8.0
+offset_top = -11.0
 offset_right = 143.5
-offset_bottom = 59.0
+offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 150
@@ -2194,11 +2199,12 @@ expand_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/Training/EnemiesPanel/HBoxContainer/Zombies" unique_id=1989022371]
 layout_mode = 0
 offset_left = -33.5
-offset_top = 71.0
+offset_top = 75.0
 offset_right = 99.5
-offset_bottom = 94.0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "zombies"
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 24
+text = "Zombies"
 horizontal_alignment = 1
 
 [node name="Xp" type="TextureRect" parent="CanvasLayer/Training/EnemiesPanel/HBoxContainer" unique_id=721288785]
@@ -2209,10 +2215,11 @@ expand_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/Training/EnemiesPanel/HBoxContainer/Xp" unique_id=1746958551]
 layout_mode = 0
 offset_left = -42.5
-offset_top = 71.0
+offset_top = 75.0
 offset_right = 104.5
-offset_bottom = 94.0
-theme_override_fonts/font = ExtResource("7_hcgxs")
+offset_bottom = 98.0
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 24
 text = "XP"
 horizontal_alignment = 1
 
@@ -2241,15 +2248,15 @@ flat = true
 visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.53000003
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.53000003
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -402.40002
-offset_top = -150.0
-offset_right = 402.59998
-offset_bottom = 150.0
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
@@ -2265,14 +2272,15 @@ offset_bottom = 174.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = 6
 theme_override_constants/paragraph_spacing = 10
-theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 32
 text = "Congrats for completing the tutorial ! A lot more awaits you !
-Each day you will explore the cities around you to search for gear parts, trying to survive many threats.
+Each day you will explore the cities around you to search for spare parts, trying to survive many threats.
 Come back to your garage before the night comes. 
 A greater danger will be unleash in the dark. 
-When ready, you will fight it !"
+
+Keep upgrading your car to become powerfull enough to destroy all your enemies !"
 autowrap_mode = 2
-uppercase = true
 
 [node name="Ok" type="Button" parent="CanvasLayer/Training/EndPanel" unique_id=651776930]
 layout_mode = 1
@@ -2303,10 +2311,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 288.5
-offset_top = -43.0
-offset_right = 361.5
-offset_bottom = 24.0
+offset_left = 387.0
+offset_top = -83.0
+offset_right = 460.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 150
@@ -2322,8 +2330,9 @@ offset_left = -33.5
 offset_top = 71.0
 offset_right = 99.5
 offset_bottom = 94.0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "garage"
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 24
+text = "Garage"
 horizontal_alignment = 1
 
 [node name="Car" parent="." unique_id=2034565894 instance=ExtResource("47_dm4wc")]
@@ -2501,6 +2510,8 @@ y_sort_enabled = true
 [node name="SkidMarks" type="Node2D" parent="." unique_id=180617962]
 z_index = 10
 z_as_relative = false
+
+[node name="Explosives" type="Node2D" parent="." unique_id=502228968]
 
 [node name="VFX" type="Node2D" parent="." unique_id=1933595906]
 z_index = 50

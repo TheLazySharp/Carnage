@@ -386,7 +386,6 @@ path_postprocessing = 1
 path_metadata_flags = 0
 simplify_path = true
 simplify_epsilon = 10.0
-debug_enabled = true
 
 [node name="MarkerDamages" type="Marker2D" parent="." unique_id=851039847]
 position = Vector2(0, -22)

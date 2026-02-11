@@ -11,7 +11,6 @@ base_acceleration = 220
 base_max_speed = 320
 friction = 300.0
 turn_speed = 2.5
-base_max_life = 350
 base_display_max_speed = 210
 base_dmg = 5
 start_engine_Sound = ExtResource("3_p4whg")

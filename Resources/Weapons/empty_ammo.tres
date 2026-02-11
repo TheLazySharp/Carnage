@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dc7hb24vr2x6r"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_0d3xf"]
+
+[resource]
+script = ExtResource("1_0d3xf")
+weapon_scene_uid = "uid://dc7hb24vr2x6r"
+dmg = 0
+dmg_on_resources = 0
+radius = 0
+speed_rotation = 0
+nb_ammo = 0
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

@@ -14,10 +14,11 @@ func _ready() -> void:
 	resume.grab_focus()
 	
 func _process(_delta: float) -> void:
-	if !SceneManager.tuto_completed:
-		quit_to_menu.hide()
-	else:
-		quit_to_menu.show()
+	pass
+	#if !SceneManager.tuto_completed:
+		#quit_to_menu.hide()
+	#else:
+		#quit_to_menu.show()
 	
 
 func _on_resume_pressed() -> void:

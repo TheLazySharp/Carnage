@@ -1301,7 +1301,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 0, 1), Color(1, 1, 0, 1)]
+"values": [Color(1, 1, 1, 1), Color(0.6862745, 0.06666667, 0.43529412, 1), Color(0.6862745, 0.06666667, 0.43529412, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -2299,9 +2299,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -96.75
+offset_left = -334.0
 offset_top = -84.0
-offset_right = 96.75
+offset_right = -140.5
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 30
@@ -2417,7 +2417,7 @@ theme_override_fonts/font = ExtResource("46_vrsns")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "EQUIP"
 
 [node name="WeaponSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=847243658]
 layout_mode = 2
@@ -2745,6 +2745,7 @@ theme_override_constants/h_separation = 14
 columns = 5
 
 [node name="AmmoSlot0" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=205369561]
+custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 
@@ -2816,18 +2817,19 @@ theme_override_fonts/font = ExtResource("46_vrsns")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 
-[node name="AmmoSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=32082933]
+[node name="AmmoSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1923229107]
+custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=1041791367]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=47339182]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=603347986]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=1968864854]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2837,7 +2839,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=293161372]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=1315067792]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2850,7 +2852,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=1562184833]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=378048176]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -2865,7 +2867,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo/IconBkg" unique_id=1104485591]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo/IconBkg" unique_id=694590393]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -2881,7 +2883,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=1089478345]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=283971264]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -2890,18 +2892,19 @@ theme_override_fonts/font = ExtResource("46_vrsns")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 
-[node name="AmmoSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1842780415]
+[node name="AmmoSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1962731554]
+custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=818410865]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=1716363297]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=33242570]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=1331847059]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2911,7 +2914,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=986232155]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=212925209]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2924,7 +2927,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=1353643094]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=123734390]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -2939,7 +2942,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo/IconBkg" unique_id=619862017]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo/IconBkg" unique_id=956410578]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -2955,7 +2958,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=43554887]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=128801153]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -2964,18 +2967,19 @@ theme_override_fonts/font = ExtResource("46_vrsns")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 
-[node name="AmmoSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=797490810]
+[node name="AmmoSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1767757190]
+custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=1085509044]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=1146008611]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=2010462610]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1413140721]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2985,7 +2989,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1077668351]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1560693774]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2998,7 +3002,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=2039783988]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=298020846]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3013,7 +3017,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo/IconBkg" unique_id=1268733848]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo/IconBkg" unique_id=1149933687]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3029,7 +3033,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=738366804]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=1963052514]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -3038,18 +3042,19 @@ theme_override_fonts/font = ExtResource("46_vrsns")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 
-[node name="AmmoSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1879374769]
+[node name="AmmoSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=337454392]
+custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=413705080]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=612413484]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=764301776]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1640383697]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3059,7 +3064,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1375534399]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1393061172]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3072,7 +3077,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=709715601]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1119808959]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3087,7 +3092,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo/IconBkg" unique_id=392703408]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo/IconBkg" unique_id=1807255710]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3103,7 +3108,7 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=649594950]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=2095425309]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -3112,7 +3117,7 @@ theme_override_fonts/font = ExtResource("46_vrsns")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 
 [node name="TextPanel" type="Panel" parent="CanvasLayer/Leveling" unique_id=681170836]
 z_index = 20

@@ -77,33 +77,40 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	for i in weapon_data_buttons.size():
-		var weapon_button : Button = weapon_data_buttons[i]
-		var ammo_button : Button = ammo_data_buttons[i]
-		var w_confirm_button : Button = weapon_confirm_buttons[i]
-		var a_confirm_button : Button = ammo_confirm_buttons[i]
-		if weapon_button.has_focus() or w_confirm_button.has_focus() or ammo_button.has_focus() or a_confirm_button.has_focus():
+	if visible: 
+		for i in weapon_data_buttons.size():
+			var weapon_button : Button = weapon_data_buttons[i]
+			var ammo_button : Button = ammo_data_buttons[i]
+			var w_confirm_button : Button = weapon_confirm_buttons[i]
+			var a_confirm_button : Button = ammo_confirm_buttons[i]
+			
 			if i < weapons.size():
-				weapon_name.text = weapons[i].weapon_name
-				weapon_descr.text = weapons[i].description
-				weapon_icon.texture = weapons[i].weapon_icon
-				weapon_levels.text = str(weapons[i].current_level)
-				if weapons[i].weapon_ammo_res != null:
-					ammo_name.show()
-					ammo_name.text = weapons[i].weapon_ammo_res.weapon_name
-					ammo_levels.show()
-					ammo_levels.text = str(weapons[i].weapon_ammo_res.current_level)
-					ammo_icon.get_parent().show()
-					ammo_icon.texture = weapons[i].weapon_ammo_res.weapon_icon
-				
+				w_confirm_button.text = "UPGRADE"
 			elif i == weapons.size():
-				weapon_name.text = new_weapon.weapon_name
-				weapon_descr.text = new_weapon.description
-				weapon_icon.texture = new_weapon.weapon_icon
-				weapon_levels.text = "100"
-				ammo_name.hide()
-				ammo_levels.hide()
-				ammo_icon.get_parent().hide()
+				w_confirm_button.text = "EQUIP"
+			
+			if weapon_button.has_focus() or w_confirm_button.has_focus() or ammo_button.has_focus() or a_confirm_button.has_focus():
+				if i < weapons.size():
+					weapon_name.text = weapons[i].weapon_name
+					weapon_descr.text = weapons[i].description
+					weapon_icon.texture = weapons[i].weapon_icon
+					weapon_levels.text = str(weapons[i].current_level)
+					if weapons[i].weapon_ammo_res != null:
+						ammo_name.show()
+						ammo_name.text = weapons[i].weapon_ammo_res.weapon_name
+						ammo_levels.show()
+						ammo_levels.text = str(weapons[i].weapon_ammo_res.current_level)
+						ammo_icon.get_parent().show()
+						ammo_icon.texture = weapons[i].weapon_ammo_res.weapon_icon
+					
+				elif i == weapons.size():
+					weapon_name.text = new_weapon.weapon_name
+					weapon_descr.text = new_weapon.description
+					weapon_icon.texture = new_weapon.weapon_icon
+					weapon_levels.text = "100"
+					ammo_name.hide()
+					ammo_levels.hide()
+					ammo_icon.get_parent().hide()
 	
 
 

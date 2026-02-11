@@ -11,7 +11,7 @@ var scenes: Dictionary[String,String] = {
 }
 
 #TEST = true
-var tuto_completed: bool = true
+var tuto_completed: bool = false
 
 
 var ready_go_timer: float = 2.0

@@ -8,6 +8,7 @@ const MG_BULLET = preload("uid://tmw3kk1tg1re")
 const FLAMER = preload("uid://c5l0xm4m5tt65")
 const MINE_LAUNCHER = preload("uid://cxd60bmbatyvi")
 const LANDMINE = preload("uid://cve8xcjafip0")
+const EMPTY_AMMO = preload("uid://dc7hb24vr2x6r")
 
 
 var weapon_scenes: Array[Array]
@@ -28,13 +29,13 @@ func _ready() -> void:
 func load_weapons() -> void:
 	locked_weapon(REVOLVER)
 	locked_weapon(MINIGUN)
-	#locked_weapon(FLAMER)
+	locked_weapon(FLAMER)
 	locked_weapon(MINE_LAUNCHER)
 	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
 	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
 	weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
 	weapon_scenes.append(["minigun", "uid://c6wus6ofti85w", preload("uid://c6wus6ofti85w")])
-	#weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
+	weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
 	weapon_scenes.append(["mine_launcher", "uid://c8ohbftuu83c8", preload("uid://c8ohbftuu83c8")])
 	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
 	print("weapons loaded")
@@ -42,7 +43,8 @@ func load_weapons() -> void:
 func test_weapons() ->void:
 	#equip_weapon(FLAMER)
 	#weapons[0].dmg = 10
-	check_weapons()
+	#check_weapons()
+	pass
 	
 	
 func check_weapons() -> void:
@@ -69,7 +71,7 @@ func init_ammo(new_ammo : WeaponData) -> void:
 	new_ammo.is_equiped = true
 	new_ammo.weapon_is_active = true
 	ammunitions.append(new_ammo)
-	print(new_ammo.weapon_name," add to ammunitions")
+	#print(new_ammo.weapon_name," add to ammunitions")
 
 func locked_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = false
@@ -86,10 +88,12 @@ func equip_weapon(new_weapon: WeaponData) -> void:
 			if !unequipped_weapons.is_empty():
 				unequipped_weapons.remove_at(0)
 			
-			if new_weapon.weapon_ammo_res !=null and new_weapon.weapon_ammo_scene != null:
+			#if new_weapon.weapon_ammo_res !=null and new_weapon.weapon_ammo_scene != null:
+			if new_weapon.weapon_ammo_res !=null:
 				init_ammo(new_weapon.weapon_ammo_res)
 				#print(new_weapon.weapon_ammo_res.weapon_name," is equiped : ", new_weapon.weapon_ammo_res.is_equiped)
 
+			
 			print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
 			
 			print("MAJ WEAPONS :")
@@ -106,7 +110,8 @@ func equip_ammo() -> void:
 	if !weapons.is_empty() and ammunitions.is_empty():
 		for i in weapons.size():
 			var weapon_to_reload : WeaponData = weapons[i]
-			if weapon_to_reload.weapon_ammo_res !=null and weapon_to_reload.weapon_ammo_scene != null:
+			#if weapon_to_reload.weapon_ammo_res !=null and weapon_to_reload.weapon_ammo_scene != null:
+			if weapon_to_reload.weapon_ammo_res !=null:
 				init_ammo(weapon_to_reload.weapon_ammo_res)
 				
 

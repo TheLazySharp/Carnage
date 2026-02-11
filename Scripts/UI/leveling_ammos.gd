@@ -5,6 +5,7 @@ var player_current_level: int
 signal game_paused(game_on_pause: bool)
 var game_is_paused: = false
 
+const EMPTY_AMMO = preload("uid://dc7hb24vr2x6r")
 
 @onready var ammo_slot_container: GridContainer = $GridContainer
 
@@ -38,10 +39,8 @@ func _ready() -> void:
 	XPManager.update_level.connect(level_up)
 	
 	slots = ammo_slot_container.get_child_count()
-	#print(slots)
 	for button_index in slots:
 		confirm_buttons.append(ammo_slot_container.get_child(button_index).get_child(1))
-		#print("in AMMO : button name : ",ammo_slot_container.get_child(button_index).get_child(1).name)
 	
 	for button_index in slots:
 		ammo_data_buttons.append(ammo_slot_container.get_child(button_index).get_child(0).get_child(0))
@@ -59,16 +58,11 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	pass
-	#for i in ammo_data_buttons.size():
-		#var button : Button = ammo_data_buttons[i]
-		#if button.has_focus():
-			#if i < ammunitions.size():
-				#ammo_name.text = ammunitions[i].weapon_name
-				#ammo_icon.texture = ammunitions[i].weapon_icon
-	#if !ammunitions.is_empty():
-		#for i in ammunitions.size():
-			#get_child(0).get_child(i).get_child(0).get_child(2).get_child(0).texture = ammunitions[i].weapon_icon
+	if visible:
+		for i in ammunitions.size():
+			if ammunitions[i] == EMPTY_AMMO:
+				ammo_slot_container.get_child(i).get_child(0).hide()
+				ammo_slot_container.get_child(i).get_child(1).hide()
 
 
 func level_up(new_current_level : int) -> void:
@@ -115,8 +109,6 @@ func leveling_ok() -> void:
 		if ammo.is_equiped:
 			ammo_level_up(button_selected_id)
 
-		#else: 
-			#WeaponsManager.equip_weapon(weapon)
 		emit_signal("game_paused", game_is_paused)
 		leveling.hide()
 		ammo_levelup_ok = false
@@ -126,10 +118,3 @@ func leveling_ok() -> void:
 
 func ammo_level_up(ammo_id: int) -> void:
 	ammunitions[ammo_id].current_level +=1
-	#print(weapons[weapon_id], " level up")
-
-#func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array, weapon_show : bool) -> void:
-	#new_weapon = new_weapon_to_equiped
-	#unequiped_weapons = new_weapons_list
-	#new_weapon_show = weapon_show
-	#print(new_weapon.weapon_name, weapons.size())

@@ -289,7 +289,7 @@ func get_damages_from_mob(damages: int) -> void:
 		current_life -= damages
 		life_bar.value = current_life
 		#display_damages(damages)
-		print("car get ",damages," dmg. Current life : ",str(current_life))
+		#print("car get ",damages," dmg. Current life : ",str(current_life))
 		#animation_player.play("beaver_animations/flash")
 		taking_damages.start()
 		
@@ -305,7 +305,7 @@ func get_damages(damages: int) -> void:
 		current_life -= damages
 		life_bar.value = current_life
 		#display_damages(damages)
-		print("car get ",damages," dmg. Current life : ",str(current_life))
+		#print("car get ",damages," dmg. Current life : ",str(current_life))
 		
 		if current_life <=0:
 			current_life = 0
