@@ -117,7 +117,7 @@ func steps(step : int) -> void:
 			accelarate_sprite.stop()
 			accelarate_sprite.get_parent().set_deferred("disabled",true)
 			
-			tuto_label.text = "Press B to go backward"
+			tuto_label.text = "Press LT to go backward"
 			arrow_1_to_2.play("moving")
 			arrow_1_to_2.show()
 			back_sprite.play("zone")

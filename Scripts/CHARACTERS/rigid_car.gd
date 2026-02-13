@@ -27,6 +27,7 @@ var display_max_speed : int
 var start_engine_sound : AudioStreamMP3
 @onready var car_sprite: Sprite2D = $CarSprite
 
+var burn_boost : float = 200 #ajouter au CAR DATA
 
 #SKID
 @export var skid_marks_path: NodePath
@@ -38,8 +39,12 @@ var right_line: Line2D = null
 var last_left_pos := Vector2.ZERO
 var last_right_pos := Vector2.ZERO
 
-#DRIFT
+#DRIFT and BURN
 var drifting_last_frame := false
+@onready var rear_left_burn_anim: AnimatedSprite2D = $RearLeft/RearLeftBurnAnim
+@onready var rear_right_burn_anim: AnimatedSprite2D = $RearRight/RearRightBurnAnim
+
+var burning : bool
 
 #GAME
 signal game_over(game_is_over: bool)
@@ -73,7 +78,8 @@ var current_life: int
 
 func _ready() -> void:
 	player = CarManager.selected_car
-	
+	rear_left_burn_anim.hide()
+	rear_right_burn_anim.hide()
 	##TEST
 	WeaponsManager.test_weapons()
 	
@@ -138,15 +144,49 @@ func _physics_process(delta : float) -> void:
 		var forward := Vector2.RIGHT.rotated(rotation)
 		var lateral := forward.rotated(PI / 2)
 
-		# ----------------- INPUT -----------------
-		var throttle := Input.get_action_strength("accelerate") - Input.get_action_strength("brake")
+		# ----------------- INPUTS -----------------
+		var throttle := Input.get_action_strength("accelerate")
 		var steer := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-		var drifting := Input.is_action_pressed("drift")
+		var drifting := Input.is_action_pressed("drift") and throttle > 0
+		burning  = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length() < 20
 		
 		if forward_only:
 			throttle = Input.get_action_strength("accelerate")
 			steer = 0
 			drifting = false
+		
+		if !Input.is_action_pressed("accelerate"):
+			throttle = - Input.get_action_strength("back")
+		else : 
+			throttle = Input.get_action_strength("accelerate")
+		
+		# ----------------- BURNOUT -----------------
+		
+		if burning :
+			throttle = 0
+			rear_left_burn_anim.show()
+			if !rear_left_burn_anim.is_playing():
+				rear_left_burn_anim.play("fadeIn")
+			rear_right_burn_anim.show()
+			if !rear_right_burn_anim.is_playing():
+				rear_right_burn_anim.play("fadeIn")
+		
+		if !burning :
+			rear_left_burn_anim.stop()
+			rear_left_burn_anim.hide()
+			rear_right_burn_anim.stop()
+			rear_right_burn_anim.hide()
+			
+
+		
+		if Input.is_action_pressed("accelerate") and Input.is_action_just_released("drift") and velocity.length()  <1:
+			rear_left_burn_anim.play("fadeOut")
+			rear_right_burn_anim.play("fadeOut")
+			print("BURNOUT !")
+			throttle = burn_boost
+
+		
+		
 		
 		# ----------------- ACCELERATION -----------------
 		if throttle != 0:
@@ -199,12 +239,28 @@ func _physics_process(delta : float) -> void:
 
 		was_drifting = drifting
 		
-		var collision : KinematicCollision2D = move_and_collide(velocity * delta)
-		
+		var motion : Vector2 = velocity * delta
+		var collision : KinematicCollision2D = move_and_collide(motion)
 		if collision:
-			var n := collision.get_normal()
-			velocity = velocity.slide(n)*0.5
-
+			var n : Vector2 = collision.get_normal().normalized()
+			
+			velocity = velocity.slide(n) * 0.9
+			
+			var wall_tan := Vector2(-n.y, n.x)
+			var is_moving_forward : bool = velocity.dot(forward) > 0
+			
+			if velocity.dot(wall_tan) < 0 : 
+				wall_tan = - wall_tan
+			
+			var new_speed : float = velocity.length()
+			velocity = velocity.normalized().lerp(wall_tan,0.3) * new_speed
+			
+			var target_rotation : float = wall_tan.angle()
+			if !is_moving_forward:
+				target_rotation += PI
+			
+			rotation = lerp_angle(rotation, target_rotation, 5.0 * delta)
+		
 		
 		#SKIDS
 		if drifting and not drifting_last_frame:
@@ -380,3 +436,17 @@ func _on_forward_only(car_only_forward : bool) -> void:
 		#for i in range(explosives.get_child_count()-1,-1,-1):
 			#explosives.get_child(i).queue_free()
 			#print("explosives empty")
+
+func angle_difference(from: float, to: float) -> float:
+	var diff := fmod(to - from, TAU)
+	return fmod(2.0 * diff, TAU) - diff
+
+
+func _on_rear_left_burn_anim_animation_finished() -> void:
+	if burning:
+		rear_left_burn_anim.play('idle')
+
+
+func _on_rear_right_burn_animation_finished() -> void:
+		if burning:
+			rear_right_burn_anim.play('idle')

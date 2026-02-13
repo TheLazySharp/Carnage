@@ -1299,6 +1299,7 @@ navigation_enabled = false
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
 
 [node name="Gear" type="Control" parent="CanvasLayer" unique_id=1192136897]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 141.0
@@ -1476,6 +1477,7 @@ theme_override_font_sizes/font_size = 10
 script = ExtResource("25_87mql")
 
 [node name="Parts" type="Control" parent="CanvasLayer" unique_id=102137242]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 141.0
@@ -1854,6 +1856,7 @@ theme_override_font_sizes/font_size = 48
 text = "Healing Power : "
 
 [node name="Board" type="Control" parent="CanvasLayer" unique_id=853771382]
+visible = false
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -1968,6 +1971,7 @@ position = Vector2(50, 56)
 texture = ExtResource("46_gmxtb")
 
 [node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -2014,6 +2018,7 @@ vertical_alignment = 1
 libraries/ = SubResource("AnimationLibrary_2jlsx")
 
 [node name="Training" type="Control" parent="CanvasLayer" unique_id=504492948]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
