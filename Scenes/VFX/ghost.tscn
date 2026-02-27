@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://caih21wmxphk2"]
+
+[ext_resource type="Script" uid="uid://b5lnc45xocmdk" path="res://Scripts/VFX/ghost.gd" id="1_7so3e"]
+[ext_resource type="Texture2D" uid="uid://bn3oteja0m4nn" path="res://Assets/Characters/Cars/sedan_sport.png" id="2_pijxe"]
+
+[node name="Ghost" type="Node2D" unique_id=38783440]
+script = ExtResource("1_7so3e")
+
+[node name="GhostSprite" type="Sprite2D" parent="." unique_id=1534375060]
+modulate = Color(0.44291076, 0.44291076, 0.44291073, 1)
+rotation = 1.5707964
+texture = ExtResource("2_pijxe")
+offset = Vector2(0, 12)

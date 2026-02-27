@@ -10,17 +10,21 @@ var max_lvl : int
 @onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 @onready var cool_down: Timer = $CoolDown
+var cool_down_upgrade : float
 @onready var mine_marker: Marker2D = $"/root/World/Car/MineMarker"
 
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
-	cool_down.wait_time = launcher_data.cool_down
+	cool_down.wait_time = launcher_data.base_cool_down
 	max_lvl = launcher_data.max_level
 
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(launcher_data.current_level,0,max_lvl)
-	cool_down.wait_time = launcher_data.cool_down - current_lvl * 0.1
+	cool_down.wait_time = launcher_data.base_cool_down - current_lvl * 0.1
+	cool_down_upgrade = launcher_data.base_cool_down - (current_lvl + 1) * 0.1
+	launcher_data.cool_down = cool_down.wait_time
+	launcher_data.cool_down_upgrade = cool_down_upgrade
 	
 	if game_paused and !cool_down.paused:
 		cool_down.paused = true
@@ -28,6 +32,8 @@ func _process(_delta: float) -> void:
 	if !game_paused and cool_down.paused:
 		cool_down.paused = false 
 	
+	if !launcher_data.weapon_is_active:
+		desactivate()
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
@@ -42,4 +48,5 @@ func drop_mine(drop_pos: Vector2)-> void:
 	get_node("/root/World/Explosives").add_child(landmine)
 	landmine.global_position = drop_pos
 	
-	
+func desactivate() -> void:
+	cool_down.stop()

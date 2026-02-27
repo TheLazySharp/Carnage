@@ -10,6 +10,7 @@ var game_is_paused: = false
 @onready var ammo_slot_container: GridContainer = $"../AmmoContainer/GridContainer"
 
 @onready var leveling: Control = $".."
+@onready var skip_button: Button = $"../LevelingBkgd/MainButtons/Skip"
 
 
 #TEXT
@@ -20,6 +21,24 @@ var game_is_paused: = false
 @onready var ammo_name: Label = $"../TextPanel/AmmoName"
 @onready var ammo_levels: Label = $"../TextPanel/AmmoLevels"
 @onready var ammo_icon: TextureRect = $"../TextPanel/AmmoBkg/AmmoIcon"
+@onready var ammo_bkg: ColorRect = $"../TextPanel/AmmoBkg"
+
+#STATS
+@onready var upgrades: HBoxContainer = $"../TextPanel/Upgrades"
+@onready var dmg_current: Label = $"../TextPanel/Upgrades/Levels/Dmg_Q"
+@onready var dmg_upgrade: Label = $"../TextPanel/Upgrades/Upgrade/Dmg_upgrade"
+
+@onready var fire_rate_current: Label = $"../TextPanel/Upgrades/Levels/FireRate_Q"
+@onready var fire_rate_upgrade: Label = $"../TextPanel/Upgrades/Upgrade/FireRate_upgrade"
+
+@onready var cool_down_current: Label = $"../TextPanel/Upgrades/Levels/CoolDown_Q"
+@onready var cool_down_upgrade: Label = $"../TextPanel/Upgrades/Upgrade/CoolDown_upgrade"
+
+@onready var radius_current: Label = $"../TextPanel/Upgrades/Levels/Radius_Q"
+@onready var radius_upgrade: Label = $"../TextPanel/Upgrades/Upgrade/Radius_upgrade"
+
+@onready var nb_ammo_current: Label = $"../TextPanel/Upgrades/Levels/NbAmmo_Q"
+@onready var nb_ammo_upgrade: Label = $"../TextPanel/Upgrades/Upgrade/NbAmmo_upgrade"
 
 
 var slots :int
@@ -89,13 +108,64 @@ func _process(_delta: float) -> void:
 			elif i == weapons.size():
 				w_confirm_button.text = "EQUIP"
 			
-			if weapon_button.has_focus() or w_confirm_button.has_focus() or ammo_button.has_focus() or a_confirm_button.has_focus():
+			if weapon_button.has_focus() or w_confirm_button.has_focus() or ammo_button.has_focus() or a_confirm_button.has_focus() or skip_button.has_focus():
 				if i < weapons.size():
+					upgrades.show()
 					weapon_name.text = weapons[i].weapon_name
 					weapon_descr.text = weapons[i].description
 					weapon_icon.texture = weapons[i].weapon_icon
 					weapon_levels.text = str(weapons[i].current_level)
-					if weapons[i].weapon_ammo_res != null:
+					
+
+					
+					#STATS
+					
+					if ammo_button.has_focus() or a_confirm_button.has_focus():
+						dmg_current.text = str(weapons[i].dmg + weapons[i].weapon_ammo_res.dmg)
+						dmg_upgrade.text = str(weapons[i].dmg_upgrade + weapons[i].weapon_ammo_res.dmg_upgrade)
+						
+						fire_rate_current.text = str(weapons[i].fire_rate)
+						fire_rate_upgrade.text = fire_rate_current.text
+						
+						cool_down_current.text = str(weapons[i].cool_down)
+						cool_down_upgrade.text = cool_down_current.text
+						
+						radius_current.text = str(weapons[i].radius)
+						radius_upgrade.text = radius_current.text
+						
+						nb_ammo_current.text = str(weapons[i].nb_ammo)
+						nb_ammo_upgrade.text = nb_ammo_current.text
+					
+					
+					if weapon_button.has_focus() or w_confirm_button.has_focus():
+						if weapons[i].weapon_ammo_scene == null:
+							dmg_current.text = str(weapons[i].dmg + weapons[i].weapon_ammo_res.dmg)
+							dmg_upgrade.text = str(weapons[i].dmg_upgrade + weapons[i].weapon_ammo_res.dmg_upgrade)
+							ammo_icon.get_parent().hide()
+							ammo_name.hide()
+							ammo_levels.hide()
+							
+						else:
+							dmg_current.text = str(weapons[i].dmg + weapons[i].weapon_ammo_res.dmg)
+							dmg_upgrade.text = dmg_current.text
+							ammo_icon.get_parent().show()
+							ammo_name.show()
+							ammo_levels.show()
+						
+						
+						fire_rate_current.text = str(weapons[i].fire_rate)
+						fire_rate_upgrade.text = str(weapons[i].fire_rate_upgrade)
+						
+						cool_down_current.text = str(weapons[i].cool_down)
+						cool_down_upgrade.text = str(weapons[i].cool_down_upgrade)
+						
+						radius_current.text = str(weapons[i].radius)
+						radius_upgrade.text = str(weapons[i].radius_upgrade)
+						
+						nb_ammo_current.text = str(weapons[i].nb_ammo)
+						nb_ammo_upgrade.text = str(weapons[i].nb_ammo_upgrade)
+					
+					if weapons[i].weapon_ammo_scene != null:
 						ammo_name.show()
 						ammo_name.text = weapons[i].weapon_ammo_res.weapon_name
 						ammo_levels.show()
@@ -103,7 +173,8 @@ func _process(_delta: float) -> void:
 						ammo_icon.get_parent().show()
 						ammo_icon.texture = weapons[i].weapon_ammo_res.weapon_icon
 					
-				elif i == weapons.size():
+				elif i == weapons.size(): #NEW WEAPON TO EQUIP
+					upgrades.hide()
 					weapon_name.text = new_weapon.weapon_name
 					weapon_descr.text = new_weapon.description
 					weapon_icon.texture = new_weapon.weapon_icon
@@ -120,7 +191,6 @@ func level_up(new_current_level : int) -> void:
 	ammunitions = WeaponsManager.ammunitions
 	for i in ammunitions.size():
 		ammo_slot_container.get_child(i).get_child(0).get_child(2).get_child(0).texture = ammunitions[i].weapon_icon
-	print(ammunitions)
 	upgrade_weapons()
 
 
@@ -160,7 +230,7 @@ func _on_button_pressed(button_id : int) -> void:
 		weapon_confirm_buttons[button_selected_id].get_child(0).add_theme_color_override("font_color", Color.RED)
 		await get_tree().create_timer(0.5).timeout
 		weapon_confirm_buttons[button_selected_id].get_child(0).add_theme_color_override("font_color", Color.WHITE)
-	else: print("skip")
+	#else: print("skip")
 
 
 func leveling_ok() -> void:
@@ -189,4 +259,3 @@ func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list :
 	new_weapon = new_weapon_to_equiped
 	unequiped_weapons = new_weapons_list
 	new_weapon_show = weapon_show
-	print(new_weapon.weapon_name, weapons.size())

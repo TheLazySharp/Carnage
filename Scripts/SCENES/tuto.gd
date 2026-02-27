@@ -47,31 +47,37 @@ const WOODBOX = preload("uid://dcsapykrdl5tf")
 @onready var wood_boxe_marker: Marker2D = $Steps/WoodBoxe
 @onready var woodbox_timer: Timer = $Steps/WoodboxTimer
 
-
 #STEP10
+@onready var burnout_panel: Panel = $CanvasLayer/Training/BurnoutPanel
+@onready var burnout_ok: Button = $CanvasLayer/Training/BurnoutPanel/Ok
+@onready var burn_vid: VideoStreamPlayer = $CanvasLayer/Training/BurnoutPanel/HBoxContainer/BurnVid
+
+#STEP11
 @onready var enemies_panel: Panel = $CanvasLayer/Training/EnemiesPanel
 @onready var enemies_ok: Button = $CanvasLayer/Training/EnemiesPanel/Ok
 
-#STEP11
+#STEP12
 const ENEMY = preload("uid://dgt25kdq0ormg")
 @onready var marker_enemies: Marker2D = $Steps/Enemies
 @onready var arrow_10_to_11: AnimatedSprite2D = $Steps/Arrow10To11
 @onready var enemies_timer: Timer = $Steps/EnemiesTimer
 
 
-#STEP12
+#STEP13
 @onready var end_panel: Panel = $CanvasLayer/Training/EndPanel
 @onready var end_ok: Button = $CanvasLayer/Training/EndPanel/Ok
 
-#STEP13
+#STEP14
 signal tuto_end
 var skip_tuto : bool = false
+var garage_pos : Vector2
 
 var current_step: int = 0
 
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
 	car.start_time.connect(_on_game_started)
+	car.burnout_ok.connect(_on_burnout_end)
 	XP_bar.hide()
 	tuto_label.hide()
 	accelarate_sprite.hide()
@@ -88,9 +94,16 @@ func _ready() -> void:
 	arrow_2_to_3.hide()
 	arrow_8_to_9.hide()
 	arrow_10_to_11.hide()
+	garage_pos = car.global_position
+	steps(0)
+	
 	
 func _process(_delta: float) -> void:
-	pass
+	if current_step == 13:
+		if car.global_position.distance_to(marker_enemies.global_position) < 100:
+			garage_arrow.hide()
+		else : garage_arrow.show()	
+	#else : garage_arrow.show()
 
 
 func _on_game_paused(game_on_pause : bool) -> void:
@@ -105,12 +118,16 @@ func steps(step : int) -> void:
 	current_step = step
 	match current_step:
 		0: 
-			return
+			garage_arrow.hide()
+			
 		1:
 			tuto_label.text = "Press RT to accelerate"
 			tuto_label.show()
 			accelarate_sprite.play("zone")
 			accelarate_sprite.show()
+			SignalManager.emit_signal("tuto_arrow_dir", accelarate_sprite.global_position)
+			garage_arrow.play("moving")
+			garage_arrow.show()
 
 		2:
 			accelarate_sprite.hide()
@@ -122,6 +139,8 @@ func steps(step : int) -> void:
 			arrow_1_to_2.show()
 			back_sprite.play("zone")
 			back_sprite.show()
+			SignalManager.emit_signal("tuto_arrow_dir", back_sprite.global_position)
+			
 
 		3:
 			arrow_1_to_2.hide()
@@ -135,6 +154,8 @@ func steps(step : int) -> void:
 			arrow_2_to_3.show()
 			move_sprite.play("zone")
 			move_sprite.show()
+			SignalManager.emit_signal("tuto_arrow_dir", move_sprite.global_position)
+			
 		
 		4:
 			arrow_2_to_3.hide()
@@ -147,6 +168,7 @@ func steps(step : int) -> void:
 			
 			drift_sprite1.play("zone")
 			drift_sprite1.show()
+			SignalManager.emit_signal("tuto_arrow_dir", drift_sprite1.global_position)
 		
 		5:
 			drift_sprite1.hide()
@@ -155,6 +177,7 @@ func steps(step : int) -> void:
 			
 			drift_sprite2.play("zone")
 			drift_sprite2.show()
+			SignalManager.emit_signal("tuto_arrow_dir", drift_sprite2.global_position)
 			
 		6:
 			drift_sprite2.hide()
@@ -163,6 +186,7 @@ func steps(step : int) -> void:
 						
 			drift_sprite3.play("zone")
 			drift_sprite3.show()
+			SignalManager.emit_signal("tuto_arrow_dir", drift_sprite3.global_position)
 		
 		7:
 			drift_sprite3.hide()
@@ -171,6 +195,7 @@ func steps(step : int) -> void:
 			
 			drift_sprite4.play("zone")
 			drift_sprite4.show()
+			SignalManager.emit_signal("tuto_arrow_dir", drift_sprite4.global_position)
 		
 		8:
 			drift_sprite4.hide()
@@ -193,18 +218,37 @@ func steps(step : int) -> void:
 			get_node("/root/World/Collectables").add_child(woodbox)
 			woodbox.global_position = wood_boxe_marker.global_position
 			woodbox_timer.start()
-		
+			SignalManager.emit_signal("tuto_arrow_dir", wood_boxe_marker.global_position)
+			
 		10:
 			woodbox_timer.stop()
 			arrow_8_to_9.hide()
 			arrow_8_to_9.stop()
 			tuto_label.hide()
 			
+			burnout_panel.show()
+			burnout_ok.grab_focus()
+			burn_vid.play()
+			#PUT ON PAUSE
+		
+		
+		11:
+			burnout_panel.hide()
+			burn_vid.stop()
+			garage_arrow.hide()
+			
+			tuto_label.text = "stop the car and press LT + RT"
+			tuto_label.show()
+		
+		12:
+			tuto_label.hide()
+			
 			enemies_panel.show()
 			enemies_ok.grab_focus()
 			#PUT ON PAUSE
 		
-		11:
+		
+		13:
 			enemies_panel.hide()
 			
 			tuto_label.text = "Kill the two zombies"
@@ -221,8 +265,11 @@ func steps(step : int) -> void:
 			
 			enemy1.activate(marker_enemies.global_position + Vector2(10,10))
 			enemies_timer.start()
+			SignalManager.emit_signal("tuto_arrow_dir", marker_enemies.global_position)
+			garage_arrow.show()
 			
-		12:
+			
+		14:
 			enemies_timer.stop()
 			arrow_10_to_11.hide()
 			arrow_10_to_11.stop()
@@ -232,9 +279,9 @@ func steps(step : int) -> void:
 			end_ok.grab_focus()
 			#PUT ON PAUSE
 			
-		13:
+		15:
 			end_panel.hide()
-			garage_arrow.play("moving")
+			SignalManager.emit_signal("tuto_arrow_dir", garage_pos)
 			garage_arrow.show()
 			tuto_label.text = "Go back to your garage"
 			tuto_label.show()
@@ -272,19 +319,30 @@ func _on_drift_area_4_body_entered(body: Node2D) -> void:
 func _on_ok_resources_pressed() -> void:
 	steps(9)
 
-func _on_enemies_ok_pressed() -> void:
-	steps(11)
-
-func _on_end_ok_pressed() -> void:
-	steps(13)
 
 func _on_woodbox_timer_timeout() -> void:
 	if get_node("/root/World/Collectables").get_child_count() == 0 and current_step == 9:
 		steps(10)
 
 
+func _on_burnout_ok_pressed() -> void:
+	steps(11)
+
+
+func _on_enemies_ok_pressed() -> void:
+	steps(13)
+
 func _on_enemies_timer_timeout() -> void:
-	if get_node("/root/World/Enemies").get_child_count() == 0 and current_step == 11:
+	if get_node("/root/World/Enemies").get_child_count() == 0 and current_step == 13:
+		steps(14)
+
+func _on_end_ok_pressed() -> void:
+	steps(15)
+
+
+func _on_burnout_end(burn_ok : bool) -> void : 
+	if burn_ok == false and current_step == 11:
+		await get_tree().create_timer(2).timeout
 		steps(12)
 
 

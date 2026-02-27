@@ -1,33 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://v787in61o7y6"]
+[gd_scene format=3 uid="uid://v787in61o7y6"]
 
-[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/MANAGERS/ennemy_spawner.gd" id="1_cuqad"]
+[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/SPAWNERS/ennemy_spawner.gd" id="1_cuqad"]
 
-[node name="ennemy_spawner" type="Node2D"]
+[node name="ennemy_spawner" type="Node2D" unique_id=1136101267]
 script = ExtResource("1_cuqad")
 
-[node name="SpawnPoint0" type="Marker2D" parent="."]
+[node name="SpawnPoint0" type="Marker2D" parent="." unique_id=622926777]
 
-[node name="SpawnPoint1" type="Marker2D" parent="."]
+[node name="SpawnPoint1" type="Marker2D" parent="." unique_id=2076425181]
 
-[node name="SpawnPoint2" type="Marker2D" parent="."]
+[node name="SpawnPoint2" type="Marker2D" parent="." unique_id=2041508316]
 
-[node name="SpawnPoint3" type="Marker2D" parent="."]
+[node name="SpawnPoint3" type="Marker2D" parent="." unique_id=1737709223]
 
-[node name="SpawnPoint4" type="Marker2D" parent="."]
+[node name="SpawnPoint4" type="Marker2D" parent="." unique_id=191867665]
 
-[node name="SpawnPoint5" type="Marker2D" parent="."]
+[node name="SpawnPoint5" type="Marker2D" parent="." unique_id=34513802]
 
-[node name="SpawnPoint6" type="Marker2D" parent="."]
+[node name="SpawnPoint6" type="Marker2D" parent="." unique_id=1211296662]
 
-[node name="SpawnPoint7" type="Marker2D" parent="."]
+[node name="SpawnPoint7" type="Marker2D" parent="." unique_id=495617105]
 
-[node name="SpawnPoint8" type="Marker2D" parent="."]
+[node name="SpawnPoint8" type="Marker2D" parent="." unique_id=870565394]
 
-[node name="SpawnPoint9" type="Marker2D" parent="."]
+[node name="SpawnPoint9" type="Marker2D" parent="." unique_id=928760923]
 
-[node name="SpawnPoint10" type="Marker2D" parent="."]
+[node name="SpawnPoint10" type="Marker2D" parent="." unique_id=74379956]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1316126755]
 wait_time = 0.8
 autostart = true
 

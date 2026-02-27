@@ -82,18 +82,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "TRAINING"
 flat = true
 
-[node name="Quit" type="Button" parent="VBoxContainer" unique_id=13720556]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_ghgot")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
-text = "QUIT"
-flat = true
-
 [node name="SkipTuto" type="CheckButton" parent="VBoxContainer" unique_id=772633111]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
@@ -111,7 +99,19 @@ text = "SKIP TRAINING "
 flat = true
 alignment = 1
 
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=13720556]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_ghgot")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
+text = "QUIT"
+flat = true
+
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Training" to="." method="_on_training_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="VBoxContainer/SkipTuto" to="." method="_on_skip_tuto_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

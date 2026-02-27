@@ -26,7 +26,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	process_inputs()
 	
-	
 func process_inputs()-> void:
 	if Input.is_action_just_released("pause"):
 		pause_status()

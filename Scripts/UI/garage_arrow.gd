@@ -6,10 +6,14 @@ var look_at_pos : Vector2
 
 
 func _ready() -> void:
+	SignalManager.tuto_arrow_dir.connect(update_look_at_pos)
 	stop()
 	hide()
-	look_at_pos = car.global_position
+
 
 
 func _process(_delta: float) -> void:
 	look_at(look_at_pos)
+
+func update_look_at_pos(new_look_at_pos : Vector2) -> void:
+	look_at_pos = new_look_at_pos

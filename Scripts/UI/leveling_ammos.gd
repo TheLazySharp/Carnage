@@ -97,7 +97,7 @@ func _on_button_pressed(button_id : int) -> void:
 		confirm_buttons[button_selected_id].get_child(0).add_theme_color_override("font_color", Color.RED)
 		await get_tree().create_timer(0.5).timeout
 		confirm_buttons[button_selected_id].get_child(0).add_theme_color_override("font_color", Color.WHITE)
-	else: print("skip")
+	#else: print("skip")
 
 
 func leveling_ok() -> void:

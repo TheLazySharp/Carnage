@@ -1,0 +1,155 @@
+[gd_scene format=3 uid="uid://dcsapykrdl5tf"]
+
+[ext_resource type="Script" uid="uid://0bso11uww135" path="res://Scripts/ITEMS/collectable.gd" id="1_11sbo"]
+[ext_resource type="Resource" uid="uid://7clle8xan4lf" path="res://Resources/Items/woodbox.tres" id="2_twgfl"]
+[ext_resource type="Texture2D" uid="uid://2m43b6grwcdv" path="res://Assets/Items/piston_spritesheet.png" id="3_hg1ge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hcfh"]
+size = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg1ge"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxc2r"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06hb1"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78plu"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0064f"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7vem"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7f81"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdjyb"]
+atlas = ExtResource("3_hg1ge")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wpi18"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg1ge")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxc2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06hb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78plu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0064f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7vem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7f81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdjyb")
+}],
+"loop": true,
+"name": &"blinking",
+"speed": 8.0
+}]
+
+[sub_resource type="Animation" id="Animation_hg1ge"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_cxc2r"]
+resource_name = "floating"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.7853981633974483, 0.0, -0.7853981633974483, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_06hb1"]
+_data = {
+&"RESET": SubResource("Animation_hg1ge"),
+&"floating": SubResource("Animation_cxc2r")
+}
+
+[node name="Piston" type="Area2D" unique_id=72571651]
+modulate = Color(1.6197081, 1.6197081, 1.6197081, 1)
+collision_layer = 512
+script = ExtResource("1_11sbo")
+collectable_data = ExtResource("2_twgfl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=929984361]
+visible = false
+shape = SubResource("RectangleShape2D_6hcfh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=523363813]
+sprite_frames = SubResource("SpriteFrames_wpi18")
+animation = &"blinking"
+autoplay = "blinking"
+frame_progress = 0.8483263
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=650788693]
+libraries/ = SubResource("AnimationLibrary_06hb1")
+autoplay = &"floating"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

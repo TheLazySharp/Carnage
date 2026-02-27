@@ -9,13 +9,12 @@
 script = ExtResource("1_c65e2")
 weapon_name = "Revolver"
 weapon_icon = ExtResource("4_fvhad")
+max_level = 35
+description = "Shot a bullet on the closest enemy at a regular rate"
 weapon_scene_uid = "uid://bf606njwyoo0l"
 weapon_ammo_scene = ExtResource("3_c65e2")
 weapon_ammo_res = ExtResource("2_e4v8e")
-max_level = 35
-dmg = 0
+base_fire_rate = 1.0
+coeff_fire_rate = 1
 dmg_on_resources = 0
-speed_rotation = 0
-fire_rate = 1.0
-description = "Shot a bullet on the closest enemy at a regular rate"
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

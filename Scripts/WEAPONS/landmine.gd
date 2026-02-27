@@ -1,7 +1,8 @@
 extends Node2D
 
 @export var mine_data : WeaponData
-var dmg : int
+var damages : int
+var damages_upgrade : int
 
 var current_lvl : int
 var max_lvl : int
@@ -26,7 +27,10 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(mine_data.current_level,0,max_lvl)
-	dmg = roundi(mine_data.dmg + (current_lvl * .1 * 28)) #améliorer la formule d'augmentation des dégats
+	damages = mine_data.coeff_dmg * roundi(mine_data.base_dmg + (current_lvl * .1 * 28))
+	damages_upgrade = mine_data.coeff_dmg * roundi(mine_data.base_dmg + ((current_lvl + 1) * .1 * 28))
+	mine_data.dmg = damages
+	mine_data.dmg_upgrade = damages_upgrade
 	
 	
 	
@@ -52,7 +56,7 @@ func explosion()-> void:
 		#var target : Node2D = targets[i]
 		if is_instance_valid(targets[i]):
 			if (targets[i].is_in_group("player") or targets[i].is_in_group("ennemies")) and "get_damages" in targets[i]:
-				targets[i].get_damages(dmg)
+				targets[i].get_damages(damages)
 				#print(targets[i]," gets ",dmg," dmg")
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
 				targets[i].chain_explosion(self)

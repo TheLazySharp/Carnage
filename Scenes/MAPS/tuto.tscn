@@ -37,6 +37,8 @@
 [ext_resource type="Script" uid="uid://p1kmh86var1g" path="res://Scripts/UI/stats_screen.gd" id="35_agr30"]
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="40_nedco"]
 [ext_resource type="Texture2D" uid="uid://bxgdr3qp32q2b" path="res://Assets/Props/garage.png" id="41_d4n4o"]
+[ext_resource type="VideoStream" uid="uid://c8t0381pwr7ok" path="res://Assets/UI/shortburnogg.ogv" id="41_ghk5s"]
+[ext_resource type="Texture2D" uid="uid://2m43b6grwcdv" path="res://Assets/Items/piston_spritesheet.png" id="41_pa7ak"]
 [ext_resource type="Texture2D" uid="uid://bwrvswxwsubhg" path="res://Assets/UI/dashboard_352_144.png" id="43_haqlr"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="44_hiso2"]
 [ext_resource type="Script" uid="uid://dwy6awbv47hjd" path="res://Scripts/UI/board_car.gd" id="45_c7u0r"]
@@ -47,7 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://b5eagdtlkye4v" path="res://Assets/VFX/arrows_zone.png" id="49_b358a"]
 [ext_resource type="Texture2D" uid="uid://q1vqg1yau86s" path="res://Assets/UI/arrow_moving_sheet.png" id="50_sdos0"]
 [ext_resource type="PackedScene" uid="uid://drgsya7gbwrgk" path="res://Scenes/MAPS/start_gate.tscn" id="52_6osf8"]
-[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/MANAGERS/ennemy_spawner.gd" id="52_sdos0"]
+[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/SPAWNERS/ennemy_spawner.gd" id="52_sdos0"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="53_45mg7"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
@@ -1158,6 +1160,70 @@ _data = {
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdos0"]
 bg_color = Color(0.07284262, 0.072842635, 0.072842576, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibuii"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b358a"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q37k"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp71d"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvoyc"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hniwj"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui8gl"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ma7lt"]
+atlas = ExtResource("41_pa7ak")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o57yu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibuii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b358a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2q37k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp71d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvoyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hniwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui8gl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ma7lt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knb8w"]
 size = Vector2(20, 125)
 
@@ -1299,7 +1365,6 @@ navigation_enabled = false
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
 
 [node name="Gear" type="Control" parent="CanvasLayer" unique_id=1192136897]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 141.0
@@ -1477,7 +1542,6 @@ theme_override_font_sizes/font_size = 10
 script = ExtResource("25_87mql")
 
 [node name="Parts" type="Control" parent="CanvasLayer" unique_id=102137242]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 141.0
@@ -1856,7 +1920,6 @@ theme_override_font_sizes/font_size = 48
 text = "Healing Power : "
 
 [node name="Board" type="Control" parent="CanvasLayer" unique_id=853771382]
-visible = false
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -1971,7 +2034,6 @@ position = Vector2(50, 56)
 texture = ExtResource("46_gmxtb")
 
 [node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -2018,7 +2080,6 @@ vertical_alignment = 1
 libraries/ = SubResource("AnimationLibrary_2jlsx")
 
 [node name="Training" type="Control" parent="CanvasLayer" unique_id=504492948]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -2042,7 +2103,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ResourcesPanel" type="Panel" parent="CanvasLayer/Training" unique_id=1090536176]
-visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 8
@@ -2071,12 +2131,23 @@ theme_override_constants/line_spacing = 6
 theme_override_constants/paragraph_spacing = 10
 theme_override_fonts/font = ExtResource("40_nedco")
 theme_override_font_sizes/font_size = 32
-text = "In this game, you need to pick up spare parts contained in wood boxes spread on the road.
+text = "In this game, you need to pick up spare parts  spread on the road.
 
 With these spare parts you will be able to upgrade your car !"
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Training/ResourcesPanel" unique_id=1262482143]
+[node name="Label2" type="Label" parent="CanvasLayer/Training/ResourcesPanel" unique_id=1972246368]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 330.0
+offset_right = 545.0
+offset_bottom = 350.5
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 24
+text = "Spare parts"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Training/ResourcesPanel" unique_id=1090955526]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -2084,47 +2155,101 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -142.5
-offset_top = -8.0
-offset_right = 143.5
-offset_bottom = 59.0
+offset_left = -37.75
+offset_top = 8.5
+offset_right = 109.25
+offset_bottom = 75.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 150
 
-[node name="WoodBoxes" type="TextureRect" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer" unique_id=1748654056]
-layout_mode = 2
-texture = ExtResource("27_nlojy")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer/WoodBoxes" unique_id=539785371]
-layout_mode = 0
-offset_left = -33.0
-offset_top = 75.0
-offset_right = 100.0
-offset_bottom = 98.0
-theme_override_fonts/font = ExtResource("40_nedco")
-theme_override_font_sizes/font_size = 24
-text = "Wood boxes"
-horizontal_alignment = 1
-
-[node name="SpareParts" type="TextureRect" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer" unique_id=1538339420]
-layout_mode = 2
-texture = ExtResource("28_drkla")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer/SpareParts" unique_id=1972246368]
-layout_mode = 0
-offset_left = -42.0
-offset_top = 75.0
-offset_right = 105.0
-offset_bottom = 98.0
-theme_override_fonts/font = ExtResource("40_nedco")
-theme_override_font_sizes/font_size = 24
-text = "Spare parts"
-horizontal_alignment = 1
+[node name="SpareParts" type="AnimatedSprite2D" parent="CanvasLayer/Training/ResourcesPanel/HBoxContainer" unique_id=498395147]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_o57yu")
+autoplay = "default"
+frame_progress = 0.7579017
 
 [node name="Ok" type="Button" parent="CanvasLayer/Training/ResourcesPanel" unique_id=1357431777]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.0
+offset_top = -53.0
+offset_right = 74.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "OK !"
+flat = true
+
+[node name="BurnoutPanel" type="Panel" parent="CanvasLayer/Training" unique_id=991820118]
+visible = false
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
+
+[node name="Label" type="Label" parent="CanvasLayer/Training/BurnoutPanel" unique_id=1034642805]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 21.0
+offset_top = 22.0
+offset_right = -19.0
+offset_bottom = 139.0
+grow_horizontal = 2
+theme_override_constants/line_spacing = 6
+theme_override_constants/paragraph_spacing = 10
+theme_override_fonts/font = ExtResource("40_nedco")
+theme_override_font_sizes/font_size = 32
+text = "When your car is stopped, you can press LT and RT simultaneously to enter in burnout mode : 
+Tires start smoking, and when releasing, LT you will be granted with a short and powerfull speed boost.
+It could be very convenient for crashing enemies !"
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Training/BurnoutPanel" unique_id=1528157228]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -30.000015
+offset_right = 508.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+theme_override_constants/separation = 150
+
+[node name="BurnVid" type="VideoStreamPlayer" parent="CanvasLayer/Training/BurnoutPanel/HBoxContainer" unique_id=302766096]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stream = ExtResource("41_ghk5s")
+loop = true
+
+[node name="Ok" type="Button" parent="CanvasLayer/Training/BurnoutPanel" unique_id=1671549733]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -2533,11 +2658,12 @@ wait_time = 1.5
 autostart = true
 
 [node name="StartingGate" parent="." unique_id=2128654809 instance=ExtResource("52_6osf8")]
-z_index = 1
+z_index = 2
 position = Vector2(114, 991)
 script = ExtResource("46_knb8w")
 
 [node name="ExitGate" parent="." unique_id=1576429781 instance=ExtResource("53_45mg7")]
+z_index = 2
 position = Vector2(2894, 991)
 rotation = 3.1415927
 script = null
@@ -2555,6 +2681,7 @@ shape = SubResource("RectangleShape2D_283wp")
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Commands" to="CanvasLayer/Pause" method="_on_commands_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/QuitToMenu" to="CanvasLayer/Pause" method="_on_quit_to_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/Training/ResourcesPanel/Ok" to="." method="_on_ok_resources_pressed"]
+[connection signal="pressed" from="CanvasLayer/Training/BurnoutPanel/Ok" to="." method="_on_burnout_ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/Training/EnemiesPanel/Ok" to="." method="_on_enemies_ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/Training/EndPanel/Ok" to="." method="_on_end_ok_pressed"]
 [connection signal="body_exited" from="Steps/CheckPointArea" to="." method="_on_check_point_area_body_exited"]

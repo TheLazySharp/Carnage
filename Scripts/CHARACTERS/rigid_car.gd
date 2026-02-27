@@ -8,6 +8,8 @@ var max_speed : int
 var max_backward_speed : int
 var friction : float
 var turn_speed : float
+var velocity_floor : int
+var burnout_boost : int
 var drift_grip : float
 var normal_grip : float
 var drift_turn_bonus : float
@@ -22,12 +24,10 @@ var skid_lifetime : float
 var skid_fade_speed : float
 var max_life : int
 var dmg : int
-var velocity_floor : int
 var display_max_speed : int
 var start_engine_sound : AudioStreamMP3
 @onready var car_sprite: Sprite2D = $CarSprite
 
-var burn_boost : float = 200 #ajouter au CAR DATA
 
 #SKID
 @export var skid_marks_path: NodePath
@@ -43,8 +43,12 @@ var last_right_pos := Vector2.ZERO
 var drifting_last_frame := false
 @onready var rear_left_burn_anim: AnimatedSprite2D = $RearLeft/RearLeftBurnAnim
 @onready var rear_right_burn_anim: AnimatedSprite2D = $RearRight/RearRightBurnAnim
-
+signal burnout_ok(burnout : bool)
 var burning : bool
+
+#GHOSTING
+@onready var ghost_timer: Timer = $GhostTimer
+@export var ghost_scene : PackedScene
 
 #GAME
 signal game_over(game_is_over: bool)
@@ -57,7 +61,6 @@ var can_drive:=false
 signal start_time(game_start: bool)
 
 @onready var explosives: Node2D = $"../Explosives"
-
 
 
 @onready var gate: CharacterBody2D = $"../StartingGate"
@@ -94,6 +97,7 @@ func _ready() -> void:
 	friction = player.friction
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
+	burnout_boost = player.burnout_boost
 	
 
 	#DRIFT
@@ -126,7 +130,7 @@ func _ready() -> void:
 	life_bar.max_value = max_life
 	life_bar.value = current_life
 	life_label.text = str(current_life) + "/" + str(max_life)
-	print(rotation)
+	print("rotation : ",rotation)
 	
 	if visible:
 		ready_go.show()
@@ -148,7 +152,7 @@ func _physics_process(delta : float) -> void:
 		var throttle := Input.get_action_strength("accelerate")
 		var steer := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		var drifting := Input.is_action_pressed("drift") and throttle > 0
-		burning  = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length() < 20
+		burning = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length() < 20
 		
 		if forward_only:
 			throttle = Input.get_action_strength("accelerate")
@@ -170,23 +174,43 @@ func _physics_process(delta : float) -> void:
 			rear_right_burn_anim.show()
 			if !rear_right_burn_anim.is_playing():
 				rear_right_burn_anim.play("fadeIn")
-		
-		if !burning :
-			rear_left_burn_anim.stop()
-			rear_left_burn_anim.hide()
-			rear_right_burn_anim.stop()
-			rear_right_burn_anim.hide()
 			
-
-		
+			if !Input.is_action_pressed("accelerate"): 
+				burning = false
+			
+			
 		if Input.is_action_pressed("accelerate") and Input.is_action_just_released("drift") and velocity.length()  <1:
 			rear_left_burn_anim.play("fadeOut")
 			rear_right_burn_anim.play("fadeOut")
-			print("BURNOUT !")
-			throttle = burn_boost
+			#print("BURNOUT !")
+			burning = false
+			emit_signal("burnout_ok",burning)
+			throttle = burnout_boost
+			dash()
+		
+		
+		
+		#if Input.is_action_pressed("drift") and Input.is_action_just_released("accelerate") and velocity.length()  <1 and burning:
+			#rear_left_burn_anim.play("fadeOut")
+			#rear_right_burn_anim.play("fadeOut")
+			#print("burnout stop!")
+			#burning = false
+			#throttle = Input.get_action_strength("accelerate")
+		
+		#if !burning :
+			#rear_left_burn_anim.stop()
+			#rear_left_burn_anim.hide()
+			#rear_right_burn_anim.stop()
+			#rear_right_burn_anim.hide()
+			
 
-		
-		
+		if rear_right_burn_anim.animation == "idle" and !burning:
+			rear_right_burn_anim.play("fadeOut")
+
+
+		if rear_left_burn_anim.animation == "idle" and !burning:
+			rear_left_burn_anim.play("fadeOut")
+
 		
 		# ----------------- ACCELERATION -----------------
 		if throttle != 0:
@@ -208,18 +232,18 @@ func _physics_process(delta : float) -> void:
 
 		rotation += steer * turn_speed * steer_factor * delta
 
-		# ----------------- DECOMPOSITION -----------------
+		
 		var forward_velocity := forward * velocity.dot(forward)
 		var lateral_velocity := lateral * velocity.dot(lateral)
 
-		# ----------------- ANGLE DE GLISSE -----------------
+		# ----------------- SLIDE -----------------
 		var slip_angle := 0.0
 		if velocity.length() > 10:
 			slip_angle = abs(velocity.angle_to(forward)) / (PI / 2)
 			slip_angle = clamp(slip_angle, 0.0, 1.0)
 
 
-		# ----------------- DAMPING NFSU2 -----------------
+		# ----------------- DAMPING -----------------
 		if drifting and abs(steer) > 0.05 and forward_velocity.length() > min_drift_speed:
 			var damping : float = lerp(0.0, max_drift_damping, slip_angle)
 			forward_velocity *= (1.0 - damping * delta)
@@ -445,8 +469,40 @@ func angle_difference(from: float, to: float) -> float:
 func _on_rear_left_burn_anim_animation_finished() -> void:
 	if burning:
 		rear_left_burn_anim.play('idle')
+	else :
+		rear_left_burn_anim.play('fadeOut')
+	if rear_left_burn_anim.animation == "fadeOut":
+		rear_left_burn_anim.stop()
+		rear_left_burn_anim.hide()
 
 
 func _on_rear_right_burn_animation_finished() -> void:
-		if burning:
-			rear_right_burn_anim.play('idle')
+	#print("burning : ",burning)
+	if burning:
+		rear_right_burn_anim.play('idle')
+	else :
+		rear_right_burn_anim.play('fadeOut')
+	if rear_right_burn_anim.animation == "fadeOut" and !burning:
+		#print("stop fadeout")
+		rear_right_burn_anim.stop()
+		rear_right_burn_anim.hide()
+		
+func add_ghost()-> void: 
+	var ghost : Node2D = ghost_scene.instantiate()
+	ghost.set_property(position, scale, rotation)
+	get_tree().current_scene.add_child(ghost)
+	#get_node("CarSprite").add_child(ghost)
+	
+
+
+func _on_ghost_timer_timeout() -> void:
+	add_ghost()
+	
+func dash() -> void : 
+	ghost_timer.start()
+	#var tween_dash : Tween = get_tree().create_tween()
+	#tween_dash.tween_property(self, "velocity",velocity, 0.5)
+	#await tween_dash.finished
+	await get_tree().create_timer(0.75).timeout
+	ghost_timer.stop()
+	

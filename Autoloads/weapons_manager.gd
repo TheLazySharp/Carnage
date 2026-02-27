@@ -38,7 +38,7 @@ func load_weapons() -> void:
 	weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
 	weapon_scenes.append(["mine_launcher", "uid://c8ohbftuu83c8", preload("uid://c8ohbftuu83c8")])
 	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
-	print("weapons loaded")
+	#print("weapons loaded")
 	
 func test_weapons() ->void:
 	#equip_weapon(FLAMER)
@@ -94,16 +94,16 @@ func equip_weapon(new_weapon: WeaponData) -> void:
 				#print(new_weapon.weapon_ammo_res.weapon_name," is equiped : ", new_weapon.weapon_ammo_res.is_equiped)
 
 			
-			print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
-			
-			print("MAJ WEAPONS :")
-			for j in weapons.size():
-				print(weapons[j].weapon_name)
-			print("UNEQUIPPED :")
-			for k in unequipped_weapons.size():
-				print(unequipped_weapons[k].weapon_name)
-			if unequipped_weapons.is_empty() :
-				print("empty")
+			#print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
+			#
+			#print("MAJ WEAPONS :")
+			#for j in weapons.size():
+				#print(weapons[j].weapon_name)
+			#print("UNEQUIPPED :")
+			#for k in unequipped_weapons.size():
+				#print(unequipped_weapons[k].weapon_name)
+			#if unequipped_weapons.is_empty() :
+				#print("empty")
 			return
 
 func equip_ammo() -> void:

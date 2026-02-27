@@ -4,11 +4,15 @@ var weapon_level : int
 
 @onready var anim_upgrade: AnimationPlayer = $AnimUpgrade
 
+@onready var gm_scene: Node = $"/root/World/game_manager"
+var game_paused: bool = false
+
 func _ready() -> void:
-	pass
+	gm_scene.game_paused.connect(_on_game_paused)
+
 
 func _process(_delta: float) -> void:
-	if visible:
+	if visible and game_paused :
 	
 		weapon_level = int(self.text)
 
@@ -22,3 +26,6 @@ func _process(_delta: float) -> void:
 		if weapon_level == 100 : 
 			set_text("New !")
 			anim_upgrade.play("IfNew")
+
+func _on_game_paused(game_on_pause :bool) -> void:
+	game_paused = game_on_pause

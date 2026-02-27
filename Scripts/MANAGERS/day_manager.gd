@@ -5,6 +5,7 @@ extends Node
 @onready var day_label: Label = $TimeUI/Day
 @onready var horde: Label = $"../CanvasLayer/Texts/Horde"
 @onready var horde_animation: AnimationPlayer = $"../CanvasLayer/Texts/Horde/HordeAnimation"
+@onready var starting_gate: CharacterBody2D = $"../StartingGate"
 
 @onready var barb_wire_collision: CollisionShape2D = $"../BarbWire/BarbWireCollision"
 
@@ -78,6 +79,7 @@ func on_day_end() -> void:
 	emit_signal("day_ended", timer_stopped)
 	garage_arrow.play("moving")
 	garage_arrow.show()
+	SignalManager.emit_signal("tuto_arrow_dir", starting_gate.global_position)
 	horde.show()
 	horde_animation.play("blinking")
 	barb_wire_collision.set_deferred("disabled", true)

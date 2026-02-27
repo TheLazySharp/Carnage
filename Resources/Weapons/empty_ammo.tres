@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_0d3xf")
 weapon_scene_uid = "uid://dc7hb24vr2x6r"
-dmg = 0
+base_dmg = 0
+base_radius = 0
+base_speed_rotation = 0
+base_nb_ammo = 0
 dmg_on_resources = 0
-radius = 0
-speed_rotation = 0
-nb_ammo = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

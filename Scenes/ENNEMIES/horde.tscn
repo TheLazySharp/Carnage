@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://mtf5ix56ax8r"]
+
+[ext_resource type="Script" uid="uid://cpjxgaw6fxo3r" path="res://Scripts/SPAWNERS/horde_spawner.gd" id="1_ytewk"]
+
+[node name="Horde" type="Node2D" unique_id=898307467]
+script = ExtResource("1_ytewk")

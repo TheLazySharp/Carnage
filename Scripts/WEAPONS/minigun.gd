@@ -10,6 +10,7 @@ const BULLET = preload("uid://doe8o0sd0xuas")
 @onready var player: CharacterBody2D = $/root/World/Car
 
 var nb_ammo: int
+var nb_ammo_upgrade: int
 var nb_bullet: = 0
 var cool_down : float
 var current_lvl: int
@@ -36,12 +37,12 @@ var game_paused:=false
 
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
-
-	if minigun_data.bonus:
-		bonus_bullet = 35
-	else : bonus_bullet = 0
-	timer.wait_time = minigun_data.fire_rate
-	cool_down = minigun_data.cool_down
+	nb_ammo = minigun_data.base_nb_ammo
+	#if minigun_data.bonus:
+		#bonus_bullet = 35
+	#else : bonus_bullet = 0
+	timer.wait_time = minigun_data.base_fire_rate
+	cool_down = minigun_data.base_cool_down
 	max_lvl = minigun_data.max_level
 	create_bullet_pool(max_bullet_count)
 	can_shoot = true
@@ -51,7 +52,12 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(minigun_data.current_level,0,max_lvl)
-	nb_ammo = minigun_data.nb_ammo + current_lvl + bonus_bullet
+	nb_ammo = minigun_data.base_nb_ammo + current_lvl
+	nb_ammo_upgrade = minigun_data.base_nb_ammo + (current_lvl +1)
+	minigun_data.nb_ammo = nb_ammo
+	minigun_data.nb_ammo_upgrade = nb_ammo_upgrade
+	
+	
 	if raycastON and ray_cast_2d.is_colliding():
 		if ray_cast_2d.get_collider().is_in_group("ennemies"):
 			can_shoot = true
@@ -63,6 +69,10 @@ func _process(_delta: float) -> void:
 	
 	if is_firing and !game_paused and timer.paused:
 		timer.paused = false
+
+	if !minigun_data.weapon_is_active:
+		desactivate()
+
 
 func _physics_process(_delta: float) -> void:
 	global_position = Vector2(get_parent().global_position.x, get_parent().global_position.y - offset_Y)
@@ -123,3 +133,9 @@ func add_bullet_to_pool(bullet: AmmoMG) -> void:
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+
+func desactivate() -> void:
+	can_shoot = false
+	is_firing = false
+	next_bullet = false
+	timer.stop()

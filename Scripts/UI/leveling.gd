@@ -149,7 +149,7 @@ func _on_skip_pressed() -> void:
 
 
 func _on_preleveling_button_pressed() -> void:
-	print("ok pressed")
+	#print("ok pressed")
 	prelevelling.hide()
 	self.show()
 	weapon_button0.grab_focus()

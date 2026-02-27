@@ -6,6 +6,7 @@ extends Area2D
 var speed : float
 var max_range : float
 var damages : int
+var damages_upgrade : int
 var current_lvl : int
 var max_lvl : int
 #@onready var trail: CPUParticles2D = $VFX
@@ -23,13 +24,19 @@ var is_active:= false
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
 	speed = bullet_data.speed
-	max_range = bullet_data.atk_range
+	damages = bullet_data.dmg
+	max_range = bullet_data.base_atk_range
 	max_lvl = bullet_data.max_level
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(bullet_data.current_level,0,max_lvl)
-	damages = roundi(bullet_data.dmg + (current_lvl * .1 * 28)) #améliorer la formule d'augmentation des dégats
+	damages = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + (current_lvl * .1 * 28))
+	damages_upgrade = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + ((current_lvl + 1) * .1 * 28))
+	bullet_data.dmg = damages
+	bullet_data.dmg_upgrade = damages_upgrade
 	
+	if !bullet_data.weapon_is_active:
+		desactivate()
 
 
 func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
@@ -44,7 +51,7 @@ func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 		#trail.restart()
 		#trail.show()
 	rotation = angle
-	#print("stone shot")
+	#print("bullet shot")
 
 
 func _physics_process(delta: float) -> void:

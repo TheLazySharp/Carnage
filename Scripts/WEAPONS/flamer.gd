@@ -1,7 +1,9 @@
 extends Area2D
 
 @export var flamer_data : WeaponData
-var dmg : int
+var damages : int
+var damages_upgrade : int
+
 
 var cool_down : float
 var current_lvl : int
@@ -27,15 +29,22 @@ var game_paused:=false
 
 func _ready() -> void:
 	gm_scene.game_paused.connect(_on_game_paused)
-	fire_rate.wait_time = flamer_data.fire_rate
-	cool_down = flamer_data.cool_down
+	fire_rate.wait_time = flamer_data.base_fire_rate
+	cool_down = flamer_data.base_cool_down
 	max_lvl = flamer_data.max_level
-	
+	damages = flamer_data.dmg
+
 	
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(flamer_data.current_level,0,max_lvl)
-	dmg = roundi(flamer_data.dmg + (current_lvl * .1 * 28)) #améliorer la formule d'augmentation des dégats
+	damages = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + (current_lvl * .1 * 28))
+	damages_upgrade = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + ((current_lvl + 1) * .1 * 28))
+	flamer_data.dmg = damages
+	flamer_data.dmg_upgrade = damages_upgrade
+
+	if !flamer_data.weapon_is_active:
+		desactivate()
 
 	
 	if is_firing:
@@ -78,7 +87,7 @@ func burn_enemies() -> void:
 		burn_rate.start()
 		for i in targets.size():
 			if enemies_can_burn:
-				targets[i].get_damages(dmg)
+				targets[i].get_damages(damages)
 		burning = false
 
 func _on_area_entered(area: Area2D) -> void:
@@ -102,4 +111,11 @@ func _on_area_exited(area: Area2D) -> void:
 
 func _on_burn_rate_timeout() -> void:
 	burning = true
-	
+
+func desactivate() -> void:
+	sprite.stop()
+	hide()
+	is_firing = false
+	burning = false
+	enemies_can_burn = false
+	targets.clear()

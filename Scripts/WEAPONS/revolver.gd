@@ -6,14 +6,18 @@ const BULLET = preload("uid://dww6b787qn3x0")
 @export var revolver_data: WeaponData
 
 @onready var fire_rate: Timer = $FireRate
+var fire_rate_upgrade : float
 @onready var fire_point: Marker2D = $FirePoint
 
 @onready var fire_range: CollisionShape2D = $FireRange/FireRangeShape
 
+@onready var gm_scene: Node = $"/root/World/game_manager"
+var game_paused:=false
+
 var nb_ammo: int
 var current_lvl: int
 var max_lvl : int
-var can_shoot :=true
+var can_shoot : = true
 
 var max_bullet_count : int = 200
 var bullet_pool : Array[AmmoREV]
@@ -22,18 +26,29 @@ var targets: Array[Node2D]
 
 
 func _ready() -> void:
-	if revolver_data.bonus:
-		bonus_bullet = 35
-	else : bonus_bullet = 0
-	fire_rate.wait_time = revolver_data.fire_rate
+	gm_scene.game_paused.connect(_on_game_paused)
+
+	#if revolver_data.bonus:
+		#bonus_bullet = 35
+	#else : bonus_bullet = 0
+	
+	fire_rate.wait_time = revolver_data.base_fire_rate
 	max_lvl = revolver_data.max_level
-	fire_range.shape.radius = revolver_data.radius
+	fire_range.shape.radius = revolver_data.base_radius
 	create_bullet_pool(max_bullet_count)
 
 func _process(_delta: float) -> void:
 	current_lvl = clampi(revolver_data.current_level,0,max_lvl)
-	fire_rate.wait_time = revolver_data.fire_rate - current_lvl * 0.02
-	shoot_from_pool()
+	fire_rate.wait_time = revolver_data.base_fire_rate - current_lvl * 0.02
+	fire_rate_upgrade = revolver_data.base_fire_rate - (current_lvl + 1) * 0.02
+	revolver_data.fire_rate = fire_rate.wait_time
+	revolver_data.fire_rate_upgrade = fire_rate_upgrade
+	
+	if !game_paused:
+		shoot_from_pool()
+	
+	if !revolver_data.weapon_is_active:
+		desactivate()
 
 func _physics_process(_delta: float) -> void:
 	global_position = get_parent().global_position
@@ -100,3 +115,12 @@ func _on_fire_range_exited(area: Area2D) -> void:
 		if area.is_in_group("ennemies"):
 			targets.erase(area)
 			#print("enemy exit - total = ",targets.size())
+
+func _on_game_paused(game_on_pause :bool) -> void:
+	game_paused = game_on_pause
+	
+func desactivate() -> void :
+	can_shoot = false
+	targets.clear()
+	fire_rate.stop()
+	

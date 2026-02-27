@@ -9,6 +9,11 @@ var player: Node = null
 var is_from_the_horde:=false
 var nb_xp: int =1
 var is_dead : bool = false
+var is_leader: bool = false
+@export var leader: Enemy = null
+var horde : Array
+var night_speed_boost : float = 1.5
+
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -34,12 +39,15 @@ var game_paused:=false
 
 @export var blood_particles : PackedScene = null
 
+@onready var day_manager: Node = $/root/World/DayManager
+var day_is_ended : bool = false
 
 func _ready() -> void:
 	randomize()
 	#base_color = color_rect.color
 	current_life = max_life
 	gm_scene.game_paused.connect(_on_game_paused)
+	day_manager.day_ended.connect(_on_day_end)
 
 func _physics_process(_delta: float) -> void:
 	if !game_paused:
@@ -134,3 +142,6 @@ func blow_up(blood_position: Vector2) -> void:
 		var blood : CPUParticles2D = blood_particles.instantiate()
 		get_node("/root/World/VFX").add_child(blood)
 		blood.global_position = blood_position
+
+func _on_day_end(day_end : bool) -> void : 
+	speed *= night_speed_boost

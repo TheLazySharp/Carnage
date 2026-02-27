@@ -7,7 +7,8 @@ var max_boss_count : int = 1
 @export var is_active: bool = true
 @onready var game_manager: Node = $"/root/World/game_manager"
 var game_paused: bool =false
-@onready var horde_spawn_point: Marker2D = $HordeSpawnPoint
+@onready var final_horde_spawn_point: Marker2D = $FinalHordeSpawnPoint
+
 
 
 func _ready() -> void:
@@ -28,7 +29,7 @@ func create_enemies_pool(nb_enemies: int) -> void:
 		#enemy.apply_scale(Vector2(4,4))
 		#enemy.max_life = 100
 		enemy.is_from_the_horde = true
-		enemy.activate(horde_spawn_point.global_position)
+		enemy.activate(final_horde_spawn_point.global_position)
 	
 
 func create_boss(nb_enemies: int) -> void:
@@ -39,4 +40,4 @@ func create_boss(nb_enemies: int) -> void:
 		enemy.max_life = 500
 		enemy.damages_on_player = 20
 		enemy.is_from_the_horde = true
-		enemy.activate(horde_spawn_point.global_position)
+		enemy.activate(final_horde_spawn_point.global_position)

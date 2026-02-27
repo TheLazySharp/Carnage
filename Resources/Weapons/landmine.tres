@@ -7,11 +7,10 @@
 script = ExtResource("1_c1wns")
 weapon_name = "Landmine"
 weapon_icon = ExtResource("2_c1wns")
-weapon_scene_uid = "uid://b6sojfyjbslm1"
 max_level = 35
-dmg = 10
+weapon_scene_uid = "uid://b6sojfyjbslm1"
+base_dmg = 10
+base_speed_rotation = 0
+coeff_dmg = 1
 dmg_on_resources = 0
-radius = 0
-speed_rotation = 0
-levelup_text = "+ dmg"
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

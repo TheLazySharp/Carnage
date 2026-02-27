@@ -10,9 +10,9 @@ class_name CarData
 @export var friction := 500.0
 @export var turn_speed := 3.2
 @export var velocity_floor:= 50
+@export var burnout_boost := 200
 
 @export_group("DRIFT")
-
 @export var drift_grip := 0.015
 @export var normal_grip := 0.18
 @export var drift_turn_bonus := 3.2
