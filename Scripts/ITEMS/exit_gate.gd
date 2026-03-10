@@ -11,14 +11,14 @@ var end_day_scene:= "uid://dkpvtoel7hhai"
 @onready var day_manager: Node = $"../DayManager"
 var day_ended:=false
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 signal forward_only(car_ok : bool)
 signal full_command(engine_on: bool)
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	day_manager.day_ended.connect(_on_day_ended)
 	collision_shape.set_deferred("disabled",true)
 	warp_zone.set_deferred("disabled",true)

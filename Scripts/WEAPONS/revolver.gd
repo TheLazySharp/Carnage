@@ -10,8 +10,10 @@ var fire_rate_upgrade : float
 @onready var fire_point: Marker2D = $FirePoint
 
 @onready var fire_range: CollisionShape2D = $FireRange/FireRangeShape
+@onready var shot_sfx: AudioStreamPlayer2D = $ShotSFX
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
+
 var game_paused:=false
 
 var nb_ammo: int
@@ -26,11 +28,8 @@ var targets: Array[Node2D]
 
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
-
-	#if revolver_data.bonus:
-		#bonus_bullet = 35
-	#else : bonus_bullet = 0
+	SignalManager.game_paused.connect(_on_game_paused)
+	shot_sfx.stream = revolver_data.weapon_sfx
 	
 	fire_rate.wait_time = revolver_data.base_fire_rate
 	max_lvl = revolver_data.max_level
@@ -65,6 +64,8 @@ func shoot_from_pool()-> void :
 		var dir : Vector2= fire_point.global_position.direction_to(target.global_position)
 		var angle : float = dir.angle()
 		bullet.fire(fire_point.global_position,dir,angle)
+		shot_sfx.play()
+		
 
 func _on_fire_rate_timeout() -> void:
 	can_shoot = true

@@ -13,9 +13,9 @@ class_name WeaponData
 @export var weapon_scene_uid : String
 @export var weapon_ammo_scene : PackedScene
 @export var weapon_ammo_res : WeaponData
+@export var weapon_sfx: AudioStreamMP3
 
 @export_group("BASE STATS")
-
 @export var base_dmg : = 5
 @export var base_atk_range : float
 @export var base_radius := 100

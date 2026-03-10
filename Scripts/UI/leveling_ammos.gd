@@ -2,7 +2,6 @@ extends Control
 
 var player_current_level: int
 
-signal game_paused(game_on_pause: bool)
 var game_is_paused: = false
 
 const EMPTY_AMMO = preload("uid://dc7hb24vr2x6r")
@@ -25,17 +24,12 @@ var selected_button_style_box : StyleBoxFlat
 
 var ammunitions: Array[WeaponData]
 var ammo: WeaponData
-#var resource: ItemData
 
-#var new_weapon : WeaponData
-#
-#var new_weapon_show:=false
 var ammo_levelup_ok:= false
 var already_selected:= false
 
 func _ready() -> void:
 	hide()
-	#WeaponsManager.new_weapon_data.connect(_update_weapons_list)
 	XPManager.update_level.connect(level_up)
 	
 	slots = ammo_slot_container.get_child_count()
@@ -109,7 +103,7 @@ func leveling_ok() -> void:
 		if ammo.is_equiped:
 			ammo_level_up(button_selected_id)
 
-		emit_signal("game_paused", game_is_paused)
+		SignalManager.emit_signal("game_paused", game_is_paused)
 		leveling.hide()
 		ammo_levelup_ok = false
 		#new_weapon_show = false

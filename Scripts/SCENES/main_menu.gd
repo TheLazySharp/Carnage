@@ -31,6 +31,7 @@ func _on_start_pressed() -> void:
 	else:
 		SceneManager.unload_game()
 		SceneManager.load_level(car_selection)
+		SignalManager.emit_signal("game_paused",false)
 
 
 func _on_quit_pressed() -> void:

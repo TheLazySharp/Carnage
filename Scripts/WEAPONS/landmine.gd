@@ -6,23 +6,24 @@ var damages_upgrade : int
 
 var current_lvl : int
 var max_lvl : int
+var expl_limitor : int = 0
 
 var targets: Array[Node2D]
 
+
 @onready var animation_mine: AnimatedSprite2D = $AnimationMine
 @onready var animation_explosion: AnimatedSprite2D = $AnimationExplosion
-
+@onready var explosion_sfx: AudioStreamPlayer2D = $ExplosionSFX
 @onready var explosion_area: Area2D = $ExplosionArea
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	max_lvl = mine_data.max_level
 	animation_explosion.hide()
-
+	explosion_sfx.stream = mine_data.weapon_sfx
 	
 
 func _process(_delta: float) -> void:
@@ -43,13 +44,17 @@ func _on_game_paused(game_on_pause : bool) -> void:
 
 
 func explosion()-> void:
-	#if targets.is_empty():
-		#print("explosion triggered without targets")
-		#return
+	if expl_limitor == 1:
+		return
+	expl_limitor = 1
+		#if targets.is_empty():
+			#print("explosion triggered without targets")
+			#return
 	animation_mine.stop()
 	animation_mine.hide()
 	animation_explosion.show()
 	animation_explosion.play("explosion")
+	explosion_sfx.play()
 	
 	
 	for i in range(targets.size() -1, -1, -1):
@@ -69,6 +74,7 @@ func chain_explosion(from_mine : Node2D) -> void:
 	#print("explosion from chain")
 	await get_tree().create_timer(0.2).timeout
 	explosion()
+	
 
 
 func _on_explosion_area_body_entered(body: Node2D) -> void:
@@ -85,10 +91,12 @@ func _on_trigger_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("ennemies") or body.is_in_group("player"):
 		if targets.has(body):
 			explosion()
+			
 
 
 func _on_explosion_animation_finished() -> void:
 	targets.clear()
+	expl_limitor = 0
 	self.queue_free()
 
 

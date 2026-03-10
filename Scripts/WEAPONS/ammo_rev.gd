@@ -16,13 +16,13 @@ var start_position : Vector2
 
 @onready var parent_weapon: Node2D = $/root/World/Car/Weapons/Revolver
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:= false
 
 var is_active:= false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	speed = bullet_data.speed
 	damages = bullet_data.dmg
 	max_range = bullet_data.base_atk_range
@@ -42,16 +42,12 @@ func _process(_delta: float) -> void:
 func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 	global_position = from_position
 	start_position = from_position
-	#if trail: trail.global_position = global_position
 	velocity = direction.normalized() * speed
 	self.show()
 	is_active = true
 	set_physics_process(true)
-	#if trail:
-		#trail.restart()
-		#trail.show()
 	rotation = angle
-	#print("bullet shot")
+
 
 
 func _physics_process(delta: float) -> void:

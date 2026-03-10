@@ -9,7 +9,7 @@ var nb_active_enemies : int = 0
 @onready var game_manager: Node = $"/root/World/game_manager"
 var game_paused:=false
 
-@onready var zombies_q: Label = $"../../CanvasLayer/Parts/MarginContainer/HBoxContainer/Zombies/ZombiesQ"
+@onready var zombies_q: Label = $"../../CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies/ZombiesQ"
 
 @export var auto_spawn:= true
 
@@ -17,7 +17,7 @@ var game_paused:=false
 
 func _ready() -> void:
 	randomize()
-	game_manager.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	zombies_q.text = str(nb_active_enemies)
 
 	

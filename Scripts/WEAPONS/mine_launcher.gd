@@ -7,16 +7,18 @@ const LANDMINE = preload("uid://b6sojfyjbslm1")
 var current_lvl: int
 var max_lvl : int
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 @onready var cool_down: Timer = $CoolDown
 var cool_down_upgrade : float
 @onready var mine_marker: Marker2D = $"/root/World/Car/MineMarker"
+@onready var drop_mine_sfx: AudioStreamPlayer2D = $DropMineSfx
+
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	cool_down.wait_time = launcher_data.base_cool_down
 	max_lvl = launcher_data.max_level
+	drop_mine_sfx.stream = launcher_data.weapon_sfx
 
 
 func _process(_delta: float) -> void:
@@ -47,6 +49,7 @@ func drop_mine(drop_pos: Vector2)-> void:
 	var landmine : Node2D = LANDMINE.instantiate()
 	get_node("/root/World/Explosives").add_child(landmine)
 	landmine.global_position = drop_pos
+	drop_mine_sfx.play()
 	
 func desactivate() -> void:
 	cool_down.stop()

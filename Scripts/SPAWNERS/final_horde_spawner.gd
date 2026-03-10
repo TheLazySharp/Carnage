@@ -16,7 +16,7 @@ func _ready() -> void:
 	if is_active:
 		create_enemies_pool(max_enemy_count)
 		create_boss(max_boss_count)
-	game_manager.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

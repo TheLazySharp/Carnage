@@ -12,11 +12,11 @@ var max_lvl : int
 
 @onready var beaver_sr: CharacterBody2D = $"/root/World/BeaverSr"
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	healing_timer.wait_time = heal_data.fire_rate
 	max_lvl = heal_data.max_level
 	healing_power = heal_data.healing_power

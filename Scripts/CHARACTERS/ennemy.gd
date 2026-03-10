@@ -8,28 +8,30 @@ var speed: float = 40
 var player: Node = null
 var is_from_the_horde:=false
 var nb_xp: int =1
-var is_dead : bool = false
+#var is_dead : bool = false
 var is_leader: bool = false
 @export var leader: Enemy = null
 var horde : Array
+var horde_neighbors : Array
 var night_speed_boost : float = 1.5
-
-
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+#var current_anim : String = ""
+@onready var state_machine: Node = $StateMachine
 
-#@onready var target: Node2D = $"/root/World/Car"
+
+
 @onready var ennemy_spawner: Node2D = $/root/World/Spawners/ennemy_spawner
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 
 @export var damages_text: PackedScene
 @export var xp_scene: PackedScene
 
+#@onready var target: Node2D = $"/root/World/Car"
 #@onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 #@onready var path_timer: Timer = $path_Timer
-@onready var damages_text_pos : Marker2D = get_node("MarkerDamages")
 
+@onready var damages_text_pos : Marker2D = get_node("MarkerDamages")
 #@onready var color_rect = get_node("ColorRect")
 @onready var damage_timer: Timer = $DamageTimer_Get
 @onready var base_color: Color
@@ -39,6 +41,7 @@ var game_paused:=false
 
 @export var blood_particles : PackedScene = null
 
+
 @onready var day_manager: Node = $/root/World/DayManager
 var day_is_ended : bool = false
 
@@ -46,7 +49,7 @@ func _ready() -> void:
 	randomize()
 	#base_color = color_rect.color
 	current_life = max_life
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	day_manager.day_ended.connect(_on_day_end)
 
 func _physics_process(_delta: float) -> void:
@@ -55,30 +58,25 @@ func _physics_process(_delta: float) -> void:
 			
 
 func _process(_delta: float) -> void:
-	if abs(velocity.x) > abs(velocity.y):
-		if velocity.x > 0:
-			sprite.play("right")
-		else : 
-			sprite.play("left")
 
-	else:
-		if velocity.y > 0:
-			sprite.play("down")
-
-		else : 
-			sprite.play("up")
-
-	if current_life <=0 and !is_dead:
+	#if current_life <=0 and !is_dead:
+	if current_life <=0:
 		current_life = 0
 		on_death()
 
 
+func sprite_update(target_pos : Vector2)->void : 
+	if velocity.length() < 50: 
+		return
+	sprite.look_at(target_pos)
+
+
+
 func get_damages(damages: int) -> void:
 	if not game_paused:
-		#print("enemy receives : ", damages)
 		damage_timer.start()
 		current_life -= damages
-		#color_rect.color= Color("ffffff")
+		$AnimatedSprite2D.self_modulate = Color.RED
 		display_damages(damages)
 	
 
@@ -89,24 +87,23 @@ func activate(spawn_position: Vector2) -> void:
 	
 
 func _on_damage_timer_timeout() -> void:
-	#color_rect.color = base_color
-	pass
+	$AnimatedSprite2D.self_modulate = Color.WHITE
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 func on_death() -> void:
-	is_dead = true
-	blow_up(global_position)
-	collision_box.set_deferred("disabled",true)
+	#is_dead = true
 	if nb_xp ==1:
+		blow_up(global_position)
+		collision_box.set_deferred("disabled",true)
 		nb_xp = 0
 		var xp :=xp_scene.instantiate()
 		get_parent().add_child(xp)
 		xp.spawn(global_position)
-	ennemy_spawner.activated_enemies(-1)
-	StatsManager.frags +=1
-	SignalManager.emit_signal("enemy_is_dead",self)
+		ennemy_spawner.activated_enemies(-1)
+		StatsManager.frags +=1
+		SignalManager.emit_signal("enemy_is_dead",self)
 	
 
 func _on_hitbox_entered(area: Area2D) -> void:
@@ -142,6 +139,17 @@ func blow_up(blood_position: Vector2) -> void:
 		var blood : CPUParticles2D = blood_particles.instantiate()
 		get_node("/root/World/VFX").add_child(blood)
 		blood.global_position = blood_position
+		
 
-func _on_day_end(day_end : bool) -> void : 
+func _on_day_end(_day_end : bool) -> void : 
 	speed *= night_speed_boost
+
+
+func _on_horde_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("ennemies") and body != self:
+		horde_neighbors.append(body)
+
+
+func _on_horde_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("ennemies") and horde_neighbors.has(body):
+		horde_neighbors.erase(body)

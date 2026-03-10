@@ -2,11 +2,11 @@ extends HBoxContainer
 
 @onready var wood_boxes_q: Label = $Woodboxes/WoodBoxesQ
 @onready var gear_parts_q: Label = $GearParts/GearPartsQ
-@onready var collectables: Node2D = $"../../../../Collectables"
+@onready var collectables: Node2D = $"../../../../../Collectables"
 @onready var zombies_q: Label = $Zombies/ZombiesQ
-#@onready var ennemy_spawner: Node2D = $"../../../../Spawners/ennemy_spawner"
 @onready var frags_q: Label = $Frags/FragsQ
-@onready var enemies_manager: EnemiesManager = $"../../../../EnemiesManager"
+@onready var enemies_manager: EnemiesManager = $"../../../../../EnemiesManager"
+
 
 
 

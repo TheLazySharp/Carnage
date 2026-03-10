@@ -12,4 +12,4 @@ func _process(_delta: float) -> void:
 
 func _update_level(current_level : int) -> void:
 	text = "Lvl " + str(current_level)
-	print("new level received : ",current_level)
+	#print("new level received : ",current_level)

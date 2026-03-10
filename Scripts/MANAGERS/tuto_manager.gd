@@ -12,7 +12,7 @@ var game_over_scene:= "uid://c6ue1qnj30p5b"
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	pause_manager.quit_pause.connect(_update_ingame_pause)
-	#leveling.game_paused.connect(_leveling_pause)
+	#leveling(_leveling_pause)
 	
 func _process(_delta: float) -> void:
 	process_inputs()

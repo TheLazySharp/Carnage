@@ -2,8 +2,9 @@ extends Node2D
 
 const ENEMY = preload("uid://c31g0smlywes2")
 
-var max_enemy_count : int = 30
+var max_enemy_count : int = 100
 var horde : Array[Enemy]
+@export var is_active : bool = true
 
 @onready var game_manager: Node = $"/root/World/game_manager"
 var game_paused:=false
@@ -12,8 +13,9 @@ var game_paused:=false
 
 
 func _ready() -> void:
-	game_manager.game_paused.connect(_on_game_paused)
-	create_horde()
+	SignalManager.game_paused.connect(_on_game_paused)
+	if is_active:
+		create_horde()
 	
 	
 func _process(_delta: float) -> void:

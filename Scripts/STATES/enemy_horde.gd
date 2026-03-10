@@ -12,11 +12,11 @@ var speed_offset := 10
 @onready var day_manager: Node = $"/root/World/DayManager"
 var is_day_ended:=false
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	day_manager.day_ended.connect(_on_day_ended)
 
 func enter()-> void:

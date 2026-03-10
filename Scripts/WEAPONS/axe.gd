@@ -12,11 +12,10 @@ var dmg_on_resources : int
 var current_lvl : int
 var max_lvl: int
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:= false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	speed_rotation = axe_data.speed_rotation
 	speed = axe_data.speed
 	radius = axe_data.radius

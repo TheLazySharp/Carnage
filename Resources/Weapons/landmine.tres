@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_c1wns"]
 [ext_resource type="Texture2D" uid="uid://8mov6qwwya8t" path="res://Assets/weapons/landmine.png" id="2_c1wns"]
+[ext_resource type="AudioStream" uid="uid://cthu1p6l5lxp8" path="res://Assets/Audio/SFX/Weapons/landmine.mp3" id="3_feor2"]
 
 [resource]
 script = ExtResource("1_c1wns")
@@ -9,6 +10,7 @@ weapon_name = "Landmine"
 weapon_icon = ExtResource("2_c1wns")
 max_level = 35
 weapon_scene_uid = "uid://b6sojfyjbslm1"
+weapon_sfx = ExtResource("3_feor2")
 base_dmg = 10
 base_speed_rotation = 0
 coeff_dmg = 1

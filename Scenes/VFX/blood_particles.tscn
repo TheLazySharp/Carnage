@@ -2,6 +2,20 @@
 
 [ext_resource type="Texture2D" uid="uid://b13sboa2xorxd" path="res://Assets/VFX/white_stain_10R.png" id="1_7qjkv"]
 [ext_resource type="Script" uid="uid://cxsws31tqd1ei" path="res://Scripts/VFX/blood_particles.gd" id="2_piaeq"]
+[ext_resource type="AudioStream" uid="uid://bkegq3t7vul20" path="res://Assets/Audio/SFX/Zombies/crush1.mp3" id="3_0b8rr"]
+[ext_resource type="AudioStream" uid="uid://cpaimgxypsf22" path="res://Assets/Audio/SFX/Zombies/crush2.mp3" id="4_hlhuw"]
+[ext_resource type="AudioStream" uid="uid://fnkapviwva2m" path="res://Assets/Audio/SFX/Zombies/crush3.mp3" id="5_snks1"]
+[ext_resource type="AudioStream" uid="uid://dy4hmwlxg0rpt" path="res://Assets/Audio/SFX/Zombies/crush4.mp3" id="6_nyb1j"]
+[ext_resource type="AudioStream" uid="uid://buur2qf7c6s7j" path="res://Assets/Audio/SFX/Zombies/crush5.mp3" id="7_soiij"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fll1m"]
+random_pitch = 1.0594631
+streams_count = 5
+stream_0/stream = ExtResource("3_0b8rr")
+stream_1/stream = ExtResource("4_hlhuw")
+stream_2/stream = ExtResource("5_snks1")
+stream_3/stream = ExtResource("6_nyb1j")
+stream_4/stream = ExtResource("7_soiij")
 
 [node name="BloodParticles" type="CPUParticles2D" unique_id=627298022]
 z_as_relative = false
@@ -28,5 +42,9 @@ script = ExtResource("2_piaeq")
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="CrushSfx" type="AudioStreamPlayer2D" parent="." unique_id=1516953325]
+stream = SubResource("AudioStreamRandomizer_fll1m")
+bus = &"Enemies"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -10,4 +10,8 @@ launcher_data = ExtResource("2_64b42")
 [node name="CoolDown" type="Timer" parent="." unique_id=601628467]
 autostart = true
 
+[node name="DropMineSfx" type="AudioStreamPlayer2D" parent="." unique_id=1456009758]
+volume_db = -8.0
+bus = &"Weapons"
+
 [connection signal="timeout" from="CoolDown" to="." method="_on_cool_down_timeout"]

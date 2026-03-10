@@ -1,6 +1,5 @@
 extends Area2D
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 
 @export var xp_data : XPData
@@ -9,14 +8,14 @@ var velocity: Vector2
 var target_pos: Vector2
 var speed : = 500
 var is_attracted := false
-var xp_value : int
+
 
 @onready var player: CharacterBody2D = $"/root/World/Car"
 
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
-	xp_value = xp_data.xp_value
+	SignalManager.game_paused.connect(_on_game_paused)
+
 
 func _physics_process(delta: float) -> void:
 	if not game_paused and is_attracted:
@@ -26,8 +25,10 @@ func _physics_process(delta: float) -> void:
 		global_position += velocity * delta
 	
 	if abs(global_position - player.global_position).length() < 5:
-		XPManager.get_xp(xp_value)
+		XPManager.add_xp_in_bucket(xp_data.xp_value)
+		#print("xp in bucket")
 		queue_free()
+
 		
 
 func spawn(spawn_position : Vector2) -> void:

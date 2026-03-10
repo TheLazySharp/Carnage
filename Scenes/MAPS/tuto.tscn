@@ -5,7 +5,9 @@
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="2_sdos0"]
 [ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="3_aoxuc"]
 [ext_resource type="Script" uid="uid://cdrloa5c3vldh" path="res://Scripts/MANAGERS/tuto_manager.gd" id="3_d4n4o"]
+[ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="4_b358a"]
 [ext_resource type="AudioStream" uid="uid://bn0efdswmeuq4" path="res://Assets/Audio/Song/digital-driving-force-336840.mp3" id="5_b358a"]
+[ext_resource type="Texture2D" uid="uid://cm864gogrroh8" path="res://Shaders/daynightcycle-gradient-texture.tres" id="5_sdos0"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="7_hcgxs"]
 [ext_resource type="Texture2D" uid="uid://tlhptwaxxjid" path="res://Assets/Tilsets/g_terrain1.png" id="8_j4y6a"]
 [ext_resource type="Texture2D" uid="uid://flcn1qbe5bvo" path="res://Assets/Tilsets/road1.png" id="9_erjda"]
@@ -32,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="30_17vgr"]
 [ext_resource type="Script" uid="uid://bdiix0s1bmolp" path="res://Scripts/UI/xp_bar.gd" id="31_mvped"]
 [ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="32_12u18"]
+[ext_resource type="Texture2D" uid="uid://bgrl5ldrwntp4" path="res://Assets/UI/dashboard.png" id="32_pa7ak"]
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="33_fiq40"]
 [ext_resource type="Script" uid="uid://dgjjb27shy4tk" path="res://Scripts/SCENES/pause.gd" id="34_nssc7"]
 [ext_resource type="Script" uid="uid://p1kmh86var1g" path="res://Scripts/UI/stats_screen.gd" id="35_agr30"]
@@ -39,7 +42,6 @@
 [ext_resource type="Texture2D" uid="uid://bxgdr3qp32q2b" path="res://Assets/Props/garage.png" id="41_d4n4o"]
 [ext_resource type="VideoStream" uid="uid://c8t0381pwr7ok" path="res://Assets/UI/shortburnogg.ogv" id="41_ghk5s"]
 [ext_resource type="Texture2D" uid="uid://2m43b6grwcdv" path="res://Assets/Items/piston_spritesheet.png" id="41_pa7ak"]
-[ext_resource type="Texture2D" uid="uid://bwrvswxwsubhg" path="res://Assets/UI/dashboard_352_144.png" id="43_haqlr"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="44_hiso2"]
 [ext_resource type="Script" uid="uid://dwy6awbv47hjd" path="res://Scripts/UI/board_car.gd" id="45_c7u0r"]
 [ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="46_gmxtb"]
@@ -57,6 +59,67 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.91
+
+[sub_resource type="Animation" id="Animation_yq1aw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_1cojt"]
+resource_name = "time_warning"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.49960044, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.502376, 0.9992009),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.90526885, 3.3450872e-06, 1.1551381e-06, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aoxuc"]
+_data = {
+&"RESET": SubResource("Animation_yq1aw"),
+&"time_warning": SubResource("Animation_1cojt")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yxmws"]
 texture = ExtResource("8_j4y6a")
@@ -1008,116 +1071,7 @@ sources/8 = SubResource("TileSetAtlasSource_xhj07")
 sources/9 = SubResource("TileSetAtlasSource_ewkn0")
 sources/4 = SubResource("TileSetAtlasSource_hmdni")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0a5o"]
-bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6nya"]
-bg_color = Color(0.21547687, 1.052779, 1.6109806, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="Animation" id="Animation_rrokc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.21547687, 1.052779, 1.6109806, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-
-[sub_resource type="Animation" id="Animation_35io2"]
-resource_name = "level_up_anim"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 0.08537752),
-"update": 0,
-"values": [Color(0.21547687, 1.052779, 1.6109806, 1), Color(0.95666456, 4.058873, 6.127012, 1), Color(0.21547687, 1.052779, 1.6109806, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.40254, 0.8),
-"transitions": PackedFloat32Array(1, 0.4506253, 1),
-"update": 1,
-"values": [null, 28, 16]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_q12la"]
-_data = {
-&"RESET": SubResource("Animation_rrokc"),
-&"level_up_anim": SubResource("Animation_35io2")
-}
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axeuq"]
-bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
-skew = Vector2(0, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 3.0
-expand_margin_top = 2.0
-expand_margin_right = 3.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
-bg_color = Color(0, 0, 0, 1)
-skew = Vector2(0, 0.5)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
 
 [sub_resource type="Animation" id="Animation_4n5nh"]
 length = 0.001
@@ -1224,6 +1178,117 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibuii"]
+bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b358a"]
+bg_color = Color(0.21547687, 1.052779, 1.6109806, 1)
+skew = Vector2(0.5, 0)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="Animation" id="Animation_rrokc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.21547687, 1.052779, 1.6109806, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_35io2"]
+resource_name = "level_up_anim"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 0.08537752),
+"update": 0,
+"values": [Color(0.21547687, 1.052779, 1.6109806, 1), Color(0.95666456, 4.058873, 6.127012, 1), Color(0.21547687, 1.052779, 1.6109806, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.40254, 0.8),
+"transitions": PackedFloat32Array(1, 0.4506253, 1),
+"update": 1,
+"values": [null, 28, 16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sdos0"]
+_data = {
+&"RESET": SubResource("Animation_rrokc"),
+&"level_up_anim": SubResource("Animation_35io2")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aoxuc"]
+bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 3.0
+expand_margin_top = 2.0
+expand_margin_right = 3.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ewni"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(0.5, 0)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knb8w"]
 size = Vector2(20, 125)
 
@@ -1329,6 +1394,39 @@ blend_mode = 2
 [node name="game_manager" parent="." unique_id=1855230744 instance=ExtResource("1_b358a")]
 script = ExtResource("3_d4n4o")
 
+[node name="DayManager" type="Node" parent="." unique_id=1999145350]
+script = ExtResource("4_b358a")
+gradient_light = ExtResource("5_sdos0")
+
+[node name="TimeUI" type="CanvasLayer" parent="DayManager" unique_id=748191613]
+visible = false
+
+[node name="Time" type="Label" parent="DayManager/TimeUI" unique_id=1903570402]
+visible = false
+offset_left = 339.0
+offset_right = 499.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 48
+text = "00.00"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TimeAnimationPlayer" type="AnimationPlayer" parent="DayManager/TimeUI/Time" unique_id=312089431]
+libraries/ = SubResource("AnimationLibrary_aoxuc")
+
+[node name="Day" type="Label" parent="DayManager/TimeUI" unique_id=1522524818]
+visible = false
+offset_left = 138.0
+offset_right = 298.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 48
+text = "DAY 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="EnemiesManager" type="Node" parent="." unique_id=995397308]
 script = ExtResource("2_sdos0")
 
@@ -1363,390 +1461,6 @@ tile_set = SubResource("TileSet_hmdni")
 navigation_enabled = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
-
-[node name="Gear" type="Control" parent="CanvasLayer" unique_id=1192136897]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 141.0
-offset_top = 66.0
-offset_right = 444.0
-offset_bottom = 106.0
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Gear" unique_id=446153934]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Gear/MarginContainer" unique_id=403611011]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 4
-
-[node name="Gear0" type="Panel" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer" unique_id=222877905]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1435912683]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("24_niote")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1823006990]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-script = ExtResource("25_87mql")
-
-[node name="Gear1" type="Panel" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer" unique_id=466958561]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=243986824]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("24_niote")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=751922222]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-script = ExtResource("25_87mql")
-
-[node name="Gear2" type="Panel" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer" unique_id=183027919]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=411205787]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("24_niote")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=609660053]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-script = ExtResource("25_87mql")
-
-[node name="Gear3" type="Panel" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer" unique_id=153631555]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=951361497]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("24_niote")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=322450282]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-script = ExtResource("25_87mql")
-
-[node name="Gear4" type="Panel" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer" unique_id=136116006]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=70414263]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("24_niote")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=1589436148]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-script = ExtResource("25_87mql")
-
-[node name="Parts" type="Control" parent="CanvasLayer" unique_id=102137242]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 141.0
-offset_top = 109.0
-offset_right = 444.0
-offset_bottom = 149.0
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Parts" unique_id=39206195]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Parts/MarginContainer" unique_id=525821561]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 4
-script = ExtResource("26_35ca7")
-
-[node name="Woodboxes" type="Panel" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer" unique_id=895745046]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=1247610902]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("27_nlojy")
-
-[node name="WoodBoxesQ" type="Label" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=283158505]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -27.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-text = "10"
-horizontal_alignment = 2
-
-[node name="GearParts" type="Panel" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer" unique_id=2016834968]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1724909694]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("28_drkla")
-
-[node name="GearPartsQ" type="Label" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=800221824]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-text = "1800"
-horizontal_alignment = 2
-
-[node name="Zombies" type="Panel" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer" unique_id=442404506]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1336951058]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("29_04oci")
-
-[node name="ZombiesQ" type="Label" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1534381154]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-text = "0"
-horizontal_alignment = 2
-
-[node name="Frags" type="Panel" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer" unique_id=1605674456]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/Frags" unique_id=243522061]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("30_17vgr")
-
-[node name="FragsQ" type="Label" parent="CanvasLayer/Parts/MarginContainer/HBoxContainer/Frags" unique_id=15311325]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 10
-text = "0"
-horizontal_alignment = 2
-
-[node name="XP" type="Control" parent="CanvasLayer" unique_id=792832250]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="xp_bar" type="ProgressBar" parent="CanvasLayer/XP" unique_id=311172588]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 27.0
-offset_top = 37.0
-offset_right = 64.0
-offset_bottom = 711.0
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_l0a5o")
-theme_override_styles/fill = SubResource("StyleBoxFlat_f6nya")
-step = 1.0
-value = 50.0
-fill_mode = 3
-show_percentage = false
-script = ExtResource("31_mvped")
-
-[node name="Label" type="Label" parent="CanvasLayer/XP/xp_bar" unique_id=1112520545]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -23.5
-offset_top = -27.0
-offset_right = 23.5
-offset_bottom = -9.333334
-grow_horizontal = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_hcgxs")
-text = "Lvl 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("32_12u18")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/XP/xp_bar" unique_id=1865340468]
-libraries/ = SubResource("AnimationLibrary_q12la")
-script = ExtResource("33_fiq40")
 
 [node name="Pause" type="Control" parent="CanvasLayer" unique_id=1073593593]
 visible = false
@@ -1919,120 +1633,6 @@ theme_override_fonts/font = ExtResource("7_hcgxs")
 theme_override_font_sizes/font_size = 48
 text = "Healing Power : "
 
-[node name="Board" type="Control" parent="CanvasLayer" unique_id=853771382]
-layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -486.0
-offset_top = -151.0
-offset_right = -136.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Dashboard" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1454058244]
-texture = ExtResource("43_haqlr")
-centered = false
-
-[node name="Car" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1943354457]
-position = Vector2(176, 72)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("44_hiso2")
-script = ExtResource("45_c7u0r")
-
-[node name="Speed" type="Label" parent="CanvasLayer/Board" unique_id=900412374]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.57142854
-anchor_top = 0.1
-anchor_right = 0.9257143
-anchor_bottom = 0.6066667
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = 0
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 48
-text = "200"
-horizontal_alignment = 2
-vertical_alignment = 2
-justification_flags = 35
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="CanvasLayer/Board/Speed" unique_id=1149933007]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 70.0
-offset_right = 121.0
-offset_bottom = 107.33333
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 32
-text = "MPH"
-
-[node name="Fuel" type="Control" parent="CanvasLayer/Board" unique_id=595376615]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -154.0
-offset_top = -724.0
-offset_right = -154.0
-offset_bottom = -724.0
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Board/Fuel" unique_id=1818417014]
-visible = false
-layout_mode = 0
-offset_left = 208.0
-offset_top = 703.0
-offset_right = 312.0
-offset_bottom = 740.3333
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 32
-text = "FUEL"
-
-[node name="LifeLabel" type="Label" parent="CanvasLayer/Board/Fuel" unique_id=81239408]
-layout_mode = 0
-offset_left = 206.0
-offset_top = 770.0
-offset_right = 310.0
-offset_bottom = 807.3333
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("7_hcgxs")
-theme_override_font_sizes/font_size = 16
-text = "1000/1000"
-
-[node name="FuelGauge" type="ProgressBar" parent="CanvasLayer/Board/Fuel" unique_id=894934517]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 186.0
-offset_top = 669.0
-offset_right = 206.0
-offset_bottom = 770.0
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_axeuq")
-theme_override_styles/fill = SubResource("StyleBoxFlat_1cojt")
-step = 5.0
-value = 75.0
-rounded = true
-fill_mode = 3
-show_percentage = false
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/Fuel/FuelGauge" unique_id=1503179586]
-position = Vector2(50, 56)
-texture = ExtResource("46_gmxtb")
-
 [node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
 layout_mode = 3
 anchors_preset = 15
@@ -2103,6 +1703,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ResourcesPanel" type="Panel" parent="CanvasLayer/Training" unique_id=1090536176]
+visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 8
@@ -2111,9 +1712,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -500.0
-offset_top = -250.0
+offset_top = -280.0
 offset_right = 500.0
-offset_bottom = 250.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
@@ -2200,9 +1801,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -500.0
-offset_top = -250.0
+offset_top = -280.0
 offset_right = 500.0
-offset_bottom = 250.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
@@ -2280,9 +1881,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -500.0
-offset_top = -250.0
+offset_top = -280.0
 offset_right = 500.0
-offset_bottom = 250.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
@@ -2375,7 +1976,6 @@ text = "OK !"
 flat = true
 
 [node name="EndPanel" type="Panel" parent="CanvasLayer/Training" unique_id=397502605]
-visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 8
@@ -2384,9 +1984,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -500.0
-offset_top = -250.0
+offset_top = -280.0
 offset_right = 500.0
-offset_bottom = 250.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdos0")
@@ -2465,6 +2065,488 @@ theme_override_font_sizes/font_size = 24
 text = "Garage"
 horizontal_alignment = 1
 
+[node name="Board" type="Control" parent="CanvasLayer" unique_id=2100503518]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board" unique_id=154292478]
+texture = ExtResource("32_pa7ak")
+centered = false
+
+[node name="Car" type="Sprite2D" parent="CanvasLayer/Board" unique_id=217810832]
+position = Vector2(1237, 80)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("44_hiso2")
+script = ExtResource("45_c7u0r")
+
+[node name="Speed" type="Label" parent="CanvasLayer/Board" unique_id=90966318]
+layout_mode = 1
+offset_left = 53.0
+offset_top = 41.0
+offset_right = 161.0
+offset_bottom = 97.0
+theme_override_colors/font_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 48
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+justification_flags = 35
+
+[node name="Label" type="Label" parent="CanvasLayer/Board/Speed" unique_id=2130894934]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 52.0
+offset_right = 106.0
+offset_bottom = 89.33333
+theme_override_colors/font_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 32
+text = "MPH"
+
+[node name="xp_bar" type="ProgressBar" parent="CanvasLayer/Board" unique_id=42889917]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 296.0
+offset_top = 34.0
+offset_right = 565.0
+offset_bottom = 52.0
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_ibuii")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b358a")
+step = 1.0
+value = 50.0
+show_percentage = false
+script = ExtResource("31_mvped")
+
+[node name="Label" type="Label" parent="CanvasLayer/Board/xp_bar" unique_id=1271607388]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -6.000021
+offset_right = -15.0
+offset_bottom = 12.666645
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_hcgxs")
+text = "Lvl 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("32_12u18")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Board/xp_bar" unique_id=551648147]
+libraries/ = SubResource("AnimationLibrary_sdos0")
+script = ExtResource("33_fiq40")
+
+[node name="FuelGauge" type="ProgressBar" parent="CanvasLayer/Board" unique_id=733342971]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 301.0
+offset_top = -60.0
+offset_right = 559.0
+offset_bottom = -23.0
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_aoxuc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0ewni")
+step = 5.0
+value = 75.0
+rounded = true
+show_percentage = false
+
+[node name="LifeLabel" type="Label" parent="CanvasLayer/Board/FuelGauge" unique_id=1374246811]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = 5.0
+offset_right = -36.0
+offset_bottom = 23.666664
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 16
+text = "1000/1000"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/FuelGauge" unique_id=1500801644]
+position = Vector2(-43, 35)
+scale = Vector2(1.25, 1.28125)
+texture = ExtResource("46_gmxtb")
+
+[node name="Gear" type="Control" parent="CanvasLayer/Board" unique_id=2028152079]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = 16.0
+offset_right = 287.0
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/Gear" unique_id=194563246]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_right = -96.33331
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Gear/MarginContainer" unique_id=1679102731]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="Gear0" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=1403191798]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1457512840]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_niote")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1128785760]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+script = ExtResource("25_87mql")
+
+[node name="Gear1" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=617905692]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=2048877774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_niote")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=1751776751]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+script = ExtResource("25_87mql")
+
+[node name="Gear2" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=1546139945]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=1561226837]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_niote")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=2003082358]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+script = ExtResource("25_87mql")
+
+[node name="Gear3" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=1150733180]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=1621340516]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_niote")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=830770110]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+script = ExtResource("25_87mql")
+
+[node name="Gear4" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=942394631]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=1343200042]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_niote")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=351477393]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+script = ExtResource("25_87mql")
+
+[node name="Parts" type="Control" parent="CanvasLayer/Board" unique_id=317430513]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -278.0
+offset_top = -5.0
+offset_right = -127.0
+offset_bottom = 35.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/Parts" unique_id=1725684321]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Parts/MarginContainer" unique_id=542446172]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+script = ExtResource("26_35ca7")
+
+[node name="Woodboxes" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1171446778]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=1571009530]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("27_nlojy")
+
+[node name="WoodBoxesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=920632778]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -7.999996
+offset_bottom = 3.6666718
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+text = "10"
+horizontal_alignment = 2
+
+[node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1573500631]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=2024942992]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("28_drkla")
+
+[node name="GearPartsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1668289749]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = 2.0
+offset_bottom = 13.666668
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+text = "1800"
+horizontal_alignment = 2
+
+[node name="Zombies" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=572784403]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=2055225220]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("29_04oci")
+
+[node name="ZombiesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=329481458]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -7.999996
+offset_bottom = 3.6666718
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+text = "1800"
+horizontal_alignment = 2
+
+[node name="Frags" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1143003014]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=1761959595]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("30_17vgr")
+
+[node name="FragsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=1201125020]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = 2.0
+offset_bottom = 13.666668
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("7_hcgxs")
+theme_override_font_sizes/font_size = 10
+text = "10"
+horizontal_alignment = 2
+
 [node name="Car" parent="." unique_id=2034565894 instance=ExtResource("47_dm4wc")]
 position = Vector2(155, 992)
 skid_marks_path = NodePath("../SkidMarks")
@@ -2476,7 +2558,7 @@ process_callback = 0
 limit_left = 0
 limit_top = 0
 limit_right = 3008
-limit_bottom = 2016
+limit_bottom = 2120
 limit_smoothed = true
 position_smoothing_enabled = true
 

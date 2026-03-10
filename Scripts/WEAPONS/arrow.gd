@@ -15,13 +15,12 @@ var start_position : Vector2
 
 @onready var bow: Node2D = $/root/World/BeaverSr/Weapons/Bow
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:= false
 
 var is_active:= false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	speed = arrow_data.speed
 	max_range = arrow_data.atk_range
 	max_lvl = arrow_data.max_level

@@ -6,6 +6,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_c46wd"]
 radius = 5.0
 
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_dyc2s"]
+
 [node name="Revolver" type="Node2D" unique_id=1723170442]
 script = ExtResource("1_c46wd")
 revolver_data = ExtResource("2_4mk6m")
@@ -20,6 +22,12 @@ collision_mask = 2
 
 [node name="FireRangeShape" type="CollisionShape2D" parent="FireRange" unique_id=586941298]
 shape = SubResource("CircleShape2D_c46wd")
+
+[node name="ShotSFX" type="AudioStreamPlayer2D" parent="." unique_id=578850627]
+stream = SubResource("AudioStreamMP3_dyc2s")
+volume_db = -4.875
+max_distance = 1500.0
+bus = &"Weapons"
 
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="area_entered" from="FireRange" to="." method="_on_fire_range_entered"]

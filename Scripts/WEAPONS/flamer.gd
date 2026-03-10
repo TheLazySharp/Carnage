@@ -15,6 +15,7 @@ var targets: Array[Node2D]
 
 
 @onready var player: Sprite2D =  $"/root/World/Car/CarSprite"
+@onready var flame_sfx: AudioStreamPlayer2D = $FlameSfx
 
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -23,16 +24,16 @@ var targets: Array[Node2D]
 @onready var fire_rate: Timer = $FireRate
 @onready var burn_rate: Timer = $BurnRate
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	fire_rate.wait_time = flamer_data.base_fire_rate
 	cool_down = flamer_data.base_cool_down
 	max_lvl = flamer_data.max_level
 	damages = flamer_data.dmg
+	flame_sfx.stream = flamer_data.weapon_sfx
 
 	
 
@@ -73,6 +74,7 @@ func throw_fire() -> void:
 	if !flamer_data.weapon_is_active: return
 	if flamer_data.weapon_is_active:
 		is_firing = true
+		flame_sfx.play()
 		sprite.play("huge_fire_start")
 		await get_tree().create_timer(0.2).timeout
 		await get_tree().create_timer(0.3).timeout
@@ -93,7 +95,8 @@ func burn_enemies() -> void:
 func _on_area_entered(area: Area2D) -> void:
 		if area.is_in_group("ennemies") and "get_damages" in area.get_parent():
 			targets.append(area.get_parent())
-			throw_fire()
+			if targets.size() <= 1:
+				throw_fire()
 		else : return
 
 
@@ -105,6 +108,7 @@ func _on_area_exited(area: Area2D) -> void:
 				await get_tree().create_timer(0.5).timeout
 				sprite.play("huge_fire_end")
 				await get_tree().create_timer(0.5).timeout
+				flame_sfx.stop()
 				is_firing = false
 				targets.clear()
 		else : return

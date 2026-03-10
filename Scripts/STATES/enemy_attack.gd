@@ -7,15 +7,15 @@ var move_direction: Vector2
 var move_speed: float
 
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 
 func enter()-> void:
-	pass
-	#print("enemy attacking")
+		$"../../AnimatedSprite2D".self_modulate = Color.BLACK
+
 
 
 func exit()-> void:
@@ -23,6 +23,7 @@ func exit()-> void:
 	
 func update(_delta : float)-> void:
 	if !game_paused:
+		enemy.sprite_update(target.global_position)
 		if enemy.global_position.distance_to(target.global_position) <  5:
 			move_speed = 10
 			move_direction = target.global_position - enemy.global_position

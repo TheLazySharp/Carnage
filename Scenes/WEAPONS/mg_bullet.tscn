@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0f2xj"]
 radius = 2.499999
-height = 17.499998
+height = 32.499996
 
 [node name="MinigunBullet" type="Area2D" unique_id=101956596 groups=["bullets"]]
 z_as_relative = false
@@ -19,11 +19,11 @@ bullet_data = ExtResource("2_0f2xj")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1212305147]
 modulate = Color(1.353256, 1.353256, 1.353256, 1)
 z_as_relative = false
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_0f2xj")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=368599335]
 z_as_relative = false
+position = Vector2(1.2499999, -3.5527137e-15)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_0f2xj")
 

@@ -11,7 +11,7 @@ var main_menu_scene:= "uid://gmjjc1vmgcds"
 @onready var tuto_scene: Node2D = $".."
 
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 signal forward_only(car_ok : bool)
@@ -19,7 +19,7 @@ signal full_command(engine_on: bool)
 
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	tuto_scene.tuto_end.connect(_on_tuto_ended)
 	collision_shape.set_deferred("disabled",true)
 	warp_zone.set_deferred("disabled",true)

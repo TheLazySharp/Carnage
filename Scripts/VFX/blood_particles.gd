@@ -1,13 +1,15 @@
 extends CPUParticles2D
 
 @onready var timer: Timer = $Timer
-#@onready var gm_scene: Node = $"/root/World/game_manager"
+@onready var crush_sfx: AudioStreamPlayer2D = $CrushSfx
+
 var game_paused:=false
 
 
 func _ready() -> void:
-	#gm_scene.game_paused.connect(_on_game_paused)
+	#SignalManager.game_paused.connect(_on_game_paused)
 	one_shot = true
+	crush_sfx.play()
 
 func _process(_delta: float) -> void:
 	if !game_paused:

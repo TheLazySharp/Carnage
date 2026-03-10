@@ -16,13 +16,12 @@ var items: Array
 var total_slots:= 6
 var selection:=0
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 
 signal item_selected(item_i:int)
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	#items = InventoryManager.copy_items()
 	
 func _draw() -> void:

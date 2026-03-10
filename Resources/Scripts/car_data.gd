@@ -11,6 +11,8 @@ class_name CarData
 @export var turn_speed := 3.2
 @export var velocity_floor:= 50
 @export var burnout_boost := 200
+@export var base_boost_duration := 0.75
+
 
 @export_group("DRIFT")
 @export var drift_grip := 0.015
@@ -22,6 +24,7 @@ class_name CarData
 
 @export var snap_grip := 0.75
 @export var snap_speed := 8.0
+var drifting : bool = false
 
 @export_group("SKIDS")
 @export var skid_spacing := 8.0
@@ -32,6 +35,9 @@ class_name CarData
 @export var base_max_life:= 250
 @export var base_display_max_speed := 250
 @export var base_dmg := 15
+@export var base_dmg_boost := 2.0
+@export var max_boost_gauge := 100
+@export var boost_up : int = 2
 
 
 @export_group("AUDIO")
@@ -46,8 +52,8 @@ var engine_lvl:=0
 var turbo_lvl:=0
 var shield_lvl:=0
 var carbon_lvl:=0
-var front_gear_lvl:=0
 var tank_lvl:=0
+var nos_lvl:=0
 var front_gear : FrontGearData
 var tires : TiresData
 
@@ -56,9 +62,5 @@ var max_speed: int
 var max_life: int
 var display_max_speed: int
 var dmg: int
-
-#var acceleration = base_acceleration + carbon_lvl * 10 - shield_lvl * 5
-#var max_speed = base_max_speed + engine_lvl * 10
-#var max_life = base_max_life + shield_lvl * 5
-#var display_max_speed = base_display_max_speed + engine_lvl * 5
-#var dmg = base_dmg + shield_lvl * 5
+var dmg_boost : float
+var boost_duration : float

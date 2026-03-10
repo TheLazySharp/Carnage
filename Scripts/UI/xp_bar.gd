@@ -1,6 +1,6 @@
 extends ProgressBar
 
-#@onready var xp_manager: Node = $"/root/XPManager"
+
 
 func _ready() -> void:
 	XPManager.update_xp.connect(_update_xp)

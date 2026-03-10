@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/bullet.tres" id="2_e4v8e"]
 [ext_resource type="PackedScene" uid="uid://dww6b787qn3x0" path="res://Scenes/WEAPONS/bullet.tscn" id="3_c65e2"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="4_fvhad"]
+[ext_resource type="AudioStream" uid="uid://dh1famt01su4b" path="res://Assets/Audio/SFX/Weapons/Pistol.mp3" id="5_e4v8e"]
 
 [resource]
 script = ExtResource("1_c65e2")
@@ -14,6 +15,7 @@ description = "Shot a bullet on the closest enemy at a regular rate"
 weapon_scene_uid = "uid://bf606njwyoo0l"
 weapon_ammo_scene = ExtResource("3_c65e2")
 weapon_ammo_res = ExtResource("2_e4v8e")
+weapon_sfx = ExtResource("5_e4v8e")
 base_fire_rate = 1.0
 coeff_fire_rate = 1
 dmg_on_resources = 0

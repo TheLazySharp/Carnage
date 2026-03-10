@@ -10,6 +10,7 @@ var friction : float
 var turn_speed : float
 var velocity_floor : int
 var burnout_boost : int
+var boost_duration : float
 var drift_grip : float
 var normal_grip : float
 var drift_turn_bonus : float
@@ -23,10 +24,23 @@ var skid_spacing : float
 var skid_lifetime : float
 var skid_fade_speed : float
 var max_life : int
-var dmg : int
+var damages : int
+var damages_boost : float
 var display_max_speed : int
-var start_engine_sound : AudioStreamMP3
 @onready var car_sprite: Sprite2D = $CarSprite
+
+#SFX
+@onready var start_engine: AudioStreamPlayer = $Audio/StartEngine
+var start_engine_sound : AudioStreamMP3
+@onready var drift_sfx: AudioStreamPlayer2D = $Audio/DriftSfx
+@onready var dmg_sfx: AudioStreamPlayer = $Audio/DmgSFX
+@onready var dmg_sfx_2: AudioStreamPlayer = $Audio/DmgSFX2
+@onready var dmg_sfx_3: AudioStreamPlayer = $Audio/DmgSFX3
+var dmg_players : Array[AudioStreamPlayer]
+@onready var death_sfx: AudioStreamPlayer = $Audio/DeathSfx
+
+
+
 
 
 #SKID
@@ -38,6 +52,7 @@ var left_line: Line2D = null
 var right_line: Line2D = null
 var last_left_pos := Vector2.ZERO
 var last_right_pos := Vector2.ZERO
+var drifting : bool
 
 #DRIFT and BURN
 var drifting_last_frame := false
@@ -45,6 +60,9 @@ var drifting_last_frame := false
 @onready var rear_right_burn_anim: AnimatedSprite2D = $RearRight/RearRightBurnAnim
 signal burnout_ok(burnout : bool)
 var burning : bool
+signal dashing
+var can_dash : bool = false
+
 
 #GHOSTING
 @onready var ghost_timer: Timer = $GhostTimer
@@ -53,7 +71,6 @@ var burning : bool
 #GAME
 signal game_over(game_is_over: bool)
 var game_is_over:= false
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:=false
 var is_taking_damages:=false
 var can_drive:=false
@@ -69,14 +86,13 @@ var forward_only : bool
 
 #UI
 var current_life: int
-@onready var life_bar: ProgressBar = $"../CanvasLayer/Board/Fuel/FuelGauge"
-@onready var life_label: Label = $"../CanvasLayer/Board/Fuel/LifeLabel"
+@onready var life_bar: ProgressBar = $"../CanvasLayer/Board/FuelGauge"
+@onready var life_label: Label = $"../CanvasLayer/Board/FuelGauge/LifeLabel"
 @export var damages_text: PackedScene
 #@onready var damages_text_pos = get_node("MarkerDamages")
 @onready var taking_damages: Timer = $TakingDamages
 @onready var speed_label: Label = $"../CanvasLayer/Board/Speed"
 @onready var car_explosion: AnimatedSprite2D = $VFX/CarExplosion
-@onready var start_engine: AudioStreamPlayer = $Audio/StartEngine
 
 
 func _ready() -> void:
@@ -86,9 +102,10 @@ func _ready() -> void:
 	##TEST
 	WeaponsManager.test_weapons()
 	
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	gate.full_command.connect(_on_full_command)
 	gate.forward_only.connect(_on_forward_only)
+	SignalManager.boost_gauge_is_full.connect(_on_boost_full)
 	
 	#DRIVING
 	acceleration = player.acceleration + player.carbon_lvl * 10 - player.shield_lvl * 5
@@ -98,6 +115,7 @@ func _ready() -> void:
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
 	burnout_boost = player.burnout_boost
+	boost_duration = player.boost_duration
 	
 
 	#DRIFT
@@ -109,6 +127,8 @@ func _ready() -> void:
 	snap_grip = player.snap_grip
 	snap_speed = player.snap_speed
 	current_grip = normal_grip
+	drifting = false
+	player.drifting = false
 	
 	#SKIDS
 	skid_spacing = player.skid_spacing
@@ -118,11 +138,13 @@ func _ready() -> void:
 	#STATS
 	max_life = player.max_life
 	display_max_speed = player.display_max_speed
-	dmg = player.dmg
+	damages = player.dmg
+	damages_boost = 1
 	
 	#AUDIO
 	start_engine_sound = player.start_engine_Sound
 	start_engine.stream  = start_engine_sound
+	dmg_players = [dmg_sfx, dmg_sfx_2, dmg_sfx_3]
 	
 	#VFX
 	car_sprite.texture = player.car_sprite
@@ -130,7 +152,6 @@ func _ready() -> void:
 	life_bar.max_value = max_life
 	life_bar.value = current_life
 	life_label.text = str(current_life) + "/" + str(max_life)
-	print("rotation : ",rotation)
 	
 	if visible:
 		ready_go.show()
@@ -145,13 +166,15 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta : float) -> void:
 	if not game_paused and can_drive:
+		player.drifting = drifting
+		
 		var forward := Vector2.RIGHT.rotated(rotation)
 		var lateral := forward.rotated(PI / 2)
 
 		# ----------------- INPUTS -----------------
 		var throttle := Input.get_action_strength("accelerate")
 		var steer := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-		var drifting := Input.is_action_pressed("drift") and throttle > 0
+		drifting = Input.is_action_pressed("drift") and throttle > 0
 		burning = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length() < 20
 		
 		if forward_only:
@@ -186,22 +209,10 @@ func _physics_process(delta : float) -> void:
 			burning = false
 			emit_signal("burnout_ok",burning)
 			throttle = burnout_boost
-			dash()
+			if can_dash:
+				dash()
 		
-		
-		
-		#if Input.is_action_pressed("drift") and Input.is_action_just_released("accelerate") and velocity.length()  <1 and burning:
-			#rear_left_burn_anim.play("fadeOut")
-			#rear_right_burn_anim.play("fadeOut")
-			#print("burnout stop!")
-			#burning = false
-			#throttle = Input.get_action_strength("accelerate")
-		
-		#if !burning :
-			#rear_left_burn_anim.stop()
-			#rear_left_burn_anim.hide()
-			#rear_right_burn_anim.stop()
-			#rear_right_burn_anim.hide()
+
 			
 
 		if rear_right_burn_anim.animation == "idle" and !burning:
@@ -263,6 +274,8 @@ func _physics_process(delta : float) -> void:
 
 		was_drifting = drifting
 		
+		
+		# ----------------- COLLISION SOFTEN -----------------
 		var motion : Vector2 = velocity * delta
 		var collision : KinematicCollision2D = move_and_collide(motion)
 		if collision:
@@ -286,7 +299,7 @@ func _physics_process(delta : float) -> void:
 			rotation = lerp_angle(rotation, target_rotation, 5.0 * delta)
 		
 		
-		#SKIDS
+		# ----------------- SKIDS -----------------
 		if drifting and not drifting_last_frame:
 			start_skid()
 
@@ -321,6 +334,7 @@ func _physics_process(delta : float) -> void:
 
 func start_skid() -> void:
 	if !game_paused:
+		drift_sfx.play()
 		left_line = create_skid_line()
 		right_line = create_skid_line()
 
@@ -343,6 +357,7 @@ func create_skid_line() -> Line2D:
 
 func fade_and_destroy(line: Line2D) -> void:
 	if !game_paused:
+		drift_sfx.stop()
 		if line == null:
 			return
 
@@ -363,13 +378,14 @@ func get_rear_center() -> Vector2:
 func _on_game_paused(game_on_pause :bool) -> void:
 	game_paused = game_on_pause
 	
-func get_damages_from_mob(damages: int) -> void:
+func get_damages_from_mob(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over and velocity.length() < velocity_floor:
 		is_taking_damages = true
-		current_life -= damages
+		current_life -= damages_on_player
+		damages_sfx()
 		life_bar.value = current_life
-		#display_damages(damages)
-		#print("car get ",damages," dmg. Current life : ",str(current_life))
+		#display_damages(damages_on_player)
+		#print("car get ",damages_on_player," dmg. Current life : ",str(current_life))
 		#animation_player.play("beaver_animations/flash")
 		taking_damages.start()
 		
@@ -380,12 +396,12 @@ func get_damages_from_mob(damages: int) -> void:
 			
 		if is_taking_damages:return
 		
-func get_damages(damages: int) -> void:
+func get_damages(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over:
-		current_life -= damages
+		current_life -= damages_on_player
 		life_bar.value = current_life
-		#display_damages(damages)
-		#print("car get ",damages," dmg. Current life : ",str(current_life))
+		#display_damages(damages_on_player)
+		#print("car get ",damages_on_player," dmg. Current life : ",str(current_life))
 		
 		if current_life <=0:
 			current_life = 0
@@ -400,6 +416,7 @@ func play_death() -> void:
 	WeaponsManager.unload()
 	car_sprite.hide()
 	car_explosion.play("Explosion")
+	death_sfx.play()
 	game_is_over = true
 	#animated_sprite.hide()
 	await get_tree().create_timer(2).timeout
@@ -435,7 +452,7 @@ func _on_body_parts_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:
 		var enemy : Enemy = area.get_parent()
 		if enemy.is_in_group("ennemies") and "get_damages" in enemy:
-			enemy.get_damages(dmg)
+			enemy.get_damages(roundi(damages * damages_boost))
 		else : return
 
 
@@ -498,11 +515,26 @@ func add_ghost()-> void:
 func _on_ghost_timer_timeout() -> void:
 	add_ghost()
 	
-func dash() -> void : 
+func dash() -> void :
+	emit_signal("dashing")
+	can_dash = false
 	ghost_timer.start()
+	damages_boost = player.dmg_boost
 	#var tween_dash : Tween = get_tree().create_tween()
 	#tween_dash.tween_property(self, "velocity",velocity, 0.5)
 	#await tween_dash.finished
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(boost_duration).timeout
 	ghost_timer.stop()
+	damages_boost = 1
+	
+func _on_boost_full() -> void:
+	can_dash = true
+	
+func damages_sfx()-> void : 
+	if game_paused:
+		return
+	for dmg_player in dmg_players:
+		if !dmg_player.playing:
+			dmg_player.play()
+			return
 	

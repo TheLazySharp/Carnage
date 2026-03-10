@@ -2,7 +2,6 @@ extends Control
 
 var player_current_level: int
 
-signal game_paused(game_on_pause: bool)
 var game_is_paused: = false
 
 
@@ -173,7 +172,7 @@ func _process(_delta: float) -> void:
 						ammo_icon.get_parent().show()
 						ammo_icon.texture = weapons[i].weapon_ammo_res.weapon_icon
 					
-				elif i == weapons.size(): #NEW WEAPON TO EQUIP
+				elif i == weapons.size() and !unequiped_weapons.is_empty() : #NEW WEAPON TO EQUIP
 					upgrades.hide()
 					weapon_name.text = new_weapon.weapon_name
 					weapon_descr.text = new_weapon.description
@@ -244,7 +243,7 @@ func leveling_ok() -> void:
 
 		else: 
 			WeaponsManager.equip_weapon(weapon)
-		emit_signal("game_paused", game_is_paused)
+		SignalManager.emit_signal("game_paused", game_is_paused)
 		leveling.hide()
 		weapon_levelup_ok = false
 		new_weapon_show = false

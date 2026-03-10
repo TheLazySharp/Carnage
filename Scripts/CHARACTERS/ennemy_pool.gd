@@ -12,8 +12,7 @@ var player: Node = null
 @onready var target: Node2D = $"/root/World/Car"
 @onready var ennemy_spawner: Node2D = $/root/World/Spawners/ennemy_spawner
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
-var game_paused:=false
+var game_paused : =false
 
 @export var damages_text: PackedScene
 @export var xp_scene: PackedScene
@@ -37,7 +36,7 @@ func _ready() -> void:
 	randomize()
 	#base_color = color_rect.color
 	current_life = max_life
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 
 func _physics_process(_delta: float) -> void:
 	if not game_paused:

@@ -1,6 +1,6 @@
 extends Node
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 @onready var time_label: Label = $TimeUI/Time
 @onready var day_label: Label = $TimeUI/Day
 @onready var horde: Label = $"../CanvasLayer/Texts/Horde"
@@ -36,7 +36,7 @@ func _ready() -> void:
 	player.start_time.connect(_on_game_start)
 	time_remaining = TimeManager.day_lenght
 	TimeManager.current_day +=1
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	day_label.text = "DAY "+str(TimeManager.current_day)
 	enemies_spawner_base_rate = enemies_spawner_timer.wait_time
 	

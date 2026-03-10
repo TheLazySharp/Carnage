@@ -23,7 +23,6 @@ func _process(_delta: float) -> void:
 
 func _on_resume_pressed() -> void:
 	game_on_pause = true
-	#print(game_on_pause," from pause joystick")
 	emit_signal("quit_pause", game_on_pause)
 
 

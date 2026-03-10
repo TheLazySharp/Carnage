@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="1_1koc4"]
 [ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_qw2tv"]
-[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/car-engine-starting-43705.mp3" id="3_1ucdh"]
+[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/Car/car-engine-starting-43705.mp3" id="3_1ucdh"]
 
 [resource]
 script = ExtResource("2_qw2tv")

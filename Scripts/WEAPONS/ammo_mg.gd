@@ -15,13 +15,12 @@ var start_position : Vector2
 
 @onready var parent_weapon: Node2D = $"/root/World/Car/Weapons/Minigun"
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
 var game_paused:= false
 
 var is_active:= false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	speed = bullet_data.speed
 	damages = bullet_data.dmg
 	max_range = bullet_data.base_atk_range

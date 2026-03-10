@@ -13,5 +13,5 @@ base_dmg = 2
 base_atk_range = 100.0
 coeff_dmg = 1
 dmg_on_resources = 0
-speed = 400.0
+speed = 800.0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

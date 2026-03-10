@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 const GRID_WIDTH : int = 100
@@ -14,7 +14,7 @@ var from_cell : Vector2i
 var to_cell : Vector2i
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

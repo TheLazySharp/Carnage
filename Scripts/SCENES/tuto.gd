@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 @onready var car: CharacterBody2D = $Car
@@ -11,7 +11,7 @@ var game_started:bool=false
 
 @onready var tuto_label: Label = $CanvasLayer/Training/Label
 @onready var ready_go: Label = $CanvasLayer/Texts/ReadyGo
-@onready var XP_bar: Control = $CanvasLayer/XP
+@onready var XP_bar: ProgressBar = $CanvasLayer/Board/xp_bar
 
 
 #STEP1
@@ -75,7 +75,7 @@ var garage_pos : Vector2
 var current_step: int = 0
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	car.start_time.connect(_on_game_started)
 	car.burnout_ok.connect(_on_burnout_end)
 	XP_bar.hide()

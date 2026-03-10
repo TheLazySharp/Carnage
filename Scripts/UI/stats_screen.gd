@@ -5,11 +5,11 @@ var player : CarData = CarManager.selected_car
 @onready var speed: Label = $VBoxContainer/Speed
 @onready var healing_pow: Label = $VBoxContainer/HealingPow
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 func _ready() -> void: 
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 
 	max_health.text = "Max Life : " + str(player.max_life)
 	speed.text = "Speed : " + str(player.max_speed)

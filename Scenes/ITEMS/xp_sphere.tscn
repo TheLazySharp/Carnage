@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/UI/xp-sheet.png" id="1_2agxn"]
 [ext_resource type="Script" uid="uid://bo0y708xsebx2" path="res://Scripts/ITEMS/xp_sphere.gd" id="1_i8ppg"]
 [ext_resource type="Resource" uid="uid://b1rnp8w8r7smq" path="res://Resources/Items/xp_sphere_blue.tres" id="2_0v53g"]
+[ext_resource type="AudioStream" uid="uid://d3dy3rwu1gt4t" path="res://Assets/Audio/SFX/PickUp/pickUp.mp3" id="4_beh2a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obv3a"]
 
@@ -54,5 +55,10 @@ animation = &"blooming"
 autoplay = "blooming"
 frame = 2
 frame_progress = 0.53871137
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1191635041]
+stream = ExtResource("4_beh2a")
+volume_db = 12.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

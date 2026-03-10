@@ -19,6 +19,10 @@ run/main_scene="uid://gmjjc1vmgcds"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://Assets/icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://u0shvr2k0bxe"
+
 [autoload]
 
 XPManager="*res://Autoloads/player_xp_manager.gd"
@@ -29,6 +33,7 @@ WeaponsManager="*res://Autoloads/weapons_manager.gd"
 CarManager="*res://Autoloads/cars_manager.gd"
 StatsManager="*res://Autoloads/stats_manager.gd"
 SignalManager="*uid://b24sd62rqu8jc"
+AudioMaster="*uid://cfru00x1doqcr"
 
 [debug]
 
@@ -185,6 +190,7 @@ go_previous={
 2d_physics/layer_12="farmzone"
 2d_physics/layer_13="resourceRange"
 2d_physics/layer_14="weaponRange"
+2d_physics/layer_15="enemyHorde"
 
 [physics]
 

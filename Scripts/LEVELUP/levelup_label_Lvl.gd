@@ -3,16 +3,17 @@ extends Label
 var weapon_level : int
 
 @onready var anim_upgrade: AnimationPlayer = $AnimUpgrade
+@onready var leveling: Control = $"../.."
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused: bool = false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 
 
 func _process(_delta: float) -> void:
-	if visible and game_paused :
+	if visible and game_paused and leveling.visible :
 	
 		weapon_level = int(self.text)
 

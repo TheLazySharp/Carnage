@@ -503,6 +503,8 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_huv7q"]
+
 [node name="FlameLuncher" type="Area2D" unique_id=1083180534 groups=["weapons"]]
 collision_layer = 1024
 collision_mask = 2
@@ -527,6 +529,11 @@ polygon = PackedVector2Array(0, -6, 54, -20, 62, -12, 62, 4, 57, 14, 46, 13, 18,
 [node name="BurnRate" type="Timer" parent="." unique_id=1265053086]
 wait_time = 0.5
 one_shot = true
+
+[node name="FlameSfx" type="AudioStreamPlayer2D" parent="." unique_id=245711220]
+stream = SubResource("AudioStreamMP3_huv7q")
+bus = &"Weapons"
+parameters/looping = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

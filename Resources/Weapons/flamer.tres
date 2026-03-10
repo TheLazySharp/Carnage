@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_4icbo"]
 [ext_resource type="Resource" uid="uid://dc7hb24vr2x6r" path="res://Resources/Weapons/empty_ammo.tres" id="2_jnd02"]
 [ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="2_q6pc4"]
+[ext_resource type="AudioStream" uid="uid://cyrjmjhgu2sdi" path="res://Assets/Audio/SFX/Weapons/Flamer.mp3" id="4_4icbo"]
 
 [resource]
 script = ExtResource("1_4icbo")
@@ -12,6 +13,7 @@ max_level = 35
 description = "Shot fire in front of the car once an enemy enter is range area"
 weapon_scene_uid = "uid://baidslgub6j8k"
 weapon_ammo_res = ExtResource("2_jnd02")
+weapon_sfx = ExtResource("4_4icbo")
 base_dmg = 1
 base_radius = 0
 base_speed_rotation = 0

@@ -8,6 +8,8 @@ const BULLET = preload("uid://doe8o0sd0xuas")
 @onready var fire_point: Marker2D = $FirePoint
 
 @onready var player: CharacterBody2D = $/root/World/Car
+@onready var shot_sfx: AudioStreamPlayer2D = $ShotSfx
+
 
 var nb_ammo: int
 var nb_ammo_upgrade: int
@@ -32,15 +34,13 @@ var bonus_bullet: int = 0
 
 var offset_Y := 12
 
-@onready var gm_scene: Node = $"/root/World/game_manager"
+
 var game_paused:=false
 
 func _ready() -> void:
-	gm_scene.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	nb_ammo = minigun_data.base_nb_ammo
-	#if minigun_data.bonus:
-		#bonus_bullet = 35
-	#else : bonus_bullet = 0
+	shot_sfx.stream = minigun_data.weapon_sfx	
 	timer.wait_time = minigun_data.base_fire_rate
 	cool_down = minigun_data.base_cool_down
 	max_lvl = minigun_data.max_level
@@ -91,7 +91,7 @@ func shoot_from_pool()-> void :
 				var bullet : AmmoMG = get_bullet_from_pool()
 				var dir : Vector2 = Vector2.RIGHT.rotated(angle)
 				bullet.fire(fire_point.global_position,dir,angle)
-				#print(nb_bullet)
+				shot_sfx.play()
 		
 
 func _on_fire_rate_timeout() -> void:
