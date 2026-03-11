@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dgt25kdq0ormg"]
 
-[ext_resource type="Script" uid="uid://b2k0wdgpd2gde" path="res://Scripts/CHARACTERS/ennemy.gd" id="1_jc1cl"]
+[ext_resource type="Script" uid="uid://b2k0wdgpd2gde" path="res://Scripts/ENEMIES/ennemy.gd" id="1_jc1cl"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_ev1yp"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="3_eq3hb"]
 [ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="4_qy0dh"]

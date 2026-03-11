@@ -5,8 +5,8 @@ extends Node
 #var enemies_arrays : Array[Array] = []
 var enemies_hordes : Array[Array] = []
 #var enemy_added : bool = false
-var update_path_steps : float = 0.5
-var update_path_timer : float = 0.0
+#var update_path_steps : float = 0.5
+#var update_path_timer : float = 0.0
 var enemy_groups_index : int = 0
 
 var total_enemies : int = 0
@@ -26,28 +26,20 @@ func _ready() -> void:
 	#print("nb enemies arrays :", enemies_arrays.size())
 
 
-func _process(delta: float) -> void:
-	#zombies_q.text = str(total_enemies)
-	if game_paused: return
-	
-	update_path_timer += delta
-	if update_path_timer < update_path_steps:
-		return
-	update_path_timer = 0.0
+func _process(_delta: float) -> void:
+	pass
 
 
 
-func _on_enemy_death(dead_enemy : Enemy) -> void : 
+func _on_enemy_death(dead_enemy : Enemy, dead_enemy_horde : Array) -> void : 
 				
-	for horde in enemies_hordes:
-		if horde.has(dead_enemy):
-			horde.erase(dead_enemy)
-			break
+	if dead_enemy_horde != null:
+		dead_enemy_horde.erase(dead_enemy)
 	
 	var was_leader : bool = dead_enemy.is_leader
 	dead_enemy.queue_free()
 	if was_leader :
-		leaders_check()
+		leaders_check(dead_enemy_horde)
 		
 
 
@@ -57,23 +49,20 @@ func _on_game_paused(game_on_pause : bool) -> void:
 func count_enemies(n : int) -> void:
 	total_enemies += n
 
-func leaders_check() -> void:
-	if !enemies_hordes.is_empty():
-		for i in range(enemies_hordes.size()-1,-1,-1):
-			var horde : Array = enemies_hordes[i]
-			if !horde.is_empty():
-				var nb_leader : int = 0
-				for j in range(horde.size()-1,-1,-1):
-					if !is_instance_valid(horde[j]):
-						continue
-					if horde[j].is_leader and is_instance_valid(horde[j]):
-						nb_leader += 1
-						break
-				if nb_leader == 0 :
-					for j in range(horde.size()-1,-1,-1):
-						if is_instance_valid(horde[j]):
-							set_new_leader(horde[j],horde)
-							break
+func leaders_check(horde : Array) -> void:
+	if !horde.is_empty():
+		var nb_leader : int = 0
+		for j in range(horde.size()-1,-1,-1):
+			if !is_instance_valid(horde[j]):
+				continue
+			if horde[j].is_leader and is_instance_valid(horde[j]):
+				nb_leader += 1
+				break
+		if nb_leader == 0 :
+			for j in range(horde.size()-1,-1,-1):
+				if is_instance_valid(horde[j]):
+					set_new_leader(horde[j],horde)
+					break
 
 func set_new_leader(new_leader : Enemy, new_leader_horde : Array) -> void:
 	new_leader.is_leader = true

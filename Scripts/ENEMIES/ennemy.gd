@@ -68,10 +68,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(_delta: float) -> void:
-	#if current_life <=0 and !is_dead:
-	if current_life <=0:
-		current_life = 0
-		on_death()
+	pass
+
 
 func sprite_update(target_pos : Vector2)->void :
 	if velocity.length_squared() <= 2500: 
@@ -97,7 +95,7 @@ func get_impact(car_forward : Vector2, car_right : Vector2, player_speed_ratio :
 
 
 func chained_impacts() -> void:
-	if knockback_velocity.length() < chained_impacts_threshold:
+	if knockback_velocity.length_squared() < chained_impacts_threshold * chained_impacts_threshold:
 		return
 	for i in get_slide_collision_count():
 		var collider : Node2D = get_slide_collision(i).get_collider()
@@ -111,8 +109,11 @@ func get_damages(damages: int) -> void:
 	if not game_paused:
 		damage_timer.start()
 		current_life -= damages
+		if current_life <=0:
+			current_life = 0
+			call_deferred("on_death")
 		$AnimatedSprite2D.self_modulate = Color.RED
-		display_damages(damages)
+		#display_damages(damages)
 	
 
 func activate(spawn_position: Vector2) -> void:
@@ -138,7 +139,7 @@ func on_death() -> void:
 		xp.spawn(global_position)
 		#ennemy_spawner.activated_enemies(-1)
 		StatsManager.frags +=1
-		SignalManager.emit_signal("enemy_is_dead",self)
+		SignalManager.emit_signal("enemy_is_dead",self, self.horde)
 	
 
 func _on_hitbox_entered(area: Area2D) -> void:
@@ -163,8 +164,8 @@ func _on_damage_timer_on_player_timeout() -> void:
 
 func display_damages(damages : int)-> void:
 	var text : Node2D = damages_text.instantiate()
-	var text_offsetX : float = RandomNumberGenerator.new().randf_range(-10,10)
-	var text_offsetY : float = RandomNumberGenerator.new().randf_range(-10,0)
+	var text_offsetX : float = randf_range(-10,10)
+	var text_offsetY : float = randf_range(-10,0)
 	text.this_label_text = str(damages)
 	add_child(text)
 	text.global_position = Vector2(damages_text_pos.global_position.x + text_offsetX, damages_text_pos.global_position.y + text_offsetY)

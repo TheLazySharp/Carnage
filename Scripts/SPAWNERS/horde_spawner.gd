@@ -2,7 +2,7 @@ extends Node2D
 
 const ENEMY = preload("uid://c31g0smlywes2")
 
-var max_enemy_count : int = 50
+var max_enemy_count : int = 20
 var horde : Array[Enemy]
 @export var is_active : bool = true
 
@@ -50,6 +50,6 @@ func create_horde() -> void :
 
 func set_leader(leader : Enemy) -> void:
 	leader.scale = Vector2(2,2)
-	leader.max_life = 50
+	leader.max_life = 2
 	leader.damages_on_player = 5
 	

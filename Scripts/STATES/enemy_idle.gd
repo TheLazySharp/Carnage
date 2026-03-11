@@ -13,7 +13,7 @@ var attraction_to_leader : float = 2
 var repulsion_weight : float = 2
 var cohesion_weight : float = 0.3
 var repulsion_radius : float = 20
-var cohesion_radius : float = 80
+var cohesion_radius : float = 50
 var formation_offset : Vector2
 var forces_timer : float = 0
 var forces_timer_steps : float

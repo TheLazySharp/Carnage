@@ -3682,6 +3682,7 @@ position = Vector2(615.807, 984.26355)
 
 [node name="Horde3" parent="Spawners" unique_id=109443155 instance=ExtResource("52_hp83p")]
 position = Vector2(633.5227, 1266.1028)
+is_active = false
 
 [node name="Horde2" parent="Spawners" unique_id=955347319 instance=ExtResource("52_hp83p")]
 position = Vector2(1127.9493, 1005.2002)
