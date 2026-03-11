@@ -2,7 +2,7 @@ extends Node2D
 
 const ENEMY = preload("uid://c31g0smlywes2")
 
-var max_enemy_count : int = 100
+var max_enemy_count : int = 50
 var horde : Array[Enemy]
 @export var is_active : bool = true
 
@@ -30,8 +30,6 @@ func create_horde() -> void :
 	for i in max_enemy_count:
 		var enemy : Enemy = ENEMY.instantiate()
 		add_child(enemy)
-		enemy.is_from_the_horde = false
-		enemy.activate(global_position)
 		enemies_manager.count_enemies(1)
 		if i == 0: 
 			enemy.is_leader = true
@@ -39,6 +37,7 @@ func create_horde() -> void :
 			set_leader(enemy)
 		else : 
 			enemy.is_leader = false
+		enemy.activate(global_position)
 		horde.append(enemy)
 		enemy.horde = horde
 	enemies_manager.enemies_hordes.append(horde)

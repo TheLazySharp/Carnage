@@ -49,12 +49,10 @@
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="46_vrsns"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_ux4l1"]
 [ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="49_2jlsx"]
-[ext_resource type="Script" uid="uid://dqocg2m2t4es4" path="res://Scripts/SPAWNERS/final_horde_spawner.gd" id="49_4n5nh"]
 [ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="50_hp83p"]
 [ext_resource type="PackedScene" uid="uid://drgsya7gbwrgk" path="res://Scenes/MAPS/start_gate.tscn" id="50_jgm5j"]
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="50_ow65e"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="51_4n5nh"]
-[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/SPAWNERS/ennemy_spawner.gd" id="51_kimld"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="52_hp83p"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
@@ -3679,38 +3677,22 @@ position = Vector2(2609, 1121)
 
 [node name="Spawners" type="Node2D" parent="." unique_id=483220455]
 
-[node name="FinalHordeSpawner" type="Node2D" parent="Spawners" unique_id=1333982669]
-script = ExtResource("49_4n5nh")
-is_active = false
-
-[node name="FinalHordeSpawnPoint" type="Marker2D" parent="Spawners/FinalHordeSpawner" unique_id=68552657]
-position = Vector2(2783, 991)
-
-[node name="ennemy_spawner" type="Node2D" parent="Spawners" unique_id=1640586167]
-script = ExtResource("51_kimld")
-auto_spawn = false
-
-[node name="Timer" type="Timer" parent="Spawners/ennemy_spawner" unique_id=766464847]
-wait_time = 1.5
-autostart = true
-
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("52_hp83p")]
-position = Vector2(1493.4851, 986.43176)
+position = Vector2(615.807, 984.26355)
 
 [node name="Horde3" parent="Spawners" unique_id=109443155 instance=ExtResource("52_hp83p")]
-position = Vector2(1691.1697, 325.43173)
-is_active = false
+position = Vector2(633.5227, 1266.1028)
 
 [node name="Horde2" parent="Spawners" unique_id=955347319 instance=ExtResource("52_hp83p")]
-position = Vector2(2612.049, 1867.2521)
+position = Vector2(1127.9493, 1005.2002)
 is_active = false
 
 [node name="Horde4" parent="Spawners" unique_id=1340180233 instance=ExtResource("52_hp83p")]
-position = Vector2(396.22217, 425.68576)
+position = Vector2(947.57214, 1283.8185)
 is_active = false
 
 [node name="Horde5" parent="Spawners" unique_id=2058980472 instance=ExtResource("52_hp83p")]
-position = Vector2(358.6267, 1845.9506)
+position = Vector2(1675.5227, 985.874)
 is_active = false
 
 [node name="Horde6" parent="Spawners" unique_id=358264937 instance=ExtResource("52_hp83p")]
@@ -3746,4 +3728,3 @@ shape = SubResource("RectangleShape2D_283wp")
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Commands" to="CanvasLayer/Pause" method="_on_commands_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/QuitToMenu" to="CanvasLayer/Pause" method="_on_quit_to_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/Leveling/LevelingBkgd/MainButtons/Skip" to="CanvasLayer/Leveling" method="_on_skip_pressed"]
-[connection signal="timeout" from="Spawners/ennemy_spawner/Timer" to="Spawners/ennemy_spawner" method="_on_timer_timeout"]

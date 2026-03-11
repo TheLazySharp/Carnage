@@ -366,6 +366,7 @@ ghost_scene = ExtResource("2_nbj0p")
 damages_text = ExtResource("2_frphp")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
+visible = false
 z_as_relative = false
 position = Vector2(-12, 0)
 rotation = 1.5707964
@@ -407,7 +408,6 @@ wait_time = 0.3
 one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1336259982]
-visible = false
 collision_mask = 0
 
 [node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532]

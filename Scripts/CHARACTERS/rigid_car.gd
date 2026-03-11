@@ -41,8 +41,6 @@ var dmg_players : Array[AudioStreamPlayer]
 
 
 
-
-
 #SKID
 @export var skid_marks_path: NodePath
 @onready var skid_parent: Node2D = get_node(skid_marks_path)
@@ -63,6 +61,8 @@ var burning : bool
 signal dashing
 var can_dash : bool = false
 
+#INVINCIBLE
+var is_invincible : bool = false
 
 #GHOSTING
 @onready var ghost_timer: Timer = $GhostTimer
@@ -168,6 +168,14 @@ func _physics_process(delta : float) -> void:
 	if not game_paused and can_drive:
 		player.drifting = drifting
 		
+		if velocity.length() > 10:
+			is_invincible = true
+			car_sprite.self_modulate = Color.CHARTREUSE
+		else:
+			is_invincible = false
+			car_sprite.self_modulate = Color.WHITE
+
+		
 		var forward := Vector2.RIGHT.rotated(rotation)
 		var lateral := forward.rotated(PI / 2)
 
@@ -213,7 +221,6 @@ func _physics_process(delta : float) -> void:
 				dash()
 		
 
-			
 
 		if rear_right_burn_anim.animation == "idle" and !burning:
 			rear_right_burn_anim.play("fadeOut")
@@ -279,24 +286,37 @@ func _physics_process(delta : float) -> void:
 		var motion : Vector2 = velocity * delta
 		var collision : KinematicCollision2D = move_and_collide(motion)
 		if collision:
-			var n : Vector2 = collision.get_normal().normalized()
 			
-			velocity = velocity.slide(n) * 0.9
-			
-			var wall_tan := Vector2(-n.y, n.x)
-			var is_moving_forward : bool = velocity.dot(forward) > 0
-			
-			if velocity.dot(wall_tan) < 0 : 
-				wall_tan = - wall_tan
-			
-			var new_speed : float = velocity.length()
-			velocity = velocity.normalized().lerp(wall_tan,0.3) * new_speed
-			
-			var target_rotation : float = wall_tan.angle()
-			if !is_moving_forward:
-				target_rotation += PI
-			
-			rotation = lerp_angle(rotation, target_rotation, 5.0 * delta)
+			# ------ WITH ENEMIES
+			var collider := collision.get_collider()
+			if collider.is_in_group("ennemies") and is_invincible:
+				var speed_ratio : float = velocity.length() / max_speed
+				var impact_forward : Vector2 = Vector2.RIGHT.rotated(rotation)
+				var impact_right : Vector2 = impact_forward.rotated(PI/2)
+				collider.get_impact(impact_forward,impact_right, speed_ratio)
+				#get_damages(1)
+				#velocity *= 0.995
+				
+			else:
+			# ------ WITH WALLS
+				var n : Vector2 = collision.get_normal().normalized()
+				
+				velocity = velocity.slide(n) * 0.9
+				
+				var wall_tan := Vector2(-n.y, n.x)
+				var is_moving_forward : bool = velocity.dot(forward) > 0
+				
+				if velocity.dot(wall_tan) < 0 : 
+					wall_tan = - wall_tan
+				
+				var new_speed : float = velocity.length()
+				velocity = velocity.normalized().lerp(wall_tan,0.3) * new_speed
+				
+				var target_rotation : float = wall_tan.angle()
+				if !is_moving_forward:
+					target_rotation += PI
+				
+				rotation = lerp_angle(rotation, target_rotation, 5.0 * delta)
 		
 		
 		# ----------------- SKIDS -----------------
@@ -438,14 +458,6 @@ func _on_taking_damages_timeout() -> void:
 	is_taking_damages = false
 	#animation_player.stop()
 
-
-#func _on_body_parts_collision(body: Node2D) -> void:
-	##var dmg = 5
-	#if body.is_in_group("ennemies") and "get_damages" in body:
-		#print("body collision with enemy")
-		##body.get_damages(dmg)
-		##print("body dmg = ",dmg)
-	#else : return
 
 
 func _on_body_parts_area_entered(area: Area2D) -> void:

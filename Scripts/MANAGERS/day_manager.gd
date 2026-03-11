@@ -26,7 +26,7 @@ var end_day_scene: String = "uid://dkpvtoel7hhai"
 @onready var player: CharacterBody2D = $"../Car"
 @onready var garage_arrow: AnimatedSprite2D = $"../Car/TutoArrow/GarageArrow"
 var game_start: bool = false
-@onready var enemies_spawner_timer: Timer = $"../Spawners/ennemy_spawner/Timer"
+
 
 var enemies_spawner_base_rate: float
 
@@ -38,14 +38,14 @@ func _ready() -> void:
 	TimeManager.current_day +=1
 	SignalManager.game_paused.connect(_on_game_paused)
 	day_label.text = "DAY "+str(TimeManager.current_day)
-	enemies_spawner_base_rate = enemies_spawner_timer.wait_time
+	#enemies_spawner_base_rate = enemies_spawner_timer.wait_time
 	
 	#TEST
 	#enemies_spawner_timer.wait_time = 0.3
 
 
 func _process(delta: float) -> void:
-	enemies_spawner_timer.wait_time = 0.3 + enemies_spawner_base_rate * (time_remaining/TimeManager.day_lenght)
+	#enemies_spawner_timer.wait_time = 0.3 + enemies_spawner_base_rate * (time_remaining/TimeManager.day_lenght)
 	if game_paused or timer_stopped: return
 	
 	if time_remaining <= 0:

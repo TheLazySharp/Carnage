@@ -1,10 +1,10 @@
 class_name EnemiesManager
 extends Node
 
-var max_enemies_per_array : int = 10
-var enemies_arrays : Array[Array] = []
+#var max_enemies_per_array : int = 10
+#var enemies_arrays : Array[Array] = []
 var enemies_hordes : Array[Array] = []
-var enemy_added : bool = false
+#var enemy_added : bool = false
 var update_path_steps : float = 0.5
 var update_path_timer : float = 0.0
 var enemy_groups_index : int = 0
@@ -17,12 +17,10 @@ var total_enemies : int = 0
 var game_paused:=false
 
 func _ready() -> void:
-	if enemies_arrays.size() == 0:
-		var enemies_group : Array = []
-		enemies_arrays.append(enemies_group)
-	SignalManager.connect("enemy_chasing",enemy_chasing)
+	#if enemies_arrays.size() == 0:
+		#var enemies_group : Array = []
+		#enemies_arrays.append(enemies_group)
 	SignalManager.connect("enemy_is_dead",_on_enemy_death)
-	SignalManager.connect("enemy_exiting_chase",_on_exiting_chase)
 	SignalManager.connect("player_located",_on_player_located)
 	SignalManager.game_paused.connect(_on_game_paused)
 	#print("nb enemies arrays :", enemies_arrays.size())
@@ -36,78 +34,22 @@ func _process(delta: float) -> void:
 	if update_path_timer < update_path_steps:
 		return
 	update_path_timer = 0.0
-	
-	
-
-func enemy_chasing(enemy : Enemy)-> void:
-	enemy_added = false
-
-	for i in enemies_arrays.size():
-		var array : Array = enemies_arrays[i]
-		if array.size() < max_enemies_per_array:
-			array.append(enemy)
-			enemy_added = true
-			break
-			
-	if !enemy_added: 
-		var new_enemies_group : Array = []
-		new_enemies_group.append(enemy)
-		enemies_arrays.append(new_enemies_group)
 
 
 
 func _on_enemy_death(dead_enemy : Enemy) -> void : 
-	#check if dead enemy is in IA array to remove from this array
-	if !enemies_arrays[0].is_empty():
-		for array in enemies_arrays:
-			if array.has(dead_enemy):
-				array.erase(dead_enemy)
-				break
 				
-		for horde in enemies_hordes:
-			if horde.has(dead_enemy):
-				horde.erase(dead_enemy)
-				break
+	for horde in enemies_hordes:
+		if horde.has(dead_enemy):
+			horde.erase(dead_enemy)
+			break
+	
+	var was_leader : bool = dead_enemy.is_leader
+	dead_enemy.queue_free()
+	if was_leader :
+		leaders_check()
 		
-		var was_leader : bool = dead_enemy.is_leader
-		dead_enemy.queue_free()
-		if was_leader :
-			leaders_check()
-		
-		
-	#if !enemies_arrays[0].is_empty():
-		#for i in enemies_arrays.size():
-			#var array : Array = enemies_arrays[i]
-			#for j in range(array.size()-1,-1,-1):
-				#if array[j] == dead_enemy:
-					#array.remove_at(j)
-					#
-					##check if dead enemy is in a horde to remove it from this array
-					#if !enemies_hordes.is_empty():
-						#for k in range(enemies_hordes.size()-1,-1,-1):
-							#var horde : Array = enemies_hordes[k]
-							#if !horde.is_empty():
-								#for n in range(horde.size()-1,-1,-1):
-									#if horde[n] == dead_enemy:
-										#horde.remove_at(n)
-					#dead_enemy.queue_free()
-					#if dead_enemy.is_leader:
-						#leaders_check()
-					#break
-	#else : 
-		#dead_enemy.queue_free()
-		#if dead_enemy.is_leader:
-			#leaders_check()
 
-
-func _on_exiting_chase(exited_enemy : Enemy) -> void: 
-	if !enemies_arrays[0].is_empty():
-		for i in enemies_arrays.size():
-			var array : Array = enemies_arrays[i]
-			for j in range(array.size()-1,-1,-1):
-				if array[j] == exited_enemy:
-					array.erase(exited_enemy)
-					break
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
@@ -130,8 +72,6 @@ func leaders_check() -> void:
 				if nb_leader == 0 :
 					for j in range(horde.size()-1,-1,-1):
 						if is_instance_valid(horde[j]):
-							#horde[j].is_leader = true
-							#horde[j].scale = Vector2(2,2)
 							set_new_leader(horde[j],horde)
 							break
 
@@ -153,7 +93,6 @@ func _on_player_located(locator_horde : Array)->void:
 		for i in range(enemies_hordes.size()-1,-1,-1):
 			var horde : Array = enemies_hordes[i]
 			if horde == locator_horde:
-				print("enemy manager : player located")
 				for j in range(horde.size()-1,-1,-1):
 						if !is_instance_valid(horde[j]):
 							continue
