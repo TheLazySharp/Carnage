@@ -17,7 +17,7 @@ class_name Enemy
 @export var max_life: int = 10
 @onready var current_life: int
 var damages_on_player: float = 1
-var speed: float = 40
+@export var speed: float = 40
 var nb_xp: int = 1
 var is_leader: bool = false
 @export var leader: Enemy = null
@@ -28,15 +28,9 @@ var night_speed_boost: float = 1.5
 @onready var state_machine: Node = $StateMachine
 @onready var player: Node2D = null
 
-# ─── MULTIMESH ───────────────────────────────
-## Référence au renderer central (assignée automatiquement au _ready)
-var _renderer: ZombieMultiMeshRenderer = null
-## Index de cette instance dans le MultiMesh (-1 = non enregistré)
-var _mm_index: int = -1
-
-## Chemin vers le renderer dans la scène — ajuste si besoin
-@export var renderer_path: NodePath = NodePath("/root/World/ZombieMultiMeshRenderer")
-# ─────────────────────────────────────────────
+# MULTIMESH
+@onready var renderer: EnemiesMultiMeshRenderer = $/root/World/EnemiesMMR2D
+var mm_index: int = -1 # -1 = not registered in mmr2D
 
 # IMPACT ON PLAYER
 @export var impact_force: float = 200.0
@@ -63,39 +57,53 @@ var front_impact_ratio: float = -1.2
 var day_is_ended: bool = false
 var game_paused := false
 
+#PERFS
+var physics_skip : int = 0
+var physics_skip_max : int = 1
+var accumululated_delta : float
+
 
 func _ready() -> void:
 	current_life = max_life
 	SignalManager.game_paused.connect(_on_game_paused)
 	day_manager.day_ended.connect(_on_day_end)
-
-	# Enregistrement auprès du renderer MultiMesh
-	_renderer = get_node_or_null(renderer_path)
-	if _renderer:
-		_mm_index = _renderer.register_enemy(self)
-	else:
-		push_error("Enemy : ZombieMultiMeshRenderer introuvable au chemin : " + str(renderer_path))
-
+	call_deferred("register_to_renderer")
+	physics_skip = randi() % 3
 
 func _physics_process(delta: float) -> void:
-	if !game_paused:
+	if game_paused:
+		return
+	accumululated_delta += delta
+	physics_skip += 1
+	if physics_skip < physics_skip_max:
+		return
+	physics_skip = 0
+	
+	var new_delta : float = accumululated_delta
+	accumululated_delta = 0
 
-		if knockback_velocity.length() > 10:
-			velocity = knockback_velocity
-			var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction * delta)
-			knockback_velocity = knockback_velocity.normalized() * knockback_length
+	if knockback_velocity.length() > 10:
+		velocity = knockback_velocity
+		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction * new_delta)
+		knockback_velocity = knockback_velocity.normalized() * knockback_length
 
-		elif player:
-			velocity = (player.global_position - global_position).normalized() * speed
+	elif player:
+		velocity = (player.global_position - global_position).normalized() * speed
 
-		move_and_slide()
-		chained_impacts()
+	move_and_slide()
+	chained_impacts()
 
 
 func _process(_delta: float) -> void:
 	if current_life <= 0:
 		current_life = 0
 		on_death()
+
+
+
+func register_to_renderer() -> void:
+	if renderer:
+		mm_index = renderer.register_enemy(self)
 
 
 ## Anciennement utilisée pour orienter l'AnimatedSprite2D.
@@ -146,18 +154,16 @@ func get_damages(damages: int) -> void:
 
 ## Flash rouge via modulation de l'instance MultiMesh
 func _flash_damage() -> void:
-	if _renderer == null or _mm_index < 0:
+	if renderer == null or mm_index < 0:
 		return
-	# Teinte rouge via la couleur d'instance
 	multimesh_set_color(Color.RED)
 	damage_timer.start()
 
 
-## Applique une couleur d'instance (tint) sur le MultiMesh
 func multimesh_set_color(color: Color) -> void:
-	if _renderer == null or _mm_index < 0:
+	if renderer == null or mm_index < 0:
 		return
-	_renderer.multimesh.set_instance_color(_mm_index, color)
+	renderer.multimesh.set_instance_color(mm_index, color)
 
 
 func activate(spawn_position: Vector2) -> void:
@@ -165,8 +171,8 @@ func activate(spawn_position: Vector2) -> void:
 	current_life = max_life
 
 
+
 func _on_damage_timer_timeout() -> void:
-	# Retour à la couleur normale
 	multimesh_set_color(Color.WHITE)
 
 
@@ -186,12 +192,11 @@ func on_death() -> void:
 
 		StatsManager.frags += 1
 
-		# ── Désenregistrement MultiMesh AVANT queue_free ──
-		if _renderer and _mm_index >= 0:
-			_renderer.unregister_enemy(_mm_index)
-			_mm_index = -1
+		if renderer and mm_index >= 0:
+			renderer.unregister_enemy(mm_index)
+			mm_index = -1
 
-		SignalManager.emit_signal("enemy_is_dead", self)
+		SignalManager.emit_signal("enemy_is_dead", self, self.horde)
 
 
 func _on_hitbox_entered(area: Area2D) -> void:
@@ -251,8 +256,6 @@ func _on_horde_area_body_exited(body: Node2D) -> void:
 		horde_neighbors.erase(body)
 
 
-## Permet aux states de changer l'animation (ex: depuis EnemyChase)
-## Usage : enemy.set_animation_state("attack")
 func set_animation_state(state_name: String) -> void:
-	if _renderer and _mm_index >= 0:
-		_renderer.set_enemy_state(_mm_index, state_name)
+	if renderer and mm_index >= 0:
+		renderer.set_enemy_state(mm_index, state_name.to_lower())

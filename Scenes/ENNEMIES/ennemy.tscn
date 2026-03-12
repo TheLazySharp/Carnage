@@ -1,105 +1,14 @@
 [gd_scene format=3 uid="uid://c31g0smlywes2"]
 
-[ext_resource type="Script" uid="uid://b2k0wdgpd2gde" path="res://Scripts/ENEMIES/ennemy.gd" id="1_uq27j"]
+[ext_resource type="Script" uid="uid://cx8ecqb5wj7w5" path="res://Scripts/ENEMIES/enemy_multimesh.gd" id="1_63ifu"]
 [ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_gvr15"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="3_1b0bn"]
 [ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="4_0akt1"]
-[ext_resource type="Texture2D" uid="uid://p7xcy34exgja" path="res://Assets/Characters/Enemies/zombie01_walk_RIGHT_short.png" id="7_umwrq"]
 [ext_resource type="Script" uid="uid://sn54tu4gkdhw" path="res://Scripts/STATES/enemy_sm.gd" id="9_63ifu"]
 [ext_resource type="Script" uid="uid://bfe53jrbcnaeb" path="res://Scripts/STATES/enemy_idle.gd" id="10_57ln3"]
 [ext_resource type="Script" uid="uid://bfuqfd7v7wobh" path="res://Scripts/STATES/enemy_chase.gd" id="11_oxihe"]
 [ext_resource type="Script" uid="uid://doxsywpwh6db7" path="res://Scripts/STATES/enemy_horde.gd" id="12_vuwk1"]
 [ext_resource type="Script" uid="uid://c6cihr87a2nuw" path="res://Scripts/STATES/enemy_attack.gd" id="13_pgnhj"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_shv08"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 0, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vuj0"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 90, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o68vu"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 180, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i51px"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 270, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_03drm"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 360, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vw1l7"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 450, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ln1o"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 540, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8ppn8"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 630, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_haytw"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 720, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o7cfv"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 810, 90, 90)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mwaxu"]
-atlas = ExtResource("7_umwrq")
-region = Rect2(0, 900, 90, 90)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_j5v2q"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_shv08")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3vuj0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o68vu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i51px")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_03drm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vw1l7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ln1o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8ppn8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_haytw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o7cfv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mwaxu")
-}],
-"loop": true,
-"name": &"right",
-"speed": 7.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"test",
-"speed": 5.0
-}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1b0bn"]
 radius = 4.0
@@ -112,27 +21,20 @@ radius = 12.0415945
 radius = 142.00352
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pgnhj"]
-radius = 45.01111
+radius = 28.01785
 
 [node name="Ennemy" type="CharacterBody2D" unique_id=1186896104 groups=["ennemies"]]
 z_index = 20
 z_as_relative = false
 y_sort_enabled = true
 collision_layer = 2
-collision_mask = 2057
+collision_mask = 2059
 motion_mode = 1
-script = ExtResource("1_uq27j")
+script = ExtResource("1_63ifu")
+speed = 100.0
 xp_scene = ExtResource("3_1b0bn")
 damages_text = ExtResource("2_gvr15")
 blood_particles = ExtResource("4_0akt1")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=313442171]
-z_as_relative = false
-y_sort_enabled = true
-scale = Vector2(0.7, 0.7)
-sprite_frames = SubResource("SpriteFrames_j5v2q")
-animation = &"test"
-autoplay = "right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324095049 groups=["ennemies"]]
 visible = false
@@ -195,12 +97,10 @@ collision_layer = 16
 shape = SubResource("CircleShape2D_oxihe")
 
 [node name="HordeArea" type="Area2D" parent="." unique_id=1378576688]
-visible = false
 collision_layer = 16384
 collision_mask = 2
 
 [node name="HordeShape" type="CollisionShape2D" parent="HordeArea" unique_id=587887346]
-visible = false
 shape = SubResource("CircleShape2D_pgnhj")
 
 [connection signal="tree_exited" from="." to="." method="_on_ennemy_death"]

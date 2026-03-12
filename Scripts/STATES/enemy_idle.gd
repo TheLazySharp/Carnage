@@ -10,10 +10,11 @@ var speed_offset : int = 10
 
 #HORDE SETTINGS : FLOCKING
 var attraction_to_leader : float = 2
-var repulsion_weight : float = 2
-var cohesion_weight : float = 0.3
+var repulsion_weight : float = 5
+var cohesion_weight : float = 0.1
 var repulsion_radius : float = 20
-var cohesion_radius : float = 50
+var repulsion_radius_sq : float
+var cohesion_radius : float = 30
 var formation_offset : Vector2
 var forces_timer : float = 0
 var forces_timer_steps : float
@@ -29,6 +30,7 @@ func _ready() -> void:
 	forces_timer_steps = randf_range(0.5,0.8)
 	SignalManager.game_paused.connect(_on_game_paused)
 	day_manager.day_ended.connect(_on_day_end)
+	repulsion_radius_sq = repulsion_radius * repulsion_radius
 
 
 func enter()-> void:
@@ -79,7 +81,7 @@ func leader_behavior(delta : float) -> void:
 		else : 
 			enemy.velocity = Vector2.ZERO
 		leader_dest = wander_target
-		enemy.sprite_update(wander_target)
+		#enemy.sprite_update(wander_target) 
 
 
 func trouper_behavior(_delta : float) -> void:
@@ -91,14 +93,14 @@ func trouper_behavior(_delta : float) -> void:
 	var to_target : Vector2 = target_position - enemy.global_position
 	var attraction_force : Vector2 = Vector2.ZERO
 	var repulsion_force : Vector2 = Vector2.ZERO
-	var cohesion_force := Vector2.ZERO
-	var troupers_count: int = 0
-	var center_of_horde := Vector2.ZERO
+	#var cohesion_force := Vector2.ZERO
+	#var troupers_count: int = 0
+	#var center_of_horde := Vector2.ZERO
 	
-	if to_target.length() > 5:
+	if to_target.length_squared() > 25:
 		attraction_force = to_target.normalized() * attraction_to_leader
 	
-	enemy.sprite_update(target_position)
+	#enemy.sprite_update(target_position)
 	
 	#-------------------- floaking : enemy repuslion to each others and global cohesion of the horde ----------------------
 
@@ -106,31 +108,32 @@ func trouper_behavior(_delta : float) -> void:
 		if enemy.horde_neighbors[i] == enemy or !is_instance_valid(enemy.horde_neighbors[i]):
 			continue
 		var diff_dist : Vector2 = (enemy.global_position - enemy.horde_neighbors[i].global_position)
-		var dist : float = diff_dist.length()
+		var dist_sq : float = diff_dist.length_squared()
 		
-		if dist < repulsion_radius and dist > 0.01:
-			repulsion_force += diff_dist.normalized() /dist
+		if dist_sq < repulsion_radius_sq and dist_sq > 0.0001:
+			repulsion_force += diff_dist.normalized() / dist_sq
 	
-		var dist_cohesion : float = enemy.global_position.distance_to(enemy.horde_neighbors[i].global_position)
+		#var dist_cohesion : float = enemy.global_position.distance_to(enemy.horde_neighbors[i].global_position)
 			
-		if dist_cohesion < cohesion_radius:
-			center_of_horde += enemy.horde_neighbors[i].global_position
-			troupers_count += 1
+		#if dist_cohesion < cohesion_radius:
+			#center_of_horde += enemy.horde_neighbors[i].global_position
+			#troupers_count += 1
 	
 	
 	if repulsion_force.length_squared() > 0.0001:
 		repulsion_force = repulsion_force.normalized() * repulsion_weight
 		
-	if troupers_count > 0:
-		center_of_horde /= troupers_count
-		var to_center: Vector2 = (center_of_horde - enemy.global_position)
-		if to_center.length_squared() > 0.0001:
-			cohesion_force = to_center.normalized() * cohesion_weight
+	#if troupers_count > 0:
+		#center_of_horde /= troupers_count
+		#var to_center: Vector2 = (center_of_horde - enemy.global_position)
+		#if to_center.length_squared() > 0.0001:
+			#cohesion_force = to_center.normalized() * cohesion_weight
 	
 
 	
 	#------------------------ GLOBAL BEHAVIOUR --------------------
-	var total_forces : Vector2 = attraction_force + repulsion_force + cohesion_force
+	#var total_forces : Vector2 = attraction_force + repulsion_force + cohesion_force
+	var total_forces : Vector2 = attraction_force + repulsion_force
 	
 	if total_forces.length_squared() > 0.0001:
 		enemy.velocity = total_forces.normalized() * move_speed
@@ -141,7 +144,7 @@ func trouper_behavior(_delta : float) -> void:
 		enemy.velocity = Vector2.ZERO
 		attraction_force = Vector2.ZERO
 		repulsion_force = Vector2.ZERO
-		cohesion_force = Vector2.ZERO
+		#cohesion_force = Vector2.ZERO
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

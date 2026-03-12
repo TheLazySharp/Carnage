@@ -1,35 +1,43 @@
 class_name EnemiesManager
 extends Node
 
-#var max_enemies_per_array : int = 10
-#var enemies_arrays : Array[Array] = []
 var enemies_hordes : Array[Array] = []
-#var enemy_added : bool = false
-#var update_path_steps : float = 0.5
-#var update_path_timer : float = 0.0
-var enemy_groups_index : int = 0
-
 var total_enemies : int = 0
-#@onready var zombies_q: Label = $"../../CanvasLayer/Parts/MarginContainer/HBoxContainer/Zombies/ZombiesQ"
+var distance_check_timer : float = 0
+var distance_check_steps : float = 0.5
 
 
 @onready var target: Node2D = $"/root/World/Car"
 var game_paused:=false
 
 func _ready() -> void:
-	#if enemies_arrays.size() == 0:
-		#var enemies_group : Array = []
-		#enemies_arrays.append(enemies_group)
 	SignalManager.connect("enemy_is_dead",_on_enemy_death)
 	SignalManager.connect("player_located",_on_player_located)
 	SignalManager.game_paused.connect(_on_game_paused)
-	#print("nb enemies arrays :", enemies_arrays.size())
 
 
-func _process(_delta: float) -> void:
-	pass
+func _process(delta: float) -> void:
+	if game_paused:
+		return
+	distance_check_timer += delta
+	if distance_check_timer < distance_check_steps:
+		return
+	distance_check_timer = 0
+	update_physics_rates()
 
-
+func update_physics_rates() -> void:
+	for horde in enemies_hordes:
+		for enemy : Enemy in horde:
+			if !is_instance_valid(enemy):
+				continue
+			var dist_sq : float = enemy.global_position.distance_squared_to(target.global_position)
+			if dist_sq < 100 * 100:
+				enemy.physics_skip_max = 1
+			if dist_sq < 200 * 200:
+				enemy.physics_skip_max = 2
+			else :
+				enemy.physics_skip_max = 3
+				
 
 func _on_enemy_death(dead_enemy : Enemy, dead_enemy_horde : Array) -> void : 
 				
@@ -66,7 +74,7 @@ func leaders_check(horde : Array) -> void:
 
 func set_new_leader(new_leader : Enemy, new_leader_horde : Array) -> void:
 	new_leader.is_leader = true
-	new_leader.scale = Vector2(2,2)
+	new_leader.multimesh_set_color(Color.BLACK)
 
 	for i in range(new_leader_horde.size() -1,-1,-1):
 		if !is_instance_valid(new_leader_horde[i]):

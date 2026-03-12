@@ -8,7 +8,7 @@
 ##   - Chaque COLONNE correspond à une frame de l'animation
 ##   - Toutes les frames font la même taille (frame_width x frame_height)
 
-class_name ZombieSpriteState
+class_name EnemySpriteState
 extends Resource
 
 ## Nom de l'état (ex: "walk", "attack", "death")
@@ -18,7 +18,7 @@ extends Resource
 @export var sheet_row: int = 0
 
 ## Nombre de frames pour cet état
-@export var frame_count: int = 10
+@export var frame_count: int = 11
 
 ## Vitesse de l'animation en frames par seconde
 @export var fps: float = 10.0

@@ -54,6 +54,8 @@
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="50_ow65e"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="51_4n5nh"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="52_hp83p"]
+[ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="55_tc8sa"]
+[ext_resource type="Texture2D" uid="uid://1uq5qklgxa6f" path="res://Assets/Characters/Enemies/zombie01_walk_RIGHT_short.png" id="56_3smgn"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
 background_mode = 3
@@ -1416,6 +1418,13 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_283wp"]
 size = Vector2(30, 320)
+
+[sub_resource type="QuadMesh" id="QuadMesh_tc8sa"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
+use_colors = true
+use_custom_data = true
+mesh = SubResource("QuadMesh_tc8sa")
 
 [node name="World" type="Node2D" unique_id=1548430314]
 z_as_relative = false
@@ -3722,6 +3731,11 @@ collision_mask = 3
 [node name="BarbWireCollision" type="CollisionShape2D" parent="BarbWire" unique_id=1694156725]
 position = Vector2(2, -19)
 shape = SubResource("RectangleShape2D_283wp")
+
+[node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
+multimesh = SubResource("MultiMesh_tc8sa")
+script = ExtResource("55_tc8sa")
+sprite_texture = ExtResource("56_3smgn")
 
 [connection signal="timeout" from="CanvasLayer/Board/BoostGauge/BoostTimer" to="CanvasLayer/Board/BoostGauge" method="_on_boost_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Prelevelling/MainButtons/PrelevelingButton" to="CanvasLayer/Leveling" method="_on_preleveling_button_pressed"]

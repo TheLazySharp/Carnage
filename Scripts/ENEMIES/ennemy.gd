@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Enemy
+#class_name Enemy
 
 @export var max_life: int = 10
 @onready var current_life: int

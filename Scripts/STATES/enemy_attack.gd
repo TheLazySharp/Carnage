@@ -14,8 +14,7 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 
 func enter()-> void:
-		$"../../AnimatedSprite2D".self_modulate = Color.BLACK
-
+		enemy.multimesh_set_color(Color.BLACK)
 
 
 func exit()-> void:
