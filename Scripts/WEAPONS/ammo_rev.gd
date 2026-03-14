@@ -62,17 +62,14 @@ func _physics_process(delta: float) -> void:
 			desactivate()
 
 
-func _on_area_hit(area: Area2D) -> void:
-	if area.is_in_group("walls"):
-		desactivate()
 
 
-func _on_body_hit(body: Node2D) -> void:
-	if "get_damages" in body and body.is_in_group("ennemies") and is_active:
-		body.get_damages(damages)
-		desactivate()
-	elif body.is_in_group("walls"):
-		desactivate()
+#func _on_body_hit(body: Node2D) -> void:
+	#if "get_damages" in body and body.is_in_group("ennemies") and is_active:
+		#body.get_damages(damages)
+		#desactivate()
+	#elif body.is_in_group("walls"):
+		#desactivate()
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
@@ -94,3 +91,11 @@ func activate()->void:
 		visible = true
 		set_process(true)
 		set_physics_process(true)
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if "get_damages" in area and area.is_in_group("ennemies") and is_active:
+		area.get_damages(damages)
+		desactivate()
+	elif area.is_in_group("walls"):
+		desactivate()

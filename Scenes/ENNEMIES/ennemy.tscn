@@ -10,35 +10,25 @@
 [ext_resource type="Script" uid="uid://doxsywpwh6db7" path="res://Scripts/STATES/enemy_horde.gd" id="12_vuwk1"]
 [ext_resource type="Script" uid="uid://c6cihr87a2nuw" path="res://Scripts/STATES/enemy_attack.gd" id="13_pgnhj"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1b0bn"]
-radius = 4.0
-height = 10.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_vuwk1"]
+radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pfax6"]
-radius = 12.0415945
+radius = 17.117243
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_oxihe"]
-radius = 142.00352
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_pgnhj"]
-radius = 28.01785
-
-[node name="Ennemy" type="CharacterBody2D" unique_id=1186896104 groups=["ennemies"]]
+[node name="Ennemy" type="Area2D" unique_id=1375081379 groups=["ennemies"]]
 z_index = 20
 z_as_relative = false
 y_sort_enabled = true
 collision_layer = 2
-collision_mask = 2059
-motion_mode = 1
+collision_mask = 2057
 script = ExtResource("1_63ifu")
-speed = 100.0
 xp_scene = ExtResource("3_1b0bn")
 damages_text = ExtResource("2_gvr15")
 blood_particles = ExtResource("4_0akt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324095049 groups=["ennemies"]]
-visible = false
-shape = SubResource("CapsuleShape2D_1b0bn")
+shape = SubResource("CircleShape2D_vuwk1")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=748882352]
 path_desired_distance = 5.0
@@ -60,9 +50,10 @@ wait_time = 0.1
 wait_time = 0.3
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=326414836 groups=["ennemies"]]
+visible = false
 z_index = 21
 collision_layer = 2
-collision_mask = 9220
+collision_mask = 9221
 
 [node name="HitShape" type="CollisionShape2D" parent="Hitbox" unique_id=1084871669 groups=["ennemies"]]
 rotation = 1.5707964
@@ -89,26 +80,8 @@ metadata/_custom_type_script = "uid://doxsywpwh6db7"
 script = ExtResource("13_pgnhj")
 metadata/_custom_type_script = "uid://c6cihr87a2nuw"
 
-[node name="DetectionArea" type="Area2D" parent="." unique_id=1507323193]
-visible = false
-collision_layer = 16
-
-[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=1057956329]
-shape = SubResource("CircleShape2D_oxihe")
-
-[node name="HordeArea" type="Area2D" parent="." unique_id=1378576688]
-collision_layer = 16384
-collision_mask = 2
-
-[node name="HordeShape" type="CollisionShape2D" parent="HordeArea" unique_id=587887346]
-shape = SubResource("CircleShape2D_pgnhj")
-
-[connection signal="tree_exited" from="." to="." method="_on_ennemy_death"]
 [connection signal="target_reached" from="NavigationAgent2D" to="StateMachine/Chase" method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="DamageTimer_Get" to="." method="_on_damage_timer_timeout"]
 [connection signal="timeout" from="DamageTimer_OnPlayer" to="." method="_on_damage_timer_on_player_timeout"]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_entered"]
-[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_exited"]
-[connection signal="body_entered" from="DetectionArea" to="StateMachine/Idle" method="_on_detection_area_body_entered"]
-[connection signal="body_entered" from="HordeArea" to="." method="_on_horde_area_body_entered"]
-[connection signal="body_exited" from="HordeArea" to="." method="_on_horde_area_body_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

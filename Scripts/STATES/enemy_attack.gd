@@ -14,7 +14,8 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 
 func enter()-> void:
-		enemy.multimesh_set_color(Color.BLACK)
+	pass
+		#enemy.set_enemy_color(Color.BLACK)
 
 
 func exit()-> void:
@@ -22,7 +23,7 @@ func exit()-> void:
 	
 func update(_delta : float)-> void:
 	if !game_paused:
-		enemy.sprite_update(target.global_position)
+		#enemy.sprite_update(target.global_position)
 		if enemy.global_position.distance_to(target.global_position) <  5:
 			move_speed = 10
 			move_direction = target.global_position - enemy.global_position

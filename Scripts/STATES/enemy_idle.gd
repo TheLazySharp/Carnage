@@ -6,7 +6,7 @@ class_name EnemyIdle
 var wander_target : Vector2
 var wander_time : float
 var move_speed: float
-var speed_offset : int = 10
+var speed_offset : int
 
 #HORDE SETTINGS : FLOCKING
 var attraction_to_leader : float = 2
@@ -35,7 +35,9 @@ func _ready() -> void:
 
 func enter()-> void:
 	init_formation()
+	speed_offset = randi_range(-5,5)
 	move_speed = (enemy.speed + speed_offset)
+	#enemy.set_enemy_color(Color.DARK_RED)
 
 
 func init_formation()-> void:
@@ -149,11 +151,6 @@ func trouper_behavior(_delta : float) -> void:
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
-
-func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player") and !enemy.state_machine.is_in_state("chase"):
-		state_changed.emit(self,"chase")
-		SignalManager.emit_signal("player_located", enemy.horde)
 
 
 func _on_day_end(_day_end : bool) -> void : 

@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://drsh8wc3r0lrn" path="res://Assets/Audio/SFX/Car/car_skids_loop.mp3" id="9_qjiw1"]
 [ext_resource type="AudioStream" uid="uid://cjrjqee5gnw0i" path="res://Assets/Audio/SFX/Car/car impact3.mp3" id="10_y3qw6"]
 [ext_resource type="AudioStream" uid="uid://btw3ucq0agu40" path="res://Assets/Audio/SFX/Car/car crash.mp3" id="13_in73v"]
+[ext_resource type="Script" uid="uid://cxh3wfsxbjuvm" path="res://Scripts/CHARACTERS/PLAYER/enemies_detection_area.gd" id="18_qdvgx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 height = 42.0
@@ -353,8 +354,11 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y3qw6"]
+height = 42.0
+
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
-collision_mask = 1562
+collision_mask = 538
 motion_mode = 1
 wall_min_slide_angle = 1.3962634
 platform_on_leave = 2
@@ -407,17 +411,17 @@ debug_color = Color(0.65457684, 0.5179122, 0, 0.41960785)
 wait_time = 0.3
 one_shot = true
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1336259982]
-collision_mask = 0
+[node name="Hitbox" type="Area2D" parent="." unique_id=1336259982 groups=["player"]]
+visible = false
+collision_mask = 2
 
-[node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532]
+[node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532 groups=["player"]]
 position = Vector2(-12, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_hwwk2")
-disabled = true
 debug_color = Color(0.9344128, 0.1669651, 0.49408865, 0.41960785)
 
-[node name="BodyParts" type="Area2D" parent="." unique_id=1322909894 groups=["player"]]
+[node name="BodyParts" type="Area2D" parent="." unique_id=1322909894]
 visible = false
 collision_layer = 1024
 collision_mask = 2
@@ -489,6 +493,16 @@ wait_time = 0.15
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=707894945]
 
+[node name="EnemiesDetectionArea" type="Area2D" parent="." unique_id=1481692765]
+collision_mask = 2
+script = ExtResource("18_qdvgx")
+
+[node name="EnemiesDetectionShape" type="CollisionShape2D" parent="EnemiesDetectionArea" unique_id=385055825]
+position = Vector2(-12, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_y3qw6")
+debug_color = Color(0.94509804, 0, 0, 0.41960785)
+
 [connection signal="animation_finished" from="RearLeft/RearLeftBurnAnim" to="." method="_on_rear_left_burn_anim_animation_finished"]
 [connection signal="animation_finished" from="RearRight/RearRightBurnAnim" to="." method="_on_rear_right_burn_animation_finished"]
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
@@ -496,3 +510,4 @@ wait_time = 0.15
 [connection signal="body_entered" from="BodyParts" to="." method="_on_body_parts_collision"]
 [connection signal="finished" from="Audio/StartEngine" to="." method="_on_start_engine_finished"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
+[connection signal="area_entered" from="EnemiesDetectionArea" to="EnemiesDetectionArea" method="_on_area_entered"]

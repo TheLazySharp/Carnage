@@ -30,6 +30,8 @@ modulate = Color(0, 1, 0, 1)
 rotation = -1.5707964
 target_position = Vector2(0, 150)
 collision_mask = 10
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="SpriteSight" type="Sprite2D" parent="." unique_id=1639775324]
 rotation = -1.5707964

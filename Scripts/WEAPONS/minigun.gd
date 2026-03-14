@@ -60,6 +60,8 @@ func _process(_delta: float) -> void:
 	
 	if raycastON and ray_cast_2d.is_colliding():
 		if ray_cast_2d.get_collider().is_in_group("ennemies"):
+			if !is_instance_valid(ray_cast_2d.get_collider()):
+				return
 			can_shoot = true
 			raycastON = false
 			shoot_from_pool()

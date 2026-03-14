@@ -7,7 +7,6 @@ var move_direction: Vector2
 var wander_time : float
 var move_speed: float
 var speed_offset := 10
-@onready var detection_shape: CollisionShape2D = $"../../DetectionArea/DetectionShape"
 
 @onready var day_manager: Node = $"/root/World/DayManager"
 var is_day_ended:=false
@@ -21,11 +20,10 @@ func _ready() -> void:
 
 func enter()-> void:
 	randomize_wander()
-	detection_shape.set_deferred("disabled",true)
 	
 
 func exit()-> void:
-	detection_shape.set_deferred("disabled",false)
+	pass 
 	
 func update(delta : float)-> void:
 	if !game_paused:

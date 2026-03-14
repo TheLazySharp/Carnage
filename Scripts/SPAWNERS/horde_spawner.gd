@@ -47,9 +47,10 @@ func create_horde() -> void :
 			leader.leader = null
 		else :
 			horde[i].leader = leader
+	print(enemies_manager.total_enemies)
 
 func set_leader(leader : Enemy) -> void:
-	leader.multimesh_set_color(Color.BLACK)
+	#leader.set_enemy_color(Color.BLACK)
 	leader.max_life = 2
 	leader.damages_on_player = 5
 	

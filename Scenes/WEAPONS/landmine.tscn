@@ -116,7 +116,7 @@ stream = SubResource("AudioStreamMP3_2l1bg")
 bus = &"Weapons"
 
 [connection signal="animation_finished" from="AnimationExplosion" to="." method="_on_explosion_animation_finished"]
+[connection signal="area_entered" from="ExplosionArea" to="." method="_on_explosion_area_entered"]
+[connection signal="area_exited" from="ExplosionArea" to="." method="_on_explosion_area_exited"]
 [connection signal="area_shape_entered" from="ExplosionArea" to="." method="_on_explosion_area_shape_entered"]
-[connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]
-[connection signal="body_exited" from="ExplosionArea" to="." method="_on_explosion_area_body_exited"]
-[connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
+[connection signal="area_entered" from="TriggerArea" to="." method="_on_trigger_area_entered"]

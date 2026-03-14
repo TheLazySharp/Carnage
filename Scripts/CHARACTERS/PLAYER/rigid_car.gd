@@ -287,17 +287,17 @@ func _physics_process(delta : float) -> void:
 		var collision : KinematicCollision2D = move_and_collide(motion)
 		if collision:
 			
-			# ------ WITH ENEMIES
-			var collider := collision.get_collider()
-			if collider.is_in_group("ennemies") and is_invincible:
-				var speed_ratio : float = velocity.length() / max_speed
-				var impact_forward : Vector2 = Vector2.RIGHT.rotated(rotation)
-				var impact_right : Vector2 = impact_forward.rotated(PI/2)
-				collider.get_impact(impact_forward,impact_right, speed_ratio)
-				#get_damages(1)
-				#velocity *= 0.995
-				
-			else:
+			## ------ WITH ENEMIES
+			#var collider := collision.get_collider()
+			#if collider.is_in_group("ennemies") and is_invincible:
+				#var speed_ratio : float = velocity.length() / max_speed
+				#var impact_forward : Vector2 = Vector2.RIGHT.rotated(rotation)
+				#var impact_right : Vector2 = impact_forward.rotated(PI/2)
+				#collider.get_impact(impact_forward,impact_right, speed_ratio)
+				##get_damages(1)
+				##velocity *= 0.995
+				#
+			#else:
 			# ------ WITH WALLS
 				var n : Vector2 = collision.get_normal().normalized()
 				
@@ -421,7 +421,6 @@ func get_damages(damages_on_player: int) -> void:
 		current_life -= damages_on_player
 		life_bar.value = current_life
 		#display_damages(damages_on_player)
-		#print("car get ",damages_on_player," dmg. Current life : ",str(current_life))
 		
 		if current_life <=0:
 			current_life = 0
@@ -462,9 +461,8 @@ func _on_taking_damages_timeout() -> void:
 
 func _on_body_parts_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:
-		var enemy : Enemy = area.get_parent()
-		if enemy.is_in_group("ennemies") and "get_damages" in enemy:
-			enemy.get_damages(roundi(damages * damages_boost))
+		if area.is_in_group("ennemies") and "get_damages" in area:
+			area.get_damages(roundi(damages * damages_boost))
 		else : return
 
 
@@ -549,4 +547,3 @@ func damages_sfx()-> void :
 		if !dmg_player.playing:
 			dmg_player.play()
 			return
-	

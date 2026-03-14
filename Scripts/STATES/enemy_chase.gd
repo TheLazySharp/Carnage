@@ -33,11 +33,13 @@ func _ready() -> void:
 
 func enter() -> void:
 	if !enemy.is_leader:
-		enemy.multimesh_set_color(Color.GREEN_YELLOW)
+		pass
+		#enemy.set_enemy_color(Color.GREEN_YELLOW)
 	
 	navigation_agent.target_position = target.global_position
 	move_speed = enemy.speed * chase_speed_boost
 	#SignalManager.emit_signal("enemy_chasing",enemy)
+	#print("----------------------- CHASE -----------------------------")
 
 func exit()-> void:
 	pass
@@ -78,8 +80,9 @@ func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 func _on_navigation_agent_2d_target_reached() -> void:
+	pass
 	#print("target reached")
-	state_changed.emit(self,"attack")
+	#state_changed.emit(self,"attack")
 
 
 func leader_behavior(_delta : float) -> void:
@@ -89,7 +92,6 @@ func leader_behavior(_delta : float) -> void:
 		navigation_agent.target_position = target.global_position
 		var next_pos: Vector2 = navigation_agent.get_next_path_position()
 		var dir: Vector2 = (next_pos - enemy.global_position)
-		
 		if dir.length_squared() > 1:
 			enemy.velocity = dir.normalized() * move_speed
 		else : 

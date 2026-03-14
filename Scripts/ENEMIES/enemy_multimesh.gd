@@ -1,17 +1,4 @@
-## ennemy.gd — VERSION MULTIMESH
-##
-## Modifications par rapport à l'original :
-##   - Plus d'AnimatedSprite2D dans la scène (à supprimer du node tree)
-##   - S'enregistre auprès du ZombieMultiMeshRenderer au _ready()
-##   - Se désenregistre avant queue_free()
-##   - sprite_update() remplacée par un simple flip via le renderer
-##
-## SETUP SCÈNE :
-##   - Supprimer le nœud AnimatedSprite2D de la scène Enemy
-##   - Le nœud DamageTimer_Get et les autres restent en place
-##   - Le renderer doit exister dans l'arbre de scène
-
-extends CharacterBody2D
+extends Area2D
 class_name Enemy
 
 @export var max_life: int = 10
@@ -24,7 +11,7 @@ var is_leader: bool = false
 var horde: Array
 var horde_neighbors: Array
 var night_speed_boost: float = 1.5
-
+var velocity: Vector2 = Vector2.ZERO
 @onready var state_machine: Node = $StateMachine
 @onready var player: Node2D = null
 
@@ -49,18 +36,27 @@ var front_impact_ratio: float = -1.2
 @onready var damage_timer: Timer = $DamageTimer_Get
 @onready var damage_timer_on_player: Timer = $DamageTimer_OnPlayer
 @export var blood_particles: PackedScene = null
-
 @onready var collision_box: CollisionShape2D = $CollisionShape2D
+
+# COLLISION WITH WALLS
+var near_wall : bool = false
+@export var wall_test_distance: float = 24.0
+@export var wall_collision_mask: int = 8
 
 # GAME
 @onready var day_manager: Node = $/root/World/DayManager
 var day_is_ended: bool = false
 var game_paused := false
 
-#PERFS
-var physics_skip : int = 0
-var physics_skip_max : int = 1
+#PERFS STAGGER
+var physics_skip_timer : float = 0
+var physics_skip_steps : float = 0.032
 var accumululated_delta : float
+
+#HORDE NEIGHBORS STAGGER
+var neighbors_timer: float = 0.0
+var neighbors_timer_steps: float = 0.5
+var neighbors_detection_radius_sq : float = 400
 
 
 func _ready() -> void:
@@ -68,56 +64,94 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	day_manager.day_ended.connect(_on_day_end)
 	call_deferred("register_to_renderer")
-	physics_skip = randi() % 3
+	#physics_skip_steps = randi() % 3
+
+
+
+func _process(_delta: float) -> void:
+	pass
 
 func _physics_process(delta: float) -> void:
 	if game_paused:
 		return
-	accumululated_delta += delta
-	physics_skip += 1
-	if physics_skip < physics_skip_max:
-		return
-	physics_skip = 0
-	
-	var new_delta : float = accumululated_delta
-	accumululated_delta = 0
-
-	if knockback_velocity.length() > 10:
+	if knockback_velocity.length_squared() > 100:
 		velocity = knockback_velocity
-		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction * new_delta)
+		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction * delta)
 		knockback_velocity = knockback_velocity.normalized() * knockback_length
 
 	elif player:
 		velocity = (player.global_position - global_position).normalized() * speed
-
-	move_and_slide()
+	
+	neighbors_timer += delta
+	if neighbors_timer >= neighbors_timer_steps :
+		neighbors_timer = 0
+		update_neighbors()
+	
+	accumululated_delta += delta
+	physics_skip_timer += delta
+	if physics_skip_timer < physics_skip_steps:
+		return
+	physics_skip_timer -= physics_skip_steps
+	
+	update_move(accumululated_delta)
+	accumululated_delta = 0
 	chained_impacts()
 
 
-func _process(_delta: float) -> void:
-	if current_life <= 0:
-		current_life = 0
-		on_death()
 
 
+func update_move(delta: float) -> void:
+	if velocity.length_squared() < 0.01:
+		return
+ 
+	var move : Vector2 = velocity * delta
+ 
+	if !near_wall:
+		global_position += move
+		return
+ 
+	var space := get_world_2d().direct_space_state
+	var params := PhysicsRayQueryParameters2D.new()
+	params.collision_mask = wall_collision_mask
+	params.exclude = [self]
+ 
+	if abs(move.x) > 0.01:
+		params.from = global_position
+		params.to = global_position + Vector2(sign(move.x) * wall_test_distance, 0.0)
+		if space.intersect_ray(params):
+			move.x = 0.0
+ 
+	if abs(move.y) > 0.01:
+		params.from = global_position
+		params.to = global_position + Vector2(0.0, sign(move.y) * wall_test_distance)
+		if space.intersect_ray(params):
+			move.y = 0.0
+ 
+	global_position += move
+
+func update_neighbors() -> void : 
+	horde_neighbors.clear()
+	for other : Enemy in horde :
+		if other == self or !is_instance_valid(other) :
+			continue
+		if global_position.distance_squared_to(other.global_position) < neighbors_detection_radius_sq:
+			horde_neighbors.append(other)
+		
 
 func register_to_renderer() -> void:
 	if renderer:
 		mm_index = renderer.register_enemy(self)
 
 
-## Anciennement utilisée pour orienter l'AnimatedSprite2D.
-## Désormais gérée via velocity.x dans le renderer (flip_h automatique).
-## Conservée pour éviter les erreurs d'appel depuis les states.
-func sprite_update(_target_pos: Vector2) -> void:
-	pass
-
 
 func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: float) -> void:
+	if car_right == Vector2.ZERO:
+		knockback_velocity = car_forward.normalized() * impact_force * player_speed_ratio
+		return
+
 	var impact_on_enemy: Vector2 = global_position - get_tree().get_first_node_in_group("player").global_position
 	var lateral_dot: float = impact_on_enemy.dot(car_right)
 	var forward_dot: float = impact_on_enemy.dot(car_forward)
-
 	var impact_is_frontal: bool = abs(lateral_dot) < 30 and forward_dot > 0
 
 	var push_direction: Vector2
@@ -132,38 +166,40 @@ func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: fl
 
 
 func chained_impacts() -> void:
-	# Guard rapide avec length_squared (pas de racine carrée)
 	if knockback_velocity.length_squared() < chained_impacts_threshold * chained_impacts_threshold:
 		return
-	for i in get_slide_collision_count():
-		var collider: Node2D = get_slide_collision(i).get_collider()
-		if collider.is_in_group("ennemies"):
-			var push_dir: Vector2 = (collider.global_position - global_position).normalized()
+	for neighbor : Enemy in horde_neighbors:
+		if !is_instance_valid(neighbor):
+			continue
+		if global_position.distance_squared_to(neighbor.global_position) < 900: #30px * 30px
+			var push_dir: Vector2 = (neighbor.global_position - global_position).normalized()
 			var transferred_ratio: float = (knockback_velocity.length() / impact_force) * losing_strenght_ratio
-			collider.get_impact(push_dir, transferred_ratio)
+			neighbor.get_impact(push_dir, Vector2.ZERO, transferred_ratio)
 
 
 func get_damages(damages: int) -> void:
 	if not game_paused:
 		damage_timer.start()
 		current_life -= damages
-		# Flash rouge via custom_data du MultiMesh
-		_flash_damage()
+		flash_damage()
 		display_damages(damages)
+		if current_life <= 0:
+			current_life = 0
+			call_deferred("on_death")
 
 
-## Flash rouge via modulation de l'instance MultiMesh
-func _flash_damage() -> void:
+func flash_damage() -> void:
 	if renderer == null or mm_index < 0:
 		return
-	multimesh_set_color(Color.RED)
+	#print("flash_damage - mm_index:", mm_index)
+	#set_enemy_color(Color.RED)
 	damage_timer.start()
 
 
-func multimesh_set_color(color: Color) -> void:
+func set_enemy_color(color: Color) -> void:
 	if renderer == null or mm_index < 0:
 		return
-	renderer.multimesh.set_instance_color(mm_index, color)
+	renderer.set_enemy_color(mm_index, color)
 
 
 func activate(spawn_position: Vector2) -> void:
@@ -171,10 +207,10 @@ func activate(spawn_position: Vector2) -> void:
 	current_life = max_life
 
 
-
 func _on_damage_timer_timeout() -> void:
-	multimesh_set_color(Color.WHITE)
-
+	#print("timer timeout - mm_index:", mm_index, " renderer null:", renderer == null)
+	#set_enemy_color(Color.WHITE)
+	damage_timer.stop()
 
 func _on_game_paused(game_on_pause: bool) -> void:
 	game_paused = game_on_pause
@@ -197,22 +233,6 @@ func on_death() -> void:
 			mm_index = -1
 
 		SignalManager.emit_signal("enemy_is_dead", self, self.horde)
-
-
-func _on_hitbox_entered(area: Area2D) -> void:
-	if not area.is_in_group("player"):
-		return
-	player = area.get_parent()
-	if "get_damages_from_mob" in player:
-		player.get_damages_from_mob(damages_on_player)
-	damage_timer_on_player.start()
-
-
-func _on_hitbox_exited(area: Area2D) -> void:
-	if not area.is_in_group("player"):
-		return
-	player = null
-	damage_timer_on_player.stop()
 
 
 func _on_damage_timer_on_player_timeout() -> void:
@@ -246,16 +266,22 @@ func _on_day_end(_day_end: bool) -> void:
 	speed *= night_speed_boost
 
 
-func _on_horde_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("ennemies") and body != self:
-		horde_neighbors.append(body)
-
-
-func _on_horde_area_body_exited(body: Node2D) -> void:
-	if body.is_in_group("ennemies") and horde_neighbors.has(body):
-		horde_neighbors.erase(body)
-
-
 func set_animation_state(state_name: String) -> void:
 	if renderer and mm_index >= 0:
 		renderer.set_enemy_state(mm_index, state_name.to_lower())
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if !area.is_in_group("player"):
+		return
+	player = area.get_parent()
+	if "get_damages_from_mob" in player:
+		player.get_damages_from_mob(damages_on_player)
+	damage_timer_on_player.start()
+
+
+func _on_hitbox_area_exited(area: Area2D) -> void:
+	if !area.is_in_group("player"):
+		return
+	player = null
+	damage_timer_on_player.stop()

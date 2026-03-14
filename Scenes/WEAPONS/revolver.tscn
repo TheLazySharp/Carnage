@@ -32,5 +32,3 @@ bus = &"Weapons"
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="area_entered" from="FireRange" to="." method="_on_fire_range_entered"]
 [connection signal="area_exited" from="FireRange" to="." method="_on_fire_range_exited"]
-[connection signal="body_entered" from="FireRange" to="." method="_on_fire_range_body_entered"]
-[connection signal="body_exited" from="FireRange" to="." method="_on_fire_range_body_exited"]

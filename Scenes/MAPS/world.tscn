@@ -55,7 +55,7 @@
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="51_4n5nh"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="52_hp83p"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="55_tc8sa"]
-[ext_resource type="Texture2D" uid="uid://1uq5qklgxa6f" path="res://Assets/Characters/Enemies/zombie01_walk_RIGHT_short.png" id="56_3smgn"]
+[ext_resource type="Texture2D" uid="uid://1uq5qklgxa6f" path="res://Assets/Characters/Enemies/zombie01_walk_RIGHT_short.png" id="56_tc8sa"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
 background_mode = 3
@@ -1419,12 +1419,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_283wp"]
 size = Vector2(30, 320)
 
-[sub_resource type="QuadMesh" id="QuadMesh_tc8sa"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_tc8sa"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
 use_colors = true
 use_custom_data = true
-mesh = SubResource("QuadMesh_tc8sa")
+mesh = SubResource("PlaneMesh_tc8sa")
 
 [node name="World" type="Node2D" unique_id=1548430314]
 z_as_relative = false
@@ -1441,7 +1441,7 @@ blend_mode = 2
 
 [node name="game_manager" parent="." unique_id=1855230744 instance=ExtResource("1_5ukr8")]
 
-[node name="EnemiesManager" type="Node" parent="." unique_id=995397308]
+[node name="EnemiesManager" type="Node2D" parent="." unique_id=996312644]
 script = ExtResource("50_ow65e")
 
 [node name="AudioManager" type="Node" parent="." unique_id=680998745]
@@ -3691,15 +3691,12 @@ position = Vector2(615.807, 984.26355)
 
 [node name="Horde3" parent="Spawners" unique_id=109443155 instance=ExtResource("52_hp83p")]
 position = Vector2(633.5227, 1266.1028)
-is_active = false
 
 [node name="Horde2" parent="Spawners" unique_id=955347319 instance=ExtResource("52_hp83p")]
 position = Vector2(1127.9493, 1005.2002)
-is_active = false
 
 [node name="Horde4" parent="Spawners" unique_id=1340180233 instance=ExtResource("52_hp83p")]
 position = Vector2(947.57214, 1283.8185)
-is_active = false
 
 [node name="Horde5" parent="Spawners" unique_id=2058980472 instance=ExtResource("52_hp83p")]
 position = Vector2(1675.5227, 985.874)
@@ -3735,7 +3732,7 @@ shape = SubResource("RectangleShape2D_283wp")
 [node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
 multimesh = SubResource("MultiMesh_tc8sa")
 script = ExtResource("55_tc8sa")
-sprite_texture = ExtResource("56_3smgn")
+sprite_texture = ExtResource("56_tc8sa")
 
 [connection signal="timeout" from="CanvasLayer/Board/BoostGauge/BoostTimer" to="CanvasLayer/Board/BoostGauge" method="_on_boost_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Prelevelling/MainButtons/PrelevelingButton" to="CanvasLayer/Leveling" method="_on_preleveling_button_pressed"]
