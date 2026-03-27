@@ -1,0 +1,471 @@
+[gd_scene format=3 uid="uid://ch2rp03kbdyg7"]
+
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_j3un3"]
+[ext_resource type="ButtonGroup" uid="uid://d0q3r5mo0u2b4" path="res://Resources/ButtonGroups/lucky_charms_new_buttons.tres" id="3_cawmh"]
+[ext_resource type="Script" uid="uid://ddgsfxvc4g1cx" path="res://Scripts/SCENES/lucky_charms_scene.gd" id="3_j3un3"]
+[ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="5_6jcl5"]
+[ext_resource type="Script" uid="uid://cq4ummnpopn0y" path="res://Scripts/UI/lucky_charms/pool_lucky_charms_slots.gd" id="5_c4vr1"]
+[ext_resource type="ButtonGroup" uid="uid://bdyk8h062kq3u" path="res://Resources/ButtonGroups/lucky_charms_current_buttons.tres" id="6_6jcl5"]
+[ext_resource type="Script" uid="uid://uk04t0pt2ylg" path="res://Scripts/UI/lucky_charms/holder_lucky_charms_slots.gd" id="6_xddph"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3un3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhtoc"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xhtoc"]
+
+[node name="LuckyCharmsScene" type="Control" unique_id=479493250]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_j3un3")
+new_button_group = ExtResource("3_cawmh")
+current_button_group = ExtResource("6_6jcl5")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1413409709]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=784841935]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 111.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_j3un3")
+theme_override_font_sizes/font_size = 64
+text = "CHOSE A LUCKY CHARM"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+
+[node name="Label2" type="Label" parent="." unique_id=1383361724]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -611.0
+offset_top = 732.0
+offset_right = -471.5
+offset_bottom = 783.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_6jcl5")
+theme_override_font_sizes/font_size = 24
+text = "Undo : B"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+
+[node name="NewLuckyCharms" type="Control" parent="." unique_id=638032501]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -372.5
+offset_top = -303.25
+offset_right = 372.5
+offset_bottom = -28.75
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewLuckyCharms" unique_id=202844169]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Charm0" type="VBoxContainer" parent="NewLuckyCharms/HBoxContainer" unique_id=1097105936]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("5_c4vr1")
+
+[node name="Button" type="Button" parent="NewLuckyCharms/HBoxContainer/Charm0" unique_id=1326070502]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j3un3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xhtoc")
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("3_cawmh")
+
+[node name="MarginContainer" type="MarginContainer" parent="NewLuckyCharms/HBoxContainer/Charm0/Button" unique_id=143529013]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="NewLuckyCharms/HBoxContainer/Charm0/Button/MarginContainer" unique_id=726374964]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="NewLuckyCharms/HBoxContainer/Charm0" unique_id=902974934]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6jcl5")
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Charm1" type="VBoxContainer" parent="NewLuckyCharms/HBoxContainer" unique_id=947509991]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("5_c4vr1")
+
+[node name="Button" type="Button" parent="NewLuckyCharms/HBoxContainer/Charm1" unique_id=1429750286]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j3un3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xhtoc")
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("3_cawmh")
+
+[node name="MarginContainer" type="MarginContainer" parent="NewLuckyCharms/HBoxContainer/Charm1/Button" unique_id=1188009744]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="NewLuckyCharms/HBoxContainer/Charm1/Button/MarginContainer" unique_id=97393953]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="NewLuckyCharms/HBoxContainer/Charm1" unique_id=1198898285]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6jcl5")
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Charm2" type="VBoxContainer" parent="NewLuckyCharms/HBoxContainer" unique_id=1628184407]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("5_c4vr1")
+
+[node name="Button" type="Button" parent="NewLuckyCharms/HBoxContainer/Charm2" unique_id=1408759416]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j3un3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xhtoc")
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("3_cawmh")
+
+[node name="MarginContainer" type="MarginContainer" parent="NewLuckyCharms/HBoxContainer/Charm2/Button" unique_id=525446146]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="NewLuckyCharms/HBoxContainer/Charm2/Button/MarginContainer" unique_id=1429769079]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="NewLuckyCharms/HBoxContainer/Charm2" unique_id=1969243617]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6jcl5")
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CurrentLuckyCharms" type="Control" parent="." unique_id=1115525578]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -372.5
+offset_top = 22.75
+offset_right = 372.5
+offset_bottom = 297.25
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CurrentLuckyCharms" unique_id=498772991]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Charm0" type="VBoxContainer" parent="CurrentLuckyCharms/HBoxContainer" unique_id=744662460]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("6_xddph")
+
+[node name="Button" type="Button" parent="CurrentLuckyCharms/HBoxContainer/Charm0" unique_id=188357728]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j3un3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xhtoc")
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("6_6jcl5")
+
+[node name="MarginContainer" type="MarginContainer" parent="CurrentLuckyCharms/HBoxContainer/Charm0/Button" unique_id=1594475871]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="CurrentLuckyCharms/HBoxContainer/Charm0/Button/MarginContainer" unique_id=1609796346]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CurrentLuckyCharms/HBoxContainer/Charm0" unique_id=1599852310]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6jcl5")
+theme_override_font_sizes/font_size = 24
+text = "TEST TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Charm1" type="VBoxContainer" parent="CurrentLuckyCharms/HBoxContainer" unique_id=1391511073]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("6_xddph")
+
+[node name="Button" type="Button" parent="CurrentLuckyCharms/HBoxContainer/Charm1" unique_id=1335672372]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j3un3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xhtoc")
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("6_6jcl5")
+
+[node name="MarginContainer" type="MarginContainer" parent="CurrentLuckyCharms/HBoxContainer/Charm1/Button" unique_id=1529688330]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="CurrentLuckyCharms/HBoxContainer/Charm1/Button/MarginContainer" unique_id=2084222305]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CurrentLuckyCharms/HBoxContainer/Charm1" unique_id=2086862199]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6jcl5")
+theme_override_font_sizes/font_size = 24
+text = "TEST TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Charm2" type="VBoxContainer" parent="CurrentLuckyCharms/HBoxContainer" unique_id=2055674875]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("6_xddph")
+
+[node name="Button" type="Button" parent="CurrentLuckyCharms/HBoxContainer/Charm2" unique_id=109247168]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j3un3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xhtoc")
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("6_6jcl5")
+
+[node name="MarginContainer" type="MarginContainer" parent="CurrentLuckyCharms/HBoxContainer/Charm2/Button" unique_id=1402322433]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="CurrentLuckyCharms/HBoxContainer/Charm2/Button/MarginContainer" unique_id=481907394]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="CurrentLuckyCharms/HBoxContainer/Charm2" unique_id=1545029150]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_6jcl5")
+theme_override_font_sizes/font_size = 24
+text = "TEST TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=501335753]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -151.5
+offset_top = -77.0
+offset_right = 151.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Confirm" type="Button" parent="VBoxContainer" unique_id=1506844662]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_j3un3")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xhtoc")
+text = "CONFIRM"
+flat = true
+
+[node name="Skip" type="Button" parent="VBoxContainer" unique_id=780508769]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_j3un3")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xhtoc")
+text = "Skip"
+flat = true
+
+[connection signal="pressed" from="VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="VBoxContainer/Skip" to="." method="_on_skip_pressed"]

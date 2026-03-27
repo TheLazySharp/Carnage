@@ -32,12 +32,13 @@ var drifting : bool = false
 @export var skid_fade_speed := 1.5
 
 @export_group("STATS")
-@export var base_max_life:= 250
-@export var base_display_max_speed := 250
-@export var base_dmg := 15
-@export var base_dmg_boost := 2.0
-@export var max_boost_gauge := 100
-@export var boost_up : int = 2
+@export var base_max_life : int = 250
+@export var base_display_max_speed : int = 250
+@export var base_dmg : int = 15
+@export var base_dmg_boost : float = 2.0 #multiplier
+@export var max_boost_gauge : int = 100 
+@export var base_boost_up : int = 10
+@export var base_collect_radius : float = 30
 
 
 @export_group("AUDIO")
@@ -48,14 +49,16 @@ var drifting : bool = false
 #@export var car_explosion: SpriteFrames
 
 
-var engine_lvl:=0
-var turbo_lvl:=0
-var shield_lvl:=0
-var carbon_lvl:=0
-var tank_lvl:=0
-var nos_lvl:=0
-var front_gear : FrontGearData
-var tires : TiresData
+var engine_lvl: int =0
+var turbo_lvl: int =0
+var shield_lvl: int =0
+var carbon_lvl: int =0
+var tank_lvl: int =0
+var nos_lvl: int =0
+var tires_lvl: int =0
+var front_gear_lvl: int =0
+#var front_gear : FrontGearData
+#var tires : TiresData
 
 var acceleration: int
 var max_speed: int
@@ -64,3 +67,5 @@ var display_max_speed: int
 var dmg: int
 var dmg_boost : float
 var boost_duration : float
+var boost_up : int
+var collect_radius : float

@@ -39,11 +39,11 @@ var game_paused:=false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	nb_ammo = minigun_data.base_nb_ammo
-	shot_sfx.stream = minigun_data.weapon_sfx	
-	timer.wait_time = minigun_data.base_fire_rate
-	cool_down = minigun_data.base_cool_down
+	StatsManager.stats_updated.connect(_on_stats_updated)
+
+	shot_sfx.stream = minigun_data.weapon_sfx
 	max_lvl = minigun_data.max_level
+	_on_stats_updated()
 	create_bullet_pool(max_bullet_count)
 	can_shoot = true
 	next_bullet = false
@@ -51,17 +51,10 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	current_lvl = clampi(minigun_data.current_level,0,max_lvl)
-	nb_ammo = minigun_data.base_nb_ammo + current_lvl
-	nb_ammo_upgrade = minigun_data.base_nb_ammo + (current_lvl +1)
-	minigun_data.nb_ammo = nb_ammo
-	minigun_data.nb_ammo_upgrade = nb_ammo_upgrade
-	
-	
 	if raycastON and ray_cast_2d.is_colliding():
+		if !is_instance_valid(ray_cast_2d.get_collider()):
+			return
 		if ray_cast_2d.get_collider().is_in_group("ennemies"):
-			if !is_instance_valid(ray_cast_2d.get_collider()):
-				return
 			can_shoot = true
 			raycastON = false
 			shoot_from_pool()
@@ -141,3 +134,13 @@ func desactivate() -> void:
 	is_firing = false
 	next_bullet = false
 	timer.stop()
+
+func _on_stats_updated() -> void : 
+	current_lvl = clampi(minigun_data.current_level,0,max_lvl)
+	nb_ammo = minigun_data.base_nb_ammo + current_lvl
+	nb_ammo_upgrade = minigun_data.base_nb_ammo + (current_lvl +1)
+	minigun_data.nb_ammo = nb_ammo
+	minigun_data.nb_ammo_upgrade = nb_ammo_upgrade
+	
+	timer.wait_time = minigun_data.base_fire_rate * LuckyCharmsManager.all_fire_rate_bonus * LuckyCharmsManager.long_range_fire_rate_bonus
+	cool_down = minigun_data.base_cool_down

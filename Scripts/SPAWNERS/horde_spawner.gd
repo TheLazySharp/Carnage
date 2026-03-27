@@ -2,7 +2,7 @@ extends Node2D
 
 const ENEMY = preload("uid://c31g0smlywes2")
 
-var max_enemy_count : int = 100
+var max_enemy_count : int = 40
 var horde : Array[Enemy]
 @export var is_active : bool = true
 

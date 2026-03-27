@@ -11,6 +11,7 @@ var game_is_over:= false
 @onready var leveling: Control = $"../CanvasLayer/Leveling"
 @onready var weapons_container: MarginContainer = $"../CanvasLayer/Leveling/WeaponsContainer"
 @onready var ammo_container: MarginContainer = $"../CanvasLayer/Leveling/AmmoContainer"
+@onready var prelevelling: Control = $"../CanvasLayer/Prelevelling"
 
 var game_over_scene:= "uid://c6ue1qnj30p5b"
 
@@ -30,6 +31,8 @@ func _process(_delta: float) -> void:
 	
 func process_inputs()-> void:
 	if Input.is_action_just_released("pause"):
+		if leveling.visible or prelevelling.visible:
+			return
 		pause_status()
 
 func pause_status()-> void:
@@ -40,12 +43,11 @@ func pause_status()-> void:
 		pause_manager.show()
 		pause_manager.get_focus()
 	else:
-		if !leveling.visible:
-			game_on_pause = false
-			SignalManager.emit_signal("game_paused", game_on_pause)
-			print("game unpaused by player")
-			pause_manager.hide()
-		else: return
+		game_on_pause = false
+		SignalManager.emit_signal("game_paused", game_on_pause)
+		print("game unpaused by player")
+		pause_manager.hide()
+
 
 func _update_game_over(game_over : bool) -> void:
 	game_is_over = game_over

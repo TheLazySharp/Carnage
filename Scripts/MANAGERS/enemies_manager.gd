@@ -9,7 +9,7 @@ var distance_check_timer : float = 0
 var distance_check_steps : float = 0.5
 
 #WALL DETECTION STAGGER
-@export var wall_detection_radius: float = 80.0
+@export var wall_detection_radius: float = 120.0
 @export var wall_collision_mask: int = 8
 var wall_check_timer: float = 0.0
 var wall_check_steps: float = 0.5
@@ -42,6 +42,8 @@ func _process(delta: float) -> void:
 	distance_check_timer = 0
 	update_physics_rates()
 
+
+func _physics_process(delta: float) -> void:
 	wall_check_timer += delta
 	if wall_check_timer < wall_check_steps:
 		return
@@ -49,19 +51,18 @@ func _process(delta: float) -> void:
 	update_walls_proximity()
 
 
-
 func update_physics_rates() -> void:
 	for horde in enemies_hordes:
-		for enemy : Enemy in horde:
-			if !is_instance_valid(enemy):
+		for i in range(horde.size()-1,-1,-1):
+			if !is_instance_valid(horde[i]):
 				continue
-			var dist_sq : float = enemy.global_position.distance_squared_to(target.global_position)
+			var dist_sq : float = horde[i].global_position.distance_squared_to(target.global_position)
 			if dist_sq < 100 * 100:
-				enemy.physics_skip_steps = 0.016
+				horde[i].physics_skip_steps = 0.016
 			if dist_sq < 200 * 200:
-				enemy.physics_skip_steps = 0.032
+				horde[i].physics_skip_steps = 0.032
 			else :
-				enemy.physics_skip_steps = 0.050
+				horde[i].physics_skip_steps = 0.050
 
 func update_walls_proximity() -> void : 
 	var space := get_world_2d().direct_space_state
@@ -72,16 +73,15 @@ func update_walls_proximity() -> void :
 	params.collision_mask = wall_collision_mask
  
 	for horde in enemies_hordes:
-		for enemy : Enemy in horde:
-			if !is_instance_valid(enemy):
+		for i in range(horde.size()-1,-1,-1):
+			if !is_instance_valid(horde[i]):
 				continue
-			params.transform = Transform2D(0.0, enemy.global_position)
+			params.transform = Transform2D(0.0, horde[i].global_position)
 			var results := space.intersect_shape(params, 1)
-			enemy.near_wall = !results.is_empty()
+			horde[i].near_wall = !results.is_empty()
 
 
 func _on_enemy_death(dead_enemy : Enemy, dead_enemy_horde : Array) -> void : 
-				
 	if dead_enemy_horde != null:
 		dead_enemy_horde.erase(dead_enemy)
 	
@@ -133,14 +133,12 @@ func update_player_detection() -> void:
 			if horde[0].state_machine.is_in_state("chase"):
 				continue
 		
-		
-		
-		for enemy : Enemy in horde:
-			if !is_instance_valid(enemy): 
+		for i in range(horde.size() -1,-1,-1):
+			if !is_instance_valid(horde[i]): 
 				continue
-			if enemy.global_position.distance_squared_to(player_pos) < detection_radius_sq:
+			if horde[i].global_position.distance_squared_to(player_pos) < detection_radius_sq:
 				#if !enemy.state_machine.is_in_state("chase"):
-				for other : Enemy in horde:
-					if is_instance_valid(other):
-						other.state_machine.state_transition_to("chase")
+				for j in range(horde.size() -1,-1,-1):
+					if is_instance_valid(horde[j]):
+						horde[j].state_machine.state_transition_to("chase")
 				break

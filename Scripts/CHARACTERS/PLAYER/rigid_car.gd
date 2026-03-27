@@ -28,6 +28,7 @@ var damages : int
 var damages_boost : float
 var display_max_speed : int
 @onready var car_sprite: Sprite2D = $CarSprite
+@onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 
 #SFX
 @onready var start_engine: AudioStreamPlayer = $Audio/StartEngine
@@ -38,7 +39,7 @@ var start_engine_sound : AudioStreamMP3
 @onready var dmg_sfx_3: AudioStreamPlayer = $Audio/DmgSFX3
 var dmg_players : Array[AudioStreamPlayer]
 @onready var death_sfx: AudioStreamPlayer = $Audio/DeathSfx
-
+@onready var engine_sfx_player: Node = $Audio/Engine
 
 
 #SKID
@@ -58,6 +59,8 @@ var drifting_last_frame := false
 @onready var rear_right_burn_anim: AnimatedSprite2D = $RearRight/RearRightBurnAnim
 signal burnout_ok(burnout : bool)
 var burning : bool
+signal revving(revving : bool)
+var revving_start : bool = false
 signal dashing
 var can_dash : bool = false
 
@@ -143,7 +146,6 @@ func _ready() -> void:
 	
 	#AUDIO
 	start_engine_sound = player.start_engine_Sound
-	start_engine.stream  = start_engine_sound
 	dmg_players = [dmg_sfx, dmg_sfx_2, dmg_sfx_3]
 	
 	#VFX
@@ -166,14 +168,15 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta : float) -> void:
 	if not game_paused and can_drive:
+		engine_sfx_player.update_engine_sfx(velocity.length(), revving_start)
 		player.drifting = drifting
 		
 		if velocity.length() > 10:
 			is_invincible = true
-			car_sprite.self_modulate = Color.CHARTREUSE
+			#car_sprite.self_modulate = Color.CHARTREUSE
 		else:
 			is_invincible = false
-			car_sprite.self_modulate = Color.WHITE
+			#car_sprite.self_modulate = Color.WHITE
 
 		
 		var forward := Vector2.RIGHT.rotated(rotation)
@@ -183,7 +186,7 @@ func _physics_process(delta : float) -> void:
 		var throttle := Input.get_action_strength("accelerate")
 		var steer := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		drifting = Input.is_action_pressed("drift") and throttle > 0
-		burning = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length() < 20
+		burning = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length_squared() < 1
 		
 		if forward_only:
 			throttle = Input.get_action_strength("accelerate")
@@ -198,6 +201,9 @@ func _physics_process(delta : float) -> void:
 		# ----------------- BURNOUT -----------------
 		
 		if burning :
+			if !revving_start:
+				revving_start = true
+				emit_signal("revving", revving_start)
 			throttle = 0
 			rear_left_burn_anim.show()
 			if !rear_left_burn_anim.is_playing():
@@ -207,15 +213,25 @@ func _physics_process(delta : float) -> void:
 				rear_right_burn_anim.play("fadeIn")
 			
 			if !Input.is_action_pressed("accelerate"): 
+				revving_start = false
+				emit_signal("revving", revving_start)
 				burning = false
+				emit_signal("burnout_ok",burning)
+				
+		
+		if Input.is_action_pressed("drift") and Input.is_action_just_released("accelerate"):
+				revving_start = false
+				emit_signal("revving", revving_start)
+
 			
-			
-		if Input.is_action_pressed("accelerate") and Input.is_action_just_released("drift") and velocity.length()  <1:
+		if Input.is_action_pressed("accelerate") and Input.is_action_just_released("drift") and velocity.length() <1:
 			rear_left_burn_anim.play("fadeOut")
 			rear_right_burn_anim.play("fadeOut")
 			#print("BURNOUT !")
 			burning = false
 			emit_signal("burnout_ok",burning)
+			revving_start = false
+			emit_signal("revving", revving_start)
 			throttle = burnout_boost
 			if can_dash:
 				dash()
@@ -436,6 +452,7 @@ func play_death() -> void:
 	car_sprite.hide()
 	car_explosion.play("Explosion")
 	death_sfx.play()
+	camera_2d.screen_shake(15,1)
 	game_is_over = true
 	#animated_sprite.hide()
 	await get_tree().create_timer(2).timeout

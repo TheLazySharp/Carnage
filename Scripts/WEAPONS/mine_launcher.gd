@@ -16,17 +16,16 @@ var cool_down_upgrade : float
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	StatsManager.stats_updated.connect(_on_stats_updated)
+
 	cool_down.wait_time = launcher_data.base_cool_down
 	max_lvl = launcher_data.max_level
 	drop_mine_sfx.stream = launcher_data.weapon_sfx
 
+	_on_stats_updated()
 
 func _process(_delta: float) -> void:
-	current_lvl = clampi(launcher_data.current_level,0,max_lvl)
-	cool_down.wait_time = launcher_data.base_cool_down - current_lvl * 0.1
-	cool_down_upgrade = launcher_data.base_cool_down - (current_lvl + 1) * 0.1
-	launcher_data.cool_down = cool_down.wait_time
-	launcher_data.cool_down_upgrade = cool_down_upgrade
+
 	
 	if game_paused and !cool_down.paused:
 		cool_down.paused = true
@@ -53,3 +52,10 @@ func drop_mine(drop_pos: Vector2)-> void:
 	
 func desactivate() -> void:
 	cool_down.stop()
+
+func _on_stats_updated() -> void : 
+	current_lvl = clampi(launcher_data.current_level,0,max_lvl)
+	cool_down.wait_time = (launcher_data.base_cool_down - current_lvl * 0.1) * LuckyCharmsManager.all_fire_rate_bonus * LuckyCharmsManager.explosives_fire_rate_bonus
+	cool_down_upgrade = (launcher_data.base_cool_down - (current_lvl + 1) * 0.1) * LuckyCharmsManager.all_fire_rate_bonus * LuckyCharmsManager.explosives_fire_rate_bonus
+	launcher_data.cool_down = cool_down.wait_time
+	launcher_data.cool_down_upgrade = cool_down_upgrade

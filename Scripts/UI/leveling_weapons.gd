@@ -122,24 +122,49 @@ func _process(_delta: float) -> void:
 					if ammo_button.has_focus() or a_confirm_button.has_focus():
 						dmg_current.text = str(weapons[i].dmg + weapons[i].weapon_ammo_res.dmg)
 						dmg_upgrade.text = str(weapons[i].dmg_upgrade + weapons[i].weapon_ammo_res.dmg_upgrade)
+						if int(dmg_upgrade.text) > int(dmg_current.text):
+							dmg_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							dmg_upgrade.add_theme_color_override("font_color",Color.WHITE)
 						
 						fire_rate_current.text = str(weapons[i].fire_rate)
 						fire_rate_upgrade.text = fire_rate_current.text
+						if float(fire_rate_upgrade.text) < float(fire_rate_current.text):
+							fire_rate_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							fire_rate_upgrade.add_theme_color_override("font_color",Color.WHITE)
 						
 						cool_down_current.text = str(weapons[i].cool_down)
 						cool_down_upgrade.text = cool_down_current.text
+						if float(cool_down_upgrade.text) < float(cool_down_current.text):
+							cool_down_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							cool_down_upgrade.add_theme_color_override("font_color",Color.WHITE)
 						
 						radius_current.text = str(weapons[i].radius)
 						radius_upgrade.text = radius_current.text
+						if float(radius_upgrade.text) > float(radius_current.text):
+							radius_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							radius_upgrade.add_theme_color_override("font_color",Color.WHITE)
 						
 						nb_ammo_current.text = str(weapons[i].nb_ammo)
 						nb_ammo_upgrade.text = nb_ammo_current.text
-					
+						if int(nb_ammo_upgrade.text) > int(nb_ammo_current.text):
+							nb_ammo_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							nb_ammo_upgrade.add_theme_color_override("font_color",Color.WHITE)
 					
 					if weapon_button.has_focus() or w_confirm_button.has_focus():
 						if weapons[i].weapon_ammo_scene == null:
 							dmg_current.text = str(weapons[i].dmg + weapons[i].weapon_ammo_res.dmg)
 							dmg_upgrade.text = str(weapons[i].dmg_upgrade + weapons[i].weapon_ammo_res.dmg_upgrade)
+							
+							if int(dmg_upgrade.text) > int(dmg_current.text):
+								dmg_upgrade.add_theme_color_override("font_color",Color.GREEN)
+							else :
+								dmg_upgrade.add_theme_color_override("font_color",Color.WHITE)
+							
 							ammo_icon.get_parent().hide()
 							ammo_name.hide()
 							ammo_levels.hide()
@@ -147,6 +172,12 @@ func _process(_delta: float) -> void:
 						else:
 							dmg_current.text = str(weapons[i].dmg + weapons[i].weapon_ammo_res.dmg)
 							dmg_upgrade.text = dmg_current.text
+							
+							if int(dmg_upgrade.text) > int(dmg_current.text):
+								dmg_upgrade.add_theme_color_override("font_color",Color.GREEN)
+							else :
+								dmg_upgrade.add_theme_color_override("font_color",Color.WHITE)
+							
 							ammo_icon.get_parent().show()
 							ammo_name.show()
 							ammo_levels.show()
@@ -154,16 +185,32 @@ func _process(_delta: float) -> void:
 						
 						fire_rate_current.text = str(weapons[i].fire_rate)
 						fire_rate_upgrade.text = str(weapons[i].fire_rate_upgrade)
-						
+						if float(fire_rate_upgrade.text) < float(fire_rate_current.text):
+							fire_rate_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							fire_rate_upgrade.add_theme_color_override("font_color",Color.WHITE)
+							
 						cool_down_current.text = str(weapons[i].cool_down)
 						cool_down_upgrade.text = str(weapons[i].cool_down_upgrade)
+						if float(cool_down_upgrade.text) < float(cool_down_current.text):
+							cool_down_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							cool_down_upgrade.add_theme_color_override("font_color",Color.WHITE)
 						
 						radius_current.text = str(weapons[i].radius)
 						radius_upgrade.text = str(weapons[i].radius_upgrade)
+						if float(radius_upgrade.text) > float(radius_current.text):
+							radius_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							radius_upgrade.add_theme_color_override("font_color",Color.WHITE)
 						
 						nb_ammo_current.text = str(weapons[i].nb_ammo)
 						nb_ammo_upgrade.text = str(weapons[i].nb_ammo_upgrade)
-					
+						if int(nb_ammo_upgrade.text) > int(nb_ammo_current.text):
+							nb_ammo_upgrade.add_theme_color_override("font_color",Color.GREEN)
+						else :
+							nb_ammo_upgrade.add_theme_color_override("font_color",Color.WHITE)
+							
 					if weapons[i].weapon_ammo_scene != null:
 						ammo_name.show()
 						ammo_name.text = weapons[i].weapon_ammo_res.weapon_name
@@ -252,6 +299,8 @@ func leveling_ok() -> void:
 
 func weapon_level_up(weapon_id: int) -> void:
 	weapons[weapon_id].current_level +=1
+	StatsManager.update_car_stats(CarManager.selected_car)
+
 	#print(weapons[weapon_id], " level up")
 
 func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array, weapon_show : bool) -> void:

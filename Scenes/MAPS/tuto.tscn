@@ -1437,7 +1437,6 @@ script = ExtResource("3_aoxuc")
 stream = ExtResource("5_b358a")
 volume_db = -15.0
 autoplay = true
-bus = &"background"
 
 [node name="Land_layers" type="Node2D" parent="." unique_id=1449497454]
 z_index = 20
@@ -1792,7 +1791,6 @@ text = "OK !"
 flat = true
 
 [node name="BurnoutPanel" type="Panel" parent="CanvasLayer/Training" unique_id=991820118]
-visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 8
@@ -1976,6 +1974,7 @@ text = "OK !"
 flat = true
 
 [node name="EndPanel" type="Panel" parent="CanvasLayer/Training" unique_id=397502605]
+visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 8

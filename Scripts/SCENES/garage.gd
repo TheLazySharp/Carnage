@@ -4,7 +4,7 @@ var car := CarManager.selected_car
 	#----------TEST---------------#
 #var car : CarData
 
-var end_oy_day_scene : String = "uid://dkpvtoel7hhai"
+var end_of_day_scene : String = "uid://dkpvtoel7hhai"
 
 #CAR
 @onready var car_name: Label = $StatPanel/CarName
@@ -38,7 +38,7 @@ var carbon_base_lvl: int
 var tank_base_lvl: int
 
 var total_upgrade_cost:=0
-@onready var base_available_upgrades : int = XPManager.available_upgrades
+@onready var base_available_upgrades : int
 
 
 #GEAR PARTS
@@ -75,12 +75,11 @@ var total_upgrade_cost:=0
 
 
 func _ready() -> void:
-	#----------TEST---------------#
+	##----------TEST---------------#
 	#CarManager.selected_car = CarManager.cars[0]
 	#car = CarManager.selected_car
+	#XPManager.current_level = 4
 	#InventoryManager.auto_parts = 2000
-	
-	update_stats()
 	
 	base_fuel = car.max_life
 	base_max_speed = car.display_max_speed
@@ -102,14 +101,17 @@ func _ready() -> void:
 	
 	total_q.text = str(InventoryManager.auto_parts)
 	requested_q.text = str(XPManager.upgrade_cost)
-	base_available_upgrades = XPManager.available_upgrades
 	cost_q.text = str(total_upgrade_cost)
 	engine_up.grab_focus()
-
+	update_stats()
+	base_available_upgrades = XPManager.available_upgrades
+	
+	print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+	
 
 
 func _process(_delta: float) -> void:
-	update_stats()
+	#update_stats()
 	if !upgrade_ok():
 		total_q.add_theme_color_override("font_color",Color.RED)
 	else : total_q.add_theme_color_override("font_color",Color.WHITE)
@@ -118,6 +120,7 @@ func _process(_delta: float) -> void:
 
 func update_stats() -> void:
 	StatsManager.update_car_stats(car)
+	XPManager.update_upgrades()
 	
 	fuel_lvl.text = str(car.max_life)
 	speed_lvl.text = str(car.display_max_speed)
@@ -143,8 +146,6 @@ func update_stats() -> void:
 	total_q.text = str(InventoryManager.auto_parts - total_upgrade_cost)
 	#print(XPManager.total_upgrades)
 	
-	
-
 
 
 func _on_engine_up_pressed() -> void:
@@ -153,7 +154,9 @@ func _on_engine_up_pressed() -> void:
 		#XPManager.available_upgrades -=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
-		
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades," / base available upgrades : ",base_available_upgrades ," / engine base lvl : ",engine_base_lvl," / engine current lvl : ",car.engine_lvl)
+
 
 
 func _on_engine_down_pressed() -> void:
@@ -162,6 +165,8 @@ func _on_engine_down_pressed() -> void:
 		#XPManager.available_upgrades +=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades, " / engine base lvl : ",engine_base_lvl," / engine current lvl : ",car.engine_lvl)
 		
 
 func _on_turbo_up_pressed() -> void:
@@ -169,32 +174,45 @@ func _on_turbo_up_pressed() -> void:
 		car.turbo_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 func _on_turbo_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and turbo_base_lvl < car.turbo_lvl and downgrade_ok():
 		car.turbo_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 func _on_shield_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and shield_base_lvl <= car.shield_lvl and upgrade_ok():
 		car.shield_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
-
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 func _on_shield_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and shield_base_lvl < car.shield_lvl and downgrade_ok():
 		car.shield_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
-
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 func _on_carbon_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and carbon_base_lvl <= car.carbon_lvl and upgrade_ok():
 		car.carbon_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 
 func _on_carbon_down_pressed() -> void:
@@ -202,12 +220,18 @@ func _on_carbon_down_pressed() -> void:
 		car.carbon_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 func _on_tank_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and tank_base_lvl <= car.tank_lvl and upgrade_ok():
 		car.tank_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 
 func _on_tank_down_pressed() -> void:
@@ -215,6 +239,9 @@ func _on_tank_down_pressed() -> void:
 		car.tank_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		update_stats()
+		print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
+		
 
 func upgrade_ok() -> bool:
 	if InventoryManager.auto_parts - total_upgrade_cost >= XPManager.upgrade_cost:
@@ -242,7 +269,7 @@ func _on_confirm_pressed() -> void:
 	turbo_base_lvl = car.turbo_lvl
 	shield_base_lvl = car.shield_lvl
 	carbon_base_lvl = car.carbon_lvl
-
+	update_stats()
 
 func _on_back_pressed() -> void:
-	SceneManager.load_level(end_oy_day_scene)
+	SceneManager.load_level(end_of_day_scene)

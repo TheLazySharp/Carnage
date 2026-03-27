@@ -4,7 +4,7 @@ var xp_levels: Array
 var current_level: int
 var current_xp: int
 var current_level_target_xp: int
-var total_levels:int = 50
+var total_levels:int = 100
 
 var available_upgrades:= 0
 var total_upgrades:=0
@@ -26,7 +26,9 @@ var game_paused:=false
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	for i in (total_levels+1):
-		xp_levels.append(roundi( (4 * (i**2) ) * 0.2 )+3)
+		#xp_levels.append(roundi( (4 * (i**2) ) * 0.2 )+3)
+		@warning_ignore("integer_division")
+		xp_levels.append(roundi((i/0.08)**2)/30)
 	current_level = 1
 
 	current_level_target_xp = xp_levels[current_level]
@@ -36,23 +38,26 @@ func _ready() -> void:
 	emit_signal("update_max_xp_target", current_level_target_xp)
 	emit_signal("update_level",current_level)
 	
-	total_upgrades = 1
+	#total_upgrades = 1
 	x = roundi(((total_upgrades + 81)-92)*0.02)
 	upgrade_cost = roundi(((x + 0.1)*((total_upgrades+81)**2))+1)
+	cost_formula(0)
+	
 	
 func _process(_delta: float) -> void:
 	if !game_paused:
-		x = roundi(((total_upgrades + 81)-92)*0.02)
-		upgrade_cost = roundi(((x + 0.1)*((total_upgrades+81)**2))+1)
-		
 		if current_xp >= current_level_target_xp:
 			level_up()
-		
-		available_upgrades = current_level - total_upgrades
-		
+
 		get_xp()
 
 
+func update_upgrades()-> void : 
+	available_upgrades = current_level - total_upgrades - 1
+	x = roundi(((total_upgrades + 81)-92)*0.02)
+	upgrade_cost = roundi(((x + 0.1)*((total_upgrades+81)**2))+1)
+	cost_formula(0)
+	
 func add_xp_in_bucket(xp_value : int)-> void:
 	xp_bucket.append(xp_value)
 
@@ -79,6 +84,7 @@ func get_xp() -> void:
 func level_up() -> void:
 	emit_signal("level_up_sfx")
 	current_level += 1
+	StatsManager.update_car_stats(CarManager.selected_car)
 	current_level_target_xp = xp_levels[current_level]
 	current_xp -= xp_levels[current_level-1]
 

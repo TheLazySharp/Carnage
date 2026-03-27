@@ -79,7 +79,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_ghgot")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
-text = "TRAINING"
+text = "COMMANDS"
 flat = true
 
 [node name="SkipTuto" type="CheckButton" parent="VBoxContainer" unique_id=772633111]

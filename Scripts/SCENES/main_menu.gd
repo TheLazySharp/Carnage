@@ -7,10 +7,15 @@ extends Control
 
 var car_selection : String = "uid://b0ibe3gvcqm4q"
 var tuto_scene : String = "uid://ci6t4884t7q6r"
+var commands_scene : String = "uid://dayxnnf2ndx5c"
 @onready var training: Button = $VBoxContainer/Training
 
 
 func _ready() -> void:
+	
+	#TUTO TO BE UPDATED
+	SceneManager.tuto_completed = true
+	
 	start.grab_focus()
 	if !SceneManager.tuto_completed:
 		training.hide()
@@ -22,6 +27,10 @@ func _ready() -> void:
 	
 
 func _on_start_pressed() -> void:
+	if !SceneManager.commands_displayed:
+		SceneManager.load_level(commands_scene)
+		return
+	
 	if !SceneManager.tuto_completed:
 		CarManager.selected_car = CarManager.cars[0]
 		StatsManager.update_car_stats(CarManager.selected_car)
@@ -29,7 +38,7 @@ func _on_start_pressed() -> void:
 			#WeaponsManager.load_weapons()
 		SceneManager.load_level(tuto_scene)
 	else:
-		SceneManager.unload_game()
+		#SceneManager.unload_game()
 		SceneManager.load_level(car_selection)
 		SignalManager.emit_signal("game_paused",false)
 
@@ -39,8 +48,10 @@ func _on_quit_pressed() -> void:
 
 
 func _on_training_pressed() -> void:
-	CarManager.selected_car = CarManager.cars[0]
-	SceneManager.load_level(tuto_scene)
+	SceneManager.commands_displayed = true
+	SceneManager.load_level(commands_scene)
+	#CarManager.selected_car = CarManager.cars[0]
+	#SceneManager.load_level(tuto_scene)
 
 
 func _on_skip_tuto_pressed() -> void:

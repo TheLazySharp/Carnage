@@ -39,6 +39,7 @@ func load_weapons() -> void:
 	weapon_scenes.append(["mine_launcher", "uid://c8ohbftuu83c8", preload("uid://c8ohbftuu83c8")])
 	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
 	##print("weapons loaded")
+
 	
 func test_weapons() ->void:
 	#equip_weapon(FLAMER)

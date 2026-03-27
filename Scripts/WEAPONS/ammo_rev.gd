@@ -23,17 +23,12 @@ var is_active:= false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	speed = bullet_data.speed
-	damages = bullet_data.dmg
-	max_range = bullet_data.base_atk_range
+	StatsManager.stats_updated.connect(_on_stats_updated)
 	max_lvl = bullet_data.max_level
+	
+	_on_stats_updated()
 
 func _process(_delta: float) -> void:
-	current_lvl = clampi(bullet_data.current_level,0,max_lvl)
-	damages = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + (current_lvl * .1 * 28))
-	damages_upgrade = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + ((current_lvl + 1) * .1 * 28))
-	bullet_data.dmg = damages
-	bullet_data.dmg_upgrade = damages_upgrade
 	
 	if !bullet_data.weapon_is_active:
 		desactivate()
@@ -63,14 +58,6 @@ func _physics_process(delta: float) -> void:
 
 
 
-
-#func _on_body_hit(body: Node2D) -> void:
-	#if "get_damages" in body and body.is_in_group("ennemies") and is_active:
-		#body.get_damages(damages)
-		#desactivate()
-	#elif body.is_in_group("walls"):
-		#desactivate()
-
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
@@ -99,3 +86,13 @@ func _on_area_entered(area: Area2D) -> void:
 		desactivate()
 	elif area.is_in_group("walls"):
 		desactivate()
+
+
+func _on_stats_updated() -> void : 
+	current_lvl = clampi(bullet_data.current_level,0,max_lvl)
+	speed = bullet_data.speed
+	damages = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
+	damages_upgrade = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + ((current_lvl + 1) * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
+	bullet_data.dmg = damages
+	bullet_data.dmg_upgrade = damages_upgrade
+	max_range = bullet_data.base_atk_range * LuckyCharmsManager.all_range_bonus

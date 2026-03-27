@@ -29,20 +29,16 @@ var game_paused:=false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	fire_rate.wait_time = flamer_data.base_fire_rate
-	cool_down = flamer_data.base_cool_down
-	max_lvl = flamer_data.max_level
-	damages = flamer_data.dmg
-	flame_sfx.stream = flamer_data.weapon_sfx
+	StatsManager.stats_updated.connect(_on_stats_updated)
 
+	max_lvl = flamer_data.max_level
+	flame_sfx.stream = flamer_data.weapon_sfx
+	
+	_on_stats_updated()
 	
 
 func _process(_delta: float) -> void:
-	current_lvl = clampi(flamer_data.current_level,0,max_lvl)
-	damages = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + (current_lvl * .1 * 28))
-	damages_upgrade = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + ((current_lvl + 1) * .1 * 28))
-	flamer_data.dmg = damages
-	flamer_data.dmg_upgrade = damages_upgrade
+
 
 	if !flamer_data.weapon_is_active:
 		desactivate()
@@ -101,17 +97,17 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _on_area_exited(area: Area2D) -> void:
-		if area.is_in_group("ennemies") and "get_damages" in area.get_parent():
-			targets.erase(area.get_parent())
-			if targets.is_empty():
-				enemies_can_burn = false
-				await get_tree().create_timer(0.5).timeout
-				sprite.play("huge_fire_end")
-				await get_tree().create_timer(0.5).timeout
-				flame_sfx.stop()
-				is_firing = false
-				targets.clear()
-		else : return
+	if area.is_in_group("ennemies") and "get_damages" in area.get_parent():
+		targets.erase(area.get_parent())
+		if targets.is_empty():
+			enemies_can_burn = false
+			await get_tree().create_timer(0.5).timeout
+			sprite.play("huge_fire_end")
+			await get_tree().create_timer(0.5).timeout
+			flame_sfx.stop()
+			is_firing = false
+			targets.clear()
+	else : return
 
 func _on_burn_rate_timeout() -> void:
 	burning = true
@@ -123,3 +119,12 @@ func desactivate() -> void:
 	burning = false
 	enemies_can_burn = false
 	targets.clear()
+
+func _on_stats_updated() -> void : 
+	current_lvl = clampi(flamer_data.current_level,0,max_lvl)
+	damages = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.elemental_dmg_bonus)
+	damages_upgrade = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + ((current_lvl + 1) * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.elemental_dmg_bonus)
+	flamer_data.dmg = damages
+	flamer_data.dmg_upgrade = damages_upgrade
+	fire_rate.wait_time = flamer_data.base_fire_rate * LuckyCharmsManager.all_fire_rate_bonus * LuckyCharmsManager.elemental_fire_rate_bonus
+	cool_down = flamer_data.base_cool_down

@@ -5,18 +5,20 @@
 [ext_resource type="PackedScene" uid="uid://caih21wmxphk2" path="res://Scenes/VFX/ghost.tscn" id="2_nbj0p"]
 [ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="3_m5ekh"]
 [ext_resource type="Texture2D" uid="uid://b3rc8ngbuu013" path="res://Assets/VFX/Smoke_v8_Fade_In.png" id="3_s0c68"]
-[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/Car/car-engine-starting-43705.mp3" id="4_frphp"]
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
 [ext_resource type="Texture2D" uid="uid://cdpnf2ok8xnsx" path="res://Assets/VFX/Smoke_v8_Fade_Out.png" id="4_nbj0p"]
 [ext_resource type="Texture2D" uid="uid://b26maobbinw0y" path="res://Assets/VFX/Smoke_v8_Idle.png" id="5_qjiw1"]
 [ext_resource type="Texture2D" uid="uid://rnoitvnqcl3t" path="res://Assets/VFX/EXPLO-sheet.png" id="6_m5ekh"]
+[ext_resource type="Script" uid="uid://df8dx67ykj2r3" path="res://Scripts/CHARACTERS/PLAYER/car_collect_zone.gd" id="7_in73v"]
 [ext_resource type="Texture2D" uid="uid://q1vqg1yau86s" path="res://Assets/UI/arrow_moving_sheet.png" id="7_ly7qr"]
 [ext_resource type="Script" uid="uid://dlf5xknkxwusr" path="res://Scripts/UI/garage_arrow.gd" id="8_4uqhq"]
 [ext_resource type="AudioStream" uid="uid://bxtjtt4dfuh0d" path="res://Assets/Audio/SFX/Car/car impact.mp3" id="8_y3qw6"]
 [ext_resource type="AudioStream" uid="uid://dekv4gi35dgxy" path="res://Assets/Audio/SFX/Car/car impact2.mp3" id="9_qdvgx"]
 [ext_resource type="AudioStream" uid="uid://drsh8wc3r0lrn" path="res://Assets/Audio/SFX/Car/car_skids_loop.mp3" id="9_qjiw1"]
 [ext_resource type="AudioStream" uid="uid://cjrjqee5gnw0i" path="res://Assets/Audio/SFX/Car/car impact3.mp3" id="10_y3qw6"]
+[ext_resource type="AudioStream" uid="uid://dphqrbyjduulq" path="res://Assets/Audio/SFX/Car/car-engine-starting.mp3" id="12_s25yl"]
 [ext_resource type="AudioStream" uid="uid://btw3ucq0agu40" path="res://Assets/Audio/SFX/Car/car crash.mp3" id="13_in73v"]
+[ext_resource type="Script" uid="uid://b1scnpur1dpt5" path="res://Scripts/CHARACTERS/PLAYER/engine_audio_manager.gd" id="14_iish4"]
 [ext_resource type="Script" uid="uid://cxh3wfsxbjuvm" path="res://Scripts/CHARACTERS/PLAYER/enemies_detection_area.gd" id="18_qdvgx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
@@ -226,7 +228,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsha1"]
-radius = 28.01785
+radius = 30.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwwk2"]
 radius = 9.0
@@ -401,6 +403,7 @@ flip_h = true
 visible = false
 collision_layer = 256
 collision_mask = 512
+script = ExtResource("7_in73v")
 
 [node name="CollectZone" type="CollisionShape2D" parent="CollectZone" unique_id=765999217 groups=["player"]]
 position = Vector2(-12, 0)
@@ -450,7 +453,7 @@ stream = SubResource("AudioStreamRandomizer_qdvgx")
 bus = &"SFX"
 
 [node name="StartEngine" type="AudioStreamPlayer" parent="Audio" unique_id=1712606456]
-stream = ExtResource("4_frphp")
+stream = ExtResource("12_s25yl")
 bus = &"SFX"
 
 [node name="DriftSfx" type="AudioStreamPlayer2D" parent="Audio" unique_id=225319736]
@@ -461,6 +464,9 @@ parameters/looping = true
 [node name="DeathSfx" type="AudioStreamPlayer" parent="Audio" unique_id=955956618]
 stream = ExtResource("13_in73v")
 bus = &"SFX"
+
+[node name="Engine" type="Node2D" parent="Audio" unique_id=328896966]
+script = ExtResource("14_iish4")
 
 [node name="VFX" type="Node2D" parent="." unique_id=1012362398]
 

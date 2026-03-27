@@ -2,21 +2,20 @@
 
 [ext_resource type="Texture2D" uid="uid://brb3qquidnmhm" path="res://Assets/Characters/Cars/sedan.png" id="1_pe265"]
 [ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_ljyaj"]
-[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/Car/car-engine-starting-43705.mp3" id="3_ydkii"]
+[ext_resource type="AudioStream" uid="uid://fck7cw0ivdco" path="res://Assets/Audio/SFX/Car/car-engine-ignite.mp3" id="3_pe265"]
 
 [resource]
 script = ExtResource("2_ljyaj")
 car_name = "Sedan"
-base_acceleration = 200
+base_acceleration = 150
 base_max_speed = 320
-friction = 300.0
+friction = 100.0
 turn_speed = 2.6
 drift_turn_bonus = 3.0
 min_drift_speed = 120.0
 base_max_life = 200
 base_display_max_speed = 190
 base_dmg = 5
-boost_up = 10
-start_engine_Sound = ExtResource("3_ydkii")
+start_engine_Sound = ExtResource("3_pe265")
 car_sprite = ExtResource("1_pe265")
 metadata/_custom_type_script = "uid://cgs6g466ko5c0"

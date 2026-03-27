@@ -39,6 +39,8 @@ class_name WeaponData
 @export var healing_power: int
 @export var speed : float
 
+#all stats_UPGRADE are use to display stats difference if the weapon is upgrade on player level up. Only for UI purpose
+
 var current_level: int = 0
 var dmg : int 
 var dmg_upgrade : int

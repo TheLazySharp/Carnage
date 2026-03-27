@@ -247,7 +247,6 @@ func set_enemy_state(instance_index: int, new_state_name: String) -> void:
 	data["timer"] = 0.0
  
 
-
 func _process(delta: float) -> void:
 	if multimesh == null:
 		return
@@ -262,7 +261,7 @@ func _process(delta: float) -> void:
 	for idx: int in instance_data:
 		var data: Dictionary = instance_data[idx]
 		var enemy: Enemy = data["enemy"]
-		if not is_instance_valid(enemy):
+		if !is_instance_valid(enemy):
 			continue
 
 		## ── Transform : un seul appel si position OU flip a changé ──

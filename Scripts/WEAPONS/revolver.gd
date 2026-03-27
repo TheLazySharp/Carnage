@@ -29,20 +29,15 @@ var targets: Array[Node2D]
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	StatsManager.stats_updated.connect(_on_stats_updated)
+
 	shot_sfx.stream = revolver_data.weapon_sfx
-	
 	fire_rate.wait_time = revolver_data.base_fire_rate
 	max_lvl = revolver_data.max_level
-	fire_range.shape.radius = revolver_data.base_radius
+	_on_stats_updated()
 	create_bullet_pool(max_bullet_count)
 
 func _process(_delta: float) -> void:
-	current_lvl = clampi(revolver_data.current_level,0,max_lvl)
-	fire_rate.wait_time = revolver_data.base_fire_rate - current_lvl * 0.02
-	fire_rate_upgrade = revolver_data.base_fire_rate - (current_lvl + 1) * 0.02
-	revolver_data.fire_rate = fire_rate.wait_time
-	revolver_data.fire_rate_upgrade = fire_rate_upgrade
-	
 	if !game_paused:
 		shoot_from_pool()
 	
@@ -125,3 +120,11 @@ func desactivate() -> void :
 	targets.clear()
 	fire_rate.stop()
 	
+func _on_stats_updated() -> void : 
+	current_lvl = clampi(revolver_data.current_level,0,max_lvl)
+	fire_rate.wait_time = (revolver_data.base_fire_rate - current_lvl * 0.02) * LuckyCharmsManager. all_fire_rate_bonus * LuckyCharmsManager.short_range_fire_rate_bonus
+	fire_rate_upgrade = (revolver_data.base_fire_rate - (current_lvl + 1) * 0.02) * LuckyCharmsManager. all_fire_rate_bonus * LuckyCharmsManager.short_range_fire_rate_bonus
+	revolver_data.fire_rate = fire_rate.wait_time
+	revolver_data.fire_rate_upgrade = fire_rate_upgrade
+	
+	fire_range.shape.radius = revolver_data.base_radius

@@ -15,24 +15,24 @@ var player_trigger_count : int = 0
 @onready var animation_explosion: AnimatedSprite2D = $AnimationExplosion
 @onready var explosion_sfx: AudioStreamPlayer2D = $ExplosionSFX
 @onready var explosion_area: Area2D = $ExplosionArea
+@onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 
 var game_paused:=false
 
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	StatsManager.stats_updated.connect(_on_stats_updated)
+
 	max_lvl = mine_data.max_level
 	animation_explosion.hide()
 	explosion_sfx.stream = mine_data.weapon_sfx
-
+	
+	_on_stats_updated()
 	
 
 func _process(_delta: float) -> void:
-	current_lvl = clampi(mine_data.current_level,0,max_lvl)
-	damages = mine_data.coeff_dmg * roundi(mine_data.base_dmg + (current_lvl * .1 * 28))
-	damages_upgrade = mine_data.coeff_dmg * roundi(mine_data.base_dmg + ((current_lvl + 1) * .1 * 28))
-	mine_data.dmg = damages
-	mine_data.dmg_upgrade = damages_upgrade
+	pass
 	
 	
 	
@@ -56,6 +56,8 @@ func explosion()-> void:
 	animation_explosion.show()
 	animation_explosion.play("explosion")
 	explosion_sfx.play()
+	camera_2d.screen_shake(8,0.5)
+	
 	
 	
 	for i in range(targets.size() -1, -1, -1):
@@ -124,3 +126,9 @@ func _on_explosion_area_exited(area: Area2D) -> void:
 		player_trigger_count = 1
 	targets.erase(area)
 	
+func _on_stats_updated() -> void : 
+	current_lvl = clampi(mine_data.current_level,0,max_lvl)
+	damages = mine_data.coeff_dmg * roundi(mine_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.explosives_dmg_bonus)
+	damages_upgrade = mine_data.coeff_dmg * roundi(mine_data.base_dmg + ((current_lvl + 1) * .1 * 28)* LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.explosives_dmg_bonus)
+	mine_data.dmg = damages
+	mine_data.dmg_upgrade = damages_upgrade

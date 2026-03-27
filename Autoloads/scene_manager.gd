@@ -7,12 +7,15 @@ var scenes: Dictionary[String,String] = {
 	"EndDay" : "uid://dkpvtoel7hhai",
 	"Garage" : "uid://cs311xlcqlrt0",
 	"Tuto" : "uid://ci6t4884t7q6r",
-	"Level01" : "uid://c6msxridefxxd"
+	"Level01" : "uid://c6msxridefxxd",
+	"LuckyCharms" : "uid://ch2rp03kbdyg7",
+	"Commands" : "uid://dayxnnf2ndx5c",
+	"Missions" : "uid://dc6hb14w0yref"
 }
 
 #TEST = true
 var tuto_completed: bool = false
-
+var commands_displayed : bool = false
 
 var ready_go_timer: float = 2.0
 
@@ -24,3 +27,4 @@ func unload_game() -> void:
 	WeaponsManager.unload()
 	InventoryManager.unload()
 	StatsManager.unload()
+	LuckyCharmsManager.unload()

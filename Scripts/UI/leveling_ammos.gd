@@ -112,3 +112,4 @@ func leveling_ok() -> void:
 
 func ammo_level_up(ammo_id: int) -> void:
 	ammunitions[ammo_id].current_level +=1
+	StatsManager.update_car_stats(CarManager.selected_car)

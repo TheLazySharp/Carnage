@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="1_1koc4"]
 [ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_qw2tv"]
-[ext_resource type="AudioStream" uid="uid://bkhr1k1pukipq" path="res://Assets/Audio/SFX/Car/car-engine-starting-43705.mp3" id="3_1ucdh"]
+[ext_resource type="AudioStream" uid="uid://dphqrbyjduulq" path="res://Assets/Audio/SFX/Car/car-engine-starting.mp3" id="3_1koc4"]
 
 [resource]
 script = ExtResource("2_qw2tv")
@@ -15,6 +15,7 @@ drift_turn_bonus = 3.0
 base_max_life = 500
 base_display_max_speed = 190
 base_dmg = 8
-start_engine_Sound = ExtResource("3_1ucdh")
+boost_up = 10
+start_engine_Sound = ExtResource("3_1koc4")
 car_sprite = ExtResource("1_1koc4")
 metadata/_custom_type_script = "uid://cgs6g466ko5c0"

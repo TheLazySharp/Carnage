@@ -38,20 +38,21 @@
 [ext_resource type="Texture2D" uid="uid://bgrl5ldrwntp4" path="res://Assets/UI/dashboard.png" id="35_ow65e"]
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="36_kimld"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="38_kimld"]
+[ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="38_tc8sa"]
 [ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/UI/leveling.gd" id="39_yb0r4"]
 [ext_resource type="Script" uid="uid://bnfkyuguhwr7h" path="res://Scripts/LEVELUP/levelup_icon.gd" id="40_wpjs7"]
 [ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="41_sl775"]
 [ext_resource type="Script" uid="uid://ddqkvhoijl1y2" path="res://Scripts/UI/boost_gauge.gd" id="41_tc8sa"]
-[ext_resource type="Script" uid="uid://dwy6awbv47hjd" path="res://Scripts/UI/board_car.gd" id="43_0nur5"]
 [ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/piston.tscn" id="43_gq5tr"]
 [ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/UI/leveling_weapons.gd" id="43_hp83p"]
 [ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/UI/leveling_ammos.gd" id="46_hp83p"]
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="46_vrsns"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_ux4l1"]
-[ext_resource type="Texture2D" uid="uid://cjejm12m72yja" path="res://Assets/Characters/Cars/viper_blk.png" id="49_2jlsx"]
+[ext_resource type="Script" uid="uid://bo2kuj133wi45" path="res://Scripts/UI/weapons_upgrade_UI.gd" id="49_3smgn"]
 [ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="50_hp83p"]
 [ext_resource type="PackedScene" uid="uid://drgsya7gbwrgk" path="res://Scenes/MAPS/start_gate.tscn" id="50_jgm5j"]
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="50_ow65e"]
+[ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="51_3smgn"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="51_4n5nh"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="52_hp83p"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="55_tc8sa"]
@@ -1237,7 +1238,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.43605784, 1.0889582e-06, 2.4065375e-08, 1)
 skew = Vector2(0.5, 0)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
@@ -1550,12 +1551,6 @@ grow_vertical = 0
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1015808763]
 texture = ExtResource("35_ow65e")
 centered = false
-
-[node name="Car" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1943354457]
-position = Vector2(1237, 80)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("49_2jlsx")
-script = ExtResource("43_0nur5")
 
 [node name="Speed" type="Label" parent="CanvasLayer/Board" unique_id=900412374]
 layout_mode = 1
@@ -2078,6 +2073,119 @@ theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 10
 text = "10"
 horizontal_alignment = 2
+
+[node name="LuckyCharms" type="Control" parent="CanvasLayer/Board" unique_id=1384202834]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_right = -24.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/LuckyCharms" unique_id=414534360]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+offset_right = 222.0
+offset_bottom = 46.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/LuckyCharms/MarginContainer" unique_id=890727447]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="LuckyCharm0" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=2004849628]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm0" unique_id=1411297590]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("38_tc8sa")
+
+[node name="LuckyCharm1" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1066240797]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm1" unique_id=1512544772]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("38_tc8sa")
+
+[node name="LuckyCharm2" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1239802368]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm2" unique_id=2130284583]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("38_tc8sa")
+
+[node name="LuckyCharm3" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1206394333]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm3" unique_id=1368181297]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("38_tc8sa")
+
+[node name="LuckyCharm4" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1051707784]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm4" unique_id=794440254]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("38_tc8sa")
+
+[node name="LuckyCharm5" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1987953602]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm5" unique_id=937258005]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("38_tc8sa")
 
 [node name="Prelevelling" type="Control" parent="CanvasLayer" unique_id=1984901795]
 visible = false
@@ -3389,6 +3497,7 @@ offset_right = 262.0
 offset_bottom = 250.5
 grow_vertical = 2
 theme_override_constants/separation = 20
+script = ExtResource("49_3smgn")
 
 [node name="Stats" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=81905096]
 layout_mode = 2
@@ -3623,6 +3732,7 @@ limit_right = 3008
 limit_bottom = 2120
 limit_smoothed = true
 position_smoothing_enabled = true
+script = ExtResource("51_3smgn")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1932136132]
 z_as_relative = false
@@ -3687,28 +3797,34 @@ position = Vector2(2609, 1121)
 [node name="Spawners" type="Node2D" parent="." unique_id=483220455]
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("52_hp83p")]
-position = Vector2(615.807, 984.26355)
+position = Vector2(2756.17, 575.54175)
 
-[node name="Horde3" parent="Spawners" unique_id=109443155 instance=ExtResource("52_hp83p")]
-position = Vector2(633.5227, 1266.1028)
+[node name="Horde1" parent="Spawners" unique_id=1912472743 instance=ExtResource("52_hp83p")]
+position = Vector2(1601.8145, 1785.1976)
 
 [node name="Horde2" parent="Spawners" unique_id=955347319 instance=ExtResource("52_hp83p")]
 position = Vector2(1127.9493, 1005.2002)
 
+[node name="Horde3" parent="Spawners" unique_id=109443155 instance=ExtResource("52_hp83p")]
+position = Vector2(633.5227, 1266.1028)
+
 [node name="Horde4" parent="Spawners" unique_id=1340180233 instance=ExtResource("52_hp83p")]
-position = Vector2(947.57214, 1283.8185)
+position = Vector2(2199.812, 572.68866)
 
 [node name="Horde5" parent="Spawners" unique_id=2058980472 instance=ExtResource("52_hp83p")]
 position = Vector2(1675.5227, 985.874)
-is_active = false
 
 [node name="Horde6" parent="Spawners" unique_id=358264937 instance=ExtResource("52_hp83p")]
 position = Vector2(1670.2834, 1357.2124)
-is_active = false
 
 [node name="Horde7" parent="Spawners" unique_id=1772460110 instance=ExtResource("52_hp83p")]
-position = Vector2(2764.723, 505.0535)
-is_active = false
+position = Vector2(550.7102, 388.0891)
+
+[node name="Horde8" parent="Spawners" unique_id=328863547 instance=ExtResource("52_hp83p")]
+position = Vector2(1620.6294, 1859.4446)
+
+[node name="Horde9" parent="Spawners" unique_id=95336408 instance=ExtResource("52_hp83p")]
+position = Vector2(259.69214, 1836.6196)
 
 [node name="StartingGate" parent="." unique_id=2128654809 instance=ExtResource("50_jgm5j")]
 z_index = 2

@@ -2,6 +2,7 @@ extends Area2D
 class_name Enemy
 
 @export var max_life: int = 10
+var night_max_life_boost : int = 3
 @onready var current_life: int
 var damages_on_player: float = 1
 @export var speed: float = 40
@@ -10,7 +11,8 @@ var is_leader: bool = false
 @export var leader: Enemy = null
 var horde: Array
 var horde_neighbors: Array
-var night_speed_boost: float = 1.5
+var night_speed_boost: float = 2
+var night_damages_boost : float = 2
 var velocity: Vector2 = Vector2.ZERO
 @onready var state_machine: Node = $StateMachine
 @onready var player: Node2D = null
@@ -20,11 +22,14 @@ var velocity: Vector2 = Vector2.ZERO
 var mm_index: int = -1 # -1 = not registered in mmr2D
 
 # IMPACT ON PLAYER
-@export var impact_force: float = 200.0
-@export var knockback_friction: float = 300.0
+@export var impact_force: float = 400.0
+var night_impact_force_boost : float = 4
+@export var knockback_friction: float = 600.0
+var night_knockback_friction_boost : float = 4
 @export var chained_impacts_threshold: float = 200.0
 var knockback_velocity := Vector2.ZERO
 var losing_strenght_ratio: float = 0.6
+var night_losing_strenght_boost : float = 2
 var side_impact_ratio: float = 0.3
 var front_impact_ratio: float = -1.2
 
@@ -131,11 +136,11 @@ func update_move(delta: float) -> void:
 
 func update_neighbors() -> void : 
 	horde_neighbors.clear()
-	for other : Enemy in horde :
-		if other == self or !is_instance_valid(other) :
+	for i in range(horde.size()-1,-1,-1) :
+		if horde[i] == self or !is_instance_valid(horde[i]) :
 			continue
-		if global_position.distance_squared_to(other.global_position) < neighbors_detection_radius_sq:
-			horde_neighbors.append(other)
+		if global_position.distance_squared_to(horde[i].global_position) < neighbors_detection_radius_sq:
+			horde_neighbors.append(horde[i])
 		
 
 func register_to_renderer() -> void:
@@ -168,13 +173,13 @@ func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: fl
 func chained_impacts() -> void:
 	if knockback_velocity.length_squared() < chained_impacts_threshold * chained_impacts_threshold:
 		return
-	for neighbor : Enemy in horde_neighbors:
-		if !is_instance_valid(neighbor):
+	for i in range(horde_neighbors.size()-1,-1,-1):
+		if !is_instance_valid(horde_neighbors[i]):
 			continue
-		if global_position.distance_squared_to(neighbor.global_position) < 900: #30px * 30px
-			var push_dir: Vector2 = (neighbor.global_position - global_position).normalized()
+		if global_position.distance_squared_to(horde_neighbors[i].global_position) < 900: #30px * 30px
+			var push_dir: Vector2 = (horde_neighbors[i].global_position - global_position).normalized()
 			var transferred_ratio: float = (knockback_velocity.length() / impact_force) * losing_strenght_ratio
-			neighbor.get_impact(push_dir, Vector2.ZERO, transferred_ratio)
+			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio)
 
 
 func get_damages(damages: int) -> void:
@@ -183,6 +188,7 @@ func get_damages(damages: int) -> void:
 		current_life -= damages
 		flash_damage()
 		display_damages(damages)
+		#blow_up(global_position)
 		if current_life <= 0:
 			current_life = 0
 			call_deferred("on_death")
@@ -264,6 +270,10 @@ func blow_up(blood_position: Vector2) -> void:
 
 func _on_day_end(_day_end: bool) -> void:
 	speed *= night_speed_boost
+	damages_on_player *= night_damages_boost
+	impact_force /= night_impact_force_boost
+	knockback_friction /= night_knockback_friction_boost
+	max_life *= night_max_life_boost
 
 
 func set_animation_state(state_name: String) -> void:
