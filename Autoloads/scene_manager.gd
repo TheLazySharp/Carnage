@@ -10,7 +10,8 @@ var scenes: Dictionary[String,String] = {
 	"Level01" : "uid://c6msxridefxxd",
 	"LuckyCharms" : "uid://ch2rp03kbdyg7",
 	"Commands" : "uid://dayxnnf2ndx5c",
-	"Missions" : "uid://dc6hb14w0yref"
+	"Missions" : "uid://dc6hb14w0yref",
+	"Survivors" : "uid://cui5s6rmjs40o"
 }
 
 #TEST = true
@@ -28,3 +29,4 @@ func unload_game() -> void:
 	InventoryManager.unload()
 	StatsManager.unload()
 	LuckyCharmsManager.unload()
+	TimeManager.unload()

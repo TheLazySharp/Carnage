@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://b6nh0gs2w1hog"]
+
+[ext_resource type="Texture2D" uid="uid://bj41f61pulgl7" path="res://Assets/PNJs/leo.png" id="1_d8pbw"]
+[ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="2_70obx"]
+[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flamer.tres" id="3_7ybo1"]
+
+[resource]
+script = ExtResource("2_70obx")
+name = "Leo"
+age = 42
+job = "Cook"
+bio = "Leo worked as a chef and knew his ingredients. He received unusual food CARGO. The texture and smell were wrong. He believes TRANSPORT SPREAD contaminated the food chain. Some customers got sick. Now he burns everything before consuming."
+icon = ExtResource("1_d8pbw")
+weapon = ExtResource("3_7ybo1")
+metadata/_custom_type_script = "uid://bpgisub1g6477"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://b5ctlqm42kkmh"]
+
+[ext_resource type="Texture2D" uid="uid://c4y0tf5bxva8d" path="res://Assets/PNJs/javier.png" id="1_blqnp"]
+[ext_resource type="Resource" uid="uid://4v8gktjtccjl" path="res://Resources/Jobs/mechanic.tres" id="2_14tdx"]
+[ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="2_odd7a"]
+[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="3_14tdx"]
+
+[resource]
+script = ExtResource("2_odd7a")
+name = "Javier"
+age = 37
+job_ressource = ExtResource("2_14tdx")
+bio = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
+icon = ExtResource("1_blqnp")
+weapon = ExtResource("3_14tdx")
+metadata/_custom_type_script = "uid://bpgisub1g6477"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="JobsData" format=3 uid="uid://4v8gktjtccjl"]
+
+[ext_resource type="Script" uid="uid://p2ifmvs7scku" path="res://Resources/Scripts/jobs_data.gd" id="1_6vykn"]
+
+[resource]
+script = ExtResource("1_6vykn")
+job_title = "Mechanics"
+job_descr = "Car repairs are 50% cheaper"
+effect = 0.5
+metadata/_custom_type_script = "uid://p2ifmvs7scku"

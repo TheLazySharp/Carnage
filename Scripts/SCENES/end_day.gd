@@ -31,5 +31,4 @@ func _on_next_day_pressed() -> void:
 
 func _on_menu_pressed() -> void:
 	SceneManager.unload_game()
-	TimeManager.current_day = 0
 	SceneManager.load_level(menu_scene)

@@ -1,7 +1,7 @@
 extends Control
 
 var menu_scene : String = "uid://gmjjc1vmgcds"
-var car_selection : String = "uid://b0ibe3gvcqm4q"
+var survivor_selection : String = "uid://cui5s6rmjs40o"
 var commands_scene : String = "uid://dayxnnf2ndx5c"
 @onready var ok: Button = $VBoxContainer/Ok
 
@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 
 func _on_back_pressed() -> void:
 	if !SceneManager.commands_displayed:
-		SceneManager.load_level(car_selection)
+		SceneManager.load_level(survivor_selection)
 		SceneManager.commands_displayed = true
 		return
 	SceneManager.commands_displayed = true

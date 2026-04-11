@@ -49,6 +49,8 @@ var dmg_players : Array[AudioStreamPlayer]
 @onready var rear_right: Marker2D = $RearRight
 var left_line: Line2D = null
 var right_line: Line2D = null
+var left_border: Line2D = null
+var right_border: Line2D = null
 var last_left_pos := Vector2.ZERO
 var last_right_pos := Vector2.ZERO
 var drifting : bool
@@ -66,6 +68,10 @@ var can_dash : bool = false
 
 #INVINCIBLE
 var is_invincible : bool = false
+
+#CAM SHAKE
+var shake_timer : float = 0
+var shake_timer_steps : float = 1
 
 #GHOSTING
 @onready var ghost_timer: Timer = $GhostTimer
@@ -109,6 +115,7 @@ func _ready() -> void:
 	gate.full_command.connect(_on_full_command)
 	gate.forward_only.connect(_on_forward_only)
 	SignalManager.boost_gauge_is_full.connect(_on_boost_full)
+	gate.run_ended.connect(_on_run_ended)
 	
 	#DRIVING
 	acceleration = player.acceleration + player.carbon_lvl * 10 - player.shield_lvl * 5
@@ -150,7 +157,13 @@ func _ready() -> void:
 	
 	#VFX
 	car_sprite.texture = player.car_sprite
-	current_life = max_life
+	if TimeManager.current_day == 1 : 
+		current_life = max_life
+		print("ready day 1: ",current_life)
+		
+	else : 
+		current_life = StatsManager.current_life
+		print("ready day >1: ",current_life)
 	life_bar.max_value = max_life
 	life_bar.value = current_life
 	life_label.text = str(current_life) + "/" + str(max_life)
@@ -186,7 +199,7 @@ func _physics_process(delta : float) -> void:
 		var throttle := Input.get_action_strength("accelerate")
 		var steer := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		drifting = Input.is_action_pressed("drift") and throttle > 0
-		burning = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length_squared() < 1
+		burning = Input.is_action_pressed("accelerate") and Input.is_action_pressed("drift") and velocity.length_squared() < 4
 		
 		if forward_only:
 			throttle = Input.get_action_strength("accelerate")
@@ -298,22 +311,30 @@ func _physics_process(delta : float) -> void:
 		was_drifting = drifting
 		
 		
-		# ----------------- COLLISION SOFTEN -----------------
+		# ----------------- COLLISION -----------------
 		var motion : Vector2 = velocity * delta
 		var collision : KinematicCollision2D = move_and_collide(motion)
 		if collision:
-			
 			## ------ WITH ENEMIES
-			#var collider := collision.get_collider()
-			#if collider.is_in_group("ennemies") and is_invincible:
+			var collider := collision.get_collider()
+			#if collider.is_in_group("ennemies"):
+
 				#var speed_ratio : float = velocity.length() / max_speed
 				#var impact_forward : Vector2 = Vector2.RIGHT.rotated(rotation)
 				#var impact_right : Vector2 = impact_forward.rotated(PI/2)
 				#collider.get_impact(impact_forward,impact_right, speed_ratio)
 				##get_damages(1)
-				##velocity *= 0.995
+				#velocity *= 0.995
 				#
-			#else:
+				#shake_timer += delta
+				#if shake_timer < shake_timer_steps:
+					#return
+				#camera_2d.screen_shake(10,1)
+				#print("shake cam damages")
+				#shake_timer = 0
+				
+				#
+			if collider.is_in_group("walls"):
 			# ------ WITH WALLS
 				var n : Vector2 = collision.get_normal().normalized()
 				
@@ -346,24 +367,32 @@ func _physics_process(delta : float) -> void:
 
 			if last_left_pos == Vector2.ZERO:
 				left_line.add_point(left_wheel)
+				left_border.add_point(left_wheel)
+				
 				right_line.add_point(right_wheel)
+				right_border.add_point(right_wheel)
+				
 				last_left_pos = left_wheel
 				last_right_pos = right_wheel
 			else:
 				if left_wheel.distance_to(last_left_pos) > skid_spacing:
 					left_line.add_point(left_wheel)
+					left_border.add_point(left_wheel)
 					last_left_pos = left_wheel
 
 				if right_wheel.distance_to(last_right_pos) > skid_spacing:
 					right_line.add_point(right_wheel)
+					right_border.add_point(right_wheel)
 					last_right_pos = right_wheel
 		
 		if not drifting and drifting_last_frame:
-			fade_and_destroy(left_line)
-			fade_and_destroy(right_line)
+			fade_and_destroy(left_line,left_border)
+			fade_and_destroy(right_line,right_border)
 
 			left_line = null
+			left_border = null
 			right_line = null
+			right_border = null
 
 		drifting_last_frame = drifting
 
@@ -371,40 +400,55 @@ func _physics_process(delta : float) -> void:
 func start_skid() -> void:
 	if !game_paused:
 		drift_sfx.play()
-		left_line = create_skid_line()
-		right_line = create_skid_line()
+		
+		var left_pair : Array = create_skid_line()
+		var right_pair : Array = create_skid_line()
 
+		left_line   = left_pair[0]   # ligne noire
+		left_border = left_pair[1]   # bordure blanche
+
+		right_line   = right_pair[0]
+		right_border = right_pair[1]
+
+		skid_parent.add_child(left_border)
 		skid_parent.add_child(left_line)
+		skid_parent.add_child(right_border)
 		skid_parent.add_child(right_line)
 
-		last_left_pos = Vector2.ZERO
+		last_left_pos  = Vector2.ZERO
+		last_right_pos = Vector2.ZERO
 		last_right_pos = Vector2.ZERO
 
 
-func create_skid_line() -> Line2D:
+func create_skid_line() -> Array:
+	var border := Line2D.new()
+	border.width = 10
+	border.default_color = Color(1, 1, 1, 0.8)
+	border.antialiased = true
+	border.z_index = -10 
+	
 	var line := Line2D.new()
 	line.width = 6
-	line.default_color = Color(0, 0, 0, 0.6)
+	line.default_color = Color(0, 0, 0, 1.0)
 	line.antialiased = true
-	line.z_index = -10
-	return line
+	line.z_index = -9
+	return [line,border]
 
 
 
-func fade_and_destroy(line: Line2D) -> void:
+func fade_and_destroy(line: Line2D, border : Line2D) -> void:
 	if !game_paused:
 		drift_sfx.stop()
 		if line == null:
 			return
 
 		var tween := create_tween()
-		tween.tween_property(
-			line,
-			"default_color:a",
-			0.0,
-			skid_lifetime
-		)
+		tween.set_parallel(true)
+		tween.tween_property(line,   "default_color:a", 0.0, skid_lifetime)
+		tween.tween_property(border, "default_color:a", 0.0, skid_lifetime)
+		tween.set_parallel(false)
 		tween.tween_callback(line.queue_free)
+		tween.tween_callback(border.queue_free)
 
 
 func get_rear_center() -> Vector2:
@@ -564,3 +608,7 @@ func damages_sfx()-> void :
 		if !dmg_player.playing:
 			dmg_player.play()
 			return
+
+func _on_run_ended() -> void:
+	StatsManager.current_life = current_life
+	print("run ended : ",current_life)

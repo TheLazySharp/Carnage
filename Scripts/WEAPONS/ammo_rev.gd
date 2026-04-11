@@ -17,6 +17,7 @@ var start_position : Vector2
 @onready var parent_weapon: Node2D = $/root/World/Car/Weapons/Revolver
 
 
+
 var game_paused:= false
 
 var is_active:= false
@@ -42,6 +43,7 @@ func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 	is_active = true
 	set_physics_process(true)
 	rotation = angle
+
 
 
 

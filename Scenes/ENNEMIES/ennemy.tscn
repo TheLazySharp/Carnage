@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://c6cihr87a2nuw" path="res://Scripts/STATES/enemy_attack.gd" id="13_pgnhj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vuwk1"]
-radius = 16.0
+radius = 15.033297
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pfax6"]
 radius = 17.117243
@@ -28,6 +28,7 @@ damages_text = ExtResource("2_gvr15")
 blood_particles = ExtResource("4_0akt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324095049 groups=["ennemies"]]
+position = Vector2(-4, 0)
 shape = SubResource("CircleShape2D_vuwk1")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=748882352]

@@ -14,7 +14,8 @@ var i : int
 
 
 var first_scene : String = "uid://c6msxridefxxd"
-var menu_scene : String = "uid://gmjjc1vmgcds"
+var survivor_selection : String = "uid://cui5s6rmjs40o"
+
 
 @onready var next: Button = $RightArrow/Next
 
@@ -41,6 +42,8 @@ func _process(_delta: float) -> void:
 			i = CarManager.cars.size() -1
 		update_car_data()
 	
+	if Input.is_action_just_pressed("ui_back"): 
+		SceneManager.load_level(survivor_selection)
 
 func update_car_data() -> void:
 	displayed_car = CarManager.cars[i]
@@ -57,13 +60,11 @@ func update_car_data() -> void:
 func _on_select_pressed() -> void:
 	CarManager.selected_car = displayed_car
 	StatsManager.update_car_stats(CarManager.selected_car)
-	if WeaponsManager.weapons.is_empty():
-		WeaponsManager.load_weapons()
 	SceneManager.load_level(first_scene)
 
 
 func _on_back_pressed() -> void:
-	SceneManager.load_level(menu_scene)
+	SceneManager.load_level(survivor_selection)
 
 
 func _on_next_button_pressed() -> void:

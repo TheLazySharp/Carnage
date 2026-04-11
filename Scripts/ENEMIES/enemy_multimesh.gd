@@ -2,6 +2,7 @@ extends Area2D
 class_name Enemy
 
 @export var max_life: int = 10
+var level_life_boost : int = 5
 var night_max_life_boost : int = 3
 @onready var current_life: int
 var damages_on_player: float = 1
@@ -22,9 +23,9 @@ var velocity: Vector2 = Vector2.ZERO
 var mm_index: int = -1 # -1 = not registered in mmr2D
 
 # IMPACT ON PLAYER
-@export var impact_force: float = 400.0
+@export var impact_force: float = 300.0
 var night_impact_force_boost : float = 4
-@export var knockback_friction: float = 600.0
+@export var knockback_friction: float = 800.0
 var night_knockback_friction_boost : float = 4
 @export var chained_impacts_threshold: float = 200.0
 var knockback_velocity := Vector2.ZERO
@@ -65,6 +66,7 @@ var neighbors_detection_radius_sq : float = 400
 
 
 func _ready() -> void:
+	max_life += level_life_boost * (TimeManager.current_day - 1)
 	current_life = max_life
 	SignalManager.game_paused.connect(_on_game_paused)
 	day_manager.day_ended.connect(_on_day_end)
@@ -111,6 +113,8 @@ func update_move(delta: float) -> void:
  
 	var move : Vector2 = velocity * delta
  
+#WALL DETECTION
+
 	if !near_wall:
 		global_position += move
 		return

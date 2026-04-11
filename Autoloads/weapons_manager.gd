@@ -67,12 +67,19 @@ func init_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = true
 	new_weapon.weapon_is_active = true
 	weapons.append(new_weapon)
+	if !unequipped_weapons.is_empty():
+		for i in unequipped_weapons.size():
+			if unequipped_weapons[i] == new_weapon:
+				unequipped_weapons.remove_at(i)
+				break
+	if new_weapon.weapon_ammo_res !=null:
+		init_ammo(new_weapon.weapon_ammo_res)
 
 func init_ammo(new_ammo : WeaponData) -> void: 
 	new_ammo.is_equiped = true
 	new_ammo.weapon_is_active = true
 	ammunitions.append(new_ammo)
-	#print(new_ammo.weapon_name," add to ammunitions")
+
 
 func locked_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = false
@@ -80,32 +87,12 @@ func locked_weapon(new_weapon: WeaponData) -> void:
 
 func equip_weapon(new_weapon: WeaponData) -> void:
 	for i in weapon_scenes.size():
-		#print(weapon_scenes[i][1])
-		#print(new_weapon.weapon_scene_uid)
 		if weapon_scenes[i][1] == new_weapon.weapon_scene_uid:
 			var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
 			get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
 			init_weapon(new_weapon)
-			if !unequipped_weapons.is_empty():
-				unequipped_weapons.remove_at(0)
-			
-			#if new_weapon.weapon_ammo_res !=null and new_weapon.weapon_ammo_scene != null:
-			if new_weapon.weapon_ammo_res !=null:
-				init_ammo(new_weapon.weapon_ammo_res)
-				#print(new_weapon.weapon_ammo_res.weapon_name," is equiped : ", new_weapon.weapon_ammo_res.is_equiped)
+			break
 
-			
-			#print(new_weapon.weapon_name," is equiped : ", new_weapon.is_equiped)
-			#
-			#print("MAJ WEAPONS :")
-			#for j in weapons.size():
-				#print(weapons[j].weapon_name)
-			#print("UNEQUIPPED :")
-			#for k in unequipped_weapons.size():
-				#print(unequipped_weapons[k].weapon_name)
-			#if unequipped_weapons.is_empty() :
-				#print("empty")
-			return
 
 func equip_ammo() -> void:
 	if !weapons.is_empty() and ammunitions.is_empty():
@@ -147,6 +134,7 @@ func reinit_weapons() -> void:
 			if scene[1] == weapons[j].weapon_scene_uid:
 				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
 				get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
+				print(new_weapon_scene," is reinit")
 
 
 

@@ -1,7 +1,7 @@
 extends Node
 
 var frags: int
-
+var current_life : int
 signal stats_updated
 
 func _ready() -> void:
@@ -29,4 +29,5 @@ func update_car_stats(car : CarData) -> void:
 
 func unload() -> void:
 	frags = 0
+	current_life = 0
 	

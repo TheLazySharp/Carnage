@@ -115,6 +115,7 @@ func _process(_delta: float) -> void:
 	if !upgrade_ok():
 		total_q.add_theme_color_override("font_color",Color.RED)
 	else : total_q.add_theme_color_override("font_color",Color.WHITE)
+	total_q.text = str(InventoryManager.auto_parts)
 
 
 

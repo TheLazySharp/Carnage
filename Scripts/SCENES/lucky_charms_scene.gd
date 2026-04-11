@@ -5,6 +5,8 @@ extends Control
 @export var current_button_group : ButtonGroup
 @onready var confirm: Button = $VBoxContainer/Confirm
 @onready var skip: Button = $VBoxContainer/Skip
+var max_life_on_ready : int
+
 
 var new_lucky_charm_index : int = 0
 var current_lucky_charm_index : int = 0
@@ -14,7 +16,9 @@ var garage_scene := "uid://cs311xlcqlrt0"
 var current_scene:= "uid://ch2rp03kbdyg7"
 
 func _ready() -> void:
-	print("shuffke ok : ",LuckyCharmsManager.shuffle_lucky_charms_ok)
+	#print("shuffle ok : ",LuckyCharmsManager.shuffle_lucky_charms_ok)
+	max_life_on_ready = CarManager.selected_car.max_life
+	print("max life : ",max_life_on_ready)
 	if LuckyCharmsManager.shuffle_lucky_charms_ok :
 		LuckyCharmsManager.shuffle()
 		LuckyCharmsManager.shuffle_lucky_charms_ok =  false
@@ -38,14 +42,14 @@ func _process(_delta: float) -> void:
 			LuckyCharmsManager.call_reverse_swap()
 
 
-	
 	if new_button_group.get_pressed_button() != null :
 		new_lucky_charm_index = int(new_button_group.get_pressed_button().get_parent().name)
+
 		
 		for i in current_button_group.get_buttons().size():
 			current_button_group.get_buttons()[i].disabled = false
 
-	
+
 	else : 
 		for i in current_button_group.get_buttons().size():
 			current_button_group.get_buttons()[i].disabled = true
@@ -75,6 +79,9 @@ func _on_confirm_pressed() -> void:
 	SceneManager.load_level(garage_scene)
 	LuckyCharmsManager.shuffle_lucky_charms_ok =  true
 	LuckyCharmsManager.add_lucky_charm_ok = true
+	if max_life_on_ready < CarManager.selected_car.max_life:
+		StatsManager.current_life += (CarManager.selected_car.max_life -  max_life_on_ready)
+		print("car max life : ",CarManager.selected_car.max_life, " / max on ready : ",max_life_on_ready)
 
 func _on_skip_pressed() -> void:
 	LuckyCharmsManager.update_lucky_charms_bonus()

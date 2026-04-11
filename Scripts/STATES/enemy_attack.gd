@@ -6,8 +6,6 @@ class_name EnemyAttack
 var move_direction: Vector2
 var move_speed: float
 
-
-
 var game_paused:=false
 
 func _ready() -> void:

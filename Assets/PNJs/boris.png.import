@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://llexyguasaf4"
-path="res://.godot/imported/CONTROLS.png-b6d1226dc5af41b3f2e42e34db57ac70.ctex"
+uid="uid://cgd80u4apy6kl"
+path="res://.godot/imported/boris.png-fe8d699dc5c0721acb96c047490e204e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/CONTROLS.png"
-dest_files=["res://.godot/imported/CONTROLS.png-b6d1226dc5af41b3f2e42e34db57ac70.ctex"]
+source_file="res://Assets/PNJs/boris.png"
+dest_files=["res://.godot/imported/boris.png-fe8d699dc5c0721acb96c047490e204e.ctex"]
 
 [params]
 

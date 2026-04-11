@@ -2,11 +2,44 @@
 
 [ext_resource type="Script" uid="uid://b3l5ddu70je5u" path="res://Scripts/WEAPONS/revolver.gd" id="1_c46wd"]
 [ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="2_4mk6m"]
+[ext_resource type="Texture2D" uid="uid://cdnp43uhc45vq" path="res://Assets/VFX/muzzle_flash_cartoon.png" id="3_04c2v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c46wd"]
 radius = 5.0
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_dyc2s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78jts"]
+atlas = ExtResource("3_04c2v")
+region = Rect2(0, 0, 128, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hua2l"]
+atlas = ExtResource("3_04c2v")
+region = Rect2(128, 0, 128, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvvxb"]
+atlas = ExtResource("3_04c2v")
+region = Rect2(256, 0, 128, 95)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qxs22"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78jts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hua2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvvxb")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"fire",
+"speed": 10.0
+}]
 
 [node name="Revolver" type="Node2D" unique_id=1723170442]
 script = ExtResource("1_c46wd")
@@ -28,6 +61,11 @@ stream = SubResource("AudioStreamMP3_dyc2s")
 volume_db = -4.875
 max_distance = 1500.0
 bus = &"Weapons"
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="." unique_id=1591182525]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_qxs22")
+animation = &"fire"
 
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="area_entered" from="FireRange" to="." method="_on_fire_range_entered"]

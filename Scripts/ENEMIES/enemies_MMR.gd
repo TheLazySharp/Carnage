@@ -18,8 +18,8 @@ class_name EnemiesMultiMeshRenderer
 extends MultiMeshInstance2D
 
 @export var sprite_texture: Texture2D
-@export var frame_width: int = 90
-@export var frame_height: int = 90
+@export var frame_width: int = 48
+@export var frame_height: int = 48
 @export var max_instances: int = 1000
 
 # --------------ANIMATION STATES -----------------------
@@ -68,7 +68,7 @@ func setup_default_states() -> void:
 	var walk_state := EnemySpriteState.new()
 	walk_state.state_name = "walk"
 	walk_state.sheet_row = 0
-	walk_state.frame_count = 10
+	walk_state.frame_count = 8
 	walk_state.fps = 10.0
 	walk_state.loop = true
 	states["walk"] = walk_state
@@ -257,7 +257,6 @@ func _process(delta: float) -> void:
 	render_skip_timer -= render_skip_steps
 
 	var is_instance_changed: bool = false
-
 	for idx: int in instance_data:
 		var data: Dictionary = instance_data[idx]
 		var enemy: Enemy = data["enemy"]

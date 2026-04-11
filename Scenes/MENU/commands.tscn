@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dsbsspi4c4043" path="res://Scripts/SCENES/commands.gd" id="1_t7utn"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_ewah8"]
 [ext_resource type="Texture2D" uid="uid://bhrmlxrs1w3og" path="res://Assets/UI/Controls_screenshot.png" id="3_t7utn"]
+[ext_resource type="Texture2D" uid="uid://d2lujjqc42jgo" path="res://Assets/UI/KEYBOARD_screenshot.png" id="4_wx7qc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
 
@@ -15,7 +16,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t7utn")
 
-[node name="Background" type="ColorRect" parent="." unique_id=1610876626]
+[node name="Controler" type="Control" parent="." unique_id=957786790]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Controler" unique_id=1610876626]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Title" type="Label" parent="." unique_id=467110899]
+[node name="Title" type="Label" parent="Controler" unique_id=467110899]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -42,7 +51,7 @@ vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1542627669]
+[node name="VBoxContainer" type="VBoxContainer" parent="Controler" unique_id=1542627669]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -56,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 30
 
-[node name="Ok" type="Button" parent="VBoxContainer" unique_id=731618581]
+[node name="Ok" type="Button" parent="Controler/VBoxContainer" unique_id=731618581]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
@@ -68,7 +77,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "OK"
 flat = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1405240235]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Controler" unique_id=1405240235]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -78,7 +87,7 @@ offset_right = 40.0
 offset_bottom = 20.0
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=29104809]
+[node name="TextureRect" type="TextureRect" parent="Controler" unique_id=29104809]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -94,4 +103,93 @@ grow_vertical = 2
 texture = ExtResource("3_t7utn")
 expand_mode = 3
 
-[connection signal="pressed" from="VBoxContainer/Ok" to="." method="_on_back_pressed"]
+[node name="Keyboard" type="Control" parent="." unique_id=1572757726]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Keyboard" unique_id=658401372]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="Keyboard" unique_id=227903219]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_ewah8")
+theme_override_font_sizes/font_size = 64
+text = "COMMANDS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Keyboard" unique_id=979576544]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.5
+offset_top = -64.0
+offset_right = 90.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Ok" type="Button" parent="Keyboard/VBoxContainer" unique_id=1269414553]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ewah8")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
+text = "OK"
+flat = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Keyboard" unique_id=1128741165]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Keyboard" unique_id=38469174]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -565.31335
+offset_top = -307.0
+offset_right = 509.31335
+offset_bottom = 307.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_wx7qc")
+expand_mode = 3
+
+[connection signal="pressed" from="Controler/VBoxContainer/Ok" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Keyboard/VBoxContainer/Ok" to="." method="_on_ok_keyboard_pressed"]

@@ -3,6 +3,7 @@ extends Area2D
 @onready var car: CharacterBody2D = $".."
 var damage_timer : float = 0
 var damage_timer_steps : float = 0.5
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
 func _process(delta: float) -> void:
 	damage_timer += delta
@@ -22,7 +23,8 @@ func _on_area_entered(area: Area2D) -> void:
  
 	area.get_impact(car_forward, car_right, speed_ratio)
 	car.velocity *= 0.95
-	
+	camera_2d.screen_shake(3,0.5)
+
 	if damage_timer < damage_timer_steps :
 		return
 	damage_timer = 0

@@ -11,6 +11,7 @@ var fire_rate_upgrade : float
 
 @onready var fire_range: CollisionShape2D = $FireRange/FireRangeShape
 @onready var shot_sfx: AudioStreamPlayer2D = $ShotSFX
+@onready var muzzle_flash: AnimatedSprite2D = $MuzzleFlash
 
 
 
@@ -36,6 +37,8 @@ func _ready() -> void:
 	max_lvl = revolver_data.max_level
 	_on_stats_updated()
 	create_bullet_pool(max_bullet_count)
+	muzzle_flash.hide()
+
 
 func _process(_delta: float) -> void:
 	if !game_paused:
@@ -59,6 +62,9 @@ func shoot_from_pool()-> void :
 		var dir : Vector2= fire_point.global_position.direction_to(target.global_position)
 		var angle : float = dir.angle()
 		bullet.fire(fire_point.global_position,dir,angle)
+		#muzzle_flash.rotation = angle
+		muzzle_flash.show()
+		muzzle_flash.play("fire")
 		shot_sfx.play()
 		
 

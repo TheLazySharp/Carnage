@@ -5,7 +5,7 @@ extends Control
 @onready var skip_tuto: CheckButton = $VBoxContainer/SkipTuto
 
 
-var car_selection : String = "uid://b0ibe3gvcqm4q"
+var survivor_selection : String = "uid://cui5s6rmjs40o"
 var tuto_scene : String = "uid://ci6t4884t7q6r"
 var commands_scene : String = "uid://dayxnnf2ndx5c"
 @onready var training: Button = $VBoxContainer/Training
@@ -39,7 +39,7 @@ func _on_start_pressed() -> void:
 		SceneManager.load_level(tuto_scene)
 	else:
 		#SceneManager.unload_game()
-		SceneManager.load_level(car_selection)
+		SceneManager.load_level(survivor_selection)
 		SignalManager.emit_signal("game_paused",false)
 
 

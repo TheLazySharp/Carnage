@@ -8,13 +8,14 @@ var velocity: Vector2
 var target_pos: Vector2
 var speed : = 500
 var is_attracted := false
-
+var xp_value : int
 
 @onready var player: CharacterBody2D = $"/root/World/Car"
 
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	xp_value = TimeManager.current_day
 
 
 func _physics_process(delta: float) -> void:
@@ -25,7 +26,7 @@ func _physics_process(delta: float) -> void:
 		global_position += velocity * delta
 	
 	if abs(global_position - player.global_position).length() < 5:
-		XPManager.add_xp_in_bucket(xp_data.xp_value)
+		XPManager.add_xp_in_bucket(xp_value)
 		#print("xp in bucket")
 		queue_free()
 

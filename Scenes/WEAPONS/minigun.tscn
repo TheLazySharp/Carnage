@@ -3,8 +3,78 @@
 [ext_resource type="Script" uid="uid://ct245npeeo2wy" path="res://Scripts/WEAPONS/minigun.gd" id="1_skg3x"]
 [ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/minigun.tres" id="2_yyjxs"]
 [ext_resource type="Texture2D" uid="uid://bvlvnjmbte8sf" path="res://Assets/weapons/sight.png" id="3_d2sk6"]
+[ext_resource type="Texture2D" uid="uid://dmso70nlspbns" path="res://Assets/VFX/muzzle_flash_cartoon2.png" id="4_gpcs8"]
+[ext_resource type="Texture2D" uid="uid://djrkatvt700l1" path="res://Assets/VFX/muzzle_flash-sheet.png" id="5_titou"]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_d2sk6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_titou"]
+atlas = ExtResource("4_gpcs8")
+region = Rect2(0, 0, 134, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmqt7"]
+atlas = ExtResource("4_gpcs8")
+region = Rect2(134, 0, 134, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amx8e"]
+atlas = ExtResource("4_gpcs8")
+region = Rect2(268, 0, 134, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbaui"]
+atlas = ExtResource("5_titou")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_anq00"]
+atlas = ExtResource("5_titou")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifhtv"]
+atlas = ExtResource("5_titou")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_go62e"]
+atlas = ExtResource("5_titou")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mbaui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_titou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmqt7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amx8e")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"fire",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbaui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_anq00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifhtv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_go62e")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"fire2",
+"speed": 16.0
+}]
 
 [node name="Minigun" type="Node2D" unique_id=1383909163 groups=["weapons"]]
 z_index = 20
@@ -41,5 +111,10 @@ offset = Vector2(0, 150)
 [node name="ShotSfx" type="AudioStreamPlayer2D" parent="." unique_id=1356471790]
 stream = SubResource("AudioStreamMP3_d2sk6")
 bus = &"Weapons"
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="." unique_id=354578108]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_mbaui")
+animation = &"fire"
 
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

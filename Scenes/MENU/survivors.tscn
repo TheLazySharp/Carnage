@@ -1,0 +1,391 @@
+[gd_scene format=3 uid="uid://cui5s6rmjs40o"]
+
+[ext_resource type="Script" uid="uid://xp1pb2g8i6i" path="res://Scripts/SCENES/survivors_scene.gd" id="1_leh2h"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_pfsqv"]
+[ext_resource type="ButtonGroup" uid="uid://d4grxpy2ntjw5" path="res://Resources/ButtonGroups/portrait_button_group.tres" id="3_yfpg6"]
+[ext_resource type="Script" uid="uid://cb7051ydya2sc" path="res://Scripts/UI/survivor_id.gd" id="4_gha5h"]
+[ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="5_d0hfw"]
+[ext_resource type="Script" uid="uid://nfmh1lmcmwxe" path="res://Scripts/UI/survivor_bio.gd" id="6_uhxue"]
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="7_ekey8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_leh2h"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_leh2h"]
+
+[node name="SurvivorsScene" type="Control" unique_id=647996732]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_leh2h")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1813494779]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="." unique_id=1741679896]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_pfsqv")
+theme_override_font_sizes/font_size = 64
+text = "SURVIVORS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=198216110]
+custom_minimum_size = Vector2(64, 72)
+layout_mode = 1
+offset_top = 112.0
+offset_right = 416.0
+offset_bottom = 696.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="BoxContainer" type="GridContainer" parent="MarginContainer" unique_id=1377957292]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 32
+columns = 4
+
+[node name="PNJ0" type="Button" parent="MarginContainer/BoxContainer" unique_id=554972105]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ0" unique_id=1214955423]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_top = -2.0
+offset_right = 32.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ0" unique_id=1150947434]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ0" unique_id=1871206867]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
+[node name="PNJ1" type="Button" parent="MarginContainer/BoxContainer" unique_id=1390094545]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ1" unique_id=510091561]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_top = -2.0
+offset_right = 32.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ1" unique_id=2133304504]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ1" unique_id=1936974960]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
+[node name="PNJ2" type="Button" parent="MarginContainer/BoxContainer" unique_id=1896701129]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ2" unique_id=346926832]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_top = -2.0
+offset_right = 32.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ2" unique_id=1941570483]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ2" unique_id=1964440352]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
+[node name="PNJ3" type="Button" parent="MarginContainer/BoxContainer" unique_id=501309744]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ3" unique_id=1955944360]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_top = -2.0
+offset_right = 32.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ3" unique_id=910672588]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ3" unique_id=1682640525]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
+[node name="SurvivorBio" type="Control" parent="." unique_id=586123811]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -822.0
+offset_top = -278.0
+offset_bottom = 376.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("6_uhxue")
+
+[node name="PNJName" type="Label" parent="SurvivorBio" unique_id=185455513]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 40
+text = "Javier"
+
+[node name="PNJAge" type="Label" parent="SurvivorBio" unique_id=256318624]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 108.0
+offset_bottom = 127.0
+theme_override_font_sizes/font_size = 24
+text = "42 years old"
+
+[node name="PNJJob" type="Label" parent="SurvivorBio" unique_id=1925762509]
+layout_mode = 0
+offset_top = 126.0
+offset_right = 148.0
+offset_bottom = 181.0
+theme_override_font_sizes/font_size = 24
+text = "Mechanic"
+
+[node name="PNJBio" type="Label" parent="SurvivorBio" unique_id=886522394]
+layout_mode = 0
+offset_top = 202.0
+offset_right = 466.0
+offset_bottom = 569.0
+theme_override_font_sizes/font_size = 24
+text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
+autowrap_mode = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="SurvivorBio" unique_id=451350807]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -174.0
+offset_top = 53.0
+offset_right = -78.0
+offset_bottom = 149.0
+grow_horizontal = 0
+texture = ExtResource("7_ekey8")
+
+[node name="PNJWeapon" type="Label" parent="SurvivorBio/WeaponIcon" unique_id=1636497658]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = -57.0
+offset_right = 74.0
+offset_bottom = -2.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Revolver"
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="SurvivorBio/WeaponIcon" unique_id=1148490647]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponDescr" type="Label" parent="SurvivorBio/WeaponIcon" unique_id=799287219]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.0
+offset_top = 7.0
+offset_right = 115.0
+offset_bottom = 212.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Shot a bullet on the closest enemy"
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1538654530]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -84.0
+offset_right = 276.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Select" type="Button" parent="VBoxContainer" unique_id=1871771608]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_pfsqv")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_leh2h")
+text = "SELECT"
+flat = true
+
+[node name="Back" type="Button" parent="VBoxContainer" unique_id=1176516895]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_pfsqv")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_leh2h")
+text = "BACK"
+flat = true
+
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ0" to="MarginContainer/BoxContainer/PNJ0" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ1" to="MarginContainer/BoxContainer/PNJ1" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ2" to="MarginContainer/BoxContainer/PNJ2" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ3" to="MarginContainer/BoxContainer/PNJ3" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/Select" to="." method="_on_select_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

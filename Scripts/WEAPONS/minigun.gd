@@ -9,6 +9,7 @@ const BULLET = preload("uid://doe8o0sd0xuas")
 
 @onready var player: CharacterBody2D = $/root/World/Car
 @onready var shot_sfx: AudioStreamPlayer2D = $ShotSfx
+@onready var muzzle_flash: AnimatedSprite2D = $MuzzleFlash
 
 
 var nb_ammo: int
@@ -48,6 +49,7 @@ func _ready() -> void:
 	can_shoot = true
 	next_bullet = false
 	raycastON = true
+	muzzle_flash.hide()
 
 
 func _process(_delta: float) -> void:
@@ -86,6 +88,8 @@ func shoot_from_pool()-> void :
 				var bullet : AmmoMG = get_bullet_from_pool()
 				var dir : Vector2 = Vector2.RIGHT.rotated(angle)
 				bullet.fire(fire_point.global_position,dir,angle)
+				muzzle_flash.show()
+				muzzle_flash.play("fire")
 				shot_sfx.play()
 		
 
