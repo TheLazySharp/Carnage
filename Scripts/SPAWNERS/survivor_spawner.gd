@@ -4,7 +4,7 @@ extends Node2D
 var survivor : SurvivorData
 @export var tilemap : TileMapLayer
 @export var nav_layer_index : int = 0 #BIT
-
+signal beacon_activated(beacon_pos : Vector2)
 
 
 func _ready() -> void:
@@ -44,4 +44,5 @@ func spawn_at(pos : Vector2) -> void :
 	instance.survivor = survivor
 	add_child(instance)
 	print("survivor spawned at : ",pos)
+	emit_signal("beacon_activated", pos)
 	pass

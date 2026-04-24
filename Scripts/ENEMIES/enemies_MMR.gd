@@ -130,7 +130,7 @@ func setup_multimesh() -> void:
 		buffer[base + 8]  = 1.0
 		buffer[base + 9]  = 1.0
 		buffer[base + 10] = 1.0
-		buffer[base + 11] = 1.0
+		buffer[base + 11] = 0.0
 		# Custom data : UV frame 0
 		buffer[base + 12] = 0.0
 		buffer[base + 13] = 0.0
@@ -159,20 +159,39 @@ func create_sprite_sheet_shader() -> Shader:
 
 	var shader := Shader.new()
 	shader.code = """
+
 shader_type canvas_item;
- 
+
+varying float flash;
+varying vec2 uv_scale;
+
 void vertex() {
-	vec4 cd = INSTANCE_CUSTOM;
-	UV = vec2(
-		cd.x + UV.x * cd.z,
-		cd.y + UV.y * cd.w
-	);
+    vec4 cd = INSTANCE_CUSTOM;
+    UV = cd.xy + UV * cd.zw;
+    flash = COLOR.a;
+    uv_scale = cd.zw;
 }
- 
+
 void fragment() {
-	vec4 col = texture(TEXTURE, UV);
-	if (col.a < 0.01) discard;
-	COLOR = vec4(col.rgb * COLOR.rgb, col.a);
+    vec4 col = texture(TEXTURE, UV);
+
+    if (flash > 0.5) {
+        vec2 texel = uv_scale / vec2(textureSize(TEXTURE, 0));
+        float a_right = texture(TEXTURE, UV + vec2(texel.x, 0.0)).a;
+        float a_left  = texture(TEXTURE, UV + vec2(-texel.x, 0.0)).a;
+        float a_up    = texture(TEXTURE, UV + vec2(0.0, -texel.y)).a;
+        float a_down  = texture(TEXTURE, UV + vec2(0.0, texel.y)).a;
+        float outline = clamp(a_right + a_left + a_up + a_down, 0.0, 1.0);
+
+        if (col.a < 0.01) {
+            COLOR = vec4(1.0, 0.0, 0.0, outline);
+        } else {
+            COLOR = vec4(1.0, 1.0, 1.0, col.a);
+        }
+    } else {
+        if (col.a < 0.01) discard;
+        COLOR = vec4(col.rgb, col.a);
+    }
 }
 """
 	return shader
@@ -181,8 +200,7 @@ void fragment() {
 #  API PUBLIQUE — appelée par les ennemis
 # ─────────────────────────────────────────────
 
-## Enregistre un ennemi dans le renderer. Retourne son instance_index.
-## À appeler dans Enemy._ready()
+
 func register_enemy(enemy: Enemy) -> int:
 	if free_indices.is_empty():
 		push_warning("EnemyMultiMeshRenderer : max_instances reached !")
@@ -190,12 +208,11 @@ func register_enemy(enemy: Enemy) -> int:
 
 	var idx: int = free_indices.pop_back()
 	
-# Initialiser la couleur à blanc dans le buffer
 	var base := idx * FLOATS_PER_INSTANCE + OFFSET_COLOR
 	buffer[base + 0] = 1.0
 	buffer[base + 1] = 1.0
 	buffer[base + 2] = 1.0
-	buffer[base + 3] = 1.0
+	buffer[base + 3] = 0.0
 	
 	
 	instance_data[idx] = {
@@ -207,15 +224,13 @@ func register_enemy(enemy: Enemy) -> int:
 		"last_pos": Vector2.INF
 	}
 
-	# Écrire la position initiale dans le buffer
 	write_transform(idx, enemy.global_position, enemy.rotation, false)
 	write_uv(idx, 0, 0)
-	#RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
+
 	return idx
 
 
 func unregister_enemy(instance_index: int) -> void:
-	#print("UNREGISTER idx:", instance_index)
 	if instance_index < 0:
 		return
 
@@ -263,15 +278,6 @@ func _process(delta: float) -> void:
 		if !is_instance_valid(enemy):
 			continue
 
-		## ── Transform : un seul appel si position OU flip a changé ──
-		#var new_pos := enemy.global_position
-		#var new_flip := enemy.velocity.x < 0
-		#if new_pos != data["last_pos"] or new_flip != data["flip_h"]:
-			#data["last_pos"] = new_pos
-			#data["flip_h"] = new_flip
-			#write_transform(idx, new_pos, enemy.rotation, new_flip)
-			#is_instance_changed = true
-
 		var new_flip := enemy.velocity.x < 0
 		if new_flip != data["flip_h"]:
 			data["flip_h"] = new_flip
@@ -311,10 +317,7 @@ func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool) -> void:
 	buffer[base + 5] = cos_r                         # y.y
 	buffer[base + 6] = 0.0                           # padding
 	buffer[base + 7] = pos.y                         # origin.y
-	#if idx == 0:
-		#print("pos globale: ", pos)
-		#print("pos locale: ", to_local(pos))
-		#print("EnemiesMMR2D global_position: ", global_position)
+
  
 func write_uv(idx: int, frame_col: int, frame_row: int) -> void:
 	var base := idx * FLOATS_PER_INSTANCE + OFFSET_CUSTOM
@@ -324,18 +327,31 @@ func write_uv(idx: int, frame_col: int, frame_row: int) -> void:
 	buffer[base + 3] = frame_h_norm
 
 
-
 func set_enemy_color(instance_index: int, color: Color) -> void:
 	if instance_index < 0:
 		return
 	var base := instance_index * FLOATS_PER_INSTANCE + OFFSET_COLOR
-	#print("BEFORE color idx:", instance_index, " : ", buffer[base], buffer[base+1], buffer[base+2], buffer[base+3])
+
 	buffer[base + 0] = color.r
 	buffer[base + 1] = color.g
 	buffer[base + 2] = color.b
 	buffer[base + 3] = color.a
-	var base0 := 0 * FLOATS_PER_INSTANCE + OFFSET_COLOR
-	print("set_enemy_color idx:", instance_index, " color:", color, " | alpha idx0:", buffer[base0 + 3])
+
 
 func multimesh_set_color_by_index(idx: int, color: Color) -> void:
 	set_enemy_color(idx, color)
+	
+func set_enemy_flash(instance_index: int, flashing: bool) -> void:
+	if instance_index < 0:
+		return
+	var base := instance_index * FLOATS_PER_INSTANCE + OFFSET_COLOR
+	buffer[base + 3] = 1.0 if flashing else 0.0
+	(material as ShaderMaterial).set_shader_parameter("flash_test", 1.0 if flashing else 0.0)
+
+
+func set_buffer_alpha(idx: int, value: float) -> void:
+	var base := idx * FLOATS_PER_INSTANCE + OFFSET_COLOR
+	if idx == 39 and buffer[base + 3] != value:
+		print("alpha idx39 changé à ", value, " depuis:")
+		print(get_stack())
+		buffer[base + 3] = value

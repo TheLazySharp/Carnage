@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bx50mtpiyyt2j"]
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/PLAYER/rigid_car.gd" id="1_rsha1"]
-[ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_frphp"]
 [ext_resource type="PackedScene" uid="uid://caih21wmxphk2" path="res://Scenes/VFX/ghost.tscn" id="2_nbj0p"]
 [ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="3_m5ekh"]
 [ext_resource type="Texture2D" uid="uid://b3rc8ngbuu013" path="res://Assets/VFX/Smoke_v8_Fade_In.png" id="3_s0c68"]
@@ -19,7 +18,11 @@
 [ext_resource type="AudioStream" uid="uid://dphqrbyjduulq" path="res://Assets/Audio/SFX/Car/car-engine-starting.mp3" id="12_s25yl"]
 [ext_resource type="AudioStream" uid="uid://btw3ucq0agu40" path="res://Assets/Audio/SFX/Car/car crash.mp3" id="13_in73v"]
 [ext_resource type="Script" uid="uid://b1scnpur1dpt5" path="res://Scripts/CHARACTERS/PLAYER/engine_audio_manager.gd" id="14_iish4"]
+[ext_resource type="Shader" uid="uid://d1quj0fpa74xf" path="res://Shaders/flash.gdshader" id="17_s25yl"]
 [ext_resource type="Script" uid="uid://cxh3wfsxbjuvm" path="res://Scripts/CHARACTERS/PLAYER/enemies_detection_area.gd" id="18_qdvgx"]
+[ext_resource type="Script" uid="uid://cgiigywajssx1" path="res://Scripts/CHARACTERS/PLAYER/car_beacon.gd" id="21_3arfo"]
+[ext_resource type="AudioStream" uid="uid://dxkrhhd1y7ehy" path="res://Assets/Audio/SFX/Car/Beeps/beep_far.mp3" id="22_s25yl"]
+[ext_resource type="AudioStream" uid="uid://bj3qouo8llu14" path="res://Assets/Audio/SFX/Car/Beeps/beep_close.mp3" id="23_vd0i7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 height = 42.0
@@ -227,6 +230,10 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_s25yl"]
+offsets = PackedFloat32Array(0, 0.34343433, 0.46464646)
+colors = PackedColorArray(0, 0, 0, 1, 0.16835018, 0.16835018, 0.16835018, 1, 1, 1, 1, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsha1"]
 radius = 30.0
 
@@ -313,6 +320,73 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_3arfo"]
+offsets = PackedFloat32Array(0, 0.6262626, 1)
+colors = PackedColorArray(0.78072965, 0, 0.008172217, 1, 1, 0.47843137, 0.17254902, 1, 1, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd0i7"]
+shader = ExtResource("17_s25yl")
+shader_parameter/active = false
+
+[sub_resource type="Animation" id="Animation_3arfo"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CarSprite:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CarSprite:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_s25yl"]
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CarSprite:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(1, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0, 0, 20, 0, 0, 0, 0, 1, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.1, 0.2)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CarSprite:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vd0i7"]
+_data = {
+&"RESET": SubResource("Animation_3arfo"),
+&"flash": SubResource("Animation_s25yl")
+}
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpuix"]
 atlas = ExtResource("7_ly7qr")
 region = Rect2(0, 0, 32, 16)
@@ -360,6 +434,7 @@ animations = [{
 height = 42.0
 
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
+self_modulate = Color(1, 1, 1, 0)
 collision_mask = 538
 motion_mode = 1
 wall_min_slide_angle = 1.3962634
@@ -369,7 +444,6 @@ platform_wall_layers = 8
 safe_margin = 0.01
 script = ExtResource("1_rsha1")
 ghost_scene = ExtResource("2_nbj0p")
-damages_text = ExtResource("2_frphp")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
 visible = false
@@ -382,11 +456,28 @@ shape = SubResource("CapsuleShape2D_ly7qr")
 position = Vector2(-26, -9)
 
 [node name="RearLeftBurnAnim" type="AnimatedSprite2D" parent="RearLeft" unique_id=584128568]
+visible = false
 position = Vector2(-13, 2)
 rotation = -1.5707964
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_k282b")
 animation = &"fadeOut"
+
+[node name="DrivinSmokeL2" type="CPUParticles2D" parent="RearLeft" unique_id=262545815]
+position = Vector2(-6, 1)
+emitting = false
+amount = 20
+lifetime = 0.1
+one_shot = true
+speed_scale = 0.4
+direction = Vector2(-1, 0)
+spread = 24.64
+gravity = Vector2(0, 0)
+initial_velocity_min = 51.43
+initial_velocity_max = 148.57
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_s25yl")
 
 [node name="RearRight" type="Marker2D" parent="." unique_id=278920196]
 position = Vector2(-26, 9)
@@ -398,6 +489,22 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_k282b")
 animation = &"fadeIn"
 flip_h = true
+
+[node name="DrivinSmokeR2" type="CPUParticles2D" parent="RearRight" unique_id=343121497]
+position = Vector2(-5, 0)
+emitting = false
+amount = 20
+lifetime = 0.1
+one_shot = true
+speed_scale = 0.4
+direction = Vector2(-1, 0)
+spread = 24.64
+gravity = Vector2(0, 0)
+initial_velocity_min = 51.43
+initial_velocity_max = 148.57
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_s25yl")
 
 [node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
 visible = false
@@ -475,17 +582,47 @@ position = Vector2(-13, 0)
 sprite_frames = SubResource("SpriteFrames_tpuix")
 animation = &"Explosion"
 
+[node name="Sparkles" type="CPUParticles2D" parent="VFX" unique_id=1905737330]
+position = Vector2(-13, 0)
+emitting = false
+amount = 40
+lifetime = 1.2
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.6
+randomness = 0.15
+fixed_fps = 30
+draw_order = 1
+emission_shape = 6
+emission_ring_inner_radius = 1.0
+emission_ring_radius = 3.0
+particle_flag_align_y = true
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 22.86
+initial_velocity_max = 25.32
+scale_amount_min = 3.0
+scale_amount_max = 4.0
+color = Color(0.87437004, 0.39763713, 0, 1)
+color_ramp = SubResource("Gradient_3arfo")
+
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
 z_index = 1
+material = SubResource("ShaderMaterial_vd0i7")
 rotation = 1.5707964
 texture = ExtResource("3_m5ekh")
 offset = Vector2(0, 12)
+
+[node name="Flash" type="AnimationPlayer" parent="CarSprite" unique_id=573113732]
+root_node = NodePath("../../VFX")
+libraries/ = SubResource("AnimationLibrary_vd0i7")
 
 [node name="MineMarker" type="Marker2D" parent="." unique_id=1503101015]
 position = Vector2(-37.539063, -0.0234375)
 
 [node name="TutoArrow" type="Marker2D" parent="." unique_id=841650673]
-position = Vector2(33.367096, -0.36032867)
+position = Vector2(34, 0)
 
 [node name="GarageArrow" type="AnimatedSprite2D" parent="TutoArrow" unique_id=1849266520]
 visible = false
@@ -509,6 +646,20 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_y3qw6")
 debug_color = Color(0.94509804, 0, 0, 0.41960785)
 
+[node name="Beacon" type="Node2D" parent="." unique_id=1728405434]
+script = ExtResource("21_3arfo")
+
+[node name="FarBeeps" type="AudioStreamPlayer2D" parent="Beacon" unique_id=1182574168]
+stream = ExtResource("22_s25yl")
+bus = &"Beeps"
+
+[node name="CloseBeeps" type="AudioStreamPlayer2D" parent="Beacon" unique_id=1781271603]
+stream = ExtResource("23_vd0i7")
+bus = &"Beeps"
+
+[node name="BeepTimer" type="Timer" parent="Beacon" unique_id=2026395165]
+autostart = true
+
 [connection signal="animation_finished" from="RearLeft/RearLeftBurnAnim" to="." method="_on_rear_left_burn_anim_animation_finished"]
 [connection signal="animation_finished" from="RearRight/RearRightBurnAnim" to="." method="_on_rear_right_burn_animation_finished"]
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
@@ -517,3 +668,4 @@ debug_color = Color(0.94509804, 0, 0, 0.41960785)
 [connection signal="finished" from="Audio/StartEngine" to="." method="_on_start_engine_finished"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="area_entered" from="EnemiesDetectionArea" to="EnemiesDetectionArea" method="_on_area_entered"]
+[connection signal="timeout" from="Beacon/BeepTimer" to="Beacon" method="_on_beep_timer_timeout"]

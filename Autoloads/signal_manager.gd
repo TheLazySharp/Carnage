@@ -23,3 +23,6 @@ signal piston_picked_up
 
 @warning_ignore("unused_signal")
 signal player_located(horde: Array)
+
+@warning_ignore("unused_signal")
+signal game_is_over(game_over: bool)

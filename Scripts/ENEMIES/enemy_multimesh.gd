@@ -1,12 +1,12 @@
 extends Area2D
 class_name Enemy
 
-@export var max_life: int = 10
+@export var max_life: int
 var level_life_boost : int = 5
 var night_max_life_boost : int = 3
 @onready var current_life: int
 var damages_on_player: float = 1
-@export var speed: float = 40
+@export var speed: float
 var nb_xp: int = 1
 var is_leader: bool = false
 @export var leader: Enemy = null
@@ -38,11 +38,14 @@ var front_impact_ratio: float = -1.2
 
 # UI
 @onready var damages_text_pos: Marker2D = get_node("MarkerDamages")
-@export var damages_text: PackedScene
-@onready var damage_timer: Timer = $DamageTimer_Get
+@export var damages_label: PackedScene
+@onready var damage_timer: Timer = $DamageLabelTimer
 @onready var damage_timer_on_player: Timer = $DamageTimer_OnPlayer
+@onready var damage_flash_timer: Timer = $DamageFlashTimer
 @export var blood_particles: PackedScene = null
 @onready var collision_box: CollisionShape2D = $CollisionShape2D
+@onready var marker_damages: Marker2D = $MarkerDamages
+
 
 # COLLISION WITH WALLS
 var near_wall : bool = false
@@ -53,6 +56,7 @@ var near_wall : bool = false
 @onready var day_manager: Node = $/root/World/DayManager
 var day_is_ended: bool = false
 var game_paused := false
+var game_over := false
 
 #PERFS STAGGER
 var physics_skip_timer : float = 0
@@ -86,8 +90,8 @@ func _physics_process(delta: float) -> void:
 		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction * delta)
 		knockback_velocity = knockback_velocity.normalized() * knockback_length
 
-	elif player:
-		velocity = (player.global_position - global_position).normalized() * speed
+	#elif player:
+		#velocity = (player.global_position - global_position).normalized() * speed
 	
 	neighbors_timer += delta
 	if neighbors_timer >= neighbors_timer_steps :
@@ -201,9 +205,8 @@ func get_damages(damages: int) -> void:
 func flash_damage() -> void:
 	if renderer == null or mm_index < 0:
 		return
-	#print("flash_damage - mm_index:", mm_index)
-	#set_enemy_color(Color.RED)
-	damage_timer.start()
+	renderer.set_enemy_flash(mm_index, true)
+	damage_flash_timer.start()
 
 
 func set_enemy_color(color: Color) -> void:
@@ -218,8 +221,6 @@ func activate(spawn_position: Vector2) -> void:
 
 
 func _on_damage_timer_timeout() -> void:
-	#print("timer timeout - mm_index:", mm_index, " renderer null:", renderer == null)
-	#set_enemy_color(Color.WHITE)
 	damage_timer.stop()
 
 func _on_game_paused(game_on_pause: bool) -> void:
@@ -253,16 +254,14 @@ func _on_damage_timer_on_player_timeout() -> void:
 
 
 func display_damages(damages: int) -> void:
-	var text: Node2D = damages_text.instantiate()
-	# randf_range() global — pas besoin de RandomNumberGenerator.new()
 	var text_offsetX: float = randf_range(-10.0, 10.0)
-	var text_offsetY: float = randf_range(-10.0, 0.0)
-	text.this_label_text = str(damages)
-	add_child(text)
-	text.global_position = Vector2(
-		damages_text_pos.global_position.x + text_offsetX,
-		damages_text_pos.global_position.y + text_offsetY
-	)
+	var text_offsetY: float = randf_range(-50.0, 10.0)
+	var new_damages_label : Label = damages_label.instantiate()
+	add_child(new_damages_label)
+	new_damages_label.text =  str(damages)
+	new_damages_label.global_position = Vector2(marker_damages.global_position.x + text_offsetX,marker_damages.global_position.y + text_offsetY)
+	
+
 
 
 func blow_up(blood_position: Vector2) -> void:
@@ -299,3 +298,9 @@ func _on_hitbox_area_exited(area: Area2D) -> void:
 		return
 	player = null
 	damage_timer_on_player.stop()
+
+
+func _on_damage_flash_timer_timeout() -> void:
+	if renderer and mm_index >= 0:
+		renderer.set_enemy_flash(mm_index, false)
+	damage_flash_timer.stop()

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://c1ipv43cyhbbg"]
+
+[ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="1_e6k5c"]
+[ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="1_ksfcs"]
+
+[resource]
+script = ExtResource("1_ksfcs")
+type = 4
+icon = ExtResource("1_e6k5c")
+metadata/_custom_type_script = "uid://csefvr5yw2th"

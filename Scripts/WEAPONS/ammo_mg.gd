@@ -42,7 +42,7 @@ func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 	is_active = true
 	set_physics_process(true)
 	rotation = angle
-	camera_2d.screen_shake(2,0.5)
+	camera_2d.screen_shake(5,0.5)
 
 
 func _physics_process(delta: float) -> void:

@@ -5,7 +5,7 @@ extends Control
 @onready var quit: Button = $VBoxContainer/Quit
 
 
-var car_selection : String = "uid://b0ibe3gvcqm4q"
+var survivor_selection : String = "uid://cui5s6rmjs40o"
 var menu_scene : String= "uid://gmjjc1vmgcds"
 
 
@@ -13,7 +13,7 @@ func _ready() -> void:
 	restart.grab_focus()
 
 func _on_restart_pressed() -> void:
-	SceneManager.load_level(car_selection)
+	SceneManager.load_level(survivor_selection)
 	SceneManager.unload_game()
 
 

@@ -1,37 +1,28 @@
-[gd_scene format=3 uid="uid://pej2qquyboig"]
+[gd_scene format=3 uid="uid://h2ouuk33ddpd"]
 
-[ext_resource type="Script" uid="uid://c06gbngeptquw" path="res://Scripts/UI/damages_text.gd" id="1_61n2r"]
-[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_xcohc"]
+[ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="1_08ae0"]
+[ext_resource type="Script" uid="uid://bf6n8kvdfmyh3" path="res://Scripts/UI/damages_text.gd" id="1_61n2r"]
 
-[node name="DamagesText" type="Marker2D" unique_id=686418116]
-z_index = 20
-script = ExtResource("1_61n2r")
-
-[node name="Label" type="Label" parent="." unique_id=1877870604]
+[node name="DamagesText" type="Label" unique_id=1179974349]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -15.0
-offset_right = 63.0
-offset_bottom = 38.0
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.5, 0.5)
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.7194535, 2.5509298e-06, 5.7756904e-07, 1)
+theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_xcohc")
-theme_override_font_sizes/font_size = 48
-text = "200"
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("1_08ae0")
+theme_override_font_sizes/font_size = 32
+text = "10000"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Timer" type="Timer" parent="." unique_id=161450258]
-wait_time = 0.1
-one_shot = true
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+script = ExtResource("1_61n2r")

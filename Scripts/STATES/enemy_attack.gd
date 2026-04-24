@@ -10,9 +10,11 @@ var game_paused:=false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.game_is_over.connect(_on_game_over)
+
 
 func enter()-> void:
-	pass
+	print("enemy is attacking")
 		#enemy.set_enemy_color(Color.BLACK)
 
 
@@ -36,3 +38,7 @@ func physics_update(_delta: float)-> void:
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+
+func _on_game_over(game_is_over : bool)-> void : 
+	if game_is_over :
+		state_changed.emit(self,"idle") 

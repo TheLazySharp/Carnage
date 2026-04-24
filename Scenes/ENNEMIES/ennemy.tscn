@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c31g0smlywes2"]
 
 [ext_resource type="Script" uid="uid://cx8ecqb5wj7w5" path="res://Scripts/ENEMIES/enemy_multimesh.gd" id="1_63ifu"]
-[ext_resource type="PackedScene" uid="uid://pej2qquyboig" path="res://Scenes/UI/damages_text.tscn" id="2_gvr15"]
+[ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="2_gvr15"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="3_1b0bn"]
 [ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="4_0akt1"]
 [ext_resource type="Script" uid="uid://sn54tu4gkdhw" path="res://Scripts/STATES/enemy_sm.gd" id="9_63ifu"]
@@ -23,8 +23,10 @@ y_sort_enabled = true
 collision_layer = 2
 collision_mask = 2057
 script = ExtResource("1_63ifu")
+max_life = 10
+speed = 60.0
 xp_scene = ExtResource("3_1b0bn")
-damages_text = ExtResource("2_gvr15")
+damages_label = ExtResource("2_gvr15")
 blood_particles = ExtResource("4_0akt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324095049 groups=["ennemies"]]
@@ -42,8 +44,11 @@ simplify_epsilon = 10.0
 [node name="MarkerDamages" type="Marker2D" parent="." unique_id=851039847]
 position = Vector2(0, -22)
 
-[node name="DamageTimer_Get" type="Timer" parent="." unique_id=947202453]
-wait_time = 0.1
+[node name="DamageLabelTimer" type="Timer" parent="." unique_id=947202453]
+wait_time = 1.5
+
+[node name="DamageFlashTimer" type="Timer" parent="." unique_id=1060557146]
+wait_time = 0.5
 
 [node name="Visuals" type="Node" parent="." unique_id=40556897]
 
@@ -82,7 +87,8 @@ script = ExtResource("13_pgnhj")
 metadata/_custom_type_script = "uid://c6cihr87a2nuw"
 
 [connection signal="target_reached" from="NavigationAgent2D" to="StateMachine/Chase" method="_on_navigation_agent_2d_target_reached"]
-[connection signal="timeout" from="DamageTimer_Get" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="DamageLabelTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="DamageFlashTimer" to="." method="_on_damage_flash_timer_timeout"]
 [connection signal="timeout" from="DamageTimer_OnPlayer" to="." method="_on_damage_timer_on_player_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

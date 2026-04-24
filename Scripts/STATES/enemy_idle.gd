@@ -20,7 +20,8 @@ var forces_timer : float = 0
 var forces_timer_steps : float
 var leader_dest : Vector2
 
-var game_paused:=false
+var game_paused: bool = false
+var game_over : bool = false
 
 @onready var day_manager: Node = $/root/World/DayManager
 var day_is_ended : bool = false
@@ -29,11 +30,13 @@ var day_is_ended : bool = false
 func _ready() -> void:
 	forces_timer_steps = randf_range(0.5,0.8)
 	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.game_is_over.connect(_on_game_over)
 	day_manager.day_ended.connect(_on_day_end)
 	repulsion_radius_sq = repulsion_radius * repulsion_radius
 
 
 func enter()-> void:
+	#if !game_over:
 	init_formation()
 	speed_offset = randi_range(-5,5)
 	move_speed = (enemy.speed + speed_offset)
@@ -45,6 +48,9 @@ func init_formation()-> void:
 	var radius : float = randf_range(30,80)
 	formation_offset = Vector2(cos(angle),sin(angle)) * radius
 
+
+func _on_game_over(game_is_over : bool)-> void : 
+	game_over = game_is_over
 
 
 func exit()-> void:
@@ -95,6 +101,9 @@ func trouper_behavior(_delta : float) -> void:
 	var to_target : Vector2 = target_position - enemy.global_position
 	var attraction_force : Vector2 = Vector2.ZERO
 	var repulsion_force : Vector2 = Vector2.ZERO
+	
+	
+	
 	#var cohesion_force := Vector2.ZERO
 	#var troupers_count: int = 0
 	#var center_of_horde := Vector2.ZERO
@@ -112,8 +121,9 @@ func trouper_behavior(_delta : float) -> void:
 		var diff_dist : Vector2 = (enemy.global_position - enemy.horde_neighbors[i].global_position)
 		var dist_sq : float = diff_dist.length_squared()
 		
-		if dist_sq < repulsion_radius_sq and dist_sq > 0.0001:
-			repulsion_force += diff_dist.normalized() / dist_sq
+		if dist_sq < 400 and dist_sq > 0.0001:
+			var min_strenght : float = clamp(400 / dist_sq,1,5)
+			repulsion_force += diff_dist.normalized() * min_strenght * repulsion_weight
 	
 		#var dist_cohesion : float = enemy.global_position.distance_to(enemy.horde_neighbors[i].global_position)
 			
@@ -142,15 +152,14 @@ func trouper_behavior(_delta : float) -> void:
 	else : 
 		enemy.velocity = Vector2.ZERO
 		
-	if enemy.leader.velocity.length_squared() < 1:
-		enemy.velocity = Vector2.ZERO
-		attraction_force = Vector2.ZERO
-		repulsion_force = Vector2.ZERO
+	#if enemy.leader.velocity.length_squared() < 1:
+		#enemy.velocity = Vector2.ZERO
+		#attraction_force = Vector2.ZERO
+		#repulsion_force = Vector2.ZERO
 		#cohesion_force = Vector2.ZERO
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
-
 
 
 func _on_day_end(_day_end : bool) -> void : 

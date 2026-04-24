@@ -17,7 +17,7 @@ var first_scene : String = "uid://c6msxridefxxd"
 var survivor_selection : String = "uid://cui5s6rmjs40o"
 
 
-@onready var next: Button = $RightArrow/Next
+@onready var select: Button = $"../VBoxContainer/Select"
 
 
 
@@ -25,7 +25,7 @@ func _ready() -> void:
 	i = 0
 	displayed_car = CarManager.cars[i]
 	StatsManager.update_car_stats(displayed_car)
-	next.grab_focus()
+	select.grab_focus()
 	update_car_data()
 
 

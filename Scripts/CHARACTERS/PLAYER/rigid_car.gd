@@ -68,6 +68,7 @@ var can_dash : bool = false
 
 #INVINCIBLE
 var is_invincible : bool = false
+@onready var collision_shape: CollisionShape2D = $CollisionShape
 
 #CAM SHAKE
 var shake_timer : float = 0
@@ -97,11 +98,15 @@ var forward_only : bool
 var current_life: int
 @onready var life_bar: ProgressBar = $"../CanvasLayer/Board/FuelGauge"
 @onready var life_label: Label = $"../CanvasLayer/Board/FuelGauge/LifeLabel"
-@export var damages_text: PackedScene
-#@onready var damages_text_pos = get_node("MarkerDamages")
 @onready var taking_damages: Timer = $TakingDamages
 @onready var speed_label: Label = $"../CanvasLayer/Board/Speed"
+
+#VFX
 @onready var car_explosion: AnimatedSprite2D = $VFX/CarExplosion
+@onready var sparkles: CPUParticles2D = $VFX/Sparkles
+@onready var drivin_smoke_r_2: CPUParticles2D = $RearRight/DrivinSmokeR2
+@onready var drivin_smoke_l_2: CPUParticles2D = $RearLeft/DrivinSmokeL2
+@onready var flash: AnimationPlayer = $CarSprite/Flash
 
 
 func _ready() -> void:
@@ -139,6 +144,7 @@ func _ready() -> void:
 	current_grip = normal_grip
 	drifting = false
 	player.drifting = false
+
 	
 	#SKIDS
 	skid_spacing = player.skid_spacing
@@ -180,7 +186,7 @@ func _process(_delta: float) -> void:
 	#update_stats()
 
 func _physics_process(delta : float) -> void:
-	if not game_paused and can_drive:
+	if !game_paused and can_drive and !game_is_over:
 		engine_sfx_player.update_engine_sfx(velocity.length(), revving_start)
 		player.drifting = drifting
 		
@@ -291,9 +297,16 @@ func _physics_process(delta : float) -> void:
 
 
 		# ----------------- DAMPING -----------------
-		if drifting and abs(steer) > 0.05 and forward_velocity.length() > min_drift_speed:
-			var damping : float = lerp(0.0, max_drift_damping, slip_angle)
-			forward_velocity *= (1.0 - damping * delta)
+		if drifting and forward_velocity.length() > min_drift_speed:
+			var damping : float 
+			var forward_damp : float = 1
+			if abs(steer) > 0.05 :
+				damping = lerp(0.0, max_drift_damping, slip_angle)
+				forward_damp = 1
+			else: 
+				forward_damp = 0.99
+
+			forward_velocity *= (1.0 - damping * delta) * forward_damp
 
 		# ----------------- GRIP -----------------
 		if drifting:
@@ -354,7 +367,9 @@ func _physics_process(delta : float) -> void:
 					target_rotation += PI
 				
 				rotation = lerp_angle(rotation, target_rotation, 5.0 * delta)
-		
+				
+				if drifting :
+					drifting = false
 		
 		# ----------------- SKIDS -----------------
 		if drifting and not drifting_last_frame:
@@ -395,6 +410,17 @@ func _physics_process(delta : float) -> void:
 			right_border = null
 
 		drifting_last_frame = drifting
+
+		#VFX
+		if Input.is_action_just_pressed("accelerate") or Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") :
+			play_drivin_smokes()
+
+# ----------------- CAMERA JUICE -----------------
+		camera_2d.update_lookahead(velocity)
+		camera_2d.update_zoom(velocity.length())
+		#camera_2d.update_roll(get_drift_factor())
+
+
 
 
 func start_skid() -> void:
@@ -462,16 +488,18 @@ func get_damages_from_mob(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over and velocity.length() < velocity_floor:
 		is_taking_damages = true
 		current_life -= damages_on_player
+		sparkles.emitting = true
 		damages_sfx()
 		life_bar.value = current_life
 		#display_damages(damages_on_player)
 		#print("car get ",damages_on_player," dmg. Current life : ",str(current_life))
 		#animation_player.play("beaver_animations/flash")
+		flash.play("flash")
 		taking_damages.start()
 		
 		if current_life <=0:
 			current_life = 0
-			play_death()
+			on_death()
 			return
 			
 		if is_taking_damages:return
@@ -480,27 +508,32 @@ func get_damages(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over:
 		current_life -= damages_on_player
 		life_bar.value = current_life
+		sparkles.emitting = true
+		flash.play("flash")
+		
 		#display_damages(damages_on_player)
 		
 		if current_life <=0:
 			current_life = 0
-			play_death()
+			on_death()
 			return
 
 
-func play_death() -> void:
+func on_death() -> void:
 	can_drive = false
 	is_taking_damages = false
 	WeaponsManager.activate_weapons(false)
 	WeaponsManager.unload()
 	car_sprite.hide()
+	collision_shape.set_deferred("disabled",true)
 	car_explosion.play("Explosion")
 	death_sfx.play()
 	camera_2d.screen_shake(15,1)
 	game_is_over = true
+	SignalManager.emit_signal("game_is_over",game_is_over) #Emitted to other autoload managers (enemies...)
 	#animated_sprite.hide()
 	await get_tree().create_timer(2).timeout
-	emit_signal("game_over", game_is_over)
+	emit_signal("game_over", game_is_over) #Emitted to the ScenesManager to load GameOver scene
 	
 	
 #func display_damages(_damages)-> void:
@@ -565,7 +598,6 @@ func _on_rear_left_burn_anim_animation_finished() -> void:
 
 
 func _on_rear_right_burn_animation_finished() -> void:
-	#print("burning : ",burning)
 	if burning:
 		rear_right_burn_anim.play('idle')
 	else :
@@ -602,7 +634,7 @@ func _on_boost_full() -> void:
 	can_dash = true
 	
 func damages_sfx()-> void : 
-	if game_paused:
+	if game_paused or game_is_over:
 		return
 	for dmg_player in dmg_players:
 		if !dmg_player.playing:
@@ -611,4 +643,21 @@ func damages_sfx()-> void :
 
 func _on_run_ended() -> void:
 	StatsManager.current_life = current_life
-	print("run ended : ",current_life)
+	#print("run ended : ",current_life)
+	
+func play_drivin_smokes() -> void : 
+	if game_paused or game_is_over:
+		return
+	#drivin_smoke_l.play("default")
+	#drivin_smoke_r.play("default")
+	drivin_smoke_r_2.emitting = true
+	drivin_smoke_l_2.emitting = true
+
+func get_drift_factor() -> float:
+	if velocity.length() < 10.0 or !drifting:
+		return 0.0
+	var forward := Vector2.RIGHT.rotated(rotation)
+	var angle : float = forward.angle_to(velocity.normalized())
+	var factor : float = clamp(angle / deg_to_rad(20.0), -1.0, 1.0)
+	#print("drfit factor : ",factor)
+	return factor

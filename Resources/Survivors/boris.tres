@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://co2hy6ybsg7b6"]
 
 [ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="1_ypx4g"]
+[ext_resource type="Resource" uid="uid://bscqr5kkoivs1" path="res://Resources/Jobs/miner.tres" id="2_830ut"]
 [ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="2_ca8rp"]
 [ext_resource type="Resource" uid="uid://cxd60bmbatyvi" path="res://Resources/Weapons/mine_launcher.tres" id="3_830ut"]
 
@@ -8,7 +9,7 @@
 script = ExtResource("2_ca8rp")
 name = "Boris"
 age = 53
-job = "Miner"
+job_ressource = ExtResource("2_830ut")
 bio = "Boris worked deep underground. He discovered an UNKNOWN SUBSTANCE buried below. It seemed alive. He is convinced of its UNDERGROUND ORIGIN. Soon after, everything collapsed. Now he traps infected zones."
 icon = ExtResource("1_ypx4g")
 weapon = ExtResource("3_830ut")

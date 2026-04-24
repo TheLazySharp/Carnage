@@ -12,19 +12,21 @@ const EMPTY_AMMO = preload("uid://dc7hb24vr2x6r")
 
 
 var weapon_scenes: Array[Array]
-
 var weapons : Array[WeaponData]
 var unequipped_weapons: Array[WeaponData]
 var ammunitions : Array[WeaponData]
-
 var weapon : WeaponData
 var player_current_level: int
-
-signal new_weapon_data(new_weapon: WeaponData, weapon_list : Array, weapon_show: bool)
+var game_over : bool = false
 
 func _ready() -> void:
-	XPManager.update_level.connect(shuffle_new_weapon)
+	SignalManager.game_is_over.connect(_on_game_over)
 	
+
+func _process(_delta: float) -> void:
+	if !game_over:
+		return
+	unload()
 
 func load_weapons() -> void:
 	locked_weapon(REVOLVER)
@@ -108,13 +110,13 @@ func unequip_ammo() -> void:
 	ammunitions.clear()
 	
 
-func shuffle_new_weapon(new_current_level : int) -> void:
-	player_current_level = new_current_level
-	#if player_current_level % 2 == 0 : 
-	if unequipped_weapons.size()>0:
-		unequipped_weapons.shuffle()
-		emit_signal("new_weapon_data", unequipped_weapons[0], unequipped_weapons, true)
-	#else: return
+#func shuffle_new_weapon(new_current_level : int) -> void:
+	#player_current_level = new_current_level
+	##if player_current_level % 2 == 0 : 
+	#if unequipped_weapons.size()>0:
+		#unequipped_weapons.shuffle()
+		#emit_signal("new_weapon_data", unequipped_weapons[0], unequipped_weapons, true)
+	##else: return
 
 
 func unload() -> void:
@@ -124,7 +126,7 @@ func unload() -> void:
 	unequipped_weapons.clear()
 	weapon_scenes.clear()
 	ammunitions.clear()
-	#CHECK SI BESOIN DE INIT DE NOUVEAU
+
 
 
 func reinit_weapons() -> void:
@@ -148,4 +150,5 @@ func weapon_stat(weap : WeaponData) -> void:
 	if weap.weapon_ammo_res != null:
 		weap.dmg = weap.weapon_ammo_res.dmg
 
-	
+func _on_game_over(game_is_over : bool) -> void : 
+	game_over = game_is_over

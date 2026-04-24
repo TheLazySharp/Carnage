@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dsn18jy5k2in8"]
+
+[ext_resource type="Script" uid="uid://e0kd3buipuat" path="res://Scripts/SCENES/roadmap.gd" id="1_ddeal"]
+[ext_resource type="Script" uid="uid://c02nv0r8cwsi7" path="res://Scripts/SCENES/path_generator.gd" id="2_ddeal"]
+
+[node name="Roadmap" type="Node2D" unique_id=546212488]
+script = ExtResource("1_ddeal")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=178234721]
+position = Vector2(640, 400)
+limit_enabled = false
+
+[node name="Visuals" type="Node2D" parent="." unique_id=379163012]
+
+[node name="Lines" type="Node2D" parent="Visuals" unique_id=777426290]
+unique_name_in_owner = true
+
+[node name="Districts" type="Node2D" parent="Visuals" unique_id=2136848043]
+unique_name_in_owner = true
+
+[node name="MapGenerator" type="Node" parent="." unique_id=329523385]
+script = ExtResource("2_ddeal")
+
+[node name="MapBackground" type="CanvasLayer" parent="." unique_id=1242022812]
+visible = false
+
+[node name="Background" type="ColorRect" parent="MapBackground" unique_id=1761103733]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)

@@ -67,7 +67,7 @@ var already_selected:= false
 
 func _ready() -> void:
 	hide()
-	WeaponsManager.new_weapon_data.connect(_update_weapons_list)
+	#WeaponsManager.new_weapon_data.connect(_update_weapons_list)
 	XPManager.update_level.connect(level_up)
 	
 	slots = weapon_slot_container.get_child_count()
@@ -104,8 +104,8 @@ func _process(_delta: float) -> void:
 			
 			if i < weapons.size():
 				w_confirm_button.text = "UPGRADE"
-			elif i == weapons.size():
-				w_confirm_button.text = "EQUIP"
+			#elif i == weapons.size():
+				#w_confirm_button.text = "EQUIP"
 			
 			if weapon_button.has_focus() or w_confirm_button.has_focus() or ammo_button.has_focus() or a_confirm_button.has_focus() or skip_button.has_focus():
 				if i < weapons.size():
@@ -116,7 +116,7 @@ func _process(_delta: float) -> void:
 					weapon_levels.text = str(weapons[i].current_level)
 					
 
-					
+
 					#STATS
 					
 					if ammo_button.has_focus() or a_confirm_button.has_focus():
@@ -219,17 +219,15 @@ func _process(_delta: float) -> void:
 						ammo_icon.get_parent().show()
 						ammo_icon.texture = weapons[i].weapon_ammo_res.weapon_icon
 					
-				elif i == weapons.size() and !unequiped_weapons.is_empty() : #NEW WEAPON TO EQUIP
-					upgrades.hide()
-					weapon_name.text = new_weapon.weapon_name
-					weapon_descr.text = new_weapon.description
-					weapon_icon.texture = new_weapon.weapon_icon
-					weapon_levels.text = "100"
-					ammo_name.hide()
-					ammo_levels.hide()
-					ammo_icon.get_parent().hide()
-	
-
+				#elif i == weapons.size() and !unequiped_weapons.is_empty() : #NEW WEAPON TO EQUIP
+					#upgrades.hide()
+					#weapon_name.text = new_weapon.weapon_name
+					#weapon_descr.text = new_weapon.description
+					#weapon_icon.texture = new_weapon.weapon_icon
+					#weapon_levels.text = "100"
+					#ammo_name.hide()
+					#ammo_levels.hide()
+					#ammo_icon.get_parent().hide()
 
 
 func level_up(new_current_level : int) -> void:
@@ -256,11 +254,10 @@ func get_focus() -> void:
 	weapon_data_buttons[0].grab_focus()
 
 func _on_button_pressed(button_id : int) -> void:
-
 	if button_id < weapons.size():
 		weapon = weapons[button_id]
-	elif button_id == weapons.size():
-		weapon = new_weapon
+	#elif button_id == weapons.size():
+		#weapon = new_weapon
 	
 	if weapon.current_level < weapon.max_level :
 		button_selected_id = button_id
@@ -288,8 +285,8 @@ func leveling_ok() -> void:
 		if weapon.is_equiped:
 			weapon_level_up(button_selected_id)
 
-		else: 
-			WeaponsManager.equip_weapon(weapon)
+		#else: 
+			#WeaponsManager.equip_weapon(weapon)
 		SignalManager.emit_signal("game_paused", game_is_paused)
 		leveling.hide()
 		weapon_levelup_ok = false
@@ -303,7 +300,7 @@ func weapon_level_up(weapon_id: int) -> void:
 
 	#print(weapons[weapon_id], " level up")
 
-func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array, weapon_show : bool) -> void:
-	new_weapon = new_weapon_to_equiped
-	unequiped_weapons = new_weapons_list
-	new_weapon_show = weapon_show
+#func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array, weapon_show : bool) -> void:
+	#new_weapon = new_weapon_to_equiped
+	#unequiped_weapons = new_weapons_list
+	#new_weapon_show = weapon_show

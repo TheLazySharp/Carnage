@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="JobsData" format=3 uid="uid://bh2tvdd8vx0l3"]
+
+[ext_resource type="Script" uid="uid://p2ifmvs7scku" path="res://Resources/Scripts/jobs_data.gd" id="1_1n1fb"]
+
+[resource]
+script = ExtResource("1_1n1fb")
+job_title = "Cook"
+job_descr = "PLACE HOLDER"
+effect = 1.0
+metadata/_custom_type_script = "uid://p2ifmvs7scku"

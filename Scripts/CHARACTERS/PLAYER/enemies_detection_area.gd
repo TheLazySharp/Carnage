@@ -23,7 +23,7 @@ func _on_area_entered(area: Area2D) -> void:
  
 	area.get_impact(car_forward, car_right, speed_ratio)
 	car.velocity *= 0.95
-	camera_2d.screen_shake(3,0.5)
+	camera_2d.screen_shake(5,0.5)
 
 	if damage_timer < damage_timer_steps :
 		return

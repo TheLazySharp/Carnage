@@ -20,17 +20,23 @@ var detection_timer: float = 0.0
 var detection_timer_steps: float = 0.3
 
 @onready var target: Node2D = $"/root/World/Car"
-var game_paused:=false
+var game_paused: bool =false
+var game_over : bool = false
 
 func _ready() -> void:
 	SignalManager.connect("enemy_is_dead",_on_enemy_death)
 	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.game_is_over.connect(_on_game_over)
+
 
 
 func _process(delta: float) -> void:
 	if game_paused:
 		return
-		
+	
+	if game_over:
+		return
+	
 	detection_timer += delta
 	if detection_timer >= detection_timer_steps:
 		detection_timer = 0
@@ -114,6 +120,8 @@ func leaders_check(horde : Array) -> void:
 					break
 
 func set_new_leader(new_leader : Enemy, new_leader_horde : Array) -> void:
+	if game_over:
+		return
 	new_leader.is_leader = true
 	#new_leader.set_enemy_color(Color.BLACK)
 
@@ -127,6 +135,8 @@ func set_new_leader(new_leader : Enemy, new_leader_horde : Array) -> void:
 				new_leader_horde[i].leader = new_leader
 
 func update_player_detection() -> void:
+	if game_over:
+		return
 	var player_pos := target.global_position
 	for horde in enemies_hordes:
 		if horde.size() > 0 and is_instance_valid(horde[0]):
@@ -142,3 +152,6 @@ func update_player_detection() -> void:
 					if is_instance_valid(horde[j]):
 						horde[j].state_machine.state_transition_to("chase")
 				break
+
+func _on_game_over(game_is_over : bool)-> void : 
+	game_over = game_is_over

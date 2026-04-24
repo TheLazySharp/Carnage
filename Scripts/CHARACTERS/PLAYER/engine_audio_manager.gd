@@ -1,6 +1,6 @@
 extends Node2D
 
-var car : CarData
+var car_res : CarData
 @onready var car_node: CharacterBody2D = $"../.."
 var rpm_loops : Array =[1000, 2000,3000,4000,5000]
 
@@ -10,6 +10,7 @@ const GEARS := [
 	{"min_spd": 160.0, "max_spd": 240.0, "min_rpm": 1000.0, "max_rpm": 5000.0},
 	{"min_spd": 240.0, "max_spd": 320.0, "min_rpm": 1000.0, "max_rpm": 5000.0},
 ]
+
 var current_gear_index : int
 var gear_margin : float = 0.1
 var last_speed : float = 0.0
@@ -22,17 +23,16 @@ var smoothed_rpm : float = 1000
 var rpm_step : float = 1000
 
 var max_speed : float
-#var max_rpm : int = 4500
-#var min_rpm : int = 1000
 var fade_time_up : float = 1.5
 var fade_time_down : float = 0.05
 
-
+var game_over : bool = false
 
 func _ready() -> void:
-	car = CarManager.selected_car
+	car_res = CarManager.selected_car
 	car_node.dashing.connect(on_dash)
-	max_speed = car.max_speed
+	SignalManager.game_is_over.connect(_on_game_over)
+	max_speed = car_res.max_speed
 	
 	for i in rpm_loops.size():
 		var player := AudioStreamPlayer.new()
@@ -118,3 +118,9 @@ func update_engine_sfx(current_speed : float, is_burning : bool) -> void :
 func on_dash()-> void : 
 	smoothed_rpm = 4000
 	current_gear_index = clampi(get_gear_idx(last_speed),0,GEARS.size() - 1)
+
+func _on_game_over(game_is_over : bool) -> void : 
+	game_over = game_is_over
+	for i in range(loop_players.size()):
+		loop_players[i].volume_db = -80
+	print("game is over on sfx : ",game_over)
