@@ -26,3 +26,6 @@ signal player_located(horde: Array)
 
 @warning_ignore("unused_signal")
 signal game_is_over(game_over: bool)
+
+@warning_ignore("unused_signal")
+signal day_ended

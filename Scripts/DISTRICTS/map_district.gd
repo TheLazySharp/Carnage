@@ -3,13 +3,14 @@ class_name MapDistrict
 
 signal selected(district : DistrictsData)
 
-
 @onready var icon: Sprite2D = $Visuals/Icon
 @onready var line_2d_back: Line2D = $Visuals/Line2DBack
 @onready var line_2d_front: Line2D = $Visuals/Line2DFront
 
 var available: bool = false : set = set_available
 var district : DistrictsData : set = set_district
+@onready var animation_player: AnimationPlayer = $Visuals/AnimationPlayer
+@onready var button: Button = $Button
 
 const ICONS :  Dictionary = {
 	DistrictsData.types.N_A: [null, Vector2.ONE],
@@ -20,10 +21,23 @@ const ICONS :  Dictionary = {
 	DistrictsData.types.SHOP: [preload("uid://dv0dbia1l7x8h"), Vector2.ONE]
 }
 
+func _ready() -> void:
+	button.hide()
+
+
+func _process(_delta: float) -> void:
+	if button.has_focus():
+		icon.self_modulate = Color.RED
+	else :
+		icon.self_modulate = Color.WHITE
+		
+
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if !available or !event.is_action_pressed("select"):
 		return
 	district.selected = true
+	
+	
 	
 	# UI Ex SFX/DRAW.. 
 	#and wait for the animation finished for emit the selected signal
@@ -36,8 +50,10 @@ func set_available(new_value : bool) -> void :
 	if available:
 		line_2d_back.show()
 		line_2d_front.show()
+		animation_player.play("disctrict_available")
 	elif !district.selected:
 		pass #UI Ex : modulate a
+
 
 func set_district(new_data : DistrictsData) -> void : 
 	district = new_data
@@ -52,4 +68,7 @@ func show_selected() -> void :
 
 func on_map_district_selected() -> void : 
 	emit_signal("selected",district)
-	
+
+func _on_button_pressed() -> void:
+	print("button pressed on disctrict : ",district, " / column : ",district.column)
+	SceneManager.load_district(district)

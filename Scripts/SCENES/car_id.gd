@@ -14,6 +14,7 @@ var i : int
 
 
 var first_scene : String = "uid://c6msxridefxxd"
+var roadmap_scene : String = "uid://dsn18jy5k2in8"
 var survivor_selection : String = "uid://cui5s6rmjs40o"
 
 
@@ -60,7 +61,7 @@ func update_car_data() -> void:
 func _on_select_pressed() -> void:
 	CarManager.selected_car = displayed_car
 	StatsManager.update_car_stats(CarManager.selected_car)
-	SceneManager.load_level(first_scene)
+	SceneManager.load_level(roadmap_scene)
 
 
 func _on_back_pressed() -> void:

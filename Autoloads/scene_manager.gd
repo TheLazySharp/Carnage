@@ -11,7 +11,14 @@ var scenes: Dictionary[String,String] = {
 	"LuckyCharms" : "uid://ch2rp03kbdyg7",
 	"Commands" : "uid://dayxnnf2ndx5c",
 	"Missions" : "uid://dc6hb14w0yref",
-	"Survivors" : "uid://cui5s6rmjs40o"
+	"Survivors" : "uid://cui5s6rmjs40o",
+	"RoadMap" : "uid://dsn18jy5k2in8"
+}
+
+var districts_scenes : Dictionary[DistrictsData.types,String] = {
+	DistrictsData.types.GARAGE :"uid://cs311xlcqlrt0",
+	DistrictsData.types.MISSION :"uid://c6msxridefxxd",
+	DistrictsData.types.PARKING :"uid://c6msxridefxxd",
 }
 
 #TEST = true
@@ -22,6 +29,10 @@ var ready_go_timer: float = 2.0
 
 func load_level(uid: String) -> void:
 	get_tree().call_deferred("change_scene_to_file", uid)
+
+func load_district(loading_district : DistrictsData) -> void : 
+	get_tree().call_deferred("change_scene_to_file", districts_scenes[loading_district.type])
+	
 
 func unload_game() -> void:
 	XPManager.unload()

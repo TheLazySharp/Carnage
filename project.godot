@@ -36,6 +36,7 @@ SignalManager="*uid://b24sd62rqu8jc"
 AudioMaster="*uid://cfru00x1doqcr"
 LuckyCharmsManager="*uid://bcdy4d7pqlrlf"
 SurvivorsManager="*uid://crbnfqnw0mqge"
+RoadMapManager="*uid://dvfbxb2hpkq5r"
 
 [debug]
 

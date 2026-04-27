@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://e0kd3buipuat" path="res://Scripts/SCENES/roadmap.gd" id="1_ddeal"]
 [ext_resource type="Script" uid="uid://c02nv0r8cwsi7" path="res://Scripts/SCENES/path_generator.gd" id="2_ddeal"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="3_jdbi3"]
 
 [node name="Roadmap" type="Node2D" unique_id=546212488]
 script = ExtResource("1_ddeal")
@@ -10,22 +11,21 @@ script = ExtResource("1_ddeal")
 position = Vector2(640, 400)
 limit_enabled = false
 
-[node name="Visuals" type="Node2D" parent="." unique_id=379163012]
-
-[node name="Lines" type="Node2D" parent="Visuals" unique_id=777426290]
-unique_name_in_owner = true
-
-[node name="Districts" type="Node2D" parent="Visuals" unique_id=2136848043]
-unique_name_in_owner = true
-
 [node name="MapGenerator" type="Node" parent="." unique_id=329523385]
 script = ExtResource("2_ddeal")
 
 [node name="MapBackground" type="CanvasLayer" parent="." unique_id=1242022812]
-visible = false
 
-[node name="Background" type="ColorRect" parent="MapBackground" unique_id=1761103733]
-visible = false
+[node name="ControlMap" type="Control" parent="MapBackground" unique_id=2050622075]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="MapBackground/ControlMap" unique_id=1761103733]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -33,4 +33,30 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-color = Color(0, 0, 0, 1)
+color = Color(0.15127608, 0.15127608, 0.15127608, 1)
+
+[node name="Title" type="Label" parent="MapBackground/ControlMap" unique_id=1075433908]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("3_jdbi3")
+theme_override_font_sizes/font_size = 64
+text = "CHOSE YOUR PATH"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+
+[node name="Visuals" type="Node2D" parent="MapBackground/ControlMap" unique_id=379163012]
+
+[node name="Lines" type="Node2D" parent="MapBackground/ControlMap/Visuals" unique_id=777426290]
+unique_name_in_owner = true
+
+[node name="Districts" type="Node2D" parent="MapBackground/ControlMap/Visuals" unique_id=2136848043]
+unique_name_in_owner = true

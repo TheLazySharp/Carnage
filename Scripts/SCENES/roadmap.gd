@@ -6,31 +6,38 @@ const MAP_LINE = preload("uid://c1x3sw3es8h4c")
 const DISTRICT = preload("uid://dy7ucna56qsok") #map_district scene
 
 @onready var camera_2d: Camera2D = $Camera2D
-@onready var visuals: Node2D = $Visuals
+@onready var visuals: Node2D = $MapBackground/ControlMap/Visuals
 @onready var lines: Node2D = %Lines
 @onready var districts: Node2D = %Districts
 @onready var map_generator: PathGenerator = $MapGenerator
 
 var map_data : Array[Array]
-var steps_reached : int
+
 var last_district : DistrictsData
-var camera_edge_y : float
+var visuals_edge_y : float
+var button_index : int = 0
 
 func _ready() -> void:
-	camera_edge_y = PathGenerator.Y_DIST * (PathGenerator.STEPS -1) * 2
-	
+	visuals_edge_y = RoadMapManager.Y_DIST * (RoadMapManager.STEPS -1)
 	generate_new_map()
-	unlock_step(0)
+	unlock_step(RoadMapManager.steps_reached)
 
 func generate_new_map() -> void : 
-	steps_reached = 0
-	map_data = map_generator.generate_map()
+	if RoadMapManager.current_map_data.is_empty():
+		RoadMapManager.steps_reached = 0
+		map_data = RoadMapManager.generate_map()
+	else :
+		map_data = RoadMapManager.current_map_data
 	create_map()
 
-func unlock_step(step : int = steps_reached) -> void : 
+func unlock_step(step : int = RoadMapManager.steps_reached) -> void : 
 	for map_district : MapDistrict in districts.get_children():
 		if map_district.district.row == step:
 			map_district.available = true
+			map_district.get_node("Button").show()
+	for map_district : MapDistrict in districts.get_children():
+		if map_district.district.row == step and map_district.get_node("Button").is_visible():
+			map_district.get_node("Button").grab_focus()
 
 func unlock_next_rooms() -> void : 
 	for map_district : MapDistrict in districts.get_children():
@@ -51,12 +58,12 @@ func create_map() -> void :
 			if district.next_districts.size() > 0 : 
 				spawn_district(district)
 	
-	var middle: int = floori(PathGenerator.GRID_WIDTH * 0.5)
-	spawn_district(map_data[PathGenerator.STEPS-1][middle])
+	var middle: int = floori(RoadMapManager.GRID_WIDTH * 0.5)
+	spawn_district(map_data[RoadMapManager.STEPS-1][middle])
 	
-	var map_width_pixels : int = PathGenerator.X_DIST * (PathGenerator.GRID_WIDTH - 1)
+	var map_width_pixels : int = RoadMapManager.X_DIST * (RoadMapManager.GRID_WIDTH - 1)
 	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) * 0.5
-	visuals.position.y = get_viewport_rect().size.y * 0.5
+	visuals.position.y = get_viewport_rect().size.y - 100
 
 func spawn_district(district : DistrictsData) -> void : 
 	var new_map_district := DISTRICT.instantiate() as MapDistrict
@@ -65,16 +72,16 @@ func spawn_district(district : DistrictsData) -> void :
 	new_map_district.selected.connect(_on_map_district_selected)
 	connect_lines(district)
 	
-	if district.selected and district.row < steps_reached:
+	if district.selected and district.row < RoadMapManager.steps_reached:
 		new_map_district.show_selected()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("scroll_up"):
-		camera_2d.position.y -= SCROLL_SPEED
+		visuals.position.y -= SCROLL_SPEED
 	elif event.is_action_pressed("scroll_down"):
-		camera_2d.position.y += SCROLL_SPEED
+		visuals.position.y += SCROLL_SPEED
 	
-	camera_2d.position.y = clamp(camera_2d.position.y, 0, camera_edge_y)
+	visuals.position.y = clamp(visuals.position.y, visuals_edge_y * 0.5, visuals_edge_y * 1.5)
 
 func _on_map_district_selected(district : DistrictsData)-> void : 
 	for map_district : MapDistrict in districts.get_children():
@@ -82,7 +89,7 @@ func _on_map_district_selected(district : DistrictsData)-> void :
 			map_district.available = false
 	
 	last_district = district
-	steps_reached += 1
+	RoadMapManager.steps_reached += 1
 	print("load ",district.type) 
 	# -------------------- TO DO : LOAD THE DIFFERENT TYPE OF DISTRICTS -------------------------------------
 

@@ -77,6 +77,7 @@ func _on_game_paused(game_on_pause : bool ) -> void:
 func on_day_end() -> void:
 	timer_stopped = true
 	emit_signal("day_ended", timer_stopped)
+	SignalManager.emit_signal("day_ended")
 	garage_arrow.play("moving")
 	garage_arrow.show()
 	SignalManager.emit_signal("tuto_arrow_dir", starting_gate.global_position)
