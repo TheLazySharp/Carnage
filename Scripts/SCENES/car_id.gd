@@ -12,15 +12,11 @@ var i : int
 @onready var dmg: Label = $Stats/Dmg
 @onready var drift: Label = $Stats/Drift
 
-
 var first_scene : String = "uid://c6msxridefxxd"
 var roadmap_scene : String = "uid://dsn18jy5k2in8"
 var survivor_selection : String = "uid://cui5s6rmjs40o"
 
-
 @onready var select: Button = $"../VBoxContainer/Select"
-
-
 
 func _ready() -> void:
 	i = 0

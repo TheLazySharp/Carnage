@@ -2,16 +2,21 @@
 
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="1_y2mfa"]
 [ext_resource type="Script" uid="uid://dt0ja6p2s5gjd" path="res://Scripts/SCENES/car_id.gd" id="2_2xls2"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="2_alyf3"]
 [ext_resource type="Texture2D" uid="uid://bqlx6iu4ihme6" path="res://Assets/UI/arrow.png" id="3_2xls2"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="3_kdb2l"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="5_hwclg"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_usysd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idhpx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4ctw"]
-bg_color = Color(0.27707702, 0.059207946, 0.21855786, 1)
+bg_color = Color(0, 0, 0, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
+border_color = Color(1, 0.776, 0, 1)
 
 [node name="CarSelection" type="Control" unique_id=1948324265]
 layout_mode = 3
@@ -47,6 +52,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
+script = ExtResource("2_alyf3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2047964599]
 layout_mode = 1
@@ -73,6 +79,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_idhpx")
 text = "SELECT"
 flat = true
+script = ExtResource("3_kdb2l")
 
 [node name="Back" type="Button" parent="VBoxContainer" unique_id=1837571806]
 layout_mode = 2
@@ -85,6 +92,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_idhpx")
 text = "BACK"
 flat = true
+script = ExtResource("3_kdb2l")
 
 [node name="CarID" type="Panel" parent="." unique_id=71878531]
 layout_mode = 1
@@ -117,19 +125,28 @@ theme_override_font_sizes/font_size = 24
 text = "car_name"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("5_hwclg")
 
 [node name="Icon" type="TextureRect" parent="CarID" unique_id=1644663637]
-layout_mode = 0
-offset_left = 94.0
-offset_top = 45.0
-offset_right = 193.0
-offset_bottom = 190.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 72.5
+offset_top = -157.5
+offset_right = 171.5
+offset_bottom = -12.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
 
 [node name="Stats" type="VBoxContainer" parent="CarID" unique_id=769234249]
 layout_mode = 0
-offset_left = 6.0
+offset_left = 14.0
 offset_top = 266.0
-offset_right = 284.0
+offset_right = 273.0
 offset_bottom = 437.0
 
 [node name="Fuel" type="Label" parent="CarID/Stats" unique_id=1198830555]
@@ -138,6 +155,7 @@ theme_override_fonts/font = ExtResource("1_y2mfa")
 theme_override_font_sizes/font_size = 24
 text = "Fuel"
 vertical_alignment = 1
+script = ExtResource("6_usysd")
 
 [node name="Speed" type="Label" parent="CarID/Stats" unique_id=679219992]
 layout_mode = 2
@@ -145,6 +163,7 @@ theme_override_fonts/font = ExtResource("1_y2mfa")
 theme_override_font_sizes/font_size = 24
 text = "SPEED"
 vertical_alignment = 1
+script = ExtResource("6_usysd")
 
 [node name="Torque" type="Label" parent="CarID/Stats" unique_id=208726593]
 layout_mode = 2
@@ -152,6 +171,7 @@ theme_override_fonts/font = ExtResource("1_y2mfa")
 theme_override_font_sizes/font_size = 24
 text = "TORQUE"
 vertical_alignment = 1
+script = ExtResource("6_usysd")
 
 [node name="Dmg" type="Label" parent="CarID/Stats" unique_id=1602713325]
 layout_mode = 2
@@ -159,6 +179,7 @@ theme_override_fonts/font = ExtResource("1_y2mfa")
 theme_override_font_sizes/font_size = 24
 text = "DMG"
 vertical_alignment = 1
+script = ExtResource("6_usysd")
 
 [node name="Drift" type="Label" parent="CarID/Stats" unique_id=1807501437]
 layout_mode = 2
@@ -166,6 +187,7 @@ theme_override_fonts/font = ExtResource("1_y2mfa")
 theme_override_font_sizes/font_size = 24
 text = "Drift"
 vertical_alignment = 1
+script = ExtResource("6_usysd")
 
 [node name="RightArrow" type="TextureRect" parent="CarID" unique_id=1159971362]
 layout_mode = 0
@@ -199,6 +221,7 @@ theme_override_font_sizes/font_size = 32
 text = "RB"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("5_hwclg")
 
 [node name="LeftArrow" type="TextureRect" parent="CarID" unique_id=892891168]
 layout_mode = 0
@@ -233,6 +256,7 @@ theme_override_font_sizes/font_size = 32
 text = "LB"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("5_hwclg")
 
 [connection signal="pressed" from="VBoxContainer/Select" to="CarID" method="_on_select_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="CarID" method="_on_back_pressed"]

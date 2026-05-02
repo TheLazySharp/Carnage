@@ -3,6 +3,7 @@ extends Control
 @onready var pnj_name_icon: Label = $MarginContainer/BoxContainer/PNJ0/PNJName
 @onready var color_rect: ColorRect = $MarginContainer/BoxContainer/PNJ0/ColorRect
 @onready var portrait: TextureRect = $MarginContainer/BoxContainer/PNJ0/Portrait
+@onready var pick_up: Button = $YesNo/PickUp
 
 @onready var pnj_name: Label = $SurvivorBio/PNJName
 @onready var pnj_age: Label = $SurvivorBio/PNJAge
@@ -35,6 +36,7 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 	weapon_icon.texture = new_survivor.weapon.weapon_icon
 	pnj_weapon.text = new_survivor.weapon.weapon_name
 	weapon_descr.text = new_survivor.weapon.description
+	pick_up.grab_focus()
 
 
 func _on_pick_up_pressed() -> void:

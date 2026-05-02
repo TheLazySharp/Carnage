@@ -71,7 +71,7 @@ func shuffle() -> void :
 	shuffled_pool_copy.clear()
 	for i in range(0, min(pool.size(),max_displayed_charms)):
 		shuffled_pool_copy.append(pool[i])
-	print(shuffled_pool_copy)
+	#print(shuffled_pool_copy)
 
 func unload() -> void : 
 	pool.clear()

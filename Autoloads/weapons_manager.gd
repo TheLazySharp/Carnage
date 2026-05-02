@@ -11,22 +11,17 @@ const LANDMINE = preload("uid://cve8xcjafip0")
 const EMPTY_AMMO = preload("uid://dc7hb24vr2x6r")
 
 
-var weapon_scenes: Array[Array]
-var weapons : Array[WeaponData]
-var unequipped_weapons: Array[WeaponData]
-var ammunitions : Array[WeaponData]
+var weapon_scenes: Array[Array] = []
+var weapons : Array[WeaponData] = []
+var unequipped_weapons: Array[WeaponData] = []
+var ammunitions : Array[WeaponData] = []
 var weapon : WeaponData
 var player_current_level: int
 var game_over : bool = false
 
 func _ready() -> void:
 	SignalManager.game_is_over.connect(_on_game_over)
-	
 
-func _process(_delta: float) -> void:
-	if !game_over:
-		return
-	unload()
 
 func load_weapons() -> void:
 	locked_weapon(REVOLVER)
@@ -40,7 +35,6 @@ func load_weapons() -> void:
 	weapon_scenes.append(["flamer", "uid://baidslgub6j8k", preload("uid://baidslgub6j8k")])
 	weapon_scenes.append(["mine_launcher", "uid://c8ohbftuu83c8", preload("uid://c8ohbftuu83c8")])
 	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
-	##print("weapons loaded")
 
 	
 func test_weapons() ->void:
@@ -77,6 +71,7 @@ func init_weapon(new_weapon: WeaponData) -> void:
 	if new_weapon.weapon_ammo_res !=null:
 		init_ammo(new_weapon.weapon_ammo_res)
 
+
 func init_ammo(new_ammo : WeaponData) -> void: 
 	new_ammo.is_equiped = true
 	new_ammo.weapon_is_active = true
@@ -94,6 +89,7 @@ func equip_weapon(new_weapon: WeaponData) -> void:
 			get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
 			init_weapon(new_weapon)
 			break
+
 
 
 func equip_ammo() -> void:
@@ -128,16 +124,14 @@ func unload() -> void:
 	ammunitions.clear()
 
 
-
-func reinit_weapons() -> void:
+func instantiate_weapons() -> void:
 	for i in weapon_scenes.size():
 		var scene : Array =  weapon_scenes[i]
 		for j in weapons.size():
 			if scene[1] == weapons[j].weapon_scene_uid:
 				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
 				get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
-				print(new_weapon_scene," is reinit")
-
+				#print(new_weapon_scene," is instantiated")
 
 
 func activate_weapons(active: bool)-> void:

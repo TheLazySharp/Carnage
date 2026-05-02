@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="4_pyn1s"]
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="5_no8kt"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="6_kimld"]
+[ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="7_ewkn0"]
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="8_p4ios"]
 [ext_resource type="Texture2D" uid="uid://tlhptwaxxjid" path="res://Assets/Tilsets/g_terrain1.png" id="8_xsxod"]
 [ext_resource type="Script" uid="uid://dghjnamtbuofh" path="res://Scripts/LAYERSMAP/greyscale_shader.gd" id="9_xo07a"]
@@ -44,7 +45,9 @@
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="32_ow65e"]
 [ext_resource type="Script" uid="uid://bsc7r81ttmpl6" path="res://Scripts/UI/preleveling_label.gd" id="34_sl775"]
 [ext_resource type="Script" uid="uid://bcrbhuf4ic2fu" path="res://Scripts/UI/preleveling_icon.gd" id="35_5brd2"]
+[ext_resource type="Script" uid="uid://bd250t2w2xvnr" path="res://Scripts/FONTS/GUI_UX_M.gd" id="35_54sv5"]
 [ext_resource type="Texture2D" uid="uid://bgrl5ldrwntp4" path="res://Assets/UI/dashboard.png" id="35_ow65e"]
+[ext_resource type="Script" uid="uid://bbnara7ws2epv" path="res://Scripts/FONTS/GUI_UX_S.gd" id="36_7jfna"]
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="36_kimld"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="38_kimld"]
 [ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="38_tc8sa"]
@@ -52,8 +55,10 @@
 [ext_resource type="Script" uid="uid://bnfkyuguhwr7h" path="res://Scripts/LEVELUP/levelup_icon.gd" id="40_wpjs7"]
 [ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="41_sl775"]
 [ext_resource type="Script" uid="uid://ddqkvhoijl1y2" path="res://Scripts/UI/boost_gauge.gd" id="41_tc8sa"]
+[ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="42_7jfna"]
 [ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/piston.tscn" id="43_gq5tr"]
 [ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/UI/leveling_weapons.gd" id="43_hp83p"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="44_o24rt"]
 [ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/UI/leveling_ammos.gd" id="46_hp83p"]
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="46_vrsns"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_ux4l1"]
@@ -65,13 +70,20 @@
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="51_4n5nh"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="52_hp83p"]
 [ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="52_vrsns"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="53_mqqx4"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="55_tc8sa"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="56_xw754"]
+[ext_resource type="Script" uid="uid://clxmad88m82fv" path="res://Scripts/FONTS/GUI_title_low.gd" id="58_nvqlg"]
 [ext_resource type="Script" uid="uid://cc0huil3sw502" path="res://Scripts/UI/new_survivor_canvas.gd" id="59_ewkn0"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="59_sujsj"]
 [ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="60_x5yq3"]
 [ext_resource type="Script" uid="uid://cut6npligxxy7" path="res://Scripts/SPAWNERS/survivor_spawner.gd" id="61_ojh6y"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="62_7jfna"]
 [ext_resource type="PackedScene" uid="uid://bqpy6ahyrnpd0" path="res://Scenes/CHARACTERS/survivor_in_game.tscn" id="62_rhyfu"]
+[ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="65_ypirk"]
 [ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="66_yxmws"]
+[ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="67_yrs1u"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="70_bva4u"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
 background_mode = 3
@@ -1330,6 +1342,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [null]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.22940181, 1.5720325, 0.42898208, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_p4ios"]
 resource_name = "boost_full"
@@ -1345,7 +1369,19 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [16, 18, 16]
+"values": [16, 20, 16]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.40106815, 0.79658514),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.22940181, 1.5720325, 0.42898208, 1), Color(0.22940181, 1.5720325, 0.42898208, 1), Color(0.22940181, 1.5720325, 0.42898208, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xo07a"]
@@ -1467,19 +1503,24 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb0r4"]
-bg_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-draw_center = false
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xo07a"]
 bg_color = Color(0, 0, 0, 1)
@@ -1487,7 +1528,7 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+border_color = Color(1, 0.7764706, 0, 1)
 
 [sub_resource type="Animation" id="Animation_3smgn"]
 resource_name = "IfNew"
@@ -1622,28 +1663,26 @@ gradient_light = ExtResource("10_pyn1s")
 [node name="TimeUI" type="CanvasLayer" parent="DayManager" unique_id=250829135]
 
 [node name="Time" type="Label" parent="DayManager/TimeUI" unique_id=992565047]
-offset_left = 339.0
-offset_right = 499.0
+offset_left = 360.0
+offset_right = 520.0
 offset_bottom = 70.0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 48
 text = "00.00"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("7_ewkn0")
 metadata/_edit_use_anchors_ = true
 
 [node name="TimeAnimationPlayer" type="AnimationPlayer" parent="DayManager/TimeUI/Time" unique_id=2110387643]
 libraries/ = SubResource("AnimationLibrary_pyn1s")
 
 [node name="Day" type="Label" parent="DayManager/TimeUI" unique_id=490811909]
-offset_left = 138.0
-offset_right = 298.0
+offset_left = 46.0
+offset_right = 206.0
 offset_bottom = 70.0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 48
 text = "DAY 1"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("7_ewkn0")
 
 [node name="Land_layers" type="Node2D" parent="." unique_id=1449497454]
 z_index = 20
@@ -1714,12 +1753,11 @@ theme_override_constants/line_spacing = 0
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 48
 text = "200"
 horizontal_alignment = 2
 vertical_alignment = 2
 justification_flags = 35
+script = ExtResource("35_54sv5")
 
 [node name="Label" type="Label" parent="CanvasLayer/Board/Speed" unique_id=1149933007]
 layout_mode = 0
@@ -1728,9 +1766,10 @@ offset_top = 52.0
 offset_right = 106.0
 offset_bottom = 89.33333
 theme_override_colors/font_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 32
 text = "MPH"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("36_7jfna")
 
 [node name="xp_bar" type="ProgressBar" parent="CanvasLayer/Board" unique_id=311172588]
 layout_mode = 1
@@ -1756,13 +1795,12 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = -82.0
-offset_top = -6.000021
+offset_top = -11.166688
 offset_right = -22.0
-offset_bottom = 12.666645
+offset_bottom = 11.833313
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
 text = "Lvl 10"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -1798,16 +1836,14 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = -75.0
-offset_top = -6.0
+offset_top = -12.166667
 offset_right = -11.0
-offset_bottom = 12.666666
+offset_bottom = 10.833332
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
 text = "NITRO"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("42_7jfna")
 
 [node name="Dash" type="Label" parent="CanvasLayer/Board/BoostGauge" unique_id=1406233136]
 visible = false
@@ -1816,16 +1852,15 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = -75.0
-offset_top = -6.000021
+offset_top = -12.000021
 offset_right = -11.0
-offset_bottom = 16.999979
+offset_bottom = 10.999979
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.22940181, 1.5720325, 0.42898208, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
 text = "DASH"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("42_7jfna")
 
 [node name="DashAnim" type="AnimationPlayer" parent="CanvasLayer/Board/BoostGauge/Dash" unique_id=1643082656]
 libraries/ = SubResource("AnimationLibrary_xo07a")
@@ -1860,11 +1895,8 @@ offset_right = -36.0
 offset_bottom = 23.666664
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 16
 text = "1000/1000"
+script = ExtResource("42_7jfna")
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/FuelGauge" unique_id=1503179586]
 position = Vector2(-43, 35)
@@ -1931,8 +1963,6 @@ offset_right = 5.0
 offset_bottom = 5.0416718
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
 script = ExtResource("38_kimld")
 
 [node name="Gear1" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=466958561]
@@ -1961,8 +1991,6 @@ offset_right = 5.0
 offset_bottom = 5.0416718
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
 script = ExtResource("38_kimld")
 
 [node name="Gear2" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=183027919]
@@ -1991,8 +2019,6 @@ offset_right = 5.0
 offset_bottom = 5.0416718
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
 script = ExtResource("38_kimld")
 
 [node name="Gear3" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=153631555]
@@ -2021,8 +2047,6 @@ offset_right = 5.0
 offset_bottom = 5.0416718
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
 script = ExtResource("38_kimld")
 
 [node name="Gear4" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=136116006]
@@ -2051,8 +2075,6 @@ offset_right = 5.0
 offset_bottom = 5.0416718
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
 script = ExtResource("38_kimld")
 
 [node name="Parts" type="Control" parent="CanvasLayer/Board" unique_id=102137242]
@@ -2075,6 +2097,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -6.0
+offset_right = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
@@ -2086,12 +2111,12 @@ theme_override_constants/margin_bottom = 5
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 4
+theme_override_constants/separation = 24
 script = ExtResource("27_yi0q0")
 
 [node name="Woodboxes" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=895745046]
 visible = false
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
 
 [node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=1247610902]
@@ -2102,6 +2127,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("28_ux4l1")
+stretch_mode = 3
 
 [node name="WoodBoxesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=283158505]
 layout_mode = 1
@@ -2115,16 +2141,12 @@ offset_top = -7.999996
 offset_bottom = 3.6666718
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
 text = "10"
 horizontal_alignment = 2
+script = ExtResource("42_7jfna")
 
 [node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=2016834968]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_tc8sa")
 
@@ -2136,30 +2158,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("21_l5eev")
+stretch_mode = 3
 
 [node name="GearPartsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=800221824]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -27.0
-offset_top = 2.0
-offset_bottom = 13.666668
-grow_horizontal = 0
+offset_left = -25.0
+offset_top = -1.3333359
+offset_right = 25.0
+offset_bottom = 15.0
+grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
+theme_override_fonts/font = ExtResource("44_o24rt")
 text = "1800"
 horizontal_alignment = 2
+script = ExtResource("42_7jfna")
 
 [node name="Zombies" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=442404506]
 visible = false
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
 
 [node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1336951058]
@@ -2170,6 +2191,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("31_hp83p")
+stretch_mode = 3
 
 [node name="ZombiesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1534381154]
 layout_mode = 1
@@ -2183,16 +2205,12 @@ offset_top = -7.999996
 offset_bottom = 3.6666718
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
 text = "1800"
 horizontal_alignment = 2
+script = ExtResource("42_7jfna")
 
 [node name="Frags" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1605674456]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
 
@@ -2204,26 +2222,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("32_ow65e")
+stretch_mode = 3
 
 [node name="FragsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=15311325]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = 2.0
-offset_bottom = 13.666668
-grow_horizontal = 0
+offset_left = -25.0
+offset_top = -1.3333359
+offset_right = 25.0
+offset_bottom = 15.0
+grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 10
-text = "10"
+theme_override_fonts/font = ExtResource("44_o24rt")
+text = "1000"
 horizontal_alignment = 2
+script = ExtResource("42_7jfna")
 
 [node name="LuckyCharms" type="Control" parent="CanvasLayer/Board" unique_id=1384202834]
 layout_mode = 1
@@ -2375,6 +2392,7 @@ text = "LEVEL UP !"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
+script = ExtResource("53_mqqx4")
 
 [node name="NewLevel" type="Label" parent="CanvasLayer/Prelevelling" unique_id=2057306885]
 layout_mode = 1
@@ -2445,8 +2463,10 @@ theme_override_font_sizes/font_size = 56
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "OK !"
 flat = true
+script = ExtResource("56_xw754")
 
 [node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -2473,6 +2493,7 @@ theme_override_font_sizes/font_size = 56
 text = "READY ?"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("7_ewkn0")
 
 [node name="Horde" type="Label" parent="CanvasLayer/Texts" unique_id=1343880551]
 visible = false
@@ -2529,6 +2550,7 @@ text = "PAUSE"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
+script = ExtResource("53_mqqx4")
 
 [node name="ShowStats" type="Label" parent="CanvasLayer/Pause" unique_id=1034979556]
 layout_mode = 0
@@ -2540,6 +2562,7 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 48
 text = "Show Stats : LB"
+script = ExtResource("58_nvqlg")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause" unique_id=1349042611]
 layout_mode = 1
@@ -2567,6 +2590,7 @@ theme_override_font_sizes/font_size = 56
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "RESUME"
 flat = true
+script = ExtResource("56_xw754")
 
 [node name="Commands" type="Button" parent="CanvasLayer/Pause/VBoxContainer" unique_id=436373158]
 layout_mode = 2
@@ -2579,6 +2603,7 @@ theme_override_font_sizes/font_size = 56
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "COMMANDS"
 flat = true
+script = ExtResource("56_xw754")
 
 [node name="QuitToMenu" type="Button" parent="CanvasLayer/Pause/VBoxContainer" unique_id=755437127]
 layout_mode = 2
@@ -2591,6 +2616,7 @@ theme_override_font_sizes/font_size = 56
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "QUIT TO MENU"
 flat = true
+script = ExtResource("56_xw754")
 
 [node name="StatsScreen" type="Control" parent="CanvasLayer/Pause" unique_id=687258393]
 visible = false
@@ -2629,6 +2655,7 @@ text = "STATS"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
+script = ExtResource("53_mqqx4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause/StatsScreen" unique_id=1839157728]
 layout_mode = 1
@@ -2648,6 +2675,7 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 48
 text = "Max Health : "
+script = ExtResource("59_sujsj")
 
 [node name="Speed" type="Label" parent="CanvasLayer/Pause/StatsScreen/VBoxContainer" unique_id=157484672]
 layout_mode = 2
@@ -2655,6 +2683,7 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 48
 text = "Speed : "
+script = ExtResource("59_sujsj")
 
 [node name="HealingPow" type="Label" parent="CanvasLayer/Pause/StatsScreen/VBoxContainer" unique_id=366854470]
 layout_mode = 2
@@ -2662,6 +2691,7 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 48
 text = "Healing Power : "
+script = ExtResource("59_sujsj")
 
 [node name="Leveling" type="Control" parent="CanvasLayer" unique_id=67494046]
 visible = false
@@ -2699,6 +2729,7 @@ text = "UPGRADE YOUR WEAPONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
+script = ExtResource("53_mqqx4")
 
 [node name="MainButtons" type="HBoxContainer" parent="CanvasLayer/Leveling/LevelingBkgd" unique_id=1799777878]
 layout_mode = 1
@@ -2726,6 +2757,7 @@ theme_override_font_sizes/font_size = 56
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
 text = "Skip"
 flat = true
+script = ExtResource("56_xw754")
 
 [node name="WeaponsContainer" type="MarginContainer" parent="CanvasLayer/Leveling" unique_id=618982007]
 layout_mode = 1
@@ -2755,6 +2787,7 @@ columns = 5
 [node name="WeaponSlot0" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1728744366]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0" unique_id=2028414650]
 clip_contents = true
@@ -2819,17 +2852,23 @@ script = ExtResource("40_wpjs7")
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0" unique_id=2113372182]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../WeaponSlot4/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_right = NodePath("../../WeaponSlot1/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "EQUIP"
+text = "UPGRADE"
+script = ExtResource("65_ypirk")
 
 [node name="WeaponSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=847243658]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1371853289]
 clip_contents = true
@@ -2894,6 +2933,10 @@ script = ExtResource("40_wpjs7")
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1355038679]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../WeaponSlot0/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot1/Confirm")
+focus_neighbor_right = NodePath("../../WeaponSlot2/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot1/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -2901,10 +2944,12 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "OK"
+script = ExtResource("65_ypirk")
 
 [node name="WeaponSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=999106768]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=1049589045]
 clip_contents = true
@@ -2969,6 +3014,10 @@ script = ExtResource("40_wpjs7")
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=458721689]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../WeaponSlot1/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot2/Confirm")
+focus_neighbor_right = NodePath("../../WeaponSlot3/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot2/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -2976,10 +3025,12 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "OK"
+script = ExtResource("65_ypirk")
 
 [node name="WeaponSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=2076053891]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=989656604]
 clip_contents = true
@@ -3044,6 +3095,10 @@ script = ExtResource("40_wpjs7")
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=1669388979]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../WeaponSlot2/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot3/Confirm")
+focus_neighbor_right = NodePath("../../WeaponSlot4/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot3/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -3051,10 +3106,12 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "OK"
+script = ExtResource("65_ypirk")
 
 [node name="WeaponSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1690415054]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1125742962]
 clip_contents = true
@@ -3119,6 +3176,10 @@ script = ExtResource("40_wpjs7")
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1399989835]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../WeaponSlot3/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot4/Confirm")
+focus_neighbor_right = NodePath("../../WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot4/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -3126,6 +3187,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "OK"
+script = ExtResource("65_ypirk")
 
 [node name="AmmoContainer" type="MarginContainer" parent="CanvasLayer/Leveling" unique_id=101973105]
 layout_mode = 1
@@ -3156,6 +3218,7 @@ columns = 5
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0" unique_id=2115056711]
 clip_contents = true
@@ -3219,6 +3282,10 @@ expand_mode = 2
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0" unique_id=491928480]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../AmmoSlot4/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_right = NodePath("../../AmmoSlot1/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -3226,11 +3293,13 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+script = ExtResource("65_ypirk")
 
 [node name="AmmoSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1923229107]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=47339182]
 clip_contents = true
@@ -3294,6 +3363,10 @@ expand_mode = 2
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=283971264]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../AmmoSlot0/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot1/Confirm")
+focus_neighbor_right = NodePath("../../AmmoSlot2/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -3301,11 +3374,13 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+script = ExtResource("65_ypirk")
 
 [node name="AmmoSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1962731554]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=1716363297]
 clip_contents = true
@@ -3369,6 +3444,10 @@ expand_mode = 2
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=128801153]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../AmmoSlot1/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot2/Confirm")
+focus_neighbor_right = NodePath("../../AmmoSlot3/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -3376,11 +3455,13 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+script = ExtResource("65_ypirk")
 
 [node name="AmmoSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1767757190]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=1146008611]
 clip_contents = true
@@ -3444,6 +3525,10 @@ expand_mode = 2
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=1963052514]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../AmmoSlot2/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot3/Confirm")
+focus_neighbor_right = NodePath("../../AmmoSlot4/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -3451,11 +3536,13 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+script = ExtResource("65_ypirk")
 
 [node name="AmmoSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=337454392]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=612413484]
 clip_contents = true
@@ -3519,6 +3606,10 @@ expand_mode = 2
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=2095425309]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../AmmoSlot3/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot4/Confirm")
+focus_neighbor_right = NodePath("../../AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("46_vrsns")
@@ -3526,6 +3617,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+script = ExtResource("65_ypirk")
 
 [node name="TextPanel" type="Panel" parent="CanvasLayer/Leveling" unique_id=681170836]
 z_index = 20
@@ -3553,13 +3645,14 @@ offset_top = 10.0
 offset_right = 63.5
 offset_bottom = 94.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 40
 text = "Name
 Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("67_yrs1u")
 
 [node name="WeaponLevels" type="Label" parent="CanvasLayer/Leveling/TextPanel" unique_id=1004156518]
 z_index = 50
@@ -3573,7 +3666,7 @@ offset_right = 66.0
 offset_bottom = 143.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 1
@@ -3593,10 +3686,11 @@ offset_top = 162.0
 offset_right = 61.0
 offset_bottom = 199.33331
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("6_kimld")
-theme_override_font_sizes/font_size = 26
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 32
 text = "Ammo"
 horizontal_alignment = 1
+script = ExtResource("70_bva4u")
 
 [node name="AmmoLevels" type="Label" parent="CanvasLayer/Leveling/TextPanel" unique_id=1536852962]
 z_index = 50
@@ -3610,7 +3704,7 @@ offset_right = 70.5
 offset_bottom = 243.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 1
@@ -3632,10 +3726,11 @@ offset_bottom = 96.5
 grow_vertical = 2
 theme_override_constants/line_spacing = 8
 theme_override_constants/paragraph_spacing = 16
-theme_override_fonts/font = ExtResource("46_vrsns")
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
 text = "Shot the closest enemy within a zone"
 autowrap_mode = 2
+script = ExtResource("59_sujsj")
 
 [node name="Upgrades" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel" unique_id=1850042634]
 layout_mode = 1
@@ -3656,38 +3751,43 @@ theme_override_constants/separation = 10
 
 [node name="Dmg" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1129436822]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "Dmg :"
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="FireRate" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1899704544]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "Fire rate :"
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="CoolDown" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1486059003]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "Cool Down :"
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="Radius" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1595403400]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "Radius :"
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="NbAmmo" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1220189580]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "Ammo :"
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="Levels" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1657428859]
 layout_mode = 2
@@ -3695,43 +3795,48 @@ theme_override_constants/separation = 10
 
 [node name="Dmg_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=1883313760]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="FireRate_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=1638383306]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="CoolDown_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=1010691851]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="Radius_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=171211606]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="NbAmmo_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=554899781]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="Arrows" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1159635757]
 layout_mode = 2
@@ -3739,43 +3844,48 @@ theme_override_constants/separation = 10
 
 [node name="Dmg_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1682786941]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "->"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="FireRate_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1101532351]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "->"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="CoolDown_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1350500786]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "->"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="Radius_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1303013000]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "->"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="NbAmmo_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=846108357]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "->"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="Upgrade" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1260341544]
 layout_mode = 2
@@ -3783,43 +3893,48 @@ theme_override_constants/separation = 10
 
 [node name="Dmg_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=367847042]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="FireRate_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=876134233]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="CoolDown_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=1489262331]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="Radius_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=1276592768]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="NbAmmo_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=2129715779]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="WeaponBkg" type="ColorRect" parent="CanvasLayer/Leveling/TextPanel" unique_id=7881159]
 custom_minimum_size = Vector2(74, 74)
@@ -3900,11 +4015,12 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("6_kimld")
 theme_override_font_sizes/font_size = 64
-text = "a new friends?"
+text = "A NEW FRIEND ?"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
+script = ExtResource("53_mqqx4")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NewSurvivor" unique_id=231801612]
 custom_minimum_size = Vector2(64, 72)
@@ -3938,15 +4054,16 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -32.5
-offset_top = -2.0
+offset_top = 12.0
 offset_right = 32.5
-offset_bottom = 32.0
+offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Javier"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("59_sujsj")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer/PNJ0" unique_id=232536764]
 layout_mode = 1
@@ -3984,6 +4101,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 40
 text = "Javier"
+script = ExtResource("70_bva4u")
 
 [node name="PNJAge" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1031946302]
 layout_mode = 0
@@ -3992,6 +4110,7 @@ offset_right = 108.0
 offset_bottom = 127.0
 theme_override_font_sizes/font_size = 24
 text = "42 years old"
+script = ExtResource("59_sujsj")
 
 [node name="PNJJob" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1936410478]
 layout_mode = 0
@@ -4000,6 +4119,7 @@ offset_right = 148.0
 offset_bottom = 181.0
 theme_override_font_sizes/font_size = 24
 text = "Mechanic"
+script = ExtResource("59_sujsj")
 
 [node name="PNJBio" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=186035308]
 layout_mode = 0
@@ -4009,6 +4129,7 @@ offset_bottom = 569.0
 theme_override_font_sizes/font_size = 24
 text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
 autowrap_mode = 2
+script = ExtResource("59_sujsj")
 
 [node name="WeaponIcon" type="TextureRect" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=741527931]
 custom_minimum_size = Vector2(96, 96)
@@ -4016,9 +4137,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -174.0
+offset_left = -201.0
 offset_top = 53.0
-offset_right = -78.0
+offset_right = -105.0
 offset_bottom = 149.0
 grow_horizontal = 0
 texture = ExtResource("62_7jfna")
@@ -4036,6 +4157,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
 text = "Revolver"
 horizontal_alignment = 1
+script = ExtResource("70_bva4u")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/NewSurvivor/SurvivorBio/WeaponIcon" unique_id=1736314659]
 show_behind_parent = true
@@ -4062,6 +4184,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Shot a bullet on the closest enemy"
 autowrap_mode = 2
+script = ExtResource("59_sujsj")
 
 [node name="YesNo" type="HBoxContainer" parent="CanvasLayer/NewSurvivor" unique_id=942575216]
 layout_mode = 1
@@ -4088,6 +4211,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
 text = "PICK UP"
 flat = true
+script = ExtResource("56_xw754")
 
 [node name="Leave" type="Button" parent="CanvasLayer/NewSurvivor/YesNo" unique_id=682276171]
 layout_mode = 2
@@ -4100,6 +4224,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
 text = "LEAVE"
 flat = true
+script = ExtResource("56_xw754")
 
 [node name="Car" parent="." unique_id=2034565894 instance=ExtResource("48_ux4l1")]
 position = Vector2(155, 992)

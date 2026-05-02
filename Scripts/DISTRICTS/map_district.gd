@@ -1,7 +1,6 @@
 extends Area2D
 class_name MapDistrict
 
-signal selected(district : DistrictsData)
 
 @onready var icon: Sprite2D = $Visuals/Icon
 @onready var line_2d_back: Line2D = $Visuals/Line2DBack
@@ -11,6 +10,7 @@ var available: bool = false : set = set_available
 var district : DistrictsData : set = set_district
 @onready var animation_player: AnimationPlayer = $Visuals/AnimationPlayer
 @onready var button: Button = $Button
+@onready var pin: Sprite2D = $Visuals/Pin
 
 const ICONS :  Dictionary = {
 	DistrictsData.types.N_A: [null, Vector2.ONE],
@@ -23,6 +23,7 @@ const ICONS :  Dictionary = {
 
 func _ready() -> void:
 	button.hide()
+	pin.hide()
 
 
 func _process(_delta: float) -> void:
@@ -30,7 +31,6 @@ func _process(_delta: float) -> void:
 		icon.self_modulate = Color.RED
 	else :
 		icon.self_modulate = Color.WHITE
-		
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if !available or !event.is_action_pressed("select"):
@@ -50,25 +50,30 @@ func set_available(new_value : bool) -> void :
 	if available:
 		line_2d_back.show()
 		line_2d_front.show()
+		button.show()
+		button.grab_focus()
 		animation_player.play("disctrict_available")
 	elif !district.selected:
 		pass #UI Ex : modulate a
-
+	if !available:
+		button.hide()
 
 func set_district(new_data : DistrictsData) -> void : 
 	district = new_data
 	position = district.position
 	icon.texture = ICONS[district.type][0]
 	icon.scale = ICONS[district.type][1]
-
+	if RoadMapManager.selected_districts.has(district):
+		pin.show()
 
 func show_selected() -> void : 
 	line_2d_back.modulate = Color.DIM_GRAY
 	line_2d_front.modulate = Color.DIM_GRAY
 
-func on_map_district_selected() -> void : 
+func on_map_district_selected() -> void :
 	emit_signal("selected",district)
 
 func _on_button_pressed() -> void:
-	print("button pressed on disctrict : ",district, " / column : ",district.column)
+	#print("button pressed on disctrict : ",district, " / row : ",district.row)
 	SceneManager.load_district(district)
+	SignalManager.emit_signal("selected_district",district)

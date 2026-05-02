@@ -2,5 +2,6 @@ extends Node2D
 
 
 func _ready() -> void:
-	WeaponsManager.reinit_weapons()
+	WeaponsManager.instantiate_weapons()
+	print("weapons ready")
 	#WeaponsManager.check_weapons()

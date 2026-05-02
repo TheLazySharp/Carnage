@@ -13,14 +13,13 @@ func _ready() -> void:
 	restart.grab_focus()
 
 func _on_restart_pressed() -> void:
-	SceneManager.load_level(survivor_selection)
 	SceneManager.unload_game()
+	SceneManager.load_level(survivor_selection)
 
 
 func _on_menu_pressed() -> void:
-	WeaponsManager.unload()
-	SceneManager.load_level(menu_scene)
 	SceneManager.unload_game()
+	SceneManager.load_level(menu_scene)
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

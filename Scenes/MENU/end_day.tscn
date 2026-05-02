@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://dkpvtoel7hhai"]
 
 [ext_resource type="Script" uid="uid://ll5vynm3wl3q" path="res://Scripts/SCENES/end_day.gd" id="1_rjd84"]
-[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_4uf12"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="2_adfxj"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_adfxj"]
 [ext_resource type="Texture2D" uid="uid://dj5q528ksj8is" path="res://Assets/Characters/Cars/cab.png" id="3_jggmw"]
 [ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="4_1ftow"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_eaf6p"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="7_kfmjd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cx0hi"]
 
@@ -36,12 +39,13 @@ offset_bottom = 111.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_fonts/font = ExtResource("2_adfxj")
 theme_override_font_sizes/font_size = 64
 text = "THE GARAGE"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
+script = ExtResource("3_adfxj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1977822817]
 layout_mode = 1
@@ -64,11 +68,12 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_fonts/font = ExtResource("2_adfxj")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
 text = "UPGRADES"
 flat = true
+script = ExtResource("4_eaf6p")
 
 [node name="NextDay" type="Button" parent="VBoxContainer" unique_id=1917605737]
 layout_mode = 2
@@ -76,11 +81,12 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_fonts/font = ExtResource("2_adfxj")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
 text = "NEXT DAY"
 flat = true
+script = ExtResource("4_eaf6p")
 
 [node name="Menu" type="Button" parent="VBoxContainer" unique_id=623180664]
 layout_mode = 2
@@ -88,11 +94,12 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_fonts/font = ExtResource("2_adfxj")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cx0hi")
-text = "Main Menu"
+text = "MAIN MENU"
 flat = true
+script = ExtResource("4_eaf6p")
 
 [node name="CarIcon" type="TextureRect" parent="." unique_id=1115480994]
 custom_minimum_size = Vector2(32, 48)
@@ -127,14 +134,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = 1.0
-offset_right = 1.0
-offset_bottom = 24.0
+offset_left = -68.0
+offset_top = 14.0
+offset_right = -25.0
+offset_bottom = 37.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_4uf12")
+theme_override_fonts/font = ExtResource("2_adfxj")
 text = "1000"
+script = ExtResource("7_kfmjd")
 
 [connection signal="pressed" from="VBoxContainer/Upgrades" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="VBoxContainer/NextDay" to="." method="_on_next_day_pressed"]

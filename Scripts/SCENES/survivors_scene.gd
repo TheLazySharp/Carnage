@@ -13,20 +13,20 @@ func _ready() -> void:
 		WeaponsManager.load_weapons()
 
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_back"): 
-		SceneManager.load_level(menu_scene)
-
 func _on_portrait_hovered(new_index : int) -> void : 
 	survivor_index = new_index
 
 
 func _on_select_pressed() -> void:
-	SceneManager.load_level(car_selection_scene)
-	WeaponsManager.init_weapon(SurvivorsManager.known_survivors[survivor_index].weapon)
+	WeaponsManager.init_weapon(SurvivorsManager.known_survivors[survivor_index].weapon) #init before being instantiated when car is instantiated
 	SurvivorsManager.select_survivor(SurvivorsManager.known_survivors[survivor_index])
-	print(survivor_index)
+	SceneManager.load_level(car_selection_scene)
 
 
 func _on_back_pressed() -> void:
 	SceneManager.load_level(menu_scene)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_back") :
+		SceneManager.load_level(menu_scene)
+		

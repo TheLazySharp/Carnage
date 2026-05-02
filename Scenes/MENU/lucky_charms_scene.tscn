@@ -5,8 +5,12 @@
 [ext_resource type="Script" uid="uid://ddgsfxvc4g1cx" path="res://Scripts/SCENES/lucky_charms_scene.gd" id="3_j3un3"]
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="5_6jcl5"]
 [ext_resource type="Script" uid="uid://cq4ummnpopn0y" path="res://Scripts/UI/lucky_charms/pool_lucky_charms_slots.gd" id="5_c4vr1"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="5_d0x8b"]
 [ext_resource type="ButtonGroup" uid="uid://bdyk8h062kq3u" path="res://Resources/ButtonGroups/lucky_charms_current_buttons.tres" id="6_6jcl5"]
 [ext_resource type="Script" uid="uid://uk04t0pt2ylg" path="res://Scripts/UI/lucky_charms/holder_lucky_charms_slots.gd" id="6_xddph"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="7_0jka3"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="9_24kxp"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="11_0jka3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3un3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -71,6 +75,7 @@ text = "CHOSE A LUCKY CHARM"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
+script = ExtResource("5_d0x8b")
 
 [node name="Label2" type="Label" parent="." unique_id=1383361724]
 layout_mode = 1
@@ -90,6 +95,7 @@ text = "Undo : B"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
+script = ExtResource("7_0jka3")
 
 [node name="NewLuckyCharms" type="Control" parent="." unique_id=638032501]
 layout_mode = 1
@@ -169,6 +175,7 @@ text = "TEST"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("9_24kxp")
 
 [node name="Charm1" type="VBoxContainer" parent="NewLuckyCharms/HBoxContainer" unique_id=947509991]
 custom_minimum_size = Vector2(150, 150)
@@ -214,6 +221,7 @@ text = "TEST"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("9_24kxp")
 
 [node name="Charm2" type="VBoxContainer" parent="NewLuckyCharms/HBoxContainer" unique_id=1628184407]
 custom_minimum_size = Vector2(150, 150)
@@ -259,6 +267,7 @@ text = "TEST"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("9_24kxp")
 
 [node name="CurrentLuckyCharms" type="Control" parent="." unique_id=1115525578]
 layout_mode = 1
@@ -338,6 +347,7 @@ text = "TEST TEST"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("9_24kxp")
 
 [node name="Charm1" type="VBoxContainer" parent="CurrentLuckyCharms/HBoxContainer" unique_id=1391511073]
 custom_minimum_size = Vector2(150, 150)
@@ -383,6 +393,7 @@ text = "TEST TEST"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("9_24kxp")
 
 [node name="Charm2" type="VBoxContainer" parent="CurrentLuckyCharms/HBoxContainer" unique_id=2055674875]
 custom_minimum_size = Vector2(150, 150)
@@ -428,6 +439,7 @@ text = "TEST TEST"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("9_24kxp")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=501335753]
 layout_mode = 1
@@ -454,6 +466,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xhtoc")
 text = "CONFIRM"
 flat = true
+script = ExtResource("11_0jka3")
 
 [node name="Skip" type="Button" parent="VBoxContainer" unique_id=780508769]
 layout_mode = 2
@@ -466,6 +479,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_xhtoc")
 text = "Skip"
 flat = true
+script = ExtResource("11_0jka3")
 
 [connection signal="pressed" from="VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
 [connection signal="pressed" from="VBoxContainer/Skip" to="." method="_on_skip_pressed"]

@@ -435,6 +435,7 @@ height = 42.0
 
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
+scale = Vector2(1.5, 1.5)
 collision_mask = 538
 motion_mode = 1
 wall_min_slide_angle = 1.3962634

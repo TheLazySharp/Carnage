@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://h2ouuk33ddpd"]
 
-[ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="1_08ae0"]
 [ext_resource type="Script" uid="uid://bf6n8kvdfmyh3" path="res://Scripts/UI/damages_text.gd" id="1_61n2r"]
 
 [node name="DamagesText" type="Label" unique_id=1179974349]
@@ -17,10 +16,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("1_08ae0")
 theme_override_font_sizes/font_size = 32
 text = "10000"
 horizontal_alignment = 1

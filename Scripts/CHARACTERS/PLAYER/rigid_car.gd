@@ -10,7 +10,7 @@ var friction : float
 var turn_speed : float
 var velocity_floor : int
 var burnout_boost : int
-var boost_duration : float
+var dash_duration : float
 var drift_grip : float
 var normal_grip : float
 var drift_turn_bonus : float
@@ -114,7 +114,7 @@ func _ready() -> void:
 	rear_left_burn_anim.hide()
 	rear_right_burn_anim.hide()
 	##TEST
-	WeaponsManager.test_weapons()
+	#WeaponsManager.test_weapons()
 	
 	SignalManager.game_paused.connect(_on_game_paused)
 	gate.full_command.connect(_on_full_command)
@@ -130,7 +130,7 @@ func _ready() -> void:
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
 	burnout_boost = player.burnout_boost
-	boost_duration = player.boost_duration
+	dash_duration = player.dash_duration
 	
 
 	#DRIFT
@@ -165,11 +165,11 @@ func _ready() -> void:
 	car_sprite.texture = player.car_sprite
 	if TimeManager.current_day == 1 : 
 		current_life = max_life
-		print("ready day 1: ",current_life)
+		#print("ready day 1: ",current_life)
 		
 	else : 
 		current_life = StatsManager.current_life
-		print("ready day >1: ",current_life)
+		#print("ready day >1: ",current_life)
 	life_bar.max_value = max_life
 	life_bar.value = current_life
 	life_label.text = str(current_life) + "/" + str(max_life)
@@ -533,6 +533,7 @@ func on_death() -> void:
 	SignalManager.emit_signal("game_is_over",game_is_over) #Emitted to other autoload managers (enemies...)
 	#animated_sprite.hide()
 	await get_tree().create_timer(2).timeout
+	queue_free()
 	emit_signal("game_over", game_is_over) #Emitted to the ScenesManager to load GameOver scene
 	
 	
@@ -622,11 +623,11 @@ func dash() -> void :
 	emit_signal("dashing")
 	can_dash = false
 	ghost_timer.start()
-	damages_boost = player.dmg_boost
+	damages_boost = player.dash_dmg_bonus
 	#var tween_dash : Tween = get_tree().create_tween()
 	#tween_dash.tween_property(self, "velocity",velocity, 0.5)
 	#await tween_dash.finished
-	await get_tree().create_timer(boost_duration).timeout
+	await get_tree().create_timer(dash_duration).timeout
 	ghost_timer.stop()
 	damages_boost = 1
 	

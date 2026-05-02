@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c63y2p6mv006j" path="res://Scripts/DISTRICTS/map_district.gd" id="1_njxfn"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="2_njxfn"]
+[ext_resource type="Texture2D" uid="uid://bcaa7xtmbu4ho" path="res://Assets/UI/red_pin.png" id="3_r2u84"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_njxfn"]
 
@@ -55,6 +56,11 @@ shape = SubResource("CircleShape2D_njxfn")
 
 [node name="Icon" type="Sprite2D" parent="Visuals" unique_id=1000949883]
 texture = ExtResource("2_njxfn")
+
+[node name="Pin" type="Sprite2D" parent="Visuals" unique_id=1074048317]
+position = Vector2(13, -30.000006)
+rotation = 0.40491638
+texture = ExtResource("3_r2u84")
 
 [node name="Line2DBack" type="Line2D" parent="Visuals" unique_id=1002930451]
 visible = false

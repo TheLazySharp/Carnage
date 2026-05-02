@@ -41,3 +41,5 @@ func unload_game() -> void:
 	StatsManager.unload()
 	LuckyCharmsManager.unload()
 	TimeManager.unload()
+	RoadMapManager.unload()
+	SurvivorsManager.unload()

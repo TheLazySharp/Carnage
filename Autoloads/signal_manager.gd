@@ -29,3 +29,6 @@ signal game_is_over(game_over: bool)
 
 @warning_ignore("unused_signal")
 signal day_ended
+
+@warning_ignore("unused_signal")
+signal selected_district(district : DistrictsData)

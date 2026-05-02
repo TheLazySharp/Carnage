@@ -21,9 +21,6 @@ func _ready() -> void:
 	player.game_over.connect(_update_game_over)
 	day_manager.day_ended.connect(_on_day_end)
 	pause_manager.quit_pause.connect(_update_ingame_pause)
-	#leveling.game_paused.connect(_leveling_pause)
-	#weapons_container.game_paused.connect(_leveling_pause)
-	#ammo_container.game_paused.connect(_leveling_pause)
 	SignalManager.game_paused.connect(_leveling_pause)
 	
 func _process(_delta: float) -> void:
@@ -38,14 +35,14 @@ func process_inputs()-> void:
 func pause_status()-> void:
 	if !game_on_pause:
 		game_on_pause = true
-		print("game paused by player")
+		#print("game paused by player")
 		SignalManager.emit_signal("game_paused", game_on_pause)
 		pause_manager.show()
 		pause_manager.get_focus()
 	else:
 		game_on_pause = false
 		SignalManager.emit_signal("game_paused", game_on_pause)
-		print("game unpaused by player")
+		#print("game unpaused by player")
 		pause_manager.hide()
 
 

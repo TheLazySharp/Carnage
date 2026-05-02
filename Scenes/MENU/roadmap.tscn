@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dsn18jy5k2in8"]
 
 [ext_resource type="Script" uid="uid://e0kd3buipuat" path="res://Scripts/SCENES/roadmap.gd" id="1_ddeal"]
-[ext_resource type="Script" uid="uid://c02nv0r8cwsi7" path="res://Scripts/SCENES/path_generator.gd" id="2_ddeal"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="3_jdbi3"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_tslxm"]
 
 [node name="Roadmap" type="Node2D" unique_id=546212488]
 script = ExtResource("1_ddeal")
@@ -12,7 +12,6 @@ position = Vector2(640, 400)
 limit_enabled = false
 
 [node name="MapGenerator" type="Node" parent="." unique_id=329523385]
-script = ExtResource("2_ddeal")
 
 [node name="MapBackground" type="CanvasLayer" parent="." unique_id=1242022812]
 
@@ -52,6 +51,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
+script = ExtResource("3_tslxm")
 
 [node name="Visuals" type="Node2D" parent="MapBackground/ControlMap" unique_id=379163012]
 

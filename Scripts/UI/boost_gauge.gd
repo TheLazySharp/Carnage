@@ -32,7 +32,7 @@ func _on_game_paused(game_on_pause : bool) -> void:
 func _on_boost_timer_timeout() -> void:
 	if CarManager.selected_car.drifting and !game_paused:
 		if value < CarManager.selected_car.max_boost_gauge :
-			value += CarManager.selected_car.boost_up
+			value += CarManager.selected_car.nitro_up
 			nitro.show()
 			dash.hide()
 		else : 

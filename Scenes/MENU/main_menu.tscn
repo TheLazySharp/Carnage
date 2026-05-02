@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://gmjjc1vmgcds"]
 
 [ext_resource type="Script" uid="uid://ddjt1ymblxnbi" path="res://Scripts/SCENES/main_menu.gd" id="1_ovrvl"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_b85ns"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="3_ghgot"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="3_oghu7"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_k2e8w"]
 [ext_resource type="Texture2D" uid="uid://cvucrddbvgxsw" path="res://Assets/UI/empty_32x32.png" id="4_oghu7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
@@ -34,14 +36,12 @@ offset_left = -637.0
 offset_right = 639.0
 offset_bottom = 113.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_fonts/font = ExtResource("3_ghgot")
-theme_override_font_sizes/font_size = 64
 text = "TURBO SLAYER"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
+script = ExtResource("3_b85ns")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1542627669]
 layout_mode = 1
@@ -60,27 +60,17 @@ theme_override_constants/separation = 30
 
 [node name="Start" type="Button" parent="VBoxContainer" unique_id=731618581]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_ghgot")
-theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "START"
 flat = true
+script = ExtResource("4_k2e8w")
 
 [node name="Training" type="Button" parent="VBoxContainer" unique_id=1629790083]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_ghgot")
-theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "COMMANDS"
 flat = true
+script = ExtResource("4_k2e8w")
 
 [node name="SkipTuto" type="CheckButton" parent="VBoxContainer" unique_id=772633111]
 layout_mode = 2
@@ -101,15 +91,10 @@ alignment = 1
 
 [node name="Quit" type="Button" parent="VBoxContainer" unique_id=13720556]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_ghgot")
-theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "QUIT"
 flat = true
+script = ExtResource("4_k2e8w")
 
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Training" to="." method="_on_training_pressed"]

@@ -21,9 +21,9 @@ func update_car_stats(car : CarData) -> void:
 		car.max_life = roundi((car.base_max_life + car.shield_lvl * 5 + car.tank_lvl * 10) * LuckyCharmsManager.life_bonus)
 		car.display_max_speed = roundi(car.base_display_max_speed + car.engine_lvl * 5)
 		car.dmg = roundi((car.base_dmg + car.shield_lvl * 5) * LuckyCharmsManager.damages_bonus)
-		car.boost_duration = (car.base_boost_duration + car.nos_lvl * 0.1) * LuckyCharmsManager.nitro_bonus
-		car.boost_up = roundi((car.base_boost_up + car.tires_lvl) * LuckyCharmsManager.tires_bonus)
-		car.dmg_boost = (car.base_dmg_boost + car.front_gear_lvl * 0.1) * LuckyCharmsManager.dash_damages_bonus
+		car.dash_duration = (car.base_dash_duration + car.nitro_lvl * 0.1) * LuckyCharmsManager.nitro_bonus
+		car.nitro_up = roundi((car.base_nitro_up + car.wheels_lvl) * LuckyCharmsManager.tires_bonus)
+		car.dash_dmg_bonus = (car.base_dash_dmg_bonus + car.bumper_lvl * 0.1) * LuckyCharmsManager.dash_damages_bonus
 		car.collect_radius =(car.base_collect_radius) * LuckyCharmsManager.magnetism_bonus
 		emit_signal("stats_updated")
 

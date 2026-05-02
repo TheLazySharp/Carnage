@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" uid="uid://craamt8wm4jd0" path="res://Scripts/SCENES/missions.gd" id="1_q67s5"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_p1k7v"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_agu6a"]
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="3_q67s5"]
 [ext_resource type="Texture2D" uid="uid://2m43b6grwcdv" path="res://Assets/Items/piston_spritesheet.png" id="4_biv64"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_cpiun"]
 [ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/UI/xp-sheet.png" id="5_q67s5"]
 [ext_resource type="Texture2D" uid="uid://bxgdr3qp32q2b" path="res://Assets/Props/garage.png" id="6_agu6a"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_cpiun"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
 
@@ -132,11 +135,12 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("2_p1k7v")
 theme_override_font_sizes/font_size = 64
-text = "drive, slay, UPGRADE"
+text = "DRIVE, SLAY, UPGRADE"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
+script = ExtResource("3_agu6a")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1542627669]
 layout_mode = 1
@@ -163,6 +167,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "OK"
 flat = true
+script = ExtResource("4_cpiun")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1405240235]
 layout_mode = 1
@@ -186,6 +191,7 @@ theme_override_font_sizes/font_size = 32
 text = "
 Drive to the city and collect spare parts"
 autowrap_mode = 2
+script = ExtResource("6_cpiun")
 
 [node name="Label2" type="Label" parent="VBoxContainer2" unique_id=399462284]
 custom_minimum_size = Vector2(200, 40)
@@ -196,6 +202,7 @@ theme_override_fonts/font = ExtResource("3_q67s5")
 theme_override_font_sizes/font_size = 32
 text = "Slay zombies and gain XP to equip and upgrade weapons"
 autowrap_mode = 2
+script = ExtResource("6_cpiun")
 
 [node name="Label3" type="Label" parent="VBoxContainer2" unique_id=328122170]
 custom_minimum_size = Vector2(200, 40)
@@ -206,6 +213,7 @@ theme_override_fonts/font = ExtResource("3_q67s5")
 theme_override_font_sizes/font_size = 32
 text = "At the end of the count down, come back to your garage"
 autowrap_mode = 2
+script = ExtResource("6_cpiun")
 
 [node name="Label4" type="Label" parent="VBoxContainer2" unique_id=463651672]
 custom_minimum_size = Vector2(200, 40)
@@ -216,6 +224,7 @@ theme_override_fonts/font = ExtResource("3_q67s5")
 theme_override_font_sizes/font_size = 32
 text = "Upgrade your car and go back slay zombies !"
 autowrap_mode = 2
+script = ExtResource("6_cpiun")
 
 [node name="SpareParts" type="AnimatedSprite2D" parent="." unique_id=1259383940]
 position = Vector2(721, 105)

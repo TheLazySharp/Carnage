@@ -270,7 +270,8 @@ func _process(delta: float) -> void:
 	if render_skip_timer < render_skip_steps:
 		return
 	render_skip_timer -= render_skip_steps
-
+	
+	@warning_ignore("unused_variable")
 	var is_instance_changed: bool = false
 	for idx: int in instance_data:
 		var data: Dictionary = instance_data[idx]

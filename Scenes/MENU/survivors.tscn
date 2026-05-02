@@ -2,18 +2,24 @@
 
 [ext_resource type="Script" uid="uid://xp1pb2g8i6i" path="res://Scripts/SCENES/survivors_scene.gd" id="1_leh2h"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_pfsqv"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_d0hfw"]
 [ext_resource type="ButtonGroup" uid="uid://d4grxpy2ntjw5" path="res://Resources/ButtonGroups/portrait_button_group.tres" id="3_yfpg6"]
 [ext_resource type="Script" uid="uid://cb7051ydya2sc" path="res://Scripts/UI/survivor_id.gd" id="4_gha5h"]
 [ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="5_d0hfw"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_ekey8"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="6_nea1d"]
 [ext_resource type="Script" uid="uid://nfmh1lmcmwxe" path="res://Scripts/UI/survivor_bio.gd" id="6_uhxue"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="7_ekey8"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="9_nea1d"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="11_0cx78"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_leh2h"]
+draw_center = false
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+border_color = Color(1, 0.776, 0, 1)
 expand_margin_left = 4.0
 expand_margin_top = 4.0
 expand_margin_right = 4.0
@@ -56,6 +62,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
+script = ExtResource("3_d0hfw")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=198216110]
 custom_minimum_size = Vector2(64, 72)
@@ -70,8 +77,8 @@ theme_override_constants/margin_bottom = 4
 
 [node name="BoxContainer" type="GridContainer" parent="MarginContainer" unique_id=1377957292]
 layout_mode = 2
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 32
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 40
 columns = 4
 
 [node name="PNJ0" type="Button" parent="MarginContainer/BoxContainer" unique_id=554972105]
@@ -89,16 +96,18 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = -2.0
-offset_right = 32.5
-offset_bottom = 32.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
 text = "Javier"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_ekey8")
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ0" unique_id=1150947434]
 layout_mode = 1
@@ -117,7 +126,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_d0hfw")
 
-[node name="PNJ1" type="Button" parent="MarginContainer/BoxContainer" unique_id=1390094545]
+[node name="PNJ1" type="Button" parent="MarginContainer/BoxContainer" unique_id=2070194128]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
@@ -125,25 +134,27 @@ toggle_mode = true
 button_group = ExtResource("3_yfpg6")
 script = ExtResource("4_gha5h")
 
-[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ1" unique_id=510091561]
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ1" unique_id=1608619956]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = -2.0
-offset_right = 32.5
-offset_bottom = 32.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
 text = "Javier"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_ekey8")
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ1" unique_id=2133304504]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ1" unique_id=319367432]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,7 +162,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ1" unique_id=1936974960]
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ1" unique_id=739979083]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -160,7 +171,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_d0hfw")
 
-[node name="PNJ2" type="Button" parent="MarginContainer/BoxContainer" unique_id=1896701129]
+[node name="PNJ2" type="Button" parent="MarginContainer/BoxContainer" unique_id=655339361]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
@@ -168,25 +179,27 @@ toggle_mode = true
 button_group = ExtResource("3_yfpg6")
 script = ExtResource("4_gha5h")
 
-[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ2" unique_id=346926832]
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ2" unique_id=221963993]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = -2.0
-offset_right = 32.5
-offset_bottom = 32.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
 text = "Javier"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_ekey8")
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ2" unique_id=1941570483]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ2" unique_id=368386298]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -194,7 +207,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ2" unique_id=1964440352]
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ2" unique_id=1938631262]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -203,7 +216,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_d0hfw")
 
-[node name="PNJ3" type="Button" parent="MarginContainer/BoxContainer" unique_id=501309744]
+[node name="PNJ3" type="Button" parent="MarginContainer/BoxContainer" unique_id=1675131609]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
@@ -211,25 +224,27 @@ toggle_mode = true
 button_group = ExtResource("3_yfpg6")
 script = ExtResource("4_gha5h")
 
-[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ3" unique_id=1955944360]
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ3" unique_id=1274861426]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = -2.0
-offset_right = 32.5
-offset_bottom = 32.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
 text = "Javier"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_ekey8")
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ3" unique_id=910672588]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ3" unique_id=1022198110]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -237,7 +252,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ3" unique_id=1682640525]
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ3" unique_id=738045225]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
+[node name="PNJ4" type="Button" parent="MarginContainer/BoxContainer" unique_id=1081095990]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ4" unique_id=1593960958]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_ekey8")
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ4" unique_id=1728315800]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ4" unique_id=953082405]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -266,6 +326,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 40
 text = "Javier"
+script = ExtResource("9_nea1d")
 
 [node name="PNJAge" type="Label" parent="SurvivorBio" unique_id=256318624]
 layout_mode = 0
@@ -274,6 +335,7 @@ offset_right = 108.0
 offset_bottom = 127.0
 theme_override_font_sizes/font_size = 24
 text = "42 years old"
+script = ExtResource("6_ekey8")
 
 [node name="PNJJob" type="Label" parent="SurvivorBio" unique_id=1925762509]
 layout_mode = 0
@@ -282,6 +344,7 @@ offset_right = 148.0
 offset_bottom = 181.0
 theme_override_font_sizes/font_size = 24
 text = "Mechanic"
+script = ExtResource("6_ekey8")
 
 [node name="PNJBio" type="Label" parent="SurvivorBio" unique_id=886522394]
 layout_mode = 0
@@ -291,6 +354,7 @@ offset_bottom = 569.0
 theme_override_font_sizes/font_size = 24
 text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
 autowrap_mode = 2
+script = ExtResource("6_ekey8")
 
 [node name="WeaponIcon" type="TextureRect" parent="SurvivorBio" unique_id=451350807]
 custom_minimum_size = Vector2(96, 96)
@@ -318,6 +382,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
 text = "Revolver"
 horizontal_alignment = 1
+script = ExtResource("9_nea1d")
 
 [node name="ColorRect" type="ColorRect" parent="SurvivorBio/WeaponIcon" unique_id=1148490647]
 show_behind_parent = true
@@ -344,6 +409,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Shot a bullet on the closest enemy"
 autowrap_mode = 2
+script = ExtResource("6_ekey8")
 
 [node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1538654530]
 layout_mode = 1
@@ -370,6 +436,7 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_leh2h")
 text = "SELECT"
 flat = true
+script = ExtResource("11_0cx78")
 
 [node name="Back" type="Button" parent="VBoxContainer" unique_id=1176516895]
 layout_mode = 2
@@ -382,10 +449,12 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_leh2h")
 text = "BACK"
 flat = true
+script = ExtResource("11_0cx78")
 
 [connection signal="pressed" from="MarginContainer/BoxContainer/PNJ0" to="MarginContainer/BoxContainer/PNJ0" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/BoxContainer/PNJ1" to="MarginContainer/BoxContainer/PNJ1" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/BoxContainer/PNJ2" to="MarginContainer/BoxContainer/PNJ2" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/BoxContainer/PNJ3" to="MarginContainer/BoxContainer/PNJ3" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ4" to="MarginContainer/BoxContainer/PNJ4" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/Select" to="." method="_on_select_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

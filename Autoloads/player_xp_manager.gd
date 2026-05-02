@@ -19,7 +19,8 @@ signal update_level(current_level: int)
 signal level_up_sfx
 
 var xp_bucket: Array
-
+var is_processing : bool = false
+var xp_delay : float = 0.05
 
 var game_paused:=false
 
@@ -45,11 +46,11 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	if !game_paused:
-		if current_xp >= current_level_target_xp:
-			level_up()
-
-		get_xp()
+	pass
+	#if !game_paused:
+		#if current_xp >= current_level_target_xp and !leveling_up:
+			#level_up()
+		#get_xp()
 
 
 func update_upgrades()-> void : 
@@ -60,24 +61,50 @@ func update_upgrades()-> void :
 	
 func add_xp_in_bucket(xp_value : int)-> void:
 	xp_bucket.append(xp_value)
+	if !is_processing:
+		process_next_xp()
+	
+func process_next_xp() -> void : 
+	if game_paused or xp_bucket.is_empty():
+		is_processing = false
+		return
+	
+	is_processing = true
+	var xp_value: int = xp_bucket.pop_front()
+	var xp_needed: int = current_level_target_xp - current_xp
+
+	if xp_value <= xp_needed:
+		current_xp += xp_value
+	else:
+		current_xp += xp_needed
+		xp_bucket.push_front(xp_value - xp_needed)
+
+	emit_signal("update_xp", current_xp)
+
+	if current_xp >= current_level_target_xp:
+		level_up()
+	
+	await get_tree().create_timer(xp_delay).timeout
+	process_next_xp()
 
 
-func get_xp() -> void:
-	if !game_paused and !xp_bucket.is_empty():
-		#print("bucke size : ",xp_bucket.size())
-		for i in range(xp_bucket.size()-1,-1,-1):
-			if current_level_target_xp - current_xp >= xp_bucket[i] :
-				current_xp += xp_bucket[i]
-				emit_signal("update_xp", current_xp)
-				xp_bucket.remove_at(i)
-				break
-			if current_level_target_xp - current_xp < xp_bucket[i] :
-				var xp_to_level_up : int = xp_bucket[i] - (current_level_target_xp - current_xp)
-				var xp_exceed : int = xp_bucket[i] - xp_to_level_up
-				current_xp += xp_to_level_up
-				emit_signal("update_xp", current_xp)
-				xp_bucket.remove_at(i)
-				xp_bucket.append(xp_exceed)
+#func get_xp() -> void:
+	#if !game_paused and !xp_bucket.is_empty():
+		##print("bucke size : ",xp_bucket.size())
+		#for i in range(xp_bucket.size()-1,-1,-1):
+			#if current_level_target_xp - current_xp >= xp_bucket[i] :
+				#current_xp += xp_bucket[i]
+				#emit_signal("update_xp", current_xp)
+				#xp_bucket.remove_at(i)
+				#break
+			#if current_level_target_xp - current_xp < xp_bucket[i] :
+				#var xp_needed : int = current_level_target_xp - current_xp
+				#var xp_exceed : int = xp_bucket[i] - xp_needed
+				#current_xp += xp_needed
+				#emit_signal("update_xp", current_xp)
+				#xp_bucket.remove_at(i)
+				#if xp_exceed > 0:
+					#xp_bucket.append(xp_exceed)
 
 
 
@@ -89,10 +116,7 @@ func level_up() -> void:
 	current_xp -= xp_levels[current_level-1]
 
 	emit_signal("update_level",current_level)
-	animation = true
-	emit_signal("animation_play", animation)
-	
-	await get_tree().create_timer(0.8).timeout
+	emit_signal("animation_play", true)
 	emit_signal("update_xp", current_xp)
 	emit_signal("update_max_xp_target", current_level_target_xp)
 

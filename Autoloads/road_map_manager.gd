@@ -2,10 +2,10 @@ extends Node
 
 const X_DIST : int = 64
 const Y_DIST : int = 64
-const DIST_RANDOMNESS : int = 5
-const STEPS : int = 15
-const GRID_WIDTH : int = 5
-const PATHS : int = 3
+const DIST_RANDOMNESS : int = 15
+const STEPS : int = 20
+const GRID_WIDTH : int = 7
+const PATHS : int = 5
 const SHOP_DISTRICTS_WEIGHT : float = 4.0
 const GARAGE_DISTRICTS_WEIGHT : float = 6.0
 const PARKING_DISTRICTS_WEIGHT : float = 15.0
@@ -13,6 +13,7 @@ const MISSION_DISTRICTS_WEIGHT : float = 8.0
 
 var steps_reached : int = 0
 var current_map_data : Array[Array]
+var last_district : DistrictsData
 
 var random_districts_weights : Dictionary = {
 	DistrictsData.types.GARAGE : 0.0,
@@ -21,8 +22,10 @@ var random_districts_weights : Dictionary = {
 	DistrictsData.types.SHOP : 0.0
 }
 
+
 var random_districts_total_weights : int = 0
 var map_data : Array[Array] #Grid is an array of floors which are array of districts
+var selected_districts : Array[DistrictsData]
 
 func _ready() -> void:
 	SignalManager.day_ended.connect(_on_day_ended)
@@ -52,14 +55,14 @@ func generate_initial_grid() -> Array[Array] :
 		for j in GRID_WIDTH:
 			var current_district : DistrictsData = DistrictsData.new()
 			var offset : Vector2 = Vector2(randf(),randf()) * DIST_RANDOMNESS
-			current_district.position = Vector2(j * X_DIST, i * - Y_DIST) + offset
+			current_district.position = Vector2(i * X_DIST, j * - Y_DIST) + offset
 			current_district.row = i
 			current_district.column = j
 			current_district.next_districts = []
 			
 			#final district bigger distance
 			if i == STEPS -1 : 
-				current_district.position.y = (i + 1) * -Y_DIST
+				current_district.position.x = (i + 1) * X_DIST
 			
 			adjacent_districts.append(current_district)
 
@@ -225,6 +228,10 @@ func get_random_district_type_by_weight() -> DistrictsData.types :
 
 	return DistrictsData.types.PARKING
 
-
 func _on_day_ended()-> void : 
 	steps_reached += 1
+
+func unload()-> void : 
+	steps_reached = 0
+	map_data.clear()
+	current_map_data.clear()

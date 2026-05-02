@@ -6,8 +6,7 @@ var game_is_paused: = false
 
 @onready var prelevelling: Control = $"../Prelevelling"
 @onready var preleveling_button: Button = $"../Prelevelling/MainButtons/PrelevelingButton"
-@onready var weapon_slot_container: GridContainer = $WeaponsContainer/GridContainer
-@onready var weapon_button0: Button = $WeaponsContainer/GridContainer/WeaponSlot0/Weapon/Button
+@onready var confirm_button_0: Button = $WeaponsContainer/GridContainer/WeaponSlot0/Confirm
 
 
 func _ready() -> void:
@@ -34,4 +33,4 @@ func _on_skip_pressed() -> void:
 func _on_preleveling_button_pressed() -> void:
 	prelevelling.hide()
 	self.show()
-	weapon_button0.grab_focus()
+	confirm_button_0.grab_focus()

@@ -11,7 +11,7 @@ class_name CarData
 @export var turn_speed := 3.2
 @export var velocity_floor:= 50
 @export var burnout_boost := 200
-@export var base_boost_duration := 0.75
+@export var base_dash_duration := 0.75
 
 
 @export_group("DRIFT")
@@ -35,9 +35,9 @@ var drifting : bool = false
 @export var base_max_life : int = 250
 @export var base_display_max_speed : int = 250
 @export var base_dmg : int = 15
-@export var base_dmg_boost : float = 2.0 #multiplier
+@export var base_dash_dmg_bonus : float = 2.0 #multiplier
 @export var max_boost_gauge : int = 100 
-@export var base_boost_up : int = 10
+@export var base_nitro_up : int = 10
 @export var base_collect_radius : float = 30
 
 
@@ -54,9 +54,9 @@ var turbo_lvl: int =0
 var shield_lvl: int =0
 var carbon_lvl: int =0
 var tank_lvl: int =0
-var nos_lvl: int =0
-var tires_lvl: int =0
-var front_gear_lvl: int =0
+var nitro_lvl: int =0
+var wheels_lvl: int =0
+var bumper_lvl: int =0
 #var front_gear : FrontGearData
 #var tires : TiresData
 
@@ -65,7 +65,7 @@ var max_speed: int
 var max_life: int
 var display_max_speed: int
 var dmg: int
-var dmg_boost : float
-var boost_duration : float
-var boost_up : int
+var dash_dmg_bonus : float #dmg during dash
+var dash_duration : float #dash duration
+var nitro_up : int #nitro gauge fill up speed
 var collect_radius : float

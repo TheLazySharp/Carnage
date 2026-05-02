@@ -21,7 +21,7 @@ func _on_body_entered(body: Node2D) -> void:
 		SignalManager.emit_signal("game_paused",game_on_pause)
 		SurvivorsManager.emit_signal("picked_up_survivor",survivor)
 		new_survivor.show()
-		pick_up.grab_focus()
+		#pick_up.grab_focus()
 
 func _queue_free()-> void : 
 	self.queue_free()

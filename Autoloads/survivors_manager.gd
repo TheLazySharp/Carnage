@@ -40,3 +40,6 @@ func pick_up_survivor(new_survivor : SurvivorData) -> void :
 			unknown_survivors.remove_at(i)
 			WeaponsManager.equip_weapon(new_survivor.weapon)
 			break
+
+func unload() -> void :
+	on_board_survivors.clear()
