@@ -4,6 +4,8 @@
 
 [resource]
 script = ExtResource("1_0d3xf")
+type_1 = 6
+type_2 = 6
 weapon_scene_uid = "uid://dc7hb24vr2x6r"
 base_dmg = 0
 base_radius = 0

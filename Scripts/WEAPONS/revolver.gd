@@ -14,7 +14,6 @@ var fire_rate_upgrade : float
 @onready var muzzle_flash: AnimatedSprite2D = $MuzzleFlash
 
 
-
 var game_paused:=false
 
 var nb_ammo: int
@@ -35,9 +34,18 @@ func _ready() -> void:
 	shot_sfx.stream = revolver_data.weapon_sfx
 	fire_rate.wait_time = revolver_data.base_fire_rate
 	max_lvl = revolver_data.max_level
-	_on_stats_updated()
+	#_on_stats_updated()
 	create_bullet_pool(max_bullet_count)
 	muzzle_flash.hide()
+	
+	revolver_data.init_stats()
+	
+	nb_ammo = revolver_data.nb_ammo.get_value()
+	fire_rate.wait_time = revolver_data.fire_rate.get_value()
+	fire_range.shape.radius = revolver_data.radius.get_value()
+	revolver_data.fire_rate.stat_adjusted.connect(_on_fire_rate_modified)
+	
+	
 
 
 func _process(_delta: float) -> void:
@@ -126,11 +134,16 @@ func desactivate() -> void :
 	targets.clear()
 	fire_rate.stop()
 	
-func _on_stats_updated() -> void : 
-	current_lvl = clampi(revolver_data.current_level,0,max_lvl)
-	fire_rate.wait_time = (revolver_data.base_fire_rate - current_lvl * 0.02) * LuckyCharmsManager. all_fire_rate_bonus * LuckyCharmsManager.short_range_fire_rate_bonus
-	fire_rate_upgrade = (revolver_data.base_fire_rate - (current_lvl + 1) * 0.02) * LuckyCharmsManager. all_fire_rate_bonus * LuckyCharmsManager.short_range_fire_rate_bonus
-	revolver_data.fire_rate = fire_rate.wait_time
-	revolver_data.fire_rate_upgrade = fire_rate_upgrade
 	
-	fire_range.shape.radius = revolver_data.base_radius
+func _on_fire_rate_modified(new_value: float) -> void : 
+	fire_rate.wait_time = new_value
+
+func _on_stats_updated() -> void : 
+	pass
+	#current_lvl = clampi(revolver_data.current_level,0,max_lvl)
+	#fire_rate.wait_time = (revolver_data.base_fire_rate - current_lvl * 0.02) * LuckyCharmsManager. all_fire_rate_bonus * LuckyCharmsManager.short_range_fire_rate_bonus
+	#fire_rate_upgrade = (revolver_data.base_fire_rate - (current_lvl + 1) * 0.02) * LuckyCharmsManager. all_fire_rate_bonus * LuckyCharmsManager.short_range_fire_rate_bonus
+	#revolver_data.fire_rate = fire_rate.wait_time
+	#revolver_data.fire_rate_upgrade = fire_rate_upgrade
+	#
+	#fire_range.shape.radius = revolver_data.base_radius

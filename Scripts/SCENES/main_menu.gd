@@ -7,7 +7,7 @@ extends Control
 var survivor_selection : String = "uid://cui5s6rmjs40o"
 var tuto_scene : String = "uid://ci6t4884t7q6r"
 var commands_scene : String = "uid://dayxnnf2ndx5c"
-@onready var training: Button = $VBoxContainer/Training
+@onready var training: Button = $VBoxContainer/Commands
 
 
 func _ready() -> void:
@@ -31,7 +31,6 @@ func _on_start_pressed() -> void:
 	
 	if !SceneManager.tuto_completed:
 		CarManager.selected_car = CarManager.cars[0]
-		StatsManager.update_car_stats(CarManager.selected_car)
 
 		SceneManager.load_level(tuto_scene)
 	else:

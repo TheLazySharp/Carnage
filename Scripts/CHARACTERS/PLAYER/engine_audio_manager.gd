@@ -32,7 +32,7 @@ func _ready() -> void:
 	car_res = CarManager.selected_car
 	car_node.dashing.connect(on_dash)
 	SignalManager.game_is_over.connect(_on_game_over)
-	max_speed = car_res.max_speed
+	max_speed = car_res.max_speed.get_value()
 	
 	for i in rpm_loops.size():
 		var player := AudioStreamPlayer.new()

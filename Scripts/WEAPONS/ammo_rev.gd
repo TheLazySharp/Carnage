@@ -26,8 +26,12 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	StatsManager.stats_updated.connect(_on_stats_updated)
 	max_lvl = bullet_data.max_level
+
+	bullet_data.init_stats()
+	damages = bullet_data.dmg.get_value()
+	max_range = bullet_data.atk_range.get_value()
+	speed = bullet_data.speed.get_value()
 	
-	_on_stats_updated()
 
 func _process(_delta: float) -> void:
 	
@@ -38,7 +42,7 @@ func _process(_delta: float) -> void:
 func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 	global_position = from_position
 	start_position = from_position
-	velocity = direction.normalized() * speed
+	velocity = direction.normalized() * bullet_data.speed.get_value()
 	self.show()
 	is_active = true
 	set_physics_process(true)
@@ -54,7 +58,7 @@ func _physics_process(delta: float) -> void:
 
 		
 	
-	if start_position.distance_to(global_position) > max_range:
+	if start_position.distance_to(global_position) > bullet_data.atk_range.get_value():
 		if not game_paused:
 			desactivate()
 
@@ -84,17 +88,18 @@ func activate()->void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if "get_damages" in area and area.is_in_group("ennemies") and is_active:
-		area.get_damages(damages)
+		area.get_damages(bullet_data.dmg.get_value())
 		desactivate()
 	elif area.is_in_group("walls"):
 		desactivate()
 
 
 func _on_stats_updated() -> void : 
-	current_lvl = clampi(bullet_data.current_level,0,max_lvl)
-	speed = bullet_data.speed
-	damages = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
-	damages_upgrade = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + ((current_lvl + 1) * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
-	bullet_data.dmg = damages
-	bullet_data.dmg_upgrade = damages_upgrade
-	max_range = bullet_data.base_atk_range * LuckyCharmsManager.all_range_bonus
+	pass
+	#current_lvl = clampi(bullet_data.current_level,0,max_lvl)
+	#speed = bullet_data.speed
+	#damages = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
+	#damages_upgrade = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + ((current_lvl + 1) * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
+	#bullet_data.dmg.get_value() = damages
+	#bullet_data.dmg_upgrade = damages_upgrade
+	#max_range = bullet_data.base_atk_range * LuckyCharmsManager.all_range_bonus

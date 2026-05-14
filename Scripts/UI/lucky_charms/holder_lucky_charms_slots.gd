@@ -9,6 +9,10 @@ var charms : Array[LuckyCharmData]
 
 func _ready() -> void:
 	i = int(self.name)
+	if i >= LuckyCharmsManager.holder.size():
+		self.hide()
+		return
+	
 	charms = LuckyCharmsManager.holder
 
 	if charms[i] != null:

@@ -6,7 +6,7 @@ var car : CarData
 func _ready() -> void:
 	car = CarManager.selected_car
 	StatsManager.stats_updated.connect(_on_stats_updated)
-	collect_zone.shape.radius = car.collect_radius
+	collect_zone.shape.radius = car.collect_radius.get_value()
 
 	
 func _on_stats_updated() -> void : 

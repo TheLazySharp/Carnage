@@ -28,7 +28,10 @@ func _ready() -> void:
 	animation_explosion.hide()
 	explosion_sfx.stream = mine_data.weapon_sfx
 	
-	_on_stats_updated()
+	#_on_stats_updated()
+	
+	mine_data.init_stats()
+	damages = mine_data.dmg.get_value()
 	
 
 func _process(_delta: float) -> void:
@@ -64,11 +67,11 @@ func explosion()-> void:
 
 		if is_instance_valid(targets[i]):
 			if targets[i].is_in_group("player") and "get_damages" in targets[i].get_parent():
-				targets[i].get_parent().get_damages(damages)
+				targets[i].get_parent().get_damages(mine_data.dmg.get_value())
 				#print("explosion on player")
 				
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
-				targets[i].get_damages(damages)
+				targets[i].get_damages(mine_data.dmg.get_value())
 				#print("explosion on enemy")
 				
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
@@ -127,8 +130,9 @@ func _on_explosion_area_exited(area: Area2D) -> void:
 	targets.erase(area)
 	
 func _on_stats_updated() -> void : 
-	current_lvl = clampi(mine_data.current_level,0,max_lvl)
-	damages = mine_data.coeff_dmg * roundi(mine_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.explosives_dmg_bonus)
-	damages_upgrade = mine_data.coeff_dmg * roundi(mine_data.base_dmg + ((current_lvl + 1) * .1 * 28)* LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.explosives_dmg_bonus)
-	mine_data.dmg = damages
-	mine_data.dmg_upgrade = damages_upgrade
+	pass
+	#current_lvl = clampi(mine_data.current_level,0,max_lvl)
+	#damages = mine_data.coeff_dmg * roundi(mine_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.explosives_dmg_bonus)
+	#damages_upgrade = mine_data.coeff_dmg * roundi(mine_data.base_dmg + ((current_lvl + 1) * .1 * 28)* LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.explosives_dmg_bonus)
+	#mine_data.dmg = damages
+	#mine_data.dmg_upgrade = damages_upgrade

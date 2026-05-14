@@ -85,14 +85,13 @@ func _on_button_pressed(button_id : int) -> void:
 			else : confirm_buttons[i].add_theme_stylebox_override("normal", base_button_style_box)
 		ammo_levelup_ok = true
 		leveling_ok()
+		
 	
 	
 	elif ammo.current_level >= ammo.max_level:
 		confirm_buttons[button_selected_id].get_child(0).add_theme_color_override("font_color", Color.RED)
 		await get_tree().create_timer(0.5).timeout
 		confirm_buttons[button_selected_id].get_child(0).add_theme_color_override("font_color", Color.WHITE)
-	#else: print("skip")
-
 
 func leveling_ok() -> void:
 	for i in confirm_buttons.size():
@@ -101,15 +100,10 @@ func leveling_ok() -> void:
 	if ammo_levelup_ok:
 		game_is_paused = false
 		if ammo.is_equiped:
-			ammo_level_up(button_selected_id)
+			ammo.level_up()
 
 		SignalManager.emit_signal("game_paused", game_is_paused)
 		leveling.hide()
 		ammo_levelup_ok = false
 		#new_weapon_show = false
 	else: return
-	
-
-func ammo_level_up(ammo_id: int) -> void:
-	ammunitions[ammo_id].current_level +=1
-	StatsManager.update_car_stats(CarManager.selected_car)

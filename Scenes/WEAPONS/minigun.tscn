@@ -93,7 +93,7 @@ color = Color(0.0146401, 0, 0.81067, 1)
 [node name="FirePoint" type="Marker2D" parent="." unique_id=655198703]
 
 [node name="FireRate" type="Timer" parent="." unique_id=471841854]
-wait_time = 0.1
+wait_time = 0.2
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1460429339]
 modulate = Color(0, 1, 0, 1)

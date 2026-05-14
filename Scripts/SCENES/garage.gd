@@ -18,16 +18,6 @@ var end_of_day_scene : String = "uid://dkpvtoel7hhai"
 @onready var car_icon: TextureRect = $Entrance/Repair/CarIcon
 @onready var repair_button: Button = $Entrance/RepairButton
 
-#STATS
-@onready var fuel_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Fuel_lvl
-@onready var speed_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Speed_lvl
-@onready var torque_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Torque_lvl
-@onready var dmg_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Dmg_lvl
-@onready var drift_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Drift_lvl
-@onready var tires_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Tires_lvl
-@onready var dash_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Dash_lvl
-@onready var crit_lvl_entrance: Label = $Entrance/EntranceStatsPanel/HBoxContainer/Levels/Crit_lvl
-
 
 #-----------------UPGRADES -------------------#
 #STATS NUMBERS
@@ -70,6 +60,7 @@ var nitro_base_lvl: int
 var wheels_base_lvl: int
 var bumper_base_lvl: int
 
+var upgraded_stats : Array[Statistic]
 var total_upgrade_cost:=0
 @onready var base_available_upgrades : int
 
@@ -113,7 +104,16 @@ var total_upgrade_cost:=0
 @onready var nitro_down: Button = $Upgrades/UpgradePanel/VBoxContainer/Dash/ButtonDown/NitroDown
 @onready var bumper_down: Button = $Upgrades/UpgradePanel/VBoxContainer/Crit/ButtonDown/BumperDown
 
-
+var engine_modifier : Modifier
+var turbo_modifier : Modifier
+var shield_modifier_pos : Modifier
+var shield_modifier_neg : Modifier
+var carbon_modifier_pos : Modifier
+var carbon_modifier_neg : Modifier
+var tank_modifier : Modifier
+var wheel_modifier : Modifier
+var nitro_modifier : Modifier
+var bumper_modifier : Modifier
 
 
 func _ready() -> void:
@@ -123,14 +123,25 @@ func _ready() -> void:
 	#XPManager.current_level = 4
 	#InventoryManager.auto_parts = 2000
 	
-	base_fuel = car.max_life
-	base_max_speed = car.display_max_speed
-	base_torque = car.acceleration
-	base_dmg = car.dmg
-	base_drift = car.drift_turn_bonus + car.turn_speed
-	base_tires = car.nitro_up
-	base_dash = car.dash_duration
-	base_crit = car.dash_dmg_bonus
+	engine_modifier = Modifier.new(10,Modifier.Type.FLAT,"engine_mod",0)
+	turbo_modifier = Modifier.new(10,Modifier.Type.FLAT,"acceleration_mod",0)
+	shield_modifier_pos = Modifier.new(5,Modifier.Type.FLAT,"shield_pos_mod",0)
+	shield_modifier_neg = Modifier.new(-5,Modifier.Type.FLAT,"shield_neg_mod",0)
+	carbon_modifier_pos = Modifier.new(5,Modifier.Type.FLAT,"carbon_pos_mod",0)
+	carbon_modifier_neg = Modifier.new(-5,Modifier.Type.FLAT,"carbon_neg_mod",0)
+	tank_modifier = Modifier.new(10,Modifier.Type.FLAT,"tank_mod",0)
+	wheel_modifier = Modifier.new(2,Modifier.Type.FLAT,"wheels_mod",0)
+	nitro_modifier = Modifier.new(0.2,Modifier.Type.FLAT,"nitro_mod",0)
+	bumper_modifier = Modifier.new(0.5,Modifier.Type.FLAT,"nitro_mod",0) #applied on dash_dmh_bonus which is applied has a percent multiplier -> add 50%
+
+	base_fuel = roundi(car.max_life.get_value())
+	base_max_speed = roundi(car.display_max_speed.get_value())
+	base_torque = roundi(car.acceleration.get_value())
+	base_dmg = roundi(car.dmg.get_value())
+	base_drift = car.drift_turn_bonus.get_value() + car.turn_speed
+	base_tires = roundi(car.nitro_up.get_value())
+	base_dash = car.dash_duration.get_value()
+	base_crit = car.dash_dmg_bonus.get_value()
 	
 	engine_base_lvl = car.engine_lvl
 	turbo_base_lvl = car.turbo_lvl
@@ -141,16 +152,6 @@ func _ready() -> void:
 	nitro_base_lvl = car.nitro_lvl
 	bumper_base_lvl = car.bumper_lvl
 	
-	fuel_lvl_entrance.text = str(car.max_life)
-	speed_lvl_entrance.text = str(car.display_max_speed)
-	torque_lvl_entrance.text = str(car.acceleration)
-	dmg_lvl_entrance.text = str(car.dmg)
-	drift_lvl_entrance.text = str(car.drift_turn_bonus + car.turn_speed)
-	tires_lvl_entrance.text = str(car.wheels_lvl)
-	dash_lvl_entrance.text = str(car.nitro_lvl)
-	crit_lvl_entrance.text = str(car.bumper_lvl)
-	
-
 	car_name.text = car.car_name
 	car_icon.texture = car.car_sprite
 	
@@ -172,7 +173,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	#update_stats()
 	if !upgrade_ok():
 		total_q.add_theme_color_override("font_color",Color.RED)
 	else : total_q.add_theme_color_override("font_color",Color.WHITE)
@@ -191,27 +191,25 @@ func _input(event: InputEvent) -> void:
 			confirm.grab_focus()
 
 func update_stats() -> void:
-
-	StatsManager.update_car_stats(car)
 	XPManager.update_upgrades()
 
-	fuel_lvl.text = str(car.max_life)
-	speed_lvl.text = str(car.display_max_speed)
-	torque_lvl.text = str(car.acceleration)
-	dmg_lvl.text = str(car.dmg)
-	drift_lvl.text = str(car.drift_turn_bonus + car.turn_speed)
-	tires_lvl.text = str(car.nitro_up)
-	dash_lvl.text = str(car.dash_duration)
-	crit_lvl.text = str(car.dash_dmg_bonus)
+	fuel_lvl.text = str(roundi(car.max_life.get_value()))
+	speed_lvl.text = str(roundi(car.display_max_speed.get_value()))
+	torque_lvl.text = str(roundi(car.acceleration.get_value()))
+	dmg_lvl.text = str(roundi(car.dmg.get_value()))
+	drift_lvl.text = str(car.drift_turn_bonus.get_value() + car.turn_speed)
+	tires_lvl.text = str(roundi(car.nitro_up.get_value()))
+	dash_lvl.text = str(car.dash_duration.get_value())
+	crit_lvl.text = str(car.dash_dmg_bonus.get_value())
 	
-	fuel_upgrade.text = str(car.max_life - base_fuel)
-	speed_upgrade.text = str(car.display_max_speed - base_max_speed)
-	torque_upgrade.text = str(car.acceleration - base_torque)
-	dmg_upgrade.text = str(car.dmg - base_dmg)
-	drift_upgrade.text = str(car.drift_turn_bonus + car.turn_speed - base_drift)
-	tires_upgrade.text = str(car.nitro_up - base_tires)
-	dash_upgrade.text = str(car.dash_duration - base_dash)
-	crit_upgrade.text = str(car.dash_dmg_bonus - base_crit)
+	fuel_upgrade.text = str(roundi(car.max_life.get_value() - base_fuel))
+	speed_upgrade.text = str(roundi(car.display_max_speed.get_value() - base_max_speed))
+	torque_upgrade.text = str(roundi(car.acceleration.get_value() - base_torque))
+	dmg_upgrade.text = str(roundi(car.dmg.get_value() - base_dmg))
+	drift_upgrade.text = str(car.drift_turn_bonus.get_value() + car.turn_speed - base_drift)
+	tires_upgrade.text = str(roundi(car.nitro_up.get_value() - base_tires))
+	dash_upgrade.text = str(car.dash_duration.get_value() - base_dash)
+	crit_upgrade.text = str(car.dash_dmg_bonus.get_value() - base_crit)
 	
 	engine_lvl.text = "Lvl " + str(car.engine_lvl)
 	turbo_lvl.text = "Lvl " + str(car.turbo_lvl)
@@ -222,152 +220,162 @@ func update_stats() -> void:
 	nitro_lvl.text = "Lvl " + str(car.nitro_lvl)
 	bumper_lvl.text = "Lvl " + str(car.bumper_lvl)
 	
-	fuel_lvl_entrance.text = str(car.max_life)
-	speed_lvl_entrance.text = str(car.display_max_speed)
-	torque_lvl_entrance.text = str(car.acceleration)
-	dmg_lvl_entrance.text = str(car.dmg)
-	drift_lvl_entrance.text = str(car.drift_turn_bonus + car.turn_speed)
-	tires_lvl_entrance.text = str(car.wheels_lvl)
-	dash_lvl_entrance.text = str(car.nitro_lvl)
-	crit_lvl_entrance.text = str(car.bumper_lvl)
-	
 	availupgrade.text = str(XPManager.available_upgrades)
 	requested_q.text = str(XPManager.upgrade_cost)
 	cost_q.text = str(total_upgrade_cost)
 	total_q.text = str(InventoryManager.auto_parts - total_upgrade_cost)
 
-
-
-
 func _on_engine_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and engine_base_lvl <= car.engine_lvl and upgrade_ok():
 		car.engine_lvl +=1
-		#XPManager.available_upgrades -=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.max_speed.add_modifier(engine_modifier)
+		car.display_max_speed.add_modifier(engine_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades," / base available upgrades : ",base_available_upgrades ," / engine base lvl : ",engine_base_lvl," / engine current lvl : ",car.engine_lvl)
 
 func _on_engine_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and engine_base_lvl < car.engine_lvl and downgrade_ok():
 		car.engine_lvl -=1
-		#XPManager.available_upgrades +=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.max_speed.remove_modifier(engine_modifier)
+		car.display_max_speed.remove_modifier(engine_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades, " / engine base lvl : ",engine_base_lvl," / engine current lvl : ",car.engine_lvl)
 
 func _on_turbo_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and turbo_base_lvl <= car.turbo_lvl and upgrade_ok():
 		car.turbo_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.acceleration.add_modifier(turbo_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_turbo_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and turbo_base_lvl < car.turbo_lvl and downgrade_ok():
 		car.turbo_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.acceleration.remove_modifier(turbo_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_shield_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and shield_base_lvl <= car.shield_lvl and upgrade_ok():
 		car.shield_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.max_life.add_modifier(shield_modifier_pos)
+		car.dmg.add_modifier(shield_modifier_pos)
+		car.acceleration.add_modifier(shield_modifier_neg)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_shield_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and shield_base_lvl < car.shield_lvl and downgrade_ok():
 		car.shield_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.max_life.remove_modifier(shield_modifier_pos)
+		car.dmg.remove_modifier(shield_modifier_pos)
+		car.acceleration.remove_modifier(shield_modifier_neg)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_carbon_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and carbon_base_lvl <= car.carbon_lvl and upgrade_ok():
 		car.carbon_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.acceleration.add_modifier(carbon_modifier_pos)
+		car.max_life.add_modifier(carbon_modifier_neg)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_carbon_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and carbon_base_lvl < car.carbon_lvl and downgrade_ok():
 		car.carbon_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.acceleration.remove_modifier(carbon_modifier_pos)
+		car.max_life.remove_modifier(carbon_modifier_neg)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_tank_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and tank_base_lvl <= car.tank_lvl and upgrade_ok():
 		car.tank_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.max_life.add_modifier(tank_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_tank_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and tank_base_lvl < car.tank_lvl and downgrade_ok():
 		car.tank_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.max_life.remove_modifier(tank_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_wheel_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and wheels_base_lvl <= car.wheels_lvl and upgrade_ok():
 		car.wheels_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.nitro_up.add_modifier(wheel_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_wheel_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and wheels_base_lvl < car.wheels_lvl and downgrade_ok():
 		car.wheels_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.nitro_up.remove_modifier(wheel_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_nitro_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and nitro_base_lvl <= car.nitro_lvl and upgrade_ok():
 		car.nitro_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.dash_duration.add_modifier(nitro_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_nitro_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and nitro_base_lvl < car.nitro_lvl and downgrade_ok():
 		car.nitro_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.dash_duration.remove_modifier(nitro_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_bumper_up_pressed() -> void:
 	if XPManager.available_upgrades > 0 and bumper_base_lvl <= car.bumper_lvl and upgrade_ok():
 		car.bumper_lvl +=1
 		total_upgrade_cost += XPManager.cost_formula(0)
 		XPManager.total_upgrades +=1
+		
+		car.dash_dmg_bonus.add_modifier(bumper_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func _on_bumper_down_pressed() -> void:
 	if XPManager.available_upgrades >= 0 and bumper_base_lvl < car.bumper_lvl and downgrade_ok():
 		car.bumper_lvl -=1
 		XPManager.total_upgrades -=1
 		total_upgrade_cost -= XPManager.cost_formula(0)
+		
+		car.dash_dmg_bonus.remove_modifier(bumper_modifier)
 		update_stats()
-		#print("total upgrades : ",XPManager.total_upgrades," / available upgrades : ", XPManager.available_upgrades)
 
 func upgrade_ok() -> bool:
 	if InventoryManager.auto_parts - total_upgrade_cost >= XPManager.upgrade_cost:
@@ -385,28 +393,26 @@ func _on_confirm_pressed() -> void:
 func _on_back_pressed() -> void:
 	SceneManager.load_level(end_of_day_scene)
 
-
 func _on_upgrade_button_pressed() -> void:
 	entrance.hide()
 	upgrades.show()
 	engine_up.grab_focus()
 
-
 func _on_upgrades_confirm_pressed() -> void:
 	InventoryManager.auto_parts -= total_upgrade_cost
 	total_upgrade_cost = 0
 	base_available_upgrades = XPManager.available_upgrades
-	StatsManager.current_life += car.max_life - base_fuel
+	StatsManager.current_life += int(car.max_life.get_value() - base_fuel)
 	
 	
-	base_fuel = car.max_life
-	base_max_speed = car.display_max_speed
-	base_torque = car.acceleration
-	base_dmg = car.dmg
-	base_drift = car.drift_turn_bonus + car.turn_speed
-	base_tires = car.nitro_up
-	base_dash = car.dash_duration
-	base_crit = car.dash_dmg_bonus
+	base_fuel = int(car.max_life.get_value())
+	base_max_speed = int(car.display_max_speed.get_value())
+	base_torque = int(car.acceleration.get_value())
+	base_dmg = int(car.dmg.get_value())
+	base_drift = car.drift_turn_bonus.get_value() + car.turn_speed
+	base_tires = int(car.nitro_up.get_value())
+	base_dash = car.dash_duration.get_value()
+	base_crit = car.dash_dmg_bonus.get_value()
 	
 	engine_base_lvl = car.engine_lvl
 	turbo_base_lvl = car.turbo_lvl
@@ -426,4 +432,3 @@ func _on_upgrades_back_pressed() -> void:
 	entrance.show()
 	upgrades.hide()
 	back.grab_focus()
-	

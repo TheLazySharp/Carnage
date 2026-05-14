@@ -1,6 +1,6 @@
 extends Label
 
-var change :int
+var change :float
 var font_text : Array = FontManager.FONTS[FontManager.types.TEXT]
 
 func _ready() -> void:
@@ -10,11 +10,10 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	change = int(self.text)
+	change = float(self.text)
 	if change < 0:
 		self.add_theme_color_override("font_color",Color.RED)
 	if change == 0:
 		self.add_theme_color_override("font_color",Color.WHITE)
 	if change > 0:
 		self.add_theme_color_override("font_color",Color.GREEN)
-		

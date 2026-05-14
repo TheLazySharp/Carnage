@@ -12,3 +12,13 @@ func _ready() -> void:
 	add_theme_color_override("font_focus_color",font_menu_focus[2])
 	add_theme_color_override("font_pressed_color",font_menu_pressed[2])
 	add_theme_color_override("font_hover_color",font_menu_hover[2])
+	add_theme_constant_override("h_separation",FontManager.button_H_sep)
+	alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+
+
+
+func _process(_delta: float) -> void:
+	if self.has_focus():
+		icon = FontManager.BUTTON_ICON
+	else : 
+		icon = null

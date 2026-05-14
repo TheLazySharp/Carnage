@@ -21,6 +21,7 @@ func _ready() -> void:
 	##----------TEST---------------#
 	#CarManager.selected_car = CarManager.cars[0]
 	#car = CarManager.selected_car
+	#car.init_stats()
 	
 	add_theme_font_override("font",font_button[0])
 	add_theme_font_size_override("font_size",font_button[1])
@@ -35,14 +36,14 @@ func _ready() -> void:
 	
 	
 	
-	fuel_gauge.max_value = car.max_life
+	fuel_gauge.max_value = car.max_life.get_value()
 	fuel_gauge.value = StatsManager.current_life
 	parts_q.text = str(InventoryManager.auto_parts)
 
 
 
 func _process(_delta: float) -> void:
-	max_repair_cost = (car.max_life - StatsManager.current_life) 
+	max_repair_cost = (car.max_life.get_value() - StatsManager.current_life) 
 	cost_str = str(max_repair_cost)
 	if max_repair_cost <= InventoryManager.auto_parts:
 		self.add_theme_color_override("font_color",Color.BLACK)
@@ -51,7 +52,8 @@ func _process(_delta: float) -> void:
 		
 	self.text = "REPAIR : " + cost_str
 	fuel_gauge.value = StatsManager.current_life
-	life_label.text = str(StatsManager.current_life) + "/" + str(car.max_life)
+	life_label.text = str(StatsManager.current_life) + "/" + str(int(car.max_life.get_value()))
+	fuel_gauge.max_value = car.max_life.get_value()
 	parts_q.text = str(InventoryManager.auto_parts)
 	
 
@@ -63,6 +65,3 @@ func _on_pressed() -> void:
 	actual_repair_cost = min(max_repair_cost,InventoryManager.auto_parts)
 	StatsManager.current_life += actual_repair_cost
 	InventoryManager.auto_parts -= actual_repair_cost
-	
-	
-	

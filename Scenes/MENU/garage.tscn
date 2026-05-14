@@ -20,7 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://1rjil1fyuxu" path="res://Assets/Items/carbon_fiber.png" id="9_g3154"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="10_q2l0n"]
 [ext_resource type="Texture2D" uid="uid://c32m7ll3ka4tp" path="res://Assets/Items/fuel_tank.png" id="12_efqn2"]
+[ext_resource type="Script" uid="uid://dtnows4f4j3w1" path="res://Scripts/CHARACTERS/PLAYER/stats_panel.gd" id="13_6c7gw"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="13_bewcq"]
+[ext_resource type="Script" uid="uid://dvc1e2otn4mns" path="res://Scripts/UI/car_upgrade_button.gd" id="14_61h7n"]
 [ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="15_87beh"]
 [ext_resource type="Texture2D" uid="uid://gg32ihj14fcq" path="res://Assets/Items/nitro.png" id="16_3qt3b"]
 [ext_resource type="Texture2D" uid="uid://bmgonqrvktc7g" path="res://Assets/Items/front_gear.png" id="17_obsfv"]
@@ -107,7 +109,7 @@ offset_right = 639.0
 offset_bottom = 113.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 64
 text = "THE GARAGE"
 horizontal_alignment = 1
@@ -299,10 +301,11 @@ script = ExtResource("8_3qt3b")
 
 [node name="EntranceStatsPanel" type="Panel" parent="Entrance" unique_id=1351582300]
 layout_mode = 0
-offset_left = 780.0
+offset_left = 754.0
 offset_top = 24.0
-offset_right = 1180.0
+offset_right = 1189.0
 offset_bottom = 344.0
+script = ExtResource("13_6c7gw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Entrance/EntranceStatsPanel" unique_id=2043760998]
 layout_mode = 1
@@ -311,13 +314,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -151.0
-offset_top = -109.0
-offset_right = 151.0
-offset_bottom = 109.0
+offset_left = -182.0
+offset_top = -147.0
+offset_right = 181.0
+offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
 
 [node name="Stats" type="VBoxContainer" parent="Entrance/EntranceStatsPanel/HBoxContainer" unique_id=299865382]
 layout_mode = 2
@@ -325,7 +327,7 @@ theme_override_constants/separation = 10
 
 [node name="Fuel" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=1212595735]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "Fuel :"
 vertical_alignment = 1
@@ -333,31 +335,31 @@ script = ExtResource("7_61h7n")
 
 [node name="Speed" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=288928945]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "SPEED :"
+text = "Speed :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="Torque" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=510219671]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Torque :"
+text = "Acceleration :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="Dmg" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=653159690]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "DMG :"
+text = "Damages :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="Drift" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=1834573231]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "Drift :"
 vertical_alignment = 1
@@ -365,25 +367,25 @@ script = ExtResource("7_61h7n")
 
 [node name="Tires" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=1547815590]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Tires :"
+text = "Nitro up :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="DashLenght" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=169023960]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Dash :"
+text = "Dash duration :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="DashDmg" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=347018515]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Crit :"
+text = "Dash damages boost :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
@@ -393,7 +395,7 @@ theme_override_constants/separation = 10
 
 [node name="Fuel_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=1573500561]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "1000"
 horizontal_alignment = 2
@@ -402,7 +404,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Speed_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=740876475]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "200"
 horizontal_alignment = 2
@@ -411,7 +413,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Torque_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=526729471]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "100"
 horizontal_alignment = 2
@@ -420,7 +422,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Dmg_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=1850884807]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "100"
 horizontal_alignment = 2
@@ -429,7 +431,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Drift_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=1334940740]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -438,7 +440,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Tires_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=277155100]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -447,7 +449,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Dash_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=6965182]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -456,7 +458,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Crit_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=96564160]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -529,12 +531,12 @@ color = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 1
 offset_top = 20.0
-offset_right = 400.0
+offset_right = 480.0
 offset_bottom = 270.0
 theme_override_constants/separation = 10
 
 [node name="LvlPanel" type="Panel" parent="Upgrades/HBoxContainer" unique_id=2077011680]
-custom_minimum_size = Vector2(400, 120)
+custom_minimum_size = Vector2(480, 120)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -588,7 +590,7 @@ horizontal_alignment = 2
 script = ExtResource("7_61h7n")
 
 [node name="GearPanel" type="Panel" parent="Upgrades/HBoxContainer" unique_id=2002797426]
-custom_minimum_size = Vector2(400, 120)
+custom_minimum_size = Vector2(480, 120)
 layout_mode = 2
 
 [node name="Parts" type="TextureRect" parent="Upgrades/HBoxContainer/GearPanel" unique_id=1886032697]
@@ -667,9 +669,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -216.0
+offset_left = -130.0
 offset_top = 20.0
-offset_right = 380.0
+offset_right = 466.0
 offset_bottom = 657.0
 grow_horizontal = 2
 
@@ -682,6 +684,8 @@ theme_override_constants/separation = 10
 [node name="Engine" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1637748415]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 1
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Engine" unique_id=663922559]
 custom_minimum_size = Vector2(94, 70)
@@ -785,6 +789,8 @@ vertical_icon_alignment = 2
 [node name="Turbo" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1705877576]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 2
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo" unique_id=758097968]
 custom_minimum_size = Vector2(94, 70)
@@ -886,6 +892,8 @@ vertical_icon_alignment = 2
 [node name="Shield" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1611162894]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 3
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Shield" unique_id=1616385785]
 custom_minimum_size = Vector2(94, 70)
@@ -987,6 +995,8 @@ vertical_icon_alignment = 2
 [node name="Carbon" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1331665810]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 4
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon" unique_id=1486315269]
 custom_minimum_size = Vector2(94, 70)
@@ -1088,6 +1098,8 @@ vertical_icon_alignment = 2
 [node name="Tank" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1106899698]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 5
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Tank" unique_id=2086608655]
 custom_minimum_size = Vector2(94, 70)
@@ -1189,6 +1201,8 @@ vertical_icon_alignment = 2
 [node name="Wheels" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1842377921]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 7
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels" unique_id=479376956]
 custom_minimum_size = Vector2(94, 70)
@@ -1290,6 +1304,8 @@ vertical_icon_alignment = 2
 [node name="Dash" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=614791831]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 6
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Dash" unique_id=1268395469]
 custom_minimum_size = Vector2(94, 70)
@@ -1391,6 +1407,8 @@ vertical_icon_alignment = 2
 [node name="Crit" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=471372360]
 layout_mode = 2
 theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 8
 
 [node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Crit" unique_id=634436554]
 custom_minimum_size = Vector2(94, 70)
@@ -1495,7 +1513,7 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -61.0
-offset_right = 400.0
+offset_right = 480.0
 offset_bottom = 259.0
 grow_vertical = 2
 
@@ -1506,13 +1524,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -151.0
-offset_top = -109.0
-offset_right = 151.0
-offset_bottom = 109.0
+offset_left = -232.5
+offset_top = -131.0
+offset_right = 234.5
+offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 24
 
 [node name="Stats" type="VBoxContainer" parent="Upgrades/StatPanel/HBoxContainer" unique_id=107981802]
 layout_mode = 2
@@ -1520,7 +1538,7 @@ theme_override_constants/separation = 10
 
 [node name="Fuel" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1659640258]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "Fuel :"
 vertical_alignment = 1
@@ -1528,7 +1546,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Speed" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=719723125]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "Speed :"
 vertical_alignment = 1
@@ -1536,23 +1554,23 @@ script = ExtResource("7_61h7n")
 
 [node name="Torque" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=309909404]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Torque :"
+text = "Acceleration :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="Dmg" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=513861840]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "DMG :"
+text = "Damages :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="Drift" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1616517187]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "Drift :"
 vertical_alignment = 1
@@ -1560,35 +1578,36 @@ script = ExtResource("7_61h7n")
 
 [node name="Tires" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=907062815]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Tires :"
+text = "Nitro up :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="DashLenght" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1809520778]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Dash :"
+text = "Dash duration :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="DashDmg" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1102142521]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "Crit :"
+text = "Dash dmg boost :"
 vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="Levels" type="VBoxContainer" parent="Upgrades/StatPanel/HBoxContainer" unique_id=2076940881]
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Fuel_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=532118800]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "1000"
 horizontal_alignment = 2
@@ -1597,7 +1616,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Speed_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1946435198]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "200"
 horizontal_alignment = 2
@@ -1606,7 +1625,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Torque_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1417232592]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "100"
 horizontal_alignment = 2
@@ -1615,7 +1634,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Dmg_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1673827586]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "100"
 horizontal_alignment = 2
@@ -1624,7 +1643,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Drift_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=15134241]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -1633,7 +1652,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Tires_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=2044801274]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -1642,7 +1661,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Dash_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1169943872]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -1651,7 +1670,7 @@ script = ExtResource("7_61h7n")
 
 [node name="Crit_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=641098076]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 2
@@ -1659,77 +1678,78 @@ vertical_alignment = 1
 script = ExtResource("7_61h7n")
 
 [node name="Upgrade" type="VBoxContainer" parent="Upgrades/StatPanel/HBoxContainer" unique_id=251310388]
+custom_minimum_size = Vector2(82, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Fuel_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=574606055]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
 [node name="Speed_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1427513969]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
 [node name="Torque_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=542175002]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
 [node name="Dmg_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1498998161]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
 [node name="Drift_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=509102222]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
 [node name="Tires_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1356083325]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
 [node name="Dash_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=56573737]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")
 
 [node name="Crit_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1353781522]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("5_eb3v0")

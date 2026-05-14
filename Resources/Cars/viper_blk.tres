@@ -8,8 +8,9 @@
 script = ExtResource("1_kb2i4")
 car_name = "Speeder"
 base_max_speed = 700
+base_dmg = 5
+base_dash_dmg_bonus = 2.0
 friction = 700.0
-boost_up = 10
 start_engine_Sound = ExtResource("3_htark")
 car_sprite = ExtResource("2_63dal")
 metadata/_custom_type_script = "uid://cgs6g466ko5c0"

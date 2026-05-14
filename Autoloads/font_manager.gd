@@ -9,10 +9,15 @@ enum types {
 	SFX
 }
 
+const BUTTON_ICON = preload("uid://bqlx6iu4ihme6")
+var button_H_sep : int = 8
+
 var purple : Color = Color(0.686, 0.067, 0.435)
 var dark_yellow : Color = Color(1.0, 0.776, 0.0)
 var UX_outline : int = 8
 var UX_color : Color = Color.BLACK
+
+
 
 var FONTS : Dictionary = {
 	types.TITLE:[preload("uid://ka3caedu5yxc"),72,dark_yellow],

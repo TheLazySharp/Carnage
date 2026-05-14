@@ -51,18 +51,16 @@
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="36_kimld"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="38_kimld"]
 [ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="38_tc8sa"]
-[ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/UI/leveling.gd" id="39_yb0r4"]
+[ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/LEVELUP/leveling.gd" id="39_yb0r4"]
 [ext_resource type="Script" uid="uid://bnfkyuguhwr7h" path="res://Scripts/LEVELUP/levelup_icon.gd" id="40_wpjs7"]
 [ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="41_sl775"]
 [ext_resource type="Script" uid="uid://ddqkvhoijl1y2" path="res://Scripts/UI/boost_gauge.gd" id="41_tc8sa"]
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="42_7jfna"]
 [ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/piston.tscn" id="43_gq5tr"]
-[ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/UI/leveling_weapons.gd" id="43_hp83p"]
+[ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/LEVELUP/leveling_weapons.gd" id="43_hp83p"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="44_o24rt"]
-[ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/UI/leveling_ammos.gd" id="46_hp83p"]
-[ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="46_vrsns"]
+[ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/LEVELUP/leveling_ammos.gd" id="46_hp83p"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_ux4l1"]
-[ext_resource type="Script" uid="uid://bo2kuj133wi45" path="res://Scripts/UI/weapons_upgrade_UI.gd" id="49_3smgn"]
 [ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="50_hp83p"]
 [ext_resource type="PackedScene" uid="uid://drgsya7gbwrgk" path="res://Scenes/MAPS/start_gate.tscn" id="50_jgm5j"]
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="50_ow65e"]
@@ -84,6 +82,7 @@
 [ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="66_yxmws"]
 [ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="67_yrs1u"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="70_bva4u"]
+[ext_resource type="Script" uid="uid://b1o0peai48kvj" path="res://Scripts/LEVELUP/level_up_stats.gd" id="71_kkvuv"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
 background_mode = 3
@@ -1522,6 +1521,12 @@ expand_margin_top = 8.0
 expand_margin_right = 8.0
 expand_margin_bottom = 8.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrs1u"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkvuv"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xo07a"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 4
@@ -2852,30 +2857,30 @@ script = ExtResource("40_wpjs7")
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0" unique_id=2113372182]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../WeaponSlot4/Confirm")
 focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
-focus_neighbor_right = NodePath("../../WeaponSlot1/Confirm")
 focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
 script = ExtResource("65_ypirk")
 
-[node name="WeaponSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=847243658]
+[node name="WeaponSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1002567961]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1371853289]
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1548889201]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=512205260]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1858838502]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2885,7 +2890,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1700868154]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1787120499]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2898,7 +2903,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=924057663]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1145658221]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -2913,7 +2918,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon/IconBkg" unique_id=1235301586]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon/IconBkg" unique_id=1538546643]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -2930,33 +2935,33 @@ grow_vertical = 2
 expand_mode = 2
 script = ExtResource("40_wpjs7")
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1355038679]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1132583995]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../WeaponSlot0/Confirm")
-focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot1/Confirm")
-focus_neighbor_right = NodePath("../../WeaponSlot2/Confirm")
-focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot1/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 script = ExtResource("65_ypirk")
 
-[node name="WeaponSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=999106768]
+[node name="WeaponSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=2100950122]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=1049589045]
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=1686426650]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=354983910]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=129850808]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2966,7 +2971,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=665450771]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=784100098]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2979,7 +2984,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=458468431]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=181727210]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -2994,7 +2999,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon/IconBkg" unique_id=834233846]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon/IconBkg" unique_id=92731280]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3011,33 +3016,33 @@ grow_vertical = 2
 expand_mode = 2
 script = ExtResource("40_wpjs7")
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=458721689]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=2124605361]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../WeaponSlot1/Confirm")
-focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot2/Confirm")
-focus_neighbor_right = NodePath("../../WeaponSlot3/Confirm")
-focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot2/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 script = ExtResource("65_ypirk")
 
-[node name="WeaponSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=2076053891]
+[node name="WeaponSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1971981096]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=989656604]
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=276982785]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=1143501007]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=146230850]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3047,7 +3052,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=536749333]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=1569391970]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3060,7 +3065,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=914660856]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=818043044]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3075,7 +3080,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon/IconBkg" unique_id=187044424]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon/IconBkg" unique_id=2010241736]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3092,33 +3097,33 @@ grow_vertical = 2
 expand_mode = 2
 script = ExtResource("40_wpjs7")
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=1669388979]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=273236636]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../WeaponSlot2/Confirm")
-focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot3/Confirm")
-focus_neighbor_right = NodePath("../../WeaponSlot4/Confirm")
-focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot3/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 script = ExtResource("65_ypirk")
 
-[node name="WeaponSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1690415054]
+[node name="WeaponSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=840411128]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1125742962]
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1764910409]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=122445985]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=1256805209]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3128,7 +3133,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=912345006]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=1250934693]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3141,7 +3146,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=1863103473]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=105778884]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3156,7 +3161,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon/IconBkg" unique_id=2094712620]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon/IconBkg" unique_id=619803024]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3173,20 +3178,20 @@ grow_vertical = 2
 expand_mode = 2
 script = ExtResource("40_wpjs7")
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1399989835]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1907909796]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../WeaponSlot3/Confirm")
-focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot4/Confirm")
-focus_neighbor_right = NodePath("../../WeaponSlot0/Confirm")
-focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot4/Confirm")
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
-text = "OK"
+text = "UPGRADE"
 script = ExtResource("65_ypirk")
 
 [node name="AmmoContainer" type="MarginContainer" parent="CanvasLayer/Leveling" unique_id=101973105]
@@ -3282,31 +3287,33 @@ expand_mode = 2
 [node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0" unique_id=491928480]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../AmmoSlot4/Confirm")
 focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
-focus_neighbor_right = NodePath("../../AmmoSlot1/Confirm")
 focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+autowrap_trim_flags = 0
 script = ExtResource("65_ypirk")
 
-[node name="AmmoSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1923229107]
+[node name="AmmoSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=845617533]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=47339182]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=1103403260]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=1968864854]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=179334398]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3316,7 +3323,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=1315067792]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=2086316098]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3329,7 +3336,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=378048176]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=1795882793]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3344,7 +3351,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo/IconBkg" unique_id=694590393]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo/IconBkg" unique_id=798471611]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3360,34 +3367,36 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=283971264]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=1595991454]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../AmmoSlot0/Confirm")
-focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot1/Confirm")
-focus_neighbor_right = NodePath("../../AmmoSlot2/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
 focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+autowrap_trim_flags = 0
 script = ExtResource("65_ypirk")
 
-[node name="AmmoSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1962731554]
+[node name="AmmoSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=959943096]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=1716363297]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=762790645]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=1331847059]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=849495558]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3397,7 +3406,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=212925209]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=398124921]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3410,7 +3419,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=123734390]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=1341195668]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3425,7 +3434,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo/IconBkg" unique_id=956410578]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo/IconBkg" unique_id=490327064]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3441,34 +3450,36 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=128801153]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=293376463]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../AmmoSlot1/Confirm")
-focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot2/Confirm")
-focus_neighbor_right = NodePath("../../AmmoSlot3/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
 focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+autowrap_trim_flags = 0
 script = ExtResource("65_ypirk")
 
-[node name="AmmoSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=1767757190]
+[node name="AmmoSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=148771826]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=1146008611]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=520615241]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1413140721]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=2110809557]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3478,7 +3489,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1560693774]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1952252629]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3491,7 +3502,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=298020846]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1790601032]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3506,7 +3517,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo/IconBkg" unique_id=1149933687]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo/IconBkg" unique_id=1344479423]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3522,34 +3533,36 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=1963052514]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=318037614]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../AmmoSlot2/Confirm")
-focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot3/Confirm")
-focus_neighbor_right = NodePath("../../AmmoSlot4/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
 focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+autowrap_trim_flags = 0
 script = ExtResource("65_ypirk")
 
-[node name="AmmoSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=337454392]
+[node name="AmmoSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=685022727]
 custom_minimum_size = Vector2(140, 185)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=612413484]
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=2060812544]
 clip_contents = true
 custom_minimum_size = Vector2(140, 140)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1640383697]
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1092214947]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3559,7 +3572,7 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 
-[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1393061172]
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=2064937985]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3572,7 +3585,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1119808959]
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=323873689]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
 anchors_preset = 8
@@ -3587,7 +3600,7 @@ offset_bottom = 37.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo/IconBkg" unique_id=1807255710]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo/IconBkg" unique_id=930449476]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
@@ -3603,20 +3616,22 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
-[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=2095425309]
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=685965726]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../AmmoSlot3/Confirm")
-focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot4/Confirm")
-focus_neighbor_right = NodePath("../../AmmoSlot0/Confirm")
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
 focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("46_vrsns")
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
 theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
 text = "UPGRADE"
+autowrap_trim_flags = 0
 script = ExtResource("65_ypirk")
 
 [node name="TextPanel" type="Panel" parent="CanvasLayer/Leveling" unique_id=681170836]
@@ -3732,24 +3747,28 @@ text = "Shot the closest enemy within a zone"
 autowrap_mode = 2
 script = ExtResource("59_sujsj")
 
-[node name="Upgrades" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel" unique_id=1850042634]
+[node name="Upgrades" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel" unique_id=317981203]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 13.0
-offset_top = 114.5
-offset_right = 262.0
-offset_bottom = 250.5
+offset_top = 60.5
+offset_right = 304.0
+offset_bottom = 270.5
 grow_vertical = 2
 theme_override_constants/separation = 20
-script = ExtResource("49_3smgn")
 
-[node name="Stats" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=81905096]
+[node name="Dmg" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1453765041]
+visible = false
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 16
+script = ExtResource("71_kkvuv")
+UI_stat_type = 1
 
-[node name="Dmg" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1129436822]
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=1983532668]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
@@ -3757,7 +3776,44 @@ text = "Dmg :"
 vertical_alignment = 1
 script = ExtResource("59_sujsj")
 
-[node name="FireRate" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1899704544]
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=612857920]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=1228831027]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=604683598]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="FireRate" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1698101996]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("71_kkvuv")
+UI_stat_type = 2
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=290531748]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
@@ -3765,7 +3821,44 @@ text = "Fire rate :"
 vertical_alignment = 1
 script = ExtResource("59_sujsj")
 
-[node name="CoolDown" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1486059003]
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=1675901633]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=1078264020]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=1959302913]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="CoolDown" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1710845448]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("71_kkvuv")
+UI_stat_type = 6
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=994848093]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
@@ -3773,7 +3866,44 @@ text = "Cool Down :"
 vertical_alignment = 1
 script = ExtResource("59_sujsj")
 
-[node name="Radius" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1595403400]
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=945107485]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=130302618]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=2102806531]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="Radius" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1561841843]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("71_kkvuv")
+UI_stat_type = 5
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=821298563]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
@@ -3781,7 +3911,44 @@ text = "Radius :"
 vertical_alignment = 1
 script = ExtResource("59_sujsj")
 
-[node name="NbAmmo" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Stats" unique_id=1220189580]
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=1448157638]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=1269218543]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=1363467394]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("44_o24rt")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("59_sujsj")
+
+[node name="NbAmmo" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1429377313]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("71_kkvuv")
+UI_stat_type = 3
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=1910139881]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
@@ -3789,60 +3956,17 @@ text = "Ammo :"
 vertical_alignment = 1
 script = ExtResource("59_sujsj")
 
-[node name="Levels" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1657428859]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Dmg_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=1883313760]
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=667656715]
+custom_minimum_size = Vector2(82, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("59_sujsj")
 
-[node name="FireRate_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=1638383306]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="CoolDown_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=1010691851]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="Radius_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=171211606]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="NbAmmo_Q" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Levels" unique_id=554899781]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="Arrows" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1159635757]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Dmg_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1682786941]
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=77494167]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
@@ -3851,87 +3975,12 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("59_sujsj")
 
-[node name="FireRate_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1101532351]
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=1135288080]
+custom_minimum_size = Vector2(82, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("44_o24rt")
 theme_override_font_sizes/font_size = 24
-text = "->"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="CoolDown_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1350500786]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "->"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="Radius_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=1303013000]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "->"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="NbAmmo_arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Arrows" unique_id=846108357]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "->"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="Upgrade" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1260341544]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Dmg_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=367847042]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="FireRate_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=876134233]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="CoolDown_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=1489262331]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="Radius_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=1276592768]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("59_sujsj")
-
-[node name="NbAmmo_upgrade" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Upgrade" unique_id=2129715779]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("44_o24rt")
-theme_override_font_sizes/font_size = 24
-text = "0"
+text = "100.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("59_sujsj")

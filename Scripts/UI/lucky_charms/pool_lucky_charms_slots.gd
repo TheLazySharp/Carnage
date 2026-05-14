@@ -10,8 +10,10 @@ var i : int
 func _ready() -> void:
 	if LuckyCharmsManager.pool.is_empty() :
 		return
-		
+
 	i = int(self.name)
+	
+
 	
 	if LuckyCharmsManager.shuffle_lucky_charms_ok:
 		self.hide()
@@ -20,7 +22,11 @@ func _ready() -> void:
 		self.show()
 		if i == 0:
 			button.grab_focus()
-		
+	
+	if i >= LuckyCharmsManager.shuffled_pool_copy.size():
+		self.hide()
+		return
+
 	
 	if LuckyCharmsManager.add_lucky_charm_ok :
 		icon.texture = LuckyCharmsManager.shuffled_pool_copy[i].icon
@@ -33,4 +39,3 @@ func _ready() -> void:
 		else :
 			icon.texture = LuckyCharmsManager.shuffled_pool_copy[i].icon
 			label.text = LuckyCharmsManager.shuffled_pool_copy[i].description
-		

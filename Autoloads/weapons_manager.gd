@@ -19,6 +19,32 @@ var weapon : WeaponData
 var player_current_level: int
 var game_over : bool = false
 
+enum Type {
+	SHORT_RANGE,
+	LONG_RANGE,
+	EXPLOSIVE,
+	SINGLE_SHOT,
+	BURST_SHOT,
+	ELEMENTAL,
+	N_A
+}
+
+var short_range_weapons : Array[WeaponData] = []
+var long_range_weapons : Array[WeaponData] = []
+var explosive_weapons : Array[WeaponData] = []
+var single_shot_weapons : Array[WeaponData] = []
+var burst_shot_weapons : Array[WeaponData] = []
+var elemental_weapons : Array[WeaponData] = []
+
+var WEAPONS_TYPES : Dictionary[Type,Array] = {
+	Type.SHORT_RANGE : short_range_weapons,
+	Type.LONG_RANGE : long_range_weapons,
+	Type.EXPLOSIVE : explosive_weapons,
+	Type.SINGLE_SHOT : single_shot_weapons,
+	Type.BURST_SHOT : burst_shot_weapons,
+	Type.ELEMENTAL : elemental_weapons
+}
+
 func _ready() -> void:
 	SignalManager.game_is_over.connect(_on_game_over)
 
@@ -54,8 +80,6 @@ func check_weapons() -> void:
 	if unequipped_weapons.is_empty() :
 		print("empty")
 
-
-
 func copy_weapons() -> Array :
 	return weapons
 
@@ -70,12 +94,16 @@ func init_weapon(new_weapon: WeaponData) -> void:
 				break
 	if new_weapon.weapon_ammo_res !=null:
 		init_ammo(new_weapon.weapon_ammo_res)
+	new_weapon.init_stats()
+	add_weapon_type_to_array(new_weapon)
 
 
 func init_ammo(new_ammo : WeaponData) -> void: 
 	new_ammo.is_equiped = true
 	new_ammo.weapon_is_active = true
 	ammunitions.append(new_ammo)
+	new_ammo.init_stats()
+	add_weapon_type_to_array(new_ammo)
 
 
 func locked_weapon(new_weapon: WeaponData) -> void:
@@ -91,7 +119,6 @@ func equip_weapon(new_weapon: WeaponData) -> void:
 			break
 
 
-
 func equip_ammo() -> void:
 	if !weapons.is_empty() and ammunitions.is_empty():
 		for i in weapons.size():
@@ -99,7 +126,6 @@ func equip_ammo() -> void:
 			#if weapon_to_reload.weapon_ammo_res !=null and weapon_to_reload.weapon_ammo_scene != null:
 			if weapon_to_reload.weapon_ammo_res !=null:
 				init_ammo(weapon_to_reload.weapon_ammo_res)
-				
 
 
 func unequip_ammo() -> void:
@@ -122,6 +148,12 @@ func unload() -> void:
 	unequipped_weapons.clear()
 	weapon_scenes.clear()
 	ammunitions.clear()
+	short_range_weapons.clear()
+	long_range_weapons.clear()
+	explosive_weapons.clear()
+	single_shot_weapons.clear()
+	burst_shot_weapons.clear()
+	elemental_weapons.clear()
 
 
 func instantiate_weapons() -> void:
@@ -140,9 +172,13 @@ func activate_weapons(active: bool)-> void:
 			weapons[i].weapon_is_active = active
 
 
-func weapon_stat(weap : WeaponData) -> void:
-	if weap.weapon_ammo_res != null:
-		weap.dmg = weap.weapon_ammo_res.dmg
-
 func _on_game_over(game_is_over : bool) -> void : 
 	game_over = game_is_over
+	
+func add_weapon_type_to_array(new_weapon : WeaponData) -> void : 
+	var type1 : Type = new_weapon.type_1
+	var type2 : Type = new_weapon.type_2
+	
+	for type : Type in WEAPONS_TYPES:
+		if type1 == type or type2 == type:
+			WEAPONS_TYPES[type].append(new_weapon)

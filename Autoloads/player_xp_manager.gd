@@ -19,7 +19,7 @@ signal update_level(current_level: int)
 signal level_up_sfx
 
 var xp_bucket: Array
-var is_processing : bool = false
+var is_leveling : bool = false
 var xp_delay : float = 0.05
 
 var game_paused:=false
@@ -61,15 +61,15 @@ func update_upgrades()-> void :
 	
 func add_xp_in_bucket(xp_value : int)-> void:
 	xp_bucket.append(xp_value)
-	if !is_processing:
+	if !is_leveling:
 		process_next_xp()
 	
 func process_next_xp() -> void : 
 	if game_paused or xp_bucket.is_empty():
-		is_processing = false
+		is_leveling = false
 		return
 	
-	is_processing = true
+	is_leveling = true
 	var xp_value: int = xp_bucket.pop_front()
 	var xp_needed: int = current_level_target_xp - current_xp
 
@@ -111,7 +111,6 @@ func process_next_xp() -> void :
 func level_up() -> void:
 	emit_signal("level_up_sfx")
 	current_level += 1
-	StatsManager.update_car_stats(CarManager.selected_car)
 	current_level_target_xp = xp_levels[current_level]
 	current_xp -= xp_levels[current_level-1]
 

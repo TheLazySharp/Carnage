@@ -3,17 +3,26 @@ extends CharacterBody2D
 var player : CarData
 
 #CAR DATA
+#--------------- MAINS STATS
 var acceleration : float
-var max_speed : int
+var max_speed : float
+var dash_duration : float
+var max_life : float
+var damages : float
+var dash_dmg_bonus : float
+var display_max_speed : float
+var nitro_up : float
+var collect_radius : float
+var drift_turn_bonus : float
+
+
 var max_backward_speed : int
 var friction : float
 var turn_speed : float
 var velocity_floor : int
 var burnout_boost : int
-var dash_duration : float
 var drift_grip : float
 var normal_grip : float
-var drift_turn_bonus : float
 var max_drift_damping : float
 var min_drift_speed : float
 var snap_grip : float
@@ -23,10 +32,6 @@ var was_drifting : bool = false
 var skid_spacing : float
 var skid_lifetime : float
 var skid_fade_speed : float
-var max_life : int
-var damages : int
-var damages_boost : float
-var display_max_speed : int
 @onready var car_sprite: Sprite2D = $CarSprite
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 
@@ -65,6 +70,9 @@ signal revving(revving : bool)
 var revving_start : bool = false
 signal dashing
 var can_dash : bool = false
+var is_dashing : bool = false
+var dash_timer : float = 0
+var original_friction : float = 0
 
 #INVINCIBLE
 var is_invincible : bool = false
@@ -109,8 +117,26 @@ var current_life: int
 @onready var flash: AnimationPlayer = $CarSprite/Flash
 
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("dash") and can_dash and !game_paused:
+		dash()
+
 func _ready() -> void:
 	player = CarManager.selected_car
+	if TimeManager.current_day ==1:
+		player.init_stats()
+	
+	#MAIN STATS 
+	acceleration = player.acceleration.get_value()
+	max_speed = player.max_speed.get_value()
+	dash_duration = player.dash_duration.get_value()
+	display_max_speed = player.display_max_speed.get_value()
+	damages = player.dmg.get_value()
+	dash_dmg_bonus = player.dash_dmg_bonus.get_value()
+	max_life = player.max_life.get_value()
+	drift_turn_bonus = player.drift_turn_bonus.get_value()
+	
+	
 	rear_left_burn_anim.hide()
 	rear_right_burn_anim.hide()
 	##TEST
@@ -123,27 +149,26 @@ func _ready() -> void:
 	gate.run_ended.connect(_on_run_ended)
 	
 	#DRIVING
-	acceleration = player.acceleration + player.carbon_lvl * 10 - player.shield_lvl * 5
-	max_speed = player.max_speed + player.engine_lvl * 10
+	
 	max_backward_speed = roundi(max_speed * 0.4)
+	
+	
 	friction = player.friction
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
 	burnout_boost = player.burnout_boost
-	dash_duration = player.dash_duration
 	
 
 	#DRIFT
 	drift_grip = player.drift_grip
 	normal_grip = player.normal_grip
-	drift_turn_bonus = player.drift_turn_bonus
 	max_drift_damping = player.max_drift_damping
 	min_drift_speed = player.min_drift_speed
 	snap_grip = player.snap_grip
 	snap_speed = player.snap_speed
 	current_grip = normal_grip
 	drifting = false
-	player.drifting = false
+	player.drifting = drifting
 
 	
 	#SKIDS
@@ -151,12 +176,7 @@ func _ready() -> void:
 	skid_lifetime = player.skid_lifetime
 	skid_fade_speed = player.skid_fade_speed
 	
-	#STATS
-	max_life = player.max_life
-	display_max_speed = player.display_max_speed
-	damages = player.dmg
-	damages_boost = 1
-	
+
 	#AUDIO
 	start_engine_sound = player.start_engine_Sound
 	dmg_players = [dmg_sfx, dmg_sfx_2, dmg_sfx_3]
@@ -164,7 +184,7 @@ func _ready() -> void:
 	#VFX
 	car_sprite.texture = player.car_sprite
 	if TimeManager.current_day == 1 : 
-		current_life = max_life
+		current_life = int(max_life)
 		#print("ready day 1: ",current_life)
 		
 	else : 
@@ -172,7 +192,7 @@ func _ready() -> void:
 		#print("ready day >1: ",current_life)
 	life_bar.max_value = max_life
 	life_bar.value = current_life
-	life_label.text = str(current_life) + "/" + str(max_life)
+	life_label.text = str(current_life) + "/" + str(int(max_life))
 	
 	if visible:
 		ready_go.show()
@@ -181,14 +201,16 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if !game_paused:
-		speed_label.text  = str(roundi(velocity.length()/max_speed * display_max_speed))
-		life_label.text = str(current_life) + "/" + str(max_life)
+		speed_label.text  = str(roundi(velocity.length()/player.max_speed.get_value() * player.display_max_speed.get_value()))
+		life_label.text = str(current_life) + "/" + str(int(max_life))
 	#update_stats()
+
 
 func _physics_process(delta : float) -> void:
 	if !game_paused and can_drive and !game_is_over:
 		engine_sfx_player.update_engine_sfx(velocity.length(), revving_start)
 		player.drifting = drifting
+		
 		
 		if velocity.length() > 10:
 			is_invincible = true
@@ -267,18 +289,18 @@ func _physics_process(delta : float) -> void:
 		
 		# ----------------- ACCELERATION -----------------
 		if throttle != 0:
-			velocity += forward * throttle * acceleration * delta
+			velocity += forward * throttle * player.acceleration.get_value() * delta
 		else:
 			velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
-		velocity = velocity.limit_length(max_speed)
+		velocity = velocity.limit_length(player.max_speed.get_value())
 		
 		if throttle < 0 : 
 			velocity = velocity.limit_length(max_backward_speed)
 			
 		# ----------------- ROTATION -----------------
 		var speed := velocity.dot(forward)
-		var steer_factor : float = clamp(abs(speed) / max_speed, 0.25, 1.0)
+		var steer_factor : float = clamp(abs(speed) / player.max_speed.get_value(), 0.25, 1.0)
 
 		if drifting:
 			steer *= drift_turn_bonus
@@ -330,23 +352,7 @@ func _physics_process(delta : float) -> void:
 		if collision:
 			## ------ WITH ENEMIES
 			var collider := collision.get_collider()
-			#if collider.is_in_group("ennemies"):
 
-				#var speed_ratio : float = velocity.length() / max_speed
-				#var impact_forward : Vector2 = Vector2.RIGHT.rotated(rotation)
-				#var impact_right : Vector2 = impact_forward.rotated(PI/2)
-				#collider.get_impact(impact_forward,impact_right, speed_ratio)
-				##get_damages(1)
-				#velocity *= 0.995
-				#
-				#shake_timer += delta
-				#if shake_timer < shake_timer_steps:
-					#return
-				#camera_2d.screen_shake(10,1)
-				#print("shake cam damages")
-				#shake_timer = 0
-				
-				#
 			if collider.is_in_group("walls"):
 			# ------ WITH WALLS
 				var n : Vector2 = collision.get_normal().normalized()
@@ -420,7 +426,11 @@ func _physics_process(delta : float) -> void:
 		camera_2d.update_zoom(velocity.length())
 		#camera_2d.update_roll(get_drift_factor())
 
-
+		if is_dashing:
+			if !game_paused:
+				dash_timer -= delta
+			if dash_timer <= 0:
+				end_dash()
 
 
 func start_skid() -> void:
@@ -510,9 +520,7 @@ func get_damages(damages_on_player: int) -> void:
 		life_bar.value = current_life
 		sparkles.emitting = true
 		flash.play("flash")
-		
-		#display_damages(damages_on_player)
-		
+
 		if current_life <=0:
 			current_life = 0
 			on_death()
@@ -524,6 +532,7 @@ func on_death() -> void:
 	is_taking_damages = false
 	WeaponsManager.activate_weapons(false)
 	WeaponsManager.unload()
+	end_dash()
 	car_sprite.hide()
 	collision_shape.set_deferred("disabled",true)
 	car_explosion.play("Explosion")
@@ -557,7 +566,7 @@ func _on_taking_damages_timeout() -> void:
 func _on_body_parts_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:
 		if area.is_in_group("ennemies") and "get_damages" in area:
-			area.get_damages(roundi(damages * damages_boost))
+			area.get_damages(roundi(player.dmg.get_value()))
 		else : return
 
 
@@ -577,11 +586,6 @@ func _on_full_command(full_command : bool) -> void:
 func _on_forward_only(car_only_forward : bool) -> void:
 	forward_only = car_only_forward
 	
-#func empty_explosives() -> void:
-	#if explosives.get_child_count()>0:
-		#for i in range(explosives.get_child_count()-1,-1,-1):
-			#explosives.get_child(i).queue_free()
-			#print("explosives empty")
 
 func angle_difference(from: float, to: float) -> float:
 	var diff := fmod(to - from, TAU)
@@ -604,7 +608,6 @@ func _on_rear_right_burn_animation_finished() -> void:
 	else :
 		rear_right_burn_anim.play('fadeOut')
 	if rear_right_burn_anim.animation == "fadeOut" and !burning:
-		#print("stop fadeout")
 		rear_right_burn_anim.stop()
 		rear_right_burn_anim.hide()
 		
@@ -612,7 +615,6 @@ func add_ghost()-> void:
 	var ghost : Node2D = ghost_scene.instantiate()
 	ghost.set_property(position, scale, rotation)
 	get_tree().current_scene.add_child(ghost)
-	#get_node("CarSprite").add_child(ghost)
 	
 
 
@@ -622,15 +624,41 @@ func _on_ghost_timer_timeout() -> void:
 func dash() -> void :
 	emit_signal("dashing")
 	can_dash = false
-	ghost_timer.start()
-	damages_boost = player.dash_dmg_bonus
-	#var tween_dash : Tween = get_tree().create_tween()
-	#tween_dash.tween_property(self, "velocity",velocity, 0.5)
-	#await tween_dash.finished
-	await get_tree().create_timer(dash_duration).timeout
-	ghost_timer.stop()
-	damages_boost = 1
+
+	Engine.time_scale = 0.08
+	await get_tree().create_timer(0.08 * 0.08).timeout
+	Engine.time_scale = 1.0
+
+	camera_2d.screen_shake(12, 0.4)
+
+	var mod_dmg := Modifier.new(dash_dmg_bonus, Modifier.Type.PERCENT_MULT, "dmg_dash_bonus", player.dash_duration.get_value())
+	var mod_max_speed := Modifier.new(1.5, Modifier.Type.PERCENT_MULT, "max_speed_dash_modifier", player.dash_duration.get_value())
+	var mod_torque := Modifier.new(1.5, Modifier.Type.PERCENT_MULT, "torque_dash_modifier", player.dash_duration.get_value())
+	player.dmg.add_temp_modifier(mod_dmg)
+	player.max_speed.add_temp_modifier(mod_max_speed)
+	player.display_max_speed.add_temp_modifier(mod_max_speed)
+	player.acceleration.add_temp_modifier(mod_torque)
+	TempStatManager.register(mod_dmg)
+	TempStatManager.register(mod_max_speed)
+	TempStatManager.register(mod_torque)
 	
+	var forward := Vector2.RIGHT.rotated(rotation)
+	velocity += forward * max_speed * 3
+
+	original_friction = friction
+	friction = 10.0
+	dash_timer = player.dash_duration.get_value()
+	is_dashing = true
+	ghost_timer.start()
+
+
+func end_dash() -> void:
+	is_dashing = false
+	dash_timer = 0.0
+	friction = original_friction
+	ghost_timer.stop()
+
+
 func _on_boost_full() -> void:
 	can_dash = true
 	
@@ -649,8 +677,6 @@ func _on_run_ended() -> void:
 func play_drivin_smokes() -> void : 
 	if game_paused or game_is_over:
 		return
-	#drivin_smoke_l.play("default")
-	#drivin_smoke_r.play("default")
 	drivin_smoke_r_2.emitting = true
 	drivin_smoke_l_2.emitting = true
 
@@ -660,5 +686,4 @@ func get_drift_factor() -> float:
 	var forward := Vector2.RIGHT.rotated(rotation)
 	var angle : float = forward.angle_to(velocity.normalized())
 	var factor : float = clamp(angle / deg_to_rad(20.0), -1.0, 1.0)
-	#print("drfit factor : ",factor)
 	return factor

@@ -32,3 +32,6 @@ signal day_ended
 
 @warning_ignore("unused_signal")
 signal selected_district(district : DistrictsData)
+
+@warning_ignore("unused_signal")
+signal selected_weapon(weapon : WeaponData, is_ammo : bool)

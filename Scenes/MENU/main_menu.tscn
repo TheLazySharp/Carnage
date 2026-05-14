@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="3_oghu7"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_k2e8w"]
 [ext_resource type="Texture2D" uid="uid://cvucrddbvgxsw" path="res://Assets/UI/empty_32x32.png" id="4_oghu7"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="6_xmbfm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
 
@@ -58,21 +59,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="Start" type="Button" parent="VBoxContainer" unique_id=731618581]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
-text = "START"
-flat = true
-script = ExtResource("4_k2e8w")
-
-[node name="Training" type="Button" parent="VBoxContainer" unique_id=1629790083]
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
-text = "COMMANDS"
-flat = true
-script = ExtResource("4_k2e8w")
-
 [node name="SkipTuto" type="CheckButton" parent="VBoxContainer" unique_id=772633111]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
@@ -89,14 +77,43 @@ text = "SKIP TRAINING "
 flat = true
 alignment = 1
 
+[node name="Start" type="Button" parent="VBoxContainer" unique_id=731618581]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_constants/h_separation = 24
+theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
+text = "START"
+flat = true
+alignment = 0
+script = ExtResource("4_k2e8w")
+
+[node name="Commands" type="Button" parent="VBoxContainer" unique_id=1629790083]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_constants/h_separation = 24
+theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
+text = "COMMANDS"
+flat = true
+alignment = 0
+script = ExtResource("4_k2e8w")
+
 [node name="Quit" type="Button" parent="VBoxContainer" unique_id=13720556]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_constants/h_separation = 24
+theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "QUIT"
 flat = true
+alignment = 0
 script = ExtResource("4_k2e8w")
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Training" to="." method="_on_training_pressed"]
 [connection signal="pressed" from="VBoxContainer/SkipTuto" to="." method="_on_skip_tuto_pressed"]
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Commands" to="." method="_on_training_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

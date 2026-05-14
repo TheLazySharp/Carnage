@@ -6,24 +6,21 @@ var i : int
 @onready var car_name: Label = $Name
 @onready var icon: TextureRect = $Icon
 
-@onready var fuel: Label = $Stats/Fuel
-@onready var speed: Label = $Stats/Speed
-@onready var torque: Label = $Stats/Torque
-@onready var dmg: Label = $Stats/Dmg
-@onready var drift: Label = $Stats/Drift
-
 var first_scene : String = "uid://c6msxridefxxd"
 var roadmap_scene : String = "uid://dsn18jy5k2in8"
 var survivor_selection : String = "uid://cui5s6rmjs40o"
 
 @onready var select: Button = $"../VBoxContainer/Select"
 
+@onready var stats_panel: Panel = $StatsPanel
+
+
 func _ready() -> void:
 	i = 0
-	displayed_car = CarManager.cars[i]
-	StatsManager.update_car_stats(displayed_car)
-	select.grab_focus()
+	CarManager.selected_car = CarManager.cars[i]
+	CarManager.selected_car.init_stats()
 	update_car_data()
+	select.grab_focus()
 
 
 func _process(_delta: float) -> void:
@@ -43,20 +40,15 @@ func _process(_delta: float) -> void:
 		SceneManager.load_level(survivor_selection)
 
 func update_car_data() -> void:
-	displayed_car = CarManager.cars[i]
-	StatsManager.update_car_stats(displayed_car)
-	car_name.text = displayed_car.car_name
-	icon.texture = displayed_car.car_sprite
-	fuel.text = "Fuel : " + str(displayed_car.max_life)
-	speed.text = "Max Speed : " + str(displayed_car.display_max_speed)
-	torque.text = "Torque : " + str(displayed_car.acceleration)
-	dmg.text = "Dmg : " + str(displayed_car.dmg)
-	drift.text = "Drift : " + str(displayed_car.drift_turn_bonus + displayed_car.turn_speed)
-
-
+	CarManager.selected_car = CarManager.cars[i]
+	icon.texture = CarManager.selected_car.car_sprite
+	car_name.text = CarManager.selected_car.car_name
+	CarManager.selected_car.init_stats()
+	stats_panel.hide()
+	stats_panel.show()
+	
 func _on_select_pressed() -> void:
-	CarManager.selected_car = displayed_car
-	StatsManager.update_car_stats(CarManager.selected_car)
+	#CarManager.selected_car = displayed_car
 	SceneManager.load_level(roadmap_scene)
 
 
@@ -69,8 +61,7 @@ func _on_next_button_pressed() -> void:
 	if i == CarManager.cars.size():
 		i = 0
 	update_car_data()
-
-
+	
 func _on_previous_button_pressed() -> void:
 	i-=1
 	if i < 0 :
