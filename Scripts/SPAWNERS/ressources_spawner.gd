@@ -31,6 +31,7 @@ func get_valid_positions() -> Array[Vector2]:
 	for cell : Vector2i in tilemap.get_used_cells():
 		var tile_data: TileData = tilemap.get_cell_tile_data(cell)
 		if tile_data == null :
+			print("tile empty")
 			continue
 		
 		var nav_poly : NavigationPolygon = tile_data.get_navigation_polygon(nav_layer_index)

@@ -37,7 +37,7 @@ func _ready() -> void:
 	#_on_stats_updated()
 	
 	flamer_data.init_stats()
-	damages = flamer_data.dmg.get_value()
+	damages = int(flamer_data.dmg.get_value())
 
 func _process(_delta: float) -> void:
 

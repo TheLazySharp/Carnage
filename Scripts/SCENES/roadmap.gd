@@ -26,7 +26,7 @@ func _ready() -> void:
 		last_district = null
 	generate_new_map()
 	unlock_step(RoadMapManager.steps_reached)
-	print("selected map districts : ",RoadMapManager.selected_districts.size())
+	#print("selected map districts : ",RoadMapManager.selected_districts.size())
 
 func generate_new_map() -> void : 
 	if RoadMapManager.current_map_data.is_empty():

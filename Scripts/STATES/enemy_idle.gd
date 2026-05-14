@@ -31,7 +31,7 @@ func _ready() -> void:
 	forces_timer_steps = randf_range(0.5,0.8)
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.game_is_over.connect(_on_game_over)
-	day_manager.day_ended.connect(_on_day_end)
+	SignalManager.day_time_end.connect(_on_day_end)
 	repulsion_radius_sq = repulsion_radius * repulsion_radius
 
 

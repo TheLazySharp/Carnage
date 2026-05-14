@@ -1,0 +1,3956 @@
+[gd_scene format=4 uid="uid://dqfr2nck8fjao"]
+
+[ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_x7fhx"]
+[ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="3_6i41r"]
+[ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Assets/Audio/Song/fight-for-the-future-336841.mp3" id="4_jtdx0"]
+[ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="7_2abip"]
+[ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="8_r6aci"]
+[ext_resource type="Texture2D" uid="uid://tlhptwaxxjid" path="res://Assets/Tilsets/g_terrain1.png" id="10_28dbs"]
+[ext_resource type="Texture2D" uid="uid://bnqi4ga22683s" path="res://Assets/TilesBNW/grass_BNW.png" id="11_olrxs"]
+[ext_resource type="Texture2D" uid="uid://bqgd4p0rsoxmr" path="res://Assets/TilesBNW/road_32x32_BNW.png" id="12_b02dr"]
+[ext_resource type="Texture2D" uid="uid://cqiphjwy0mfc6" path="res://Assets/TilesBNW/road_edge_BNW.png" id="13_jeahs"]
+[ext_resource type="Texture2D" uid="uid://bklicrq6b3kd4" path="res://Assets/TilesBNW/pavement_BNW.png" id="14_qe783"]
+[ext_resource type="Texture2D" uid="uid://bp5v0v0pd7bfl" path="res://Assets/TilesBNW/pavement_no_road_BNW.png" id="15_f3f6v"]
+[ext_resource type="Texture2D" uid="uid://bg5bh6ul6jduf" path="res://Assets/TilesBNW/road_32x32_BNW_line.png" id="16_no7ri"]
+[ext_resource type="Texture2D" uid="uid://diwt8qxctu3iw" path="res://Assets/TilesBNW/road_BNW.png" id="17_rndja"]
+[ext_resource type="Texture2D" uid="uid://flcn1qbe5bvo" path="res://Assets/Tilsets/road1.png" id="18_tfluy"]
+[ext_resource type="Texture2D" uid="uid://c85wlo542cj06" path="res://Assets/Tilsets/road_32x32.png" id="19_ysy71"]
+[ext_resource type="Texture2D" uid="uid://bks38teh85dtk" path="res://Assets/Tilsets/road_32x32H.png" id="20_6gdc0"]
+[ext_resource type="Texture2D" uid="uid://523fcj0rkldk" path="res://Assets/Tilsets/road_cut_32x32.png" id="21_dl8cx"]
+[ext_resource type="Texture2D" uid="uid://ddyqvd8lrr5nv" path="res://Assets/Tilsets/road_cut_32x32H.png" id="22_aiu1o"]
+[ext_resource type="Texture2D" uid="uid://krble3ht5j42" path="res://Assets/Props/building1.png" id="23_jrkt8"]
+[ext_resource type="Texture2D" uid="uid://ccl4k8q0lsm1" path="res://Assets/Props/building3.png" id="24_hx2je"]
+[ext_resource type="Texture2D" uid="uid://vug670ojdoom" path="res://Assets/Props/building4.png" id="25_hg3cs"]
+[ext_resource type="Texture2D" uid="uid://bu7vdt8h1u1o8" path="res://Assets/Props/building6.png" id="26_5ky23"]
+[ext_resource type="Texture2D" uid="uid://81aw5pe42vlu" path="res://Assets/Props/barb_wire.png" id="27_8x7kb"]
+[ext_resource type="Texture2D" uid="uid://b4lw4gk82dfl" path="res://Assets/Props/building.png" id="28_wsg1q"]
+[ext_resource type="Texture2D" uid="uid://bvmf6himdqcrc" path="res://Assets/Props/builging gas.png" id="29_uskdu"]
+[ext_resource type="Texture2D" uid="uid://yu2kg5j30a7h" path="res://Assets/Props/building 5.png" id="30_r3mi4"]
+[ext_resource type="Texture2D" uid="uid://ds7n0qefl3svp" path="res://Assets/Props/wall_H.png" id="31_tqao3"]
+[ext_resource type="Texture2D" uid="uid://cxoune2ptoi3r" path="res://Assets/Props/wall_V.png" id="32_puvkg"]
+[ext_resource type="Script" uid="uid://dpkkxegm8kor1" path="res://Scripts/UI/fps.gd" id="33_2c7x0"]
+[ext_resource type="Texture2D" uid="uid://bgrl5ldrwntp4" path="res://Assets/UI/dashboard.png" id="34_11fs2"]
+[ext_resource type="Script" uid="uid://bd250t2w2xvnr" path="res://Scripts/FONTS/GUI_UX_M.gd" id="35_ubt8f"]
+[ext_resource type="Script" uid="uid://bbnara7ws2epv" path="res://Scripts/FONTS/GUI_UX_S.gd" id="36_mfrdl"]
+[ext_resource type="Script" uid="uid://bdiix0s1bmolp" path="res://Scripts/UI/xp_bar.gd" id="37_qpbdj"]
+[ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="38_qfwjn"]
+[ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="39_vitio"]
+[ext_resource type="Script" uid="uid://ddqkvhoijl1y2" path="res://Scripts/UI/boost_gauge.gd" id="40_8pkco"]
+[ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="41_lfu7u"]
+[ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="42_rl3hm"]
+[ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="43_lrtv0"]
+[ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="44_64gpc"]
+[ext_resource type="Script" uid="uid://dt6l27r7qstkk" path="res://Scripts/UI/UI_container.gd" id="45_u62sb"]
+[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="46_pnyll"]
+[ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="47_lp1el"]
+[ext_resource type="PackedScene" uid="uid://ckoqhy4sim6in" path="res://Scenes/MAPS/CHUNKS/transition_chunk.tscn" id="48_ib6wv"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="48_nuvlj"]
+[ext_resource type="Texture2D" uid="uid://cjhmsjsxoggch" path="res://Assets/UI/zombie_icon.png" id="49_d6diu"]
+[ext_resource type="Script" uid="uid://ccjkoqqvm15xm" path="res://Scripts/MAPS/start_chunk.gd" id="49_ib6wv"]
+[ext_resource type="PackedScene" uid="uid://dpvgn5xgrajpp" path="res://Scenes/MAPS/CHUNKS/intro_chunk.tscn" id="50_f70s4"]
+[ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="50_r5ffa"]
+[ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="51_4m4le"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_8fe8v"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="53_h70ij"]
+[ext_resource type="Script" uid="uid://bsc7r81ttmpl6" path="res://Scripts/UI/preleveling_label.gd" id="54_0chnp"]
+[ext_resource type="Script" uid="uid://bcrbhuf4ic2fu" path="res://Scripts/UI/preleveling_icon.gd" id="55_fmv1x"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="56_0mndj"]
+[ext_resource type="Script" uid="uid://dgjjb27shy4tk" path="res://Scripts/SCENES/pause.gd" id="57_5wi0f"]
+[ext_resource type="Texture2D" uid="uid://x2t7fo48be7k" path="res://Assets/TilesBNW/placeholder.png" id="57_y3d2e"]
+[ext_resource type="Script" uid="uid://clxmad88m82fv" path="res://Scripts/FONTS/GUI_title_low.gd" id="58_5462o"]
+[ext_resource type="Script" uid="uid://p1kmh86var1g" path="res://Scripts/UI/stats_screen.gd" id="59_ss710"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="60_v5ij7"]
+[ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/LEVELUP/leveling.gd" id="61_scu7b"]
+[ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/LEVELUP/leveling_weapons.gd" id="62_5ikkr"]
+[ext_resource type="Script" uid="uid://bnfkyuguhwr7h" path="res://Scripts/LEVELUP/levelup_icon.gd" id="63_q027i"]
+[ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="64_f28o8"]
+[ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/LEVELUP/leveling_ammos.gd" id="65_01vu0"]
+[ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="66_68yqa"]
+[ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="67_c6wyc"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="68_onnrf"]
+[ext_resource type="Script" uid="uid://b1o0peai48kvj" path="res://Scripts/LEVELUP/level_up_stats.gd" id="69_ux6ij"]
+[ext_resource type="Script" uid="uid://cc0huil3sw502" path="res://Scripts/UI/new_survivor_canvas.gd" id="70_2swau"]
+[ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="71_qauis"]
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="72_qyrel"]
+[ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="73_demei"]
+[ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="74_wwc4x"]
+[ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="77_lmb0e"]
+[ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/piston.tscn" id="78_eql6j"]
+[ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="82_khwvp"]
+[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="83_fjiln"]
+
+[sub_resource type="Environment" id="Environment_0pcbe"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 0
+glow_hdr_threshold = 0.91
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0a5o"]
+bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6nya"]
+bg_color = Color(0.21547687, 1.052779, 1.6109806, 1)
+skew = Vector2(0.5, 0)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="Animation" id="Animation_rrokc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.21547687, 1.052779, 1.6109806, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_35io2"]
+resource_name = "level_up_anim"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 0.08537752),
+"update": 0,
+"values": [Color(0.21547687, 1.052779, 1.6109806, 1), Color(0.95666456, 4.058873, 6.127012, 1), Color(0.21547687, 1.052779, 1.6109806, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.40254, 0.8),
+"transitions": PackedFloat32Array(1, 0.4506253, 1),
+"update": 1,
+"values": [null, 20, 16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q12la"]
+_data = {
+&"RESET": SubResource("Animation_rrokc"),
+&"level_up_anim": SubResource("Animation_35io2")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3smgn"]
+bg_color = Color(0.3254902, 0.3254902, 0.3254902, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrsns"]
+bg_color = Color(0.12941177, 1, 0.25882354, 1)
+skew = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_tc8sa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.22940181, 1.5720325, 0.42898208, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_p4ios"]
+resource_name = "boost_full"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [16, 20, 16]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.40106815, 0.79658514),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.22940181, 1.5720325, 0.42898208, 1), Color(0.22940181, 1.5720325, 0.42898208, 1), Color(0.22940181, 1.5720325, 0.42898208, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xo07a"]
+_data = {
+&"RESET": SubResource("Animation_tc8sa"),
+&"boost_full": SubResource("Animation_p4ios")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axeuq"]
+bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
+bg_color = Color(0.43605784, 1.0889582e-06, 2.4065375e-08, 1)
+skew = Vector2(0.5, 0)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tc8sa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3smgn"]
+
+[sub_resource type="Animation" id="Animation_5brd2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Prelevelling/NewLevel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [48]
+}
+
+[sub_resource type="Animation" id="Animation_sl775"]
+resource_name = "new_level"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Prelevelling/NewLevel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.4991496),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [48, 64, 48]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0nur5"]
+_data = {
+&"RESET": SubResource("Animation_5brd2"),
+&"new_level": SubResource("Animation_sl775")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
+
+[sub_resource type="Animation" id="Animation_4n5nh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_kimld"]
+resource_name = "blinking"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2jlsx"]
+_data = {
+&"RESET": SubResource("Animation_4n5nh"),
+&"blinking": SubResource("Animation_kimld")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5brd2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb0r4"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrs1u"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkvuv"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xo07a"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.7764706, 0, 1)
+
+[sub_resource type="Animation" id="Animation_3smgn"]
+resource_name = "IfNew"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.6862745, 0.06666667, 0.43529412, 1), Color(0.6862745, 0.06666667, 0.43529412, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [24, 32, 24]
+}
+
+[sub_resource type="Animation" id="Animation_vrsns"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [24]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p4ios"]
+_data = {
+&"IfNew": SubResource("Animation_3smgn"),
+&"RESET": SubResource("Animation_vrsns")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o24rt"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_mqqx4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xw754"]
+
+[sub_resource type="GDScript" id="GDScript_xo07a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ptoy"]
+shader = ExtResource("8_r6aci")
+shader_parameter/intensity = 1.0
+script = SubResource("GDScript_xo07a")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ojh6y"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rhyfu"]
+texture = ExtResource("11_olrxs")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ojh6y")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_t53t7"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xqm5t"]
+texture = ExtResource("12_b02dr")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+1:2/0 = 0
+1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+0:3/0 = 0
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+1:3/0 = 0
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_t53t7")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4n5nh"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4n5nh"]
+texture = ExtResource("10_28dbs")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+12:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+13:0/0 = 0
+13:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+14:0/0 = 0
+14:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+15:0/0 = 0
+15:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+16:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+20:0/0 = 0
+21:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+24:0/0 = 0
+25:0/0 = 0
+26:0/0 = 0
+27:0/0 = 0
+28:0/0 = 0
+29:0/0 = 0
+30:0/0 = 0
+31:0/0 = 0
+32:0/0 = 0
+33:0/0 = 0
+34:0/0 = 0
+35:0/0 = 0
+36:0/0 = 0
+37:0/0 = 0
+38:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+12:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+13:1/0 = 0
+13:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+14:1/0 = 0
+14:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+15:1/0 = 0
+15:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+20:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+24:1/0 = 0
+25:1/0 = 0
+27:1/0 = 0
+28:1/0 = 0
+29:1/0 = 0
+30:1/0 = 0
+31:1/0 = 0
+32:1/0 = 0
+33:1/0 = 0
+34:1/0 = 0
+35:1/0 = 0
+36:1/0 = 0
+37:1/0 = 0
+38:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+12:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+13:2/0 = 0
+13:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+14:2/0 = 0
+14:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+15:2/0 = 0
+15:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+16:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+19:2/0 = 0
+20:2/0 = 0
+21:2/0 = 0
+22:2/0 = 0
+23:2/0 = 0
+24:2/0 = 0
+26:2/0 = 0
+27:2/0 = 0
+28:2/0 = 0
+29:2/0 = 0
+30:2/0 = 0
+31:2/0 = 0
+32:2/0 = 0
+33:2/0 = 0
+34:2/0 = 0
+35:2/0 = 0
+36:2/0 = 0
+37:2/0 = 0
+38:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+12:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+13:3/0 = 0
+13:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+14:3/0 = 0
+14:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+15:3/0 = 0
+15:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4n5nh")
+16:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+19:3/0 = 0
+20:3/0 = 0
+21:3/0 = 0
+22:3/0 = 0
+23:3/0 = 0
+24:3/0 = 0
+25:3/0 = 0
+26:3/0 = 0
+27:3/0 = 0
+28:3/0 = 0
+29:3/0 = 0
+30:3/0 = 0
+31:3/0 = 0
+32:3/0 = 0
+33:3/0 = 0
+34:3/0 = 0
+35:3/0 = 0
+36:3/0 = 0
+37:3/0 = 0
+38:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+16:4/0 = 0
+17:4/0 = 0
+18:4/0 = 0
+19:4/0 = 0
+20:4/0 = 0
+21:4/0 = 0
+22:4/0 = 0
+23:4/0 = 0
+24:4/0 = 0
+25:4/0 = 0
+26:4/0 = 0
+27:4/0 = 0
+28:4/0 = 0
+29:4/0 = 0
+30:4/0 = 0
+31:4/0 = 0
+32:4/0 = 0
+33:4/0 = 0
+34:4/0 = 0
+35:4/0 = 0
+36:4/0 = 0
+37:4/0 = 0
+38:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+16:5/0 = 0
+17:5/0 = 0
+18:5/0 = 0
+19:5/0 = 0
+20:5/0 = 0
+21:5/0 = 0
+22:5/0 = 0
+23:5/0 = 0
+24:5/0 = 0
+25:5/0 = 0
+27:5/0 = 0
+28:5/0 = 0
+29:5/0 = 0
+30:5/0 = 0
+31:5/0 = 0
+32:5/0 = 0
+33:5/0 = 0
+34:5/0 = 0
+35:5/0 = 0
+36:5/0 = 0
+37:5/0 = 0
+38:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+13:6/0 = 0
+14:6/0 = 0
+15:6/0 = 0
+16:6/0 = 0
+17:6/0 = 0
+18:6/0 = 0
+19:6/0 = 0
+20:6/0 = 0
+21:6/0 = 0
+22:6/0 = 0
+23:6/0 = 0
+24:6/0 = 0
+26:6/0 = 0
+27:6/0 = 0
+28:6/0 = 0
+29:6/0 = 0
+30:6/0 = 0
+31:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+14:7/0 = 0
+15:7/0 = 0
+16:7/0 = 0
+17:7/0 = 0
+18:7/0 = 0
+19:7/0 = 0
+20:7/0 = 0
+21:7/0 = 0
+22:7/0 = 0
+23:7/0 = 0
+24:7/0 = 0
+25:7/0 = 0
+26:7/0 = 0
+27:7/0 = 0
+28:7/0 = 0
+29:7/0 = 0
+30:7/0 = 0
+31:7/0 = 0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xhj07"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x5yq3"]
+texture = ExtResource("13_jeahs")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_xhj07")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_54sv5"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7jfna"]
+texture = ExtResource("14_qe783")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_54sv5")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o24rt"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mqqx4"]
+texture = ExtResource("16_no7ri")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+1:2/0 = 0
+1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+0:3/0 = 0
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+1:3/0 = 0
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_o24rt")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xw754"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sujsj"]
+texture = ExtResource("17_rndja")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_xw754")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bkdks"]
+texture = ExtResource("57_y3d2e")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_2jlsx"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2jlsx"]
+texture = ExtResource("18_tfluy")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_2jlsx")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_hp83p"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hp83p"]
+texture = ExtResource("19_ysy71")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+1:2/0 = 0
+1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+0:3/0 = 0
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+1:3/0 = 0
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hp83p")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ow65e"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wklop"]
+texture = ExtResource("20_6gdc0")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+2:0/0 = 0
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+3:0/0 = 0
+3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+2:1/0 = 0
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+3:1/0 = 0
+3:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ow65e")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tc8sa"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3smgn"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tk0nn"]
+texture = ExtResource("21_dl8cx")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tc8sa")
+1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tc8sa")
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tc8sa")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tc8sa")
+0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tc8sa")
+1:2/0 = 0
+1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tc8sa")
+0:3/0 = 0
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_3smgn")
+1:3/0 = 0
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tc8sa")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vrsns"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_th70x"]
+texture = ExtResource("22_aiu1o")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+2:0/0 = 0
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+3:0/0 = 0
+3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+2:1/0 = 0
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+3:1/0 = 0
+3:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vrsns")
+
+[sub_resource type="TileSet" id="TileSet_yxmws"]
+tile_size = Vector2i(32, 32)
+navigation_layer_0/layers = 1
+sources/5 = SubResource("TileSetAtlasSource_2jlsx")
+sources/6 = SubResource("TileSetAtlasSource_hp83p")
+sources/7 = SubResource("TileSetAtlasSource_wklop")
+sources/8 = SubResource("TileSetAtlasSource_tk0nn")
+sources/9 = SubResource("TileSetAtlasSource_th70x")
+sources/10 = SubResource("TileSetAtlasSource_4n5nh")
+sources/1 = SubResource("TileSetAtlasSource_xqm5t")
+sources/2 = SubResource("TileSetAtlasSource_mqqx4")
+sources/3 = SubResource("TileSetAtlasSource_sujsj")
+sources/12 = SubResource("TileSetAtlasSource_x5yq3")
+sources/13 = SubResource("TileSetAtlasSource_7jfna")
+sources/0 = SubResource("TileSetAtlasSource_rhyfu")
+sources/4 = SubResource("TileSetAtlasSource_bkdks")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ow65e"]
+texture = ExtResource("23_jrkt8")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tc8sa"]
+texture = ExtResource("24_hx2je")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f70s4"]
+texture = ExtResource("15_f3f6v")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3smgn"]
+texture = ExtResource("25_hg3cs")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vrsns"]
+texture = ExtResource("26_5ky23")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hmdni"]
+texture = ExtResource("27_8x7kb")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p4ios"]
+texture = ExtResource("28_wsg1q")
+texture_region_size = Vector2i(32, 32)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xo07a"]
+texture = ExtResource("29_uskdu")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ptoy"]
+texture = ExtResource("30_r3mi4")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhj07"]
+texture = ExtResource("31_tqao3")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:1/0 = 0
+7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewkn0"]
+texture = ExtResource("32_puvkg")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:6/0 = 0
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:7/0 = 0
+0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:7/0 = 0
+1:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:6/0 = 0
+1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:5/0 = 0
+1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_hmdni"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 5
+sources/0 = SubResource("TileSetAtlasSource_ow65e")
+sources/1 = SubResource("TileSetAtlasSource_tc8sa")
+sources/2 = SubResource("TileSetAtlasSource_3smgn")
+sources/3 = SubResource("TileSetAtlasSource_vrsns")
+sources/5 = SubResource("TileSetAtlasSource_p4ios")
+sources/6 = SubResource("TileSetAtlasSource_xo07a")
+sources/7 = SubResource("TileSetAtlasSource_3ptoy")
+sources/8 = SubResource("TileSetAtlasSource_xhj07")
+sources/9 = SubResource("TileSetAtlasSource_ewkn0")
+sources/4 = SubResource("TileSetAtlasSource_hmdni")
+sources/10 = SubResource("TileSetAtlasSource_f70s4")
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_pqmaj"]
+b = Vector2(-0.07739258, 660.9774)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tc8sa"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
+use_colors = true
+use_custom_data = true
+mesh = SubResource("PlaneMesh_tc8sa")
+
+[node name="World" type="Node2D" unique_id=1548430314]
+z_as_relative = false
+y_sort_enabled = true
+metadata/_edit_horizontal_guides_ = [1941.0]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=9101506]
+environment = SubResource("Environment_0pcbe")
+
+[node name="DayAndNightCycle" type="CanvasModulate" parent="." unique_id=757246020]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=353420523]
+blend_mode = 2
+
+[node name="game_manager" parent="." unique_id=1855230744 instance=ExtResource("1_x7fhx")]
+
+[node name="AudioManager" type="Node" parent="." unique_id=680998745]
+script = ExtResource("3_6i41r")
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="AudioManager" unique_id=1185666460]
+stream = ExtResource("4_jtdx0")
+volume_db = -15.0
+autoplay = true
+bus = &"Music"
+
+[node name="ItemsSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=719959990]
+bus = &"SFX"
+
+[node name="ItemsSfx2" type="AudioStreamPlayer" parent="AudioManager" unique_id=1832490216]
+bus = &"SFX"
+
+[node name="ItemsSfx3" type="AudioStreamPlayer" parent="AudioManager" unique_id=2087352590]
+bus = &"SFX"
+
+[node name="LevelUpSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=911291854]
+bus = &"SFX"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
+
+[node name="FPS" type="Label" parent="CanvasLayer" unique_id=1730762821]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -197.0
+offset_bottom = 74.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 54
+text = "FPS : 60"
+script = ExtResource("33_2c7x0")
+
+[node name="XP" type="Control" parent="CanvasLayer" unique_id=792832250]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Board" type="Control" parent="CanvasLayer" unique_id=1317999721]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1015808763]
+texture = ExtResource("34_11fs2")
+centered = false
+
+[node name="Speed" type="Label" parent="CanvasLayer/Board" unique_id=900412374]
+layout_mode = 1
+offset_left = 53.0
+offset_top = 41.0
+offset_right = 161.0
+offset_bottom = 97.0
+theme_override_colors/font_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+justification_flags = 35
+script = ExtResource("35_ubt8f")
+
+[node name="Label" type="Label" parent="CanvasLayer/Board/Speed" unique_id=1149933007]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 52.0
+offset_right = 106.0
+offset_bottom = 89.33333
+theme_override_colors/font_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
+text = "MPH"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("36_mfrdl")
+
+[node name="xp_bar" type="ProgressBar" parent="CanvasLayer/Board" unique_id=311172588]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 302.0
+offset_top = 34.0
+offset_right = 565.0
+offset_bottom = 52.0
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_l0a5o")
+theme_override_styles/fill = SubResource("StyleBoxFlat_f6nya")
+step = 1.0
+value = 50.0
+show_percentage = false
+script = ExtResource("37_qpbdj")
+
+[node name="Label" type="Label" parent="CanvasLayer/Board/xp_bar" unique_id=1112520545]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -11.166688
+offset_right = -22.0
+offset_bottom = 11.833313
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Lvl 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("38_qfwjn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Board/xp_bar" unique_id=1865340468]
+libraries/ = SubResource("AnimationLibrary_q12la")
+script = ExtResource("39_vitio")
+
+[node name="BoostGauge" type="ProgressBar" parent="CanvasLayer/Board" unique_id=343592507]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 700.0
+offset_top = 34.0
+offset_right = 969.0
+offset_bottom = 52.0
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_3smgn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vrsns")
+step = 1.0
+value = 50.0
+show_percentage = false
+script = ExtResource("40_8pkco")
+
+[node name="BoostTimer" type="Timer" parent="CanvasLayer/Board/BoostGauge" unique_id=1014647607]
+wait_time = 0.3
+
+[node name="Nitro" type="Label" parent="CanvasLayer/Board/BoostGauge" unique_id=1951328078]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -12.166667
+offset_right = -11.0
+offset_bottom = 10.833332
+grow_vertical = 2
+text = "NITRO"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("41_lfu7u")
+
+[node name="Dash" type="Label" parent="CanvasLayer/Board/BoostGauge" unique_id=1406233136]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -12.000021
+offset_right = -11.0
+offset_bottom = 10.999979
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.22940181, 1.5720325, 0.42898208, 1)
+text = "DASH"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("41_lfu7u")
+
+[node name="DashAnim" type="AnimationPlayer" parent="CanvasLayer/Board/BoostGauge/Dash" unique_id=1643082656]
+libraries/ = SubResource("AnimationLibrary_xo07a")
+
+[node name="FuelGauge" type="ProgressBar" parent="CanvasLayer/Board" unique_id=894934517]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 301.0
+offset_top = -60.0
+offset_right = 559.0
+offset_bottom = -23.0
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_axeuq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1cojt")
+step = 5.0
+value = 75.0
+rounded = true
+show_percentage = false
+
+[node name="LifeLabel" type="Label" parent="CanvasLayer/Board/FuelGauge" unique_id=81239408]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = 5.0
+offset_right = -36.0
+offset_bottom = 23.666664
+grow_horizontal = 2
+grow_vertical = 0
+text = "1000/1000"
+script = ExtResource("41_lfu7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/FuelGauge" unique_id=1503179586]
+position = Vector2(-43, 35)
+scale = Vector2(1.25, 1.28125)
+texture = ExtResource("42_rl3hm")
+
+[node name="Gear" type="Control" parent="CanvasLayer/Board" unique_id=1192136897]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = 16.0
+offset_right = 287.0
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/Gear" unique_id=446153934]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_right = -96.33331
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Gear/MarginContainer" unique_id=403611011]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="Gear0" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=222877905]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1435912683]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("43_lrtv0")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1823006990]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("44_64gpc")
+
+[node name="Gear1" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=466958561]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=243986824]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("43_lrtv0")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=751922222]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("44_64gpc")
+
+[node name="Gear2" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=183027919]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=411205787]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("43_lrtv0")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=609660053]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("44_64gpc")
+
+[node name="Gear3" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=153631555]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=951361497]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("43_lrtv0")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=322450282]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("44_64gpc")
+
+[node name="Gear4" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=136116006]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=70414263]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("43_lrtv0")
+
+[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=1589436148]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -5.999996
+offset_right = 5.0
+offset_bottom = 5.0416718
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("44_64gpc")
+
+[node name="Parts" type="Control" parent="CanvasLayer/Board" unique_id=102137242]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -59.0
+offset_right = -117.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/Parts" unique_id=39206195]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -6.0
+offset_right = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Parts/MarginContainer" unique_id=525821561]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 24
+script = ExtResource("45_u62sb")
+
+[node name="Woodboxes" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=895745046]
+visible = false
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=1247610902]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("46_pnyll")
+stretch_mode = 3
+
+[node name="WoodBoxesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=283158505]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -7.999996
+offset_bottom = 3.6666718
+grow_horizontal = 0
+grow_vertical = 0
+text = "10"
+horizontal_alignment = 2
+script = ExtResource("41_lfu7u")
+
+[node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=2016834968]
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tc8sa")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1724909694]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("47_lp1el")
+stretch_mode = 3
+
+[node name="GearPartsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=800221824]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -1.3333359
+offset_right = 25.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("48_nuvlj")
+text = "1800"
+horizontal_alignment = 2
+script = ExtResource("41_lfu7u")
+
+[node name="Zombies" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=442404506]
+visible = false
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1336951058]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("49_d6diu")
+stretch_mode = 3
+
+[node name="ZombiesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1534381154]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -7.999996
+offset_bottom = 3.6666718
+grow_horizontal = 0
+grow_vertical = 0
+text = "1800"
+horizontal_alignment = 2
+script = ExtResource("41_lfu7u")
+
+[node name="Frags" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1605674456]
+custom_minimum_size = Vector2(40, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=243522061]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("50_r5ffa")
+stretch_mode = 3
+
+[node name="FragsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=15311325]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -1.3333359
+offset_right = 25.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("48_nuvlj")
+text = "1000"
+horizontal_alignment = 2
+script = ExtResource("41_lfu7u")
+
+[node name="LuckyCharms" type="Control" parent="CanvasLayer/Board" unique_id=1384202834]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_right = -24.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/LuckyCharms" unique_id=414534360]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 1
+offset_right = 222.0
+offset_bottom = 46.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/LuckyCharms/MarginContainer" unique_id=890727447]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="LuckyCharm0" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=2004849628]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm0" unique_id=1411297590]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("51_4m4le")
+
+[node name="LuckyCharm1" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1066240797]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm1" unique_id=1512544772]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("51_4m4le")
+
+[node name="LuckyCharm2" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1239802368]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm2" unique_id=2130284583]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("51_4m4le")
+
+[node name="LuckyCharm3" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1206394333]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm3" unique_id=1368181297]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("51_4m4le")
+
+[node name="LuckyCharm4" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1051707784]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm4" unique_id=794440254]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("51_4m4le")
+
+[node name="LuckyCharm5" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1987953602]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm5" unique_id=937258005]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("51_4m4le")
+
+[node name="Prelevelling" type="Control" parent="CanvasLayer" unique_id=1984901795]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 143.0
+offset_bottom = -156.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PreLevelingBkgd" type="ColorRect" parent="CanvasLayer/Prelevelling" unique_id=1169599004]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.13333334, 0.13333334, 0.8627451)
+
+[node name="Label" type="Label" parent="CanvasLayer/Prelevelling" unique_id=436403073]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 64
+text = "LEVEL UP !"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("53_h70ij")
+
+[node name="NewLevel" type="Label" parent="CanvasLayer/Prelevelling" unique_id=2057306885]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -171.0
+offset_right = 199.5
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 48
+text = "Level 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("54_0chnp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Prelevelling/NewLevel" unique_id=1070275593]
+root_node = NodePath("../../../..")
+libraries/ = SubResource("AnimationLibrary_0nur5")
+autoplay = &"new_level"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Prelevelling" unique_id=1813176849]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -84.5
+offset_right = 59.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5
+script = ExtResource("55_fmv1x")
+
+[node name="MainButtons" type="HBoxContainer" parent="CanvasLayer/Prelevelling" unique_id=1207806743]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.0
+offset_top = -99.5
+offset_right = 77.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="PrelevelingButton" type="Button" parent="CanvasLayer/Prelevelling/MainButtons" unique_id=985192887]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "OK !"
+flat = true
+script = ExtResource("56_0mndj")
+
+[node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReadyGo" type="Label" parent="CanvasLayer/Texts" unique_id=871415139]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -96.0
+offset_right = 156.0
+offset_bottom = -30.666656
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 56
+text = "READY ?"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_2abip")
+
+[node name="Horde" type="Label" parent="CanvasLayer/Texts" unique_id=1343880551]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -633.0
+offset_bottom = 70.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 42
+text = "the horde is coming !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HordeAnimation" type="AnimationPlayer" parent="CanvasLayer/Texts/Horde" unique_id=1950083315]
+libraries/ = SubResource("AnimationLibrary_2jlsx")
+
+[node name="Pause" type="Control" parent="CanvasLayer" unique_id=1073593593]
+visible = false
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("57_5wi0f")
+
+[node name="PauseBkgd" type="ColorRect" parent="CanvasLayer/Pause" unique_id=458429325]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Pause" unique_id=1322439472]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 64
+text = "PAUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("53_h70ij")
+
+[node name="ShowStats" type="Label" parent="CanvasLayer/Pause" unique_id=1034979556]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 744.0
+offset_right = 372.0
+offset_bottom = 797.0
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 48
+text = "Show Stats : LB"
+script = ExtResource("58_5462o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause" unique_id=1349042611]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -66.0
+offset_right = 82.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Resume" type="Button" parent="CanvasLayer/Pause/VBoxContainer" unique_id=1583715658]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "RESUME"
+flat = true
+script = ExtResource("56_0mndj")
+
+[node name="Commands" type="Button" parent="CanvasLayer/Pause/VBoxContainer" unique_id=436373158]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "COMMANDS"
+flat = true
+script = ExtResource("56_0mndj")
+
+[node name="QuitToMenu" type="Button" parent="CanvasLayer/Pause/VBoxContainer" unique_id=755437127]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "QUIT TO MENU"
+flat = true
+script = ExtResource("56_0mndj")
+
+[node name="StatsScreen" type="Control" parent="CanvasLayer/Pause" unique_id=687258393]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("59_ss710")
+
+[node name="StatsBkgd" type="ColorRect" parent="CanvasLayer/Pause/StatsScreen" unique_id=1841447173]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19434914, 0.19434932, 0.19434926, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Pause/StatsScreen" unique_id=1280703923]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 64
+text = "STATS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("53_h70ij")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause/StatsScreen" unique_id=1839157728]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_top = -240.0
+offset_right = 506.0
+offset_bottom = 66.0
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="MaxHealth" type="Label" parent="CanvasLayer/Pause/StatsScreen/VBoxContainer" unique_id=338386923]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 48
+text = "Max Health : "
+script = ExtResource("60_v5ij7")
+
+[node name="Speed" type="Label" parent="CanvasLayer/Pause/StatsScreen/VBoxContainer" unique_id=157484672]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 48
+text = "Speed : "
+script = ExtResource("60_v5ij7")
+
+[node name="HealingPow" type="Label" parent="CanvasLayer/Pause/StatsScreen/VBoxContainer" unique_id=366854470]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 48
+text = "Healing Power : "
+script = ExtResource("60_v5ij7")
+
+[node name="Leveling" type="Control" parent="CanvasLayer" unique_id=67494046]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("61_scu7b")
+
+[node name="LevelingBkgd" type="ColorRect" parent="CanvasLayer/Leveling" unique_id=1122713189]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.13333334, 0.13333334, 0.9647059)
+
+[node name="Label" type="Label" parent="CanvasLayer/Leveling/LevelingBkgd" unique_id=1985146927]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 64
+text = "UPGRADE YOUR WEAPONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("53_h70ij")
+
+[node name="MainButtons" type="HBoxContainer" parent="CanvasLayer/Leveling/LevelingBkgd" unique_id=1799777878]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -334.0
+offset_top = -84.0
+offset_right = -140.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Skip" type="Button" parent="CanvasLayer/Leveling/LevelingBkgd/MainButtons" unique_id=1933003547]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "Skip"
+flat = true
+script = ExtResource("56_0mndj")
+
+[node name="WeaponsContainer" type="MarginContainer" parent="CanvasLayer/Leveling" unique_id=618982007]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31300002
+anchor_top = 0.19700001
+anchor_right = 0.31300002
+anchor_bottom = 0.19700001
+offset_left = -388.64
+offset_top = 22.399994
+offset_right = 389.36
+offset_bottom = 182.4
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("62_5ikkr")
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Leveling/WeaponsContainer" unique_id=603029388]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 14
+columns = 5
+
+[node name="WeaponSlot0" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1728744366]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0" unique_id=2028414650]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0/Weapon" unique_id=1457444770]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0/Weapon" unique_id=1302698746]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0/Weapon" unique_id=148803289]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0/Weapon/IconBkg" unique_id=178596367]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("63_q027i")
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot0" unique_id=2113372182]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("64_f28o8")
+
+[node name="WeaponSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1002567961]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1548889201]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1858838502]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1787120499]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1145658221]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1/Weapon/IconBkg" unique_id=1538546643]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("63_q027i")
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1132583995]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("64_f28o8")
+
+[node name="WeaponSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=2100950122]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=1686426650]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=129850808]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=784100098]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=181727210]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2/Weapon/IconBkg" unique_id=92731280]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("63_q027i")
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot2" unique_id=2124605361]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("64_f28o8")
+
+[node name="WeaponSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=1971981096]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=276982785]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=146230850]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=1569391970]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=818043044]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3/Weapon/IconBkg" unique_id=2010241736]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("63_q027i")
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot3" unique_id=273236636]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("64_f28o8")
+
+[node name="WeaponSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer" unique_id=840411128]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1764910409]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=1256805209]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=1250934693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=105778884]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4/Weapon/IconBkg" unique_id=619803024]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("63_q027i")
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1907909796]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("64_f28o8")
+
+[node name="AmmoContainer" type="MarginContainer" parent="CanvasLayer/Leveling" unique_id=101973105]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31300002
+anchor_top = 0.19700001
+anchor_right = 0.31300002
+anchor_bottom = 0.19700001
+offset_left = -388.64
+offset_top = 248.4
+offset_right = 389.36
+offset_bottom = 452.4
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("65_01vu0")
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Leveling/AmmoContainer" unique_id=1042448719]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 14
+columns = 5
+
+[node name="AmmoSlot0" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=205369561]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0" unique_id=2115056711]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0/Ammo" unique_id=2084804727]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0/Ammo" unique_id=887780960]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0/Ammo" unique_id=314837105]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0/Ammo/IconBkg" unique_id=1435620806]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot0" unique_id=491928480]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("64_f28o8")
+
+[node name="AmmoSlot1" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=845617533]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=1103403260]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=179334398]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=2086316098]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=1795882793]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1/Ammo/IconBkg" unique_id=798471611]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot1" unique_id=1595991454]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("64_f28o8")
+
+[node name="AmmoSlot2" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=959943096]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=762790645]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=849495558]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=398124921]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=1341195668]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2/Ammo/IconBkg" unique_id=490327064]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot2" unique_id=293376463]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("64_f28o8")
+
+[node name="AmmoSlot3" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=148771826]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=520615241]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=2110809557]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1952252629]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1790601032]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3/Ammo/IconBkg" unique_id=1344479423]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot3" unique_id=318037614]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("64_f28o8")
+
+[node name="AmmoSlot4" type="VBoxContainer" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer" unique_id=685022727]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=2060812544]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1092214947]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=2064937985]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=323873689]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4/Ammo/IconBkg" unique_id=930449476]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Leveling/AmmoContainer/GridContainer/AmmoSlot4" unique_id=685965726]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("64_f28o8")
+
+[node name="TextPanel" type="Panel" parent="CanvasLayer/Leveling" unique_id=681170836]
+z_index = 20
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -484.0
+offset_top = -234.0
+offset_right = -22.0
+offset_bottom = 375.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xo07a")
+
+[node name="WeaponName" type="Label" parent="CanvasLayer/Leveling/TextPanel" unique_id=455682994]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.5
+offset_top = 10.0
+offset_right = 63.5
+offset_bottom = 94.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 40
+text = "Name
+Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("66_68yqa")
+
+[node name="WeaponLevels" type="Label" parent="CanvasLayer/Leveling/TextPanel" unique_id=1004156518]
+z_index = 50
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.0
+offset_top = 100.0
+offset_right = 66.0
+offset_bottom = 143.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("67_c6wyc")
+
+[node name="AnimUpgrade" type="AnimationPlayer" parent="CanvasLayer/Leveling/TextPanel/WeaponLevels" unique_id=2064352470]
+libraries/ = SubResource("AnimationLibrary_p4ios")
+
+[node name="AmmoName" type="Label" parent="CanvasLayer/Leveling/TextPanel" unique_id=2127581990]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_top = 162.0
+offset_right = 61.0
+offset_bottom = 199.33331
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 32
+text = "Ammo"
+horizontal_alignment = 1
+script = ExtResource("68_onnrf")
+
+[node name="AmmoLevels" type="Label" parent="CanvasLayer/Leveling/TextPanel" unique_id=1536852962]
+z_index = 50
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.5
+offset_top = 200.0
+offset_right = 70.5
+offset_bottom = 243.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("67_c6wyc")
+
+[node name="AnimUpgrade" type="AnimationPlayer" parent="CanvasLayer/Leveling/TextPanel/AmmoLevels" unique_id=1050488364]
+libraries/ = SubResource("AnimationLibrary_p4ios")
+
+[node name="WeaponDescr" type="Label" parent="CanvasLayer/Leveling/TextPanel" unique_id=140624145]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = -33.5
+offset_right = 453.0
+offset_bottom = 96.5
+grow_vertical = 2
+theme_override_constants/line_spacing = 8
+theme_override_constants/paragraph_spacing = 16
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "Shot the closest enemy within a zone"
+autowrap_mode = 2
+script = ExtResource("60_v5ij7")
+
+[node name="Upgrades" type="VBoxContainer" parent="CanvasLayer/Leveling/TextPanel" unique_id=317981203]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = 60.5
+offset_right = 304.0
+offset_bottom = 270.5
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Dmg" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1453765041]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("69_ux6ij")
+UI_stat_type = 1
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=1983532668]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "Dmg :"
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=612857920]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=1228831027]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Dmg" unique_id=604683598]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="FireRate" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1698101996]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("69_ux6ij")
+UI_stat_type = 2
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=290531748]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "Fire rate :"
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=1675901633]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=1078264020]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/FireRate" unique_id=1959302913]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="CoolDown" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1710845448]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("69_ux6ij")
+UI_stat_type = 6
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=994848093]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "Cool Down :"
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=945107485]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=130302618]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/CoolDown" unique_id=2102806531]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="Radius" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1561841843]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("69_ux6ij")
+UI_stat_type = 5
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=821298563]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "Radius :"
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=1448157638]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=1269218543]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/Radius" unique_id=1363467394]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="NbAmmo" type="HBoxContainer" parent="CanvasLayer/Leveling/TextPanel/Upgrades" unique_id=1429377313]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("69_ux6ij")
+UI_stat_type = 3
+
+[node name="StatName" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=1910139881]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "Ammo :"
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatBaseValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=667656715]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="Arrow" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=77494167]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="StatUpgradeValue" type="Label" parent="CanvasLayer/Leveling/TextPanel/Upgrades/NbAmmo" unique_id=1135288080]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("48_nuvlj")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="WeaponBkg" type="ColorRect" parent="CanvasLayer/Leveling/TextPanel" unique_id=7881159]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 87.0
+offset_bottom = 86.0
+
+[node name="WeaponIcon" type="TextureRect" parent="CanvasLayer/Leveling/TextPanel/WeaponBkg" unique_id=1883464987]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="AmmoBkg" type="ColorRect" parent="CanvasLayer/Leveling/TextPanel" unique_id=783263299]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+offset_left = 374.0
+offset_top = 12.0
+offset_right = 448.0
+offset_bottom = 86.0
+
+[node name="AmmoIcon" type="TextureRect" parent="CanvasLayer/Leveling/TextPanel/AmmoBkg" unique_id=1958120908]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="NewSurvivor" type="Control" parent="CanvasLayer" unique_id=767784114]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("70_2swau")
+
+[node name="Background" type="ColorRect" parent="CanvasLayer/NewSurvivor" unique_id=788371972]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="CanvasLayer/NewSurvivor" unique_id=1031134513]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 64
+text = "A NEW FRIEND ?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("53_h70ij")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NewSurvivor" unique_id=231801612]
+custom_minimum_size = Vector2(64, 72)
+layout_mode = 0
+offset_top = 112.0
+offset_right = 416.0
+offset_bottom = 696.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="BoxContainer" type="GridContainer" parent="CanvasLayer/NewSurvivor/MarginContainer" unique_id=610040497]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 32
+columns = 4
+
+[node name="PNJ0" type="Button" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer" unique_id=313775313]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_o24rt")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_mqqx4")
+
+[node name="PNJName" type="Label" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer/PNJ0" unique_id=1713199169]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_top = 12.0
+offset_right = 32.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("60_v5ij7")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer/PNJ0" unique_id=232536764]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer/PNJ0" unique_id=547100912]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("71_qauis")
+
+[node name="SurvivorBio" type="Control" parent="CanvasLayer/NewSurvivor" unique_id=2096044592]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -822.0
+offset_top = -278.0
+offset_bottom = 376.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="PNJName" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1403401885]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 40
+text = "Javier"
+script = ExtResource("68_onnrf")
+
+[node name="PNJAge" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1031946302]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 108.0
+offset_bottom = 127.0
+theme_override_font_sizes/font_size = 24
+text = "42 years old"
+script = ExtResource("60_v5ij7")
+
+[node name="PNJJob" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1936410478]
+layout_mode = 0
+offset_top = 126.0
+offset_right = 148.0
+offset_bottom = 181.0
+theme_override_font_sizes/font_size = 24
+text = "Mechanic"
+script = ExtResource("60_v5ij7")
+
+[node name="PNJBio" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=186035308]
+layout_mode = 0
+offset_top = 202.0
+offset_right = 466.0
+offset_bottom = 569.0
+theme_override_font_sizes/font_size = 24
+text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
+autowrap_mode = 2
+script = ExtResource("60_v5ij7")
+
+[node name="WeaponIcon" type="TextureRect" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=741527931]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -201.0
+offset_top = 53.0
+offset_right = -105.0
+offset_bottom = 149.0
+grow_horizontal = 0
+texture = ExtResource("72_qyrel")
+
+[node name="PNJWeapon" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio/WeaponIcon" unique_id=589335879]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = -57.0
+offset_right = 74.0
+offset_bottom = -2.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Revolver"
+horizontal_alignment = 1
+script = ExtResource("68_onnrf")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/NewSurvivor/SurvivorBio/WeaponIcon" unique_id=1736314659]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponDescr" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio/WeaponIcon" unique_id=1745419180]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.0
+offset_top = 7.0
+offset_right = 115.0
+offset_bottom = 212.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Shot a bullet on the closest enemy"
+autowrap_mode = 2
+script = ExtResource("60_v5ij7")
+
+[node name="YesNo" type="HBoxContainer" parent="CanvasLayer/NewSurvivor" unique_id=942575216]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -84.0
+offset_right = 276.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="PickUp" type="Button" parent="CanvasLayer/NewSurvivor/YesNo" unique_id=1384149843]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
+text = "PICK UP"
+flat = true
+script = ExtResource("56_0mndj")
+
+[node name="Leave" type="Button" parent="CanvasLayer/NewSurvivor/YesNo" unique_id=682276171]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("52_8fe8v")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
+text = "LEAVE"
+flat = true
+script = ExtResource("56_0mndj")
+
+[node name="Chunks" type="Node2D" parent="." unique_id=863892176]
+z_index = 1
+
+[node name="Land_layers_intro_chunk" type="Node2D" parent="." unique_id=1002474743]
+z_index = 20
+z_as_relative = false
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_3ptoy")
+script = ExtResource("49_ib6wv")
+INTRO_CHUNK = ExtResource("50_f70s4")
+TRANSITION_CHUNK = ExtResource("48_ib6wv")
+
+[node name="Roads" type="TileMapLayer" parent="Land_layers_intro_chunk" unique_id=1251010666]
+z_as_relative = false
+tile_map_data = PackedByteArray("AAAAAAIADAAAAAAAAAAAAAMAAQAAAAMAAFAAAAQAAQABAAMAAFAAAAUAAQAAAAMAAFAAAAYAAQABAAMAAFAAAAcAAQAAAAMAAFAAAAgAAQABAAMAAFAAAAkAAgAAAAMAAFAAAAoAAgABAAMAAFAAAAsABAAAAAAAAAAAAAwABAAAAAAAAAAAAA0ABAAAAAAAAAAAAA4AAgAAAAMAAFAAAA8AAgABAAMAAFAAABAAAQAAAAMAAFAAABEAAwAAAAAAAAAAABIAAQAAAAMAAFAAABMAAQABAAMAAFAAABQAAQAAAAIAAFAAABUAAwAAAAAAAAAAABYADAAAAAAAADABAAIADAAAAAAAAAABAAMAAQAAAAIAAFABAAQAAQABAAIAAFABAAUAAQAAAAIAAFABAAYAAQABAAIAAFABAAcAAQAAAAMAAFABAAgAAwAAAAAAAAABAAkAAgAAAAIAAFABAAoAAgABAAIAAFABAAsABAAAAAAAAAABAAwABAAAAAAAAAABAA0ABAAAAAAAAAABAA4AAgAAAAIAAFABAA8AAgABAAIAAFABABAAAQAAAAIAAFABABEAAwAAAAAAAAABABIAAQAAAAIAAFABABMAAQABAAIAAFABABQAAQAAAAEAAFABABUAAwAAAAAAAAABABYADAAAAAAAADACAAIADAAAAAAAAAACAAMAAQAAAAEAAFACAAQAAQABAAEAAFACAAUAAQAAAAEAAFACAAYAAQABAAEAAFACAAcAAQAAAAIAAFACAAgAAwAAAAAAAAACAAkAAgAAAAEAAFACAAoAAgABAAEAAFACAAsABAAAAAAAAAACAAwABAAAAAAAAAACAA0ABAAAAAAAAAACAA4AAgAAAAEAAFACAA8AAgABAAEAAFACABAAAQAAAAEAAFACABEAAwAAAAAAAAACABIAAQAAAAEAAFACABMAAQABAAEAAFACABQAAQAAAAAAAFACABUAAwAAAAAAAAACABYADAAAAAAAADADAAIADAAAAAAAAAADAAMAAQAAAAAAAFADAAQAAQABAAAAAFADAAUAAQAAAAAAAFADAAYAAQABAAAAAFADAAcAAQAAAAEAAFADAAgAAwAAAAAAAAADAAkAAgAAAAAAAFADAAoAAgABAAAAAFADAAsABAAAAAAAAAADAAwABAAAAAAAAAADAA0ABAAAAAAAAAADAA4AAgAAAAAAAFADAA8AAgABAAAAAFADABAAAQAAAAAAAFADABEAAwAAAAAAAAADABIAAQAAAAAAAFADABMAAQABAAAAAFADABQAAQAAAAMAAFADABUAAwAAAAAAAAADABYADAAAAAAAADAEAAIADAAAAAAAAAAEAAMAAQAAAAMAAFAEAAQAAQABAAMAAFAEAAUAAQAAAAMAAFAEAAYAAQABAAMAAFAEAAcAAQAAAAAAAFAEAAgAAwAAAAAAAAAEAAkAAgAAAAMAAFAEAAoAAgABAAMAAFAEAAsABAAAAAAAAAAEAAwABAAAAAAAAAAEAA0ABAAAAAAAAAAEAA4AAgAAAAMAAFAEAA8AAgABAAMAAFAEABAAAQAAAAMAAFAEABEAAwAAAAAAAAAEABIAAQAAAAMAAFAEABMAAQABAAMAAFAEABQAAQAAAAIAAFAEABUAAwAAAAAAAAAEABYADAAAAAAAADAFAAIADAAAAAAAAAAFAAMAAQAAAAIAAFAFAAQAAQABAAIAAFAFAAUAAQAAAAIAAFAFAAYAAQABAAIAAFAFAAcAAQAAAAMAAFAFAAgAAwAAAAAAAAAFAAkAAgAAAAIAAFAFAAoAAgABAAIAAFAFAAsABAAAAAAAAAAFAAwABAAAAAAAAAAFAA0ABAAAAAAAAAAFAA4AAgAAAAIAAFAFAA8AAgABAAIAAFAFABAAAQAAAAIAAFAFABEAAwAAAAAAAAAFABIAAQAAAAIAAFAFABMAAQABAAIAAFAFABQAAQAAAAEAAFAFABUAAwAAAAAAAAAFABYADAAAAAAAADAGAAIADAAAAAAAAAAGAAMAAQAAAAEAAFAGAAQAAQABAAEAAFAGAAUAAQAAAAEAAFAGAAYAAQABAAEAAFAGAAcAAQAAAAIAAFAGAAgAAwAAAAAAAAAGAAkAAgAAAAEAAFAGAAoAAgABAAEAAFAGAAsAAwAAAAAAAAAGAAwAAwAAAAAAAAAGAA0AAwAAAAAAAAAGAA4AAgAAAAEAAFAGAA8AAgABAAEAAFAGABAAAQAAAAEAAFAGABEAAwAAAAAAAAAGABIAAQAAAAEAAFAGABMAAQABAAEAAFAGABQAAQAAAAAAAFAGABUAAwAAAAAAAAAGABYADAAAAAAAADAHAAIADAAAAAAAAAAHAAMAAQAAAAAAAFAHAAQAAQABAAAAAFAHAAUAAQAAAAAAAFAHAAYAAQABAAAAAFAHAAcAAQAAAAEAAFAHAAgAAwAAAAAAAAAHAAkAAgAAAAAAAFAHAAoAAgABAAAAAFAHAAsAAwAAAAAAAAAHAAwAAwAAAAAAAAAHAA0AAwAAAAAAAAAHAA4AAgAAAAAAAFAHAA8AAgABAAAAAFAHABAAAQAAAAAAAFAHABEAAwAAAAAAAAAHABIAAQAAAAAAAFAHABMAAQABAAAAAFAHABQAAQAAAAMAAFAHABUAAwAAAAAAAAAHABYADAAAAAAAADAIAAIADAAAAAAAAAAIAAMAAQAAAAMAAFAIAAQAAQABAAMAAFAIAAUAAQAAAAMAAFAIAAYAAQABAAMAAFAIAAcAAQAAAAAAAFAIAAgAAwAAAAAAAAAIAAkAAgAAAAMAAFAIAAoAAgABAAMAAFAIAAsAAwAAAAAAAAAIAAwAAwAAAAAAAAAIAA0AAwAAAAAAAAAIAA4AAgAAAAMAAFAIAA8AAgABAAMAAFAIABAAAQAAAAMAAFAIABEAAwAAAAAAAAAIABIAAQAAAAMAAFAIABMAAQABAAMAAFAIABQAAQAAAAIAAFAIABUAAwAAAAAAAAAIABYADAAAAAAAADAJAAIADAAAAAAAAAAJAAMAAQAAAAIAAFAJAAQAAQABAAIAAFAJAAUAAQAAAAIAAFAJAAYAAQABAAIAAFAJAAcAAQAAAAMAAFAJAAgAAwAAAAAAAAAJAAkAAgAAAAIAAFAJAAoAAgABAAIAAFAJAAsAAwAAAAAAAAAJAAwAAwAAAAAAAAAJAA0AAwAAAAAAAAAJAA4AAgAAAAIAAFAJAA8AAgABAAIAAFAJABAAAQAAAAIAAFAJABEAAwAAAAAAAAAJABIAAQAAAAIAAFAJABMAAQABAAIAAFAJABQAAQAAAAEAAFAJABUAAwAAAAAAAAAJABYADAAAAAAAADAKAAIADAAAAAAAAAAKAAMAAQAAAAEAAFAKAAQAAQABAAEAAFAKAAUAAQAAAAEAAFAKAAYAAQABAAEAAFAKAAcAAQAAAAIAAFAKAAgAAwAAAAAAAAAKAAkAAgAAAAEAAFAKAAoAAgABAAEAAFAKAAsAAwAAAAAAAAAKAAwAAwAAAAAAAAAKAA0AAwAAAAAAAAAKAA4AAgAAAAEAAFAKAA8AAgABAAEAAFAKABAAAQAAAAEAAFAKABEAAwAAAAAAAAAKABIAAQAAAAEAAFAKABMAAQABAAEAAFAKABQAAQAAAAAAAFAKABUAAwAAAAAAAAAKABYADAAAAAAAADALAAIADAAAAAAAAAALAAMAAQAAAAAAAFALAAQAAQABAAAAAFALAAUAAQAAAAAAAFALAAYAAQABAAAAAFALAAcAAQAAAAEAAFALAAgAAwAAAAAAAAALAAkAAgAAAAAAAFALAAoAAgABAAAAAFALAAsAAwAAAAAAAAALAAwAAwAAAAAAAAALAA0AAwAAAAAAAAALAA4AAgAAAAAAAFALAA8AAgABAAAAAFALABAAAQAAAAAAAFALABEAAwAAAAAAAAALABIAAQAAAAAAAFALABMAAQABAAAAAFALABQAAQAAAAMAAFALABUAAwAAAAAAAAALABYADAAAAAAAADAMAAIADAAAAAAAAAAMAAMAAQAAAAMAAFAMAAQAAQABAAMAAFAMAAUAAQAAAAMAAFAMAAYAAQABAAMAAFAMAAcAAQAAAAAAAFAMAAgAAwAAAAAAAAAMAAkAAgAAAAMAAFAMAAoAAgABAAMAAFAMAAsAAwAAAAAAAAAMAAwAAwAAAAAAAAAMAA0AAwAAAAAAAAAMAA4AAgAAAAMAAFAMAA8AAgABAAMAAFAMABAAAQAAAAMAAFAMABEAAwAAAAAAAAAMABIAAQAAAAMAAFAMABMAAQABAAMAAFAMABQAAQAAAAIAAFAMABUAAwAAAAAAAAAMABYADAAAAAAAADANAAIADAAAAAAAAAANAAMAAQAAAAIAAFANAAQAAQABAAIAAFANAAUAAQAAAAIAAFANAAYAAQABAAIAAFANAAcAAQAAAAMAAFANAAgAAwAAAAAAAAANAAkAAgAAAAIAAFANAAoAAgABAAIAAFANAAsAAwAAAAAAAAANAAwAAwAAAAAAAAANAA0AAwAAAAAAAAANAA4AAgAAAAIAAFANAA8AAgABAAIAAFANABAAAQAAAAIAAFANABEAAwAAAAAAAAANABIAAQAAAAIAAFANABMAAQABAAIAAFANABQAAQAAAAEAAFANABUAAwAAAAAAAAANABYADAAAAAAAADAOAAIADAAAAAAAAAAOAAMAAQAAAAEAAFAOAAQAAQABAAEAAFAOAAUAAQAAAAEAAFAOAAYAAQABAAEAAFAOAAcAAQAAAAIAAFAOAAgAAwAAAAAAAAAOAAkAAgAAAAEAAFAOAAoAAgABAAEAAFAOAAsAAwAAAAAAAAAOAAwAAwAAAAAAAAAOAA0AAwAAAAAAAAAOAA4AAgAAAAEAAFAOAA8AAgABAAEAAFAOABAAAQAAAAEAAFAOABEAAwAAAAAAAAAOABIAAQAAAAEAAFAOABMAAQABAAEAAFAOABQAAQAAAAAAAFAOABUAAwAAAAAAAAAOABYADAAAAAAAADAPAAIADAAAAAAAAAAPAAMAAQAAAAAAAFAPAAQAAQABAAAAAFAPAAUAAQAAAAAAAFAPAAYAAQABAAAAAFAPAAcAAQAAAAEAAFAPAAgAAwAAAAAAAAAPAAkAAgAAAAAAAFAPAAoAAgABAAAAAFAPAAsAAwAAAAAAAAAPAAwAAwAAAAAAAAAPAA0AAwAAAAAAAAAPAA4AAgAAAAAAAFAPAA8AAgABAAAAAFAPABAAAQAAAAAAAFAPABEAAwAAAAAAAAAPABIAAQAAAAAAAFAPABMAAQABAAAAAFAPABQAAQAAAAMAAFAPABUAAwAAAAAAAAAPABYADAAAAAAAADAQAAIADAAAAAAAAAAQAAMAAQAAAAMAAFAQAAQAAQABAAMAAFAQAAUAAQAAAAMAAFAQAAYAAQABAAMAAFAQAAcAAQAAAAAAAFAQAAgAAwAAAAAAAAAQAAkAAgAAAAMAAFAQAAoAAgABAAMAAFAQAAsAAwAAAAAAAAAQAAwAAwAAAAAAAAAQAA0AAwAAAAAAAAAQAA4AAgAAAAMAAFAQAA8AAgABAAMAAFAQABAAAQAAAAMAAFAQABEAAwAAAAAAAAAQABIAAQAAAAMAAFAQABMAAQABAAMAAFAQABQAAQAAAAIAAFAQABUAAwAAAAAAAAAQABYADAAAAAAAADARAAIADAAAAAAAAAARAAMAAQAAAAIAAFARAAQAAQABAAIAAFARAAUAAQAAAAIAAFARAAYAAQABAAIAAFARAAcAAQAAAAMAAFARAAgAAwAAAAAAAAARAAkAAgAAAAIAAFARAAoAAgABAAIAAFARAAsAAwAAAAAAAAARAAwAAwAAAAAAAAARAA0AAwAAAAAAAAARAA4AAgAAAAIAAFARAA8AAgABAAIAAFARABAAAQAAAAIAAFARABEAAwAAAAAAAAARABIAAQAAAAIAAFARABMAAQABAAIAAFARABQAAQAAAAEAAFARABUAAwAAAAAAAAARABYADAAAAAAAADASAAIADAAAAAAAAAASAAMAAQAAAAEAAFASAAQAAQABAAEAAFASAAUAAQAAAAEAAFASAAYAAQABAAEAAFASAAcAAQAAAAIAAFASAAgAAwAAAAAAAAASAAkAAgAAAAEAAFASAAoAAgABAAEAAFASAAsAAwAAAAAAAAASAAwAAwAAAAAAAAASAA0AAwAAAAAAAAASAA4AAgAAAAEAAFASAA8AAgABAAEAAFASABAAAQAAAAEAAFASABEAAwAAAAAAAAASABIAAQAAAAEAAFASABMAAQABAAEAAFASABQAAQAAAAAAAFASABUAAwAAAAAAAAASABYADAAAAAAAADATAAIADAAAAAAAAAATAAMAAQAAAAAAAFATAAQAAQABAAAAAFATAAUAAQAAAAAAAFATAAYAAQABAAAAAFATAAcAAQAAAAEAAFATAAgAAwAAAAAAAAATAAkAAgAAAAAAAFATAAoAAgABAAAAAFATAAsAAwAAAAAAAAATAAwAAwAAAAAAAAATAA0AAwAAAAAAAAATAA4AAgAAAAAAAFATAA8AAgABAAAAAFATABAAAQAAAAAAAFATABEAAwAAAAAAAAATABIAAQAAAAAAAFATABMAAQABAAAAAFATABQAAQAAAAMAAFATABUAAwAAAAAAAAATABYADAAAAAAAADAUAAIADAAAAAAAAAAUAAMAAQAAAAMAAFAUAAQAAQABAAMAAFAUAAUAAQAAAAMAAFAUAAYAAQABAAMAAFAUAAcAAQAAAAAAAFAUAAgAAwAAAAAAAAAUAAkAAgAAAAMAAFAUAAoAAgABAAMAAFAUAAsAAwAAAAAAAAAUAAwAAwAAAAAAAAAUAA0AAwAAAAAAAAAUAA4AAgAAAAMAAFAUAA8AAgABAAMAAFAUABAAAQAAAAMAAFAUABEAAwAAAAAAAAAUABIAAQAAAAMAAFAUABMAAQABAAMAAFAUABQAAQAAAAIAAFAUABUAAwAAAAAAAAAUABYADAAAAAAAADAVAAIADAAAAAAAAAAVAAMAAQAAAAIAAFAVAAQAAQABAAIAAFAVAAUAAQAAAAIAAFAVAAYAAQABAAIAAFAVAAcAAQAAAAMAAFAVAAgAAwAAAAAAAAAVAAkAAgAAAAIAAFAVAAoAAgABAAIAAFAVAAsAAwAAAAAAAAAVAAwAAwAAAAAAAAAVAA0AAwAAAAAAAAAVAA4AAgAAAAIAAFAVAA8AAgABAAIAAFAVABAAAQAAAAIAAFAVABEAAwAAAAAAAAAVABIAAQAAAAIAAFAVABMAAQABAAIAAFAVABQAAQAAAAEAAFAVABUAAwAAAAAAAAAVABYADAAAAAAAADAWAAIADAAAAAAAAAAWAAMAAQAAAAEAAFAWAAQAAQABAAEAAFAWAAUAAQAAAAEAAFAWAAYAAQABAAEAAFAWAAcAAQAAAAIAAFAWAAgAAwAAAAAAAAAWAAkAAgAAAAEAAFAWAAoAAgABAAEAAFAWAAsAAwAAAAAAAAAWAAwAAwAAAAAAAAAWAA0AAwAAAAAAAAAWAA4AAgAAAAEAAFAWAA8AAgABAAEAAFAWABAAAQAAAAEAAFAWABEAAwAAAAAAAAAWABIAAQAAAAEAAFAWABMAAQABAAEAAFAWABQAAQAAAAAAAFAWABUAAwAAAAAAAAAWABYADAAAAAAAADAXAAIADAAAAAAAAAAXAAMAAQAAAAAAAFAXAAQAAQABAAAAAFAXAAUAAQAAAAAAAFAXAAYAAQABAAAAAFAXAAcAAQAAAAEAAFAXAAgAAwAAAAAAAAAXAAkAAgAAAAAAAFAXAAoAAgABAAAAAFAXAAsABAAAAAAAAAAXAAwABAAAAAAAAAAXAA0ABAAAAAAAAAAXAA4AAgAAAAAAAFAXAA8AAgABAAAAAFAXABAAAQAAAAAAAFAXABEAAwAAAAAAAAAXABIAAQAAAAAAAFAXABMAAQABAAAAAFAXABQAAQAAAAMAAFAXABUAAwAAAAAAAAAXABYADAAAAAAAADAYAAIADAAAAAAAAAAYAAMAAQAAAAMAAFAYAAQAAQABAAMAAFAYAAUAAQAAAAMAAFAYAAYAAQABAAMAAFAYAAcAAQAAAAAAAFAYAAgAAwAAAAAAAAAYAAkAAgAAAAMAAFAYAAoAAgABAAMAAFAYAAsABAAAAAAAAAAYAAwABAAAAAAAAAAYAA0ABAAAAAAAAAAYAA4AAgAAAAMAAFAYAA8AAgABAAMAAFAYABAAAQAAAAMAAFAYABEAAwAAAAAAAAAYABIAAQAAAAMAAFAYABMAAQABAAMAAFAYABQAAQAAAAIAAFAYABUAAwAAAAAAAAAYABYADAAAAAAAADAZAAIADAAAAAAAAAAZAAMAAQAAAAIAAFAZAAQAAQABAAIAAFAZAAUAAQAAAAIAAFAZAAYAAQABAAIAAFAZAAcAAQAAAAMAAFAZAAgAAwAAAAAAAAAZAAkAAgAAAAIAAFAZAAoAAgABAAIAAFAZAAsABAAAAAAAAAAZAAwABAAAAAAAAAAZAA0ABAAAAAAAAAAZAA4AAgAAAAIAAFAZAA8AAgABAAIAAFAZABAAAQAAAAIAAFAZABEAAwAAAAAAAAAZABIAAQAAAAIAAFAZABMAAQABAAIAAFAZABQAAQAAAAEAAFAZABUAAwAAAAAAAAAZABYADAAAAAAAADAaAAIADAAAAAAAAAAaAAMAAQAAAAEAAFAaAAQAAQABAAEAAFAaAAUAAQAAAAEAAFAaAAYAAQABAAEAAFAaAAcAAQAAAAIAAFAaAAgAAwAAAAAAAAAaAAkAAgAAAAEAAFAaAAoAAgABAAEAAFAaAAsABAAAAAAAAAAaAAwABAAAAAAAAAAaAA0ABAAAAAAAAAAaAA4AAgAAAAEAAFAaAA8AAgABAAEAAFAaABAAAQAAAAEAAFAaABEAAwAAAAAAAAAaABIAAQAAAAEAAFAaABMAAQABAAEAAFAaABQAAQAAAAAAAFAaABUAAwAAAAAAAAAaABYADAAAAAAAADAbAAIADAAAAAAAAAAbAAMAAQAAAAAAAFAbAAQAAQABAAAAAFAbAAUAAQAAAAAAAFAbAAYAAQABAAAAAFAbAAcAAQAAAAEAAFAbAAgAAwAAAAAAAAAbAAkAAgAAAAAAAFAbAAoAAgABAAAAAFAbAAsABAAAAAAAAAAbAAwABAAAAAAAAAAbAA0ABAAAAAAAAAAbAA4AAgAAAAAAAFAbAA8AAgABAAAAAFAbABAAAQAAAAAAAFAbABEAAwAAAAAAAAAbABIAAQAAAAAAAFAbABMAAQABAAAAAFAbABQAAQAAAAMAAFAbABUAAwAAAAAAAAAbABYADAAAAAAAADAcAAIADAAAAAAAAAAcAAMAAQAAAAMAAFAcAAQAAQABAAMAAFAcAAUAAQAAAAMAAFAcAAYAAQABAAMAAFAcAAcAAQAAAAAAAFAcAAgAAwAAAAAAAAAcAAkAAgAAAAMAAFAcAAoAAgABAAMAAFAcAAsAAwAAAAAAAAAcAAwAAwAAAAAAAAAcAA0AAwAAAAAAAAAcAA4AAgAAAAMAAFAcAA8AAgABAAMAAFAcABAAAQAAAAMAAFAcABEAAwAAAAAAAAAcABIAAQAAAAMAAFAcABMAAQABAAMAAFAcABQAAQAAAAIAAFAcABUAAwAAAAAAAAAcABYADAAAAAAAADAdAAIADAAAAAAAAAAdAAMAAQAAAAIAAFAdAAQAAQABAAIAAFAdAAUAAQAAAAIAAFAdAAYAAQABAAIAAFAdAAcAAQAAAAMAAFAdAAgAAwAAAAAAAAAdAAkAAgAAAAIAAFAdAAoAAgABAAIAAFAdAAsAAwAAAAAAAAAdAAwAAwAAAAAAAAAdAA0AAwAAAAAAAAAdAA4AAgAAAAIAAFAdAA8AAgABAAIAAFAdABAAAQAAAAIAAFAdABEAAwAAAAAAAAAdABIAAQAAAAIAAFAdABMAAQABAAIAAFAdABQAAQAAAAEAAFAdABUAAwAAAAAAAAAdABYADAAAAAAAADAeAAIADAAAAAAAAAAeAAMAAQAAAAEAAFAeAAQAAQABAAEAAFAeAAUAAQAAAAEAAFAeAAYAAQABAAEAAFAeAAcAAQAAAAIAAFAeAAgAAwAAAAAAAAAeAAkAAgAAAAEAAFAeAAoAAgABAAEAAFAeAAsAAwAAAAAAAAAeAAwAAwAAAAAAAAAeAA0AAwAAAAAAAAAeAA4AAgAAAAEAAFAeAA8AAgABAAEAAFAeABAAAQAAAAEAAFAeABEAAwAAAAAAAAAeABIAAQAAAAEAAFAeABMAAQABAAEAAFAeABQAAQAAAAAAAFAeABUAAwAAAAAAAAAeABYADAAAAAAAADAfAAIADAAAAAAAAAAfAAMAAQAAAAAAAFAfAAQAAQABAAAAAFAfAAUAAQAAAAAAAFAfAAYAAQABAAAAAFAfAAcAAQAAAAEAAFAfAAgAAwAAAAAAAAAfAAkAAgAAAAAAAFAfAAoAAgABAAAAAFAfAAsAAwAAAAAAAAAfAAwAAwAAAAAAAAAfAA0AAwAAAAAAAAAfAA4AAgAAAAAAAFAfAA8AAgABAAAAAFAfABAAAQAAAAAAAFAfABEAAwAAAAAAAAAfABIAAQAAAAAAAFAfABMAAQABAAAAAFAfABQAAQAAAAMAAFAfABUAAwAAAAAAAAAfABYADAAAAAAAADAgAAIADAAAAAAAAAAgAAMAAQAAAAMAAFAgAAQAAQABAAMAAFAgAAUAAQAAAAMAAFAgAAYAAQABAAMAAFAgAAcAAQAAAAAAAFAgAAgAAwAAAAAAAAAgAAkAAgAAAAMAAFAgAAoAAgABAAMAAFAgAAsAAwAAAAAAAAAgAAwAAwAAAAAAAAAgAA0AAwAAAAAAAAAgAA4AAgAAAAMAAFAgAA8AAgABAAMAAFAgABAAAQAAAAMAAFAgABEAAwAAAAAAAAAgABIAAQAAAAMAAFAgABMAAQABAAMAAFAgABQAAQAAAAIAAFAgABUAAwAAAAAAAAAgABYADAAAAAAAADAhAAIADAAAAAAAAAAhAAMAAQAAAAIAAFAhAAQAAQABAAIAAFAhAAUAAQAAAAIAAFAhAAYAAQABAAIAAFAhAAcAAQAAAAMAAFAhAAgAAwAAAAAAAAAhAAkAAgAAAAIAAFAhAAoAAgABAAIAAFAhAAsAAwAAAAAAAAAhAAwAAwAAAAAAAAAhAA0AAwAAAAAAAAAhAA4AAgAAAAIAAFAhAA8AAgABAAIAAFAhABAAAQAAAAIAAFAhABEAAwAAAAAAAAAhABIAAQAAAAIAAFAhABMAAQABAAIAAFAhABQAAQAAAAEAAFAhABUAAwAAAAAAAAAhABYADAAAAAAAADAiAAIADAAAAAAAAAAiAAMAAQAAAAEAAFAiAAQAAQABAAEAAFAiAAUAAQAAAAEAAFAiAAYAAQABAAEAAFAiAAcAAQAAAAIAAFAiAAgAAwAAAAAAAAAiAAkAAgAAAAEAAFAiAAoAAgABAAEAAFAiAAsAAwAAAAAAAAAiAAwAAwAAAAAAAAAiAA0AAwAAAAAAAAAiAA4AAgAAAAEAAFAiAA8AAgABAAEAAFAiABAAAQAAAAEAAFAiABEAAwAAAAAAAAAiABIAAQAAAAEAAFAiABMAAQABAAEAAFAiABQAAQAAAAAAAFAiABUAAwAAAAAAAAAiABYADAAAAAAAADAjAAIADAAAAAAAAAAjAAMAAQAAAAAAAFAjAAQAAQABAAAAAFAjAAUAAQAAAAAAAFAjAAYAAQABAAAAAFAjAAcAAQAAAAEAAFAjAAgAAwAAAAAAAAAjAAkAAgAAAAAAAFAjAAoAAgABAAAAAFAjAAsABAAAAAAAAAAjAAwABAAAAAAAAAAjAA0ABAAAAAAAAAAjAA4AAgAAAAAAAFAjAA8AAgABAAAAAFAjABAAAQAAAAAAAFAjABEAAwAAAAAAAAAjABIAAQAAAAAAAFAjABMAAQABAAAAAFAjABQAAQAAAAMAAFAjABUAAwAAAAAAAAAjABYADAAAAAAAADAkAAIADAAAAAAAAAAkAAMAAQAAAAMAAFAkAAQAAQABAAMAAFAkAAUAAQAAAAMAAFAkAAYAAQABAAMAAFAkAAcAAQAAAAAAAFAkAAgAAwAAAAAAAAAkAAkAAgAAAAMAAFAkAAoAAgABAAMAAFAkAAsABAAAAAAAAAAkAAwABAAAAAAAAAAkAA0ABAAAAAAAAAAkAA4AAgAAAAMAAFAkAA8AAgABAAMAAFAkABAAAQAAAAMAAFAkABEAAwAAAAAAAAAkABIAAQAAAAMAAFAkABMAAQABAAMAAFAkABQAAQAAAAIAAFAkABUAAwAAAAAAAAAkABYADAAAAAAAADAlAAIADAAAAAAAAAAlAAMAAQAAAAIAAFAlAAQAAQABAAIAAFAlAAUAAQAAAAIAAFAlAAYAAQABAAIAAFAlAAcAAQAAAAMAAFAlAAgAAwAAAAAAAAAlAAkAAgAAAAIAAFAlAAoAAgABAAIAAFAlAAsABAAAAAAAAAAlAAwABAAAAAAAAAAlAA0ABAAAAAAAAAAlAA4AAgAAAAIAAFAlAA8AAgABAAIAAFAlABAAAQAAAAIAAFAlABEAAwAAAAAAAAAlABIAAQAAAAIAAFAlABMAAQABAAIAAFAlABQAAQAAAAEAAFAlABUAAwAAAAAAAAAlABYADAAAAAAAADAmAAIADAAAAAAAAAAmAAMAAQAAAAEAAFAmAAQAAQABAAEAAFAmAAUAAQAAAAEAAFAmAAYAAQABAAEAAFAmAAcAAQAAAAIAAFAmAAgAAwAAAAAAAAAmAAkAAgAAAAEAAFAmAAoAAgABAAEAAFAmAAsABAAAAAAAAAAmAAwABAAAAAAAAAAmAA0ABAAAAAAAAAAmAA4AAgAAAAEAAFAmAA8AAgABAAEAAFAmABAAAQAAAAEAAFAmABEAAwAAAAAAAAAmABIAAQAAAAEAAFAmABMAAQABAAEAAFAmABQAAQAAAAAAAFAmABUAAwAAAAAAAAAmABYADAAAAAAAADAnAAIADAAAAAAAAAAnAAMAAQAAAAAAAFAnAAQAAQABAAAAAFAnAAUAAQAAAAAAAFAnAAYAAQABAAAAAFAnAAcAAQAAAAEAAFAnAAgAAwAAAAAAAAAnAAkAAgAAAAAAAFAnAAoAAgABAAAAAFAnAAsABAAAAAAAAAAnAAwABAAAAAAAAAAnAA0ABAAAAAAAAAAnAA4AAgAAAAAAAFAnAA8AAgABAAAAAFAnABAAAQAAAAAAAFAnABEAAwAAAAAAAAAnABIAAQAAAAAAAFAnABMAAQABAAAAAFAnABQAAQAAAAMAAFAnABUAAwAAAAAAAAAnABYADAAAAAAAADAoAAIADAAAAAAAAAAoAAMAAQAAAAMAAFAoAAQAAQABAAMAAFAoAAUAAQAAAAMAAFAoAAYAAQABAAMAAFAoAAcAAQAAAAAAAFAoAAgAAwAAAAAAAAAoAAkAAgAAAAMAAFAoAAoAAgABAAMAAFAoAAsABAAAAAAAAAAoAAwABAAAAAAAAAAoAA0ABAAAAAAAAAAoAA4AAgAAAAMAAFAoAA8AAgABAAMAAFAoABAAAQAAAAMAAFAoABEAAwAAAAAAAAAoABIAAQAAAAMAAFAoABMAAQABAAMAAFAoABQAAQAAAAIAAFAoABUAAwAAAAAAAAAoABYADAAAAAAAADApAAIADAAAAAAAAAApAAMAAQAAAAIAAFApAAQAAQABAAIAAFApAAUAAQAAAAIAAFApAAYAAQABAAIAAFApAAcAAQAAAAMAAFApAAgAAwAAAAAAAAApAAkAAgAAAAIAAFApAAoAAgABAAIAAFApAAsABAAAAAAAAAApAAwABAAAAAAAAAApAA0ABAAAAAAAAAApAA4AAgAAAAIAAFApAA8AAgABAAIAAFApABAAAQAAAAIAAFApABEAAwAAAAAAAAApABIAAQAAAAIAAFApABMAAQABAAIAAFApABQAAQAAAAEAAFApABUAAwAAAAAAAAApABYADAAAAAAAADAqAAIADAAAAAAAAAAqAAMAAQAAAAEAAFAqAAQAAQABAAEAAFAqAAUAAQAAAAEAAFAqAAYAAQABAAEAAFAqAAcAAQAAAAIAAFAqAAgAAwAAAAAAAAAqAAkAAgAAAAEAAFAqAAoAAgABAAEAAFAqAAsABAAAAAAAAAAqAAwABAAAAAAAAAAqAA0ABAAAAAAAAAAqAA4AAgAAAAEAAFAqAA8AAgABAAEAAFAqABAAAQAAAAEAAFAqABEAAwAAAAAAAAAqABIAAQAAAAEAAFAqABMAAQABAAEAAFAqABQAAQAAAAAAAFAqABUAAwAAAAAAAAAqABYADAAAAAAAADArAAIADAAAAAAAAAArAAMAAQAAAAAAAFArAAQAAQABAAAAAFArAAUAAQAAAAAAAFArAAYAAQABAAAAAFArAAcAAQAAAAEAAFArAAgAAwAAAAAAAAArAAkAAgAAAAAAAFArAAoAAgABAAAAAFArAAsAAwAAAAAAAAArAAwAAwAAAAAAAAArAA0AAwAAAAAAAAArAA4AAgAAAAAAAFArAA8AAgABAAAAAFArABAAAQAAAAAAAFArABEAAwAAAAAAAAArABIAAQAAAAAAAFArABMAAQABAAAAAFArABQAAQAAAAMAAFArABUAAwAAAAAAAAArABYADAAAAAAAADAsAAIADAAAAAAAAAAsAAMAAQAAAAMAAFAsAAQAAQABAAMAAFAsAAUAAQAAAAMAAFAsAAYAAQABAAMAAFAsAAcAAQAAAAAAAFAsAAgAAwAAAAAAAAAsAAkAAgAAAAMAAFAsAAoAAgABAAMAAFAsAAsAAwAAAAAAAAAsAAwAAwAAAAAAAAAsAA0AAwAAAAAAAAAsAA4AAgAAAAMAAFAsAA8AAgABAAMAAFAsABAAAQAAAAMAAFAsABEAAwAAAAAAAAAsABIAAQAAAAMAAFAsABMAAQABAAMAAFAsABQAAQAAAAIAAFAsABUAAwAAAAAAAAAsABYADAAAAAAAADAtAAIADAAAAAAAAAAtAAMAAQAAAAIAAFAtAAQAAQABAAIAAFAtAAUAAQAAAAIAAFAtAAYAAQABAAIAAFAtAAcAAQAAAAMAAFAtAAgAAwAAAAAAAAAtAAkAAgAAAAIAAFAtAAoAAgABAAIAAFAtAAsAAwAAAAAAAAAtAAwAAwAAAAAAAAAtAA0AAwAAAAAAAAAtAA4AAgAAAAIAAFAtAA8AAgABAAIAAFAtABAAAQAAAAIAAFAtABEAAwAAAAAAAAAtABIAAQAAAAIAAFAtABMAAQABAAIAAFAtABQAAQAAAAEAAFAtABUAAwAAAAAAAAAtABYADAAAAAAAADAuAAIADAAAAAAAAAAuAAMAAQAAAAEAAFAuAAQAAQABAAEAAFAuAAUAAQAAAAEAAFAuAAYAAQABAAEAAFAuAAcAAQAAAAIAAFAuAAgAAwAAAAAAAAAuAAkAAgAAAAEAAFAuAAoAAgABAAEAAFAuAAsAAwAAAAAAAAAuAAwAAwAAAAAAAAAuAA0AAwAAAAAAAAAuAA4AAgAAAAEAAFAuAA8AAgABAAEAAFAuABAAAQAAAAEAAFAuABEAAwAAAAAAAAAuABIAAQAAAAEAAFAuABMAAQABAAEAAFAuABQAAQAAAAAAAFAuABUAAwAAAAAAAAAuABYADAAAAAAAADAvAAIADAAAAAAAAAAvAAMAAQAAAAAAAFAvAAQAAQABAAAAAFAvAAUAAQAAAAAAAFAvAAYAAQABAAAAAFAvAAcAAQAAAAEAAFAvAAgAAwAAAAAAAAAvAAkAAgAAAAAAAFAvAAoAAgABAAAAAFAvAAsAAwAAAAAAAAAvAAwAAwAAAAAAAAAvAA0AAwAAAAAAAAAvAA4AAgAAAAAAAFAvAA8AAgABAAAAAFAvABAAAQAAAAAAAFAvABEAAwAAAAAAAAAvABIAAQAAAAAAAFAvABMAAQABAAAAAFAvABQAAQAAAAMAAFAvABUAAwAAAAAAAAAvABYADAAAAAAAADAwAAIADAAAAAAAAAAwAAMAAQAAAAMAAFAwAAQAAQABAAMAAFAwAAUAAQAAAAMAAFAwAAYAAQABAAMAAFAwAAcAAQAAAAAAAFAwAAgAAwAAAAAAAAAwAAkAAgAAAAMAAFAwAAoAAgABAAMAAFAwAAsAAwAAAAAAAAAwAAwAAwAAAAAAAAAwAA0AAwAAAAAAAAAwAA4AAgAAAAMAAFAwAA8AAgABAAMAAFAwABAAAQAAAAMAAFAwABEAAwAAAAAAAAAwABIAAQAAAAMAAFAwABMAAQABAAMAAFAwABQAAQAAAAIAAFAwABUAAwAAAAAAAAAwABYADAAAAAAAADAxAAIADAAAAAAAAAAxAAMAAQAAAAIAAFAxAAQAAQABAAIAAFAxAAUAAQAAAAIAAFAxAAYAAQABAAIAAFAxAAcAAQAAAAMAAFAxAAgAAwAAAAAAAAAxAAkAAgAAAAIAAFAxAAoAAgABAAIAAFAxAAsAAwAAAAAAAAAxAAwAAwAAAAAAAAAxAA0AAwAAAAAAAAAxAA4AAgAAAAIAAFAxAA8AAgABAAIAAFAxABAAAQAAAAIAAFAxABEAAwAAAAAAAAAxABIAAQAAAAIAAFAxABMAAQABAAIAAFAxABQAAQAAAAEAAFAxABUAAwAAAAAAAAAxABYADAAAAAAAADAyAAIADAAAAAAAAAAyAAMAAQAAAAEAAFAyAAQAAQABAAEAAFAyAAUAAQAAAAEAAFAyAAYAAQABAAEAAFAyAAcAAQAAAAIAAFAyAAgAAwAAAAAAAAAyAAkAAgAAAAEAAFAyAAoAAgABAAEAAFAyAAsAAwAAAAAAAAAyAAwAAwAAAAAAAAAyAA0AAwAAAAAAAAAyAA4AAgAAAAEAAFAyAA8AAgABAAEAAFAyABAAAQAAAAEAAFAyABEAAwAAAAAAAAAyABIAAQAAAAEAAFAyABMAAQABAAEAAFAyABQAAQAAAAAAAFAyABUAAwAAAAAAAAAyABYADAAAAAAAADAzAAIADAAAAAAAAAAzAAMAAQAAAAAAAFAzAAQAAQABAAAAAFAzAAUAAQAAAAAAAFAzAAYAAQABAAAAAFAzAAcAAQAAAAEAAFAzAAgAAwAAAAAAAAAzAAkAAgAAAAAAAFAzAAoAAgABAAAAAFAzAAsAAwAAAAAAAAAzAAwAAwAAAAAAAAAzAA0AAwAAAAAAAAAzAA4AAgAAAAAAAFAzAA8AAgABAAAAAFAzABAAAQAAAAAAAFAzABEAAwAAAAAAAAAzABIAAQAAAAAAAFAzABMAAQABAAAAAFAzABQAAQAAAAMAAFAzABUAAwAAAAAAAAAzABYADAAAAAAAADA0AAIADAAAAAAAAAA0AAMAAQAAAAMAAFA0AAQAAQABAAMAAFA0AAUAAQAAAAMAAFA0AAYAAQABAAMAAFA0AAcAAQAAAAAAAFA0AAgAAwAAAAAAAAA0AAkAAgAAAAMAAFA0AAoAAgABAAMAAFA0AAsAAwAAAAAAAAA0AAwAAwAAAAAAAAA0AA0AAwAAAAAAAAA0AA4AAgAAAAMAAFA0AA8AAgABAAMAAFA0ABAAAQAAAAMAAFA0ABEAAwAAAAAAAAA0ABIAAQAAAAMAAFA0ABMAAQABAAMAAFA0ABQAAQAAAAIAAFA0ABUAAwAAAAAAAAA0ABYADAAAAAAAADA1AAIADAAAAAAAAAA1AAMAAQAAAAIAAFA1AAQAAQABAAIAAFA1AAUAAQAAAAIAAFA1AAYAAQABAAIAAFA1AAcAAQAAAAMAAFA1AAgAAwAAAAAAAAA1AAkAAgAAAAIAAFA1AAoAAgABAAIAAFA1AAsAAwAAAAAAAAA1AAwAAwAAAAAAAAA1AA0AAwAAAAAAAAA1AA4AAgAAAAIAAFA1AA8AAgABAAIAAFA1ABAAAQAAAAIAAFA1ABEAAwAAAAAAAAA1ABIAAQAAAAIAAFA1ABMAAQABAAIAAFA1ABQAAQAAAAEAAFA1ABUAAwAAAAAAAAA1ABYADAAAAAAAADA2AAIADAAAAAAAAAA2AAMAAQAAAAEAAFA2AAQAAQABAAEAAFA2AAUAAQAAAAEAAFA2AAYAAQABAAEAAFA2AAcAAQAAAAIAAFA2AAgAAwAAAAAAAAA2AAkAAgAAAAEAAFA2AAoAAgABAAEAAFA2AAsAAwAAAAAAAAA2AAwAAwAAAAAAAAA2AA0AAwAAAAAAAAA2AA4AAgAAAAEAAFA2AA8AAgABAAEAAFA2ABAAAQAAAAEAAFA2ABEAAwAAAAAAAAA2ABIAAQAAAAEAAFA2ABMAAQABAAEAAFA2ABQAAQAAAAAAAFA2ABUAAwAAAAAAAAA2ABYADAAAAAAAADA3AAIADAAAAAAAAAA3AAMAAQAAAAAAAFA3AAQAAQABAAAAAFA3AAUAAQAAAAAAAFA3AAYAAQABAAAAAFA3AAcAAQAAAAEAAFA3AAgAAwAAAAAAAAA3AAkAAgAAAAAAAFA3AAoAAgABAAAAAFA3AAsABAAAAAAAAAA3AAwABAAAAAAAAAA3AA0ABAAAAAAAAAA3AA4AAgAAAAAAAFA3AA8AAgABAAAAAFA3ABAAAQAAAAAAAFA3ABEAAwAAAAAAAAA3ABIAAQAAAAAAAFA3ABMAAQABAAAAAFA3ABQAAQAAAAMAAFA3ABUAAwAAAAAAAAA3ABYADAAAAAAAADA4AAIADAAAAAAAAAA4AAMAAQAAAAMAAFA4AAQAAQABAAMAAFA4AAUAAQAAAAMAAFA4AAYAAQABAAMAAFA4AAcAAQAAAAAAAFA4AAgAAwAAAAAAAAA4AAkAAgAAAAMAAFA4AAoAAgABAAMAAFA4AAsABAAAAAAAAAA4AAwABAAAAAAAAAA4AA0ABAAAAAAAAAA4AA4AAgAAAAMAAFA4AA8AAgABAAMAAFA4ABAAAQAAAAMAAFA4ABEAAwAAAAAAAAA4ABIAAQAAAAMAAFA4ABMAAQABAAMAAFA4ABQAAQAAAAIAAFA4ABUAAwAAAAAAAAA4ABYADAAAAAAAADA5AAIADAAAAAAAAAA5AAMAAQAAAAIAAFA5AAQAAQABAAIAAFA5AAUAAQAAAAIAAFA5AAYAAQABAAIAAFA5AAcAAQAAAAMAAFA5AAgAAwAAAAAAAAA5AAkAAgAAAAIAAFA5AAoAAgABAAIAAFA5AAsABAAAAAAAAAA5AAwABAAAAAAAAAA5AA0ABAAAAAAAAAA5AA4AAgAAAAIAAFA5AA8AAgABAAIAAFA5ABAAAQAAAAIAAFA5ABEAAwAAAAAAAAA5ABIAAQAAAAIAAFA5ABMAAQABAAIAAFA5ABQAAQAAAAEAAFA5ABUAAwAAAAAAAAA5ABYADAAAAAAAADA6AAIADAAAAAAAAAA6AAMAAQAAAAEAAFA6AAQAAQABAAEAAFA6AAUAAQAAAAEAAFA6AAYAAQABAAEAAFA6AAcAAQAAAAIAAFA6AAgAAwAAAAAAAAA6AAkAAgAAAAEAAFA6AAoAAgABAAEAAFA6AAsABAAAAAAAAAA6AAwABAAAAAAAAAA6AA0ABAAAAAAAAAA6AA4AAgAAAAEAAFA6AA8AAgABAAEAAFA6ABAAAQAAAAEAAFA6ABEAAwAAAAAAAAA6ABIAAQAAAAEAAFA6ABMAAQABAAEAAFA6ABQAAQAAAAAAAFA6ABUAAwAAAAAAAAA6ABYADAAAAAAAADA7AAIADAAAAAAAAAA7AAMAAQAAAAAAAFA7AAQAAQABAAAAAFA7AAUAAQAAAAAAAFA7AAYAAQABAAAAAFA7AAcAAQAAAAEAAFA7AAgAAwAAAAAAAAA7AAkAAgAAAAAAAFA7AAoAAgABAAAAAFA7AAsABAAAAAAAAAA7AAwABAAAAAAAAAA7AA0ABAAAAAAAAAA7AA4AAgAAAAAAAFA7AA8AAgABAAAAAFA7ABAAAQAAAAAAAFA7ABEAAwAAAAAAAAA7ABIAAQAAAAAAAFA7ABMAAQABAAAAAFA7ABQAAQAAAAMAAFA7ABUAAwAAAAAAAAA7ABYADAAAAAAAADA8AAIADAAAAAAAAAA8AAMAAQAAAAMAAFA8AAQAAQABAAMAAFA8AAUAAQAAAAMAAFA8AAYAAQABAAMAAFA8AAcAAQAAAAAAAFA8AAgAAwAAAAAAAAA8AAkAAgAAAAMAAFA8AAoAAgABAAMAAFA8AAsABAAAAAAAAAA8AAwABAAAAAAAAAA8AA0ABAAAAAAAAAA8AA4AAgAAAAMAAFA8AA8AAgABAAMAAFA8ABAAAQAAAAMAAFA8ABEAAwAAAAAAAAA8ABIAAQAAAAMAAFA8ABMAAQABAAMAAFA8ABQAAQAAAAMAAFA8ABUAAQABAAMAAFA8ABYADAAAAAAAADA9AAIADAAAAAAAAAA9AAMAAQAAAAIAAFA9AAQAAQABAAIAAFA9AAUAAQAAAAIAAFA9AAYAAQABAAIAAFA9AAcAAQAAAAMAAFA9AAgAAQABAAMAAFA9AAkAAgAAAAIAAFA9AAoAAgABAAIAAFA9AAsABAAAAAAAAAA9AAwABAAAAAAAAAA9AA0ABAAAAAAAAAA9AA4AAgAAAAIAAFA9AA8AAgABAAIAAFA9ABAAAQAAAAIAAFA9ABEAAwAAAAAAAAA9ABIAAQAAAAIAAFA9ABMAAQABAAIAAFA9ABQAAQAAAAIAAFA9ABUAAQABAAIAAFA9ABYADAAAAAAAADA+AAIADAAAAAAAAAA+AAMAAQAAAAEAAFA+AAQAAQABAAEAAFA+AAUAAQAAAAEAAFA+AAYAAQABAAEAAFA+AAcAAQAAAAIAAFA+AAgAAQABAAIAAFA+AAkAAgAAAAEAAFA+AAoAAgABAAEAAFA+AAsAAwAAAAAAAAA+AAwAAwAAAAAAAAA+AA0AAwAAAAAAAAA+AA4AAgAAAAEAAFA+AA8AAgABAAEAAFA+ABAAAQAAAAMAAFA+ABEAAwAAAAAAAAA+ABIAAQAAAAEAAFA+ABMAAQABAAEAAFA+ABQAAQAAAAEAAFA+ABUAAQABAAEAAFA+ABYADAAAAAAAADA/AAIADAAAAAAAAAA/AAMAAQAAAAAAAFA/AAQAAQABAAAAAFA/AAUAAQAAAAAAAFA/AAYAAQABAAAAAFA/AAcAAQAAAAEAAFA/AAgAAQABAAEAAFA/AAkAAgAAAAAAAFA/AAoAAgABAAAAAFA/AAsAAwAAAAAAAAA/AAwAAwAAAAAAAAA/AA0AAwAAAAAAAAA/AA4AAgAAAAAAAFA/AA8AAgABAAAAAFA/ABAAAQAAAAIAAFA/ABEAAwAAAAAAAAA/ABIAAQAAAAAAAFA/ABMAAQABAAAAAFA/ABQAAQAAAAAAAFA/ABUAAQABAAAAAFA/ABYADAAAAAAAADBAAAIADAAAAAAAAABAAAMAAQAAAAMAAFBAAAQAAQABAAMAAFBAAAUAAQAAAAMAAFBAAAYAAQABAAMAAFBAAAcAAQAAAAAAAFBAAAgAAQABAAAAAFBAAAkAAgAAAAMAAFBAAAoAAgABAAMAAFBAAAsAAwAAAAAAAABAAAwAAwAAAAAAAABAAA0AAwAAAAAAAABAAA4AAgAAAAMAAFBAAA8AAgABAAMAAFBAABAAAQAAAAEAAFBAABEAAwAAAAAAAABAABIAAQAAAAMAAFBAABMAAQABAAMAAFBAABQAAQAAAAMAAFBAABUAAQABAAMAAFBAABYADAAAAAAAADBBAAIADAAAAAAAAABBAAMAAQAAAAIAAFBBAAQAAQABAAIAAFBBAAUAAQAAAAIAAFBBAAYAAQABAAIAAFBBAAcAAQAAAAMAAFBBAAgAAQABAAMAAFBBAAkAAgAAAAIAAFBBAAoAAgABAAIAAFBBAAsAAwAAAAAAAABBAAwAAwAAAAAAAABBAA0AAwAAAAAAAABBAA4AAgAAAAIAAFBBAA8AAgABAAIAAFBBABAAAQAAAAAAAFBBABEAAwAAAAAAAABBABIAAQAAAAIAAFBBABMAAQABAAIAAFBBABQAAQAAAAIAAFBBABUAAQABAAIAAFBBABYADAAAAAAAADBCAAIADAAAAAAAAABCAAMAAQAAAAEAAFBCAAQAAQABAAEAAFBCAAUAAQAAAAEAAFBCAAYAAQABAAEAAFBCAAcAAQAAAAIAAFBCAAgAAQABAAIAAFBCAAkAAgAAAAEAAFBCAAoAAgABAAEAAFBCAAsAAwAAAAAAAABCAAwAAwAAAAAAAABCAA0AAwAAAAAAAABCAA4AAgAAAAEAAFBCAA8AAgABAAEAAFBCABAAAQAAAAMAAFBCABEAAwAAAAAAAABCABIAAQAAAAEAAFBCABMAAQABAAEAAFBCABQAAQAAAAEAAFBCABUAAQABAAEAAFBCABYADAAAAAAAADBDAAIADAAAAAAAAABDAAMAAQAAAAAAAFBDAAQAAQABAAAAAFBDAAUAAQAAAAAAAFBDAAYAAQABAAAAAFBDAAcAAQAAAAEAAFBDAAgAAQABAAEAAFBDAAkAAgAAAAAAAFBDAAoAAgABAAAAAFBDAAsAAwAAAAAAAABDAAwAAwAAAAAAAABDAA0AAwAAAAAAAABDAA4AAgAAAAAAAFBDAA8AAgABAAAAAFBDABAAAQAAAAIAAFBDABEAAwAAAAAAAABDABIAAQAAAAAAAFBDABMAAQABAAAAAFBDABQAAQAAAAAAAFBDABUAAQABAAAAAFBDABYADAAAAAAAADBEAAIADAAAAAAAAABEAAMAAQAAAAMAAFBEAAQAAQABAAMAAFBEAAUAAQAAAAMAAFBEAAYAAQABAAMAAFBEAAcAAQAAAAAAAFBEAAgAAQABAAAAAFBEAAkAAgAAAAMAAFBEAAoAAgABAAMAAFBEAAsAAwAAAAAAAABEAAwAAwAAAAAAAABEAA0AAwAAAAAAAABEAA4AAgAAAAMAAFBEAA8AAgABAAMAAFBEABAAAQAAAAEAAFBEABEAAwAAAAAAAABEABIAAQAAAAMAAFBEABMAAQABAAMAAFBEABQAAQAAAAMAAFBEABUAAQABAAMAAFBEABYADAAAAAAAADBFAAIADAAAAAAAAABFAAMAAQAAAAIAAFBFAAQAAQABAAIAAFBFAAUAAQAAAAIAAFBFAAYAAQABAAIAAFBFAAcAAQAAAAMAAFBFAAgAAQABAAMAAFBFAAkAAgAAAAIAAFBFAAoAAgABAAIAAFBFAAsAAwAAAAAAAABFAAwAAwAAAAAAAABFAA0AAwAAAAAAAABFAA4AAgAAAAIAAFBFAA8AAgABAAIAAFBFABAAAQAAAAAAAFBFABEAAwAAAAAAAABFABIAAQAAAAIAAFBFABMAAQABAAIAAFBFABQAAQAAAAIAAFBFABUAAQABAAIAAFBFABYADAAAAAAAADBGAAIADAAAAAAAAABGAAMAAQAAAAMAAFBGAAQAAwAAAAAAAABGAAUAAQAAAAEAAFBGAAYAAQABAAEAAFBGAAcAAQAAAAIAAFBGAAgAAQABAAIAAFBGAAkAAgAAAAEAAFBGAAoAAgABAAEAAFBGAAsABAAAAAAAAABGAAwABAAAAAAAAABGAA0ABAAAAAAAAABGAA4AAgAAAAEAAFBGAA8AAgABAAEAAFBGABAAAQAAAAMAAFBGABEAAwAAAAAAAABGABIAAQAAAAEAAFBGABMAAQABAAEAAFBGABQAAQAAAAEAAFBGABUAAQABAAEAAFBGABYADAAAAAAAADBHAAIADAAAAAAAAABHAAMAAQAAAAIAAFBHAAQAAwAAAAAAAABHAAUAAQAAAAAAAFBHAAYAAQABAAAAAFBHAAcAAQAAAAEAAFBHAAgAAQABAAEAAFBHAAkAAgAAAAAAAFBHAAoAAgABAAAAAFBHAAsABAAAAAAAAABHAAwABAAAAAAAAABHAA0ABAAAAAAAAABHAA4AAgAAAAAAAFBHAA8AAgABAAAAAFBHABAAAQAAAAIAAFBHABEAAwAAAAAAAABHABIAAQAAAAAAAFBHABMAAQABAAAAAFBHABQAAQAAAAAAAFBHABUAAQABAAAAAFBHABYADAAAAAAAADBIAAIADAAAAAAAAABIAAMAAQAAAAEAAFBIAAQAAwAAAAAAAABIAAUAAQAAAAMAAFBIAAYAAQABAAMAAFBIAAcAAQAAAAAAAFBIAAgAAQABAAAAAFBIAAkAAgAAAAMAAFBIAAoAAgABAAMAAFBIAAsABAAAAAAAAABIAAwABAAAAAAAAABIAA0ABAAAAAAAAABIAA4AAgAAAAMAAFBIAA8AAgABAAMAAFBIABAAAQAAAAEAAFBIABEAAwAAAAAAAABIABIAAQAAAAMAAFBIABMAAQABAAMAAFBIABQAAQAAAAMAAFBIABUAAQABAAMAAFBIABYADAAAAAAAADBJAAIADAAAAAAAAABJAAMAAQAAAAAAAFBJAAQAAwAAAAAAAABJAAUAAQAAAAIAAFBJAAYAAQABAAIAAFBJAAcAAQAAAAMAAFBJAAgAAQABAAMAAFBJAAkAAgAAAAIAAFBJAAoAAgABAAIAAFBJAAsABAAAAAAAAABJAAwABAAAAAAAAABJAA0ABAAAAAAAAABJAA4AAgAAAAIAAFBJAA8AAgABAAIAAFBJABAAAQAAAAAAAFBJABEAAwAAAAAAAABJABIAAQAAAAIAAFBJABMAAQABAAIAAFBJABQAAQAAAAIAAFBJABUAAQABAAIAAFBJABYADAAAAAAAADBKAAIADAAAAAAAAABKAAMAAQAAAAMAAFBKAAQAAwAAAAAAAABKAAUAAQAAAAEAAFBKAAYAAQABAAEAAFBKAAcAAQAAAAIAAFBKAAgAAQABAAIAAFBKAAkAAgAAAAEAAFBKAAoAAgABAAEAAFBKAAsABAAAAAAAAABKAAwABAAAAAAAAABKAA0ABAAAAAAAAABKAA4AAgAAAAEAAFBKAA8AAgABAAEAAFBKABAAAQAAAAMAAFBKABEAAwAAAAAAAABKABIAAQAAAAEAAFBKABMAAQABAAEAAFBKABQAAQAAAAEAAFBKABUAAQABAAEAAFBKABYADAAAAAAAADBLAAIADAAAAAAAAABLAAMAAQAAAAIAAFBLAAQAAwAAAAAAAABLAAUAAQAAAAAAAFBLAAYAAQABAAAAAFBLAAcAAQAAAAEAAFBLAAgAAQABAAEAAFBLAAkAAgAAAAAAAFBLAAoAAgABAAAAAFBLAAsABAAAAAAAAABLAAwABAAAAAAAAABLAA0ABAAAAAAAAABLAA4AAgAAAAAAAFBLAA8AAgABAAAAAFBLABAAAQAAAAIAAFBLABEAAwAAAAAAAABLABIAAQAAAAAAAFBLABMAAQABAAAAAFBLABQAAQAAAAAAAFBLABUAAQABAAAAAFBLABYADAAAAAAAADBMAAIADAAAAAAAAABMAAMAAQAAAAEAAFBMAAQAAwAAAAAAAABMAAUAAQAAAAMAAFBMAAYAAQABAAMAAFBMAAcAAQAAAAAAAFBMAAgAAQABAAAAAFBMAAkAAgAAAAMAAFBMAAoAAgABAAMAAFBMAAsABAAAAAAAAABMAAwABAAAAAAAAABMAA0ABAAAAAAAAABMAA4AAgAAAAMAAFBMAA8AAgABAAMAAFBMABAAAQAAAAEAAFBMABEAAwAAAAAAAABMABIAAQAAAAMAAFBMABMAAQABAAMAAFBMABQAAQAAAAMAAFBMABUAAQABAAMAAFBMABYADAAAAAAAADBNAAIADAAAAAAAAABNAAMAAQAAAAAAAFBNAAQAAwAAAAAAAABNAAUAAQAAAAIAAFBNAAYAAQABAAIAAFBNAAcAAQAAAAMAAFBNAAgAAQABAAMAAFBNAAkAAgAAAAIAAFBNAAoAAgABAAIAAFBNAAsABAAAAAAAAABNAAwABAAAAAAAAABNAA0ABAAAAAAAAABNAA4AAgAAAAIAAFBNAA8AAgABAAIAAFBNABAAAQAAAAAAAFBNABEAAwAAAAAAAABNABIAAQAAAAIAAFBNABMAAQABAAIAAFBNABQAAQAAAAIAAFBNABUAAQABAAIAAFBNABYADAAAAAAAADBOAAIADAAAAAAAAABOAAMAAQAAAAMAAFBOAAQAAwAAAAAAAABOAAUAAQAAAAEAAFBOAAYAAQABAAEAAFBOAAcAAQAAAAIAAFBOAAgAAQABAAIAAFBOAAkAAgAAAAEAAFBOAAoAAgABAAEAAFBOAAsAAwAAAAAAAABOAAwAAwAAAAAAAABOAA0AAwAAAAAAAABOAA4AAgAAAAEAAFBOAA8AAgABAAEAAFBOABAAAQAAAAMAAFBOABEAAwAAAAAAAABOABIAAQAAAAEAAFBOABMAAQABAAEAAFBOABQAAQAAAAEAAFBOABUAAQABAAEAAFBOABYADAAAAAAAADBPAAIADAAAAAAAAABPAAMAAQAAAAIAAFBPAAQAAwAAAAAAAABPAAUAAQAAAAAAAFBPAAYAAQABAAAAAFBPAAcAAQAAAAEAAFBPAAgAAQABAAEAAFBPAAkAAgAAAAAAAFBPAAoAAgABAAAAAFBPAAsAAwAAAAAAAABPAAwAAwAAAAAAAABPAA0AAwAAAAAAAABPAA4AAgAAAAAAAFBPAA8AAgABAAAAAFBPABAAAQAAAAIAAFBPABEAAwAAAAAAAABPABIAAQAAAAAAAFBPABMAAQABAAAAAFBPABQAAQAAAAAAAFBPABUAAQABAAAAAFBPABYADAAAAAAAADBQAAIADAAAAAAAAABQAAMAAQAAAAEAAFBQAAQAAwAAAAAAAABQAAUAAQAAAAMAAFBQAAYAAQABAAMAAFBQAAcAAQAAAAAAAFBQAAgAAQABAAAAAFBQAAkAAgAAAAMAAFBQAAoAAgABAAMAAFBQAAsAAwAAAAAAAABQAAwAAwAAAAAAAABQAA0AAwAAAAAAAABQAA4AAgAAAAMAAFBQAA8AAgABAAMAAFBQABAAAQAAAAEAAFBQABEAAwAAAAAAAABQABIAAQAAAAMAAFBQABMAAQABAAMAAFBQABQAAQAAAAMAAFBQABUAAQABAAMAAFBQABYADAAAAAAAADBRAAIADAAAAAAAAABRAAMAAQAAAAAAAFBRAAQAAwAAAAAAAABRAAUAAQAAAAIAAFBRAAYAAQABAAIAAFBRAAcAAQAAAAMAAFBRAAgAAQABAAMAAFBRAAkAAgAAAAIAAFBRAAoAAgABAAIAAFBRAAsAAwAAAAAAAABRAAwAAwAAAAAAAABRAA0AAwAAAAAAAABRAA4AAgAAAAIAAFBRAA8AAgABAAIAAFBRABAAAQAAAAAAAFBRABEAAwAAAAAAAABRABIAAQAAAAIAAFBRABMAAQABAAIAAFBRABQAAQAAAAIAAFBRABUAAQABAAIAAFBRABYADAAAAAAAADBSAAIADAAAAAAAAABSAAMAAQAAAAMAAFBSAAQAAwAAAAAAAABSAAUAAQAAAAEAAFBSAAYAAQABAAEAAFBSAAcAAQAAAAIAAFBSAAgAAQABAAIAAFBSAAkAAgAAAAEAAFBSAAoAAgABAAEAAFBSAAsAAwAAAAAAAABSAAwAAwAAAAAAAABSAA0AAwAAAAAAAABSAA4AAgAAAAEAAFBSAA8AAgABAAEAAFBSABAAAQAAAAMAAFBSABEAAwAAAAAAAABSABIAAQAAAAEAAFBSABMAAQABAAEAAFBSABQAAQAAAAEAAFBSABUAAQABAAEAAFBSABYADAAAAAAAADBTAAIADAAAAAAAAABTAAMAAQAAAAIAAFBTAAQAAwAAAAAAAABTAAUAAQAAAAAAAFBTAAYAAQABAAAAAFBTAAcAAQAAAAEAAFBTAAgAAQABAAEAAFBTAAkAAgAAAAAAAFBTAAoAAgABAAAAAFBTAAsAAwAAAAAAAABTAAwAAwAAAAAAAABTAA0AAwAAAAAAAABTAA4AAgAAAAAAAFBTAA8AAgABAAAAAFBTABAAAQAAAAIAAFBTABEAAwAAAAAAAABTABIAAQAAAAAAAFBTABMAAQABAAAAAFBTABQAAQAAAAAAAFBTABUAAQABAAAAAFBTABYADAAAAAAAADBUAAIADAAAAAAAAABUAAMAAQAAAAEAAFBUAAQAAwAAAAAAAABUAAUAAQAAAAMAAFBUAAYAAQABAAMAAFBUAAcAAQAAAAAAAFBUAAgAAQABAAAAAFBUAAkAAgAAAAMAAFBUAAoAAgABAAMAAFBUAAsABAAAAAAAAABUAAwABAAAAAAAAABUAA0ABAAAAAAAAABUAA4AAgAAAAMAAFBUAA8AAgABAAMAAFBUABAAAQAAAAEAAFBUABEAAwAAAAAAAABUABIAAQAAAAMAAFBUABMAAQABAAMAAFBUABQAAQAAAAMAAFBUABUAAQABAAMAAFBUABYADAAAAAAAADBVAAIADAAAAAAAAABVAAMAAQAAAAAAAFBVAAQAAwAAAAAAAABVAAUAAQAAAAIAAFBVAAYAAQABAAIAAFBVAAcAAQAAAAMAAFBVAAgAAQABAAMAAFBVAAkAAgAAAAIAAFBVAAoAAgABAAIAAFBVAAsABAAAAAAAAABVAAwABAAAAAAAAABVAA0ABAAAAAAAAABVAA4AAgAAAAIAAFBVAA8AAgABAAIAAFBVABAAAQAAAAAAAFBVABEAAwAAAAAAAABVABIAAQAAAAIAAFBVABMAAQABAAIAAFBVABQAAQAAAAIAAFBVABUAAQABAAIAAFBVABYADAAAAAAAADBWAAIADAAAAAAAAABWAAMAAQAAAAMAAFBWAAQAAwAAAAAAAABWAAUAAQAAAAEAAFBWAAYAAQABAAEAAFBWAAcAAQAAAAIAAFBWAAgAAQABAAIAAFBWAAkAAgAAAAEAAFBWAAoAAgABAAEAAFBWAAsABAAAAAAAAABWAAwABAAAAAAAAABWAA0ABAAAAAAAAABWAA4AAgAAAAEAAFBWAA8AAgABAAEAAFBWABAAAQAAAAMAAFBWABEAAwAAAAAAAABWABIAAQAAAAEAAFBWABMAAQABAAEAAFBWABQAAQAAAAEAAFBWABUAAQABAAEAAFBWABYADAAAAAAAADBXAAIADAAAAAAAAABXAAMAAQAAAAIAAFBXAAQAAwAAAAAAAABXAAUAAQAAAAAAAFBXAAYAAQABAAAAAFBXAAcAAQAAAAEAAFBXAAgAAQABAAEAAFBXAAkAAgAAAAAAAFBXAAoAAgABAAAAAFBXAAsABAAAAAAAAABXAAwABAAAAAAAAABXAA0ABAAAAAAAAABXAA4AAgAAAAAAAFBXAA8AAgABAAAAAFBXABAAAQAAAAIAAFBXABEAAwAAAAAAAABXABIAAQAAAAAAAFBXABMAAQABAAAAAFBXABQAAQAAAAAAAFBXABUAAQABAAAAAFBXABYADAAAAAAAADBYAAIADAAAAAAAAABYAAMAAQAAAAEAAFBYAAQAAwAAAAAAAABYAAUAAQAAAAMAAFBYAAYAAQABAAMAAFBYAAcAAQAAAAAAAFBYAAgAAQABAAAAAFBYAAkAAgAAAAMAAFBYAAoAAgABAAMAAFBYAAsABAAAAAAAAABYAAwABAAAAAAAAABYAA0ABAAAAAAAAABYAA4AAgAAAAMAAFBYAA8AAgABAAMAAFBYABAAAQAAAAEAAFBYABEAAwAAAAAAAABYABIAAQAAAAMAAFBYABMAAQABAAMAAFBYABQAAQAAAAMAAFBYABUAAQABAAMAAFBYABYADAAAAAAAADBZAAIADAAAAAAAAABZAAMAAQAAAAAAAFBZAAQAAwAAAAAAAABZAAUAAQAAAAIAAFBZAAYAAQABAAIAAFBZAAcAAQAAAAMAAFBZAAgAAQABAAMAAFBZAAkAAgAAAAIAAFBZAAoAAgABAAIAAFBZAAsABAAAAAAAAABZAAwABAAAAAAAAABZAA0ABAAAAAAAAABZAA4AAgAAAAIAAFBZAA8AAgABAAIAAFBZABAAAQAAAAAAAFBZABEAAwAAAAAAAABZABIAAQAAAAIAAFBZABMAAQABAAIAAFBZABQAAQAAAAIAAFBZABUAAQABAAIAAFBZABYADAAAAAAAADBaAAIADAAAAAAAAABaAAMAAQAAAAMAAFBaAAQAAwAAAAAAAABaAAUAAQAAAAEAAFBaAAYAAQABAAEAAFBaAAcAAQAAAAIAAFBaAAgAAQABAAIAAFBaAAkAAgAAAAEAAFBaAAoAAgABAAEAAFBaAAsABAAAAAAAAABaAAwABAAAAAAAAABaAA0ABAAAAAAAAABaAA4AAgAAAAEAAFBaAA8AAgABAAEAAFBaABAAAQAAAAMAAFBaABEAAwAAAAAAAABaABIAAQAAAAEAAFBaABMAAQABAAEAAFBaABQAAQAAAAEAAFBaABUAAQABAAEAAFBaABYADAAAAAAAADBbAAIADAAAAAAAAABbAAMAAQAAAAIAAFBbAAQAAwAAAAAAAABbAAUAAQAAAAAAAFBbAAYAAQABAAAAAFBbAAcAAQAAAAEAAFBbAAgAAQABAAEAAFBbAAkAAgAAAAAAAFBbAAoAAgABAAAAAFBbAAsABAAAAAAAAABbAAwABAAAAAAAAABbAA0ABAAAAAAAAABbAA4AAgAAAAAAAFBbAA8AAgABAAAAAFBbABAAAQAAAAIAAFBbABEAAwAAAAAAAABbABIAAQAAAAAAAFBbABMAAQABAAAAAFBbABQAAQAAAAAAAFBbABUAAQABAAAAAFBbABYADAAAAAAAADBcAAIADAAAAAAAAABcAAMAAQAAAAEAAFBcAAQAAwAAAAAAAABcAAUAAQAAAAMAAFBcAAYAAQABAAMAAFBcAAcAAQAAAAAAAFBcAAgAAQABAAAAAFBcAAkAAgAAAAMAAFBcAAoAAgABAAMAAFBcAAsABAAAAAAAAABcAAwABAAAAAAAAABcAA0ABAAAAAAAAABcAA4AAgAAAAMAAFBcAA8AAgABAAMAAFBcABAAAQAAAAEAAFBcABEAAwAAAAAAAABcABIAAQAAAAMAAFBcABMAAQABAAMAAFBcABQAAQAAAAMAAFBcABUAAQABAAMAAFBcABYADAAAAAAAADBdAAIADAAAAAAAAABdAAMAAQAAAAAAAFBdAAQAAwAAAAAAAABdAAUAAQAAAAIAAFBdAAYAAQABAAIAAFBdAAcAAQAAAAMAAFBdAAgAAQABAAMAAFBdAAkAAgAAAAIAAFBdAAoAAgABAAIAAFBdAAsAAwAAAAAAAABdAAwAAwAAAAAAAABdAA0AAwAAAAAAAABdAA4AAgAAAAIAAFBdAA8AAgABAAIAAFBdABAAAQAAAAAAAFBdABEAAwAAAAAAAABdABIAAQAAAAIAAFBdABMAAQABAAIAAFBdABQAAQAAAAIAAFBdABUAAQABAAIAAFBdABYADAAAAAAAADBeAAIADAAAAAAAAABeAAMAAQAAAAMAAFBeAAQAAwAAAAAAAABeAAUAAQAAAAEAAFBeAAYAAQABAAEAAFBeAAcAAQAAAAIAAFBeAAgAAQABAAIAAFBeAAkAAgAAAAEAAFBeAAoAAgABAAEAAFBeAAsAAwAAAAAAAABeAAwAAwAAAAAAAABeAA0AAwAAAAAAAABeAA4AAgAAAAEAAFBeAA8AAgABAAEAAFBeABAAAQAAAAMAAFBeABEAAwAAAAAAAABeABIAAQAAAAEAAFBeABMAAQABAAEAAFBeABQAAQAAAAEAAFBeABUAAQABAAEAAFBeABYADAAAAAAAADBfAAIADAAAAAAAAABfAAMAAQAAAAIAAFBfAAQAAwAAAAAAAABfAAUAAQAAAAAAAFBfAAYAAQABAAAAAFBfAAcAAQAAAAEAAFBfAAgAAQABAAEAAFBfAAkAAgAAAAAAAFBfAAoAAgABAAAAAFBfAAsAAwAAAAAAAABfAAwAAwAAAAAAAABfAA0AAwAAAAAAAABfAA4AAgAAAAAAAFBfAA8AAgABAAAAAFBfABAAAQAAAAIAAFBfABEAAwAAAAAAAABfABIAAQAAAAAAAFBfABMAAQABAAAAAFBfABQAAQAAAAAAAFBfABUAAQABAAAAAFBfABYADAAAAAAAADBgAAIADAAAAAAAAABgAAMAAQAAAAEAAFBgAAQAAwAAAAAAAABgAAUAAQAAAAMAAFBgAAYAAQABAAMAAFBgAAcAAQAAAAAAAFBgAAgAAQABAAAAAFBgAAkAAgAAAAMAAFBgAAoAAgABAAMAAFBgAAsAAwAAAAAAAABgAAwAAwAAAAAAAABgAA0AAwAAAAAAAABgAA4AAgAAAAMAAFBgAA8AAgABAAMAAFBgABAAAQAAAAEAAFBgABEAAwAAAAAAAABgABIAAQAAAAMAAFBgABMAAQABAAMAAFBgABQAAQAAAAMAAFBgABUAAQABAAMAAFBgABYADAAAAAAAADBhAAIADAAAAAAAAABhAAMAAQAAAAAAAFBhAAQAAwAAAAAAAABhAAUAAQAAAAIAAFBhAAYAAQABAAIAAFBhAAcAAQAAAAMAAFBhAAgAAQABAAMAAFBhAAkAAgAAAAIAAFBhAAoAAgABAAIAAFBhAAsAAwAAAAAAAABhAAwAAwAAAAAAAABhAA0AAwAAAAAAAABhAA4AAgAAAAIAAFBhAA8AAgABAAIAAFBhABAAAQAAAAAAAFBhABEAAwAAAAAAAABhABIAAQAAAAIAAFBhABMAAQABAAIAAFBhABQAAQAAAAIAAFBhABUAAQABAAIAAFBhABYADAAAAAAAADBiAAIADAAAAAAAAABiAAMAAQAAAAMAAFBiAAQAAwAAAAAAAABiAAUAAQAAAAEAAFBiAAYAAQABAAEAAFBiAAcAAQAAAAIAAFBiAAgAAQABAAIAAFBiAAkAAgAAAAEAAFBiAAoAAgABAAEAAFBiAAsAAwAAAAAAAABiAAwAAwAAAAAAAABiAA0AAwAAAAAAAABiAA4AAgAAAAEAAFBiAA8AAgABAAEAAFBiABAAAQAAAAMAAFBiABEAAwAAAAAAAABiABIAAQAAAAEAAFBiABMAAQABAAEAAFBiABQAAQAAAAEAAFBiABUAAQABAAEAAFBiABYADAAAAAAAADBjAAIADAAAAAAAAABjAAMAAQAAAAIAAFBjAAQAAwAAAAAAAABjAAUAAQAAAAAAAFBjAAYAAQABAAAAAFBjAAcAAQAAAAEAAFBjAAgAAQABAAEAAFBjAAkAAgAAAAAAAFBjAAoAAgABAAAAAFBjAAsAAwAAAAAAAABjAAwAAwAAAAAAAABjAA0AAwAAAAAAAABjAA4AAgAAAAAAAFBjAA8AAgABAAAAAFBjABAAAQAAAAIAAFBjABEAAwAAAAAAAABjABIAAQAAAAAAAFBjABMAAQABAAAAAFBjABQAAQAAAAAAAFBjABUAAQABAAAAAFBjABYADAAAAAAAADBkAAIADAAAAAAAAABkAAMAAQAAAAEAAFBkAAQAAwAAAAAAAABkAAUAAQAAAAMAAFBkAAYAAQABAAMAAFBkAAcAAQAAAAAAAFBkAAgAAQABAAAAAFBkAAkAAgAAAAMAAFBkAAoAAgABAAMAAFBkAAsAAwAAAAAAAABkAAwAAwAAAAAAAABkAA0AAwAAAAAAAABkAA4AAgAAAAMAAFBkAA8AAgABAAMAAFBkABAAAQAAAAEAAFBkABEAAwAAAAAAAABkABIAAQAAAAMAAFBkABMAAQABAAMAAFBkABQAAQAAAAMAAFBkABUAAQABAAMAAFBkABYADAAAAAAAADBlAAIADAAAAAAAAABlAAMAAQAAAAAAAFBlAAQAAwAAAAAAAABlAAUAAQAAAAIAAFBlAAYAAQABAAIAAFBlAAcAAQAAAAMAAFBlAAgAAQABAAMAAFBlAAkAAgAAAAIAAFBlAAoAAgABAAIAAFBlAAsAAwAAAAAAAABlAAwAAwAAAAAAAABlAA0AAwAAAAAAAABlAA4AAgAAAAIAAFBlAA8AAgABAAIAAFBlABAAAQAAAAAAAFBlABEAAwAAAAAAAABlABIAAQAAAAIAAFBlABMAAQABAAIAAFBlABQAAQAAAAIAAFBlABUAAQABAAIAAFBlABYADAAAAAAAADBmAAIADAAAAAAAAABmAAMAAQAAAAMAAFBmAAQAAwAAAAAAAABmAAUAAQAAAAEAAFBmAAYAAQABAAEAAFBmAAcAAQAAAAIAAFBmAAgAAQABAAIAAFBmAAkAAgAAAAEAAFBmAAoAAgABAAEAAFBmAAsAAwAAAAAAAABmAAwAAwAAAAAAAABmAA0AAwAAAAAAAABmAA4AAgAAAAEAAFBmAA8AAgABAAEAAFBmABAAAQAAAAMAAFBmABEAAwAAAAAAAABmABIAAQAAAAEAAFBmABMAAQABAAEAAFBmABQAAQAAAAEAAFBmABUAAQABAAEAAFBmABYADAAAAAAAADBnAAIADAAAAAAAAABnAAMAAQAAAAIAAFBnAAQAAwAAAAAAAABnAAUAAQAAAAAAAFBnAAYAAQABAAAAAFBnAAcAAQAAAAEAAFBnAAgAAQABAAEAAFBnAAkAAgAAAAAAAFBnAAoAAgABAAAAAFBnAAsAAwAAAAAAAABnAAwAAwAAAAAAAABnAA0AAwAAAAAAAABnAA4AAgAAAAAAAFBnAA8AAgABAAAAAFBnABAAAQAAAAIAAFBnABEAAwAAAAAAAABnABIAAQAAAAAAAFBnABMAAQABAAAAAFBnABQAAQAAAAAAAFBnABUAAQABAAAAAFBnABYADAAAAAAAADBoAAIADAAAAAAAAABoAAMAAQAAAAEAAFBoAAQAAwAAAAAAAABoAAUAAQAAAAMAAFBoAAYAAQABAAMAAFBoAAcAAQAAAAAAAFBoAAgAAQABAAAAAFBoAAkAAgAAAAMAAFBoAAoAAgABAAMAAFBoAAsAAwAAAAAAAABoAAwAAwAAAAAAAABoAA0AAwAAAAAAAABoAA4AAgAAAAMAAFBoAA8AAgABAAMAAFBoABAAAQAAAAEAAFBoABEAAwAAAAAAAABoABIAAQAAAAMAAFBoABMAAQABAAMAAFBoABQAAQAAAAMAAFBoABUAAQABAAMAAFBoABYADAAAAAAAADBpAAIADAAAAAAAAABpAAMAAQAAAAAAAFBpAAQAAwAAAAAAAABpAAUAAQAAAAIAAFBpAAYAAQABAAIAAFBpAAcAAQAAAAMAAFBpAAgAAQABAAMAAFBpAAkAAgAAAAIAAFBpAAoAAgABAAIAAFBpAAsAAwAAAAAAAABpAAwAAwAAAAAAAABpAA0AAwAAAAAAAABpAA4AAgAAAAIAAFBpAA8AAgABAAIAAFBpABAAAQAAAAAAAFBpABEAAwAAAAAAAABpABIAAQAAAAIAAFBpABMAAQABAAIAAFBpABQAAQAAAAIAAFBpABUAAQABAAIAAFBpABYADAAAAAAAADBqAAIADAAAAAAAAABqAAMAAQAAAAMAAFBqAAQAAwAAAAAAAABqAAUAAQAAAAEAAFBqAAYAAQABAAEAAFBqAAcAAQAAAAIAAFBqAAgAAQABAAIAAFBqAAkAAgAAAAEAAFBqAAoAAgABAAEAAFBqAAsAAwAAAAAAAABqAAwAAwAAAAAAAABqAA0AAwAAAAAAAABqAA4AAgAAAAEAAFBqAA8AAgABAAEAAFBqABAAAQAAAAMAAFBqABEAAwAAAAAAAABqABIAAQAAAAEAAFBqABMAAQABAAEAAFBqABQAAQAAAAEAAFBqABUAAQABAAEAAFBqABYADAAAAAAAADBrAAIADAAAAAAAAABrAAMAAQAAAAIAAFBrAAQAAwAAAAAAAABrAAUAAQAAAAAAAFBrAAYAAQABAAAAAFBrAAcAAQAAAAEAAFBrAAgAAQABAAEAAFBrAAkAAgAAAAAAAFBrAAoAAgABAAAAAFBrAAsABAAAAAAAAABrAAwABAAAAAAAAABrAA0ABAAAAAAAAABrAA4AAgAAAAAAAFBrAA8AAgABAAAAAFBrABAAAQAAAAIAAFBrABEAAwAAAAAAAABrABIAAQAAAAAAAFBrABMAAQABAAAAAFBrABQAAQAAAAAAAFBrABUAAQABAAAAAFBrABYADAAAAAAAADBsAAIADAAAAAAAAABsAAMAAQAAAAEAAFBsAAQAAwAAAAAAAABsAAUAAQAAAAMAAFBsAAYAAQABAAMAAFBsAAcAAQAAAAAAAFBsAAgAAQABAAAAAFBsAAkAAgAAAAMAAFBsAAoAAgABAAMAAFBsAAsABAAAAAAAAABsAAwABAAAAAAAAABsAA0ABAAAAAAAAABsAA4AAgAAAAMAAFBsAA8AAgABAAMAAFBsABAAAQAAAAEAAFBsABEAAwAAAAAAAABsABIAAQAAAAMAAFBsABMAAQABAAMAAFBsABQAAQAAAAMAAFBsABUAAQABAAMAAFBsABYADAAAAAAAADBtAAIADAAAAAAAAABtAAMAAQAAAAAAAFBtAAQAAwAAAAAAAABtAAUAAQAAAAIAAFBtAAYAAQABAAIAAFBtAAcAAQAAAAMAAFBtAAgAAQABAAMAAFBtAAkAAgAAAAIAAFBtAAoAAgABAAIAAFBtAAsABAAAAAAAAABtAAwABAAAAAAAAABtAA0ABAAAAAAAAABtAA4AAgAAAAIAAFBtAA8AAgABAAIAAFBtABAAAQAAAAAAAFBtABEAAwAAAAAAAABtABIAAQAAAAIAAFBtABMAAQABAAIAAFBtABQAAQAAAAIAAFBtABUAAQABAAIAAFBtABYADAAAAAAAADBuAAIADAAAAAAAAABuAAMAAQAAAAMAAFBuAAQAAwAAAAAAAABuAAUAAQAAAAEAAFBuAAYAAQABAAEAAFBuAAcAAQAAAAIAAFBuAAgAAQABAAIAAFBuAAkAAgAAAAEAAFBuAAoAAgABAAEAAFBuAAsABAAAAAAAAABuAAwABAAAAAAAAABuAA0ABAAAAAAAAABuAA4AAgAAAAEAAFBuAA8AAgABAAEAAFBuABAAAQAAAAMAAFBuABEAAwAAAAAAAABuABIAAQAAAAEAAFBuABMAAQABAAEAAFBuABQAAQAAAAEAAFBuABUAAQABAAEAAFBuABYADAAAAAAAADBvAAIADAAAAAAAAABvAAMAAQAAAAIAAFBvAAQAAwAAAAAAAABvAAUAAQAAAAAAAFBvAAYAAQABAAAAAFBvAAcAAQAAAAEAAFBvAAgAAQABAAEAAFBvAAkAAgAAAAAAAFBvAAoAAgABAAAAAFBvAAsABAAAAAAAAABvAAwABAAAAAAAAABvAA0ABAAAAAAAAABvAA4AAgAAAAAAAFBvAA8AAgABAAAAAFBvABAAAQAAAAIAAFBvABEAAwAAAAAAAABvABIAAQAAAAAAAFBvABMAAQABAAAAAFBvABQAAQAAAAAAAFBvABUAAQABAAAAAFBvABYADAAAAAAAADBwAAIADAAAAAAAAABwAAMAAQAAAAMAAFBwAAQAAQABAAMAAFBwAAUAAQAAAAMAAFBwAAYAAQABAAMAAFBwAAcAAQAAAAAAAFBwAAgAAQABAAAAAFBwAAkAAgAAAAMAAFBwAAoAAgABAAMAAFBwAAsABAAAAAAAAABwAAwABAAAAAAAAABwAA0ABAAAAAAAAABwAA4AAgAAAAMAAFBwAA8AAgABAAMAAFBwABAAAQAAAAEAAFBwABEAAwAAAAAAAABwABIAAQAAAAMAAFBwABMAAQABAAMAAFBwABQAAQAAAAMAAFBwABUAAQABAAMAAFBwABYADAAAAAAAADBxAAIADAAAAAAAAABxAAMAAQAAAAIAAFBxAAQAAQABAAIAAFBxAAUAAQAAAAIAAFBxAAYAAQABAAIAAFBxAAcAAQAAAAMAAFBxAAgAAQABAAMAAFBxAAkAAgAAAAIAAFBxAAoAAgABAAIAAFBxAAsABAAAAAAAAABxAAwABAAAAAAAAABxAA0ABAAAAAAAAABxAA4AAgAAAAIAAFBxAA8AAgABAAIAAFBxABAAAQAAAAAAAFBxABEAAwAAAAAAAABxABIAAQAAAAIAAFBxABMAAQABAAIAAFBxABQAAQAAAAIAAFBxABUAAQABAAIAAFBxABYADAAAAAAAADByAAIADAAAAAAAAAByAAMAAQAAAAEAAFByAAQAAQABAAEAAFByAAUAAQAAAAEAAFByAAYAAQABAAEAAFByAAcAAQAAAAIAAFByAAgAAQABAAIAAFByAAkAAgAAAAEAAFByAAoAAgABAAEAAFByAAsABAAAAAAAAAByAAwABAAAAAAAAAByAA0ABAAAAAAAAAByAA4AAgAAAAEAAFByAA8AAgABAAEAAFByABAAAQAAAAMAAFByABEAAwAAAAAAAAByABIAAQAAAAEAAFByABMAAQABAAEAAFByABQAAQAAAAEAAFByABUAAQABAAEAAFByABYADAAAAAAAADBzAAIADAAAAAAAAABzAAMAAQAAAAAAAFBzAAQAAQABAAAAAFBzAAUAAQAAAAAAAFBzAAYAAQABAAAAAFBzAAcAAQAAAAEAAFBzAAgAAQABAAEAAFBzAAkAAgAAAAAAAFBzAAoAAgABAAAAAFBzAAsABAAAAAAAAABzAAwABAAAAAAAAABzAA0ABAAAAAAAAABzAA4AAgAAAAAAAFBzAA8AAgABAAAAAFBzABAAAQAAAAIAAFBzABEAAwAAAAAAAABzABIAAQAAAAAAAFBzABMAAQABAAAAAFBzABQAAQAAAAAAAFBzABUAAQABAAAAAFBzABYADAAAAAAAADB0AAIADAAAAAAAAAB0AAMAAQAAAAMAAFB0AAQAAQABAAMAAFB0AAUAAQAAAAMAAFB0AAYAAQABAAMAAFB0AAcAAQAAAAAAAFB0AAgAAQABAAAAAFB0AAkAAgAAAAMAAFB0AAoAAgABAAMAAFB0AAsABAAAAAAAAAB0AAwABAAAAAAAAAB0AA0ABAAAAAAAAAB0AA4AAgAAAAMAAFB0AA8AAgABAAMAAFB0ABAAAQAAAAEAAFB0ABEAAwAAAAAAAAB0ABIAAQAAAAMAAFB0ABMAAQABAAMAAFB0ABQAAQAAAAMAAFB0ABUAAQABAAMAAFB0ABYADAAAAAAAADA=")
+tile_set = SubResource("TileSet_yxmws")
+navigation_enabled = false
+
+[node name="Buildings" type="TileMapLayer" parent="Land_layers_intro_chunk" unique_id=716787510 groups=["walls"]]
+tile_map_data = PackedByteArray("AAAAAAAACAADAAAAAAAAAAEACAADAAEAAAAAAAsACgAAAAAAAAAAAAwACgAAAAAAAAAAAA0ACgAAAAAAAAAAABcACAADAAAAAAAAABgACAADAAEAAAABAAAACAAEAAAAAAABAAEACAAEAAEAAAABAAsACgAAAAAAAAABAAwACgAAAAAAAAABAA0ACgAAAAAAAAABABcACAAEAAAAAAABABgACAAEAAEAAAACAAAACAAFAAAAAAACAAEACAAFAAEAAAACAAsACgAAAAAAAAACAAwACgAAAAAAAAACAA0ACgAAAAAAAAACABcACAAFAAAAAAACABgACAAFAAEAAAADAAAACAAGAAAAAAADAAEACAAGAAEAAAADAAsACgAAAAAAAAADAAwACgAAAAAAAAADAA0ACgAAAAAAAAADABcACAAGAAAAAAADABgACAAGAAEAAAAEAAAACAAHAAAAAAAEAAEACAAHAAEAAAAEAAsACgAAAAAAAAAEAAwACgAAAAAAAAAEAA0ACgAAAAAAAAAEABcACAAHAAAAAAAEABgACAAHAAEAAAAFAAAACAAAAAAAAAAFAAEACAAAAAEAAAAFAAsACgAAAAAAAAAFAAwACgAAAAAAAAAFAA0ACgAAAAAAAAAFABcACAAAAAAAAAAFABgACAAAAAEAAAAGAAAACAABAAAAAAAGAAEACAABAAEAAAAGABcACAABAAAAAAAGABgACAABAAEAAAAHAAAACAACAAAAAAAHAAEACAACAAEAAAAHABcACAACAAAAAAAHABgACAACAAEAAAAIAAAACAADAAAAAAAIAAEACAADAAEAAAAIABcACAADAAAAAAAIABgACAADAAEAAAAJAAAACAAEAAAAAAAJAAEACAAEAAEAAAAJABcACAAEAAAAAAAJABgACAAEAAEAAAAKAAAACAAFAAAAAAAKAAEACAAFAAEAAAAKABcACAAFAAAAAAAKABgACAAFAAEAAAALAAAACAAGAAAAAAALAAEACAAGAAEAAAALABcACAAGAAAAAAALABgACAAGAAEAAAAMAAAACAAHAAAAAAAMAAEACAAHAAEAAAAMABcACAAHAAAAAAAMABgACAAHAAEAAAANAAAACAAAAAAAAAANAAEACAAAAAEAAAANABcACAAAAAAAAAANABgACAAAAAEAAAAOAAAACAABAAAAAAAOAAEACAABAAEAAAAOABcACAABAAAAAAAOABgACAABAAEAAAAPAAAACAACAAAAAAAPAAEACAACAAEAAAAPABcACAACAAAAAAAPABgACAACAAEAAAAQAAAACAADAAAAAAAQAAEACAADAAEAAAAQABcACAADAAAAAAAQABgACAADAAEAAAARAAAACAAEAAAAAAARAAEACAAEAAEAAAARABcACAAEAAAAAAARABgACAAEAAEAAAASAAAACAAFAAAAAAASAAEACAAFAAEAAAASABcACAAFAAAAAAASABgACAAFAAEAAAATAAAACAAGAAAAAAATAAEACAAGAAEAAAATABcACAAGAAAAAAATABgACAAGAAEAAAAUAAAACAAHAAAAAAAUAAEACAAHAAEAAAAUABcACAAHAAAAAAAUABgACAAHAAEAAAAVAAAACAAAAAAAAAAVAAEACAAAAAEAAAAVABcACAAAAAAAAAAVABgACAAAAAEAAAAWAAAACAABAAAAAAAWAAEACAABAAEAAAAWABcACAABAAAAAAAWABgACAABAAEAAAAXAAAACAACAAAAAAAXAAEACAACAAEAAAAXAAsACgAAAAAAAAAXAAwACgAAAAAAAAAXAA0ACgAAAAAAAAAXABcACAACAAAAAAAXABgACAACAAEAAAAYAAAACAADAAAAAAAYAAEACAADAAEAAAAYAAsACgAAAAAAAAAYAAwACgAAAAAAAAAYAA0ACgAAAAAAAAAYABcACAADAAAAAAAYABgACAADAAEAAAAZAAAACAAEAAAAAAAZAAEACAAEAAEAAAAZABcACAAEAAAAAAAZABgACAAEAAEAAAAaAAAACAAFAAAAAAAaAAEACAAFAAEAAAAaABcACAAFAAAAAAAaABgACAAFAAEAAAAbAAAACAAGAAAAAAAbAAEACAAGAAEAAAAbABcACAAGAAAAAAAbABgACAAGAAEAAAAcAAAACAAHAAAAAAAcAAEACAAHAAEAAAAcABcACAAHAAAAAAAcABgACAAHAAEAAAAdAAAACAAAAAAAAAAdAAEACAAAAAEAAAAdABcACAAAAAAAAAAdABgACAAAAAEAAAAeAAAACAABAAAAAAAeAAEACAABAAEAAAAeABcACAABAAAAAAAeABgACAABAAEAAAAfAAAACAACAAAAAAAfAAEACAACAAEAAAAfABcACAACAAAAAAAfABgACAACAAEAAAAgAAAACAADAAAAAAAgAAEACAADAAEAAAAgABcACAADAAAAAAAgABgACAADAAEAAAAhAAAACAAEAAAAAAAhAAEACAAEAAEAAAAhABcACAAEAAAAAAAhABgACAAEAAEAAAAiAAAACAAFAAAAAAAiAAEACAAFAAEAAAAiABcACAAFAAAAAAAiABgACAAFAAEAAAAjAAAACAAGAAAAAAAjAAEACAAGAAEAAAAjAAsACgAAAAAAAAAjAAwACgAAAAAAAAAjAA0ACgAAAAAAAAAjABcACAAGAAAAAAAjABgACAAGAAEAAAAkAAAACAAHAAAAAAAkAAEACAAHAAEAAAAkAAsACgAAAAAAAAAkAAwACgAAAAAAAAAkAA0ACgAAAAAAAAAkABcACAAHAAAAAAAkABgACAAHAAEAAAAlAAAACAAAAAAAAAAlAAEACAAAAAEAAAAlAAsACgAAAAAAAAAlAAwACgAAAAAAAAAlAA0ACgAAAAAAAAAlABcACAAAAAAAAAAlABgACAAAAAEAAAAmAAAACAABAAAAAAAmAAEACAABAAEAAAAmAAsACgAAAAAAAAAmAAwACgAAAAAAAAAmAA0ACgAAAAAAAAAmABcACAABAAAAAAAmABgACAABAAEAAAAnAAAACAACAAAAAAAnAAEACAACAAEAAAAnAAsACgAAAAAAAAAnAAwACgAAAAAAAAAnAA0ACgAAAAAAAAAnABcACAACAAAAAAAnABgACAACAAEAAAAoAAAACAADAAAAAAAoAAEACAADAAEAAAAoAAsACgAAAAAAAAAoAAwACgAAAAAAAAAoAA0ACgAAAAAAAAAoABcACAADAAAAAAAoABgACAADAAEAAAApAAAACAAEAAAAAAApAAEACAAEAAEAAAApABcACAAEAAAAAAApABgACAAEAAEAAAAqAAAACAAFAAAAAAAqAAEACAAFAAEAAAAqABcACAAFAAAAAAAqABgACAAFAAEAAAArAAAACAAGAAAAAAArAAEACAAGAAEAAAArABcACAAGAAAAAAArABgACAAGAAEAAAAsAAAACAAHAAAAAAAsAAEACAAHAAEAAAAsABcACAAHAAAAAAAsABgACAAHAAEAAAAtAAAACAAAAAAAAAAtAAEACAAAAAEAAAAtABcACAAAAAAAAAAtABgACAAAAAEAAAAuAAAACAABAAAAAAAuAAEACAABAAEAAAAuABcACAABAAAAAAAuABgACAABAAEAAAAvAAAACAACAAAAAAAvAAEACAACAAEAAAAvABcACAACAAAAAAAvABgACAACAAEAAAAwAAAACAADAAAAAAAwAAEACAADAAEAAAAwABcACAADAAAAAAAwABgACAADAAEAAAAxAAAACAAEAAAAAAAxAAEACAAEAAEAAAAxABcACAAEAAAAAAAxABgACAAEAAEAAAAyAAAACAAFAAAAAAAyAAEACAAFAAEAAAAyABcACAAFAAAAAAAyABgACAAFAAEAAAAzAAAACAAGAAAAAAAzAAEACAAGAAEAAAAzABcACAAGAAAAAAAzABgACAAGAAEAAAA0AAAACAAHAAAAAAA0AAEACAAHAAEAAAA0ABcACAAHAAAAAAA0ABgACAAHAAEAAAA1AAAACAAAAAAAAAA1AAEACAAAAAEAAAA1ABcACAAAAAAAAAA1ABgACAAAAAEAAAA2AAAACAABAAAAAAA2AAEACAABAAEAAAA2ABcACAABAAAAAAA2ABgACAABAAEAAAA3AAAACAACAAAAAAA3AAEACAACAAEAAAA3AAsACgAAAAAAAAA3AAwACgAAAAAAAAA3AA0ACgAAAAAAAAA3ABcACAACAAAAAAA3ABgACAACAAEAAAA4AAAACAADAAAAAAA4AAEACAADAAEAAAA4ABcACAADAAAAAAA4ABgACAADAAEAAAA5AAAACAAEAAAAAAA5AAEACAAEAAEAAAA5ABcACAAEAAAAAAA5ABgACAAEAAEAAAA6AAAACAAFAAAAAAA6AAEACAAFAAEAAAA6ABcACAAFAAAAAAA6ABgACAAFAAEAAAA7AAAACAAGAAAAAAA7AAEACAAGAAEAAAA7ABcACAAGAAAAAAA7ABgACAAGAAEAAAA8AAAACAAHAAAAAAA8AAEACAAHAAEAAAA8ABcACAAHAAAAAAA8ABgACAAHAAEAAAA9AAAACAAAAAAAAAA9AAEACAAAAAEAAAA9ABcACAAAAAAAAAA9ABgACAAAAAEAAAA+AAAACAABAAAAAAA+AAEACAABAAEAAAA+ABcACAABAAAAAAA+ABgACAABAAEAAAA/AAAACAACAAAAAAA/AAEACAACAAEAAAA/ABcACAACAAAAAAA/ABgACAACAAEAAABAAAAACAADAAAAAABAAAEACAADAAEAAABAABcACAADAAAAAABAABgACAADAAEAAABBAAAACAAEAAAAAABBAAEACAAEAAEAAABBABcACAAEAAAAAABBABgACAAEAAEAAABCAAAACAAFAAAAAABCAAEACAAFAAEAAABCABcACAAFAAAAAABCABgACAAFAAEAAABDAAAACAAGAAAAAABDAAEACAAGAAEAAABDABcACAAGAAAAAABDABgACAAGAAEAAABEAAAACAAHAAAAAABEAAEACAAHAAEAAABEABcACAAHAAAAAABEABgACAAHAAEAAABFAAAACAAAAAAAAABFAAEACAAAAAEAAABFABcACAAAAAAAAABFABgACAAAAAEAAABGAAAACAABAAAAAABGAAEACAABAAEAAABGAAsACgAAAAAAAABGAAwACgAAAAAAAABGAA0ACgAAAAAAAABGABcACAABAAAAAABGABgACAABAAEAAABHAAAACAACAAAAAABHAAEACAACAAEAAABHAAsACgAAAAAAAABHAAwACgAAAAAAAABHAA0ACgAAAAAAAABHABcACAACAAAAAABHABgACAACAAEAAABIAAAACAADAAAAAABIAAEACAADAAEAAABIAAsACgAAAAAAAABIAAwACgAAAAAAAABIAA0ACgAAAAAAAABIABcACAADAAAAAABIABgACAADAAEAAABJAAAACAAEAAAAAABJAAEACAAEAAEAAABJAAsACgAAAAAAAABJAAwACgAAAAAAAABJAA0ACgAAAAAAAABJABcACAAEAAAAAABJABgACAAEAAEAAABKAAAACAAFAAAAAABKAAEACAAFAAEAAABKAAsACgAAAAAAAABKAAwACgAAAAAAAABKAA0ACgAAAAAAAABKABcACAAFAAAAAABKABgACAAFAAEAAABLAAAACAAGAAAAAABLAAEACAAGAAEAAABLAAsACgAAAAAAAABLAAwACgAAAAAAAABLAA0ACgAAAAAAAABLABcACAAGAAAAAABLABgACAAGAAEAAABMAAAACAAHAAAAAABMAAEACAAHAAEAAABMAAsACgAAAAAAAABMAAwACgAAAAAAAABMAA0ACgAAAAAAAABMABcACAAHAAAAAABMABgACAAHAAEAAABNAAAACAAAAAAAAABNAAEACAAAAAEAAABNAAsACgAAAAAAAABNAAwACgAAAAAAAABNAA0ACgAAAAAAAABNABcACAAAAAAAAABNABgACAAAAAEAAABOAAAACAABAAAAAABOAAEACAABAAEAAABOABcACAABAAAAAABOABgACAABAAEAAABPAAAACAACAAAAAABPAAEACAACAAEAAABPABcACAACAAAAAABPABgACAACAAEAAAAZAAsACgAAAAAAAAAZAAwACgAAAAAAAAAZAA0ACgAAAAAAAAAaAAsACgAAAAAAAAAaAAwACgAAAAAAAAAaAA0ACgAAAAAAAAAbAAsACgAAAAAAAAAbAAwACgAAAAAAAAAbAA0ACgAAAAAAAAApAAsACgAAAAAAAAApAAwACgAAAAAAAAApAA0ACgAAAAAAAAAqAAsACgAAAAAAAAAqAAwACgAAAAAAAAAqAA0ACgAAAAAAAAA4AAsACgAAAAAAAAA4AAwACgAAAAAAAAA4AA0ACgAAAAAAAAA5AAsACgAAAAAAAAA5AAwACgAAAAAAAAA5AA0ACgAAAAAAAAA6AAsACgAAAAAAAAA6AAwACgAAAAAAAAA6AA0ACgAAAAAAAAA7AAsACgAAAAAAAAA7AAwACgAAAAAAAAA7AA0ACgAAAAAAAAA8AAsACgAAAAAAAAA8AAwACgAAAAAAAAA8AA0ACgAAAAAAAAA9AAsACgAAAAAAAAA9AAwACgAAAAAAAAA9AA0ACgAAAAAAAABQAAAACAADAAAAAABQAAEACAADAAEAAABQABcACAADAAAAAABQABgACAADAAEAAABRAAAACAAEAAAAAABRAAEACAAEAAEAAABRABcACAAEAAAAAABRABgACAAEAAEAAABSAAAACAAFAAAAAABSAAEACAAFAAEAAABSABcACAAFAAAAAABSABgACAAFAAEAAABTAAAACAAGAAAAAABTAAEACAAGAAEAAABTABcACAAGAAAAAABTABgACAAGAAEAAABUAAAACAAHAAAAAABUAAEACAAHAAEAAABUAAsACgAAAAAAAABUAAwACgAAAAAAAABUAA0ACgAAAAAAAABUABcACAAHAAAAAABUABgACAAHAAEAAABVAAAACAAAAAAAAABVAAEACAAAAAEAAABVAAsACgAAAAAAAABVAAwACgAAAAAAAABVAA0ACgAAAAAAAABVABcACAAAAAAAAABVABgACAAAAAEAAABWAAAACAABAAAAAABWAAEACAABAAEAAABWAAsACgAAAAAAAABWAAwACgAAAAAAAABWAA0ACgAAAAAAAABWABcACAABAAAAAABWABgACAABAAEAAABXAAAACAACAAAAAABXAAEACAACAAEAAABXAAsACgAAAAAAAABXAAwACgAAAAAAAABXAA0ACgAAAAAAAABXABcACAACAAAAAABXABgACAACAAEAAABYAAAACAADAAAAAABYAAEACAADAAEAAABYAAsACgAAAAAAAABYAAwACgAAAAAAAABYAA0ACgAAAAAAAABYABcACAADAAAAAABYABgACAADAAEAAABZAAAACAAEAAAAAABZAAEACAAEAAEAAABZAAsACgAAAAAAAABZAAwACgAAAAAAAABZAA0ACgAAAAAAAABZABcACAAEAAAAAABZABgACAAEAAEAAABaAAAACAAFAAAAAABaAAEACAAFAAEAAABaAAsACgAAAAAAAABaAAwACgAAAAAAAABaAA0ACgAAAAAAAABaABcACAAFAAAAAABaABgACAAFAAEAAABbAAAACAAGAAAAAABbAAEACAAGAAEAAABbAAsACgAAAAAAAABbAAwACgAAAAAAAABbAA0ACgAAAAAAAABbABcACAAGAAAAAABbABgACAAGAAEAAABcAAAACAAHAAAAAABcAAEACAAHAAEAAABcAAsACgAAAAAAAABcAAwACgAAAAAAAABcAA0ACgAAAAAAAABcABcACAAHAAAAAABcABgACAAHAAEAAABdAAAACAAAAAAAAABdAAEACAAAAAEAAABdABcACAAAAAAAAABdABgACAAAAAEAAABeAAAACAABAAAAAABeAAEACAABAAEAAABeABcACAABAAAAAABeABgACAABAAEAAABfAAAACAACAAAAAABfAAEACAACAAEAAABfABcACAACAAAAAABfABgACAACAAEAAABgAAAACAADAAAAAABgAAEACAADAAEAAABgABcACAADAAAAAABgABgACAADAAEAAABhAAAACAAEAAAAAABhAAEACAAEAAEAAABhABcACAAEAAAAAABhABgACAAEAAEAAABiAAAACAAFAAAAAABiAAEACAAFAAEAAABiABcACAAFAAAAAABiABgACAAFAAEAAABjAAAACAAGAAAAAABjAAEACAAGAAEAAABjABcACAAGAAAAAABjABgACAAGAAEAAABkAAAACAAHAAAAAABkAAEACAAHAAEAAABkABcACAAHAAAAAABkABgACAAHAAEAAABlAAAACAAAAAAAAABlAAEACAAAAAEAAABlABcACAAAAAAAAABlABgACAAAAAEAAABmAAAACAABAAAAAABmAAEACAABAAEAAABmABcACAABAAAAAABmABgACAABAAEAAABnAAAACAACAAAAAABnAAEACAACAAEAAABnABcACAACAAAAAABnABgACAACAAEAAABoAAAACAADAAAAAABoAAEACAADAAEAAABoABcACAADAAAAAABoABgACAADAAEAAABpAAAACAAEAAAAAABpAAEACAAEAAEAAABpABcACAAEAAAAAABpABgACAAEAAEAAABqAAAACAAFAAAAAABqAAEACAAFAAEAAABqABcACAAFAAAAAABqABgACAAFAAEAAABrAAAACAAGAAAAAABrAAEACAAGAAEAAABrAAsACgAAAAAAAABrAAwACgAAAAAAAABrAA0ACgAAAAAAAABrABcACAAGAAAAAABrABgACAAGAAEAAABsAAAACAAHAAAAAABsAAEACAAHAAEAAABsAAsACgAAAAAAAABsAAwACgAAAAAAAABsAA0ACgAAAAAAAABsABcACAAHAAAAAABsABgACAAHAAEAAABtAAAACAAAAAAAAABtAAEACAAAAAEAAABtAAsACgAAAAAAAABtAAwACgAAAAAAAABtAA0ACgAAAAAAAABtABcACAAAAAAAAABtABgACAAAAAEAAABuAAAACAABAAAAAABuAAEACAABAAEAAABuAAsACgAAAAAAAABuAAwACgAAAAAAAABuAA0ACgAAAAAAAABuABcACAABAAAAAABuABgACAABAAEAAABvAAAACAACAAAAAABvAAEACAACAAEAAABvAAsACgAAAAAAAABvAAwACgAAAAAAAABvAA0ACgAAAAAAAABvABcACAACAAAAAABvABgACAACAAEAAABwAAAACAADAAAAAABwAAEACAADAAEAAABwAAsACgAAAAAAAABwAAwACgAAAAAAAABwAA0ACgAAAAAAAABwABcACAADAAAAAABwABgACAADAAEAAABxAAAACAAEAAAAAABxAAEACAAEAAEAAABxAAsACgAAAAAAAABxAAwACgAAAAAAAABxAA0ACgAAAAAAAABxABcACAAEAAAAAABxABgACAAEAAEAAAByAAAACAAFAAAAAAByAAEACAAFAAEAAAByAAsACgAAAAAAAAByAAwACgAAAAAAAAByAA0ACgAAAAAAAAByABcACAAFAAAAAAByABgACAAFAAEAAABzAAAACAAGAAAAAABzAAEACAAGAAEAAABzAAsACgAAAAAAAABzAAwACgAAAAAAAABzAA0ACgAAAAAAAABzABcACAAGAAAAAABzABgACAAGAAEAAAB0AAAACAAHAAAAAAB0AAEACAAHAAEAAAB0AAsACgAAAAAAAAB0AAwACgAAAAAAAAB0AA0ACgAAAAAAAAB0ABcACAAHAAAAAAB0ABgACAAHAAEAAAAEAAIABAAAAAAAAAAEAAMABAAAAAAAAAAEAAQABAAAAAAAAAAEAAUABAAAAAAAAAAEAAYABAAAAAAAAAAEAAcABAAAAAAAAAAEAAgABAAAAAAAAAAEAAkABAAAAAAAAAAEAAoABAAAAAAAAAAFAAIABAAAAAAAAAAFAAMABAAAAAAAAAAFAAQABAAAAAAAAAAFAAUABAAAAAAAAAAFAAYABAAAAAAAAAAFAAcABAAAAAAAAAAFAAgABAAAAAAAAAAFAAkABAAAAAAAAAAFAAoABAAAAAAAAAAEAA4ABAAAAAAAAAAEAA8ABAAAAAAAAAAEABAABAAAAAAAAAAEABEABAAAAAAAAAAEABIABAAAAAAAAAAEABMABAAAAAAAAAAEABQABAAAAAAAAAAEABUABAAAAAAAAAAEABYABAAAAAAAAAAFAA4ABAAAAAAAAAAFAA8ABAAAAAAAAAAFABAABAAAAAAAAAAFABEABAAAAAAAAAAFABIABAAAAAAAAAAFABMABAAAAAAAAAAFABQABAAAAAAAAAAFABUABAAAAAAAAAAFABYABAAAAAAAAAA=")
+tile_set = SubResource("TileSet_hmdni")
+navigation_enabled = false
+
+[node name="NextChunkOrigin" type="Node2D" parent="Land_layers_intro_chunk" unique_id=1622243041]
+position = Vector2(3744, 0)
+
+[node name="EndOfChunkArea" type="Area2D" parent="Land_layers_intro_chunk" unique_id=2003968260]
+position = Vector2(3325.0774, 73.02258)
+collision_layer = 131072
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Land_layers_intro_chunk/EndOfChunkArea" unique_id=609512487]
+position = Vector2(-255.05835, -4.022583)
+shape = SubResource("SegmentShape2D_pqmaj")
+
+[node name="Car" parent="." unique_id=2034565894 instance=ExtResource("73_demei")]
+position = Vector2(397.30237, 227.49011)
+skid_marks_path = NodePath("../SkidMarks")
+
+[node name="Camera2D" type="Camera2D" parent="Car" unique_id=131930234]
+z_index = 1
+zoom = Vector2(1.5, 1.5)
+process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_right = 500000
+limit_bottom = 1000
+limit_smoothed = true
+position_smoothing_enabled = true
+script = ExtResource("74_wwc4x")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1932136132]
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="Horde" type="Node2D" parent="." unique_id=992034029]
+
+[node name="Bullets" type="Node2D" parent="." unique_id=1946491604]
+z_as_relative = false
+y_sort_enabled = true
+
+[node name="SkidMarks" type="Node2D" parent="." unique_id=180617962]
+z_index = 10
+z_as_relative = false
+
+[node name="VFX" type="Node2D" parent="." unique_id=1933595906]
+z_index = 50
+
+[node name="Explosives" type="Node2D" parent="." unique_id=548224663]
+
+[node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
+script = ExtResource("77_lmb0e")
+ressource_scene = ExtResource("78_eql6j")
+nb_ressource = 10
+tilemap = NodePath("../Land_layers_intro_chunk/Roads")
+
+[node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
+multimesh = SubResource("MultiMesh_tc8sa")
+script = ExtResource("82_khwvp")
+sprite_texture = ExtResource("83_fjiln")
+
+[connection signal="timeout" from="CanvasLayer/Board/BoostGauge/BoostTimer" to="CanvasLayer/Board/BoostGauge" method="_on_boost_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Prelevelling/MainButtons/PrelevelingButton" to="CanvasLayer/Leveling" method="_on_preleveling_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Resume" to="CanvasLayer/Pause" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Commands" to="CanvasLayer/Pause" method="_on_commands_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/QuitToMenu" to="CanvasLayer/Pause" method="_on_quit_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Leveling/LevelingBkgd/MainButtons/Skip" to="CanvasLayer/Leveling" method="_on_skip_pressed"]
+[connection signal="pressed" from="CanvasLayer/NewSurvivor/YesNo/PickUp" to="CanvasLayer/NewSurvivor" method="_on_pick_up_pressed"]
+[connection signal="pressed" from="CanvasLayer/NewSurvivor/YesNo/Leave" to="CanvasLayer/NewSurvivor" method="_on_leave_pressed"]
+[connection signal="body_entered" from="Land_layers_intro_chunk/EndOfChunkArea" to="Land_layers_intro_chunk" method="_on_end_of_chunk_area_body_entered"]

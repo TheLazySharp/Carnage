@@ -11,8 +11,6 @@ var lucky_charms_scene:= "uid://ch2rp03kbdyg7"
 @onready var day_manager: Node = $"../DayManager"
 var day_ended:=false
 
-
-
 var game_paused:=false
 
 signal forward_only(car_ok : bool)
@@ -21,7 +19,7 @@ signal run_ended
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	day_manager.day_ended.connect(_on_day_ended)
+	SignalManager.day_time_end.connect(_on_day_ended)
 	collision_shape.set_deferred("disabled",true)
 	warp_zone.set_deferred("disabled",true)
 	car_ok = true
@@ -45,6 +43,7 @@ func _on_warp_zone_body_entered(body: Node2D) -> void:
 		sprite.play("closing")
 		car_ok = false
 		emit_signal("full_command", car_ok)
+		SignalManager.emit_signal("run_ended")
 		await get_tree().create_timer(3).timeout
 		emit_signal("run_ended")
 		SceneManager.load_level(lucky_charms_scene)

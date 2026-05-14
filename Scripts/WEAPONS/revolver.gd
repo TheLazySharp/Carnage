@@ -40,7 +40,7 @@ func _ready() -> void:
 	
 	revolver_data.init_stats()
 	
-	nb_ammo = revolver_data.nb_ammo.get_value()
+	nb_ammo = int(revolver_data.nb_ammo.get_value())
 	fire_rate.wait_time = revolver_data.fire_rate.get_value()
 	fire_range.shape.radius = revolver_data.radius.get_value()
 	revolver_data.fire_rate.stat_adjusted.connect(_on_fire_rate_modified)

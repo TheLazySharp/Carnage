@@ -35,3 +35,18 @@ signal selected_district(district : DistrictsData)
 
 @warning_ignore("unused_signal")
 signal selected_weapon(weapon : WeaponData, is_ammo : bool)
+
+@warning_ignore("unused_signal")
+signal instantiate_new_chunk(pos : Vector2)
+
+@warning_ignore("unused_signal")
+signal day_time_end(timer_stopped: bool)
+
+@warning_ignore("unused_signal")
+signal start_autopilot_transition
+
+@warning_ignore("unused_signal")
+signal end_autopilot_transition
+
+@warning_ignore("unused_signal")
+signal run_ended

@@ -24,6 +24,7 @@ func add_modifier(mod: Modifier) -> void:
 
 func add_temp_modifier(mod: Modifier) -> void:
 	mod.modifier_over.connect(_on_modifier_over)
+	TempStatManager.register(mod)
 	add_modifier(mod)
 
 func remove_modifiers_from(source: String) -> void:
@@ -53,7 +54,6 @@ func recalculate() -> void:
 	final_value = (flat_sum * (1.0 + percent_add_sum)) * percent_mult
 	dirty = false
 	emit_signal("stat_adjusted",final_value)
-	#print(self," new value : ",final_value)
 
 
 func preview_value(extra_mod: Modifier) -> float:
@@ -78,3 +78,4 @@ func preview_value(extra_mod: Modifier) -> float:
 func _on_modifier_over(mod: Modifier) -> void:
 	mod.modifier_over.disconnect(_on_modifier_over)
 	remove_modifier(mod)
+	TempStatManager.temp_modifiers.erase(mod)

@@ -73,7 +73,7 @@ func _ready() -> void:
 	max_life += level_life_boost * (TimeManager.current_day - 1)
 	current_life = max_life
 	SignalManager.game_paused.connect(_on_game_paused)
-	day_manager.day_ended.connect(_on_day_end)
+	SignalManager.day_time_end.connect(_on_day_end)
 	call_deferred("register_to_renderer")
 	#physics_skip_steps = randi() % 3
 

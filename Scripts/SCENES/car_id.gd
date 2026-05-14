@@ -8,6 +8,7 @@ var i : int
 
 var first_scene : String = "uid://c6msxridefxxd"
 var roadmap_scene : String = "uid://dsn18jy5k2in8"
+var intro_scene : String = "uid://dqfr2nck8fjao"
 var survivor_selection : String = "uid://cui5s6rmjs40o"
 
 @onready var select: Button = $"../VBoxContainer/Select"
@@ -49,7 +50,7 @@ func update_car_data() -> void:
 	
 func _on_select_pressed() -> void:
 	#CarManager.selected_car = displayed_car
-	SceneManager.load_level(roadmap_scene)
+	SceneManager.load_level(intro_scene)
 
 
 func _on_back_pressed() -> void:

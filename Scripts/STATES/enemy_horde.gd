@@ -16,7 +16,7 @@ var game_paused:=false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	day_manager.day_ended.connect(_on_day_ended)
+	SignalManager.day_time_end.connect(_on_day_ended)
 
 func enter()-> void:
 	randomize_wander()

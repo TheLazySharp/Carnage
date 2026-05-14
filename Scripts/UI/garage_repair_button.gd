@@ -34,16 +34,12 @@ func _ready() -> void:
 	new_stylebox.border_color = FontManager.dark_yellow
 	add_theme_stylebox_override("focus",new_stylebox)
 	
-	
-	
 	fuel_gauge.max_value = car.max_life.get_value()
 	fuel_gauge.value = StatsManager.current_life
 	parts_q.text = str(InventoryManager.auto_parts)
 
-
-
 func _process(_delta: float) -> void:
-	max_repair_cost = (car.max_life.get_value() - StatsManager.current_life) 
+	max_repair_cost = int((car.max_life.get_value() - StatsManager.current_life))
 	cost_str = str(max_repair_cost)
 	if max_repair_cost <= InventoryManager.auto_parts:
 		self.add_theme_color_override("font_color",Color.BLACK)

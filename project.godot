@@ -237,6 +237,7 @@ dash={
 2d_physics/layer_15="enemyHorde"
 2d_physics/layer_16="survivor"
 2d_physics/layer_17="Map"
+2d_physics/layer_18="raycast"
 
 [physics]
 

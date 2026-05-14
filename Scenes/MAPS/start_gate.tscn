@@ -15,7 +15,7 @@ b = Vector2(50, 54)
 size = Vector2(100, 110)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xk2sk"]
-size = Vector2(42, 88)
+size = Vector2(42, 95)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f7vu6"]
 atlas = ExtResource("1_t157o")
@@ -157,7 +157,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nokyq"]
-size = Vector2(10, 88)
+size = Vector2(10, 95)
 
 [node name="StartingGate" type="CharacterBody2D" unique_id=2130535962]
 collision_layer = 8
@@ -180,7 +180,7 @@ position = Vector2(-34, 0)
 collision_layer = 8
 
 [node name="WarpShape" type="CollisionShape2D" parent="WarpZone" unique_id=97822565]
-position = Vector2(11, 0)
+position = Vector2(11, 0.5)
 shape = SubResource("RectangleShape2D_xk2sk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1763816433]
@@ -192,7 +192,7 @@ autoplay = "opening"
 collision_layer = 8
 
 [node name="ExitShape" type="CollisionShape2D" parent="ExitZone" unique_id=788728747]
-position = Vector2(42, 0)
+position = Vector2(42, 1.5)
 shape = SubResource("RectangleShape2D_nokyq")
 
 [connection signal="body_entered" from="WarpZone" to="." method="_on_warp_zone_body_entered"]

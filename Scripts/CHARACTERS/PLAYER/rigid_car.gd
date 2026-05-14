@@ -48,7 +48,7 @@ var dmg_players : Array[AudioStreamPlayer]
 
 
 #SKID
-@export var skid_marks_path: NodePath
+@export var skid_marks_path: NodePath = "$/root/World/SkidMarks"
 @onready var skid_parent: Node2D = get_node(skid_marks_path)
 @onready var rear_left: Marker2D = $RearLeft
 @onready var rear_right: Marker2D = $RearRight
@@ -94,13 +94,13 @@ var is_taking_damages:=false
 var can_drive:=false
 @onready var ready_go: Label = $/root/World/CanvasLayer/Texts/ReadyGo
 signal start_time(game_start: bool)
-
+var road_map_scene : String = "uid://dsn18jy5k2in8"
 @onready var explosives: Node2D = $"../Explosives"
 
 
-@onready var gate: CharacterBody2D = $"../StartingGate"
+#@onready var gate: CharacterBody2D = $"../StartingGate"
 #var full_command : bool
-var forward_only : bool
+var forward_only : bool = false
 
 #UI
 var current_life: int
@@ -115,6 +115,16 @@ var current_life: int
 @onready var drivin_smoke_r_2: CPUParticles2D = $RearRight/DrivinSmokeR2
 @onready var drivin_smoke_l_2: CPUParticles2D = $RearLeft/DrivinSmokeL2
 @onready var flash: AnimationPlayer = $CarSprite/Flash
+
+# ---- AUTOPILOT ----
+enum AutopilotState { NONE, ZOOM, DRIVE, EXIT }
+var autopilot_state : AutopilotState = AutopilotState.NONE
+
+var autopilot_speed : float = 0.0
+var autopilot_exit_accel : float = 800.0
+var zoom_tween : Tween = null
+var autopilot_zoom_locked : bool = false
+var autopilot_target_zoom : float = 1.5
 
 
 func _input(event: InputEvent) -> void:
@@ -143,10 +153,13 @@ func _ready() -> void:
 	#WeaponsManager.test_weapons()
 	
 	SignalManager.game_paused.connect(_on_game_paused)
-	gate.full_command.connect(_on_full_command)
-	gate.forward_only.connect(_on_forward_only)
 	SignalManager.boost_gauge_is_full.connect(_on_boost_full)
-	gate.run_ended.connect(_on_run_ended)
+	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
+	SignalManager.end_autopilot_transition.connect(_on_exit_transition)
+	SignalManager.run_ended.connect(_on_run_ended)
+	#gate.full_command.connect(_on_full_command)
+	#gate.forward_only.connect(_on_forward_only)
+	#gate.run_ended.connect(_on_run_ended)
 	
 	#DRIVING
 	
@@ -205,8 +218,28 @@ func _process(_delta: float) -> void:
 		life_label.text = str(current_life) + "/" + str(int(max_life))
 	#update_stats()
 
-
 func _physics_process(delta : float) -> void:
+	if !game_paused and can_drive and !game_is_over:
+		match autopilot_state:
+			AutopilotState.NONE:
+				_process_player_inputs(delta)
+			AutopilotState.ZOOM:
+				_process_autopilot_zoom(delta)
+			AutopilotState.DRIVE:
+				_process_autopilot_drive(delta)
+			AutopilotState.EXIT:
+				_process_autopilot_exit(delta)
+
+# ----------------- CAMERA JUICE -----------------
+		if autopilot_state !=AutopilotState.EXIT:
+			camera_2d.update_lookahead(velocity)
+			if !autopilot_zoom_locked:
+				camera_2d.update_zoom(velocity.length())
+			#else :
+				#camera_2d.zoom = Vector2.ONE * autopilot_target_zoom
+
+
+func _process_player_inputs(delta : float) -> void : 
 	if !game_paused and can_drive and !game_is_over:
 		engine_sfx_player.update_engine_sfx(velocity.length(), revving_start)
 		player.drifting = drifting
@@ -420,19 +453,39 @@ func _physics_process(delta : float) -> void:
 		#VFX
 		if Input.is_action_just_pressed("accelerate") or Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") :
 			play_drivin_smokes()
-
-# ----------------- CAMERA JUICE -----------------
-		camera_2d.update_lookahead(velocity)
-		camera_2d.update_zoom(velocity.length())
-		#camera_2d.update_roll(get_drift_factor())
-
+			
 		if is_dashing:
 			if !game_paused:
 				dash_timer -= delta
 			if dash_timer <= 0:
 				end_dash()
 
+func _process_autopilot_zoom(delta : float) -> void:
+	var forward := Vector2.RIGHT.rotated(rotation)
+	velocity = velocity.move_toward(forward * player.max_speed.get_value(), 60.0 * delta)
+	var motion := velocity * delta
+	move_and_collide(motion)
+	engine_sfx_player.update_engine_sfx(velocity.length(), false)
 
+func _process_autopilot_drive(delta : float) -> void:
+	var forward := Vector2.RIGHT
+	rotation = lerp_angle(rotation, 0.0, 3.0 * delta) #heldp the car face right
+	autopilot_speed = move_toward(autopilot_speed, player.max_speed.get_value(), player.acceleration.get_value() * delta)
+	velocity = forward * autopilot_speed
+	var motion := velocity * delta
+	move_and_collide(motion)
+	engine_sfx_player.update_engine_sfx(velocity.length(), false)
+
+func _process_autopilot_exit(delta : float) -> void:
+	var forward := Vector2.RIGHT
+	rotation = lerp_angle(rotation, 0.0, 5.0 * delta)
+	autopilot_speed += autopilot_exit_accel * delta
+	velocity = forward * autopilot_speed
+	
+	var motion := velocity * delta
+	move_and_collide(motion)
+	engine_sfx_player.update_engine_sfx(velocity.length(), false)
+	
 func start_skid() -> void:
 	if !game_paused:
 		drift_sfx.play()
@@ -455,7 +508,6 @@ func start_skid() -> void:
 		last_right_pos = Vector2.ZERO
 		last_right_pos = Vector2.ZERO
 
-
 func create_skid_line() -> Array:
 	var border := Line2D.new()
 	border.width = 10
@@ -469,8 +521,6 @@ func create_skid_line() -> Array:
 	line.antialiased = true
 	line.z_index = -9
 	return [line,border]
-
-
 
 func fade_and_destroy(line: Line2D, border : Line2D) -> void:
 	if !game_paused:
@@ -486,14 +536,12 @@ func fade_and_destroy(line: Line2D, border : Line2D) -> void:
 		tween.tween_callback(line.queue_free)
 		tween.tween_callback(border.queue_free)
 
-
 func get_rear_center() -> Vector2:
 	return (rear_left.global_position + rear_right.global_position) * 0.5
 
-
 func _on_game_paused(game_on_pause :bool) -> void:
 	game_paused = game_on_pause
-	
+
 func get_damages_from_mob(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over and velocity.length() < velocity_floor:
 		is_taking_damages = true
@@ -513,7 +561,7 @@ func get_damages_from_mob(damages_on_player: int) -> void:
 			return
 			
 		if is_taking_damages:return
-		
+
 func get_damages(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over:
 		current_life -= damages_on_player
@@ -525,7 +573,6 @@ func get_damages(damages_on_player: int) -> void:
 			current_life = 0
 			on_death()
 			return
-
 
 func on_death() -> void:
 	can_drive = false
@@ -555,20 +602,16 @@ func on_death() -> void:
 		##text.this_label_text = "- " +str(damages)
 		##add_child(text)
 		##text.global_position = Vector2(damages_text_pos.global_position.x + text_offsetX, damages_text_pos.global_position.y + text_offsetY)
-#
-#
+
 func _on_taking_damages_timeout() -> void:
 	is_taking_damages = false
 	#animation_player.stop()
-
-
 
 func _on_body_parts_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:
 		if area.is_in_group("ennemies") and "get_damages" in area:
 			area.get_damages(roundi(player.dmg.get_value()))
 		else : return
-
 
 func _on_start_engine_finished() -> void:
 	can_drive = true
@@ -582,15 +625,13 @@ func _on_start_engine_finished() -> void:
 func _on_full_command(full_command : bool) -> void:
 	if !full_command:
 		can_drive = false
-		
+
 func _on_forward_only(car_only_forward : bool) -> void:
 	forward_only = car_only_forward
-	
 
 func angle_difference(from: float, to: float) -> float:
 	var diff := fmod(to - from, TAU)
 	return fmod(2.0 * diff, TAU) - diff
-
 
 func _on_rear_left_burn_anim_animation_finished() -> void:
 	if burning:
@@ -601,7 +642,6 @@ func _on_rear_left_burn_anim_animation_finished() -> void:
 		rear_left_burn_anim.stop()
 		rear_left_burn_anim.hide()
 
-
 func _on_rear_right_burn_animation_finished() -> void:
 	if burning:
 		rear_right_burn_anim.play('idle')
@@ -610,17 +650,15 @@ func _on_rear_right_burn_animation_finished() -> void:
 	if rear_right_burn_anim.animation == "fadeOut" and !burning:
 		rear_right_burn_anim.stop()
 		rear_right_burn_anim.hide()
-		
+
 func add_ghost()-> void: 
 	var ghost : Node2D = ghost_scene.instantiate()
 	ghost.set_property(position, scale, rotation)
 	get_tree().current_scene.add_child(ghost)
-	
-
 
 func _on_ghost_timer_timeout() -> void:
 	add_ghost()
-	
+
 func dash() -> void :
 	emit_signal("dashing")
 	can_dash = false
@@ -632,18 +670,17 @@ func dash() -> void :
 	camera_2d.screen_shake(12, 0.4)
 
 	var mod_dmg := Modifier.new(dash_dmg_bonus, Modifier.Type.PERCENT_MULT, "dmg_dash_bonus", player.dash_duration.get_value())
-	var mod_max_speed := Modifier.new(1.5, Modifier.Type.PERCENT_MULT, "max_speed_dash_modifier", player.dash_duration.get_value())
-	var mod_torque := Modifier.new(1.5, Modifier.Type.PERCENT_MULT, "torque_dash_modifier", player.dash_duration.get_value())
+	var mod_max_speed := Modifier.new(1.25, Modifier.Type.PERCENT_MULT, "max_speed_dash_modifier", player.dash_duration.get_value())
+	var mod_display_max_speed := Modifier.new(90, Modifier.Type.FLAT, "display_max_speed_dash_modifier", player.dash_duration.get_value())
+	var mod_torque := Modifier.new(2, Modifier.Type.PERCENT_MULT, "torque_dash_modifier", player.dash_duration.get_value())
 	player.dmg.add_temp_modifier(mod_dmg)
 	player.max_speed.add_temp_modifier(mod_max_speed)
-	player.display_max_speed.add_temp_modifier(mod_max_speed)
+	player.display_max_speed.add_temp_modifier(mod_display_max_speed)
 	player.acceleration.add_temp_modifier(mod_torque)
-	TempStatManager.register(mod_dmg)
-	TempStatManager.register(mod_max_speed)
-	TempStatManager.register(mod_torque)
+	
 	
 	var forward := Vector2.RIGHT.rotated(rotation)
-	velocity += forward * max_speed * 3
+	velocity += forward * player.max_speed.get_value()
 
 	original_friction = friction
 	friction = 10.0
@@ -651,17 +688,15 @@ func dash() -> void :
 	is_dashing = true
 	ghost_timer.start()
 
-
 func end_dash() -> void:
 	is_dashing = false
 	dash_timer = 0.0
 	friction = original_friction
 	ghost_timer.stop()
 
-
 func _on_boost_full() -> void:
 	can_dash = true
-	
+
 func damages_sfx()-> void : 
 	if game_paused or game_is_over:
 		return
@@ -673,7 +708,7 @@ func damages_sfx()-> void :
 func _on_run_ended() -> void:
 	StatsManager.current_life = current_life
 	#print("run ended : ",current_life)
-	
+
 func play_drivin_smokes() -> void : 
 	if game_paused or game_is_over:
 		return
@@ -687,3 +722,28 @@ func get_drift_factor() -> float:
 	var angle : float = forward.angle_to(velocity.normalized())
 	var factor : float = clamp(angle / deg_to_rad(20.0), -1.0, 1.0)
 	return factor
+
+func _on_autopilot_transition_start() -> void : 
+	autopilot_state = AutopilotState.ZOOM
+	autopilot_speed = velocity.length()
+	autopilot_zoom_locked = true
+	camera_2d.lookahead_strength = 0.0
+	camera_2d.lookahead_offset = Vector2.ZERO
+
+	if zoom_tween:
+		zoom_tween.kill()
+	zoom_tween = create_tween()
+	zoom_tween.tween_property(camera_2d, "target_zoom", autopilot_target_zoom, 2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	zoom_tween.tween_callback(_on_zoom_complete)
+
+func _on_zoom_complete() -> void:
+	autopilot_state = AutopilotState.DRIVE
+
+func _on_exit_transition() -> void : 
+	autopilot_state = AutopilotState.EXIT
+	autopilot_zoom_locked = false
+	camera_2d.top_level = true #camera fixed
+	camera_2d.global_position = global_position
+
+	await get_tree().create_timer(2.0).timeout
+	SceneManager.load_level(road_map_scene)

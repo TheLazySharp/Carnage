@@ -19,7 +19,7 @@ signal full_command(engine_on: bool)
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	day_manager.day_ended.connect(_on_day_ended)
+	SignalManager.day_time_end.connect(_on_day_ended)
 	collision_shape.set_deferred("disabled",true)
 	warp_zone.set_deferred("disabled",true)
 	car_ok = true

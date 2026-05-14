@@ -13,14 +13,16 @@ var close_far_threshold : float = 800
 var beeps_steps : float = 200
 
 
-
 func _ready() -> void:
-	survivors_spawner.beacon_activated.connect(_on_beacon_activated)
-	SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)
+	if survivors_spawner:
+		survivors_spawner.beacon_activated.connect(_on_beacon_activated)
+		SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)
 
 
 func _process(_delta: float) -> void:
-	if survivor_is_saved:
+	if survivor_is_saved or !survivors_spawner:
+		far_beeps.stop()
+		close_beeps.stop()
 		return
 	if get_distance_from_beacon() > 2000:
 		beep_timer.wait_time = 2

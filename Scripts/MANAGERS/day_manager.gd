@@ -7,7 +7,7 @@ extends Node
 #@onready var horde_animation: AnimationPlayer = $"../CanvasLayer/Texts/Horde/HordeAnimation"
 @onready var starting_gate: CharacterBody2D = $"../StartingGate"
 
-@onready var barb_wire_collision: CollisionShape2D = $"../BarbWire/BarbWireCollision"
+#@onready var barb_wire_collision: CollisionShape2D = $"../BarbWire/BarbWireCollision"
 
 
 @onready var world_environment: WorldEnvironment = $"../WorldEnvironment"
@@ -30,7 +30,7 @@ var game_start: bool = false
 
 var enemies_spawner_base_rate: float
 
-signal day_ended(timer_stopped: bool)
+#signal day_ended(timer_stopped: bool)
 
 func _ready() -> void:
 	player.start_time.connect(_on_game_start)
@@ -76,14 +76,15 @@ func _on_game_paused(game_on_pause : bool ) -> void:
 	
 func on_day_end() -> void:
 	timer_stopped = true
-	emit_signal("day_ended", timer_stopped)
+	SignalManager.emit_signal("day_time_end", timer_stopped)
 	SignalManager.emit_signal("day_ended")
 	garage_arrow.play("moving")
 	garage_arrow.show()
-	SignalManager.emit_signal("tuto_arrow_dir", starting_gate.global_position)
+	if starting_gate :
+		SignalManager.emit_signal("tuto_arrow_dir", starting_gate.global_position)
 	#horde.show()
 	#horde_animation.play("blinking")
-	barb_wire_collision.set_deferred("disabled", true)
+	#barb_wire_collision.set_deferred("disabled", true)
 
 func _on_game_start(game_has_started : bool) -> void:
 	game_start = game_has_started

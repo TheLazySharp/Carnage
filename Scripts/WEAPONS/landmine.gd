@@ -31,7 +31,7 @@ func _ready() -> void:
 	#_on_stats_updated()
 	
 	mine_data.init_stats()
-	damages = mine_data.dmg.get_value()
+	damages = int(mine_data.dmg.get_value())
 	
 
 func _process(_delta: float) -> void:

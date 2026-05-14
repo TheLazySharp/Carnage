@@ -6,7 +6,6 @@ var game_is_over:= false
 
 
 @onready var player: CharacterBody2D = $"../Car"
-@onready var day_manager: Node = $"../DayManager"
 @onready var pause_manager: Control = $"../CanvasLayer/Pause"
 @onready var leveling: Control = $"../CanvasLayer/Leveling"
 @onready var weapons_container: MarginContainer = $"../CanvasLayer/Leveling/WeaponsContainer"
@@ -19,7 +18,7 @@ var game_over_scene:= "uid://c6ue1qnj30p5b"
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	player.game_over.connect(_update_game_over)
-	day_manager.day_ended.connect(_on_day_end)
+	SignalManager.day_time_end.connect(_on_day_end)
 	pause_manager.quit_pause.connect(_update_ingame_pause)
 	SignalManager.game_paused.connect(_leveling_pause)
 	

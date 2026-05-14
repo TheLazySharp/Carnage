@@ -9,17 +9,17 @@ extends HBoxContainer
 
 
 
-
 func _ready() -> void:
 	wood_boxes_q.text = str(collectables.get_child_count())
 	gear_parts_q.text = str(InventoryManager.auto_parts)
-	zombies_q.text = str(enemies_manager.total_enemies)
+	if enemies_manager:
+		zombies_q.text = str(enemies_manager.total_enemies)
 	frags_q.text = str(StatsManager.frags)
 
 
 func _process(_delta: float) -> void:
 	wood_boxes_q.text = str(collectables.get_child_count())
 	gear_parts_q.text = str(InventoryManager.auto_parts)
-	zombies_q.text = str(enemies_manager.total_enemies)
+	if enemies_manager:
+		zombies_q.text = str(enemies_manager.total_enemies)
 	frags_q.text = str(StatsManager.frags)
-	

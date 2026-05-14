@@ -4,6 +4,7 @@ var scenes: Dictionary[String,String] = {
 	"MainMenu" : "uid://gmjjc1vmgcds",
 	"CarSelection" : "uid://b0ibe3gvcqm4q",
 	"GameOver" : "uid://c6ue1qnj30p5b",
+	"Start_intro" : "uid://dqfr2nck8fjao",
 	"EndDay" : "uid://dkpvtoel7hhai",
 	"Garage" : "uid://cs311xlcqlrt0",
 	"Tuto" : "uid://ci6t4884t7q6r",
@@ -18,7 +19,7 @@ var scenes: Dictionary[String,String] = {
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
 	DistrictsData.types.GARAGE :"uid://cs311xlcqlrt0",
 	DistrictsData.types.MISSION :"uid://c6msxridefxxd",
-	DistrictsData.types.PARKING :"uid://c6msxridefxxd",
+	DistrictsData.types.PARKING :"uid://df565yrwfqn1v",
 }
 
 #TEST = true

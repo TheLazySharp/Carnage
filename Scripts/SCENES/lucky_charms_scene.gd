@@ -22,7 +22,7 @@ var target_stat : Statistic
 func _ready() -> void:
 	new_button_group.pressed.connect(_on_new_charm_selected)
 	current_button_group.pressed.connect(_on_current_charm_selected)
-	max_life_on_ready = CarManager.selected_car.max_life.get_value()
+	max_life_on_ready = int(CarManager.selected_car.max_life.get_value())
 
 	if LuckyCharmsManager.shuffle_lucky_charms_ok :
 		LuckyCharmsManager.shuffle()

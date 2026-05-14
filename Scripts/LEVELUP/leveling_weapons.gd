@@ -120,6 +120,12 @@ func _process(_delta: float) -> void:
 					ammo_icon.get_parent().show()
 					ammo_icon.texture = weapons[i].weapon_ammo_res.weapon_icon
 				
+				else : 
+					ammo_name.hide()
+					ammo_levels.hide()
+					ammo_icon.get_parent().hide()
+					ammo_icon.texture = null
+				
 
 
 func level_up(new_current_level : int) -> void:

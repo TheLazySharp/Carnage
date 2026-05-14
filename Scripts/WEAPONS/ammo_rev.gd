@@ -28,7 +28,7 @@ func _ready() -> void:
 	max_lvl = bullet_data.max_level
 
 	bullet_data.init_stats()
-	damages = bullet_data.dmg.get_value()
+	damages = int(bullet_data.dmg.get_value())
 	max_range = bullet_data.atk_range.get_value()
 	speed = bullet_data.speed.get_value()
 	

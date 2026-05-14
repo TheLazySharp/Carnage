@@ -28,7 +28,7 @@ func _ready() -> void:
 	bullet_data.init_stats()
 	speed = bullet_data.speed.get_value()
 	max_range = bullet_data.atk_range.get_value()
-	damages = bullet_data.dmg.get_value()
+	damages = int(bullet_data.dmg.get_value())
 	
 	#_on_stats_updated()
 
