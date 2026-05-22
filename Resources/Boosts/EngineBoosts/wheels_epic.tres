@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://bjyo2yyblhs07"]
+
+[ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_jfaww"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_yrb4i"]
+
+[resource]
+script = ExtResource("2_yrb4i")
+name = "Wheels Boost"
+target_ressource = 1
+target_stats = Array[int]([15])
+target_stats_values = Array[float]([18.0])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_jfaww")
+rarity = 2
+metadata/_custom_type_script = "uid://71ta02ofykhp"

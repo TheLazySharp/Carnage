@@ -4,8 +4,8 @@
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="2_adfxj"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_adfxj"]
 [ext_resource type="Texture2D" uid="uid://dj5q528ksj8is" path="res://Assets/Characters/Cars/cab.png" id="3_jggmw"]
-[ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="4_1ftow"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_eaf6p"]
+[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="6_adfxj"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="7_kfmjd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cx0hi"]
@@ -118,16 +118,16 @@ grow_vertical = 2
 texture = ExtResource("3_jggmw")
 stretch_mode = 5
 
-[node name="Parts" type="TextureRect" parent="." unique_id=1649896609]
+[node name="Fortune" type="TextureRect" parent="." unique_id=1649896609]
 layout_mode = 0
 offset_left = 672.0
 offset_top = 184.0
 offset_right = 765.0
 offset_bottom = 275.0
-texture = ExtResource("4_1ftow")
+texture = ExtResource("6_adfxj")
 stretch_mode = 5
 
-[node name="PartsQuantity" type="Label" parent="Parts" unique_id=1544805412]
+[node name="FortuneQuantity" type="Label" parent="Fortune" unique_id=1544805412]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

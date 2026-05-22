@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://dbjho30cytfku"]
+
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="1_0ftgv"]
+[ext_resource type="Script" uid="uid://cjmpxygt3u2ah" path="res://Scripts/UI/boost.gd" id="1_ucdma"]
+[ext_resource type="Resource" uid="uid://bd0gfid5eh63h" path="res://Resources/Boosts/rare_turbo.tres" id="2_gis18"]
+[ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="2_ucdma"]
+[ext_resource type="Texture2D" uid="uid://b0qia31ffr14m" path="res://Assets/Items/turbo.png" id="3_gis18"]
+[ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="4_ucdma"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85oou"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hs08e"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qb4p"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygkm8"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[node name="Boost" type="Control" unique_id=188465822]
+custom_minimum_size = Vector2(210, 200)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ucdma")
+boost = ExtResource("2_gis18")
+
+[node name="Confirm" type="Button" parent="." unique_id=1154624133]
+custom_minimum_size = Vector2(210, 210)
+layout_mode = 1
+offset_right = 210.0
+offset_bottom = 210.0
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_85oou")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hs08e")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_0qb4p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ygkm8")
+script = ExtResource("2_ucdma")
+
+[node name="Card" type="ColorRect" parent="Confirm" unique_id=1070041603]
+clip_contents = true
+custom_minimum_size = Vector2(140, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 1, 1)
+
+[node name="PanelColor" type="ColorRect" parent="Confirm/Card" unique_id=601843425]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Confirm/Card/PanelColor" unique_id=1773501115]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -2.0
+offset_right = 91.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Name" type="Label" parent="Confirm/Card/PanelColor/VBoxContainer" unique_id=1115629901]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 16
+text = "Turbo boost"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_ucdma")
+
+[node name="Modification0" type="HBoxContainer" parent="Confirm/Card/PanelColor/VBoxContainer" unique_id=1380889084]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat0" type="Label" parent="Confirm/Card/PanelColor/VBoxContainer/Modification0" unique_id=101890211]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 16
+text = "Acceleration"
+vertical_alignment = 1
+script = ExtResource("4_ucdma")
+
+[node name="Bonus0" type="Label" parent="Confirm/Card/PanelColor/VBoxContainer/Modification0" unique_id=917540312]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 16
+text = "+ 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_ucdma")
+
+[node name="Modification1" type="HBoxContainer" parent="Confirm/Card/PanelColor/VBoxContainer" unique_id=1207355616]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat1" type="Label" parent="Confirm/Card/PanelColor/VBoxContainer/Modification1" unique_id=1141864717]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 16
+text = "Fuel"
+vertical_alignment = 1
+script = ExtResource("4_ucdma")
+
+[node name="Bonus1" type="Label" parent="Confirm/Card/PanelColor/VBoxContainer/Modification1" unique_id=1515309438]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 16
+text = "+ 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_ucdma")
+
+[node name="IconBkg" type="ColorRect" parent="Confirm/Card" unique_id=1970320811]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -86.0
+offset_right = 37.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="Confirm/Card/IconBkg" unique_id=1397811881]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gis18")
+expand_mode = 2

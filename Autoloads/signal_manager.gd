@@ -22,6 +22,9 @@ signal game_paused(game_on_pause: bool)
 signal piston_picked_up
 
 @warning_ignore("unused_signal")
+signal dollar_picked_up
+
+@warning_ignore("unused_signal")
 signal player_located(horde: Array)
 
 @warning_ignore("unused_signal")
@@ -50,3 +53,12 @@ signal end_autopilot_transition
 
 @warning_ignore("unused_signal")
 signal run_ended
+
+@warning_ignore("unused_signal")
+signal stats_updated
+
+@warning_ignore("unused_signal")
+signal upgrades_ok
+
+@warning_ignore("unused_signal")
+signal update_fortune

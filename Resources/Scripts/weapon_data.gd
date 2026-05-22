@@ -18,7 +18,7 @@ enum Stats_Types {
 @export_group("GLOBAL INFO")
 @export var weapon_name : String
 @export var weapon_icon: Texture2D
-@export var weapon_is_active:=true
+@export var weapon_is_active := true
 @export var max_level : int
 @export var description : String
 @export var type_1 : WeaponsManager.Type
@@ -87,7 +87,7 @@ func fire_rate_formula(level_preview : int) -> float :
 
 func cool_down_formula(level_preview : int) -> float : 
 	var stat_bonus : int = current_level if tar_up_stat == Stats_Types.COOL_DOWN else 0
-	return (base_cool_down - (stat_bonus + level_preview) * 0.1)
+	return (base_cool_down + (stat_bonus + level_preview) * 0.1)
 
 func radius_formula(_level_preview : int) -> float : 
 	#var stat_bonus : int = current_level if tar_up_stat == Stats_Types.DMG else 0
@@ -132,65 +132,40 @@ func init_stats() -> void :
 		Stats_Types.SPEED_ROTATION : speed_rotation
 	}
 
-
 func get_target_upgrade_stat() -> Statistic :
 	match self.tar_up_stat:
-		Stats_Types.DMG :
-			return dmg
-		Stats_Types.FIRE_RATE :
-			return fire_rate
-		Stats_Types.NB_AMMO :
-			return nb_ammo
-		Stats_Types.RANGE :
-			return atk_range
-		Stats_Types.RADIUS :
-			return radius
-		Stats_Types.COOL_DOWN :
-			return cool_down
-		Stats_Types.SPEED :
-			return speed
-		Stats_Types.SPEED_ROTATION :
-			return speed_rotation
+		Stats_Types.DMG : return dmg
+		Stats_Types.FIRE_RATE : return fire_rate
+		Stats_Types.NB_AMMO : return nb_ammo
+		Stats_Types.RANGE : return atk_range
+		Stats_Types.RADIUS : return radius
+		Stats_Types.COOL_DOWN : return cool_down
+		Stats_Types.SPEED : return speed
+		Stats_Types.SPEED_ROTATION : return speed_rotation
 	return null
 	
 func get_target_stat_new_value(level_preview : int) -> float :
 	match self.tar_up_stat:
-		Stats_Types.DMG :
-			return dmg_formula(level_preview)
-		Stats_Types.FIRE_RATE :
-			return fire_rate_formula(level_preview)
-		Stats_Types.NB_AMMO :
-			return nb_ammo_formula(level_preview)
-		Stats_Types.RANGE :
-			return atk_range_formula(level_preview)
-		Stats_Types.RADIUS :
-			return radius_formula(level_preview)
-		Stats_Types.COOL_DOWN :
-			return cool_down_formula(level_preview)
-		Stats_Types.SPEED :
-			return speed_formula(level_preview)
-		Stats_Types.SPEED_ROTATION :
-			return speed_rotation_formula(level_preview)
+		Stats_Types.DMG : return dmg_formula(level_preview)
+		Stats_Types.FIRE_RATE : return fire_rate_formula(level_preview)
+		Stats_Types.NB_AMMO : return nb_ammo_formula(level_preview)
+		Stats_Types.RANGE : return atk_range_formula(level_preview)
+		Stats_Types.RADIUS : return radius_formula(level_preview)
+		Stats_Types.COOL_DOWN : return cool_down_formula(level_preview)
+		Stats_Types.SPEED : return speed_formula(level_preview)
+		Stats_Types.SPEED_ROTATION : return speed_rotation_formula(level_preview)
 	return 0
 
 func get_weapon_stat(stat : Stats_Types) -> Statistic :
 	match stat:
-		Stats_Types.DMG :
-			return dmg
-		Stats_Types.FIRE_RATE :
-			return fire_rate
-		Stats_Types.NB_AMMO :
-			return nb_ammo
-		Stats_Types.RANGE :
-			return atk_range
-		Stats_Types.RADIUS :
-			return radius
-		Stats_Types.COOL_DOWN :
-			return cool_down
-		Stats_Types.SPEED :
-			return speed
-		Stats_Types.SPEED_ROTATION :
-			return speed_rotation
+		Stats_Types.DMG : return dmg
+		Stats_Types.FIRE_RATE : return fire_rate
+		Stats_Types.NB_AMMO : return nb_ammo
+		Stats_Types.RANGE : return atk_range
+		Stats_Types.RADIUS : return radius
+		Stats_Types.COOL_DOWN : return cool_down
+		Stats_Types.SPEED : return speed
+		Stats_Types.SPEED_ROTATION : return speed_rotation
 	return null
 
 

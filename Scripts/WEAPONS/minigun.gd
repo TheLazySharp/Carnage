@@ -52,7 +52,7 @@ func _ready() -> void:
 	raycastON = true
 	muzzle_flash.hide()
 
-	minigun_data.init_stats()
+	#minigun_data.init_stats()
 	nb_ammo = minigun_data.nb_ammo.get_value()
 	timer.wait_time = minigun_data.fire_rate.get_value()
 	

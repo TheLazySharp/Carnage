@@ -837,7 +837,7 @@ collision_layer = 131072
 shape = SubResource("SegmentShape2D_pqmaj")
 
 [node name="StartAutopilot" type="Area2D" parent="." unique_id=319094011]
-position = Vector2(5.7434387, 63.17103)
+position = Vector2(156.7273, 66.72728)
 collision_layer = 131072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartAutopilot" unique_id=904051011]

@@ -2,8 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_qe1gh"]
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="2_pneeb"]
-[ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="3_fbx6p"]
-[ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Assets/Audio/Song/fight-for-the-future-336841.mp3" id="4_n0sny"]
+[ext_resource type="PackedScene" uid="uid://bbsq7ymxlm20s" path="res://Scenes/MANAGERS/audio_manager.tscn" id="3_pneeb"]
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="5_hmsud"]
 [ext_resource type="Texture2D" uid="uid://cm864gogrroh8" path="res://Shaders/daynightcycle-gradient-texture.tres" id="6_5ea3q"]
 [ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="7_pow3l"]
@@ -48,15 +47,14 @@
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="43_sto3m"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="44_ln03g"]
 [ext_resource type="Script" uid="uid://dt6l27r7qstkk" path="res://Scripts/UI/UI_container.gd" id="45_iutc8"]
-[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="46_xvo12"]
 [ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="47_atflo"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="48_2o1b0"]
-[ext_resource type="Texture2D" uid="uid://cjhmsjsxoggch" path="res://Assets/UI/zombie_icon.png" id="49_iqd6f"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="50_f2w51"]
 [ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="51_cccp0"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_mp5nn"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="53_bbk8f"]
 [ext_resource type="Script" uid="uid://bsc7r81ttmpl6" path="res://Scripts/UI/preleveling_label.gd" id="54_7whpa"]
+[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="54_kl0nl"]
 [ext_resource type="Script" uid="uid://bcrbhuf4ic2fu" path="res://Scripts/UI/preleveling_icon.gd" id="55_kjgm7"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="56_k8s36"]
 [ext_resource type="Script" uid="uid://dgjjb27shy4tk" path="res://Scripts/SCENES/pause.gd" id="57_ja7w2"]
@@ -80,11 +78,11 @@
 [ext_resource type="Script" uid="uid://cut6npligxxy7" path="res://Scripts/SPAWNERS/survivor_spawner.gd" id="75_307np"]
 [ext_resource type="PackedScene" uid="uid://bqpy6ahyrnpd0" path="res://Scenes/CHARACTERS/survivor_in_game.tscn" id="76_4lsee"]
 [ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="77_7oukm"]
-[ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/piston.tscn" id="78_ww6i8"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="79_83n8t"]
 [ext_resource type="PackedScene" uid="uid://drgsya7gbwrgk" path="res://Scenes/MAPS/start_gate.tscn" id="80_o7i3x"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="81_y7yqb"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="82_4v767"]
+[ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="83_5ea3q"]
 [ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="83_qqsvh"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
@@ -1198,7 +1196,9 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tc8sa"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nt7v7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osy7x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3smgn"]
 
@@ -1421,26 +1421,7 @@ blend_mode = 2
 [node name="EnemiesManager" type="Node2D" parent="." unique_id=996312644]
 script = ExtResource("2_pneeb")
 
-[node name="AudioManager" type="Node" parent="." unique_id=680998745]
-script = ExtResource("3_fbx6p")
-
-[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="AudioManager" unique_id=1185666460]
-stream = ExtResource("4_n0sny")
-volume_db = -15.0
-autoplay = true
-bus = &"Music"
-
-[node name="ItemsSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=719959990]
-bus = &"SFX"
-
-[node name="ItemsSfx2" type="AudioStreamPlayer" parent="AudioManager" unique_id=1832490216]
-bus = &"SFX"
-
-[node name="ItemsSfx3" type="AudioStreamPlayer" parent="AudioManager" unique_id=2087352590]
-bus = &"SFX"
-
-[node name="LevelUpSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=911291854]
-bus = &"SFX"
+[node name="AudioManager" parent="." unique_id=121741402 instance=ExtResource("3_pneeb")]
 
 [node name="DayManager" type="Node" parent="." unique_id=862331373]
 script = ExtResource("5_hmsud")
@@ -1887,50 +1868,19 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Parts/MarginContainer" unique_id=525821561]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Parts/MarginContainer" unique_id=255664678]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 24
 script = ExtResource("45_iutc8")
 
-[node name="Woodboxes" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=895745046]
-visible = false
+[node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1007908952]
 custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nt7v7")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=1247610902]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("46_xvo12")
-stretch_mode = 3
-
-[node name="WoodBoxesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=283158505]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -27.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
-grow_vertical = 0
-text = "10"
-horizontal_alignment = 2
-script = ExtResource("41_deqxr")
-
-[node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=2016834968]
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_tc8sa")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1724909694]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1564307233]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1940,7 +1890,7 @@ grow_vertical = 2
 texture = ExtResource("47_atflo")
 stretch_mode = 3
 
-[node name="GearPartsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=800221824]
+[node name="GearPartsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1801570011]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1958,43 +1908,50 @@ text = "1800"
 horizontal_alignment = 2
 script = ExtResource("41_deqxr")
 
-[node name="Zombies" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=442404506]
-visible = false
+[node name="Dollar" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=609149628]
 custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nt7v7")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1336951058]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1672568784]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("49_iqd6f")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("54_kl0nl")
 stretch_mode = 3
 
-[node name="ZombiesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1534381154]
+[node name="DollarQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1751902233]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
+offset_left = -25.0
+offset_top = -1.3333359
+offset_right = 25.0
+offset_bottom = 15.0
+grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("48_2o1b0")
 text = "1800"
 horizontal_alignment = 2
 script = ExtResource("41_deqxr")
 
-[node name="Frags" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1605674456]
+[node name="Frags" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1414573419]
 custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_osy7x")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=243522061]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=1537777942]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2004,7 +1961,7 @@ grow_vertical = 2
 texture = ExtResource("50_f2w51")
 stretch_mode = 3
 
-[node name="FragsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=15311325]
+[node name="FragsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=896568205]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -4092,7 +4049,7 @@ tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
 script = ExtResource("77_7oukm")
-ressource_scene = ExtResource("78_ww6i8")
+ressource_scene = ExtResource("83_5ea3q")
 tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Spawners" type="Node2D" parent="." unique_id=483220455]

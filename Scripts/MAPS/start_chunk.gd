@@ -5,6 +5,7 @@ extends Node2D
 
 @onready var next_chunk_origin: Node2D = $NextChunkOrigin
 @onready var chunks: Node2D = $"../Chunks"
+@onready var end_of_chunk_area: Area2D = $EndOfChunkArea
 
 var nb_chunk : int = 0
 var max_chunks : int = 1
@@ -16,6 +17,8 @@ func _ready() -> void:
 func _on_end_of_chunk_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		_instantiate_new_chunk(next_chunk_origin.global_position)
+		end_of_chunk_area.queue_free()
+		
 
 func _instantiate_new_chunk(pos : Vector2) -> void : 
 	if nb_chunk < max_chunks:

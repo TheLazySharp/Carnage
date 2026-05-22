@@ -85,6 +85,6 @@ func apply_charm_modifier(lucky_charm : LuckyCharmData) -> void :
 		print("car max life : ",CarManager.selected_car.max_life.get_value())
 	
 	if lucky_charm.target_ressource == lucky_charm.Target_Ressources.WEAPONS or lucky_charm.target_ressource == lucky_charm.Target_Ressources.AMMOS:
-		for i in WeaponsManager.WEAPONS_TYPES[lucky_charm.weapon_type].size():
+		for i : int in WeaponsManager.WEAPONS_TYPES[lucky_charm.weapon_type].size():
 			var weapon : WeaponData = WeaponsManager.WEAPONS_TYPES[lucky_charm.weapon_type][i]
 			weapon.get_weapon_stat(lucky_charm.target_weapon_stat).add_modifier(new_mod)

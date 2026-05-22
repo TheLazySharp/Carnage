@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://csc4lrpt806dt"]
+
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="1_ud3cc"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_s3pu3"]
+[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="3_s3pu3"]
+
+[resource]
+script = ExtResource("2_s3pu3")
+name = "Revolver Ammo"
+target_ressource = 3
+target_weapon = ExtResource("3_s3pu3")
+target_stats = Array[int]([1])
+target_stats_values = Array[float]([2.0])
+target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 6
+icon = ExtResource("1_ud3cc")
+metadata/_custom_type_script = "uid://71ta02ofykhp"

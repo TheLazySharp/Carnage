@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://jfjjptcvei6w"]
+
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="1_ucctu"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_8paws"]
+[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="3_8paws"]
+
+[resource]
+script = ExtResource("2_8paws")
+name = "Revolver"
+target_ressource = 2
+target_weapon = ExtResource("3_8paws")
+target_stats = Array[int]([2])
+target_stats_values = Array[float]([0.3])
+target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 6
+icon = ExtResource("1_ucctu")
+metadata/_custom_type_script = "uid://71ta02ofykhp"

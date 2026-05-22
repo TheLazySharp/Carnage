@@ -2,7 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_x7fhx"]
 [ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="3_6i41r"]
+[ext_resource type="AudioStream" uid="uid://bipt7o4e4wmwu" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_1.mp3" id="4_bkdks"]
 [ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Assets/Audio/Song/fight-for-the-future-336841.mp3" id="4_jtdx0"]
+[ext_resource type="AudioStream" uid="uid://cccc8w73e5n8n" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_2.mp3" id="5_ssv0m"]
+[ext_resource type="AudioStream" uid="uid://dmljyagbi5tx7" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_3.mp3" id="6_x7fhx"]
 [ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="7_2abip"]
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="8_r6aci"]
 [ext_resource type="Texture2D" uid="uid://tlhptwaxxjid" path="res://Assets/Tilsets/g_terrain1.png" id="10_28dbs"]
@@ -18,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bks38teh85dtk" path="res://Assets/Tilsets/road_32x32H.png" id="20_6gdc0"]
 [ext_resource type="Texture2D" uid="uid://523fcj0rkldk" path="res://Assets/Tilsets/road_cut_32x32.png" id="21_dl8cx"]
 [ext_resource type="Texture2D" uid="uid://ddyqvd8lrr5nv" path="res://Assets/Tilsets/road_cut_32x32H.png" id="22_aiu1o"]
+[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="22_f70s4"]
 [ext_resource type="Texture2D" uid="uid://krble3ht5j42" path="res://Assets/Props/building1.png" id="23_jrkt8"]
 [ext_resource type="Texture2D" uid="uid://ccl4k8q0lsm1" path="res://Assets/Props/building3.png" id="24_hx2je"]
 [ext_resource type="Texture2D" uid="uid://vug670ojdoom" path="res://Assets/Props/building4.png" id="25_hg3cs"]
@@ -41,11 +45,9 @@
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="43_lrtv0"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="44_64gpc"]
 [ext_resource type="Script" uid="uid://dt6l27r7qstkk" path="res://Scripts/UI/UI_container.gd" id="45_u62sb"]
-[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="46_pnyll"]
 [ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="47_lp1el"]
 [ext_resource type="PackedScene" uid="uid://ckoqhy4sim6in" path="res://Scenes/MAPS/CHUNKS/transition_chunk.tscn" id="48_ib6wv"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="48_nuvlj"]
-[ext_resource type="Texture2D" uid="uid://cjhmsjsxoggch" path="res://Assets/UI/zombie_icon.png" id="49_d6diu"]
 [ext_resource type="Script" uid="uid://ccjkoqqvm15xm" path="res://Scripts/MAPS/start_chunk.gd" id="49_ib6wv"]
 [ext_resource type="PackedScene" uid="uid://dpvgn5xgrajpp" path="res://Scenes/MAPS/CHUNKS/intro_chunk.tscn" id="50_f70s4"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="50_r5ffa"]
@@ -74,8 +76,8 @@
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="72_qyrel"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="73_demei"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="74_wwc4x"]
+[ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="76_ib6wv"]
 [ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="77_lmb0e"]
-[ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/piston.tscn" id="78_eql6j"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="82_khwvp"]
 [ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="83_fjiln"]
 
@@ -84,6 +86,12 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.91
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_d38m8"]
+streams_count = 3
+stream_0/stream = ExtResource("4_bkdks")
+stream_1/stream = ExtResource("5_ssv0m")
+stream_2/stream = ExtResource("6_x7fhx")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0a5o"]
 bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)
@@ -280,6 +288,8 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tc8sa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bkdks"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3smgn"]
 
@@ -1302,6 +1312,10 @@ bus = &"SFX"
 [node name="LevelUpSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=911291854]
 bus = &"SFX"
 
+[node name="CoinsSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=1817477740]
+stream = SubResource("AudioStreamRandomizer_d38m8")
+bus = &"SFX"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
 
 [node name="FPS" type="Label" parent="CanvasLayer" unique_id=1730762821]
@@ -1709,37 +1723,6 @@ size_flags_horizontal = 0
 theme_override_constants/separation = 24
 script = ExtResource("45_u62sb")
 
-[node name="Woodboxes" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=895745046]
-visible = false
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=1247610902]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("46_pnyll")
-stretch_mode = 3
-
-[node name="WoodBoxesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=283158505]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -27.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
-grow_vertical = 0
-text = "10"
-horizontal_alignment = 2
-script = ExtResource("41_lfu7u")
-
 [node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=2016834968]
 custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
@@ -1773,33 +1756,42 @@ text = "1800"
 horizontal_alignment = 2
 script = ExtResource("41_lfu7u")
 
-[node name="Zombies" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=442404506]
-visible = false
+[node name="Dollar" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=553020304]
 custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bkdks")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1336951058]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1107063943]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -18.0
+offset_right = 51.0
+offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("49_d6diu")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("22_f70s4")
 stretch_mode = 3
 
-[node name="ZombiesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1534381154]
+[node name="DollarQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1049473638]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
+offset_left = -25.0
+offset_top = -1.3333359
+offset_right = 25.0
+offset_bottom = 15.0
+grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("48_nuvlj")
 text = "1800"
 horizontal_alignment = 2
 script = ExtResource("41_lfu7u")
@@ -3936,7 +3928,7 @@ z_index = 50
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
 script = ExtResource("77_lmb0e")
-ressource_scene = ExtResource("78_eql6j")
+ressource_scene = ExtResource("76_ib6wv")
 nb_ressource = 10
 tilemap = NodePath("../Land_layers_intro_chunk/Roads")
 

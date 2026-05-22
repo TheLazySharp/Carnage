@@ -402,7 +402,7 @@ func _on_upgrades_confirm_pressed() -> void:
 	InventoryManager.auto_parts -= total_upgrade_cost
 	total_upgrade_cost = 0
 	base_available_upgrades = XPManager.available_upgrades
-	StatsManager.current_life += int(car.max_life.get_value() - base_fuel)
+	car.current_life += int(car.max_life.get_value() - base_fuel)
 	
 	
 	base_fuel = int(car.max_life.get_value())

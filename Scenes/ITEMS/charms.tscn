@@ -1,0 +1,269 @@
+[gd_scene format=3 uid="uid://cb1yy61nlopw3"]
+
+[ext_resource type="Script" uid="uid://syohadttghhk" path="res://Scripts/ITEMS/charm.gd" id="1_0f4r6"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="2_e42c0"]
+[ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="3_fxvtb"]
+[ext_resource type="Texture2D" uid="uid://dmrml5clvddsu" path="res://Assets/LuckyCharms/magic_tree_gre.png" id="4_0f4r6"]
+[ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="4_0t8jm"]
+[ext_resource type="Script" uid="uid://dimcwppccsqal" path="res://Scripts/FONTS/GUI_sold_out.gd" id="7_idmyv"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="8_ecmis"]
+[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="9_rhj3i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hs08e"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qb4p"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygkm8"]
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[node name="Charms" type="Control" unique_id=188465822]
+custom_minimum_size = Vector2(580, 120)
+layout_direction = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 580.0
+offset_bottom = 120.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_0f4r6")
+
+[node name="Confirm" type="Button" parent="." unique_id=1154624133]
+custom_minimum_size = Vector2(425, 120)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.73310226
+anchor_bottom = 1.0
+offset_right = -0.1993103
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_e42c0")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hs08e")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_0qb4p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ygkm8")
+script = ExtResource("3_fxvtb")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Confirm" unique_id=2099998874]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Card" type="ColorRect" parent="Confirm/MarginContainer" unique_id=1070041603]
+clip_contents = true
+layout_mode = 2
+color = Color(1, 0, 1, 1)
+
+[node name="PanelColor" type="ColorRect" parent="Confirm/MarginContainer/Card" unique_id=601843425]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1970320811]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_top = -37.0
+offset_right = 76.0
+offset_bottom = 37.0
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="Confirm/MarginContainer/Card/PanelColor/IconBkg" unique_id=1397811881]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_0f4r6")
+expand_mode = 2
+
+[node name="Name" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1115629901]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.5
+offset_top = 4.0
+offset_right = 74.5
+offset_bottom = 20.333336
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_e42c0")
+theme_override_font_sizes/font_size = 16
+text = "Magic Tree Green"
+vertical_alignment = 1
+script = ExtResource("4_0t8jm")
+
+[node name="Rarity" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=127947413]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 69.5
+offset_top = 4.0
+offset_right = 192.5
+offset_bottom = 20.333336
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_e42c0")
+theme_override_font_sizes/font_size = 16
+text = "Legendary"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("4_0t8jm")
+
+[node name="Description" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1111204753]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.5
+offset_top = 32.0
+offset_right = 189.5
+offset_bottom = 93.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_e42c0")
+theme_override_font_sizes/font_size = 16
+text = "The car is invicible for 1 sec when hit by enemies
+Cool down : 7 sec"
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("4_0t8jm")
+
+[node name="SoldOut" type="ColorRect" parent="Confirm/MarginContainer" unique_id=1664175286]
+visible = false
+clip_contents = true
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PanelColor" type="ColorRect" parent="Confirm/MarginContainer/SoldOut" unique_id=1126565455]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15294118, 0.15294118, 0.15294118, 0.9647059)
+
+[node name="Name" type="Label" parent="Confirm/MarginContainer/SoldOut/PanelColor" unique_id=246179523]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_e42c0")
+theme_override_font_sizes/font_size = 48
+text = "SOLD OUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_idmyv")
+
+[node name="NotEnoughCash" type="ColorRect" parent="Confirm/MarginContainer" unique_id=250199873]
+visible = false
+clip_contents = true
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PanelColor" type="ColorRect" parent="Confirm/MarginContainer/NotEnoughCash" unique_id=252743751]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15294118, 0.15294118, 0.15294118, 0.9647059)
+
+[node name="Text" type="Label" parent="Confirm/MarginContainer/NotEnoughCash/PanelColor" unique_id=169512475]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_e42c0")
+theme_override_font_sizes/font_size = 48
+text = "Not enough cash"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("7_idmyv")
+
+[node name="Price" type="HBoxContainer" parent="." unique_id=1913280125]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 432.0
+offset_top = -32.0
+offset_right = 572.0
+offset_bottom = 32.0
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTag" type="Label" parent="Price" unique_id=149250085]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_e42c0")
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("8_ecmis")
+
+[node name="TextureRect" type="TextureRect" parent="Price" unique_id=93938517]
+layout_mode = 2
+texture = ExtResource("9_rhj3i")
+stretch_mode = 3
+
+[connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]

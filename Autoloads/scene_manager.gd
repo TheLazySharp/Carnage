@@ -13,13 +13,17 @@ var scenes: Dictionary[String,String] = {
 	"Commands" : "uid://dayxnnf2ndx5c",
 	"Missions" : "uid://dc6hb14w0yref",
 	"Survivors" : "uid://cui5s6rmjs40o",
-	"RoadMap" : "uid://dsn18jy5k2in8"
+	"RoadMap" : "uid://dsn18jy5k2in8",
+	"Shop" : "uid://cvogwsu4e47t0",
+	"Home" : "uid://cvkxdbb1u1tw0"
 }
+
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
 	DistrictsData.types.GARAGE :"uid://cs311xlcqlrt0",
 	DistrictsData.types.MISSION :"uid://c6msxridefxxd",
 	DistrictsData.types.PARKING :"uid://df565yrwfqn1v",
+	DistrictsData.types.SHOP :"uid://cvogwsu4e47t0"
 }
 
 #TEST = true
@@ -44,3 +48,4 @@ func unload_game() -> void:
 	TimeManager.unload()
 	RoadMapManager.unload()
 	SurvivorsManager.unload()
+	ShopManager.unload()

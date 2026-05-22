@@ -36,13 +36,14 @@ var single_shot_weapons : Array[WeaponData] = []
 var burst_shot_weapons : Array[WeaponData] = []
 var elemental_weapons : Array[WeaponData] = []
 
-var WEAPONS_TYPES : Dictionary[Type,Array] = {
+var WEAPONS_TYPES : Dictionary = {
 	Type.SHORT_RANGE : short_range_weapons,
 	Type.LONG_RANGE : long_range_weapons,
 	Type.EXPLOSIVE : explosive_weapons,
 	Type.SINGLE_SHOT : single_shot_weapons,
 	Type.BURST_SHOT : burst_shot_weapons,
-	Type.ELEMENTAL : elemental_weapons
+	Type.ELEMENTAL : elemental_weapons,
+	Type.N_A : [null]
 }
 
 func _ready() -> void:
@@ -83,6 +84,21 @@ func check_weapons() -> void:
 func copy_weapons() -> Array :
 	return weapons
 
+func equip_weapon(new_weapon: WeaponData) -> void:
+	for i in weapon_scenes.size():
+		if weapon_scenes[i][1] == new_weapon.weapon_scene_uid:
+			var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
+			init_weapon(new_weapon)
+			get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
+			break
+
+func equip_ammo() -> void:
+	if !weapons.is_empty() and ammunitions.is_empty():
+		for i in weapons.size():
+			var weapon_to_reload : WeaponData = weapons[i]
+			if weapon_to_reload.weapon_ammo_res !=null:
+				init_ammo(weapon_to_reload.weapon_ammo_res)
+
 func init_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = true
 	new_weapon.weapon_is_active = true
@@ -110,36 +126,13 @@ func locked_weapon(new_weapon: WeaponData) -> void:
 	new_weapon.is_equiped = false
 	unequipped_weapons.append(new_weapon)
 
-func equip_weapon(new_weapon: WeaponData) -> void:
-	for i in weapon_scenes.size():
-		if weapon_scenes[i][1] == new_weapon.weapon_scene_uid:
-			var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
-			get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
-			init_weapon(new_weapon)
-			break
 
 
-func equip_ammo() -> void:
-	if !weapons.is_empty() and ammunitions.is_empty():
-		for i in weapons.size():
-			var weapon_to_reload : WeaponData = weapons[i]
-			#if weapon_to_reload.weapon_ammo_res !=null and weapon_to_reload.weapon_ammo_scene != null:
-			if weapon_to_reload.weapon_ammo_res !=null:
-				init_ammo(weapon_to_reload.weapon_ammo_res)
 
 
 func unequip_ammo() -> void:
 	ammunitions.clear()
 	
-
-#func shuffle_new_weapon(new_current_level : int) -> void:
-	#player_current_level = new_current_level
-	##if player_current_level % 2 == 0 : 
-	#if unequipped_weapons.size()>0:
-		#unequipped_weapons.shuffle()
-		#emit_signal("new_weapon_data", unequipped_weapons[0], unequipped_weapons, true)
-	##else: return
-
 
 func unload() -> void:
 	for i in weapons.size():
@@ -162,6 +155,7 @@ func instantiate_weapons() -> void:
 		for j in weapons.size():
 			if scene[1] == weapons[j].weapon_scene_uid:
 				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
+				#weapons[j].init_stats()
 				get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
 				#print(new_weapon_scene," is instantiated")
 

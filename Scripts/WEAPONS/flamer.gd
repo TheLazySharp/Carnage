@@ -4,8 +4,6 @@ extends Area2D
 var damages : int
 var damages_upgrade : int
 
-
-#var cool_down : float
 var current_lvl : int
 var max_lvl : int
 var enemies_can_burn: bool = false
@@ -21,7 +19,6 @@ var targets: Array[Node2D]
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_pol: CollisionPolygon2D = $CollisionPolygon2D
 
-#@onready var fire_rate: Timer = $FireRate
 @onready var burn_rate: Timer = $BurnRate
 
 var game_paused:=false
@@ -29,14 +26,13 @@ var game_paused:=false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	StatsManager.stats_updated.connect(_on_stats_updated)
 
 	max_lvl = flamer_data.max_level
 	flame_sfx.stream = flamer_data.weapon_sfx
 	
 	#_on_stats_updated()
 	
-	flamer_data.init_stats()
+	#flamer_data.init_stats()
 	damages = int(flamer_data.dmg.get_value())
 
 func _process(_delta: float) -> void:
@@ -120,13 +116,3 @@ func desactivate() -> void:
 	burning = false
 	enemies_can_burn = false
 	targets.clear()
-
-func _on_stats_updated() -> void : 
-	pass
-	#current_lvl = clampi(flamer_data.current_level,0,max_lvl)
-	#damages = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.elemental_dmg_bonus)
-	#damages_upgrade = flamer_data.coeff_dmg * roundi(flamer_data.base_dmg + ((current_lvl + 1) * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.elemental_dmg_bonus)
-	#flamer_data.dmg = damages
-	#flamer_data.dmg_upgrade = damages_upgrade
-	#fire_rate.wait_time = flamer_data.base_fire_rate * LuckyCharmsManager.all_fire_rate_bonus * LuckyCharmsManager.elemental_fire_rate_bonus
-	#cool_down = flamer_data.base_cool_down

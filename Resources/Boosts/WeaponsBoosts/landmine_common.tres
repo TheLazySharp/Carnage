@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://jgbp675avpvv"]
+
+[ext_resource type="Texture2D" uid="uid://8mov6qwwya8t" path="res://Assets/weapons/landmine.png" id="1_sx0rj"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_mste3"]
+[ext_resource type="Resource" uid="uid://cxd60bmbatyvi" path="res://Resources/Weapons/mine_launcher.tres" id="3_mste3"]
+
+[resource]
+script = ExtResource("2_mste3")
+name = "Landmine"
+target_ressource = 3
+target_weapon = ExtResource("3_mste3")
+target_stats = Array[int]([1])
+target_stats_values = Array[float]([1.0])
+target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 6
+icon = ExtResource("1_sx0rj")
+metadata/_custom_type_script = "uid://71ta02ofykhp"

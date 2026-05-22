@@ -103,7 +103,7 @@ var road_map_scene : String = "uid://dsn18jy5k2in8"
 var forward_only : bool = false
 
 #UI
-var current_life: int
+#var current_life: int
 @onready var life_bar: ProgressBar = $"../CanvasLayer/Board/FuelGauge"
 @onready var life_label: Label = $"../CanvasLayer/Board/FuelGauge/LifeLabel"
 @onready var taking_damages: Timer = $TakingDamages
@@ -163,7 +163,7 @@ func _ready() -> void:
 	
 	#DRIVING
 	
-	max_backward_speed = roundi(max_speed * 0.4)
+	max_backward_speed = roundi(max_speed * 0.8)
 	
 	
 	friction = player.friction
@@ -197,15 +197,15 @@ func _ready() -> void:
 	#VFX
 	car_sprite.texture = player.car_sprite
 	if TimeManager.current_day == 1 : 
-		current_life = int(max_life)
+		player.current_life = int(max_life)
 		#print("ready day 1: ",current_life)
 		
-	else : 
-		current_life = StatsManager.current_life
+	#else : 
+		#current_life = StatsManager.current_life
 		#print("ready day >1: ",current_life)
 	life_bar.max_value = max_life
-	life_bar.value = current_life
-	life_label.text = str(current_life) + "/" + str(int(max_life))
+	life_bar.value = player.current_life
+	life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
 	
 	if visible:
 		ready_go.show()
@@ -215,7 +215,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if !game_paused:
 		speed_label.text  = str(roundi(velocity.length()/player.max_speed.get_value() * player.display_max_speed.get_value()))
-		life_label.text = str(current_life) + "/" + str(int(max_life))
+		life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
 	#update_stats()
 
 func _physics_process(delta : float) -> void:
@@ -471,7 +471,7 @@ func _process_autopilot_drive(delta : float) -> void:
 	var forward := Vector2.RIGHT
 	rotation = lerp_angle(rotation, 0.0, 3.0 * delta) #heldp the car face right
 	autopilot_speed = move_toward(autopilot_speed, player.max_speed.get_value(), player.acceleration.get_value() * delta)
-	velocity = forward * autopilot_speed
+	velocity = (forward * autopilot_speed).limit_length(player.max_speed.get_value())
 	var motion := velocity * delta
 	move_and_collide(motion)
 	engine_sfx_player.update_engine_sfx(velocity.length(), false)
@@ -480,7 +480,7 @@ func _process_autopilot_exit(delta : float) -> void:
 	var forward := Vector2.RIGHT
 	rotation = lerp_angle(rotation, 0.0, 5.0 * delta)
 	autopilot_speed += autopilot_exit_accel * delta
-	velocity = forward * autopilot_speed
+	velocity = (forward * autopilot_speed).limit_length(player.max_speed.get_value() + 30)
 	
 	var motion := velocity * delta
 	move_and_collide(motion)
@@ -545,18 +545,18 @@ func _on_game_paused(game_on_pause :bool) -> void:
 func get_damages_from_mob(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over and velocity.length() < velocity_floor:
 		is_taking_damages = true
-		current_life -= damages_on_player
+		player.current_life -= damages_on_player
 		sparkles.emitting = true
 		damages_sfx()
-		life_bar.value = current_life
+		life_bar.value = player.current_life
 		#display_damages(damages_on_player)
 		#print("car get ",damages_on_player," dmg. Current life : ",str(current_life))
 		#animation_player.play("beaver_animations/flash")
 		flash.play("flash")
 		taking_damages.start()
 		
-		if current_life <=0:
-			current_life = 0
+		if player.current_life <=0:
+			player.current_life = 0
 			on_death()
 			return
 			
@@ -564,13 +564,13 @@ func get_damages_from_mob(damages_on_player: int) -> void:
 
 func get_damages(damages_on_player: int) -> void:
 	if not game_paused and !game_is_over:
-		current_life -= damages_on_player
-		life_bar.value = current_life
+		player.current_life -= damages_on_player
+		life_bar.value = player.current_life
 		sparkles.emitting = true
 		flash.play("flash")
 
-		if current_life <=0:
-			current_life = 0
+		if player.current_life <=0:
+			player.current_life = 0
 			on_death()
 			return
 
@@ -706,7 +706,8 @@ func damages_sfx()-> void :
 			return
 
 func _on_run_ended() -> void:
-	StatsManager.current_life = current_life
+	pass
+	#StatsManager.current_life = player.current_life
 	#print("run ended : ",current_life)
 
 func play_drivin_smokes() -> void : 

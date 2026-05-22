@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DollarData" format=3 uid="uid://ydtnmpfplfvu"]
+
+[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="1_k0hsx"]
+[ext_resource type="Script" uid="uid://82ivicqxl1j7" path="res://Resources/Scripts/dollar_data.gd" id="2_0d66f"]
+
+[resource]
+script = ExtResource("2_0d66f")
+item_name = "Five Dollar"
+icon = ExtResource("1_k0hsx")
+value = 5
+rarity = 1
+metadata/_custom_type_script = "uid://82ivicqxl1j7"

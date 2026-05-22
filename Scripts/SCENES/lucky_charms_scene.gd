@@ -63,7 +63,7 @@ func _on_confirm_pressed() -> void:
 	LuckyCharmsManager.shuffle_lucky_charms_ok =  true
 	LuckyCharmsManager.add_lucky_charm_ok = true
 	if max_life_on_ready < CarManager.selected_car.max_life.get_value():
-		StatsManager.current_life += roundi((CarManager.selected_car.max_life.get_value() -  max_life_on_ready))
+		player.current_life += roundi((CarManager.selected_car.max_life.get_value() -  max_life_on_ready))
 	SceneManager.load_level(garage_scene)
 
 func _on_skip_pressed() -> void:

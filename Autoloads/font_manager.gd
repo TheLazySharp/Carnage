@@ -6,7 +6,8 @@ enum types {
 	BUTTON,BUTTON_FOCUS,BUTTON_PRESSED,BUTTON_HOVER,
 	TEXT,TEXT_TITLE,TEXT_TITLE_LOW,
 	UX,UX_M,UX_S,UX_XS,
-	SFX
+	VFX,
+	SOLD_OUT
 }
 
 const BUTTON_ICON = preload("uid://bqlx6iu4ihme6")
@@ -42,5 +43,8 @@ var FONTS : Dictionary = {
 	types.UX_S:[preload("uid://ka3caedu5yxc"),32,Color.WHITE],
 	types.UX_XS:[preload("uid://ka3caedu5yxc"),16,Color.WHITE],
 	
-	types.SFX:[preload("uid://ka3caedu5yxc"),32,dark_yellow],
+	types.VFX:[preload("uid://ka3caedu5yxc"),32,dark_yellow],
+	
+	types.SOLD_OUT:[preload("uid://ka3caedu5yxc"),48,Color.RED],
+	
 }

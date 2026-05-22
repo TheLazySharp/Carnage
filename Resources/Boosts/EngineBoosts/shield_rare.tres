@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://o6d75wr36o5d"]
+
+[ext_resource type="Texture2D" uid="uid://d2w71xk7jn5yn" path="res://Assets/Items/shield.png" id="1_xo72u"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_727w1"]
+
+[resource]
+script = ExtResource("2_727w1")
+name = "Shield Boost"
+target_ressource = 1
+target_stats = Array[int]([11, 9])
+target_stats_values = Array[float]([13.0, -9.0])
+target_stats_modifier_types = Array[int]([0, 0])
+icon = ExtResource("1_xo72u")
+rarity = 1
+metadata/_custom_type_script = "uid://71ta02ofykhp"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://cfu8gxkhor7a5"]
+
+[ext_resource type="Texture2D" uid="uid://b0qia31ffr14m" path="res://Assets/Items/turbo.png" id="1_efsm3"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="1_qdnqy"]
+
+[resource]
+script = ExtResource("1_qdnqy")
+name = "Turbo Boost"
+target_ressource = 1
+target_stats = Array[int]([9])
+target_stats_values = Array[float]([5.0])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_efsm3")
+metadata/_custom_type_script = "uid://71ta02ofykhp"

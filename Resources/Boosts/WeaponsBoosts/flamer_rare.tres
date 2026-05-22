@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://dmlcx71vi7myu"]
+
+[ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="1_wo1lh"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_ucpkf"]
+[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flamer.tres" id="3_2s30w"]
+
+[resource]
+script = ExtResource("2_ucpkf")
+name = "Flamer"
+target_ressource = 2
+target_weapon = ExtResource("3_2s30w")
+target_stats = Array[int]([1])
+target_stats_values = Array[float]([4.0])
+target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 6
+icon = ExtResource("1_wo1lh")
+rarity = 1
+metadata/_custom_type_script = "uid://71ta02ofykhp"

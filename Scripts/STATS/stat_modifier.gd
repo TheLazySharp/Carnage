@@ -5,6 +5,7 @@ enum Type {
 	FLAT,
 	PERCENT_ADD,
 	PERCENT_MULT,
+	N_A
 }
 
 var value: float

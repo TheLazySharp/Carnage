@@ -30,7 +30,7 @@ func _ready() -> void:
 	
 	#_on_stats_updated()
 	
-	mine_data.init_stats()
+	#mine_data.init_stats()
 	damages = int(mine_data.dmg.get_value())
 	
 

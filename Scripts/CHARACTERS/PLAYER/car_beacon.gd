@@ -17,6 +17,7 @@ func _ready() -> void:
 	if survivors_spawner:
 		survivors_spawner.beacon_activated.connect(_on_beacon_activated)
 		SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)
+		SignalManager.game_paused.connect(_on_game_paused)
 
 
 func _process(_delta: float) -> void:
@@ -62,4 +63,12 @@ func _on_beep_timer_timeout() -> void:
 		far_beeps.play()
 	else : 
 		close_beeps.play()
+	
+func _on_game_paused(game_paused : bool) -> void :
+	if game_paused:
+		close_beeps.stop()
+		far_beeps.stop()
+	else : 
+		close_beeps.play()
+		far_beeps.play()
 	

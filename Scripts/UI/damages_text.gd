@@ -1,12 +1,12 @@
 extends Label
 
 var damage_label_tween : Tween
-var font_sfx : Array = FontManager.FONTS[FontManager.types.SFX]
+var font_vfx : Array = FontManager.FONTS[FontManager.types.VFX]
 
 func _ready() -> void:
-	add_theme_font_override("font",font_sfx[0])
-	add_theme_font_size_override("font_size",font_sfx[1])
-	add_theme_color_override("font_color",font_sfx[2])
+	add_theme_font_override("font",font_vfx[0])
+	add_theme_font_size_override("font_size",font_vfx[1])
+	add_theme_color_override("font_color",font_vfx[2])
 	
 	SignalManager.game_paused.connect(_on_game_paused)
 	damage_label_tween = get_tree().create_tween()

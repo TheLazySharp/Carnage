@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://db7ji7qvilci0"]
+
+[ext_resource type="Texture2D" uid="uid://ct3fv10tajqes" path="res://Assets/weapons/minigun.png" id="1_wmwhn"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_s2w2r"]
+[ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/minigun.tres" id="3_32a8t"]
+
+[resource]
+script = ExtResource("2_s2w2r")
+name = "Minigun Ammo"
+target_ressource = 3
+target_weapon = ExtResource("3_32a8t")
+target_stats = Array[int]([1])
+target_stats_values = Array[float]([4.0])
+target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 6
+icon = ExtResource("1_wmwhn")
+rarity = 1
+metadata/_custom_type_script = "uid://71ta02ofykhp"

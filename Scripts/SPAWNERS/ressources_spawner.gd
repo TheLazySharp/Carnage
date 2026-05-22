@@ -8,7 +8,8 @@ extends Node2D
 
 
 func _ready() -> void:
-	spawn_ressources()
+	#spawn_ressources()
+	pass
 
 
 func spawn_ressources() -> void : 

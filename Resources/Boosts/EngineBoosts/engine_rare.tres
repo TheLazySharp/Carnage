@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://vydcpyr47y13"]
+
+[ext_resource type="Texture2D" uid="uid://ch2tpu8vunnsk" path="res://Assets/Items/engine.png" id="1_q0hrt"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_j1x6q"]
+
+[resource]
+script = ExtResource("2_j1x6q")
+name = "Engine Boost"
+target_ressource = 1
+target_stats = Array[int]([10])
+target_stats_values = Array[float]([10.0])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_q0hrt")
+rarity = 1
+metadata/_custom_type_script = "uid://71ta02ofykhp"

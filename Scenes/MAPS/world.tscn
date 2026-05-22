@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="1_1cojt"]
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_5ukr8"]
-[ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="1_ux4l1"]
-[ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Assets/Audio/Song/fight-for-the-future-336841.mp3" id="3_07qvx"]
+[ext_resource type="PackedScene" uid="uid://bbsq7ymxlm20s" path="res://Scenes/MANAGERS/audio_manager.tscn" id="2_nvqlg"]
 [ext_resource type="Script" uid="uid://bdiix0s1bmolp" path="res://Scripts/UI/xp_bar.gd" id="3_yq1aw"]
 [ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="4_pyn1s"]
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="5_no8kt"]
@@ -40,8 +39,6 @@
 [ext_resource type="Texture2D" uid="uid://cxoune2ptoi3r" path="res://Assets/Props/wall_V.png" id="24_gq5tr"]
 [ext_resource type="Script" uid="uid://dpkkxegm8kor1" path="res://Scripts/UI/fps.gd" id="24_ow65e"]
 [ext_resource type="Script" uid="uid://dt6l27r7qstkk" path="res://Scripts/UI/UI_container.gd" id="27_yi0q0"]
-[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="28_ux4l1"]
-[ext_resource type="Texture2D" uid="uid://cjhmsjsxoggch" path="res://Assets/UI/zombie_icon.png" id="31_hp83p"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="32_ow65e"]
 [ext_resource type="Script" uid="uid://bsc7r81ttmpl6" path="res://Scripts/UI/preleveling_label.gd" id="34_sl775"]
 [ext_resource type="Script" uid="uid://bcrbhuf4ic2fu" path="res://Scripts/UI/preleveling_icon.gd" id="35_5brd2"]
@@ -56,7 +53,6 @@
 [ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="41_sl775"]
 [ext_resource type="Script" uid="uid://ddqkvhoijl1y2" path="res://Scripts/UI/boost_gauge.gd" id="41_tc8sa"]
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="42_7jfna"]
-[ext_resource type="PackedScene" uid="uid://dcsapykrdl5tf" path="res://Scenes/ITEMS/piston.tscn" id="43_gq5tr"]
 [ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/LEVELUP/leveling_weapons.gd" id="43_hp83p"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="44_o24rt"]
 [ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/LEVELUP/leveling_ammos.gd" id="46_hp83p"]
@@ -66,6 +62,7 @@
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="50_ow65e"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="51_3smgn"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="51_4n5nh"]
+[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="51_kkvuv"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="52_hp83p"]
 [ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="52_vrsns"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="53_mqqx4"]
@@ -83,6 +80,7 @@
 [ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="67_yrs1u"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="70_bva4u"]
 [ext_resource type="Script" uid="uid://b1o0peai48kvj" path="res://Scripts/LEVELUP/level_up_stats.gd" id="71_kkvuv"]
+[ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="80_kkvuv"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
 background_mode = 3
@@ -1637,29 +1635,10 @@ blend_mode = 2
 
 [node name="game_manager" parent="." unique_id=1855230744 instance=ExtResource("1_5ukr8")]
 
+[node name="AudioManager" parent="." unique_id=121741402 instance=ExtResource("2_nvqlg")]
+
 [node name="EnemiesManager" type="Node2D" parent="." unique_id=996312644]
 script = ExtResource("50_ow65e")
-
-[node name="AudioManager" type="Node" parent="." unique_id=680998745]
-script = ExtResource("1_ux4l1")
-
-[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="AudioManager" unique_id=1185666460]
-stream = ExtResource("3_07qvx")
-volume_db = -15.0
-autoplay = true
-bus = &"Music"
-
-[node name="ItemsSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=719959990]
-bus = &"SFX"
-
-[node name="ItemsSfx2" type="AudioStreamPlayer" parent="AudioManager" unique_id=1832490216]
-bus = &"SFX"
-
-[node name="ItemsSfx3" type="AudioStreamPlayer" parent="AudioManager" unique_id=2087352590]
-bus = &"SFX"
-
-[node name="LevelUpSfx" type="AudioStreamPlayer" parent="AudioManager" unique_id=911291854]
-bus = &"SFX"
 
 [node name="DayManager" type="Node" parent="." unique_id=862331373]
 script = ExtResource("1_1cojt")
@@ -2120,37 +2099,6 @@ size_flags_horizontal = 0
 theme_override_constants/separation = 24
 script = ExtResource("27_yi0q0")
 
-[node name="Woodboxes" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=895745046]
-visible = false
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=1247610902]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("28_ux4l1")
-stretch_mode = 3
-
-[node name="WoodBoxesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Woodboxes" unique_id=283158505]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -27.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
-grow_vertical = 0
-text = "10"
-horizontal_alignment = 2
-script = ExtResource("42_7jfna")
-
 [node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=2016834968]
 custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
@@ -2184,33 +2132,40 @@ text = "1800"
 horizontal_alignment = 2
 script = ExtResource("42_7jfna")
 
-[node name="Zombies" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=442404506]
-visible = false
+[node name="Dollar" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1762287505]
 custom_minimum_size = Vector2(40, 32)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tc8sa")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1336951058]
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1274438251]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("31_hp83p")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("51_kkvuv")
 stretch_mode = 3
 
-[node name="ZombiesQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies" unique_id=1534381154]
+[node name="DollarQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1416661665]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -7.999996
-offset_bottom = 3.6666718
-grow_horizontal = 0
+offset_left = -25.0
+offset_top = -1.3333359
+offset_right = 25.0
+offset_bottom = 15.0
+grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("44_o24rt")
 text = "1800"
 horizontal_alignment = 2
 script = ExtResource("42_7jfna")
@@ -4318,7 +4273,7 @@ tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
 script = ExtResource("52_vrsns")
-ressource_scene = ExtResource("43_gq5tr")
+ressource_scene = ExtResource("80_kkvuv")
 tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Spawners" type="Node2D" parent="." unique_id=483220455]

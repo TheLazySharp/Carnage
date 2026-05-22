@@ -23,9 +23,14 @@ var car : CarData
 
 
 func _ready() -> void:
+	##-----------TEST ------------
+	#CarManager.selected_car = CarManager.SEDAN
+	#CarManager.selected_car.init_stats()
+	
 	car = CarManager.selected_car
 	update_stats()
 	self.visibility_changed.connect(update_stats)
+	SignalManager.stats_updated.connect(_on_stats_updated)
 
 
 func update_stats() -> void : 
@@ -33,6 +38,7 @@ func update_stats() -> void :
 		return
 	else : 
 		car = CarManager.selected_car
+
 	
 	fuel_lvl.text = str(roundi(car.max_life.get_value()))
 	speed_lvl.text = str(roundi(car.display_max_speed.get_value()))
@@ -45,4 +51,7 @@ func update_stats() -> void :
 
 
 func _on_visibility_changed() -> void:
+	update_stats()
+
+func _on_stats_updated() -> void:
 	update_stats()

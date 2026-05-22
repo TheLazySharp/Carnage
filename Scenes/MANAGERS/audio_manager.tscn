@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bbsq7ymxlm20s"]
+
+[ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="1_flqku"]
+[ext_resource type="AudioStream" uid="uid://b28krh0rhm66i" path="res://Assets/Audio/Song/fight-for-the-future-336841.mp3" id="2_hnt1v"]
+[ext_resource type="AudioStream" uid="uid://bipt7o4e4wmwu" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_1.mp3" id="3_h4ams"]
+[ext_resource type="AudioStream" uid="uid://cccc8w73e5n8n" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_2.mp3" id="4_v35k5"]
+[ext_resource type="AudioStream" uid="uid://dmljyagbi5tx7" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_3.mp3" id="5_cghkq"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uvxr1"]
+streams_count = 3
+stream_0/stream = ExtResource("3_h4ams")
+stream_1/stream = ExtResource("4_v35k5")
+stream_2/stream = ExtResource("5_cghkq")
+
+[node name="AudioManager" type="Node" unique_id=121741402]
+script = ExtResource("1_flqku")
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1935494431]
+stream = ExtResource("2_hnt1v")
+volume_db = -15.0
+autoplay = true
+bus = &"Music"
+
+[node name="ItemsSfx" type="AudioStreamPlayer" parent="." unique_id=710638166]
+bus = &"SFX"
+
+[node name="ItemsSfx2" type="AudioStreamPlayer" parent="." unique_id=1165479382]
+bus = &"SFX"
+
+[node name="ItemsSfx3" type="AudioStreamPlayer" parent="." unique_id=1398607836]
+bus = &"SFX"
+
+[node name="LevelUpSfx" type="AudioStreamPlayer" parent="." unique_id=93205513]
+bus = &"SFX"
+
+[node name="CoinsSfx" type="AudioStreamPlayer" parent="." unique_id=1332624269]
+stream = SubResource("AudioStreamRandomizer_uvxr1")
+bus = &"SFX"

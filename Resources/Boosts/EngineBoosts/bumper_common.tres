@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://dpd83dad37goh"]
+
+[ext_resource type="Texture2D" uid="uid://bmgonqrvktc7g" path="res://Assets/Items/front_gear.png" id="1_qc8im"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_f0dhd"]
+
+[resource]
+script = ExtResource("2_f0dhd")
+name = "Bumper Boost"
+target_ressource = 1
+target_stats = Array[int]([13])
+target_stats_values = Array[float]([0.5])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_qc8im")
+metadata/_custom_type_script = "uid://71ta02ofykhp"

@@ -97,7 +97,7 @@ var drift_turn_bonus : Statistic
 var stat_modifiers : Array[Modifier] = []
 @warning_ignore("unused_signal")
 signal stat_adjusted(stat : Statistic )
-
+var current_life : int 
 
 func init_stats() -> void:
 	engine_lvl = 0
@@ -119,28 +119,19 @@ func init_stats() -> void:
 	collect_radius = Statistic.new(base_collect_radius)
 	display_max_speed = Statistic.new(base_display_max_speed)
 	drift_turn_bonus = Statistic.new(base_drift_turn_bonus)
-	
+
 
 	
 func get_car_stat(stat : Car_Stats) -> Statistic:
 	match stat:
-		Car_Stats.ACCELERATION:
-			return acceleration
-		Car_Stats.MAX_SPEED:
-			return max_speed
-		Car_Stats.MAX_LIFE:
-			return max_life
-		Car_Stats.DMG:
-			return dmg
-		Car_Stats.DASH_DMG_BONUS:
-			return dash_dmg_bonus
-		Car_Stats.DASH_DURATION:
-			return dash_duration
-		Car_Stats.NITRO_UP:
-			return nitro_up
-		Car_Stats.COLLECT_RADIUS:
-			return collect_radius
-		Car_Stats.DRIFT_TURN_BONUS:
-			return drift_turn_bonus
+		Car_Stats.ACCELERATION: return acceleration
+		Car_Stats.MAX_SPEED: return max_speed
+		Car_Stats.MAX_LIFE: return max_life
+		Car_Stats.DMG: return dmg
+		Car_Stats.DASH_DMG_BONUS: return dash_dmg_bonus
+		Car_Stats.DASH_DURATION: return dash_duration
+		Car_Stats.NITRO_UP: return nitro_up
+		Car_Stats.COLLECT_RADIUS: return collect_radius
+		Car_Stats.DRIFT_TURN_BONUS: return drift_turn_bonus
 	return null
 	

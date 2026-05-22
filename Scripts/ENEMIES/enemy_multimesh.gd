@@ -35,6 +35,7 @@ var side_impact_ratio: float = 0.3
 var front_impact_ratio: float = -1.2
 
 @export var xp_scene: PackedScene
+@export var dollar_scene: PackedScene
 
 # UI
 @onready var damages_text_pos: Marker2D = get_node("MarkerDamages")
@@ -235,7 +236,14 @@ func on_death() -> void:
 
 		var xp := xp_scene.instantiate()
 		get_parent().add_child(xp)
-		xp.spawn(global_position)
+		xp.launch_spawn(global_position)
+
+		var dollar := dollar_scene.instantiate()
+		get_parent().add_child(dollar)
+		dollar.launch_spawn(global_position)
+		
+		
+
 
 		StatsManager.frags += 1
 

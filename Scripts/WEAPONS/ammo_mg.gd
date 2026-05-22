@@ -25,7 +25,7 @@ func _ready() -> void:
 	StatsManager.stats_updated.connect(_on_stats_updated)
 	max_lvl = bullet_data.max_level
 	
-	bullet_data.init_stats()
+	#bullet_data.init_stats()
 	speed = bullet_data.speed.get_value()
 	max_range = bullet_data.atk_range.get_value()
 	damages = int(bullet_data.dmg.get_value())

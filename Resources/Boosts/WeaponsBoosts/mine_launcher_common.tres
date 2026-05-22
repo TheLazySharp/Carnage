@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://dk0j2xe4yfde5"]
+
+[ext_resource type="Texture2D" uid="uid://dgnvhqoy4xb3a" path="res://Assets/weapons/mine_launcher.png" id="1_wjel6"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_nvjfe"]
+[ext_resource type="Resource" uid="uid://cxd60bmbatyvi" path="res://Resources/Weapons/mine_launcher.tres" id="3_wjel6"]
+
+[resource]
+script = ExtResource("2_nvjfe")
+name = "Mine Launcher"
+target_ressource = 2
+target_weapon = ExtResource("3_wjel6")
+target_stats = Array[int]([6])
+target_stats_values = Array[float]([-0.1])
+target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 6
+icon = ExtResource("1_wjel6")
+metadata/_custom_type_script = "uid://71ta02ofykhp"

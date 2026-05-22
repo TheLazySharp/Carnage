@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://d1kxt1otl2rfy"]
+
+[ext_resource type="Texture2D" uid="uid://gg32ihj14fcq" path="res://Assets/Items/nitro.png" id="1_7tepc"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_8v1ye"]
+
+[resource]
+script = ExtResource("2_8v1ye")
+name = "Nitro Boost"
+target_ressource = 1
+target_stats = Array[int]([14])
+target_stats_values = Array[float]([0.5])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_7tepc")
+rarity = 2
+metadata/_custom_type_script = "uid://71ta02ofykhp"
