@@ -40,6 +40,8 @@ RoadMapManager="*uid://dvfbxb2hpkq5r"
 FontManager="*uid://d22m0am3i7eh5"
 TempStatManager="*uid://lmnymlda4j8s"
 ShopManager="*uid://c3ilfi0ndrh2n"
+GameMaster="*uid://bh4jtaefovb6p"
+CharmsManager="*uid://dt2ws5wathrud"
 
 [debug]
 

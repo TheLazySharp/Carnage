@@ -24,7 +24,6 @@ var is_active:= false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	StatsManager.stats_updated.connect(_on_stats_updated)
 	max_lvl = bullet_data.max_level
 
 	#bullet_data.init_stats()
@@ -92,14 +91,3 @@ func _on_area_entered(area: Area2D) -> void:
 		desactivate()
 	elif area.is_in_group("walls"):
 		desactivate()
-
-
-func _on_stats_updated() -> void : 
-	pass
-	#current_lvl = clampi(bullet_data.current_level,0,max_lvl)
-	#speed = bullet_data.speed
-	#damages = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
-	#damages_upgrade = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + ((current_lvl + 1) * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.short_range_dmg_bonus)
-	#bullet_data.dmg.get_value() = damages
-	#bullet_data.dmg_upgrade = damages_upgrade
-	#max_range = bullet_data.base_atk_range * LuckyCharmsManager.all_range_bonus

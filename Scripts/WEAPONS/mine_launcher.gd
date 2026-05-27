@@ -16,7 +16,6 @@ var cool_down_upgrade : float
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	StatsManager.stats_updated.connect(_on_stats_updated)
 
 	cool_down.wait_time = launcher_data.base_cool_down
 	max_lvl = launcher_data.max_level
@@ -55,12 +54,3 @@ func desactivate() -> void:
 
 func _on_cool_down_modified(new_value : float) -> void : 
 	cool_down.wait_time = new_value
-
-
-func _on_stats_updated() -> void : 
-	pass
-	#current_lvl = clampi(launcher_data.current_level,0,max_lvl)
-	#cool_down.wait_time = (launcher_data.base_cool_down - current_lvl * 0.1) * LuckyCharmsManager.all_fire_rate_bonus * LuckyCharmsManager.explosives_fire_rate_bonus
-	#cool_down_upgrade = (launcher_data.base_cool_down - (current_lvl + 1) * 0.1) * LuckyCharmsManager.all_fire_rate_bonus * LuckyCharmsManager.explosives_fire_rate_bonus
-	#launcher_data.cool_down = cool_down.wait_time
-	#launcher_data.cool_down_upgrade = cool_down_upgrade

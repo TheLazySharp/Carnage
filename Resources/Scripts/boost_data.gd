@@ -117,7 +117,7 @@ func get_stats()-> Array[Dictionary]:
 
 func get_shop_color() -> Color:
 	return ShopManager.item_colors[rarity]
-	
+
 func get_shop_weight() -> float:
 	return ShopManager.item_levels[rarity]
 

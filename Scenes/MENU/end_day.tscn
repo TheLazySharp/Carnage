@@ -62,7 +62,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="Upgrades" type="Button" parent="VBoxContainer" unique_id=593613350]
+[node name="Garage" type="Button" parent="VBoxContainer" unique_id=593613350]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -144,6 +144,6 @@ theme_override_fonts/font = ExtResource("2_adfxj")
 text = "1000"
 script = ExtResource("7_kfmjd")
 
-[connection signal="pressed" from="VBoxContainer/Upgrades" to="." method="_on_upgrades_pressed"]
+[connection signal="pressed" from="VBoxContainer/Garage" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="VBoxContainer/NextDay" to="." method="_on_next_day_pressed"]
 [connection signal="pressed" from="VBoxContainer/Menu" to="." method="_on_menu_pressed"]

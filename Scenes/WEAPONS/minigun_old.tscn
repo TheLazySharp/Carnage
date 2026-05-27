@@ -1,38 +1,39 @@
-[gd_scene format=3 uid="uid://c6wus6ofti85w"]
+[gd_scene format=3 uid="uid://dgk06jywj3of"]
 
-[ext_resource type="Script" uid="uid://ct245npeeo2wy" path="res://Scripts/WEAPONS/minigun.gd" id="1_skg3x"]
-[ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/minigun.tres" id="2_yyjxs"]
-[ext_resource type="Texture2D" uid="uid://dmso70nlspbns" path="res://Assets/VFX/muzzle_flash_cartoon2.png" id="4_gpcs8"]
-[ext_resource type="Texture2D" uid="uid://djrkatvt700l1" path="res://Assets/VFX/muzzle_flash-sheet.png" id="5_titou"]
+[ext_resource type="Script" uid="uid://ct245npeeo2wy" path="res://Scripts/WEAPONS/minigun.gd" id="1_tq782"]
+[ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/minigun.tres" id="2_vhh8f"]
+[ext_resource type="Texture2D" uid="uid://bvlvnjmbte8sf" path="res://Assets/weapons/sight.png" id="3_o1syo"]
+[ext_resource type="Texture2D" uid="uid://dmso70nlspbns" path="res://Assets/VFX/muzzle_flash_cartoon2.png" id="4_3xh7c"]
+[ext_resource type="Texture2D" uid="uid://djrkatvt700l1" path="res://Assets/VFX/muzzle_flash-sheet.png" id="5_7sy76"]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_d2sk6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_titou"]
-atlas = ExtResource("4_gpcs8")
+atlas = ExtResource("4_3xh7c")
 region = Rect2(0, 0, 134, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmqt7"]
-atlas = ExtResource("4_gpcs8")
+atlas = ExtResource("4_3xh7c")
 region = Rect2(134, 0, 134, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_amx8e"]
-atlas = ExtResource("4_gpcs8")
+atlas = ExtResource("4_3xh7c")
 region = Rect2(268, 0, 134, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mbaui"]
-atlas = ExtResource("5_titou")
+atlas = ExtResource("5_7sy76")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_anq00"]
-atlas = ExtResource("5_titou")
+atlas = ExtResource("5_7sy76")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ifhtv"]
-atlas = ExtResource("5_titou")
+atlas = ExtResource("5_7sy76")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_go62e"]
-atlas = ExtResource("5_titou")
+atlas = ExtResource("5_7sy76")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mbaui"]
@@ -75,15 +76,12 @@ animations = [{
 "speed": 16.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gpcs8"]
-radius = 150.11995
-
 [node name="Minigun" type="Node2D" unique_id=1383909163 groups=["weapons"]]
 z_index = 20
 z_as_relative = false
 y_sort_enabled = true
-script = ExtResource("1_skg3x")
-minigun_data = ExtResource("2_yyjxs")
+script = ExtResource("1_tq782")
+minigun_data = ExtResource("2_vhh8f")
 
 [node name="Sprite" type="ColorRect" parent="." unique_id=1991058513]
 visible = false
@@ -97,6 +95,19 @@ color = Color(0.0146401, 0, 0.81067, 1)
 [node name="FireRate" type="Timer" parent="." unique_id=471841854]
 wait_time = 0.2
 
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1460429339]
+modulate = Color(0, 1, 0, 1)
+rotation = -1.5707964
+target_position = Vector2(0, 150)
+collision_mask = 10
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="SpriteSight" type="Sprite2D" parent="." unique_id=1639775324]
+rotation = -1.5707964
+texture = ExtResource("3_o1syo")
+offset = Vector2(0, 150)
+
 [node name="ShotSfx" type="AudioStreamPlayer2D" parent="." unique_id=1356471790]
 stream = SubResource("AudioStreamMP3_d2sk6")
 bus = &"Weapons"
@@ -106,12 +117,4 @@ scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_mbaui")
 animation = &"fire"
 
-[node name="RangeArea" type="Area2D" parent="." unique_id=151385110]
-collision_layer = 8192
-collision_mask = 2
-
-[node name="RangeShape" type="CollisionShape2D" parent="RangeArea" unique_id=142701015]
-shape = SubResource("CircleShape2D_gpcs8")
-
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
-[connection signal="area_entered" from="RangeArea" to="." method="_on_range_area_entered"]

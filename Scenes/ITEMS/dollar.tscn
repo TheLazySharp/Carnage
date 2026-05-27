@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hcfh"]
 size = Vector2(68, 69)
 
-[node name="Dollar" type="Area2D" unique_id=72571651]
+[node name="Dollar" type="Area2D" unique_id=72571651 groups=["collectables"]]
 modulate = Color(1.6197081, 1.6197081, 1.6197081, 1)
 collision_layer = 512
 script = ExtResource("1_l6dcs")

@@ -5,7 +5,7 @@ extends VBoxContainer
 @onready var label: Label = $Label
 
 var i : int
-var charms : Array[LuckyCharmData]
+var charms : Array[CharmData]
 
 func _ready() -> void:
 	i = int(self.name)

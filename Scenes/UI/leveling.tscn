@@ -1,0 +1,1456 @@
+[gd_scene format=3 uid="uid://cgcffox7hd5rk"]
+
+[ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/LEVELUP/leveling.gd" id="1_6sbp8"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_a2wwf"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_gt0yx"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_6t8lo"]
+[ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/LEVELUP/leveling_weapons.gd" id="5_p64v4"]
+[ext_resource type="Script" uid="uid://bnfkyuguhwr7h" path="res://Scripts/LEVELUP/levelup_icon.gd" id="6_inetq"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="7_8302b"]
+[ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="8_m3oh7"]
+[ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/LEVELUP/leveling_ammos.gd" id="9_f51xe"]
+[ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="10_fw72e"]
+[ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="11_qrg5i"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="12_05kyw"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="13_5ddme"]
+[ext_resource type="Script" uid="uid://b1o0peai48kvj" path="res://Scripts/LEVELUP/level_up_stats.gd" id="14_aorrq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5brd2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb0r4"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrs1u"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkvuv"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xo07a"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.7764706, 0, 1)
+
+[sub_resource type="Animation" id="Animation_3smgn"]
+resource_name = "IfNew"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.6862745, 0.06666667, 0.43529412, 1), Color(0.6862745, 0.06666667, 0.43529412, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [24, 32, 24]
+}
+
+[sub_resource type="Animation" id="Animation_vrsns"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [24]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p4ios"]
+_data = {
+&"IfNew": SubResource("Animation_3smgn"),
+&"RESET": SubResource("Animation_vrsns")
+}
+
+[node name="Leveling" type="Control" unique_id=453219835]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6sbp8")
+
+[node name="LevelingBkgd" type="ColorRect" parent="." unique_id=440472600]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.13333334, 0.13333334, 0.9647059)
+
+[node name="Label" type="Label" parent="LevelingBkgd" unique_id=1911307621]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_a2wwf")
+theme_override_font_sizes/font_size = 64
+text = "UPGRADE YOUR WEAPONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("3_gt0yx")
+
+[node name="MainButtons" type="HBoxContainer" parent="LevelingBkgd" unique_id=1028651110]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -334.0
+offset_top = -84.0
+offset_right = -140.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Skip" type="Button" parent="LevelingBkgd/MainButtons" unique_id=663768020]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_a2wwf")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "Skip"
+flat = true
+script = ExtResource("4_6t8lo")
+
+[node name="WeaponsContainer" type="MarginContainer" parent="." unique_id=917885678]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31300002
+anchor_top = 0.19700001
+anchor_right = 0.31300002
+anchor_bottom = 0.19700001
+offset_left = -388.64
+offset_top = 22.399994
+offset_right = 389.36
+offset_bottom = 182.4
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("5_p64v4")
+
+[node name="GridContainer" type="GridContainer" parent="WeaponsContainer" unique_id=854795896]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 14
+columns = 5
+
+[node name="WeaponSlot0" type="VBoxContainer" parent="WeaponsContainer/GridContainer" unique_id=1122556201]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot0" unique_id=1337495510]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot0/Weapon" unique_id=583215888]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot0/Weapon" unique_id=262460887]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot0/Weapon" unique_id=892630993]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="WeaponsContainer/GridContainer/WeaponSlot0/Weapon/IconBkg" unique_id=137980505]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("6_inetq")
+
+[node name="Confirm" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot0" unique_id=760094964]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("8_m3oh7")
+
+[node name="WeaponSlot1" type="VBoxContainer" parent="WeaponsContainer/GridContainer" unique_id=1564237111]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1255056579]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=200867466]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=2004039206]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=1638925866]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="WeaponsContainer/GridContainer/WeaponSlot1/Weapon/IconBkg" unique_id=1994134424]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("6_inetq")
+
+[node name="Confirm" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot1" unique_id=515333827]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("8_m3oh7")
+
+[node name="WeaponSlot2" type="VBoxContainer" parent="WeaponsContainer/GridContainer" unique_id=1595686106]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot2" unique_id=393174059]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=897457982]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=237803428]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=1907069821]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="WeaponsContainer/GridContainer/WeaponSlot2/Weapon/IconBkg" unique_id=1490106789]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("6_inetq")
+
+[node name="Confirm" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot2" unique_id=593210569]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("8_m3oh7")
+
+[node name="WeaponSlot3" type="VBoxContainer" parent="WeaponsContainer/GridContainer" unique_id=1562965894]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot3" unique_id=129035100]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=114856513]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=1832184543]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=469759110]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="WeaponsContainer/GridContainer/WeaponSlot3/Weapon/IconBkg" unique_id=1582578186]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("6_inetq")
+
+[node name="Confirm" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot3" unique_id=1816351077]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("8_m3oh7")
+
+[node name="WeaponSlot4" type="VBoxContainer" parent="WeaponsContainer/GridContainer" unique_id=368722274]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot4" unique_id=824259991]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=637999651]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=846163488]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=1485687051]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="WeaponsContainer/GridContainer/WeaponSlot4/Weapon/IconBkg" unique_id=1482339682]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+script = ExtResource("6_inetq")
+
+[node name="Confirm" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot4" unique_id=1321469444]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../AmmoContainer/GridContainer/AmmoSlot0/Confirm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+script = ExtResource("8_m3oh7")
+
+[node name="AmmoContainer" type="MarginContainer" parent="." unique_id=111292889]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31300002
+anchor_top = 0.19700001
+anchor_right = 0.31300002
+anchor_bottom = 0.19700001
+offset_left = -388.64
+offset_top = 248.4
+offset_right = 389.36
+offset_bottom = 452.4
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("9_f51xe")
+
+[node name="GridContainer" type="GridContainer" parent="AmmoContainer" unique_id=917789848]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 14
+columns = 5
+
+[node name="AmmoSlot0" type="VBoxContainer" parent="AmmoContainer/GridContainer" unique_id=805590749]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot0" unique_id=737552345]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot0/Ammo" unique_id=1105036065]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot0/Ammo" unique_id=348151751]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot0/Ammo" unique_id=1994385064]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="AmmoContainer/GridContainer/AmmoSlot0/Ammo/IconBkg" unique_id=1924325881]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot0" unique_id=2058433643]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("8_m3oh7")
+
+[node name="AmmoSlot1" type="VBoxContainer" parent="AmmoContainer/GridContainer" unique_id=17887702]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot1" unique_id=1082142733]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=2004122582]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=589985263]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=314210100]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="AmmoContainer/GridContainer/AmmoSlot1/Ammo/IconBkg" unique_id=245054476]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot1" unique_id=61598473]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("8_m3oh7")
+
+[node name="AmmoSlot2" type="VBoxContainer" parent="AmmoContainer/GridContainer" unique_id=294306011]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot2" unique_id=943184775]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=1493682070]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=462487411]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=590536722]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="AmmoContainer/GridContainer/AmmoSlot2/Ammo/IconBkg" unique_id=1882259480]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot2" unique_id=1745947980]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("8_m3oh7")
+
+[node name="AmmoSlot3" type="VBoxContainer" parent="AmmoContainer/GridContainer" unique_id=1932529260]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot3" unique_id=868986304]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1187979883]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=2123215469]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1102537428]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="AmmoContainer/GridContainer/AmmoSlot3/Ammo/IconBkg" unique_id=824691998]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot3" unique_id=257588004]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("8_m3oh7")
+
+[node name="AmmoSlot4" type="VBoxContainer" parent="AmmoContainer/GridContainer" unique_id=84995855]
+custom_minimum_size = Vector2(140, 185)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot4" unique_id=1005164980]
+clip_contents = true
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1065099857]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+
+[node name="PanelColor" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1906315701]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IconBkg" type="ColorRect" parent="AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=930816654]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -37.0
+offset_right = 37.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="AmmoContainer/GridContainer/AmmoSlot4/Ammo/IconBkg" unique_id=1954016152]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Confirm" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot4" unique_id=918513256]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../../WeaponsContainer/GridContainer/WeaponSlot0/Confirm")
+focus_neighbor_bottom = NodePath("../../../../LevelingBkgd/MainButtons/Skip")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5brd2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrs1u")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kkvuv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_yb0r4")
+text = "UPGRADE"
+autowrap_trim_flags = 0
+script = ExtResource("8_m3oh7")
+
+[node name="TextPanel" type="Panel" parent="." unique_id=1344462876]
+z_index = 20
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -484.0
+offset_top = -234.0
+offset_right = -22.0
+offset_bottom = 375.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xo07a")
+
+[node name="WeaponName" type="Label" parent="TextPanel" unique_id=1052141964]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.5
+offset_top = 10.0
+offset_right = 63.5
+offset_bottom = 94.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 40
+text = "Name
+Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("10_fw72e")
+
+[node name="WeaponLevels" type="Label" parent="TextPanel" unique_id=1045149404]
+z_index = 50
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.0
+offset_top = 100.0
+offset_right = 66.0
+offset_bottom = 143.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("11_qrg5i")
+
+[node name="AnimUpgrade" type="AnimationPlayer" parent="TextPanel/WeaponLevels" unique_id=1407380206]
+libraries/ = SubResource("AnimationLibrary_p4ios")
+
+[node name="AmmoName" type="Label" parent="TextPanel" unique_id=886023992]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_top = 162.0
+offset_right = 61.0
+offset_bottom = 199.33331
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 32
+text = "Ammo"
+horizontal_alignment = 1
+script = ExtResource("12_05kyw")
+
+[node name="AmmoLevels" type="Label" parent="TextPanel" unique_id=1496047164]
+z_index = 50
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.5
+offset_top = 200.0
+offset_right = 70.5
+offset_bottom = 243.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("11_qrg5i")
+
+[node name="AnimUpgrade" type="AnimationPlayer" parent="TextPanel/AmmoLevels" unique_id=1901992062]
+libraries/ = SubResource("AnimationLibrary_p4ios")
+
+[node name="WeaponDescr" type="Label" parent="TextPanel" unique_id=45157691]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = -33.5
+offset_right = 453.0
+offset_bottom = 96.5
+grow_vertical = 2
+theme_override_constants/line_spacing = 8
+theme_override_constants/paragraph_spacing = 16
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "Shot the closest enemy within a zone"
+autowrap_mode = 2
+script = ExtResource("13_5ddme")
+
+[node name="Upgrades" type="VBoxContainer" parent="TextPanel" unique_id=2016789890]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = 60.5
+offset_right = 304.0
+offset_bottom = 270.5
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Dmg" type="HBoxContainer" parent="TextPanel/Upgrades" unique_id=43562003]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("14_aorrq")
+UI_stat_type = 1
+
+[node name="StatName" type="Label" parent="TextPanel/Upgrades/Dmg" unique_id=1113133280]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "Dmg :"
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatBaseValue" type="Label" parent="TextPanel/Upgrades/Dmg" unique_id=236376648]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="Arrow" type="Label" parent="TextPanel/Upgrades/Dmg" unique_id=2105944972]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatUpgradeValue" type="Label" parent="TextPanel/Upgrades/Dmg" unique_id=507466199]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="FireRate" type="HBoxContainer" parent="TextPanel/Upgrades" unique_id=304671730]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("14_aorrq")
+UI_stat_type = 2
+
+[node name="StatName" type="Label" parent="TextPanel/Upgrades/FireRate" unique_id=1422736352]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "Fire rate :"
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatBaseValue" type="Label" parent="TextPanel/Upgrades/FireRate" unique_id=291712598]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="Arrow" type="Label" parent="TextPanel/Upgrades/FireRate" unique_id=1521170451]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatUpgradeValue" type="Label" parent="TextPanel/Upgrades/FireRate" unique_id=759416601]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="CoolDown" type="HBoxContainer" parent="TextPanel/Upgrades" unique_id=1816736548]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("14_aorrq")
+UI_stat_type = 6
+
+[node name="StatName" type="Label" parent="TextPanel/Upgrades/CoolDown" unique_id=1999133277]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "Cool Down :"
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatBaseValue" type="Label" parent="TextPanel/Upgrades/CoolDown" unique_id=1427809831]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="Arrow" type="Label" parent="TextPanel/Upgrades/CoolDown" unique_id=1116202184]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatUpgradeValue" type="Label" parent="TextPanel/Upgrades/CoolDown" unique_id=93627777]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="Radius" type="HBoxContainer" parent="TextPanel/Upgrades" unique_id=1866626011]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("14_aorrq")
+UI_stat_type = 5
+
+[node name="StatName" type="Label" parent="TextPanel/Upgrades/Radius" unique_id=2045064927]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "Radius :"
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatBaseValue" type="Label" parent="TextPanel/Upgrades/Radius" unique_id=808862015]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="Arrow" type="Label" parent="TextPanel/Upgrades/Radius" unique_id=1444288815]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatUpgradeValue" type="Label" parent="TextPanel/Upgrades/Radius" unique_id=261238790]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="NbAmmo" type="HBoxContainer" parent="TextPanel/Upgrades" unique_id=886182054]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("14_aorrq")
+UI_stat_type = 3
+
+[node name="StatName" type="Label" parent="TextPanel/Upgrades/NbAmmo" unique_id=1186264583]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "Ammo :"
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatBaseValue" type="Label" parent="TextPanel/Upgrades/NbAmmo" unique_id=1589096134]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="Arrow" type="Label" parent="TextPanel/Upgrades/NbAmmo" unique_id=1319096]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "->"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="StatUpgradeValue" type="Label" parent="TextPanel/Upgrades/NbAmmo" unique_id=1253778859]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_8302b")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_5ddme")
+
+[node name="WeaponBkg" type="ColorRect" parent="TextPanel" unique_id=63975540]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 87.0
+offset_bottom = 86.0
+
+[node name="WeaponIcon" type="TextureRect" parent="TextPanel/WeaponBkg" unique_id=1817340632]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="AmmoBkg" type="ColorRect" parent="TextPanel" unique_id=76263587]
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 1
+offset_left = 374.0
+offset_top = 12.0
+offset_right = 448.0
+offset_bottom = 86.0
+
+[node name="AmmoIcon" type="TextureRect" parent="TextPanel/AmmoBkg" unique_id=176001159]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[connection signal="pressed" from="LevelingBkgd/MainButtons/Skip" to="." method="_on_skip_pressed"]

@@ -6,7 +6,6 @@ var i : int
 @onready var car_name: Label = $Name
 @onready var icon: TextureRect = $Icon
 
-var first_scene : String = "uid://c6msxridefxxd"
 var roadmap_scene : String = "uid://dsn18jy5k2in8"
 var intro_scene : String = "uid://dqfr2nck8fjao"
 var survivor_selection : String = "uid://cui5s6rmjs40o"
@@ -49,8 +48,11 @@ func update_car_data() -> void:
 	stats_panel.show()
 	
 func _on_select_pressed() -> void:
-	#CarManager.selected_car = displayed_car
-	SceneManager.load_level(intro_scene)
+	match GameMaster.game_mode:
+		GameMaster.GAME_MODES.BUILD:
+			SceneManager.load_level(intro_scene)
+		GameMaster.GAME_MODES.DEV:
+			SceneManager.load_level(roadmap_scene)
 
 
 func _on_back_pressed() -> void:

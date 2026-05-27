@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://dkm27p4j8u1jj"]
+
+[ext_resource type="Script" uid="uid://b57le65cjsvq3" path="res://Scripts/CHARMS/charm_drift_fire.gd" id="1_tl3qr"]
+[ext_resource type="Texture2D" uid="uid://cjgc8em6lt56e" path="res://Assets/LuckyCharms/magic_tree_red.png" id="2_tl3qr"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_q4vbh"]
+
+[resource]
+script = ExtResource("3_q4vbh")
+name = "Fire Drift"
+icon = ExtResource("2_tl3qr")
+description = "Drift lines generate fire"
+effect_script = ExtResource("1_tl3qr")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

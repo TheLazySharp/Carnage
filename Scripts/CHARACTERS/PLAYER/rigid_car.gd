@@ -21,24 +21,12 @@ var friction : float
 var turn_speed : float
 var velocity_floor : int
 var burnout_boost : int
-var drift_grip : float
-var normal_grip : float
-var max_drift_damping : float
-var min_drift_speed : float
-var snap_grip : float
-var snap_speed : float
-var current_grip : float
-var was_drifting : bool = false
-var skid_spacing : float
-var skid_lifetime : float
-var skid_fade_speed : float
 @onready var car_sprite: Sprite2D = $CarSprite
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 
 #SFX
 @onready var start_engine: AudioStreamPlayer = $Audio/StartEngine
 var start_engine_sound : AudioStreamMP3
-@onready var drift_sfx: AudioStreamPlayer2D = $Audio/DriftSfx
 @onready var dmg_sfx: AudioStreamPlayer = $Audio/DmgSFX
 @onready var dmg_sfx_2: AudioStreamPlayer = $Audio/DmgSFX2
 @onready var dmg_sfx_3: AudioStreamPlayer = $Audio/DmgSFX3
@@ -48,20 +36,13 @@ var dmg_players : Array[AudioStreamPlayer]
 
 
 #SKID
-@export var skid_marks_path: NodePath = "$/root/World/SkidMarks"
-@onready var skid_parent: Node2D = get_node(skid_marks_path)
+
 @onready var rear_left: Marker2D = $RearLeft
 @onready var rear_right: Marker2D = $RearRight
-var left_line: Line2D = null
-var right_line: Line2D = null
-var left_border: Line2D = null
-var right_border: Line2D = null
-var last_left_pos := Vector2.ZERO
-var last_right_pos := Vector2.ZERO
 var drifting : bool
 
 #DRIFT and BURN
-var drifting_last_frame := false
+@onready var drift_manager: Node2D = $DriftManager
 @onready var rear_left_burn_anim: AnimatedSprite2D = $RearLeft/RearLeftBurnAnim
 @onready var rear_right_burn_anim: AnimatedSprite2D = $RearRight/RearRightBurnAnim
 signal burnout_ok(burnout : bool)
@@ -75,7 +56,6 @@ var dash_timer : float = 0
 var original_friction : float = 0
 
 #INVINCIBLE
-var is_invincible : bool = false
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 
 #CAM SHAKE
@@ -87,15 +67,17 @@ var shake_timer_steps : float = 1
 @export var ghost_scene : PackedScene
 
 #GAME
+@onready var ready_go: Label = $/root/World/CanvasLayer/Texts/ReadyGo
+@onready var explosives: Node2D = $"../Explosives"
+
 signal game_over(game_is_over: bool)
+signal start_time(game_start: bool)
+signal wall_collision
 var game_is_over:= false
 var game_paused:=false
 var is_taking_damages:=false
 var can_drive:=false
-@onready var ready_go: Label = $/root/World/CanvasLayer/Texts/ReadyGo
-signal start_time(game_start: bool)
 var road_map_scene : String = "uid://dsn18jy5k2in8"
-@onready var explosives: Node2D = $"../Explosives"
 
 
 #@onready var gate: CharacterBody2D = $"../StartingGate"
@@ -157,38 +139,18 @@ func _ready() -> void:
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
 	SignalManager.end_autopilot_transition.connect(_on_exit_transition)
 	SignalManager.run_ended.connect(_on_run_ended)
-	#gate.full_command.connect(_on_full_command)
-	#gate.forward_only.connect(_on_forward_only)
-	#gate.run_ended.connect(_on_run_ended)
+
 	
 	#DRIVING
-	
 	max_backward_speed = roundi(max_speed * 0.8)
-	
-	
+
 	friction = player.friction
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
 	burnout_boost = player.burnout_boost
 	
-
 	#DRIFT
-	drift_grip = player.drift_grip
-	normal_grip = player.normal_grip
-	max_drift_damping = player.max_drift_damping
-	min_drift_speed = player.min_drift_speed
-	snap_grip = player.snap_grip
-	snap_speed = player.snap_speed
-	current_grip = normal_grip
-	drifting = false
-	player.drifting = drifting
-
-	
-	#SKIDS
-	skid_spacing = player.skid_spacing
-	skid_lifetime = player.skid_lifetime
-	skid_fade_speed = player.skid_fade_speed
-	
+	drift_manager.init_drift(self,player,rear_left,rear_right)
 
 	#AUDIO
 	start_engine_sound = player.start_engine_Sound
@@ -198,11 +160,7 @@ func _ready() -> void:
 	car_sprite.texture = player.car_sprite
 	if TimeManager.current_day == 1 : 
 		player.current_life = int(max_life)
-		#print("ready day 1: ",current_life)
-		
-	#else : 
-		#current_life = StatsManager.current_life
-		#print("ready day >1: ",current_life)
+
 	life_bar.max_value = max_life
 	life_bar.value = player.current_life
 	life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
@@ -216,7 +174,7 @@ func _process(_delta: float) -> void:
 	if !game_paused:
 		speed_label.text  = str(roundi(velocity.length()/player.max_speed.get_value() * player.display_max_speed.get_value()))
 		life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
-	#update_stats()
+
 
 func _physics_process(delta : float) -> void:
 	if !game_paused and can_drive and !game_is_over:
@@ -243,15 +201,6 @@ func _process_player_inputs(delta : float) -> void :
 	if !game_paused and can_drive and !game_is_over:
 		engine_sfx_player.update_engine_sfx(velocity.length(), revving_start)
 		player.drifting = drifting
-		
-		
-		if velocity.length() > 10:
-			is_invincible = true
-			#car_sprite.self_modulate = Color.CHARTREUSE
-		else:
-			is_invincible = false
-			#car_sprite.self_modulate = Color.WHITE
-
 		
 		var forward := Vector2.RIGHT.rotated(rotation)
 		var lateral := forward.rotated(PI / 2)
@@ -340,43 +289,10 @@ func _process_player_inputs(delta : float) -> void :
 
 		rotation += steer * turn_speed * steer_factor * delta
 
-		
 		var forward_velocity := forward * velocity.dot(forward)
 		var lateral_velocity := lateral * velocity.dot(lateral)
 
-		# ----------------- SLIDE -----------------
-		var slip_angle := 0.0
-		if velocity.length() > 10:
-			slip_angle = abs(velocity.angle_to(forward)) / (PI / 2)
-			slip_angle = clamp(slip_angle, 0.0, 1.0)
-
-
-		# ----------------- DAMPING -----------------
-		if drifting and forward_velocity.length() > min_drift_speed:
-			var damping : float 
-			var forward_damp : float = 1
-			if abs(steer) > 0.05 :
-				damping = lerp(0.0, max_drift_damping, slip_angle)
-				forward_damp = 1
-			else: 
-				forward_damp = 0.99
-
-			forward_velocity *= (1.0 - damping * delta) * forward_damp
-
-		# ----------------- GRIP -----------------
-		if drifting:
-			current_grip = drift_grip
-		elif was_drifting:
-			# SNAP d’adhérence
-			current_grip = lerp(current_grip, snap_grip, snap_speed * delta)
-		else:
-			current_grip = lerp(current_grip, normal_grip, 4.0 * delta)
-
-		lateral_velocity = lateral_velocity.lerp(Vector2.ZERO, current_grip)
-
-		velocity = forward_velocity + lateral_velocity
-
-		was_drifting = drifting
+		velocity = drift_manager.update_drift(delta,drifting,forward_velocity,lateral_velocity,forward,velocity)
 		
 		
 		# ----------------- COLLISION -----------------
@@ -408,47 +324,10 @@ func _process_player_inputs(delta : float) -> void :
 				rotation = lerp_angle(rotation, target_rotation, 5.0 * delta)
 				
 				if drifting :
+					SignalManager.emit_signal("wall_collision")
 					drifting = false
-		
-		# ----------------- SKIDS -----------------
-		if drifting and not drifting_last_frame:
-			start_skid()
+					drift_manager.force_stop_skid()
 
-
-		if drifting:
-			var left_wheel := rear_left.global_position
-			var right_wheel := rear_right.global_position
-
-			if last_left_pos == Vector2.ZERO:
-				left_line.add_point(left_wheel)
-				left_border.add_point(left_wheel)
-				
-				right_line.add_point(right_wheel)
-				right_border.add_point(right_wheel)
-				
-				last_left_pos = left_wheel
-				last_right_pos = right_wheel
-			else:
-				if left_wheel.distance_to(last_left_pos) > skid_spacing:
-					left_line.add_point(left_wheel)
-					left_border.add_point(left_wheel)
-					last_left_pos = left_wheel
-
-				if right_wheel.distance_to(last_right_pos) > skid_spacing:
-					right_line.add_point(right_wheel)
-					right_border.add_point(right_wheel)
-					last_right_pos = right_wheel
-		
-		if not drifting and drifting_last_frame:
-			fade_and_destroy(left_line,left_border)
-			fade_and_destroy(right_line,right_border)
-
-			left_line = null
-			left_border = null
-			right_line = null
-			right_border = null
-
-		drifting_last_frame = drifting
 
 		#VFX
 		if Input.is_action_just_pressed("accelerate") or Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") :
@@ -485,64 +364,13 @@ func _process_autopilot_exit(delta : float) -> void:
 	var motion := velocity * delta
 	move_and_collide(motion)
 	engine_sfx_player.update_engine_sfx(velocity.length(), false)
-	
-func start_skid() -> void:
-	if !game_paused:
-		drift_sfx.play()
-		
-		var left_pair : Array = create_skid_line()
-		var right_pair : Array = create_skid_line()
-
-		left_line   = left_pair[0]   # ligne noire
-		left_border = left_pair[1]   # bordure blanche
-
-		right_line   = right_pair[0]
-		right_border = right_pair[1]
-
-		skid_parent.add_child(left_border)
-		skid_parent.add_child(left_line)
-		skid_parent.add_child(right_border)
-		skid_parent.add_child(right_line)
-
-		last_left_pos  = Vector2.ZERO
-		last_right_pos = Vector2.ZERO
-		last_right_pos = Vector2.ZERO
-
-func create_skid_line() -> Array:
-	var border := Line2D.new()
-	border.width = 10
-	border.default_color = Color(1, 1, 1, 0.8)
-	border.antialiased = true
-	border.z_index = -10 
-	
-	var line := Line2D.new()
-	line.width = 6
-	line.default_color = Color(0, 0, 0, 1.0)
-	line.antialiased = true
-	line.z_index = -9
-	return [line,border]
-
-func fade_and_destroy(line: Line2D, border : Line2D) -> void:
-	if !game_paused:
-		drift_sfx.stop()
-		if line == null:
-			return
-
-		var tween := create_tween()
-		tween.set_parallel(true)
-		tween.tween_property(line,   "default_color:a", 0.0, skid_lifetime)
-		tween.tween_property(border, "default_color:a", 0.0, skid_lifetime)
-		tween.set_parallel(false)
-		tween.tween_callback(line.queue_free)
-		tween.tween_callback(border.queue_free)
-
-func get_rear_center() -> Vector2:
-	return (rear_left.global_position + rear_right.global_position) * 0.5
 
 func _on_game_paused(game_on_pause :bool) -> void:
 	game_paused = game_on_pause
 
 func get_damages_from_mob(damages_on_player: int) -> void:
+	if player.invincible:
+		return
 	if not game_paused and !game_is_over and velocity.length() < velocity_floor:
 		is_taking_damages = true
 		player.current_life -= damages_on_player
@@ -563,6 +391,8 @@ func get_damages_from_mob(damages_on_player: int) -> void:
 		if is_taking_damages:return
 
 func get_damages(damages_on_player: int) -> void:
+	if player.invincible:
+		return
 	if not game_paused and !game_is_over:
 		player.current_life -= damages_on_player
 		life_bar.value = player.current_life
@@ -581,6 +411,7 @@ func on_death() -> void:
 	WeaponsManager.unload()
 	end_dash()
 	car_sprite.hide()
+	drift_manager.force_stop_skid()
 	collision_shape.set_deferred("disabled",true)
 	car_explosion.play("Explosion")
 	death_sfx.play()
@@ -717,12 +548,7 @@ func play_drivin_smokes() -> void :
 	drivin_smoke_l_2.emitting = true
 
 func get_drift_factor() -> float:
-	if velocity.length() < 10.0 or !drifting:
-		return 0.0
-	var forward := Vector2.RIGHT.rotated(rotation)
-	var angle : float = forward.angle_to(velocity.normalized())
-	var factor : float = clamp(angle / deg_to_rad(20.0), -1.0, 1.0)
-	return factor
+	return drift_manager.get_drift_factor()
 
 func _on_autopilot_transition_start() -> void : 
 	autopilot_state = AutopilotState.ZOOM

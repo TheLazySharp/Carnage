@@ -2,45 +2,26 @@ extends Control
 
 var player_current_level: int
 
-var game_is_paused: = false
-
-@onready var prelevelling: Control = $"../Prelevelling"
-@onready var preleveling_button: Button = $"../Prelevelling/MainButtons/PrelevelingButton"
-@onready var confirm_button_0: Button = $WeaponsContainer/GridContainer/WeaponSlot0/Confirm
+@onready var preleveling_button: Button = $MainButtons/PrelevelingButton
 
 const UPGRADES = preload("uid://b6cie41olju8v")
 
-
 func _ready() -> void:
 	hide()
-	prelevelling.hide()
 	XPManager.update_level.connect(level_up)
 	SignalManager.upgrades_ok.connect(_on_skip_pressed)
 
-	
-
 func level_up(new_current_level : int) -> void:
-	prelevelling.show()
+	self.show()
 	preleveling_button.grab_focus()
 	player_current_level = new_current_level
-	game_is_paused = true
-	SignalManager.emit_signal("game_paused", game_is_paused)
-
+	SignalManager.emit_signal("game_paused", true)
 
 func _on_skip_pressed() -> void:
-	game_is_paused = false
-	SignalManager.emit_signal("game_paused", game_is_paused)
-	prelevelling.hide()
+	SignalManager.emit_signal("game_paused", false)
 	hide()
 
-
 func _on_preleveling_button_pressed() -> void:
-	#prelevelling.hide()
-	#self.show()
-	#confirm_button_0.grab_focus()
 	var upgrades := UPGRADES.instantiate()
 	get_parent().add_child(upgrades)
-	#upgrades.show()
-	
-	
-	
+	upgrades.show()

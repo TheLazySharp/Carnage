@@ -50,11 +50,11 @@ func _input(event: InputEvent) -> void:
 		if !LuckyCharmsManager.add_lucky_charm_ok :
 			LuckyCharmsManager.call_reverse_swap()
 
-func get_new_lucky_charms_data(index : int) -> LuckyCharmData:
+func get_new_lucky_charms_data(index : int) -> CharmData:
 	return LuckyCharmsManager.shuffled_pool_copy[index]
 
-func get_current_lucky_charms_data(index : int) -> LuckyCharmData:
-	var selected_lucky_charm : LuckyCharmData = LuckyCharmsManager.holder[index]
+func get_current_lucky_charms_data(index : int) -> CharmData:
+	var selected_lucky_charm : CharmData = LuckyCharmsManager.holder[index]
 	return selected_lucky_charm
 
 

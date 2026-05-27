@@ -9,7 +9,7 @@ var scenes: Dictionary[String,String] = {
 	"Garage" : "uid://cs311xlcqlrt0",
 	"Tuto" : "uid://ci6t4884t7q6r",
 	"Level01" : "uid://c6msxridefxxd",
-	"LuckyCharms" : "uid://ch2rp03kbdyg7",
+	#"LuckyCharms" : "uid://ch2rp03kbdyg7",
 	"Commands" : "uid://dayxnnf2ndx5c",
 	"Missions" : "uid://dc6hb14w0yref",
 	"Survivors" : "uid://cui5s6rmjs40o",
@@ -44,7 +44,7 @@ func unload_game() -> void:
 	WeaponsManager.unload()
 	InventoryManager.unload()
 	StatsManager.unload()
-	LuckyCharmsManager.unload()
+	CharmsManager.unload()
 	TimeManager.unload()
 	RoadMapManager.unload()
 	SurvivorsManager.unload()

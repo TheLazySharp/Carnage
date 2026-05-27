@@ -1,6 +1,7 @@
 extends Control
 
-@onready var upgrades: Button = $VBoxContainer/Upgrades
+@onready var garage: Button = $VBoxContainer/Garage
+
 @onready var next_day: Button = $VBoxContainer/NextDay
 @onready var menu: Button = $VBoxContainer/Menu
 
@@ -8,13 +9,13 @@ extends Control
 @onready var fortune_quantity: Label = $Fortune/FortuneQuantity
 
 
-var garage_scene : String = "uid://cs311xlcqlrt0"
+var garage_scene : String = "uid://cvkxdbb1u1tw0"
 var next_scene : String = "uid://c6msxridefxxd"
 var menu_scene : String = "uid://gmjjc1vmgcds"
 var roadmap_scene : String = "uid://dsn18jy5k2in8"
 
 func _ready() -> void:
-	upgrades.grab_focus()
+	garage.grab_focus()
 	car_icon.texture = CarManager.selected_car.car_sprite
 	fortune_quantity.text = str(InventoryManager.fortune)
 

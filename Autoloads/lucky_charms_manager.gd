@@ -1,37 +1,37 @@
 extends Node
 
-var holder : Array[LuckyCharmData]
-var pool : Array[LuckyCharmData]
+var holder : Array[CharmData]
+var pool : Array[CharmData]
 var holder_max_size : int = 5
-var shuffled_pool_copy : Array[LuckyCharmData]
+var shuffled_pool_copy : Array[CharmData]
 
-const MAGIC_TREE_BLU = preload("uid://cis2ruvwfomdd")
-const MAGIC_TREE_GRE = preload("uid://bskee4ne4napf")
-const MAGIC_TREE_RED = preload("uid://dusp7r6wm1u2r")
-const MAGIC_TREE_YEL = preload("uid://ch5w70r2yphyu")
+#const MAGIC_TREE_BLU = preload("uid://cis2ruvwfomdd")
+#const MAGIC_TREE_GRE = preload("uid://bskee4ne4napf")
+#const MAGIC_TREE_RED = preload("uid://dusp7r6wm1u2r")
+#const MAGIC_TREE_YEL = preload("uid://ch5w70r2yphyu")
 
 
 # ---- SWAP VAR -----
 var swap_pool_index : int
 var swap_holder_index : int
-var swap_pool_lucky_charm : LuckyCharmData
-var swap_holder_lucky_charm : LuckyCharmData
+var swap_pool_lucky_charm : CharmData
+var swap_holder_lucky_charm : CharmData
 var lucky_charms_scene:= "uid://ch2rp03kbdyg7"
 var undo_ok : bool = false
 var add_lucky_charm_ok : bool = true
 var shuffle_lucky_charms_ok : bool = true
 var max_displayed_charms : int = 3
 var selected_new_lucky_charms_index : int
-var last_added_lucky_charm : LuckyCharmData = null
+var last_added_lucky_charm : CharmData = null
 
 func _ready() -> void:
 	randomize()
 	init()
 	
 func init() -> void : 
-	pool.append(MAGIC_TREE_GRE)
-	pool.append(MAGIC_TREE_BLU)
-	pool.append(MAGIC_TREE_RED)
+	#pool.append(MAGIC_TREE_GRE)
+	#pool.append(MAGIC_TREE_BLU)
+	#pool.append(MAGIC_TREE_RED)
 	#pool.append(MAGIC_TREE_YEL)
 	holder = [null,null,null]
 
@@ -50,7 +50,7 @@ func call_reverse_swap() -> void :
 		reverse_swap(swap_pool_index,swap_holder_index,swap_pool_lucky_charm,swap_holder_lucky_charm)
 
 
-func swap_lucky_charms(pool_index : int, holder_index : int, new_lucky_charm : LuckyCharmData, current_lucky_charm : LuckyCharmData) -> void : 
+func swap_lucky_charms(pool_index : int, holder_index : int, new_lucky_charm : CharmData, current_lucky_charm : CharmData) -> void : 
 	undo_ok = true
 	swap_pool_index = pool_index
 	swap_holder_index = holder_index
@@ -65,7 +65,7 @@ func swap_lucky_charms(pool_index : int, holder_index : int, new_lucky_charm : L
 	add_lucky_charm_ok = false
 	SceneManager.load_level(lucky_charms_scene)
 	
-func reverse_swap(pool_index : int, holder_index : int, pool_lucky_charm : LuckyCharmData, holder_lucky_charm : LuckyCharmData) -> void : 
+func reverse_swap(pool_index : int, holder_index : int, pool_lucky_charm : CharmData, holder_lucky_charm : CharmData) -> void : 
 	var appended_index : int = pool.rfind(holder_lucky_charm)
 	if appended_index != -1 : 
 		pool.remove_at(appended_index)
@@ -77,7 +77,7 @@ func reverse_swap(pool_index : int, holder_index : int, pool_lucky_charm : Lucky
 	add_lucky_charm_ok = true
 	undo_ok = false
 	
-func apply_charm_modifier(lucky_charm : LuckyCharmData) -> void : 
+func apply_charm_modifier(lucky_charm : CharmData) -> void : 
 	var new_mod : Modifier = Modifier.new(lucky_charm.modifier_value,lucky_charm.modifier_type,"new_lucky_charm",0)
 	
 	if lucky_charm.target_ressource == lucky_charm.Target_Ressources.CAR:

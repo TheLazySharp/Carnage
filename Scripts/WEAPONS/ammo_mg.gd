@@ -22,7 +22,6 @@ var is_active:= false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	StatsManager.stats_updated.connect(_on_stats_updated)
 	max_lvl = bullet_data.max_level
 	
 	#bullet_data.init_stats()
@@ -30,11 +29,8 @@ func _ready() -> void:
 	max_range = bullet_data.atk_range.get_value()
 	damages = int(bullet_data.dmg.get_value())
 	
-	#_on_stats_updated()
-
 
 func _process(_delta: float) -> void:
-	
 	if !bullet_data.weapon_is_active:
 		desactivate()
 
@@ -72,10 +68,8 @@ func _on_body_entered(body: Node2D) -> void:
 		desactivate()
 
 
-
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
-
 
 func desactivate()-> void:
 	hide()
@@ -86,24 +80,12 @@ func desactivate()-> void:
 	if parent_weapon: parent_weapon.add_bullet_to_pool(self)
 
 
-
 func activate() -> void :
 	if !is_active:
 		is_active = true
 		visible = true
 		set_process(true)
 		set_physics_process(true)
-		
-func _on_stats_updated() -> void : 
-	pass
-	#current_lvl = clampi(bullet_data.current_level,0,max_lvl)
-	#speed = bullet_data.speed
-	#damages = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + (current_lvl * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.long_range_dmg_bonus)
-	#damages_upgrade = bullet_data.coeff_dmg * roundi(bullet_data.base_dmg + ((current_lvl + 1) * .1 * 28) * LuckyCharmsManager.all_dmg_bonus * LuckyCharmsManager.long_range_dmg_bonus)
-	#max_range = bullet_data.base_atk_range * LuckyCharmsManager.all_range_bonus
-	#bullet_data.dmg = damages
-	#bullet_data.dmg_upgrade = damages_upgrade
-	#max_range = bullet_data.base_atk_range * LuckyCharmsManager.all_range_bonus
-	
+
 func on_level_up() -> void : 
 	pass

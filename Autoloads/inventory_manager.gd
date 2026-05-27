@@ -9,17 +9,26 @@ var dollar_weights : Dictionary = {
 	DollarData.Rarities.LEGENDARY: 1
 }
 
+
+const ALL_DOLLAR : Array = [
+	preload("uid://ydtnmpfplfvu"),
+	preload("uid://sqpp10ipav3a"),
+	preload("uid://eplph6wq8wyy")
+	]
+
 var all_dollars : Array[DollarData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var fortune : int
 
 
 func _ready() -> void:
+	for dollar : DollarData in ALL_DOLLAR:
+		all_dollars.append(dollar)
 	fortune = 0
 	auto_parts = 0
 	rng.randomize()
-	load_dollars_from_folder("res://Resources/Dollars/")
-	
+
+
 func unload() -> void:
 	auto_parts = 0
 
@@ -48,25 +57,3 @@ func pick_dollar()-> DollarData:
 		pool = all_dollars
 	
 	return pool[rng.randi_range(0,pool.size() -1)]
-
-
-func load_dollars_from_folder(path : String) -> void : 
-	var dir := DirAccess.open(path)
-	if !dir:
-		push_error("shop manager : no folder in "+path)
-		return
-	
-	dir.list_dir_begin()
-	var file_name : String = dir.get_next()
-	
-	while file_name != "":
-		if file_name.ends_with(".tres"):
-			var full_path : String = path + file_name
-			var resource : Resource = load(full_path)
-			if resource is DollarData:
-				all_dollars.append(resource)
-			else : 
-				push_error("shop manager : resource is not of type DollarData : " + full_path)
-		file_name = dir.get_next()
-	dir.list_dir_end()
-	

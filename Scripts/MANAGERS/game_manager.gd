@@ -7,9 +7,9 @@ var game_is_over:= false
 
 @onready var player: CharacterBody2D = $"../Car"
 @onready var pause_manager: Control = $"../CanvasLayer/Pause"
-@onready var leveling: Control = $"../CanvasLayer/Leveling"
-@onready var weapons_container: MarginContainer = $"../CanvasLayer/Leveling/WeaponsContainer"
-@onready var ammo_container: MarginContainer = $"../CanvasLayer/Leveling/AmmoContainer"
+#@onready var leveling: Control = $"../CanvasLayer/Leveling"
+#@onready var weapons_container: MarginContainer = $"../CanvasLayer/Leveling/WeaponsContainer"
+#@onready var ammo_container: MarginContainer = $"../CanvasLayer/Leveling/AmmoContainer"
 @onready var prelevelling: Control = $"../CanvasLayer/Prelevelling"
 
 var game_over_scene:= "uid://c6ue1qnj30p5b"
@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 	
 func process_inputs()-> void:
 	if Input.is_action_just_released("pause"):
-		if leveling.visible or prelevelling.visible:
+		if prelevelling.visible:
 			return
 		pause_status()
 

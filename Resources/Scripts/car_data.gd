@@ -99,6 +99,8 @@ var stat_modifiers : Array[Modifier] = []
 signal stat_adjusted(stat : Statistic )
 var current_life : int 
 
+var invincible : bool = false
+
 func init_stats() -> void:
 	engine_lvl = 0
 	turbo_lvl = 0

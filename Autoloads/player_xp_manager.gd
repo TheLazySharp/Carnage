@@ -47,10 +47,7 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	pass
-	#if !game_paused:
-		#if current_xp >= current_level_target_xp and !leveling_up:
-			#level_up()
-		#get_xp()
+
 
 
 func update_upgrades()-> void : 
@@ -88,23 +85,6 @@ func process_next_xp() -> void :
 	process_next_xp()
 
 
-#func get_xp() -> void:
-	#if !game_paused and !xp_bucket.is_empty():
-		##print("bucke size : ",xp_bucket.size())
-		#for i in range(xp_bucket.size()-1,-1,-1):
-			#if current_level_target_xp - current_xp >= xp_bucket[i] :
-				#current_xp += xp_bucket[i]
-				#emit_signal("update_xp", current_xp)
-				#xp_bucket.remove_at(i)
-				#break
-			#if current_level_target_xp - current_xp < xp_bucket[i] :
-				#var xp_needed : int = current_level_target_xp - current_xp
-				#var xp_exceed : int = xp_bucket[i] - xp_needed
-				#current_xp += xp_needed
-				#emit_signal("update_xp", current_xp)
-				#xp_bucket.remove_at(i)
-				#if xp_exceed > 0:
-					#xp_bucket.append(xp_exceed)
 
 
 

@@ -241,6 +241,7 @@ offset_left = 120.0
 offset_top = 400.0
 offset_right = 497.0
 offset_bottom = 456.0
+focus_neighbor_right = NodePath("../Buttons/Shop")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_atdcy")
 theme_override_font_sizes/font_size = 24
@@ -258,6 +259,7 @@ theme_override_constants/separation = 16
 [node name="Repair" type="Label" parent="Entrance/RepairButton/HBoxContainer" unique_id=1652027811]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../EntranceButtons/Back")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_atdcy")
 theme_override_font_sizes/font_size = 24
@@ -321,6 +323,7 @@ theme_override_constants/separation = 32
 [node name="Shop" type="Button" parent="Entrance/Buttons" unique_id=1083931236]
 custom_minimum_size = Vector2(300, 56)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../RepairButton")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_atdcy")
 theme_override_font_sizes/font_size = 24
@@ -332,6 +335,8 @@ script = ExtResource("12_yoor6")
 [node name="Stats" type="Button" parent="Entrance/Buttons" unique_id=29307590]
 custom_minimum_size = Vector2(300, 56)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../RepairButton")
+focus_neighbor_bottom = NodePath("../../EntranceButtons/Back")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_atdcy")
 theme_override_font_sizes/font_size = 24

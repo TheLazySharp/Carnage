@@ -14,8 +14,6 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	if !"get_impact" in area:
 		return
-	if !car.is_invincible:
-		return
 		
 	var speed_ratio: float = car.velocity.length() / car.max_speed
 	var car_forward: Vector2 = Vector2.RIGHT.rotated(car.rotation)

@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://cgiigywajssx1" path="res://Scripts/CHARACTERS/PLAYER/car_beacon.gd" id="21_3arfo"]
 [ext_resource type="AudioStream" uid="uid://dxkrhhd1y7ehy" path="res://Assets/Audio/SFX/Car/Beeps/beep_far.mp3" id="22_s25yl"]
 [ext_resource type="AudioStream" uid="uid://bj3qouo8llu14" path="res://Assets/Audio/SFX/Car/Beeps/beep_close.mp3" id="23_vd0i7"]
+[ext_resource type="Script" uid="uid://bqwvqyc8nxkoq" path="res://Scripts/CHARACTERS/PLAYER/drift_manager.gd" id="24_s25yl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 height = 42.0
@@ -564,11 +565,6 @@ bus = &"SFX"
 stream = ExtResource("12_s25yl")
 bus = &"SFX"
 
-[node name="DriftSfx" type="AudioStreamPlayer2D" parent="Audio" unique_id=225319736]
-stream = ExtResource("9_qjiw1")
-bus = &"Skids"
-parameters/looping = true
-
 [node name="DeathSfx" type="AudioStreamPlayer" parent="Audio" unique_id=955956618]
 stream = ExtResource("13_in73v")
 bus = &"SFX"
@@ -660,6 +656,14 @@ bus = &"Beeps"
 
 [node name="BeepTimer" type="Timer" parent="Beacon" unique_id=2026395165]
 autostart = true
+
+[node name="DriftManager" type="Node2D" parent="." unique_id=445293594]
+script = ExtResource("24_s25yl")
+
+[node name="DriftSfx" type="AudioStreamPlayer2D" parent="DriftManager" unique_id=225319736]
+stream = ExtResource("9_qjiw1")
+bus = &"Skids"
+parameters/looping = true
 
 [connection signal="animation_finished" from="RearLeft/RearLeftBurnAnim" to="." method="_on_rear_left_burn_anim_animation_finished"]
 [connection signal="animation_finished" from="RearRight/RearRightBurnAnim" to="." method="_on_rear_right_burn_animation_finished"]

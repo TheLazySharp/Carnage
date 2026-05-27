@@ -1,16 +1,16 @@
 extends Control
 
 
-var boost : BoostData
+var charm : CharmData
 @onready var card: ColorRect = $Confirm/MarginContainer/Card
-@onready var boost_name: Label = $Confirm/MarginContainer/Card/PanelColor/Name
+@onready var charm_name: Label = $Confirm/MarginContainer/Card/PanelColor/Name
 @onready var icon: TextureRect = $Confirm/MarginContainer/Card/PanelColor/IconBkg/Icon
-@onready var boost_rarity: Label = $Confirm/MarginContainer/Card/PanelColor/Rarity
+@onready var charm_rarity: Label = $Confirm/MarginContainer/Card/PanelColor/Rarity
 
 @onready var confirm: Button = $Confirm
 @onready var description: Label = $Confirm/MarginContainer/Card/PanelColor/Description
 
-
+var price_mult : int = 10
 @onready var price_cont: HBoxContainer = $Price
 @onready var price_tag: Label = $Price/PriceTag
 @onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
@@ -23,30 +23,51 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 func _ready() -> void:
 	SignalManager.update_fortune.connect(_on_fortune_updated)
 	rng.randomize()
-	
 
-func setup(p_boost : BoostData, p_is_in_shop : bool) -> void : 
-	boost = p_boost
-	boost.price = rng.randi_range(int(ShopManager.price_levels[boost.rarity]*0.75),int(ShopManager.price_levels[boost.rarity]*1.25))
-	price_tag.text = str(boost.price)
-	boost_name.text = boost.name
-	icon.texture = boost.icon
-	card.color = boost.get_shop_color()
-	boost_rarity.text = boost.get_rarity_string(boost.rarity)
-	boost_rarity.add_theme_color_override("font_color",boost.get_shop_color())
-	boost.is_in_shop = p_is_in_shop
 
-	
+func setup(p_charm : CharmData, p_is_in_shop : bool) -> void : 
+	charm = p_charm
+	charm.price = rng.randi_range(int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod)) * price_mult
+	price_tag.text = str(charm.price)
+	charm_name.text = charm.name
+	icon.texture = charm.icon
+	card.color = charm.get_shop_color()
+	charm_rarity.text = charm.get_rarity_string(charm.rarity)
+	charm_rarity.add_theme_color_override("font_color",charm.get_shop_color())
+	charm.is_in_shop = p_is_in_shop
+
 	sold_out.hide()
-	if boost.is_in_shop:
+	if charm.is_in_shop:
 		price_cont.show()
 	else : price_cont.hide()
 
 
-
-
 func _on_confirm_pressed() -> void:
-	pass
+	var effect : CharmEffect = charm.effect_script.new()
+	effect.activate()
+	CharmsManager.register(charm, effect)
+
+	if charm.is_in_shop:
+		if charm.price <= InventoryManager.fortune:
+			InventoryManager.fortune -= charm.price
+			SignalManager.emit_signal("update_fortune")
+			sold_out.show()
+			price_cont.hide()
+			confirm.disabled = true
+		else : 
+			not_enough_cash()
+
+	else : 
+		ShopManager.boost_shopped += 1
+		self.hide()
+		if ShopManager.boost_shopped < ShopManager.available_boosts:
+			for i : int in range(0,get_parent().get_children().size()-1):
+				if get_parent().get_children()[i].visible:
+					get_parent().get_child(i).get_child(0).grab_focus()
+		
+		SignalManager.emit_signal("upgrades_ok")
+		get_parent().get_parent().queue_free()
+
 
 func not_enough_cash()-> void : 
 	not_enough_cash_rect.show()
@@ -55,6 +76,6 @@ func not_enough_cash()-> void :
 	
 	
 func _on_fortune_updated() -> void : 
-	if boost.price > InventoryManager.fortune:
+	if charm.price > InventoryManager.fortune:
 		price_tag.add_theme_color_override("font_color",Color.RED)
 	

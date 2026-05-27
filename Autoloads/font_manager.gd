@@ -38,7 +38,7 @@ var FONTS : Dictionary = {
 	types.TEXT_TITLE_LOW:[preload("uid://ka3caedu5yxc"),32,Color.WHITE],
 	types.TEXT:[preload("uid://ka3caedu5yxc"),24,Color.WHITE],
 	
-	types.UX:[preload("uid://ka3caedu5yxc"),64,Color.WHITE],
+	types.UX:[preload("uid://ka3caedu5yxc"),54,Color.WHITE],
 	types.UX_M:[preload("uid://ka3caedu5yxc"),48,Color.WHITE],
 	types.UX_S:[preload("uid://ka3caedu5yxc"),32,Color.WHITE],
 	types.UX_XS:[preload("uid://ka3caedu5yxc"),16,Color.WHITE],

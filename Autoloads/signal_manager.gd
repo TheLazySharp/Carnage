@@ -62,3 +62,6 @@ signal upgrades_ok
 
 @warning_ignore("unused_signal")
 signal update_fortune
+
+@warning_ignore("unused_signal")
+signal wall_collision
