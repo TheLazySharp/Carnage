@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://c8whek5n8pers"]
+
+[ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_exg4w"]
+[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="1_tpwqb"]
+
+[resource]
+script = ExtResource("1_exg4w")
+name = "Common"
+sprite = ExtResource("1_tpwqb")
+metadata/_custom_type_script = "uid://o5x50j5uyp7f"

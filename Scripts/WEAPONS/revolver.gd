@@ -69,6 +69,17 @@ func shoot_from_pool()-> void :
 		var dir : Vector2= fire_point.global_position.direction_to(target.global_position)
 		var angle : float = dir.angle()
 		bullet.fire(fire_point.global_position,dir,angle)
+		
+		if revolver_data.nb_projectile.get_value() > 1 : 
+			for i in  range(1,revolver_data.nb_projectile.get_value() + 1):
+				var perp : Vector2 = dir.rotated(PI / 2)
+				var parallel_offset : float = 10 * i
+				var parallel_origin : Vector2 = fire_point.global_position + perp * parallel_offset
+				var bullet2 : AmmoREV = get_bullet_from_pool()
+				bullet2.fire(parallel_origin,dir,angle)
+		
+		
+		
 		#muzzle_flash.rotation = angle
 		muzzle_flash.show()
 		muzzle_flash.play("fire")

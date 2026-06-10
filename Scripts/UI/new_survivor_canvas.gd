@@ -31,8 +31,8 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 	pnj_name.text = new_survivor.name
 	pnj_name_icon.text = new_survivor.name
 	pnj_age.text = str(new_survivor.age)
-	pnj_job.text = new_survivor.job_ressource.job_title
-	pnj_bio.text = new_survivor.bio
+	pnj_job.text = new_survivor.job_ressource.name
+	pnj_bio.text = new_survivor.job_ressource.description
 	weapon_icon.texture = new_survivor.weapon.weapon_icon
 	pnj_weapon.text = new_survivor.weapon.weapon_name
 	weapon_descr.text = new_survivor.weapon.description
@@ -41,6 +41,11 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 
 func _on_pick_up_pressed() -> void:
 	SurvivorsManager.pick_up_survivor(survivor)
+	var job : JobData = survivor.job_ressource
+	var effect : JobEffect = job.effect_script.new()
+	effect.activate()
+	jobs_manager.register(job, effect)
+	
 	SurvivorsManager.emit_signal("in_game_survivor_queuefree")
 	self.hide()
 	SignalManager.emit_signal("game_paused",game_on_pause)

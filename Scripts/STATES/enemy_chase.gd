@@ -6,7 +6,7 @@ class_name EnemyChase
 @onready var navigation_agent: NavigationAgent2D = $"../../NavigationAgent2D"
 
 var nav_point_direction: Vector2
-var move_speed: float
+#var move_speed: float
 var chase_speed_boost: float = 1.6
 
 
@@ -42,7 +42,7 @@ func enter() -> void:
 		#enemy.set_enemy_color(Color.GREEN_YELLOW)
 	
 	navigation_agent.target_position = target.global_position
-	move_speed = enemy.speed * chase_speed_boost
+	#move_speed = 
 	
 	var angle : float = randf() * TAU
 	var dist : float = randf_range(10,50)
@@ -105,7 +105,7 @@ func leader_behavior(_delta : float) -> void:
 		var next_pos: Vector2 = navigation_agent.get_next_path_position()
 		var dir: Vector2 = (next_pos - enemy.global_position)
 		if dir.length_squared() > 1:
-			enemy.velocity = dir.normalized() * move_speed
+			enemy.velocity = dir.normalized() * enemy.enemy.speed.get_value() * chase_speed_boost
 		else : 
 			enemy.velocity = Vector2.ZERO
 		#enemy.sprite_update(next_pos)
@@ -174,6 +174,6 @@ func trouper_behavior(_delta : float) -> void:
 	var total_forces : Vector2 = attraction_force + repulsion_force
 	
 	if total_forces.length_squared() > 0.0001:
-		enemy.velocity = total_forces.normalized() * move_speed
+		enemy.velocity = total_forces.normalized() * enemy.enemy.speed.get_value() * chase_speed_boost
 	else : 
 		enemy.velocity = Vector2.ZERO

@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ca2xs3prb7n8k"]
+
+[ext_resource type="Script" uid="uid://b3p712eb3mgil" path="res://Scripts/ENEMIES/coloss_arrival.gd" id="1_fofmf"]
+[ext_resource type="PackedScene" uid="uid://cn0s2cddejujh" path="res://Scenes/ENNEMIES/coloss_auto.tscn" id="2_fofmf"]
+[ext_resource type="AudioStream" uid="uid://ctp0kid70nr48" path="res://Assets/Audio/SFX/Coloss/Footsteps/DistantFootsteps1.mp3" id="3_3i3gc"]
+[ext_resource type="AudioStream" uid="uid://csi8fpk0eqbi4" path="res://Assets/Audio/SFX/Coloss/Footsteps/DistantFootsteps2.mp3" id="4_xb072"]
+[ext_resource type="AudioStream" uid="uid://b85cebttpxovu" path="res://Assets/Audio/SFX/Coloss/Footsteps/DistantFootsteps3.mp3" id="5_7w0ym"]
+[ext_resource type="AudioStream" uid="uid://d3fl26vpnddgl" path="res://Assets/Audio/SFX/Coloss/Footsteps/DistantFootsteps4.mp3" id="6_lmito"]
+[ext_resource type="AudioStream" uid="uid://cs3in1kheg8js" path="res://Assets/Audio/SFX/Coloss/Explosion/Explosion1.mp3" id="7_ecgaw"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_3i3gc"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("3_3i3gc")
+stream_1 = ExtResource("4_xb072")
+stream_2 = ExtResource("5_7w0ym")
+stream_3 = ExtResource("6_lmito")
+
+[node name="ColossArrival" type="Node2D" unique_id=129810557]
+script = ExtResource("1_fofmf")
+coloss_scene = ExtResource("2_fofmf")
+
+[node name="Marker1" type="Marker2D" parent="." unique_id=624590813]
+
+[node name="Marker2" type="Marker2D" parent="." unique_id=1709648179]
+
+[node name="Marker3" type="Marker2D" parent="." unique_id=987365903]
+
+[node name="Marker4" type="Marker2D" parent="." unique_id=2117146510]
+
+[node name="Marker5" type="Marker2D" parent="." unique_id=2004767111]
+
+[node name="Marker6" type="Marker2D" parent="." unique_id=1020189212]
+
+[node name="Marker7" type="Marker2D" parent="." unique_id=148471387]
+
+[node name="DistantFootSteps" type="AudioStreamPlayer" parent="." unique_id=283086987]
+stream = SubResource("AudioStreamPlaylist_3i3gc")
+volume_db = 24.0
+bus = &"Coloss"
+
+[node name="Explosion" type="AudioStreamPlayer" parent="." unique_id=1608769522]
+stream = ExtResource("7_ecgaw")
+bus = &"Coloss"
+
+[node name="StepsTmer" type="Timer" parent="." unique_id=668163838]
+wait_time = 0.5
+
+[connection signal="timeout" from="StepsTmer" to="." method="_on_steps_tmer_timeout"]

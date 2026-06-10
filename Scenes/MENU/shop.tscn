@@ -6,10 +6,36 @@
 [ext_resource type="PackedScene" uid="uid://dbjho30cytfku" path="res://Scenes/ITEMS/boost.tscn" id="2_u6xp3"]
 [ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="5_di8xk"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_1vhtf"]
+[ext_resource type="Texture2D" uid="uid://brs2kf8dgvstm" path="res://Assets/Items/one_dollar.png" id="6_77p00"]
 [ext_resource type="PackedScene" uid="uid://cb1yy61nlopw3" path="res://Scenes/ITEMS/charm.tscn" id="7_3aobf"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="7_3ek1y"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="8_g63ow"]
 [ext_resource type="AudioStream" uid="uid://dcs41hr6yu2n" path="res://Assets/Audio/SFX/Coins/Cash_register.mp3" id="9_g63ow"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vlox"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cv1fx"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3aobf"]
 
@@ -51,6 +77,61 @@ vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
 script = ExtResource("2_rrthm")
+
+[node name="Reroll" type="Button" parent="Background" unique_id=1494321787]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -329.0
+offset_top = 32.0
+offset_right = -11.0
+offset_bottom = 88.0
+grow_horizontal = 0
+focus_neighbor_right = NodePath("../Buttons/Shop")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_pejtf")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_3vlox")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cv1fx")
+text = "
+"
+alignment = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/Reroll" unique_id=281131194]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -1.0
+offset_right = 318.0
+offset_bottom = 56.0
+theme_override_constants/separation = 16
+
+[node name="Reroll" type="Label" parent="Background/Reroll/HBoxContainer" unique_id=1074617478]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../EntranceButtons/Back")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_pejtf")
+theme_override_font_sizes/font_size = 24
+text = " REROLL : "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Cost" type="Label" parent="Background/Reroll/HBoxContainer" unique_id=496569736]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_pejtf")
+theme_override_font_sizes/font_size = 24
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dollar" type="TextureRect" parent="Background/Reroll/HBoxContainer" unique_id=899513498]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+texture = ExtResource("6_77p00")
+expand_mode = 2
 
 [node name="MoneyBag" type="HBoxContainer" parent="Background" unique_id=234640292]
 layout_mode = 0
@@ -145,4 +226,5 @@ stream = ExtResource("9_g63ow")
 bus = &"SFX"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Background/Reroll" to="." method="_on_reroll_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

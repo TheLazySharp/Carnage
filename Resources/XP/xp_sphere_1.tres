@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="XPData" format=3 uid="uid://b1rnp8w8r7smq"]
+
+[ext_resource type="Script" uid="uid://dn8nsdhymv3bd" path="res://Resources/Scripts/xp_data.gd" id="1_cg22d"]
+[ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/XP/xp-1.png" id="2_gyfl5"]
+
+[resource]
+script = ExtResource("1_cg22d")
+item_name = "Blue"
+xp_value = 1
+spritesheet = ExtResource("2_gyfl5")
+metadata/_custom_type_script = "uid://dn8nsdhymv3bd"

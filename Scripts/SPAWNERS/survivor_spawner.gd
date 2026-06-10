@@ -10,8 +10,9 @@ signal beacon_activated(beacon_pos : Vector2)
 func _ready() -> void:
 	if !SurvivorsManager.unknown_survivors.is_empty():
 		survivor = SurvivorsManager.unknown_survivors[0] #---------FOR NOW. WILL BE MODIFY TO ALLOW SEVERAL SURVIVOR TO SPAWN
-		#print(survivor.name," / ",survivor.job_ressource.job_title," / ",survivor.weapon.weapon_name)
-		spawn_survivor()
+		
+		if GameMaster.game_mode != GameMaster.GAME_MODES.GOD:
+			spawn_survivor()
 
 func spawn_survivor() -> void : 
 	var valid_positions : Array[Vector2] = get_valid_positions()

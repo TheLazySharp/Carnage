@@ -34,7 +34,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	global_position = get_parent().global_position
+	global_position = get_parent().global_position 
 
 func shoot_from_pool()-> void :
 	if !can_shoot: return

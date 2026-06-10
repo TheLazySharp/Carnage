@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="1_17cg7"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_qleis"]
-[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flamer.tres" id="3_qleis"]
+[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flame.tres" id="3_qleis"]
 
 [resource]
 script = ExtResource("2_qleis")

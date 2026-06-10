@@ -1,0 +1,426 @@
+[gd_scene format=3 uid="uid://b5ymk58gfmq3l"]
+
+[ext_resource type="Script" uid="uid://cgriivvndco52" path="res://Scripts/SCENES/current_stats.gd" id="1_5ttc1"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="1_lbu7d"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="2_5ttc1"]
+[ext_resource type="Script" uid="uid://bf3eesyda5860" path="res://Scripts/UI/end_game_weapon_stat.gd" id="3_aayud"]
+
+[node name="Stats" type="Control" unique_id=1352227625]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5ttc1")
+
+[node name="EndGameStats" type="VBoxContainer" parent="." unique_id=1268968872]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 128.0
+offset_right = 565.0
+offset_bottom = 290.0
+theme_override_constants/separation = 16
+
+[node name="Duration" type="HBoxContainer" parent="EndGameStats" unique_id=2053077570]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat" type="Label" parent="EndGameStats/Duration" unique_id=2053463166]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Total duration"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="EndGameStats/Duration" unique_id=1053755137]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="StatValue" type="Label" parent="EndGameStats/Duration" unique_id=1052209231]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "22.2"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Distance" type="HBoxContainer" parent="EndGameStats" unique_id=148278018]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat" type="Label" parent="EndGameStats/Distance" unique_id=1532234287]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Total distance"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="EndGameStats/Distance" unique_id=834869673]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="StatValue" type="Label" parent="EndGameStats/Distance" unique_id=1511020611]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "1000.3"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Drift" type="HBoxContainer" parent="EndGameStats" unique_id=1926866237]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat" type="Label" parent="EndGameStats/Drift" unique_id=1507476159]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Drift bonus"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="EndGameStats/Drift" unique_id=2094208116]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="StatValue" type="Label" parent="EndGameStats/Drift" unique_id=936430075]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "1000000"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Enemies" type="HBoxContainer" parent="EndGameStats" unique_id=1306985451]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat" type="Label" parent="EndGameStats/Enemies" unique_id=536106905]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Kills"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="EndGameStats/Enemies" unique_id=1523129069]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="StatValue" type="Label" parent="EndGameStats/Enemies" unique_id=2056293614]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "10000"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dollars" type="HBoxContainer" parent="EndGameStats" unique_id=1893909703]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat" type="Label" parent="EndGameStats/Dollars" unique_id=1496184281]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Total fortune"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="EndGameStats/Dollars" unique_id=1514367798]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="StatValue" type="Label" parent="EndGameStats/Dollars" unique_id=955011560]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "10000"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Damages" type="HBoxContainer" parent="EndGameStats" unique_id=101855919]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat" type="Label" parent="EndGameStats/Damages" unique_id=1091758132]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Total damages"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="EndGameStats/Damages" unique_id=587580341]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="StatValue" type="Label" parent="EndGameStats/Damages" unique_id=1720922042]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "10000"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dps" type="Label" parent="EndGameStats/Damages" unique_id=505416238]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "(100)"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="WeaponsStats" type="VBoxContainer" parent="." unique_id=666227612]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 290.0
+offset_right = 594.0
+offset_bottom = 536.0
+theme_override_constants/separation = 16
+
+[node name="Car" type="HBoxContainer" parent="WeaponsStats" unique_id=2063129895]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Stat" type="Label" parent="WeaponsStats/Car" unique_id=477319533]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Car damages"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="WeaponsStats/Car" unique_id=1703002215]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="StatValue" type="Label" parent="WeaponsStats/Car" unique_id=729751]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "22.2"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dps" type="Label" parent="WeaponsStats/Car" unique_id=1999760603]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "(100)"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Weapon0" type="HBoxContainer" parent="WeaponsStats" unique_id=744345792]
+layout_mode = 2
+theme_override_constants/separation = 8
+script = ExtResource("3_aayud")
+
+[node name="Weapon" type="Label" parent="WeaponsStats/Weapon0" unique_id=1613966488]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Weapon Name"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="WeaponsStats/Weapon0" unique_id=2046096492]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="DmgValue" type="Label" parent="WeaponsStats/Weapon0" unique_id=909306224]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "1000.3"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dps" type="Label" parent="WeaponsStats/Weapon0" unique_id=337947977]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "(100)"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Weapon1" type="HBoxContainer" parent="WeaponsStats" unique_id=1377276973]
+layout_mode = 2
+theme_override_constants/separation = 8
+script = ExtResource("3_aayud")
+
+[node name="Weapon" type="Label" parent="WeaponsStats/Weapon1" unique_id=632811799]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Weapon Name"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="WeaponsStats/Weapon1" unique_id=1539239875]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="DmgValue" type="Label" parent="WeaponsStats/Weapon1" unique_id=1273560569]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "1000.3"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dps" type="Label" parent="WeaponsStats/Weapon1" unique_id=2098833081]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "(100)"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Weapon2" type="HBoxContainer" parent="WeaponsStats" unique_id=363499783]
+layout_mode = 2
+theme_override_constants/separation = 8
+script = ExtResource("3_aayud")
+
+[node name="Weapon" type="Label" parent="WeaponsStats/Weapon2" unique_id=499086742]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Weapon Name"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="WeaponsStats/Weapon2" unique_id=1489195164]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="DmgValue" type="Label" parent="WeaponsStats/Weapon2" unique_id=161958245]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "1000.3"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dps" type="Label" parent="WeaponsStats/Weapon2" unique_id=790877084]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "(100)"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Weapon3" type="HBoxContainer" parent="WeaponsStats" unique_id=1608579357]
+layout_mode = 2
+theme_override_constants/separation = 8
+script = ExtResource("3_aayud")
+
+[node name="Weapon" type="Label" parent="WeaponsStats/Weapon3" unique_id=1560403284]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Weapon Name"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="WeaponsStats/Weapon3" unique_id=2140311071]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="DmgValue" type="Label" parent="WeaponsStats/Weapon3" unique_id=381226027]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "1000.3"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dps" type="Label" parent="WeaponsStats/Weapon3" unique_id=2136631671]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "(100)"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Weapon4" type="HBoxContainer" parent="WeaponsStats" unique_id=1175148294]
+layout_mode = 2
+theme_override_constants/separation = 8
+script = ExtResource("3_aayud")
+
+[node name="Weapon" type="Label" parent="WeaponsStats/Weapon4" unique_id=1625367051]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "Weapon Name"
+script = ExtResource("2_5ttc1")
+
+[node name="Ponct" type="Label" parent="WeaponsStats/Weapon4" unique_id=1446853595]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = ":"
+script = ExtResource("2_5ttc1")
+
+[node name="DmgValue" type="Label" parent="WeaponsStats/Weapon4" unique_id=1039893817]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "1000.3"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")
+
+[node name="Dps" type="Label" parent="WeaponsStats/Weapon4" unique_id=1540267753]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lbu7d")
+theme_override_font_sizes/font_size = 24
+text = "(100)"
+horizontal_alignment = 2
+script = ExtResource("2_5ttc1")

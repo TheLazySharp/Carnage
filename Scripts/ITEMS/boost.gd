@@ -17,9 +17,12 @@ var boost : BoostData
 @onready var new_value_1: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/NewValue1
 
 @onready var price_cont: HBoxContainer = $Price
-@onready var price_tag: Label = $Price/PriceTag
+@onready var price_tag: Label = $Price/Tags/PriceTag
+@onready var discount_tag: Label = $Price/Tags/DiscountTag
 @onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
 @onready var not_enough_cash_rect: ColorRect = $Confirm/MarginContainer/NotEnoughCash
+var discounted_price : int
+
 
 var card_color : Color
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -34,7 +37,9 @@ func _ready() -> void:
 func setup(p_boost : BoostData, p_is_in_shop : bool) -> void : 
 	boost = p_boost
 	boost.price = rng.randi_range(int(XPManager.current_level + ShopManager.price_levels[boost.rarity] * 0.75 * GameMaster.difficulty_mod),int(XPManager.current_level + ShopManager.price_levels[boost.rarity] * 1.25 * GameMaster.difficulty_mod))
+	discounted_price = int(boost.price * ShopManager.discount.get_value())
 	price_tag.text = str(boost.price)
+	discount_tag.text = str(discounted_price)
 	boost_name.text = boost.name
 	icon.texture = boost.icon
 	card.color = boost.get_shop_color()
@@ -73,6 +78,13 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void :
 		bonus_1.hide()
 		new_value_1.hide()
 
+	if ShopManager.apply_discount :
+		discount_tag.show()
+	
+	else : 
+		discount_tag.hide()
+
+
 func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index : int) -> String:
 	match type:
 		boost.Mod_Type.FLAT:
@@ -104,25 +116,17 @@ func _on_confirm_pressed() -> void:
 	
 
 	if boost.is_in_shop:
-		if boost.price <= InventoryManager.fortune:
-			InventoryManager.fortune -= boost.price
+		if min(boost.price, discounted_price) <= InventoryManager.fortune:
+			InventoryManager.fortune -= min(boost.price, discounted_price)
 			SignalManager.emit_signal("update_fortune")
 			sold_out.show()
 			price_cont.hide()
 			confirm.disabled = true
 		else : 
 			not_enough_cash()
-
+	
 	else : 
-		ShopManager.boost_shopped += 1
-		self.hide()
-		if ShopManager.boost_shopped < ShopManager.available_boosts:
-			for i : int in range(0,get_parent().get_children().size()-1):
-				if get_parent().get_children()[i].visible:
-					get_parent().get_child(i).get_child(0).grab_focus()
-		
-		SignalManager.emit_signal("upgrades_ok")
-		get_parent().get_parent().queue_free()
+		SignalManager.emit_signal("car_level_up_upgrade")
 
 
 func not_enough_cash()-> void : 
@@ -134,6 +138,9 @@ func not_enough_cash()-> void :
 func _on_fortune_updated() -> void : 
 	if boost.price > InventoryManager.fortune:
 		price_tag.add_theme_color_override("font_color",Color.RED)
+
+	if discounted_price > InventoryManager.fortune:
+		discount_tag.add_theme_color_override("font_color",Color.RED)
 	
 func _on_stats_updated() -> void : 
 	stat_0.text = boost.get_stat_string(boost.target_stats[0])

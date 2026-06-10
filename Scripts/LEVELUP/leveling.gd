@@ -12,10 +12,11 @@ func _ready() -> void:
 	SignalManager.upgrades_ok.connect(_on_skip_pressed)
 
 func level_up(new_current_level : int) -> void:
-	self.show()
-	preleveling_button.grab_focus()
-	player_current_level = new_current_level
-	SignalManager.emit_signal("game_paused", true)
+	pass
+	#self.show()
+	#preleveling_button.grab_focus()
+	#player_current_level = new_current_level
+	#SignalManager.emit_signal("game_paused", true)
 
 func _on_skip_pressed() -> void:
 	SignalManager.emit_signal("game_paused", false)

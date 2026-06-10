@@ -6,10 +6,6 @@ var i : int
 @onready var car_name: Label = $Name
 @onready var icon: TextureRect = $Icon
 
-var roadmap_scene : String = "uid://dsn18jy5k2in8"
-var intro_scene : String = "uid://dqfr2nck8fjao"
-var survivor_selection : String = "uid://cui5s6rmjs40o"
-
 @onready var select: Button = $"../VBoxContainer/Select"
 
 @onready var stats_panel: Panel = $StatsPanel
@@ -37,7 +33,7 @@ func _process(_delta: float) -> void:
 		update_car_data()
 	
 	if Input.is_action_just_pressed("ui_back"): 
-		SceneManager.load_level(survivor_selection)
+		SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
 
 func update_car_data() -> void:
 	CarManager.selected_car = CarManager.cars[i]
@@ -50,13 +46,15 @@ func update_car_data() -> void:
 func _on_select_pressed() -> void:
 	match GameMaster.game_mode:
 		GameMaster.GAME_MODES.BUILD:
-			SceneManager.load_level(intro_scene)
+			SceneManager.load_level(SceneManager.SCENES.START_INTRO)
 		GameMaster.GAME_MODES.DEV:
-			SceneManager.load_level(roadmap_scene)
+			SceneManager.load_level(SceneManager.SCENES.ROADMAP)
+		GameMaster.GAME_MODES.GOD:
+			SceneManager.load_level(SceneManager.SCENES.GOD_MOD_TRAINING)
 
 
 func _on_back_pressed() -> void:
-	SceneManager.load_level(survivor_selection)
+	SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
 
 
 func _on_next_button_pressed() -> void:

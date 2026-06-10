@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bgv4w4g2bvoby"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_evf8p"]
+[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flame.tres" id="2_0p52j"]
+[ext_resource type="PackedScene" uid="uid://baidslgub6j8k" path="res://Scenes/WEAPONS/flame.tscn" id="3_evf8p"]
+[ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="4_is0hv"]
+
+[resource]
+script = ExtResource("1_evf8p")
+weapon_name = "Flame Launcher"
+weapon_icon = ExtResource("4_is0hv")
+max_level = 35
+description = "Throw fire in front of the car"
+type_1 = 5
+type_2 = 6
+tar_up_stat = 9
+weapon_scene_uid = "uid://cio3uws5861ij"
+weapon_ammo_scene = ExtResource("3_evf8p")
+weapon_ammo_res = ExtResource("2_0p52j")
+base_dmg = 0
+base_radius = 0
+base_speed_rotation = 0
+base_nb_ammo = 0
+dmg_on_resources = 0
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

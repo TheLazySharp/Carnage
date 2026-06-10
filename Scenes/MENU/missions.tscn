@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="3_q67s5"]
 [ext_resource type="Texture2D" uid="uid://2m43b6grwcdv" path="res://Assets/Items/piston_spritesheet.png" id="4_biv64"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_cpiun"]
-[ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/UI/xp-sheet.png" id="5_q67s5"]
+[ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/XP/xp-1.png" id="5_q67s5"]
 [ext_resource type="Texture2D" uid="uid://bxgdr3qp32q2b" path="res://Assets/Props/garage.png" id="6_agu6a"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_cpiun"]
 

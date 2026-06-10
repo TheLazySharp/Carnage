@@ -52,9 +52,6 @@ signal start_autopilot_transition
 signal end_autopilot_transition
 
 @warning_ignore("unused_signal")
-signal run_ended
-
-@warning_ignore("unused_signal")
 signal stats_updated
 
 @warning_ignore("unused_signal")
@@ -65,3 +62,21 @@ signal update_fortune
 
 @warning_ignore("unused_signal")
 signal wall_collision
+
+@warning_ignore("unused_signal")
+signal car_level_up_upgrade()
+
+@warning_ignore("unused_signal")
+signal enemy_stats_init
+
+@warning_ignore("unused_signal")
+signal coloss_incoming
+
+@warning_ignore("unused_signal")
+signal next_day
+
+@warning_ignore("unused_signal")
+signal half_time
+
+@warning_ignore("unused_signal")
+signal start_timer

@@ -18,6 +18,7 @@ weapon_scene_uid = "uid://bf606njwyoo0l"
 weapon_ammo_scene = ExtResource("3_c65e2")
 weapon_ammo_res = ExtResource("2_e4v8e")
 weapon_sfx = ExtResource("5_e4v8e")
+base_dmg = 0
 base_speed_rotation = 0
 base_fire_rate = 1.0
 dmg_on_resources = 0

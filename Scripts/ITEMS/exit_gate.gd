@@ -4,7 +4,6 @@ extends Node2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var is_open:= false
 var car_ok : bool
-var end_day_scene:= "uid://dkpvtoel7hhai"
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 @onready var warp_zone: Area2D = $WarpZone
 
@@ -47,7 +46,7 @@ func _on_warp_zone_body_entered(body: Node2D) -> void:
 		car_ok = false
 		emit_signal("full_command", car_ok)
 		await get_tree().create_timer(4).timeout
-		SceneManager.load_level(end_day_scene)
+		SceneManager.load_level(SceneManager.SCENES.END_DAY)
 
 
 

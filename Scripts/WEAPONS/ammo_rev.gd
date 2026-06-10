@@ -55,13 +55,9 @@ func _physics_process(delta: float) -> void:
 		var next_position : Vector2 = global_position + velocity * delta
 		global_position = next_position
 
-		
-	
 	if start_position.distance_to(global_position) > bullet_data.atk_range.get_value():
 		if not game_paused:
 			desactivate()
-
-
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
@@ -88,6 +84,7 @@ func activate()->void:
 func _on_area_entered(area: Area2D) -> void:
 	if "get_damages" in area and area.is_in_group("ennemies") and is_active:
 		area.get_damages(bullet_data.dmg.get_value())
+		bullet_data.total_damages_dealt += int(bullet_data.dmg.get_value())
 		desactivate()
 	elif area.is_in_group("walls"):
 		desactivate()

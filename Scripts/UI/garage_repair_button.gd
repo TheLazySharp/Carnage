@@ -18,7 +18,6 @@ var font_button_hover : Array = FontManager.FONTS[FontManager.types.BUTTON_HOVER
 
 
 
-
 var car : CarData = CarManager.selected_car
 	#----------TEST---------------#
 #var car : CarData

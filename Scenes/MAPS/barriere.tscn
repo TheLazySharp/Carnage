@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://bvmq8j7dk6kfq"]
+
+[ext_resource type="Script" uid="uid://csropswdtjfrw" path="res://Scripts/ITEMS/barriere.gd" id="1_xmpv0"]
+[ext_resource type="Texture2D" uid="uid://cks3fhga0hflx" path="res://Assets/TilesBNW/barrier.png" id="1_y1r32"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xmpv0"]
+size = Vector2(10, 128)
+
+[sub_resource type="Animation" id="Animation_y1r32"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_86c87"]
+resource_name = "closing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5707963267948966, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xmpv0"]
+resource_name = "opening"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5707963267948966]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_86c87"]
+_data = {
+&"RESET": SubResource("Animation_y1r32"),
+&"closing": SubResource("Animation_86c87"),
+&"opening": SubResource("Animation_xmpv0")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwim4"]
+size = Vector2(20, 128)
+
+[node name="Barriere" type="Node2D" unique_id=1249955135]
+script = ExtResource("1_xmpv0")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1640186344]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1216051176]
+position = Vector2(0, 64)
+shape = SubResource("RectangleShape2D_xmpv0")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1511379337]
+texture = ExtResource("1_y1r32")
+offset = Vector2(0, 64)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=604648033]
+libraries/ = SubResource("AnimationLibrary_86c87")
+
+[node name="WarpZone" type="Area2D" parent="." unique_id=173638651]
+
+[node name="Warp Shape" type="CollisionShape2D" parent="WarpZone" unique_id=1804539518]
+position = Vector2(22, 64)
+shape = SubResource("RectangleShape2D_lwim4")
+
+[connection signal="body_entered" from="WarpZone" to="." method="_on_warp_zone_body_entered"]

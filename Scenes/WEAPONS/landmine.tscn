@@ -74,10 +74,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20f3j"]
-radius = 34.234486
+radius = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wbsw3"]
-radius = 6.0
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_2l1bg"]
 
@@ -105,7 +104,6 @@ collision_mask = 1027
 shape = SubResource("CircleShape2D_20f3j")
 
 [node name="TriggerArea" type="Area2D" parent="." unique_id=547869102 groups=["weapons"]]
-visible = false
 collision_layer = 1024
 collision_mask = 3
 

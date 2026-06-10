@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/PLAYER/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="PackedScene" uid="uid://caih21wmxphk2" path="res://Scenes/VFX/ghost.tscn" id="2_nbj0p"]
-[ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="3_m5ekh"]
 [ext_resource type="Texture2D" uid="uid://b3rc8ngbuu013" path="res://Assets/VFX/Smoke_v8_Fade_In.png" id="3_s0c68"]
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
 [ext_resource type="Texture2D" uid="uid://cdpnf2ok8xnsx" path="res://Assets/VFX/Smoke_v8_Fade_Out.png" id="4_nbj0p"]
@@ -18,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://dphqrbyjduulq" path="res://Assets/Audio/SFX/Car/car-engine-starting.mp3" id="12_s25yl"]
 [ext_resource type="AudioStream" uid="uid://btw3ucq0agu40" path="res://Assets/Audio/SFX/Car/car crash.mp3" id="13_in73v"]
 [ext_resource type="Script" uid="uid://b1scnpur1dpt5" path="res://Scripts/CHARACTERS/PLAYER/engine_audio_manager.gd" id="14_iish4"]
+[ext_resource type="Texture2D" uid="uid://brb3qquidnmhm" path="res://Assets/Characters/Cars/sedan.png" id="16_s25yl"]
 [ext_resource type="Shader" uid="uid://d1quj0fpa74xf" path="res://Shaders/flash.gdshader" id="17_s25yl"]
 [ext_resource type="Script" uid="uid://cxh3wfsxbjuvm" path="res://Scripts/CHARACTERS/PLAYER/enemies_detection_area.gd" id="18_qdvgx"]
 [ext_resource type="Script" uid="uid://cgiigywajssx1" path="res://Scripts/CHARACTERS/PLAYER/car_beacon.gd" id="21_3arfo"]
@@ -236,11 +236,11 @@ offsets = PackedFloat32Array(0, 0.34343433, 0.46464646)
 colors = PackedColorArray(0, 0, 0, 1, 0.16835018, 0.16835018, 0.16835018, 1, 1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsha1"]
-radius = 30.0
+radius = 36.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwwk2"]
-radius = 9.0
-height = 40.0
+radius = 12.0
+height = 44.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o4qls"]
 height = 42.0
@@ -437,7 +437,7 @@ height = 42.0
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
 scale = Vector2(1.5, 1.5)
-collision_mask = 131610
+collision_mask = 393754
 motion_mode = 1
 wall_min_slide_angle = 1.3962634
 platform_on_leave = 2
@@ -466,7 +466,7 @@ sprite_frames = SubResource("SpriteFrames_k282b")
 animation = &"fadeOut"
 
 [node name="DrivinSmokeL2" type="CPUParticles2D" parent="RearLeft" unique_id=262545815]
-position = Vector2(-6, 1)
+position = Vector2(-5, 0)
 emitting = false
 amount = 20
 lifetime = 0.1
@@ -480,6 +480,13 @@ initial_velocity_max = 148.57
 scale_amount_min = 4.0
 scale_amount_max = 4.0
 color_ramp = SubResource("Gradient_s25yl")
+
+[node name="RearLeftLight" type="ColorRect" parent="RearLeft" unique_id=917175822]
+z_index = 2
+offset_left = -2.0
+offset_right = -0.66666794
+offset_bottom = 0.9999981
+color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="RearRight" type="Marker2D" parent="." unique_id=278920196]
 position = Vector2(-26, 9)
@@ -508,6 +515,14 @@ scale_amount_min = 4.0
 scale_amount_max = 4.0
 color_ramp = SubResource("Gradient_s25yl")
 
+[node name="RearRightLight" type="ColorRect" parent="RearRight" unique_id=519623567]
+z_index = 2
+offset_left = -2.0
+offset_top = -0.66666603
+offset_right = -0.66666794
+offset_bottom = 0.33333397
+color = Color(3, 0.1, 0.1, 0.9)
+
 [node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
 visible = false
 collision_layer = 256
@@ -524,11 +539,10 @@ wait_time = 0.3
 one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1336259982 groups=["player"]]
-visible = false
-collision_mask = 2
+collision_mask = 262146
 
 [node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532 groups=["player"]]
-position = Vector2(-12, 0)
+position = Vector2(-11.333336, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_hwwk2")
 debug_color = Color(0.9344128, 0.1669651, 0.49408865, 0.41960785)
@@ -608,7 +622,7 @@ color_ramp = SubResource("Gradient_3arfo")
 z_index = 1
 material = SubResource("ShaderMaterial_vd0i7")
 rotation = 1.5707964
-texture = ExtResource("3_m5ekh")
+texture = ExtResource("16_s25yl")
 offset = Vector2(0, 12)
 
 [node name="Flash" type="AnimationPlayer" parent="CarSprite" unique_id=573113732]
@@ -634,6 +648,7 @@ wait_time = 0.15
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=707894945]
 
 [node name="EnemiesDetectionArea" type="Area2D" parent="." unique_id=1481692765]
+visible = false
 collision_mask = 2
 script = ExtResource("18_qdvgx")
 

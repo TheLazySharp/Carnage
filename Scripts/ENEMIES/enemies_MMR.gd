@@ -17,7 +17,7 @@
 class_name EnemiesMultiMeshRenderer
 extends MultiMeshInstance2D
 
-@export var sprite_texture: Texture2D
+@export var atlas_texture : Texture2D
 @export var frame_width: int = 48
 @export var frame_height: int = 48
 @export var max_instances: int = 1000
@@ -57,10 +57,13 @@ const OFFSET_CUSTOM: int = 12
 
 func _ready() -> void:
 	position = Vector2.ZERO
+	z_index = 0
+	show()
 	modulate = Color.WHITE
 	self_modulate = Color.WHITE
 	setup_default_states()
 	setup_multimesh()
+
 
 func setup_default_states() -> void:
 	## POUR AJOUTER UN ÉTAT : dupliquer le bloc ci-dessous avec le bon sheet_row.
@@ -75,11 +78,11 @@ func setup_default_states() -> void:
 
 
 
-func setup_multimesh() -> void:	
-	if sprite_texture == null:
+func setup_multimesh() -> void:
+	if atlas_texture == null:
 		push_error("EnemyMultiMeshRenderer : missing sprite_texture")
 		return
-
+	var sprite_texture : Texture2D = atlas_texture
 	@warning_ignore("integer_division")
 	sheet_cols = int(sprite_texture.get_width()) / frame_width
 	@warning_ignore("integer_division")
@@ -99,7 +102,8 @@ func setup_multimesh() -> void:
 	mm.instance_count = max_instances
 	mm.visible_instance_count = -1
 	multimesh = mm
-
+	texture = sprite_texture
+	show()
 	texture = sprite_texture
 
 	var mat := ShaderMaterial.new()
@@ -118,10 +122,10 @@ func setup_multimesh() -> void:
 	for i in range(max_instances):
 		var base := i * FLOATS_PER_INSTANCE
 		# Transform : scale 0, hors écran
-		buffer[base + 0] = 1.0      # ax
+		buffer[base + 0] = 0.0      # ax
 		buffer[base + 1] = 0.0      # ay
 		buffer[base + 2] = 0.0      # bx
-		buffer[base + 3] = 1.0      # by
+		buffer[base + 3] = 0.0      # by
 		buffer[base + 4] = -99999.0 # ox
 		buffer[base + 5] = -99999.0 # oy
 		buffer[base + 6] = 0.0       # padding
@@ -137,6 +141,8 @@ func setup_multimesh() -> void:
 		buffer[base + 14] = frame_w_norm
 		buffer[base + 15] = frame_h_norm
  
+	multimesh.visible_instance_count = -1
+
 	RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
 
 
@@ -208,6 +214,9 @@ func register_enemy(enemy: Enemy) -> int:
 
 	var idx: int = free_indices.pop_back()
 	
+	var scale_modifier : Vector2 = enemy.enemy.scale_mod if enemy.enemy else Vector2.ONE
+	var atlas_row : int = enemy.enemy.atlas_row if enemy.enemy else 0
+	
 	var base := idx * FLOATS_PER_INSTANCE + OFFSET_COLOR
 	buffer[base + 0] = 1.0
 	buffer[base + 1] = 1.0
@@ -221,12 +230,13 @@ func register_enemy(enemy: Enemy) -> int:
 		"current_frame": 0,
 		"timer": 0.0,
 		"flip_h": false,
+		"scale": scale_modifier,
+		"row": atlas_row,
 		"last_pos": Vector2.INF
 	}
 
-	write_transform(idx, enemy.global_position, enemy.rotation, false)
-	write_uv(idx, 0, 0)
-
+	write_transform(idx, enemy.global_position, enemy.rotation, false,scale_modifier)
+	write_uv(idx, 0, atlas_row)
 	return idx
 
 
@@ -282,7 +292,8 @@ func _process(delta: float) -> void:
 		var new_flip := enemy.velocity.x < 0
 		if new_flip != data["flip_h"]:
 			data["flip_h"] = new_flip
-		write_transform(idx, enemy.global_position, enemy.rotation, data["flip_h"])
+		var new_scale: Vector2 = data.get("scale", Vector2.ONE)
+		write_transform(idx, enemy.global_position, enemy.rotation, data["flip_h"],new_scale)
 		
 		# ── Animation ──
 		var enemy_state: EnemySpriteState = states.get(data["state"])
@@ -298,7 +309,7 @@ func _process(delta: float) -> void:
 				next_frame = min(data["current_frame"] + 1, enemy_state.frame_count - 1)
 			if next_frame != data["current_frame"]:
 				data["current_frame"] = next_frame
-				write_uv(idx, next_frame, enemy_state.sheet_row)
+				write_uv(idx, next_frame, data["row"])
 				is_instance_changed = true
 
 	if not is_visible_in_tree():
@@ -306,16 +317,16 @@ func _process(delta: float) -> void:
 
 	RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
 
-func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool) -> void:
+func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool, new_scale : Vector2 = Vector2.ONE) -> void:
 	var cos_r := cos(rot)
 	var sin_r := sin(rot)
 	var base := idx * FLOATS_PER_INSTANCE + OFFSET_TRANSFORM
-	buffer[base + 0] = -cos_r if flip_h else cos_r  # x.x
-	buffer[base + 1] = -sin_r                        # y.x
+	buffer[base + 0] = (-cos_r if flip_h else cos_r) * new_scale.x  # x.x
+	buffer[base + 1] = (-sin_r if flip_h else sin_r) * new_scale.x  # y.x
 	buffer[base + 2] = 0.0                           # padding
 	buffer[base + 3] = pos.x                         # origin.x
 	buffer[base + 4] = sin_r if flip_h else -sin_r  # x.y  (signe inversé pour flip)
-	buffer[base + 5] = cos_r                         # y.y
+	buffer[base + 5] = cos_r * new_scale.y              # y.y
 	buffer[base + 6] = 0.0                           # padding
 	buffer[base + 7] = pos.y                         # origin.y
 
@@ -356,3 +367,10 @@ func set_buffer_alpha(idx: int, value: float) -> void:
 		print("alpha idx39 changé à ", value, " depuis:")
 		print(get_stack())
 		buffer[base + 3] = value
+
+
+func set_enemy_scale(instance_index: int, new_scale: Vector2) -> void:
+	if instance_index < 0:
+		return
+	if instance_data.has(instance_index):
+		instance_data[instance_index]["scale"] = new_scale

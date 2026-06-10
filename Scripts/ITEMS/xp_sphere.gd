@@ -1,7 +1,10 @@
 extends Area2D
 
 var game_paused : bool = false
+
 @export var xp_data : XPData
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
 
 var velocity: Vector2
 var target_pos: Vector2
@@ -25,7 +28,7 @@ var is_spawn_phase : bool = true
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	xp_value = TimeManager.current_day
-	#launch_spawn()
+	setup_animation()
 
 func launch_spawn(spawn_position : Vector2) -> void : 
 	self.global_position = spawn_position
@@ -56,13 +59,12 @@ func _physics_process(delta: float) -> void:
 		velocity = dir.normalized() * speed
 		global_position += velocity * delta
 	
+	if abs(global_position - player.global_position).length() > 150 :
+		is_attracted = false
+	
 	if can_be_collected and abs(global_position - player.global_position).length() < 5:
 		XPManager.add_xp_in_bucket(xp_value)
 		queue_free()
-
-#func spawn(spawn_position : Vector2) -> void:
-	#global_position = spawn_position
-
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player") and can_be_collected:
@@ -70,3 +72,24 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+
+func setup_animation()-> void : 
+	var sprite_frames : SpriteFrames = SpriteFrames.new()
+	sprite_frames.add_animation("blooming")
+	sprite_frames.set_animation_loop("blooming",true)
+	sprite_frames.set_animation_speed("blooming",xp_data.fps)
+	
+	var texture : Texture2D = xp_data.spritesheet
+	@warning_ignore("integer_division")
+	var frames_width : int = texture.get_width() / xp_data.hframes
+	@warning_ignore("integer_division")
+	var frames_height : int = texture.get_height() / xp_data.vframes
+	
+	for i in xp_data.hframes:
+		var atlas : AtlasTexture = AtlasTexture.new()
+		atlas.atlas = texture
+		atlas.region = Rect2(i * frames_width,xp_data.row * frames_height,frames_width,frames_height)
+		sprite_frames.add_frame("blooming",atlas)
+		
+	animated_sprite_2d.sprite_frames = sprite_frames
+	animated_sprite_2d.play("blooming")

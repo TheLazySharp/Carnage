@@ -2,18 +2,22 @@ extends Node2D
 
 const ENEMY = preload("uid://c31g0smlywes2")
 
-var max_enemy_count : int = 40
-var horde : Array[Enemy]
 @export var is_active : bool = true
+@export var enemy_type : EnemyManager.Enemy_Types
 
-@onready var game_manager: Node = $"/root/World/game_manager"
-var game_paused:=false
+var renderer : EnemiesMultiMeshRenderer
 
-@onready var enemies_manager: EnemiesManager = $"/root/World/EnemiesManager"
+var max_enemy_count : int
+var horde : Array[Enemy]
 
+var game_paused : bool = false
+
+@onready var horde_manager: HordeManager = $"/root/World/HordesManager"
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	max_enemy_count = 20 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 40
+
 	if is_active:
 		create_horde()
 	
@@ -26,11 +30,15 @@ func _on_game_paused(game_on_pause : bool) -> void:
 
 
 func create_horde() -> void :
+	var resource : EnemyData = EnemyManager.Enemy_ressources[enemy_type]
+	
 	var leader : Enemy
 	for i in max_enemy_count:
 		var enemy : Enemy = ENEMY.instantiate()
+		enemy.enemy = resource
+		enemy.renderer = renderer
 		add_child(enemy)
-		enemies_manager.count_enemies(1)
+		horde_manager.count_enemies(1)
 		if i == 0: 
 			enemy.is_leader = true
 			leader = enemy
@@ -40,17 +48,18 @@ func create_horde() -> void :
 		enemy.activate(global_position)
 		horde.append(enemy)
 		enemy.horde = horde
-	enemies_manager.enemies_hordes.append(horde)
+	horde_manager.enemies_hordes.append(horde)
 	
 	for i in horde.size():
 		if horde[i] == leader:
 			leader.leader = null
 		else :
 			horde[i].leader = leader
-	#print(enemies_manager.total_enemies)
+	#print(horde_manager.total_enemies)
 
-func set_leader(leader : Enemy) -> void:
+func set_leader(_leader : Enemy) -> void:
 	#leader.set_enemy_color(Color.BLACK)
 	#leader.max_life = 2
-	leader.damages_on_player = 5
+	#leader.damages_on_player = 5
+	pass
 	

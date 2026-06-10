@@ -60,6 +60,9 @@ func _physics_process(delta: float) -> void:
 		velocity = dir.normalized() * speed
 		global_position += velocity * delta
 	
+	if abs(global_position - player.global_position).length() > 100 :
+		is_attracted = false
+	
 	if can_be_collected and abs(global_position - player.global_position).length() < 5:
 		InventoryManager.fortune += value
 		SignalManager.emit_signal("dollar_picked_up")

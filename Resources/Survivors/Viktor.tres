@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://c4cxif75gn4yr"]
 
 [ext_resource type="Texture2D" uid="uid://dbwvmixd10msq" path="res://Assets/PNJs/viktor.png" id="1_o8p5g"]
-[ext_resource type="Resource" uid="uid://gc4yo6aj5oj1" path="res://Resources/Jobs/soldier.tres" id="2_44oqy"]
+[ext_resource type="Resource" uid="uid://4v8gktjtccjl" path="res://Resources/Jobs/mechanic.tres" id="2_44oqy"]
 [ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="2_m4ken"]
-[ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/minigun.tres" id="4_m4ken"]
+[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="4_m4ken"]
 
 [resource]
 script = ExtResource("2_m4ken")

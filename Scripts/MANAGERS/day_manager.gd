@@ -3,11 +3,8 @@ extends Node
 
 @onready var time_label: Label = $TimeUI/Time
 @onready var day_label: Label = $TimeUI/Day
-#@onready var horde: Label = $"../CanvasLayer/Texts/Horde"
-#@onready var horde_animation: AnimationPlayer = $"../CanvasLayer/Texts/Horde/HordeAnimation"
-@onready var starting_gate: CharacterBody2D = $"../StartingGate"
 
-#@onready var barb_wire_collision: CollisionShape2D = $"../BarbWire/BarbWireCollision"
+@onready var barriere: Node2D = $"../Land_layers/Barriere"
 
 
 @onready var world_environment: WorldEnvironment = $"../WorldEnvironment"
@@ -17,17 +14,18 @@ extends Node
 @export var gradient_light: GradientTexture1D
 @onready var time_animation_player: AnimationPlayer = $TimeUI/Time/TimeAnimationPlayer
 
-var game_paused: bool = false
-var timer_stopped :bool = false
-var time_remaining: float
-var critical_time: float = 0.1
-var end_day_scene: String = "uid://dkpvtoel7hhai"
+var game_paused : bool = false
+var timer_stopped : bool = false
+var danger_incoming : bool = false
+var half_time : bool = false
+var danger_threshold : float = 10
+var time_remaining : float
+var critical_time : float = 0.1
+var end_day_scene : String = "uid://dkpvtoel7hhai"
 
 @onready var player: CharacterBody2D = $"../Car"
 @onready var garage_arrow: AnimatedSprite2D = $"../Car/TutoArrow/GarageArrow"
 var game_start: bool = false
-
-
 var enemies_spawner_base_rate: float
 
 #signal day_ended(timer_stopped: bool)
@@ -58,11 +56,16 @@ func _process(delta: float) -> void:
 		var value : float = time_remaining / TimeManager.day_lenght + 0.3 #to improve
 		directional_light_2d.color = gradient_light.gradient.sample(value)
 
-
-	
 	if time_remaining <= TimeManager.day_lenght * critical_time and !game_paused:
 		time_animation_player.play("time_warning")
+
+	if time_remaining < TimeManager.day_lenght * 0.5 and !half_time:
+		half_time = true
+		SignalManager.emit_signal("half_time")
 		
+	if time_remaining < danger_threshold and !danger_incoming:
+		danger_incoming = true
+		SignalManager.emit_signal("coloss_incoming")
 
 func mmss_timer(total_seconds: float) -> String:
 	var seconds: float = fmod(total_seconds,60)
@@ -77,14 +80,11 @@ func _on_game_paused(game_on_pause : bool ) -> void:
 func on_day_end() -> void:
 	timer_stopped = true
 	SignalManager.emit_signal("day_time_end", timer_stopped)
-	SignalManager.emit_signal("day_ended")
 	garage_arrow.play("moving")
 	garage_arrow.show()
-	if starting_gate :
-		SignalManager.emit_signal("tuto_arrow_dir", starting_gate.global_position)
-	#horde.show()
-	#horde_animation.play("blinking")
-	#barb_wire_collision.set_deferred("disabled", true)
+	if barriere :
+		SignalManager.emit_signal("tuto_arrow_dir", barriere.global_position)
+
 
 func _on_game_start(game_has_started : bool) -> void:
 	game_start = game_has_started

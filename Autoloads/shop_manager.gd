@@ -15,10 +15,10 @@ var price_levels : Dictionary = {
 }
 
 var item_colors : Dictionary = {
-	BoostData.Rarities.COMMON:Color.WHITE,
-	BoostData.Rarities.RARE:Color.RED,
-	BoostData.Rarities.EPIC:Color.YELLOW,
-	BoostData.Rarities.LEGENDARY:Color.PURPLE
+	BoostData.Rarities.COMMON : Color.WHITE,
+	BoostData.Rarities.RARE : Color.RED,
+	BoostData.Rarities.EPIC : Color.YELLOW,
+	BoostData.Rarities.LEGENDARY : Color.PURPLE
 }
 
 const ALL_BOOSTS : Array = [
@@ -79,10 +79,19 @@ var all_charms : Array[CharmData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var available_boosts : int = 1
 var boost_shopped : int = 0
+var reroll_cost : int
+var reroll_count : int = 0
 
+var apply_discount : bool = false
+var discount : Statistic
+var base_discount : float = 1.0
 
 func _ready() -> void:
 	rng.randomize()
+	discount = Statistic.new(base_discount)
+	
+
+func load_pools() -> void : 
 	for boost : BoostData in ALL_BOOSTS:
 		all_boosts.append(boost)
 	
@@ -139,5 +148,9 @@ func pick_charm()-> CharmData:
 	
 	return pool[rng.randi_range(0,pool.size() -1)]
 
+func get_reroll_cost() -> int : 
+	return 100 + reroll_count * 25
+
 func unload() -> void : 
 	all_boosts.clear()
+	all_charms.clear()

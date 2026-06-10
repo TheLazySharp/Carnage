@@ -36,22 +36,34 @@ var right_border: Line2D = null
 var last_left_pos := Vector2.ZERO
 var last_right_pos := Vector2.ZERO
 
+# REAR LIGHT TRAILS
+var left_trail: Line2D = null
+var right_trail: Line2D = null
+var last_left_trail_pos := Vector2.ZERO
+var last_right_trail_pos := Vector2.ZERO
+var trail_spacing : float = 2.0
+var trail_lifetime : float = 0.3
+
 #AUDIO
 @onready var drift_sfx: AudioStreamPlayer2D = $DriftSfx
 
+#DRIFT BONUS -> increase car DMG
 var drift_bonus : int
 var total_drift_points : int
 var drift_points_multi : float
+var car_dmg_mod : Modifier
+
 
 func _ready() -> void:
 	SignalManager.connect("wall_collision",_on_wall_collision)
 	SignalManager.connect("game_paused",_on_game_paused)
+	SignalManager.connect("game_is_over",_on_game_over)
 	drift_bonus = 0
-	drift_points_multi = 1.0
-	total_drift_points = 0
+	total_drift_points = StatsManager.total_drift
+	drift_points_multi = snappedf(total_drift_points * 0.0001,0.01) #change in the animation tween callback below
 	drift_label.text = str(get_drift_bonus_points())
 	total_label.text = str(total_drift_points) + " pts"
-	drift_multi_label.text = "x " + str(snappedf(1 + total_drift_points * 0.000001,0.01))
+	drift_multi_label.text = " DMG + " + str(drift_points_multi)
 
 
 func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker2D, p_rear_right : Marker2D) -> void : 
@@ -71,7 +83,10 @@ func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker
 	skid_spacing = player.skid_spacing
 	skid_lifetime = player.skid_lifetime
 	skid_fade_speed = player.skid_fade_speed
-
+	
+	car_dmg_mod = Modifier.new(int(drift_points_multi),Modifier.Type.FLAT,"drift manager bonus")
+	player.dmg.add_modifier(car_dmg_mod)
+	#print("car dmg : ", player.dmg.get_value())
 
 func _process(_delta: float) -> void:
 	drift_label.text = str(get_drift_bonus_points())
@@ -147,6 +162,13 @@ func start_skid() -> void:
 
 	last_left_pos  = Vector2.ZERO
 	last_right_pos = Vector2.ZERO
+	
+	left_trail  = create_trail_line()
+	right_trail = create_trail_line()
+	skid_parent.add_child(left_trail)
+	skid_parent.add_child(right_trail)
+	last_left_trail_pos  = Vector2.ZERO
+	last_right_trail_pos = Vector2.ZERO
 
 func create_skid_line() -> Array:
 	var border : Line2D = Line2D.new()
@@ -162,9 +184,25 @@ func create_skid_line() -> Array:
 	line.z_index = -9
 	return [line,border]
 
+func create_trail_line() -> Line2D:
+	var trail := Line2D.new()
+	trail.width = 2
+	trail.default_color = Color(3.0, 0.1, 0.1, 0.9)
+	trail.antialiased = true
+	trail.z_index = 2
+	trail.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	trail.end_cap_mode = Line2D.LINE_CAP_ROUND
+	return trail
+
 func update_skid_points() -> void : 
-	var left_wheel := rear_left.global_position
-	var right_wheel := rear_right.global_position
+	var left_wheel : Vector2 = rear_left.global_position
+	var right_wheel : Vector2 = rear_right.global_position
+
+	var car_right : Vector2 = Vector2.RIGHT.rotated(car.rotation)
+	var trail_offset : float = 6.0
+
+	var left_wheel_trail : Vector2 = rear_left.global_position  + car_right * trail_offset
+	var right_wheel_trail : Vector2 = rear_right.global_position - car_right * trail_offset
 
 	if last_left_pos == Vector2.ZERO:
 		left_line.add_point(left_wheel)
@@ -185,6 +223,27 @@ func update_skid_points() -> void :
 			right_line.add_point(right_wheel)
 			right_border.add_point(right_wheel)
 			last_right_pos = right_wheel
+			
+# LIGHT TRAILS
+	if last_left_trail_pos == Vector2.ZERO:
+		left_trail.add_point(left_wheel_trail)
+		right_trail.add_point(right_wheel_trail)
+		last_left_trail_pos  = left_wheel_trail
+		last_right_trail_pos = right_wheel_trail
+	else:
+		if left_wheel_trail.distance_to(last_left_trail_pos) > trail_spacing:
+			left_trail.add_point(left_wheel_trail)
+			last_left_trail_pos = left_wheel_trail
+		if right_wheel_trail.distance_to(last_right_trail_pos) > trail_spacing:
+			right_trail.add_point(right_wheel_trail)
+			last_right_trail_pos = right_wheel_trail
+
+	var max_trail_points : int = 40
+	if left_trail.get_point_count() > max_trail_points:
+		left_trail.remove_point(0)
+	if right_trail.get_point_count() > max_trail_points:
+		right_trail.remove_point(0)
+
 
 func fade_and_destroy(line: Line2D, border : Line2D) -> void:
 	drift_sfx.stop()
@@ -199,11 +258,18 @@ func fade_and_destroy(line: Line2D, border : Line2D) -> void:
 	tween.set_parallel(false)
 	tween.tween_callback(line.queue_free)
 	tween.tween_callback(border.queue_free)
+	
+func fade_trail(trail: Line2D) -> void:
+	if trail == null:
+		return
+	var tween := create_tween()
+	tween.tween_property(trail, "default_color:a", 0.0, trail_lifetime)
+	tween.tween_callback(trail.queue_free)
 
 func end_skid() -> void : 
 	total_drift_points += drift_bonus
+	StatsManager.total_drift += drift_bonus
 	animation_score_to_total()
-
 	
 	fade_and_destroy(left_line,left_border)
 	fade_and_destroy(right_line,right_border)
@@ -212,6 +278,18 @@ func end_skid() -> void :
 	left_border = null
 	right_line = null
 	right_border = null
+
+	fade_and_destroy(left_line, left_border)
+	fade_and_destroy(right_line, right_border)
+	fade_trail(left_trail)
+	fade_trail(right_trail)
+	
+	left_line = null
+	left_border = null
+	right_line = null
+	right_border = null
+	left_trail = null
+	right_trail = null
 
 func force_stop_skid() -> void : 
 	if left_line != null:
@@ -222,9 +300,19 @@ func force_stop_skid() -> void :
 		fade_and_destroy(right_line, right_border)
 		right_line = null
 		right_border = null
+		
+	if left_trail != null:
+		fade_trail(left_trail)
+		left_trail = null
+	if right_trail != null:
+		fade_trail(right_trail)
+		right_trail = null
+		
 	drifting = false
 	drifting_last_frame = false
 	was_drifting = false
+
+
 
 func get_drift_factor() -> float:
 	if car.velocity.length() < 10.0 or !drifting:
@@ -280,8 +368,15 @@ func animation_score_to_total() -> void :
 	tween.tween_callback(fly_label.queue_free)
 	
 	tween.tween_callback(func() -> void:
+		drift_points_multi = snappedf(total_drift_points * 0.0001,0.01) # change in ready also
 		total_label.text = str(total_drift_points) + " pts"
-		drift_multi_label.text = "x " + str(snappedf(1 + total_drift_points * 0.000001,0.01))
+		drift_multi_label.text = "DMG + " + str(drift_points_multi)
+		
+		player.dmg.remove_modifier(car_dmg_mod)
+		car_dmg_mod = Modifier.new(int(drift_points_multi),Modifier.Type.FLAT,"drift manager bonus")
+		player.dmg.add_modifier(car_dmg_mod)
+		#print("car dmg : ", player.dmg.get_value())
+		
 		var flash_tween : Tween = create_tween()
 		flash_tween.tween_method(func(c: Color) -> void: 
 			total_label.add_theme_color_override("font_color", c),
@@ -294,3 +389,7 @@ func _on_wall_collision() -> void :
 
 func _on_game_paused(pause : bool) -> void : 
 	game_paused = pause
+
+func _on_game_over(game_is_over : bool) -> void : 
+	if game_is_over :
+		pass

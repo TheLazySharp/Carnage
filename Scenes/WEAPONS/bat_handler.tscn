@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cv14lhvp1mlqs"]
+
+[ext_resource type="Script" uid="uid://brxjx4ip6oc7o" path="res://Scripts/WEAPONS/bat_handler.gd" id="1_bdurw"]
+[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/bat_handler.tres" id="2_ts8qx"]
+
+[node name="BatHandler" type="Node2D" unique_id=1819245893]
+script = ExtResource("1_bdurw")
+handler_data = ExtResource("2_ts8qx")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dfk50o0utso3f"]
+
+[ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_ddtnx"]
+[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="2_mi06t"]
+
+[resource]
+script = ExtResource("1_ddtnx")
+name = "Coloss"
+sprite = ExtResource("2_mi06t")
+base_speed = 30.0
+base_max_life = 50.0
+base_dmg = 5.0
+xp_type = 3
+type = 1
+scale_mod = Vector2(2, 2)
+metadata/_custom_type_script = "uid://o5x50j5uyp7f"

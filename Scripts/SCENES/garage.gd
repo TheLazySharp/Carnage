@@ -4,7 +4,6 @@ var car := CarManager.selected_car
 	#----------TEST---------------#
 #var car : CarData
 
-var end_of_day_scene : String = "uid://dkpvtoel7hhai"
 
 @onready var entrance: Control = $Entrance
 @onready var upgrades: Control = $Upgrades
@@ -181,7 +180,7 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_back"):
 		if entrance.visible and !upgrades.visible:
-			SceneManager.load_level(end_of_day_scene)
+			SceneManager.load_level(SceneManager.SCENES.END_DAY)
 		if !entrance.visible and upgrades.visible:
 			entrance.show()
 			upgrades.hide()

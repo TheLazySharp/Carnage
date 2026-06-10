@@ -10,10 +10,6 @@ var max_life_on_ready : int
 var new_lucky_charm_index : int = 0
 var current_lucky_charm_index : int = 0
 
-var garage_scene := "uid://cs311xlcqlrt0"
-var current_scene:= "uid://ch2rp03kbdyg7"
-var end_of_day_scene : String = "uid://dkpvtoel7hhai"
-
 var player : CarData
 var target_weapon : WeaponData
 var target_stat : Statistic
@@ -64,10 +60,10 @@ func _on_confirm_pressed() -> void:
 	LuckyCharmsManager.add_lucky_charm_ok = true
 	if max_life_on_ready < CarManager.selected_car.max_life.get_value():
 		player.current_life += roundi((CarManager.selected_car.max_life.get_value() -  max_life_on_ready))
-	SceneManager.load_level(garage_scene)
+	SceneManager.load_level(SceneManager.SCENES.GARAGE)
 
 func _on_skip_pressed() -> void:
-	SceneManager.load_level(garage_scene)
+	SceneManager.load_level(SceneManager.SCENES.GARAGE)
 	LuckyCharmsManager.shuffle_lucky_charms_ok =  true
 	LuckyCharmsManager.add_lucky_charm_ok = true
 

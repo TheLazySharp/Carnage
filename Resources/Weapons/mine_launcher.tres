@@ -23,5 +23,6 @@ base_radius = 0
 base_speed_rotation = 0
 base_cool_down = 5.0
 base_nb_ammo = 0
+base_nb_projectile = 3
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

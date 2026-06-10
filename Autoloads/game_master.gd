@@ -20,10 +20,11 @@ var difficulty_mod : float = DIFFICULTIES_MOD[difficulty]
 enum GAME_MODES {
 	DEV,
 	BUILD,
-	RELEASE
+	RELEASE,
+	GOD
 }
 
 var game_mode : GAME_MODES
 
 func _ready() -> void:
-	game_mode = GAME_MODES.DEV
+	game_mode = GAME_MODES.GOD

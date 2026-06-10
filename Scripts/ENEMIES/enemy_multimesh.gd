@@ -1,35 +1,47 @@
 extends Area2D
 class_name Enemy
 
-@export var max_life: int
-var level_life_boost : int = 5
-var night_max_life_boost : int = 3
+var enemy : EnemyData
+
+# MAIN STATS
+
+#var max_life : int
+#var damages_on_player : float
+#var speed : float
+var nb_xp: int
+
+var night_max_life_boost : float
+var night_speed_boost: float
+var night_damages_boost : float
+var level_life_boost : int
+var type : EnemyManager.Enemy_Types
+var impact_force: float #the higher, the more enemy is ejected
+var knockback_friction: float #the higher, the more enemy projection is slowed
+
+
 @onready var current_life: int
-var damages_on_player: float = 1
-@export var speed: float
-var nb_xp: int = 1
-var is_leader: bool = false
 @export var leader: Enemy = null
+var is_leader: bool = false
 var horde: Array
 var horde_neighbors: Array
-var night_speed_boost: float = 2
-var night_damages_boost : float = 2
 var velocity: Vector2 = Vector2.ZERO
 @onready var state_machine: Node = $StateMachine
 @onready var player: Node2D = null
 
+
 # MULTIMESH
 @onready var renderer: EnemiesMultiMeshRenderer = $/root/World/EnemiesMMR2D
+
 var mm_index: int = -1 # -1 = not registered in mmr2D
 
-# IMPACT ON PLAYER
-@export var impact_force: float = 300.0
+# IMPACT ON PLAYER -------------------------------------- TO DO : transform in stats
 var night_impact_force_boost : float = 4
-@export var knockback_friction: float = 800.0
+
 var night_knockback_friction_boost : float = 4
-@export var chained_impacts_threshold: float = 200.0
-var knockback_velocity := Vector2.ZERO
-var losing_strenght_ratio: float = 0.6
+
+@export var chained_impacts_threshold: float = 200.0 #impact chained to neighbours impact speed higher than threshold
+var knockback_velocity : Vector2 = Vector2.ZERO
+var losing_strenght_ratio: float = 0.6 #of impact speed is transfered to neighbours
 var night_losing_strenght_boost : float = 2
 var side_impact_ratio: float = 0.3
 var front_impact_ratio: float = -1.2
@@ -70,15 +82,33 @@ var neighbors_timer_steps: float = 0.5
 var neighbors_detection_radius_sq : float = 400
 
 
+#NIGHT MODIFIERS
+var night_speed_mod := Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
+var night_dmg_mod := Modifier.new(night_damages_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_dmg_mod")
+var night_life_mod := Modifier.new(night_max_life_boost,Modifier.Type.FLAT,"day_end_enemy_life_mod")
+
+
 func _ready() -> void:
-	max_life += level_life_boost * (TimeManager.current_day - 1)
-	current_life = max_life
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.day_time_end.connect(_on_day_end)
+	
+	enemy.init_stats()
+	#max_life = int(enemy.max_life.get_value())
+	#damages_on_player = enemy.dmg.get_value()
+	#speed = enemy.speed.get_value()
+	nb_xp = 1
+
+	night_max_life_boost  = enemy.base_night_life_bonus
+	night_speed_boost = enemy.base_night_speed_bonus
+	night_damages_boost = enemy.base_night_dmg_bonus
+	level_life_boost = enemy.level_life_boost
+	type = enemy.type
+	
+	current_life = int(enemy.max_life.get_value())
+	#max_life += level_life_boost * (TimeManager.current_day - 1)
+	
 	call_deferred("register_to_renderer")
-	#physics_skip_steps = randi() % 3
-
-
+	#print(enemy.scale_mod)
 
 func _process(_delta: float) -> void:
 	pass
@@ -88,7 +118,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if knockback_velocity.length_squared() > 100:
 		velocity = knockback_velocity
-		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction * delta)
+		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, enemy.knockback_friction.get_value() * delta)
 		knockback_velocity = knockback_velocity.normalized() * knockback_length
 
 	#elif player:
@@ -108,9 +138,6 @@ func _physics_process(delta: float) -> void:
 	update_move(accumululated_delta)
 	accumululated_delta = 0
 	chained_impacts()
-
-
-
 
 func update_move(delta: float) -> void:
 	if velocity.length_squared() < 0.01:
@@ -156,11 +183,9 @@ func register_to_renderer() -> void:
 	if renderer:
 		mm_index = renderer.register_enemy(self)
 
-
-
 func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: float) -> void:
 	if car_right == Vector2.ZERO:
-		knockback_velocity = car_forward.normalized() * impact_force * player_speed_ratio
+		knockback_velocity = car_forward.normalized() * enemy.impact_force.get_value() * player_speed_ratio
 		return
 
 	var impact_on_enemy: Vector2 = global_position - get_tree().get_first_node_in_group("player").global_position
@@ -176,7 +201,7 @@ func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: fl
 		var side: int = sign(lateral_dot)
 		push_direction = car_right * side + car_forward * side_impact_ratio
 
-	knockback_velocity = push_direction.normalized() * impact_force * player_speed_ratio
+	knockback_velocity = push_direction.normalized() * enemy.impact_force.get_value() * player_speed_ratio
 
 
 func chained_impacts() -> void:
@@ -187,7 +212,7 @@ func chained_impacts() -> void:
 			continue
 		if global_position.distance_squared_to(horde_neighbors[i].global_position) < 900: #30px * 30px
 			var push_dir: Vector2 = (horde_neighbors[i].global_position - global_position).normalized()
-			var transferred_ratio: float = (knockback_velocity.length() / impact_force) * losing_strenght_ratio
+			var transferred_ratio: float = (knockback_velocity.length() / enemy.impact_force.get_value()) * losing_strenght_ratio
 			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio)
 
 
@@ -218,7 +243,8 @@ func set_enemy_color(color: Color) -> void:
 
 func activate(spawn_position: Vector2) -> void:
 	global_position = spawn_position
-	current_life = max_life
+	current_life = int(enemy.max_life.get_value())
+	show()
 
 
 func _on_damage_timer_timeout() -> void:
@@ -235,6 +261,7 @@ func on_death() -> void:
 		nb_xp = 0
 
 		var xp := xp_scene.instantiate()
+		xp.xp_data = XPManager.xp_ressources[enemy.xp_type]
 		get_parent().add_child(xp)
 		xp.launch_spawn(global_position)
 
@@ -242,9 +269,6 @@ func on_death() -> void:
 		get_parent().add_child(dollar)
 		dollar.launch_spawn(global_position)
 		
-		
-
-
 		StatsManager.frags += 1
 
 		if renderer and mm_index >= 0:
@@ -253,12 +277,21 @@ func on_death() -> void:
 
 		SignalManager.emit_signal("enemy_is_dead", self, self.horde)
 
+func on_coloss_death() -> void : 
+	blow_up(global_position)
+	collision_box.set_deferred("disabled", true)
+
+	if renderer and mm_index >= 0:
+		renderer.unregister_enemy(mm_index)
+		mm_index = -1
+
+	SignalManager.emit_signal("enemy_is_dead", self, self.horde)
 
 func _on_damage_timer_on_player_timeout() -> void:
 	if player == null:
 		return
 	if "get_damages_from_mob" in player:
-		player.get_damages_from_mob(damages_on_player)
+		player.get_damages_from_mob(enemy.dmg.get_value())
 
 
 func display_damages(damages: int) -> void:
@@ -270,8 +303,6 @@ func display_damages(damages: int) -> void:
 	new_damages_label.global_position = Vector2(marker_damages.global_position.x + text_offsetX,marker_damages.global_position.y + text_offsetY)
 	
 
-
-
 func blow_up(blood_position: Vector2) -> void:
 	if blood_particles:
 		var blood: CPUParticles2D = blood_particles.instantiate()
@@ -280,11 +311,17 @@ func blow_up(blood_position: Vector2) -> void:
 
 
 func _on_day_end(_day_end: bool) -> void:
-	speed *= night_speed_boost
-	damages_on_player *= night_damages_boost
-	impact_force /= night_impact_force_boost
-	knockback_friction /= night_knockback_friction_boost
-	max_life *= night_max_life_boost
+	pass
+	#enemy.speed.add_modifier(night_speed_mod)
+	#
+	#enemy.dmg.add_modifier(night_dmg_mod)
+	#
+	#enemy.max_life.add_modifier(night_life_mod)
+	#current_life += int(night_max_life_boost)
+#
+	#impact_force /= night_impact_force_boost
+	#knockback_friction /= night_knockback_friction_boost
+
 
 
 func set_animation_state(state_name: String) -> void:
@@ -297,7 +334,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		return
 	player = area.get_parent()
 	if "get_damages_from_mob" in player:
-		player.get_damages_from_mob(damages_on_player)
+		player.get_damages_from_mob(enemy.dmg.get_value())
 	damage_timer_on_player.start()
 
 

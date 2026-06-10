@@ -12,13 +12,15 @@ var charm : CharmData
 
 var price_mult : int = 10
 @onready var price_cont: HBoxContainer = $Price
-@onready var price_tag: Label = $Price/PriceTag
+@onready var price_tag: Label = $Price/PriceTags/PriceTag
+@onready var discount_tag: Label = $Price/PriceTags/DiscountTag
+
 @onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
 @onready var not_enough_cash_rect: ColorRect = $Confirm/MarginContainer/NotEnoughCash
 
 var card_color : Color
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-
+var discounted_price : int
 
 func _ready() -> void:
 	SignalManager.update_fortune.connect(_on_fortune_updated)
@@ -28,7 +30,9 @@ func _ready() -> void:
 func setup(p_charm : CharmData, p_is_in_shop : bool) -> void : 
 	charm = p_charm
 	charm.price = rng.randi_range(int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod)) * price_mult
+	discounted_price = int(charm.price * ShopManager.discount.get_value())
 	price_tag.text = str(charm.price)
+	discount_tag.text = str(discounted_price)
 	charm_name.text = charm.name
 	icon.texture = charm.icon
 	card.color = charm.get_shop_color()
@@ -40,7 +44,11 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	if charm.is_in_shop:
 		price_cont.show()
 	else : price_cont.hide()
-
+	
+	if ShopManager.apply_discount :
+		discount_tag.show()
+	else : 
+		discount_tag.hide()
 
 func _on_confirm_pressed() -> void:
 	var effect : CharmEffect = charm.effect_script.new()
@@ -48,8 +56,8 @@ func _on_confirm_pressed() -> void:
 	CharmsManager.register(charm, effect)
 
 	if charm.is_in_shop:
-		if charm.price <= InventoryManager.fortune:
-			InventoryManager.fortune -= charm.price
+		if min(charm.price, discounted_price) <= InventoryManager.fortune:
+			InventoryManager.fortune -=  min(charm.price, discounted_price)
 			SignalManager.emit_signal("update_fortune")
 			sold_out.show()
 			price_cont.hide()
@@ -78,4 +86,5 @@ func not_enough_cash()-> void :
 func _on_fortune_updated() -> void : 
 	if charm.price > InventoryManager.fortune:
 		price_tag.add_theme_color_override("font_color",Color.RED)
-	
+	if discounted_price > InventoryManager.fortune:
+		discount_tag.add_theme_color_override("font_color",Color.RED)

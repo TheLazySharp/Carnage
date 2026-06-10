@@ -25,7 +25,7 @@ buses/default_bus_layout="uid://u0shvr2k0bxe"
 
 [autoload]
 
-XPManager="*res://Autoloads/player_xp_manager.gd"
+XPManager="*res://Autoloads/xp_manager.gd"
 SceneManager="*res://Autoloads/scene_manager.gd"
 TimeManager="*res://Autoloads/time_manager.gd"
 InventoryManager="*res://Autoloads/inventory_manager.gd"
@@ -42,6 +42,8 @@ TempStatManager="*uid://lmnymlda4j8s"
 ShopManager="*uid://c3ilfi0ndrh2n"
 GameMaster="*uid://bh4jtaefovb6p"
 CharmsManager="*uid://dt2ws5wathrud"
+EnemyManager="*uid://bxdwykiiwe7mo"
+jobs_manager="*uid://cid3lkejoqtxp"
 
 [debug]
 
@@ -85,6 +87,7 @@ collectables=""
 weapons=""
 explosives=""
 survivor=""
+Coloss=""
 
 [input]
 
@@ -220,6 +223,11 @@ dash={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+test={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":84,"key_label":0,"unicode":116,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -241,6 +249,7 @@ dash={
 2d_physics/layer_16="survivor"
 2d_physics/layer_17="Map"
 2d_physics/layer_18="raycast"
+2d_physics/layer_19="Coloss"
 
 [physics]
 

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://bcn8pthd2igqb"]
+
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="1_k0yxu"]
+[ext_resource type="Texture2D" uid="uid://brs2kf8dgvstm" path="res://Assets/Items/one_dollar.png" id="1_l28tf"]
+[ext_resource type="Script" uid="uid://colpcf0dd5lrk" path="res://Scripts/JOBS/merchant.gd" id="1_pfxic"]
+
+[resource]
+script = ExtResource("1_k0yxu")
+name = "Merchant"
+icon = ExtResource("1_l28tf")
+description = "Apply a 20% discount on all shop items"
+effect_script = ExtResource("1_pfxic")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfaqn0xne343x"]
+[gd_scene format=3 uid="uid://dfaqn0xne343x"]
 
-[ext_resource type="Script" uid="uid://bekesrqiul33q" path="res://Autoloads/player_xp_manager.gd" id="1_f6nya"]
-[ext_resource type="FontFile" uid="uid://cy0lbkvt1xb4p" path="res://Fonts/Cute Dino.otf" id="2_35io2"]
+[ext_resource type="Script" uid="uid://bekesrqiul33q" path="res://Autoloads/xp_manager.gd" id="1_f6nya"]
+[ext_resource type="FontFile" path="res://Fonts/Cute Dino.otf" id="2_35io2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0a5o"]
 bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)

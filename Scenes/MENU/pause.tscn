@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://cmi5s38sxx8n1"]
+
+[ext_resource type="Script" uid="uid://dgjjb27shy4tk" path="res://Scripts/SCENES/pause.gd" id="1_nrq64"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_fu0im"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_d5jc0"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="4_smv6p"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="5_5k2js"]
+[ext_resource type="PackedScene" uid="uid://b5ymk58gfmq3l" path="res://Scenes/MENU/current_stats.tscn" id="5_vflra"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
+
+[node name="Pause" type="Control" unique_id=739595383]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nrq64")
+
+[node name="PauseBkgd" type="ColorRect" parent="." unique_id=1401435256]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1382877595]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fu0im")
+theme_override_font_sizes/font_size = 64
+text = "PAUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("3_d5jc0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1828825211]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -466.0
+offset_top = -298.0
+offset_right = -13.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Resume" type="Button" parent="VBoxContainer" unique_id=593002109]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_smv6p")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "RESUME"
+flat = true
+alignment = 2
+script = ExtResource("5_5k2js")
+
+[node name="Commands" type="Button" parent="VBoxContainer" unique_id=1195712447]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_smv6p")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "COMMANDS"
+flat = true
+alignment = 2
+script = ExtResource("5_5k2js")
+
+[node name="QuitToMenu" type="Button" parent="VBoxContainer" unique_id=678603337]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_smv6p")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "QUIT"
+flat = true
+alignment = 2
+script = ExtResource("5_5k2js")
+
+[node name="Stats" parent="." unique_id=1077771956 instance=ExtResource("5_vflra")]
+layout_mode = 0
+
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Commands" to="." method="_on_commands_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitToMenu" to="." method="_on_quit_to_menu_pressed"]

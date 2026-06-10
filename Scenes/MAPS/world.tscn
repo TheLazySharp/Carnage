@@ -55,7 +55,7 @@
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_ux4l1"]
 [ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="50_hp83p"]
 [ext_resource type="PackedScene" uid="uid://drgsya7gbwrgk" path="res://Scenes/MAPS/start_gate.tscn" id="50_jgm5j"]
-[ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/enemies_manager.gd" id="50_ow65e"]
+[ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/hordes_manager.gd" id="50_ow65e"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="51_3smgn"]
 [ext_resource type="PackedScene" uid="uid://dgg4olnhcbtcp" path="res://Scenes/MAPS/exit_gate.tscn" id="51_4n5nh"]
 [ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="51_kkvuv"]

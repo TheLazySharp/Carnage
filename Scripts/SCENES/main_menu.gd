@@ -26,16 +26,16 @@ func _ready() -> void:
 
 func _on_start_pressed() -> void:
 	if !SceneManager.commands_displayed:
-		SceneManager.load_level(commands_scene)
+		SceneManager.load_level(SceneManager.SCENES.COMMANDS)
 		return
 	
 	if !SceneManager.tuto_completed:
 		CarManager.selected_car = CarManager.cars[0]
 
-		SceneManager.load_level(tuto_scene)
+		#SceneManager.load_level(SceneManager.SCENES.tuto)
 	else:
 		#SceneManager.unload_game()
-		SceneManager.load_level(survivor_selection)
+		SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
 		SignalManager.emit_signal("game_paused",false)
 
 func _on_quit_pressed() -> void:
@@ -44,7 +44,7 @@ func _on_quit_pressed() -> void:
 
 func _on_training_pressed() -> void:
 	SceneManager.commands_displayed = true
-	SceneManager.load_level(commands_scene)
+	SceneManager.load_level(SceneManager.SCENES.COMMANDS)
 	#CarManager.selected_car = CarManager.cars[0]
 	#SceneManager.load_level(tuto_scene)
 

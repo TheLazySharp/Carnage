@@ -25,5 +25,6 @@ base_speed_rotation = 0
 base_fire_rate = 0.2
 base_cool_down = 2.0
 base_nb_ammo = 10
+base_nb_projectile = 2
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

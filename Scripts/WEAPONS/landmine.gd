@@ -26,18 +26,10 @@ func _ready() -> void:
 	max_lvl = mine_data.max_level
 	animation_explosion.hide()
 	explosion_sfx.stream = mine_data.weapon_sfx
-	
-	#_on_stats_updated()
-	
-	#mine_data.init_stats()
 	damages = int(mine_data.dmg.get_value())
 	
 
-func _process(_delta: float) -> void:
-	pass
-	
-	
-	
+
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 	if game_paused and animation_explosion.is_playing():
@@ -50,9 +42,7 @@ func explosion()-> void:
 	if expl_limitor == 1:
 		return
 	expl_limitor = 1
-		#if targets.is_empty():
-			#print("explosion triggered without targets")
-			#return
+
 	animation_mine.stop()
 	animation_mine.hide()
 	animation_explosion.show()
@@ -60,22 +50,17 @@ func explosion()-> void:
 	explosion_sfx.play()
 	camera_2d.screen_shake(8,0.5)
 	
-	
-	
+
 	for i in range(targets.size() -1, -1, -1):
 
-		if is_instance_valid(targets[i]):
-			if targets[i].is_in_group("player") and "get_damages" in targets[i].get_parent():
-				targets[i].get_parent().get_damages(mine_data.dmg.get_value())
-				#print("explosion on player")
-				
+		if is_instance_valid(targets[i]):				
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
 				targets[i].get_damages(mine_data.dmg.get_value())
-				#print("explosion on enemy")
-				
+				mine_data.total_damages_dealt += int(mine_data.dmg.get_value())
+
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
 				targets[i].chain_explosion(self)
-				#print("chained explosion called")
+
 
 func chain_explosion(from_mine : Node2D) -> void:
 	for i in range(targets.size()-1,-1,-1):
@@ -85,18 +70,6 @@ func chain_explosion(from_mine : Node2D) -> void:
 	#print("explosion from chain")
 	await get_tree().create_timer(0.2).timeout
 	explosion()
-
-
-
-#func _on_explosion_area_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("ennemies") or body.is_in_group("player"):
-		#targets.append(body)
-		##print(body.name," add to targets")
-
-
-#func _on_explosion_area_body_exited(body: Node2D) -> void:
-	#targets.erase(body)
-	
 
 
 func _on_explosion_animation_finished() -> void:
@@ -111,20 +84,11 @@ func _on_explosion_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_
 
 
 func _on_trigger_area_entered(area: Area2D) -> void:
-	if player_trigger_count == 0:
-		return
-	if area.is_in_group("ennemies") or area.is_in_group("player"):
+	if area.is_in_group("ennemies") :
 		if targets.has(area):
 			explosion()
 
 
 func _on_explosion_area_entered(area: Area2D) -> void:
-	if area.is_in_group("ennemies") or area.is_in_group("player"):
+	if area.is_in_group("ennemies"):
 		targets.append(area)
-
-
-func _on_explosion_area_exited(area: Area2D) -> void:
-	if area.is_in_group("player") and player_trigger_count == 0:
-		player_trigger_count = 1
-	targets.erase(area)
-	

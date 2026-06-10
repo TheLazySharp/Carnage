@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://cum1kdgu8a1di"]
+
+[ext_resource type="Script" uid="uid://ci1udv0u5wm6e" path="res://Scripts/SCENES/car_levelup.gd" id="1_1impy"]
+[ext_resource type="PackedScene" uid="uid://dbjho30cytfku" path="res://Scenes/ITEMS/boost.tscn" id="2_kkdjs"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="4_1yhnf"]
+[ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="5_1impy"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="5_sr04d"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="8_0lu01"]
+[ext_resource type="AudioStream" uid="uid://dil5nqxm80pc5" path="res://Assets/Audio/SFX/Garage/garage_drill.mp3" id="9_mxdxo"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="9_q02oa"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="10_qcsoc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3aobf"]
+
+[node name="CarLevelUp" type="Control" unique_id=2121295686]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1impy")
+boost_scene = ExtResource("2_kkdjs")
+
+[node name="Background" type="ColorRect" parent="." unique_id=693917777]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="Background" unique_id=93887270]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_font_sizes/font_size = 64
+text = "CAR UPGRADES"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("5_sr04d")
+
+[node name="Upgrades" type="HBoxContainer" parent="Background" unique_id=234640292]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 99.0
+offset_right = 222.0
+offset_bottom = 199.0
+theme_override_constants/separation = 16
+
+[node name="Icon" type="TextureRect" parent="Background/Upgrades" unique_id=865149005]
+layout_mode = 2
+texture = ExtResource("5_1impy")
+expand_mode = 3
+
+[node name="UpgradesTag" type="Label" parent="Background/Upgrades" unique_id=2138128566]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1yhnf")
+text = "Upgrades : 2"
+script = ExtResource("8_0lu01")
+
+[node name="BoostContainer" type="GridContainer" parent="." unique_id=1285383820]
+custom_minimum_size = Vector2(410, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -247.0
+offset_right = 290.0
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1176608004]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.5
+offset_top = -64.0
+offset_right = 90.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Ignore" type="Button" parent="VBoxContainer" unique_id=1115489960]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_q02oa")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3aobf")
+text = "IGNORE"
+flat = true
+icon_alignment = 1
+script = ExtResource("10_qcsoc")
+
+[node name="Sfx" type="Node" parent="." unique_id=1821439348]
+
+[node name="GarageDrill" type="AudioStreamPlayer" parent="Sfx" unique_id=762702990]
+stream = ExtResource("9_mxdxo")
+bus = &"SFX"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="VBoxContainer/Ignore" to="." method="_on_ignore_pressed"]

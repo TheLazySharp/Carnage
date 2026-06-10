@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://c42ih6nh75qbl"]
+
+[ext_resource type="Script" uid="uid://8p20hbgu80yy" path="res://Scripts/JOBS/engineer.gd" id="1_6pciv"]
+[ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="2_6pciv"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_juv7n"]
+
+[resource]
+script = ExtResource("3_juv7n")
+name = "Engineer"
+icon = ExtResource("2_6pciv")
+description = "Add a free car upgrades after every raids"
+effect_script = ExtResource("1_6pciv")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

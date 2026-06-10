@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="JobsData" format=3 uid="uid://4v8gktjtccjl"]
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://4v8gktjtccjl"]
 
-[ext_resource type="Script" uid="uid://p2ifmvs7scku" path="res://Resources/Scripts/jobs_data.gd" id="1_6vykn"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="1_6vykn"]
+[ext_resource type="Script" uid="uid://kp42b37mamm4" path="res://Scripts/JOBS/mechanic.gd" id="1_dklgj"]
 
 [resource]
 script = ExtResource("1_6vykn")
-job_title = "Mechanics"
-job_descr = "Car repairs are 50% cheaper"
-effect = 0.5
-metadata/_custom_type_script = "uid://p2ifmvs7scku"
+name = "Mechanic"
+description = "At the end of each raid, repair up to 25% of max life"
+effect_script = ExtResource("1_dklgj")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

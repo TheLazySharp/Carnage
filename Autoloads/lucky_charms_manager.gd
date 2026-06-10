@@ -63,7 +63,7 @@ func swap_lucky_charms(pool_index : int, holder_index : int, new_lucky_charm : C
 		pool.append(current_lucky_charm)
 	holder.insert(holder_index,new_lucky_charm)
 	add_lucky_charm_ok = false
-	SceneManager.load_level(lucky_charms_scene)
+	#SceneManager.load_level(lucky_charms_scene)
 	
 func reverse_swap(pool_index : int, holder_index : int, pool_lucky_charm : CharmData, holder_lucky_charm : CharmData) -> void : 
 	var appended_index : int = pool.rfind(holder_lucky_charm)
@@ -73,7 +73,7 @@ func reverse_swap(pool_index : int, holder_index : int, pool_lucky_charm : Charm
 	holder.remove_at(holder_index)
 	holder.insert(holder_index,holder_lucky_charm)
 
-	SceneManager.load_level(lucky_charms_scene)
+	#SceneManager.load_level(lucky_charms_scene)
 	add_lucky_charm_ok = true
 	undo_ok = false
 	

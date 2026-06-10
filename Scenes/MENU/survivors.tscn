@@ -346,13 +346,12 @@ theme_override_font_sizes/font_size = 24
 text = "Mechanic"
 script = ExtResource("6_ekey8")
 
-[node name="PNJBio" type="Label" parent="SurvivorBio" unique_id=886522394]
+[node name="PNJJobDescr" type="Label" parent="SurvivorBio" unique_id=886522394]
 layout_mode = 0
 offset_top = 202.0
 offset_right = 466.0
 offset_bottom = 569.0
 theme_override_font_sizes/font_size = 24
-text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
 autowrap_mode = 2
 script = ExtResource("6_ekey8")
 

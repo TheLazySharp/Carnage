@@ -28,7 +28,7 @@ var map_data : Array[Array] #Grid is an array of floors which are array of distr
 var selected_districts : Array[DistrictsData]
 
 func _ready() -> void:
-	SignalManager.day_ended.connect(_on_day_ended)
+	SignalManager.next_day.connect(_on_next_day)
 
 func generate_map() -> Array[Array] :
 	map_data = generate_initial_grid()
@@ -228,7 +228,7 @@ func get_random_district_type_by_weight() -> DistrictsData.types :
 
 	return DistrictsData.types.PARKING
 
-func _on_day_ended()-> void : 
+func _on_next_day()-> void : 
 	steps_reached += 1
 
 func unload()-> void : 

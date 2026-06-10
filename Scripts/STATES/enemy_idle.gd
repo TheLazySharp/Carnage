@@ -5,7 +5,7 @@ class_name EnemyIdle
 
 var wander_target : Vector2
 var wander_time : float
-var move_speed: float
+#var move_speed: float
 var speed_offset : int
 
 #HORDE SETTINGS : FLOCKING
@@ -32,6 +32,7 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.game_is_over.connect(_on_game_over)
 	SignalManager.day_time_end.connect(_on_day_end)
+	SignalManager.enemy_stats_init.connect(_on_stats_init)
 	repulsion_radius_sq = repulsion_radius * repulsion_radius
 
 
@@ -39,15 +40,12 @@ func enter()-> void:
 	#if !game_over:
 	init_formation()
 	speed_offset = randi_range(-5,5)
-	move_speed = (enemy.speed + speed_offset)
-	#enemy.set_enemy_color(Color.DARK_RED)
-
+	#move_speed = (enemy.speed + speed_offset)
 
 func init_formation()-> void:
 	var angle : float = randf() * TAU
 	var radius : float = randf_range(30,80)
 	formation_offset = Vector2(cos(angle),sin(angle)) * radius
-
 
 func _on_game_over(game_is_over : bool)-> void : 
 	game_over = game_is_over
@@ -85,7 +83,7 @@ func leader_behavior(delta : float) -> void:
 		
 		var wander_direction : Vector2 = (wander_target - enemy.global_position)
 		if wander_direction.length() > 5:
-			enemy.velocity = wander_direction.normalized() * move_speed
+			enemy.velocity = wander_direction.normalized() * enemy.enemy.speed.get_value()
 		else : 
 			enemy.velocity = Vector2.ZERO
 		leader_dest = wander_target
@@ -140,15 +138,13 @@ func trouper_behavior(_delta : float) -> void:
 		#var to_center: Vector2 = (center_of_horde - enemy.global_position)
 		#if to_center.length_squared() > 0.0001:
 			#cohesion_force = to_center.normalized() * cohesion_weight
-	
 
-	
 	#------------------------ GLOBAL BEHAVIOUR --------------------
 	#var total_forces : Vector2 = attraction_force + repulsion_force + cohesion_force
 	var total_forces : Vector2 = attraction_force + repulsion_force
 	
 	if total_forces.length_squared() > 0.0001:
-		enemy.velocity = total_forces.normalized() * move_speed
+		enemy.velocity = total_forces.normalized() * enemy.enemy.speed.get_value()
 	else : 
 		enemy.velocity = Vector2.ZERO
 		
@@ -161,6 +157,8 @@ func trouper_behavior(_delta : float) -> void:
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
-
 func _on_day_end(_day_end : bool) -> void : 
 	state_changed.emit(self,"chase")
+
+func _on_stats_init() -> void : 
+	enter()

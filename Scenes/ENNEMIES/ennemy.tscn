@@ -22,10 +22,8 @@ z_index = 20
 z_as_relative = false
 y_sort_enabled = true
 collision_layer = 2
-collision_mask = 2057
+collision_mask = 264201
 script = ExtResource("1_63ifu")
-max_life = 10
-speed = 60.0
 xp_scene = ExtResource("3_1b0bn")
 dollar_scene = ExtResource("3_57ln3")
 damages_label = ExtResource("2_gvr15")
@@ -61,7 +59,7 @@ wait_time = 0.3
 visible = false
 z_index = 21
 collision_layer = 2
-collision_mask = 9221
+collision_mask = 271365
 
 [node name="HitShape" type="CollisionShape2D" parent="Hitbox" unique_id=1084871669 groups=["ennemies"]]
 rotation = 1.5707964
@@ -84,6 +82,10 @@ metadata/_custom_type_script = "uid://bfuqfd7v7wobh"
 script = ExtResource("12_vuwk1")
 metadata/_custom_type_script = "uid://doxsywpwh6db7"
 
+[node name="UpdateDir" type="Timer" parent="StateMachine/Horde" unique_id=1542821731]
+wait_time = 0.5
+autostart = true
+
 [node name="Attack" type="Node" parent="StateMachine" unique_id=426153517]
 script = ExtResource("13_pgnhj")
 metadata/_custom_type_script = "uid://c6cihr87a2nuw"
@@ -94,3 +96,4 @@ metadata/_custom_type_script = "uid://c6cihr87a2nuw"
 [connection signal="timeout" from="DamageTimer_OnPlayer" to="." method="_on_damage_timer_on_player_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
+[connection signal="timeout" from="StateMachine/Horde/UpdateDir" to="StateMachine/Horde" method="_on_update_dir_timeout"]

@@ -11,7 +11,8 @@ enum Stats_Types {
 	RADIUS,
 	COOL_DOWN,
 	SPEED,
-	SPEED_ROTATION
+	SPEED_ROTATION,
+	NB_PROJECTILE
 }
 
 
@@ -39,7 +40,9 @@ enum Stats_Types {
 @export var base_fire_rate: float
 @export var base_cool_down: float
 @export var base_nb_ammo: int = 1
+@export var base_nb_projectile: int = 1
 @export var base_speed : float
+
 
 
 @export_group("OTHERS")
@@ -50,14 +53,14 @@ enum Stats_Types {
 
 var current_level: int = 0
 var dmg_upgrade : int
-
 var fire_rate_upgrade : float
-
 var cool_down_upgrade : float
-
 var radius_upgrade : float
-
 var nb_ammo_upgrade : int
+
+var total_damages_dealt : int = 0
+var equipped_sessions : Array[float] = []
+var total_equipped_time : float = 0
 
 var is_equiped: = false
 var crafted : bool = false
@@ -72,7 +75,7 @@ var nb_ammo : Statistic
 var atk_range : Statistic
 var speed_rotation : Statistic
 var speed : Statistic
-
+var nb_projectile : Statistic
 var stats : Dictionary[Stats_Types,Statistic] = {}
 
 
@@ -109,6 +112,9 @@ func speed_formula(_level_preview : int) -> float :
 	#var stat_bonus : int = current_level if tar_up_stat == Stats_Types.DMG else 0
 	return (base_speed)
 
+func nb_projectile_formula(level_preview : int) -> float : 
+	var stat_bonus : int = current_level if tar_up_stat == Stats_Types.NB_PROJECTILE else 0
+	return roundi(base_nb_projectile + (stat_bonus + level_preview))
 
 func init_stats() -> void : 
 	dmg = Statistic.new(dmg_formula(0))
@@ -119,6 +125,7 @@ func init_stats() -> void :
 	atk_range = Statistic.new(atk_range_formula(0))
 	speed_rotation = Statistic.new(speed_rotation_formula(0))
 	speed = Statistic.new(speed_formula(0))
+	nb_projectile = Statistic.new(nb_projectile_formula(0))
 	
 	
 	stats = {
@@ -129,7 +136,8 @@ func init_stats() -> void :
 		Stats_Types.RADIUS : radius,
 		Stats_Types.COOL_DOWN : cool_down,
 		Stats_Types.SPEED : speed,
-		Stats_Types.SPEED_ROTATION : speed_rotation
+		Stats_Types.SPEED_ROTATION : speed_rotation,
+		Stats_Types.NB_PROJECTILE : nb_projectile
 	}
 
 func get_target_upgrade_stat() -> Statistic :
@@ -142,6 +150,7 @@ func get_target_upgrade_stat() -> Statistic :
 		Stats_Types.COOL_DOWN : return cool_down
 		Stats_Types.SPEED : return speed
 		Stats_Types.SPEED_ROTATION : return speed_rotation
+		Stats_Types.NB_PROJECTILE : return nb_projectile
 	return null
 	
 func get_target_stat_new_value(level_preview : int) -> float :
@@ -154,6 +163,7 @@ func get_target_stat_new_value(level_preview : int) -> float :
 		Stats_Types.COOL_DOWN : return cool_down_formula(level_preview)
 		Stats_Types.SPEED : return speed_formula(level_preview)
 		Stats_Types.SPEED_ROTATION : return speed_rotation_formula(level_preview)
+		Stats_Types.NB_PROJECTILE : return nb_projectile_formula(level_preview)
 	return 0
 
 func get_weapon_stat(stat : Stats_Types) -> Statistic :
@@ -166,6 +176,7 @@ func get_weapon_stat(stat : Stats_Types) -> Statistic :
 		Stats_Types.COOL_DOWN : return cool_down
 		Stats_Types.SPEED : return speed
 		Stats_Types.SPEED_ROTATION : return speed_rotation
+		Stats_Types.NB_PROJECTILE : return nb_projectile
 	return null
 
 
@@ -175,3 +186,10 @@ func level_up() -> void :
 	target_upgraded_stat.base_value = get_target_stat_new_value(0)
 	target_upgraded_stat.dirty = true
 	target_upgraded_stat.recalculate()
+	
+func get_active_duration() -> float:
+	var total : float = 0
+	for i in equipped_sessions:
+		total += TimeManager.active_time - i
+	return total
+	

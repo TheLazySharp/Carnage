@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://c5g74aadec237"]
+
+[ext_resource type="Script" uid="uid://dl2sr8c0jfw2k" path="res://Scripts/WEAPONS/baseball_bat.gd" id="1_uojmr"]
+[ext_resource type="AudioStream" uid="uid://b4y6672sb30ve" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh1.mp3" id="2_0g6yb"]
+[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/baseballbat.tres" id="2_6btos"]
+[ext_resource type="AudioStream" uid="uid://ct31jha7cmuqv" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh2.mp3" id="3_6btos"]
+[ext_resource type="AudioStream" uid="uid://booeo1e3h42f" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh3.mp3" id="4_sji5y"]
+[ext_resource type="Texture2D" uid="uid://5didt1k4avd4" path="res://Assets/weapons/sword_slash.png" id="5_vpf4a"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rtr7b"]
+streams_count = 3
+stream_0/stream = ExtResource("2_0g6yb")
+stream_1/stream = ExtResource("3_6btos")
+stream_2/stream = ExtResource("4_sji5y")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2lic"]
+atlas = ExtResource("5_vpf4a")
+region = Rect2(0, 0, 550, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3n3a"]
+atlas = ExtResource("5_vpf4a")
+region = Rect2(550, 0, 550, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdefb"]
+atlas = ExtResource("5_vpf4a")
+region = Rect2(1100, 0, 550, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38fa2"]
+atlas = ExtResource("5_vpf4a")
+region = Rect2(1650, 0, 550, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1gtd"]
+atlas = ExtResource("5_vpf4a")
+region = Rect2(2200, 0, 550, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krh7t"]
+atlas = ExtResource("5_vpf4a")
+region = Rect2(2750, 0, 550, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xkcn6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2lic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3n3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdefb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38fa2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1gtd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_krh7t")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"slashing",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ho26o"]
+height = 52.0
+
+[node name="BaseballBat" type="Node2D" unique_id=2134397831]
+script = ExtResource("1_uojmr")
+bat_data = ExtResource("2_6btos")
+
+[node name="WhooshSFX" type="AudioStreamPlayer" parent="." unique_id=953759488]
+stream = SubResource("AudioStreamRandomizer_rtr7b")
+bus = &"Weapons"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=360242140]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_xkcn6")
+animation = &"slashing"
+
+[node name="SmashZone" type="Area2D" parent="." unique_id=1252214905]
+collision_layer = 1024
+collision_mask = 2
+
+[node name="SmashShape" type="CollisionShape2D" parent="SmashZone" unique_id=1020102252]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ho26o")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animation_finished"]
+[connection signal="area_entered" from="SmashZone" to="." method="_on_smash_zone_area_entered"]

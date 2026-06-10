@@ -4,9 +4,6 @@ extends Node2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var is_open:= false
 var car_ok : bool
-var lucky_charms_scene : String = "uid://ch2rp03kbdyg7"
-var shop_scene : String = "uid://cvogwsu4e47t0"
-var home_scene : String = "uid://cvkxdbb1u1tw0"
 @onready var collision_shape: CollisionShape2D = $CollisionShape
 @onready var warp_zone: Area2D = $WarpZone
 
@@ -17,7 +14,7 @@ var game_paused:=false
 
 signal forward_only(car_ok : bool)
 signal full_command(engine_on: bool)
-signal run_ended
+
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
@@ -48,7 +45,7 @@ func _on_warp_zone_body_entered(body: Node2D) -> void:
 		SignalManager.emit_signal("run_ended")
 		await get_tree().create_timer(3).timeout
 		emit_signal("run_ended")
-		SceneManager.load_level(home_scene)
+		SceneManager.load_level(SceneManager.SCENES.HOME)
 
 
 

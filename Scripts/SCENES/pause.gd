@@ -4,21 +4,17 @@ extends Control
 @onready var commands: Button = $VBoxContainer/Commands
 @onready var quit_to_menu: Button = $"VBoxContainer/QuitToMenu"
 
-var menu_scene: String = "uid://gmjjc1vmgcds"
-
 var game_on_pause:= false
 
 signal quit_pause(game_on_pause: bool)
 
 func _ready() -> void:
+	self.hide()
 	resume.grab_focus()
 	
 func _process(_delta: float) -> void:
 	pass
-	#if !SceneManager.tuto_completed:
-		#quit_to_menu.hide()
-	#else:
-		#quit_to_menu.show()
+
 	
 
 func _on_resume_pressed() -> void:
@@ -31,7 +27,7 @@ func _on_commands_pressed() -> void:
 
 func _on_quit_to_menu_pressed() -> void:
 	SceneManager.unload_game()
-	SceneManager.load_level(menu_scene)
+	SceneManager.load_level(SceneManager.SCENES.MAIN_MENU)
 
 func get_focus() -> void:
 	resume.grab_focus()

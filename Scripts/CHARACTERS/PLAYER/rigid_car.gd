@@ -72,12 +72,12 @@ var shake_timer_steps : float = 1
 
 signal game_over(game_is_over: bool)
 signal start_time(game_start: bool)
-signal wall_collision
+signal engine_ignited
+#signal stats_initiated
 var game_is_over:= false
 var game_paused:=false
 var is_taking_damages:=false
 var can_drive:=false
-var road_map_scene : String = "uid://dsn18jy5k2in8"
 
 
 #@onready var gate: CharacterBody2D = $"../StartingGate"
@@ -128,6 +128,7 @@ func _ready() -> void:
 	max_life = player.max_life.get_value()
 	drift_turn_bonus = player.drift_turn_bonus.get_value()
 	
+	#emit_signal("stats_initiated")
 	
 	rear_left_burn_anim.hide()
 	rear_right_burn_anim.hide()
@@ -138,7 +139,6 @@ func _ready() -> void:
 	SignalManager.boost_gauge_is_full.connect(_on_boost_full)
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
 	SignalManager.end_autopilot_transition.connect(_on_exit_transition)
-	SignalManager.run_ended.connect(_on_run_ended)
 
 	
 	#DRIVING
@@ -166,15 +166,13 @@ func _ready() -> void:
 	life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
 	
 	if visible:
-		ready_go.show()
-		ready_go.text = "READY ?"
+		emit_signal("engine_ignited")
 		start_engine.play()
 
 func _process(_delta: float) -> void:
 	if !game_paused:
 		speed_label.text  = str(roundi(velocity.length()/player.max_speed.get_value() * player.display_max_speed.get_value()))
 		life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
-
 
 func _physics_process(delta : float) -> void:
 	if !game_paused and can_drive and !game_is_over:
@@ -195,7 +193,6 @@ func _physics_process(delta : float) -> void:
 				camera_2d.update_zoom(velocity.length())
 			#else :
 				#camera_2d.zoom = Vector2.ONE * autopilot_target_zoom
-
 
 func _process_player_inputs(delta : float) -> void : 
 	if !game_paused and can_drive and !game_is_over:
@@ -408,7 +405,7 @@ func on_death() -> void:
 	can_drive = false
 	is_taking_damages = false
 	WeaponsManager.activate_weapons(false)
-	WeaponsManager.unload()
+	#WeaponsManager.unload()
 	end_dash()
 	car_sprite.hide()
 	drift_manager.force_stop_skid()
@@ -442,16 +439,18 @@ func _on_body_parts_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:
 		if area.is_in_group("ennemies") and "get_damages" in area:
 			area.get_damages(roundi(player.dmg.get_value()))
+			StatsManager.total_car_dmg += roundi(player.dmg.get_value())
 		else : return
 
 func _on_start_engine_finished() -> void:
 	can_drive = true
 	emit_signal("start_time", can_drive)
+	SignalManager.emit_signal("start_timer")
 	WeaponsManager.activate_weapons(true)
-	#empty_explosives()
-	ready_go.text = "GO !"
-	await get_tree().create_timer(SceneManager.ready_go_timer).timeout
-	ready_go.hide()
+	##empty_explosives()
+	#ready_go.text = "GO !"
+	#await get_tree().create_timer(SceneManager.ready_go_timer).timeout
+	#ready_go.hide()
 
 func _on_full_command(full_command : bool) -> void:
 	if !full_command:
@@ -536,11 +535,6 @@ func damages_sfx()-> void :
 			dmg_player.play()
 			return
 
-func _on_run_ended() -> void:
-	pass
-	#StatsManager.current_life = player.current_life
-	#print("run ended : ",current_life)
-
 func play_drivin_smokes() -> void : 
 	if game_paused or game_is_over:
 		return
@@ -573,4 +567,4 @@ func _on_exit_transition() -> void :
 	camera_2d.global_position = global_position
 
 	await get_tree().create_timer(2.0).timeout
-	SceneManager.load_level(road_map_scene)
+	SceneManager.load_level(SceneManager.SCENES.ROADMAP)

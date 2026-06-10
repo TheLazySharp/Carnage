@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://bd41ghxlhffs6"]
+
+[ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/LEVELUP/leveling.gd" id="1_s7856"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_3k12w"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_vvu0t"]
+[ext_resource type="Script" uid="uid://bsc7r81ttmpl6" path="res://Scripts/UI/preleveling_label.gd" id="4_x1k6w"]
+[ext_resource type="Script" uid="uid://bcrbhuf4ic2fu" path="res://Scripts/UI/preleveling_icon.gd" id="5_th1r8"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="6_hagmu"]
+
+[sub_resource type="Animation" id="Animation_5brd2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Prelevelling/NewLevel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [48]
+}
+
+[sub_resource type="Animation" id="Animation_sl775"]
+resource_name = "new_level"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Prelevelling/NewLevel:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.4991496),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [48, 64, 48]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0nur5"]
+_data = {
+&"RESET": SubResource("Animation_5brd2"),
+&"new_level": SubResource("Animation_sl775")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
+
+[node name="Prelevelling" type="Control" unique_id=956915006]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 143.0
+offset_bottom = -156.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s7856")
+
+[node name="PreLevelingBkgd" type="ColorRect" parent="." unique_id=1244221907]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.13333334, 0.13333334, 0.8627451)
+
+[node name="Label" type="Label" parent="." unique_id=1560496071]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_3k12w")
+theme_override_font_sizes/font_size = 64
+text = "LEVEL UP !"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("3_vvu0t")
+
+[node name="NewLevel" type="Label" parent="." unique_id=1261648718]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -171.0
+offset_right = 199.5
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_3k12w")
+theme_override_font_sizes/font_size = 48
+text = "Level 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("4_x1k6w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NewLevel" unique_id=1755756695]
+root_node = NodePath("../../../..")
+libraries/ = SubResource("AnimationLibrary_0nur5")
+autoplay = &"new_level"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1321627343]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -84.5
+offset_right = 59.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5
+script = ExtResource("5_th1r8")
+
+[node name="MainButtons" type="HBoxContainer" parent="." unique_id=420082351]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.0
+offset_top = -99.5
+offset_right = 77.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="PrelevelingButton" type="Button" parent="MainButtons" unique_id=697985147]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_3k12w")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "OK !"
+flat = true
+script = ExtResource("6_hagmu")
+
+[connection signal="pressed" from="MainButtons/PrelevelingButton" to="." method="_on_preleveling_button_pressed"]

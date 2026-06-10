@@ -9,6 +9,7 @@ const BORIS = preload("uid://co2hy6ybsg7b6")
 const JAVIER = preload("uid://b5ctlqm42kkmh")
 const LEO = preload("uid://b6nh0gs2w1hog")
 const VIKTOR = preload("uid://c4cxif75gn4yr")
+const MARINA = preload("uid://d3q6e2ttbedxt")
 
 @warning_ignore("unused_signal")
 signal portrait_hovered(id : int)
@@ -22,6 +23,7 @@ func _ready() -> void:
 	unknown_survivors.append(BORIS)
 	#unknown_survivors.append(VIKTOR)
 	unknown_survivors.append(JAVIER)
+	unknown_survivors.append(MARINA)
 	
 	##-----------TEST-----------
 	#known_survivors.append(JAVIER)

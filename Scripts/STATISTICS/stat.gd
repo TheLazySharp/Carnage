@@ -74,7 +74,6 @@ func preview_value(extra_mod: Modifier) -> float:
 
 	return (flat * (1.0 + percent_add)) * percent_mult
 
-
 func _on_modifier_over(mod: Modifier) -> void:
 	mod.modifier_over.disconnect(_on_modifier_over)
 	remove_modifier(mod)

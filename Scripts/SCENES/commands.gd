@@ -1,9 +1,5 @@
 extends Control
 
-var menu_scene : String = "uid://gmjjc1vmgcds"
-var car_selection : String = "uid://b0ibe3gvcqm4q"
-var missions_scene : String = "uid://dc6hb14w0yref"
-
 @onready var controler: Control = $Controler
 @onready var ok_controler: Button = $Controler/VBoxContainer/Ok
 
@@ -28,4 +24,4 @@ func _on_back_pressed() -> void:
 
 
 func _on_ok_keyboard_pressed() -> void:
-	SceneManager.load_level(missions_scene)
+	SceneManager.load_level(SceneManager.SCENES.MISSIONS)
