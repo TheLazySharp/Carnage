@@ -98,6 +98,11 @@ var forward_only : bool = false
 @onready var drivin_smoke_l_2: CPUParticles2D = $RearLeft/DrivinSmokeL2
 @onready var flash: AnimationPlayer = $CarSprite/Flash
 
+#INVINCIBILITY
+var invincibility_tween : Tween = null
+var glow_sprite : Sprite2D = null
+#@onready var invincibility_particles: CPUParticles2D = $VFX/InvincibilityStars  # à créer 
+
 # ---- AUTOPILOT ----
 enum AutopilotState { NONE, ZOOM, DRIVE, EXIT }
 var autopilot_state : AutopilotState = AutopilotState.NONE
@@ -128,8 +133,6 @@ func _ready() -> void:
 	max_life = player.max_life.get_value()
 	drift_turn_bonus = player.drift_turn_bonus.get_value()
 	
-	#emit_signal("stats_initiated")
-	
 	rear_left_burn_anim.hide()
 	rear_right_burn_anim.hide()
 	##TEST
@@ -139,8 +142,9 @@ func _ready() -> void:
 	SignalManager.boost_gauge_is_full.connect(_on_boost_full)
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
 	SignalManager.end_autopilot_transition.connect(_on_exit_transition)
+	SignalManager.player_invincible.connect(_on_invincible) 
 
-	
+
 	#DRIVING
 	max_backward_speed = roundi(max_speed * 0.8)
 
@@ -435,22 +439,19 @@ func _on_taking_damages_timeout() -> void:
 	is_taking_damages = false
 	#animation_player.stop()
 
-func _on_body_parts_area_entered(area: Area2D) -> void:
-	if !game_paused and velocity.length() >= velocity_floor:
-		if area.is_in_group("ennemies") and "get_damages" in area:
-			area.get_damages(roundi(player.dmg.get_value()))
-			StatsManager.total_car_dmg += roundi(player.dmg.get_value())
-		else : return
+#func _on_body_parts_area_entered(area: Area2D) -> void:
+	#if !game_paused and velocity.length() >= velocity_floor:
+		#if area.is_in_group("ennemies") and "get_damages" in area:
+			#area.get_damages(roundi(player.dmg.get_value()))
+			#StatsManager.total_car_dmg += roundi(player.dmg.get_value())
+		#else : return
 
 func _on_start_engine_finished() -> void:
 	can_drive = true
 	emit_signal("start_time", can_drive)
 	SignalManager.emit_signal("start_timer")
 	WeaponsManager.activate_weapons(true)
-	##empty_explosives()
-	#ready_go.text = "GO !"
-	#await get_tree().create_timer(SceneManager.ready_go_timer).timeout
-	#ready_go.hide()
+
 
 func _on_full_command(full_command : bool) -> void:
 	if !full_command:
@@ -568,3 +569,53 @@ func _on_exit_transition() -> void :
 
 	await get_tree().create_timer(2.0).timeout
 	SceneManager.load_level(SceneManager.SCENES.ROADMAP)
+
+func _on_invincible(player_invincible : bool) -> void : 
+	if player_invincible:
+		start_invincibility_vfx()
+	else:
+		stop_invincibility_vfx()
+		
+func start_invincibility_vfx() -> void:
+	print("start invincibility pulse")
+	# --- GLOW SPRITE ---
+	if glow_sprite == null:
+		glow_sprite = Sprite2D.new()
+		glow_sprite.offset = car_sprite.offset
+		glow_sprite.flip_h = car_sprite.flip_h
+		glow_sprite.flip_v = car_sprite.flip_v
+		glow_sprite.texture = car_sprite.texture
+		glow_sprite.light_mask = car_sprite.light_mask
+		var mat := CanvasItemMaterial.new()
+		mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		glow_sprite.material = mat
+		glow_sprite.z_index = car_sprite.z_index - 1
+		car_sprite.add_child(glow_sprite)
+
+	# --- PULSE ---
+	if invincibility_tween:
+		invincibility_tween.kill()
+	invincibility_tween = create_tween().set_loops()
+	invincibility_tween.tween_property(glow_sprite, "modulate",Color(3.0, 2.5, 0.0, 1.0), 0.18).set_trans(Tween.TRANS_SINE)
+	invincibility_tween.tween_property(glow_sprite, "modulate",Color(0.0, 0.0, 0.0, 0.0), 0.18).set_trans(Tween.TRANS_SINE)
+
+	# --- ÉTOILES ---
+	#invincibility_particles.emitting = true
+
+func stop_invincibility_vfx() -> void:
+	if invincibility_tween:
+		invincibility_tween.kill()
+		invincibility_tween = null
+	if glow_sprite:
+		glow_sprite.queue_free()
+		glow_sprite = null
+	#invincibility_particles.emitting = false
+		
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if !game_paused and velocity.length() >= velocity_floor:
+		if area.is_in_group("ennemies") and "get_damages" in area:
+			area.get_damages(roundi(player.dmg.get_value()))
+			StatsManager.total_car_dmg += roundi(player.dmg.get_value())
+		else : return

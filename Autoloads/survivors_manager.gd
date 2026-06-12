@@ -20,10 +20,10 @@ signal in_game_survivor_queuefree
 
 func _ready() -> void:
 	unknown_survivors.append(LEO)
-	unknown_survivors.append(BORIS)
 	#unknown_survivors.append(VIKTOR)
-	unknown_survivors.append(JAVIER)
 	unknown_survivors.append(MARINA)
+	unknown_survivors.append(JAVIER)
+	unknown_survivors.append(BORIS)
 	
 	##-----------TEST-----------
 	#known_survivors.append(JAVIER)

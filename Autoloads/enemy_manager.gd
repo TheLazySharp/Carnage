@@ -17,3 +17,13 @@ var Enemy_ressources : Dictionary = {
 	Enemy_Types.COLOSS : COLOSS_ZOMBIE,
 	Enemy_Types.TANK : TANK_ZOMBIE
 }
+
+var life_progression_step : int = 10
+var max_life_mod : Modifier
+
+func _ready() -> void:
+	RoadMapManager.new_step_reached.connect(_on_next_day)
+
+
+func _on_next_day(current_step : int) -> void :
+	max_life_mod = Modifier.new(life_progression_step * current_step,Modifier.Type.FLAT,"enemies manager max life mod")

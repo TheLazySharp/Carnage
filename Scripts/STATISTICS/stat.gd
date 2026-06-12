@@ -6,7 +6,7 @@ var modifiers: Array[Modifier] = []
 var dirty: bool = true
 var final_value: float
 
-signal stat_adjusted (new_value : float)
+signal stat_adjusted(new_value : float)
 
 func _init(p_base : float = 0.0) -> void:
 	base_value = p_base

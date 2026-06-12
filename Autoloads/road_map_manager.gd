@@ -22,7 +22,7 @@ var random_districts_weights : Dictionary = {
 	DistrictsData.types.SHOP : 0.0
 }
 
-
+signal new_step_reached(new_step : int)
 var random_districts_total_weights : int = 0
 var map_data : Array[Array] #Grid is an array of floors which are array of districts
 var selected_districts : Array[DistrictsData]
@@ -230,7 +230,8 @@ func get_random_district_type_by_weight() -> DistrictsData.types :
 
 func _on_next_day()-> void : 
 	steps_reached += 1
-
+	emit_signal("new_step_reached",steps_reached)
+	
 func unload()-> void : 
 	steps_reached = 0
 	map_data.clear()

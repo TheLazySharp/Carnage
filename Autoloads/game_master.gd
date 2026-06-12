@@ -27,4 +27,5 @@ enum GAME_MODES {
 var game_mode : GAME_MODES
 
 func _ready() -> void:
-	game_mode = GAME_MODES.GOD
+	
+	game_mode = GAME_MODES.DEV

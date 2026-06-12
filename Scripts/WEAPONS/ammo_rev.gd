@@ -26,7 +26,6 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	max_lvl = bullet_data.max_level
 
-	#bullet_data.init_stats()
 	damages = int(bullet_data.dmg.get_value())
 	max_range = bullet_data.atk_range.get_value()
 	speed = bullet_data.speed.get_value()

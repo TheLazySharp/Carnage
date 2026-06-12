@@ -10,7 +10,7 @@ var active_time : float
 var tracking_time : bool = false
 
 func _ready() -> void:
-	day_lenght = 120 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 45
+	day_lenght = 120 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 60
 	active_time = 0.0
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.next_day.connect(_on_raid_end)

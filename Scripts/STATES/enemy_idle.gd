@@ -53,9 +53,10 @@ func _on_game_over(game_is_over : bool)-> void :
 
 func exit()-> void:
 	pass
-	
-func update(_delta : float)-> void:
-	pass
+
+
+#func update(_delta : float)-> void:
+	#pass
 
 
 func physics_update(delta: float)-> void:

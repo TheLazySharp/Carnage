@@ -20,11 +20,7 @@ func _ready() -> void:
 
 	if is_active:
 		create_horde()
-	
-	
-func _process(_delta: float) -> void:
-	pass
-	
+
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 

@@ -37,8 +37,6 @@ func _ready() -> void:
 	create_bullet_pool(max_bullet_count)
 	muzzle_flash.hide()
 	
-	#revolver_data.init_stats()
-	
 	nb_ammo = int(revolver_data.nb_ammo.get_value())
 	fire_rate.wait_time = revolver_data.fire_rate.get_value()
 	fire_range.shape.radius = revolver_data.radius.get_value()

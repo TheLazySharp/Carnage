@@ -7,7 +7,7 @@
 script = ExtResource("1_bemir")
 name = "Coloss"
 sprite = ExtResource("2_le2cb")
-base_speed = 30.0
+base_speed = 50.0
 base_max_life = 100.0
 base_dmg = 5.0
 xp_type = 2

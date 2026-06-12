@@ -14,6 +14,8 @@ var price_mult : int = 10
 @onready var price_cont: HBoxContainer = $Price
 @onready var price_tag: Label = $Price/PriceTags/PriceTag
 @onready var discount_tag: Label = $Price/PriceTags/DiscountTag
+@onready var strike_price: Control = $Price/PriceTags/PriceTag/StrikePrice
+
 
 @onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
 @onready var not_enough_cash_rect: ColorRect = $Confirm/MarginContainer/NotEnoughCash
@@ -39,7 +41,7 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	charm_rarity.text = charm.get_rarity_string(charm.rarity)
 	charm_rarity.add_theme_color_override("font_color",charm.get_shop_color())
 	charm.is_in_shop = p_is_in_shop
-
+	description.text = charm.description
 	sold_out.hide()
 	if charm.is_in_shop:
 		price_cont.show()
@@ -47,12 +49,15 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	
 	if ShopManager.apply_discount :
 		discount_tag.show()
+		strike_price.show()
 	else : 
 		discount_tag.hide()
+		strike_price.hide()
+		
 
 func _on_confirm_pressed() -> void:
 	var effect : CharmEffect = charm.effect_script.new()
-	effect.activate()
+	effect.activate(charm)
 	CharmsManager.register(charm, effect)
 
 	if charm.is_in_shop:

@@ -17,7 +17,7 @@ extends Control
 @onready var reroll_label: Label = $Background/Reroll/HBoxContainer/Reroll
 
 var nb_boost : int = 4
-var nb_charm : int = 2
+var nb_charm : int = 3
 
 var font_button : Array = FontManager.FONTS[FontManager.types.BUTTON]
 var font_button_focus : Array = FontManager.FONTS[FontManager.types.BUTTON_FOCUS]

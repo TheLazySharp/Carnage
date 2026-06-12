@@ -31,6 +31,8 @@ var current_target : Area2D = null
 
 var game_paused: bool = false
 
+var angle_step : float = 10
+
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	
@@ -59,20 +61,18 @@ func _physics_process(_delta: float) -> void:
 	pass
 
 func fire_bullet(p_target_pos : Vector2)-> void :
-	var bullet : AmmoMG = get_bullet_from_pool()
 	var dir : Vector2 = fire_point.global_position.direction_to(p_target_pos)
-	var angle : float = dir.angle()
-	bullet.fire(fire_point.global_position,dir,angle)
+	var base_angle : float = dir.angle()
 	
-	if minigun_data.nb_projectile.get_value() > 1 : 
-		for i in  range(1,minigun_data.nb_projectile.get_value()):
-			var perp : Vector2 = dir.rotated(PI / 2)
-			var parallel_offset : float = 20 * i
-			var parallel_origin : Vector2 = fire_point.global_position + perp * parallel_offset
-			var bullet2 : AmmoMG = get_bullet_from_pool()
-			bullet2.fire(parallel_origin,dir,angle)
+	var start_offset : float = -((minigun_data.nb_projectile.get_value() - 1) * angle_step) * 0.5
+	
+	for i in range(minigun_data.nb_projectile.get_value()):
+		var bullet_angle : float = base_angle + deg_to_rad(start_offset + i * angle_step)
+		var bullet_dir : Vector2 = Vector2.RIGHT.rotated(bullet_angle)
+		var bullet : AmmoMG = get_bullet_from_pool()
+		bullet.fire(fire_point.global_position, bullet_dir, bullet_angle)
 
-	muzzle_flash.rotation = angle + deg_to_rad(90)
+	muzzle_flash.rotation = base_angle + deg_to_rad(90)
 	muzzle_flash.show()
 	muzzle_flash.play("fire")
 	shot_sfx.play()

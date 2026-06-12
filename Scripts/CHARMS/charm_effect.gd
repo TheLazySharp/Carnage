@@ -2,7 +2,7 @@ extends RefCounted
 class_name CharmEffect
 
 
-func activate() -> void:
+func activate(_p_charm : CharmData) -> void:
 	pass
 
 func deactivate() -> void:

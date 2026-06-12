@@ -2107,9 +2107,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -316.5
-offset_top = -35.0
+offset_top = -253.0
 offset_right = 316.5
-offset_bottom = 35.0
+offset_bottom = -183.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -2245,6 +2245,7 @@ libraries/ = SubResource("AnimationLibrary_pneeb")
 autoplay = &"blinking_red"
 
 [node name="Pause" parent="CanvasLayer" unique_id=739595383 instance=ExtResource("58_ywo5e")]
+visible = false
 
 [node name="NewSurvivor" type="Control" parent="CanvasLayer" unique_id=767784114]
 visible = false
@@ -2536,7 +2537,6 @@ tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
 position = Vector2(825.06494, 1023.9701)
-enemy_type = 2
 
 [node name="Horde2" parent="Spawners" unique_id=692877725 instance=ExtResource("79_83n8t")]
 position = Vector2(475.1978, 194.98907)
@@ -2561,6 +2561,7 @@ position = Vector2(329.21948, 1725.5117)
 
 [node name="Horde9" parent="Spawners" unique_id=1242862468 instance=ExtResource("79_83n8t")]
 position = Vector2(1636.809, 1041.7068)
+enemy_type = 2
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("73_tk2je")]
 
@@ -2587,6 +2588,7 @@ position = Vector2(12.431885, 1852.4446)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("74_ywo5e")]
 enemy_type = 2
+auto_spawn = true
 
 [node name="SpawnPoint0" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="0" unique_id=83608265]
 position = Vector2(170.8305, 137.54413)
@@ -2650,6 +2652,9 @@ position = Vector2(116.673096, 1023.4417)
 
 [node name="SpawnPoint20" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="20" unique_id=1456220153]
 position = Vector2(90.94995, 474.6828)
+
+[node name="SpawnRate" parent="Spawners/SpawnerAuto" index="1" unique_id=2090149341]
+wait_time = 0.8
 
 [node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
 multimesh = SubResource("MultiMesh_tc8sa")

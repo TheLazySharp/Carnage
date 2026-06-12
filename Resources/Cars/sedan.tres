@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CarData" format=3 uid="uid://dubbw5mialr30"]
 
-[ext_resource type="Texture2D" uid="uid://brb3qquidnmhm" path="res://Assets/Characters/Cars/sedan.png" id="1_pe265"]
+[ext_resource type="Texture2D" uid="uid://bn3oteja0m4nn" path="res://Assets/Characters/Cars/sedan_sport.png" id="1_pe265"]
 [ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_ljyaj"]
 [ext_resource type="AudioStream" uid="uid://fck7cw0ivdco" path="res://Assets/Audio/SFX/Car/car-engine-ignite.mp3" id="3_pe265"]
 

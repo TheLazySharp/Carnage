@@ -266,6 +266,7 @@ vertical_alignment = 1
 script = ExtResource("7_u3hmk")
 
 [node name="StrikePrice" type="Control" parent="Price/PriceTags/PriceTag" unique_id=225847669]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

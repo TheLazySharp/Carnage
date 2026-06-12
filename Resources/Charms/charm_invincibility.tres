@@ -9,5 +9,7 @@ script = ExtResource("1_eh6d1")
 name = "Invicibility"
 icon = ExtResource("1_kq3h3")
 description = "The car is invicible for 1 sec when hit by enemiesCool down : 7 sec"
+p_value = 5.0
+p_value_descr = "cool down between invincibility"
 effect_script = ExtResource("1_bie1i")
 metadata/_custom_type_script = "uid://glp77jy3lf6n"

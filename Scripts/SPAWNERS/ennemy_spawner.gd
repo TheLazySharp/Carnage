@@ -6,7 +6,7 @@ const ENEMY = preload("uid://c31g0smlywes2")
 @export var enemy_type : EnemyManager.Enemy_Types
 var renderer : EnemiesMultiMeshRenderer
 
-var max_enemy_count : int = 100
+var max_enemy_count : int = 200
 var nb_active_enemies : int = 0
 var game_paused : bool = false
 @onready var spawn_rate: Timer = $SpawnRate

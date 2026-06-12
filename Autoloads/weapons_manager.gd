@@ -13,7 +13,6 @@ const FLAME_LAUNCHER = preload("uid://bgv4w4g2bvoby")
 const FLAME = preload("uid://c5l0xm4m5tt65")
 const BAT_HANDLER = preload("uid://b6wbgylc6laab")
 
-
 var weapon_scenes: Array[Array] = []
 var weapons : Array[WeaponData] = []
 var unequipped_weapons: Array[WeaponData] = []

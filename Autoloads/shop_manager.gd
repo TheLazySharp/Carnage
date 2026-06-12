@@ -70,8 +70,10 @@ const ALL_BOOSTS : Array = [
 ]
 
 const ALL_CHARMS : Array = [
-	preload("uid://cycv6edr3ie0h"),
-	preload("uid://dkm27p4j8u1jj")
+	preload("uid://cycv6edr3ie0h"),		#invincibility
+	preload("uid://dkm27p4j8u1jj"),		#drift fire
+	preload("uid://dig2dq8y0nvfs")		#add projectil on all weapons
+	
 ]
 
 var all_boosts : Array[BoostData] = []
@@ -123,21 +125,21 @@ func pick_boost()-> BoostData:
 	
 	return pool[rng.randi_range(0,pool.size() -1)]
 
-func pick_charm_rarity() -> CharmData.Rarities:
+func pick_charm_rarity() -> CharmsManager.Rarities:
 	var weighted_sum : int = 0
-	for rarity : CharmData.Rarities  in item_levels:
+	for rarity : CharmsManager.Rarities  in item_levels:
 		weighted_sum += item_levels[rarity]
 	
 	var shop_item_weight : int = rng.randi_range(0,weighted_sum -1)
 	
-	for rarity : CharmData.Rarities in item_levels:
+	for rarity : CharmsManager.Rarities in item_levels:
 		shop_item_weight -= item_levels[rarity]
 		if shop_item_weight < 0:
 			return rarity
-	return CharmData.Rarities.COMMON
+	return CharmsManager.Rarities.COMMON
 
 func pick_charm()-> CharmData:
-	var rarity : CharmData.Rarities = pick_charm_rarity()
+	var rarity : CharmsManager.Rarities = pick_charm_rarity()
 	var pool : Array = all_boosts.filter(
 		func(charm : CharmData) -> bool:
 		return charm.rarity == rarity)

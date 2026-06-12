@@ -1,8 +1,9 @@
 extends CharmEffect
 
-# ADD TO CONST " ALL_CHARMS" IN SHOP_MANAGER.GD
+# ADD TO CHARMDATA TO CONST " ALL_CHARMS" IN SHOP_MANAGER.GD
 
-func activate() -> void:
+
+func activate(_p_charm : CharmData) -> void:
 	pass
 
 func deactivate() -> void:

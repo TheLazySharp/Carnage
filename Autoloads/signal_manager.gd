@@ -80,3 +80,9 @@ signal half_time
 
 @warning_ignore("unused_signal")
 signal start_timer
+
+@warning_ignore("unused_signal")
+signal weapon_stats_initiated(weapon : WeaponData)
+
+@warning_ignore("unused_signal")
+signal player_invincible(invincible : bool)

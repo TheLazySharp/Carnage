@@ -20,7 +20,7 @@ func _ready() -> void:
 		current_state = initial_state
 
 func _process(delta: float) -> void:
-	if current_state:
+	if current_state and "update" in current_state :
 		current_state.update(delta)
 
 

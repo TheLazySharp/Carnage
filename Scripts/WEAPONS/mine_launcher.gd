@@ -19,7 +19,6 @@ func _ready() -> void:
 	#max_lvl = launcher_data.max_level
 	drop_mine_sfx.stream = launcher_data.weapon_sfx
 
-	#launcher_data.init_stats()
 	cool_down.wait_time = launcher_data.cool_down.get_value()
 	launcher_data.cool_down.stat_adjusted.connect(_on_cool_down_modified)
 

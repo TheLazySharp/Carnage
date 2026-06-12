@@ -5,9 +5,6 @@ var enemy : EnemyData
 
 # MAIN STATS
 
-#var max_life : int
-#var damages_on_player : float
-#var speed : float
 var nb_xp: int
 
 var night_max_life_boost : float
@@ -27,6 +24,9 @@ var horde_neighbors: Array
 var velocity: Vector2 = Vector2.ZERO
 @onready var state_machine: Node = $StateMachine
 @onready var player: Node2D = null
+
+
+@onready var hordes_manager: HordeManager = $/root/World/HordesManager
 
 
 # MULTIMESH
@@ -76,11 +76,6 @@ var physics_skip_timer : float = 0
 var physics_skip_steps : float = 0.032
 var accumululated_delta : float
 
-#HORDE NEIGHBORS STAGGER
-var neighbors_timer: float = 0.0
-var neighbors_timer_steps: float = 0.5
-var neighbors_detection_radius_sq : float = 400
-
 
 #NIGHT MODIFIERS
 var night_speed_mod := Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
@@ -93,9 +88,6 @@ func _ready() -> void:
 	SignalManager.day_time_end.connect(_on_day_end)
 	
 	enemy.init_stats()
-	#max_life = int(enemy.max_life.get_value())
-	#damages_on_player = enemy.dmg.get_value()
-	#speed = enemy.speed.get_value()
 	nb_xp = 1
 
 	night_max_life_boost  = enemy.base_night_life_bonus
@@ -104,14 +96,15 @@ func _ready() -> void:
 	level_life_boost = enemy.level_life_boost
 	type = enemy.type
 	
-	current_life = int(enemy.max_life.get_value())
-	#max_life += level_life_boost * (TimeManager.current_day - 1)
-	
-	call_deferred("register_to_renderer")
-	#print(enemy.scale_mod)
+	if RoadMapManager.steps_reached > 1:
+		enemy.max_life.remove_modifier(EnemyManager.max_life_mod)
+		enemy.max_life.add_modifier(EnemyManager.max_life_mod)
+	elif RoadMapManager.steps_reached == 1:
+		enemy.max_life.add_modifier(EnemyManager.max_life_mod)
 
-func _process(_delta: float) -> void:
-	pass
+	current_life = int(enemy.max_life.get_value())
+
+	call_deferred("register_to_renderer")
 
 func _physics_process(delta: float) -> void:
 	if game_paused:
@@ -120,14 +113,6 @@ func _physics_process(delta: float) -> void:
 		velocity = knockback_velocity
 		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, enemy.knockback_friction.get_value() * delta)
 		knockback_velocity = knockback_velocity.normalized() * knockback_length
-
-	#elif player:
-		#velocity = (player.global_position - global_position).normalized() * speed
-	
-	neighbors_timer += delta
-	if neighbors_timer >= neighbors_timer_steps :
-		neighbors_timer = 0
-		update_neighbors()
 	
 	accumululated_delta += delta
 	physics_skip_timer += delta
@@ -135,9 +120,12 @@ func _physics_process(delta: float) -> void:
 		return
 	physics_skip_timer -= physics_skip_steps
 	
+	near_wall = hordes_manager.is_near_wall(global_position)
 	update_move(accumululated_delta)
 	accumululated_delta = 0
 	chained_impacts()
+
+
 
 func update_move(delta: float) -> void:
 	if velocity.length_squared() < 0.01:
@@ -170,25 +158,17 @@ func update_move(delta: float) -> void:
  
 	global_position += move
 
-func update_neighbors() -> void : 
-	horde_neighbors.clear()
-	for i in range(horde.size()-1,-1,-1) :
-		if horde[i] == self or !is_instance_valid(horde[i]) :
-			continue
-		if global_position.distance_squared_to(horde[i].global_position) < neighbors_detection_radius_sq:
-			horde_neighbors.append(horde[i])
-		
 
 func register_to_renderer() -> void:
 	if renderer:
 		mm_index = renderer.register_enemy(self)
 
-func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: float) -> void:
+func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: float, player_global_pos : Vector2) -> void:
 	if car_right == Vector2.ZERO:
 		knockback_velocity = car_forward.normalized() * enemy.impact_force.get_value() * player_speed_ratio
 		return
 
-	var impact_on_enemy: Vector2 = global_position - get_tree().get_first_node_in_group("player").global_position
+	var impact_on_enemy: Vector2 = global_position - player_global_pos
 	var lateral_dot: float = impact_on_enemy.dot(car_right)
 	var forward_dot: float = impact_on_enemy.dot(car_forward)
 	var impact_is_frontal: bool = abs(lateral_dot) < 30 and forward_dot > 0
@@ -213,7 +193,7 @@ func chained_impacts() -> void:
 		if global_position.distance_squared_to(horde_neighbors[i].global_position) < 900: #30px * 30px
 			var push_dir: Vector2 = (horde_neighbors[i].global_position - global_position).normalized()
 			var transferred_ratio: float = (knockback_velocity.length() / enemy.impact_force.get_value()) * losing_strenght_ratio
-			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio)
+			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio, global_position)
 
 
 func get_damages(damages: int) -> void:
@@ -312,15 +292,6 @@ func blow_up(blood_position: Vector2) -> void:
 
 func _on_day_end(_day_end: bool) -> void:
 	pass
-	#enemy.speed.add_modifier(night_speed_mod)
-	#
-	#enemy.dmg.add_modifier(night_dmg_mod)
-	#
-	#enemy.max_life.add_modifier(night_life_mod)
-	#current_life += int(night_max_life_boost)
-#
-	#impact_force /= night_impact_force_boost
-	#knockback_friction /= night_knockback_friction_boost
 
 
 

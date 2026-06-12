@@ -23,6 +23,7 @@ z_as_relative = false
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 264201
+monitoring = false
 script = ExtResource("1_63ifu")
 xp_scene = ExtResource("3_1b0bn")
 dollar_scene = ExtResource("3_57ln3")

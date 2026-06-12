@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://dig2dq8y0nvfs"]
+
+[ext_resource type="Script" uid="uid://b8jjqfmfsk0a8" path="res://Scripts/CHARMS/charm_add_projectile.gd" id="1_eur3l"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="1_luwhx"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_gn3sl"]
+
+[resource]
+script = ExtResource("3_gn3sl")
+name = "Add projectile"
+icon = ExtResource("1_luwhx")
+description = "Add projectile to all weapons"
+effect_script = ExtResource("1_eur3l")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

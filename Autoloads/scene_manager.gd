@@ -40,7 +40,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
-	DistrictsData.types.GARAGE :"uid://cs311xlcqlrt0",
+	DistrictsData.types.GARAGE :"uid://df565yrwfqn1v",
 	DistrictsData.types.MISSION :"uid://df565yrwfqn1v",
 	DistrictsData.types.PARKING :"uid://df565yrwfqn1v",
 	DistrictsData.types.SHOP :"uid://cvogwsu4e47t0"

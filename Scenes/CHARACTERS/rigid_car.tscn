@@ -242,9 +242,6 @@ radius = 36.0
 radius = 12.0
 height = 44.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o4qls"]
-height = 42.0
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qdvgx"]
 streams_count = 3
 stream_0/stream = ExtResource("8_y3qw6")
@@ -527,6 +524,7 @@ color = Color(3, 0.1, 0.1, 0.9)
 visible = false
 collision_layer = 256
 collision_mask = 512
+monitoring = false
 script = ExtResource("7_in73v")
 
 [node name="CollectZone" type="CollisionShape2D" parent="CollectZone" unique_id=765999217 groups=["player"]]
@@ -540,22 +538,13 @@ one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1336259982 groups=["player"]]
 collision_mask = 262146
+monitoring = false
 
 [node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532 groups=["player"]]
 position = Vector2(-11.333336, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_hwwk2")
 debug_color = Color(0.9344128, 0.1669651, 0.49408865, 0.41960785)
-
-[node name="BodyParts" type="Area2D" parent="." unique_id=1322909894]
-visible = false
-collision_layer = 1024
-collision_mask = 2
-
-[node name="Right" type="CollisionShape2D" parent="BodyParts" unique_id=1287662315]
-position = Vector2(-12, 0)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_o4qls")
 
 [node name="Weapons" type="Node2D" parent="." unique_id=997323365]
 position = Vector2(7, 0)
@@ -683,8 +672,7 @@ parameters/looping = true
 [connection signal="animation_finished" from="RearLeft/RearLeftBurnAnim" to="." method="_on_rear_left_burn_anim_animation_finished"]
 [connection signal="animation_finished" from="RearRight/RearRightBurnAnim" to="." method="_on_rear_right_burn_animation_finished"]
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
-[connection signal="area_entered" from="BodyParts" to="." method="_on_body_parts_area_entered"]
-[connection signal="body_entered" from="BodyParts" to="." method="_on_body_parts_collision"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="finished" from="Audio/StartEngine" to="." method="_on_start_engine_finished"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="area_entered" from="EnemiesDetectionArea" to="EnemiesDetectionArea" method="_on_area_entered"]

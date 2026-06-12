@@ -23,8 +23,6 @@ var is_active:= false
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	max_lvl = bullet_data.max_level
-	
-	#bullet_data.init_stats()
 	speed = bullet_data.speed.get_value()
 	max_range = bullet_data.atk_range.get_value()
 	damages = int(bullet_data.dmg.get_value())
@@ -42,7 +40,7 @@ func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
 	self.show()
 	is_active = true
 	set_physics_process(true)
-	rotation = angle
+	global_rotation = angle
 	camera_2d.screen_shake(5,0.5)
 
 

@@ -14,8 +14,7 @@ func _ready() -> void:
 
 
 func enter()-> void:
-	print("enemy is attacking")
-		#enemy.set_enemy_color(Color.BLACK)
+	pass
 
 
 func exit()-> void:

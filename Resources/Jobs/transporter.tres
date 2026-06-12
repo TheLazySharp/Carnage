@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://cn741fa7g2b7f"]
+
+[ext_resource type="Script" uid="uid://dehirfni4gp4k" path="res://Scripts/JOBS/transporter.gd" id="1_5rnwh"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_ifnch"]
+
+[resource]
+script = ExtResource("3_ifnch")
+name = "Transorter"
+description = "add 1 projectile to every weapon"
+effect_script = ExtResource("1_5rnwh")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

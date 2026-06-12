@@ -50,14 +50,12 @@ func enter() -> void:
 	
 	#enemy.set_enemy_color(Color.GREEN)
 
-
-
 func exit()-> void:
 	pass
 
 
-func update(_delta : float)-> void:
-	pass
+#func update(_delta : float)-> void:
+	#pass
 
 
 func physics_update(delta: float)-> void:

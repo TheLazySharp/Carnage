@@ -9,10 +9,6 @@
 ##   2. Créer un EnemySpriteState (sheet_row = nouvelle ligne, frame_count = nb frames)
 ##   3. L'ajouter dans le dictionnaire states via _setup_default_states() ou l'inspecteur
 
-## Structure du buffer (14 floats par instance) :
-##   [0..5]  : Transform2D  (ax, ay, bx, by, ox, oy)
-##   [6..9]  : Color        (r, g, b, a)
-##   [10..13]: Custom data  (u_offset, v_offset, frame_w_norm, frame_h_norm)
 
 class_name EnemiesMultiMeshRenderer
 extends MultiMeshInstance2D
@@ -27,12 +23,21 @@ extends MultiMeshInstance2D
 var states: Dictionary = {} # États disponibles. Clé = nom de l'état, Valeur = ZombieSpriteState.
 
 # Tableau des ennemis enregistrés (index = instance MultiMesh)
-var registered_enemies: Array = []
+#var registered_enemies: Array = []
 
 # ----------- INSTANCES ---------------------
 var free_indices: Array[int] = [] # Index libre pour attribution rapide
-var instance_data: Dictionary = {} # Clé = instance_index, Valeur = { state, current_frame, timer, enemy_ref }
+#var instance_data: Dictionary = {} # Clé = instance_index, Valeur = { state, current_frame, timer, enemy_ref }
 
+var active_indices: Array[int] = []   # remplace l'itération sur instance_data
+var inst_enemy: Array = []            # Enemy ou null
+var inst_state: Array = []            # EnemySpriteState
+var inst_frame: PackedInt32Array
+var inst_timer: PackedFloat32Array
+var inst_flip: PackedByteArray
+var inst_row: PackedInt32Array
+var inst_scale: Array = []            # Vector2
+var inst_last_pos: Array = []    
 
 # --------- SPRITE SHEET -------------------
 var sheet_cols: int = 0   # calculé depuis frame_width et texture
@@ -42,7 +47,8 @@ var frame_h_norm: float = 0.0
 
 # ---------------------- PERFS ----------------
 var render_skip_timer : float = 0
-var render_skip_steps : float = 0.016
+var render_skip_steps : float = 0.033
+var buffer_is_dirty : bool = false
 
 
 # ---------- BUFFER --------------------
@@ -53,6 +59,10 @@ const FLOATS_PER_INSTANCE: int = 16
 const OFFSET_TRANSFORM: int = 0
 const OFFSET_COLOR: int = 8
 const OFFSET_CUSTOM: int = 12
+
+
+
+
 
 
 func _ready() -> void:
@@ -79,6 +89,17 @@ func setup_default_states() -> void:
 
 
 func setup_multimesh() -> void:
+	inst_enemy.resize(max_instances)
+	inst_state.resize(max_instances)
+	inst_frame.resize(max_instances)
+	inst_timer.resize(max_instances)
+	inst_flip.resize(max_instances)
+	inst_row.resize(max_instances)
+	inst_scale.resize(max_instances)
+	inst_last_pos.resize(max_instances)
+	inst_scale.fill(Vector2.ONE)
+	
+	
 	if atlas_texture == null:
 		push_error("EnemyMultiMeshRenderer : missing sprite_texture")
 		return
@@ -120,16 +141,16 @@ func setup_multimesh() -> void:
 
 	# Initialiser chaque instance : hors écran + blanc + UV zéro
 	for i in range(max_instances):
-		var base := i * FLOATS_PER_INSTANCE
-		# Transform : scale 0, hors écran
-		buffer[base + 0] = 0.0      # ax
-		buffer[base + 1] = 0.0      # ay
-		buffer[base + 2] = 0.0      # bx
-		buffer[base + 3] = 0.0      # by
-		buffer[base + 4] = -99999.0 # ox
-		buffer[base + 5] = -99999.0 # oy
-		buffer[base + 6] = 0.0       # padding
-		buffer[base + 7] = 0.0       # padding
+		var base := i * FLOATS_PER_INSTANCE		
+		buffer[base + 0] = 0.0   # x.x
+		buffer[base + 1] = 0.0   # y.x
+		buffer[base + 2] = 0.0   # padding
+		buffer[base + 3] = 0.0   # origin.x
+		buffer[base + 4] = 0.0   # x.y
+		buffer[base + 5] = 0.0   # y.y
+		buffer[base + 6] = 0.0   # padding
+		buffer[base + 7] = 0.0   # origin.y
+		
 		# Color : blanc opaque
 		buffer[base + 8]  = 1.0
 		buffer[base + 9]  = 1.0
@@ -146,15 +167,10 @@ func setup_multimesh() -> void:
 	RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
 
 
-
 	# Pré-remplir les indices libres
 	free_indices.resize(max_instances)
 	for i in range(max_instances):
 		free_indices[i] = max_instances - 1 - i
-
-	#for i in range(max_instances):
-		#hide_instance(i)
-
 
 func create_sprite_sheet_shader() -> Shader:
 	## Shader qui lit les coordonnées UV depuis custom_data pour chaque instance.
@@ -213,7 +229,7 @@ func register_enemy(enemy: Enemy) -> int:
 		return -1
 
 	var idx: int = free_indices.pop_back()
-	
+	active_indices.append(idx)
 	var scale_modifier : Vector2 = enemy.enemy.scale_mod if enemy.enemy else Vector2.ONE
 	var atlas_row : int = enemy.enemy.atlas_row if enemy.enemy else 0
 	
@@ -223,17 +239,15 @@ func register_enemy(enemy: Enemy) -> int:
 	buffer[base + 2] = 1.0
 	buffer[base + 3] = 0.0
 	
+	inst_enemy[idx] = enemy
+	inst_state[idx] = states["walk"]
+	inst_frame[idx] = 0
+	inst_timer[idx] = 0.0
+	inst_flip[idx] = 0
+	inst_row[idx] = atlas_row
+	inst_scale[idx] = scale_modifier
+	inst_last_pos[idx] = Vector2.INF 
 	
-	instance_data[idx] = {
-		"enemy": enemy,
-		"state": "walk",
-		"current_frame": 0,
-		"timer": 0.0,
-		"flip_h": false,
-		"scale": scale_modifier,
-		"row": atlas_row,
-		"last_pos": Vector2.INF
-	}
 
 	write_transform(idx, enemy.global_position, enemy.rotation, false,scale_modifier)
 	write_uv(idx, 0, atlas_row)
@@ -247,29 +261,28 @@ func unregister_enemy(instance_index: int) -> void:
 	var base := instance_index * FLOATS_PER_INSTANCE
 	buffer[base + 0] = 0.0
 	buffer[base + 1] = 0.0
-	buffer[base + 2] = 0.0
-	buffer[base + 3] = 0.0
-	buffer[base + 4] = -99999.0
-	buffer[base + 5] = -99999.0
-	instance_data.erase(instance_index)
+	buffer[base + 4] = 0.0
+	buffer[base + 5] = 0.0
+	buffer[base + 7] = 0.0
+	buffer_is_dirty = true
+	
+	inst_enemy[instance_index] = null
+	active_indices.erase(instance_index)
 	free_indices.push_back(instance_index)
 
 
-## Change l'état d'animation d'un ennemi.
-## ex: renderer.set_enemy_state(my_index, "attack")
 func set_enemy_state(instance_index: int, new_state_name: String) -> void:
-	if instance_index < 0:
+	if instance_index < 0 or inst_enemy[instance_index] == null:
 		return
 	var key := new_state_name.to_lower()
 	if !states.has(key):
 		push_warning("EnemyMultiMeshRenderer : unknown state : " + new_state_name)
 		return
-	var data: Dictionary = instance_data.get(instance_index, {})
-	if data.is_empty() or data["state"] == key:
+	if inst_state[instance_index].state_name == key:
 		return
-	data["state"] = key
-	data["current_frame"] = 0
-	data["timer"] = 0.0
+	inst_state[instance_index] = states[key]
+	inst_frame[instance_index] = 0
+	inst_timer[instance_index] = 0.0
  
 
 func _process(delta: float) -> void:
@@ -279,43 +292,42 @@ func _process(delta: float) -> void:
 	render_skip_timer += delta
 	if render_skip_timer < render_skip_steps:
 		return
-	render_skip_timer -= render_skip_steps
-	
-	@warning_ignore("unused_variable")
-	var is_instance_changed: bool = false
-	for idx: int in instance_data:
-		var data: Dictionary = instance_data[idx]
-		var enemy: Enemy = data["enemy"]
+	var step := render_skip_timer   # delta accumulé : l'animation garde sa vitesse réelle
+	render_skip_timer = 0.0
+
+	for k in range(active_indices.size() - 1, -1, -1):
+		var idx: int = active_indices[k]
+		var enemy: Enemy = inst_enemy[idx]
 		if !is_instance_valid(enemy):
 			continue
 
+		# ── Transform : seulement si bougé / flip changé ──
 		var new_flip := enemy.velocity.x < 0
-		if new_flip != data["flip_h"]:
-			data["flip_h"] = new_flip
-		var new_scale: Vector2 = data.get("scale", Vector2.ONE)
-		write_transform(idx, enemy.global_position, enemy.rotation, data["flip_h"],new_scale)
-		
+		var pos := enemy.global_position
+		if pos != inst_last_pos[idx] or int(new_flip) != inst_flip[idx]:
+			inst_last_pos[idx] = pos
+			inst_flip[idx] = int(new_flip)
+			write_transform(idx, pos, enemy.rotation, new_flip, inst_scale[idx])
+
 		# ── Animation ──
-		var enemy_state: EnemySpriteState = states.get(data["state"])
-		if enemy_state == null:
+		var st: EnemySpriteState = inst_state[idx]
+		if st == null:
 			continue
+		inst_timer[idx] += step
+		var frame_duration := 1.0 / st.fps
+		if inst_timer[idx] >= frame_duration:
+			inst_timer[idx] -= frame_duration
+			var next_frame: int = (inst_frame[idx] + 1) % st.frame_count
+			if not st.loop:
+				next_frame = mini(inst_frame[idx] + 1, st.frame_count - 1)
+			if next_frame != inst_frame[idx]:
+				inst_frame[idx] = next_frame
+				write_uv(idx, next_frame, inst_row[idx])
 
-		data["timer"] += delta
-		var frame_duration := 1.0 / enemy_state.fps
-		if data["timer"] >= frame_duration:
-			data["timer"] -= frame_duration
-			var next_frame: int = (data["current_frame"] + 1) % enemy_state.frame_count
-			if not enemy_state.loop:
-				next_frame = min(data["current_frame"] + 1, enemy_state.frame_count - 1)
-			if next_frame != data["current_frame"]:
-				data["current_frame"] = next_frame
-				write_uv(idx, next_frame, data["row"])
-				is_instance_changed = true
+	if buffer_is_dirty:
+		RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
+		buffer_is_dirty = false
 
-	if not is_visible_in_tree():
-		print("RENDERER INVISIBLE !")
-
-	RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
 
 func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool, new_scale : Vector2 = Vector2.ONE) -> void:
 	var cos_r := cos(rot)
@@ -329,7 +341,7 @@ func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool, new_scale
 	buffer[base + 5] = cos_r * new_scale.y              # y.y
 	buffer[base + 6] = 0.0                           # padding
 	buffer[base + 7] = pos.y                         # origin.y
-
+	buffer_is_dirty = true
  
 func write_uv(idx: int, frame_col: int, frame_row: int) -> void:
 	var base := idx * FLOATS_PER_INSTANCE + OFFSET_CUSTOM
@@ -338,6 +350,8 @@ func write_uv(idx: int, frame_col: int, frame_row: int) -> void:
 	buffer[base + 2] = frame_w_norm
 	buffer[base + 3] = frame_h_norm
 
+	buffer_is_dirty = true
+	
 
 func set_enemy_color(instance_index: int, color: Color) -> void:
 	if instance_index < 0:
@@ -348,6 +362,9 @@ func set_enemy_color(instance_index: int, color: Color) -> void:
 	buffer[base + 1] = color.g
 	buffer[base + 2] = color.b
 	buffer[base + 3] = color.a
+	
+	buffer_is_dirty = true
+	
 
 
 func multimesh_set_color_by_index(idx: int, color: Color) -> void:
@@ -358,19 +375,11 @@ func set_enemy_flash(instance_index: int, flashing: bool) -> void:
 		return
 	var base := instance_index * FLOATS_PER_INSTANCE + OFFSET_COLOR
 	buffer[base + 3] = 1.0 if flashing else 0.0
-	(material as ShaderMaterial).set_shader_parameter("flash_test", 1.0 if flashing else 0.0)
-
-
-func set_buffer_alpha(idx: int, value: float) -> void:
-	var base := idx * FLOATS_PER_INSTANCE + OFFSET_COLOR
-	if idx == 39 and buffer[base + 3] != value:
-		print("alpha idx39 changé à ", value, " depuis:")
-		print(get_stack())
-		buffer[base + 3] = value
-
+	
+	buffer_is_dirty = true
 
 func set_enemy_scale(instance_index: int, new_scale: Vector2) -> void:
 	if instance_index < 0:
 		return
-	if instance_data.has(instance_index):
-		instance_data[instance_index]["scale"] = new_scale
+	inst_scale[instance_index] = new_scale
+	inst_last_pos[instance_index] = Vector2.INF

@@ -15,7 +15,7 @@ var boost : BoostData
 @onready var stat_1: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/Stat1
 @onready var bonus_1: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/Bonus1
 @onready var new_value_1: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/NewValue1
-
+@onready var strike_price: Control = $Price/Tags/PriceTag/StrikePrice
 @onready var price_cont: HBoxContainer = $Price
 @onready var price_tag: Label = $Price/Tags/PriceTag
 @onready var discount_tag: Label = $Price/Tags/DiscountTag
@@ -80,9 +80,10 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void :
 
 	if ShopManager.apply_discount :
 		discount_tag.show()
-	
+		strike_price.show()
 	else : 
 		discount_tag.hide()
+		strike_price.hide()
 
 
 func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index : int) -> String:
@@ -133,8 +134,7 @@ func not_enough_cash()-> void :
 	not_enough_cash_rect.show()
 	await get_tree().create_timer(1).timeout
 	not_enough_cash_rect.hide()
-	
-	
+
 func _on_fortune_updated() -> void : 
 	if boost.price > InventoryManager.fortune:
 		price_tag.add_theme_color_override("font_color",Color.RED)

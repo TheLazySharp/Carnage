@@ -140,6 +140,9 @@ func init_stats() -> void :
 		Stats_Types.NB_PROJECTILE : nb_projectile
 	}
 
+	SignalManager.emit_signal("weapon_stats_initiated",self)
+
+
 func get_target_upgrade_stat() -> Statistic :
 	match self.tar_up_stat:
 		Stats_Types.DMG : return dmg

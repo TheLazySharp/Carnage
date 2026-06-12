@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://d3q6e2ttbedxt"]
 
 [ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="1_hr66l"]
-[ext_resource type="Resource" uid="uid://4v8gktjtccjl" path="res://Resources/Jobs/mechanic.tres" id="2_wu0nc"]
+[ext_resource type="Resource" uid="uid://cn741fa7g2b7f" path="res://Resources/Jobs/transporter.tres" id="2_hr66l"]
 [ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_06geg"]
-[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/baseballbat.tres" id="4_u4kao"]
+[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/bat_handler.tres" id="4_wu0nc"]
 
 [resource]
 script = ExtResource("3_06geg")
 name = "Marina"
 age = 35
-job_ressource = ExtResource("2_wu0nc")
+job_ressource = ExtResource("2_hr66l")
 bio = "Marina's Bio"
 icon = ExtResource("1_hr66l")
-weapon = ExtResource("4_u4kao")
+weapon = ExtResource("4_wu0nc")
 metadata/_custom_type_script = "uid://bpgisub1g6477"
