@@ -61,7 +61,9 @@
 [ext_resource type="Texture2D" uid="uid://cigoc373iff72" path="res://Assets/UI/white_arrow.png" id="57_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://cmi5s38sxx8n1" path="res://Scenes/MENU/pause.tscn" id="58_ywo5e"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="60_mwdtc"]
+[ext_resource type="Script" uid="uid://b53gepxrtesmg" path="res://Scripts/VFX/damage_label_pool.gd" id="68_6fcfe"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="68_88yjb"]
+[ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="69_pp6a2"]
 [ext_resource type="Script" uid="uid://cc0huil3sw502" path="res://Scripts/UI/new_survivor_canvas.gd" id="70_a17cc"]
 [ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="71_7m57v"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="72_yvi02"]
@@ -2520,6 +2522,10 @@ z_as_relative = false
 
 [node name="VFX" type="Node2D" parent="." unique_id=1933595906]
 z_index = 50
+
+[node name="DamageLabelPool" type="Node2D" parent="VFX" unique_id=280784807]
+script = ExtResource("68_6fcfe")
+label_scene = ExtResource("69_pp6a2")
 
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 

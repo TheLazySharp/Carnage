@@ -538,7 +538,6 @@ one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1336259982 groups=["player"]]
 collision_mask = 262146
-monitoring = false
 
 [node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532 groups=["player"]]
 position = Vector2(-11.333336, 0)

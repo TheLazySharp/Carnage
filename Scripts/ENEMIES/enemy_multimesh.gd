@@ -25,8 +25,9 @@ var velocity: Vector2 = Vector2.ZERO
 @onready var state_machine: Node = $StateMachine
 @onready var player: Node2D = null
 
-
 @onready var hordes_manager: HordeManager = $/root/World/HordesManager
+
+@onready var damage_label_pool: DamageLabelPool = $/root/World/VFX/DamageLabelPool
 
 
 # MULTIMESH
@@ -202,7 +203,6 @@ func get_damages(damages: int) -> void:
 		current_life -= damages
 		flash_damage()
 		display_damages(damages)
-		#blow_up(global_position)
 		if current_life <= 0:
 			current_life = 0
 			call_deferred("on_death")
@@ -275,13 +275,9 @@ func _on_damage_timer_on_player_timeout() -> void:
 
 
 func display_damages(damages: int) -> void:
-	var text_offsetX: float = randf_range(-10.0, 10.0)
-	var text_offsetY: float = randf_range(-50.0, 10.0)
-	var new_damages_label : Label = damages_label.instantiate()
-	add_child(new_damages_label)
-	new_damages_label.text =  str(damages)
-	new_damages_label.global_position = Vector2(marker_damages.global_position.x + text_offsetX,marker_damages.global_position.y + text_offsetY)
-	
+	var text_offset := Vector2(randf_range(-10.0, 10.0), randf_range(-50.0, 10.0))
+	damage_label_pool.show_damages(damages, marker_damages.global_position + text_offset)
+
 
 func blow_up(blood_position: Vector2) -> void:
 	if blood_particles:
@@ -292,7 +288,6 @@ func blow_up(blood_position: Vector2) -> void:
 
 func _on_day_end(_day_end: bool) -> void:
 	pass
-
 
 
 func set_animation_state(state_name: String) -> void:

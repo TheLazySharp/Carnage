@@ -3,12 +3,17 @@ class_name EnemyChase
 
 @onready var enemy: Enemy = $"../.."
 @onready var target: Node2D = $"/root/World/Car"
-@onready var navigation_agent: NavigationAgent2D = $"../../NavigationAgent2D"
 
-var nav_point_direction: Vector2
+var nav_map: RID
+var path: PackedVector2Array
+var path_index: int = 0
+const PATH_POINT_REACHED_SQ: float = 256
+
+
+#@onready var navigation_agent: NavigationAgent2D = $"../../NavigationAgent2D"
+#var nav_point_direction: Vector2
 #var move_speed: float
 var chase_speed_boost: float = 1.6
-
 
 var game_paused: bool =false
 var game_over : bool = false
@@ -32,23 +37,20 @@ func _ready() -> void:
 	SignalManager.game_is_over.connect(_on_game_over)
 	forces_timer_steps = randf_range(0.5,0.8)
 	repulsion_radius_sq = repulsion_radius * repulsion_radius
+	nav_map = enemy.get_world_2d().navigation_map
 
 func enter() -> void:
 	if game_over :
 		state_changed.emit(self,"idle")
 		return
-	if !enemy.is_leader:
-		pass
-		#enemy.set_enemy_color(Color.GREEN_YELLOW)
-	
-	navigation_agent.target_position = target.global_position
-	#move_speed = 
-	
+
+	path = PackedVector2Array()
+	path_index = 0
+	leader_nav_timer = get_nav_steps()
+
 	var angle : float = randf() * TAU
 	var dist : float = randf_range(10,50)
-	formation_offset = Vector2(cos(angle),sin(angle)) * dist
-	
-	#enemy.set_enemy_color(Color.GREEN)
+	formation_offset = Vector2(cos(angle), sin(angle)) * dist
 
 func exit()-> void:
 	pass
@@ -62,15 +64,31 @@ func physics_update(delta: float)-> void:
 	forces_timer -= delta
 	leader_nav_timer += delta
 	
-	if leader_nav_timer >= get_nav_steps() and enemy.is_leader:
-		leader_nav_timer = 0
-		leader_behavior(delta)
+	if enemy.is_leader:
+		if leader_nav_timer >= get_nav_steps() and !game_paused:
+			leader_nav_timer = 0
+			recompute_path()
+		follow_path()
 	
-	if forces_timer <= 0 and ! enemy.is_leader:
+	elif forces_timer <= 0:
 		forces_timer = forces_timer_steps
 		trouper_behavior(delta)
 
-
+func recompute_path() -> void : 
+	path = NavigationServer2D.map_get_path(nav_map, enemy.global_position, target.global_position, true)
+	path_index = 0
+	
+func follow_path() -> void : 
+	if path.is_empty():
+		enemy.velocity = Vector2.ZERO
+		return
+	while path_index < path.size() and enemy.global_position.distance_squared_to(path[path_index]) < PATH_POINT_REACHED_SQ:
+		path_index += 1
+	if path_index >= path.size():
+		enemy.velocity = Vector2.ZERO
+		return
+	var dir: Vector2 = path[path_index] - enemy.global_position
+	enemy.velocity = dir.normalized() * enemy.enemy.speed.get_value() * chase_speed_boost
 
 func get_nav_steps() -> float:
 	var dist_sq : float = enemy.global_position.distance_squared_to(target.global_position)
@@ -94,19 +112,19 @@ func _on_navigation_agent_2d_target_reached() -> void:
 	#print("target reached")
 	#state_changed.emit(self,"attack")
 
-
-func leader_behavior(_delta : float) -> void:
-	if !enemy.is_leader:
-		return
-	if !game_paused:
-		navigation_agent.target_position = target.global_position
-		var next_pos: Vector2 = navigation_agent.get_next_path_position()
-		var dir: Vector2 = (next_pos - enemy.global_position)
-		if dir.length_squared() > 1:
-			enemy.velocity = dir.normalized() * enemy.enemy.speed.get_value() * chase_speed_boost
-		else : 
-			enemy.velocity = Vector2.ZERO
-		#enemy.sprite_update(next_pos)
+#
+#func leader_behavior(_delta : float) -> void:
+	#if !enemy.is_leader:
+		#return
+	#if !game_paused:
+		#navigation_agent.target_position = target.global_position
+		#var next_pos: Vector2 = navigation_agent.get_next_path_position()
+		#var dir: Vector2 = (next_pos - enemy.global_position)
+		#if dir.length_squared() > 1:
+			#enemy.velocity = dir.normalized() * enemy.enemy.speed.get_value() * chase_speed_boost
+		#else : 
+			#enemy.velocity = Vector2.ZERO
+		##enemy.sprite_update(next_pos)
 
 
 func trouper_behavior(_delta : float) -> void:
