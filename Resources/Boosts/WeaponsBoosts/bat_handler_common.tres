@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://cn5h4lnvg26kh"]
+
+[ext_resource type="Texture2D" uid="uid://bebfr5dvt68mc" path="res://Assets/weapons/bat_handler.png" id="1_akyji"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_gn46f"]
+[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/baseballbat.tres" id="3_gn46f"]
+
+[resource]
+script = ExtResource("2_gn46f")
+name = "Bat Handler"
+target_ressource = 3
+target_weapon = ExtResource("3_gn46f")
+target_stats = Array[int]([2])
+target_stats_values = Array[float]([-0.1])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_akyji")
+metadata/_custom_type_script = "uid://71ta02ofykhp"

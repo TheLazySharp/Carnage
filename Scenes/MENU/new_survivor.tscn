@@ -1,0 +1,270 @@
+[gd_scene format=3 uid="uid://bgao02vsiwner"]
+
+[ext_resource type="Script" uid="uid://cc0huil3sw502" path="res://Scripts/UI/new_survivor_canvas.gd" id="1_k1cju"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_gjnur"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_1x8tx"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="4_2xobj"]
+[ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="5_fq1ic"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="6_pwand"]
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="7_a44ql"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="8_46mqt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o24rt"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_mqqx4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xw754"]
+
+[node name="NewSurvivor" type="Control" unique_id=928422093]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k1cju")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1462285036]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="." unique_id=558661273]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_gjnur")
+theme_override_font_sizes/font_size = 64
+text = "A NEW FRIEND ?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("3_1x8tx")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1969034571]
+custom_minimum_size = Vector2(64, 72)
+layout_mode = 0
+offset_top = 112.0
+offset_right = 416.0
+offset_bottom = 696.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="BoxContainer" type="GridContainer" parent="MarginContainer" unique_id=666083793]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 32
+columns = 4
+
+[node name="PNJ0" type="Button" parent="MarginContainer/BoxContainer" unique_id=1723333909]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_o24rt")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_mqqx4")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ0" unique_id=253881822]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_top = 12.0
+offset_right = 32.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_2xobj")
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ0" unique_id=1091188301]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ0" unique_id=928066349]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fq1ic")
+
+[node name="SurvivorBio" type="Control" parent="." unique_id=191287700]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -822.0
+offset_top = -278.0
+offset_bottom = 376.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="PNJName" type="Label" parent="SurvivorBio" unique_id=1250640237]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 40
+text = "Javier"
+script = ExtResource("6_pwand")
+
+[node name="PNJAge" type="Label" parent="SurvivorBio" unique_id=1295382432]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 108.0
+offset_bottom = 127.0
+theme_override_font_sizes/font_size = 24
+text = "42 years old"
+script = ExtResource("4_2xobj")
+
+[node name="PNJJob" type="Label" parent="SurvivorBio" unique_id=1179488957]
+layout_mode = 0
+offset_top = 126.0
+offset_right = 148.0
+offset_bottom = 181.0
+theme_override_font_sizes/font_size = 24
+text = "Mechanic"
+script = ExtResource("4_2xobj")
+
+[node name="PNJBio" type="Label" parent="SurvivorBio" unique_id=859623601]
+layout_mode = 0
+offset_top = 202.0
+offset_right = 466.0
+offset_bottom = 569.0
+theme_override_font_sizes/font_size = 24
+text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
+autowrap_mode = 2
+script = ExtResource("4_2xobj")
+
+[node name="WeaponIcon" type="TextureRect" parent="SurvivorBio" unique_id=1846400863]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -201.0
+offset_top = 53.0
+offset_right = -105.0
+offset_bottom = 149.0
+grow_horizontal = 0
+texture = ExtResource("7_a44ql")
+
+[node name="PNJWeapon" type="Label" parent="SurvivorBio/WeaponIcon" unique_id=1854806665]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = -57.0
+offset_right = 74.0
+offset_bottom = -2.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Revolver"
+horizontal_alignment = 1
+script = ExtResource("6_pwand")
+
+[node name="ColorRect" type="ColorRect" parent="SurvivorBio/WeaponIcon" unique_id=2103438739]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponDescr" type="Label" parent="SurvivorBio/WeaponIcon" unique_id=1769072388]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.0
+offset_top = 7.0
+offset_right = 115.0
+offset_bottom = 212.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Shot a bullet on the closest enemy"
+autowrap_mode = 2
+script = ExtResource("4_2xobj")
+
+[node name="YesNo" type="HBoxContainer" parent="." unique_id=1756640160]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -84.0
+offset_right = 276.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="PickUp" type="Button" parent="YesNo" unique_id=795184596]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_gjnur")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
+text = "PICK UP"
+flat = true
+script = ExtResource("8_46mqt")
+
+[node name="Leave" type="Button" parent="YesNo" unique_id=1764874810]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_gjnur")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
+text = "LEAVE"
+flat = true
+script = ExtResource("8_46mqt")
+
+[connection signal="pressed" from="YesNo/PickUp" to="." method="_on_pick_up_pressed"]
+[connection signal="pressed" from="YesNo/Leave" to="." method="_on_leave_pressed"]

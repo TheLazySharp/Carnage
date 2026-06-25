@@ -6,6 +6,7 @@ extends Node2D
 @onready var camera_2d: Camera2D = $"/root/World/Car/Camera2D"
 @onready var steps_timer: Timer = $StepsTmer
 
+@export var is_active : bool = false
 var distant : bool = false
 var shake_intensity : int = 5
 
@@ -16,6 +17,8 @@ func _ready() -> void:
 
 
 func _on_day_timer_end(timer_stop : bool) -> void : 
+	if !is_active:
+		return
 	if timer_stop:
 		distant = false
 		explosion.play()
@@ -26,6 +29,8 @@ func _on_day_timer_end(timer_stop : bool) -> void :
 			get_children()[i].add_child(coloss_auto)
 
 func _on_coloss_arrival() -> void : 
+	if !is_active:
+		return
 	distant = true
 	distant_foot_steps.play()
 	steps_timer.start()

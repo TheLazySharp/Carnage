@@ -7,7 +7,7 @@
 script = ExtResource("2_vslf0")
 name = "Tank Boost"
 target_ressource = 1
-target_stats = Array[int]([11])
+target_stats = Array[int]([18])
 target_stats_values = Array[float]([10.0])
 target_stats_modifier_types = Array[int]([0])
 icon = ExtResource("1_mk1ms")

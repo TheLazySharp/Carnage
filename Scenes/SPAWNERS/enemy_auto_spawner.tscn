@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cqwawv14wcbb1"]
+
+[ext_resource type="Script" uid="uid://new1pxjngcyq" path="res://Scripts/SPAWNERS/ennemy_spawner.gd" id="1_1vdmu"]
+[ext_resource type="PackedScene" uid="uid://c31g0smlywes2" path="res://Scenes/ENNEMIES/ennemy.tscn" id="2_kjb0a"]
+
+[node name="SpawnerAuto" type="Node2D" unique_id=210156015]
+script = ExtResource("1_1vdmu")
+scene_to_spawn = ExtResource("2_kjb0a")
+max_spawn_attempts = 50
+spawn_rate = 0.3
+
+[node name="SpawnRate" type="Timer" parent="." unique_id=2090149341]
+
+[connection signal="timeout" from="SpawnRate" to="." method="_on_spawn_rate_timeout"]

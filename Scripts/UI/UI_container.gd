@@ -2,7 +2,7 @@ extends HBoxContainer
 
 @onready var gear_parts_q: Label = $GearParts/GearPartsQ
 @onready var frags_q: Label = $Frags/FragsQ
-@onready var dollar_q: Label = $/root/World/CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar/DollarQ
+@onready var dollar_q: Label = $/root/World/CanvasLayer/HUD/Parts/MarginContainer/HBoxContainer/Dollar/DollarQ
 
 
 

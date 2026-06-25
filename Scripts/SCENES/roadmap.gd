@@ -27,6 +27,8 @@ func _ready() -> void:
 	generate_new_map()
 	unlock_step(RoadMapManager.steps_reached)
 	#print("selected map districts : ",RoadMapManager.selected_districts.size())
+	
+
 
 func generate_new_map() -> void : 
 	if RoadMapManager.current_map_data.is_empty():
@@ -93,6 +95,9 @@ func _input(event: InputEvent) -> void:
 	
 	visuals.position.x = clamp(visuals.position.x, - RoadMapManager.X_DIST * 3, max(visual_edge_x * 1.5,get_viewport_rect().size.x - 100))
 
+	if event.is_action_pressed("ui_back"):
+		SceneManager.load_level(SceneManager.SCENES.CAR_SELECTION)
+	
 func _on_map_district_selected(district : DistrictsData)-> void : 
 	for map_district : MapDistrict in districts.get_children():
 		if map_district.district.row == district.row : 

@@ -26,7 +26,8 @@ enum Target_Stats {
 	DASH_DURATION,
 	NITRO_UP,
 	COLLECT_RADIUS,
-	DRIFT_TURN_BONUS
+	DRIFT_TURN_BONUS,
+	CAR_FUEL_TANK
 }
 
 enum Mod_Type {

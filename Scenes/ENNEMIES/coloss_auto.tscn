@@ -193,6 +193,7 @@ stream_0 = ExtResource("6_7nr0k")
 stream_1 = ExtResource("7_vpcki")
 
 [node name="ColossAuto" type="Node2D" unique_id=1391668337]
+z_index = 10
 script = ExtResource("1_k0ikv")
 
 [node name="Path2D" type="Path2D" parent="." unique_id=174606345]

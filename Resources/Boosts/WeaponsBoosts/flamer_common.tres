@@ -7,11 +7,11 @@
 [resource]
 script = ExtResource("2_qleis")
 name = "Flamer"
-target_ressource = 2
+target_ressource = 3
 target_weapon = ExtResource("3_qleis")
 target_stats = Array[int]([1])
 target_stats_values = Array[float]([2.0])
 target_stats_modifier_types = Array[int]([0])
-target_weapon_types = 6
+target_weapon_types = 5
 icon = ExtResource("1_17cg7")
 metadata/_custom_type_script = "uid://71ta02ofykhp"

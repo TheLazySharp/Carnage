@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dxmsrsehqdpys"]
+
+[ext_resource type="Script" uid="uid://sl0x7p0gnbfe" path="res://Scripts/ITEMS/EFFECTS/nitro.gd" id="1_8j24u"]
+[ext_resource type="Texture2D" uid="uid://gg32ihj14fcq" path="res://Assets/Items/nitro.png" id="1_oigfk"]
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="3_42cuo"]
+
+[resource]
+script = ExtResource("3_42cuo")
+name = "Nitro"
+icon = ExtResource("1_oigfk")
+description = "Fill up nitro gauge"
+effect_script = ExtResource("1_8j24u")
+metadata/_custom_type_script = "uid://ctc62ptewno8k"

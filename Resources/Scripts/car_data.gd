@@ -15,6 +15,7 @@ class_name CarData
 @export var base_collect_radius : float = 30
 @export var base_drift_turn_bonus := 3.2
 @export var base_dash_duration := 0.75
+@export var base_max_fuel := 40
 
 
 @export_group("DRIVING")
@@ -22,6 +23,7 @@ class_name CarData
 @export var turn_speed := 3.2
 @export var velocity_floor:= 50
 @export var burnout_boost := 200
+@export var dash_fuel_down := 20
 
 
 @export_group("DRIFT")
@@ -68,7 +70,8 @@ enum Car_Stats {
 	DASH_DURATION,
 	NITRO_UP,
 	COLLECT_RADIUS,
-	DRIFT_TURN_BONUS
+	DRIFT_TURN_BONUS,
+	MAX_FUEL
 }
 
 enum Car_Upgrades {
@@ -93,11 +96,13 @@ var dash_duration : Statistic #dash duration
 var nitro_up : Statistic #nitro gauge fill up speed
 var collect_radius : Statistic
 var drift_turn_bonus : Statistic
+var max_fuel : Statistic
 
 var stat_modifiers : Array[Modifier] = []
 @warning_ignore("unused_signal")
 signal stat_adjusted(stat : Statistic )
 var current_life : int 
+var current_fuel : int 
 
 var invincible : bool = false
 
@@ -121,6 +126,7 @@ func init_stats() -> void:
 	collect_radius = Statistic.new(base_collect_radius)
 	display_max_speed = Statistic.new(base_display_max_speed)
 	drift_turn_bonus = Statistic.new(base_drift_turn_bonus)
+	max_fuel = Statistic.new(base_max_fuel)
 
 
 	
@@ -135,5 +141,6 @@ func get_car_stat(stat : Car_Stats) -> Statistic:
 		Car_Stats.NITRO_UP: return nitro_up
 		Car_Stats.COLLECT_RADIUS: return collect_radius
 		Car_Stats.DRIFT_TURN_BONUS: return drift_turn_bonus
+		Car_Stats.MAX_FUEL: return max_fuel
 	return null
 	

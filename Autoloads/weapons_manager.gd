@@ -158,12 +158,15 @@ func unload() -> void:
 
 
 func instantiate_weapons() -> void:
+	print("start inst weap")
 	for i in weapon_scenes.size():
 		var scene : Array =  weapon_scenes[i]
 		for j in weapons.size():
 			if scene[1] == weapons[j].weapon_scene_uid:
 				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
 				get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
+				print(new_weapon_scene.name," inst")
+				
 
 
 func activate_weapons(active: bool)-> void:
@@ -210,6 +213,7 @@ func init_god_mod()-> void :
 	init_weapon(MINIGUN)
 	init_weapon(BAT_HANDLER)
 	init_weapon(MINE_LAUNCHER)
+	print(weapons)
 
 func god_mod_full_power() -> void : 
 	var god_mod : Modifier = Modifier.new(5,Modifier.Type.FLAT,"weapons manager god mod")

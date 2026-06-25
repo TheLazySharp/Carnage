@@ -4,77 +4,13 @@
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_p1k7v"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_agu6a"]
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="3_q67s5"]
-[ext_resource type="Texture2D" uid="uid://2m43b6grwcdv" path="res://Assets/Items/piston_spritesheet.png" id="4_biv64"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_cpiun"]
 [ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/XP/xp-1.png" id="5_q67s5"]
-[ext_resource type="Texture2D" uid="uid://bxgdr3qp32q2b" path="res://Assets/Props/garage.png" id="6_agu6a"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_cpiun"]
+[ext_resource type="Texture2D" uid="uid://crpyeaolqv4r7" path="res://Assets/Items/few_dollars.png" id="8_agu6a"]
+[ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="9_cpiun"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibuii"]
-atlas = ExtResource("4_biv64")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b358a"]
-atlas = ExtResource("4_biv64")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2q37k"]
-atlas = ExtResource("4_biv64")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jp71d"]
-atlas = ExtResource("4_biv64")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wvoyc"]
-atlas = ExtResource("4_biv64")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hniwj"]
-atlas = ExtResource("4_biv64")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ui8gl"]
-atlas = ExtResource("4_biv64")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ma7lt"]
-atlas = ExtResource("4_biv64")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_cpiun"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ibuii")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b358a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2q37k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jp71d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wvoyc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hniwj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ui8gl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ma7lt")
-}],
-"loop": true,
-"name": &"default",
-"speed": 8.0
-}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_biv64"]
 atlas = ExtResource("5_q67s5")
@@ -189,7 +125,7 @@ theme_override_constants/paragraph_spacing = 10
 theme_override_fonts/font = ExtResource("3_q67s5")
 theme_override_font_sizes/font_size = 32
 text = "
-Drive to the city and collect spare parts"
+Drive to the city and save survivors"
 autowrap_mode = 2
 script = ExtResource("6_cpiun")
 
@@ -200,7 +136,7 @@ theme_override_constants/line_spacing = 6
 theme_override_constants/paragraph_spacing = 10
 theme_override_fonts/font = ExtResource("3_q67s5")
 theme_override_font_sizes/font_size = 32
-text = "Slay zombies and gain XP to equip and upgrade weapons"
+text = "Slay zombies to gain XP and money "
 autowrap_mode = 2
 script = ExtResource("6_cpiun")
 
@@ -211,7 +147,7 @@ theme_override_constants/line_spacing = 6
 theme_override_constants/paragraph_spacing = 10
 theme_override_fonts/font = ExtResource("3_q67s5")
 theme_override_font_sizes/font_size = 32
-text = "At the end of the count down, come back to your garage"
+text = "At the end of the count down, leave before its too late !"
 autowrap_mode = 2
 script = ExtResource("6_cpiun")
 
@@ -226,29 +162,50 @@ text = "Upgrade your car and go back slay zombies !"
 autowrap_mode = 2
 script = ExtResource("6_cpiun")
 
-[node name="SpareParts" type="AnimatedSprite2D" parent="." unique_id=1259383940]
-position = Vector2(721, 105)
-scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_cpiun")
-autoplay = "default"
-centered = false
-
 [node name="Xp" type="AnimatedSprite2D" parent="." unique_id=1598532915]
-position = Vector2(1025, 249)
+position = Vector2(732, 259.99997)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_e7xhg")
 animation = &"Sphere"
 autoplay = "Sphere"
 frame_progress = 0.40698063
 
-[node name="Garage" type="TextureRect" parent="." unique_id=1404304046]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 0
-offset_left = 950.0
-offset_top = 343.0
-offset_right = 1052.0
-offset_bottom = 423.0
-texture = ExtResource("6_agu6a")
-expand_mode = 2
+[node name="Portrait" type="TextureRect" parent="." unique_id=1349243565]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 824.0
+offset_top = 212.0
+offset_right = -360.0
+offset_bottom = -492.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_agu6a")
+
+[node name="PNJ0" type="Control" parent="." unique_id=1263165673]
+custom_minimum_size = Vector2(96, 96)
+anchors_preset = 0
+offset_left = 688.0
+offset_top = 99.0
+offset_right = 784.0
+offset_bottom = 195.0
+
+[node name="ColorRect" type="ColorRect" parent="PNJ0" unique_id=1006904571]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="PNJ0" unique_id=1350249344]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_cpiun")
 
 [connection signal="pressed" from="VBoxContainer/Ok" to="." method="_on_back_pressed"]

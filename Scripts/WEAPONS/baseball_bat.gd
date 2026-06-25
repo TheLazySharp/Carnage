@@ -51,7 +51,5 @@ func _on_smash_zone_area_entered(area: Area2D) -> void:
 		area.get_damages(bat_data.dmg.get_value())
 		bat_data.total_damages_dealt += int(bat_data.dmg.get_value())
 
-
-
 func _on_animation_finished() -> void:
 		smash_shape.call_deferred("set_disabled",true)

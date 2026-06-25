@@ -1,10 +1,10 @@
 extends Node
 
-const X_DIST : int = 64
-const Y_DIST : int = 64
-const DIST_RANDOMNESS : int = 15
-const STEPS : int = 20
-const GRID_WIDTH : int = 7
+const X_DIST : int = 88
+const Y_DIST : int = 88
+const DIST_RANDOMNESS : int = 24
+const STEPS : int = 12
+const GRID_WIDTH : int = 5
 const PATHS : int = 5
 const SHOP_DISTRICTS_WEIGHT : float = 4.0
 const GARAGE_DISTRICTS_WEIGHT : float = 6.0

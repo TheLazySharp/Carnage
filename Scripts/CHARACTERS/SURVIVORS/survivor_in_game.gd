@@ -12,7 +12,6 @@ var game_on_pause : bool = false
 
 func _ready() -> void:
 	SurvivorsManager.in_game_survivor_queuefree.connect(_queue_free)
-	texture_rect.texture = survivor.icon
 
 
 func _on_body_entered(body: Node2D) -> void:

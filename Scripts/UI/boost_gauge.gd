@@ -4,7 +4,7 @@ extends ProgressBar
 var game_paused:=false
 @onready var boost_timer: Timer = $BoostTimer
 var boost_can_load : bool = false
-@onready var player : CharacterBody2D = $"../../../Car"
+@onready var player : CharacterBody2D = $"/root/World/Car"
 
 @onready var nitro: Label = $Nitro
 @onready var dash: Label = $Dash

@@ -68,12 +68,11 @@
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="66_72yti"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="67_hilqf"]
 [ext_resource type="Script" uid="uid://cut6npligxxy7" path="res://Scripts/SPAWNERS/survivor_spawner.gd" id="68_qyc1r"]
-[ext_resource type="PackedScene" uid="uid://bqpy6ahyrnpd0" path="res://Scenes/CHARACTERS/survivor_in_game.tscn" id="69_segco"]
 [ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="70_u4lua"]
 [ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="71_lfm3b"]
-[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="72_tfnms"]
+[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="72_tfnms"]
 [ext_resource type="PackedScene" uid="uid://ca2xs3prb7n8k" path="res://Scenes/ENNEMIES/coloss_arrival.tscn" id="73_7dxwe"]
-[ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/ENNEMIES/spawner_auto.tscn" id="74_6775b"]
+[ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="74_6775b"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="75_5w5fu"]
 [ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="76_lsr18"]
 
@@ -2523,10 +2522,8 @@ z_index = 50
 
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 
-[node name="Survivors" type="Node2D" parent="." unique_id=104605597 node_paths=PackedStringArray("tilemap")]
+[node name="Survivors" type="Node2D" parent="." unique_id=104605597]
 script = ExtResource("68_qyc1r")
-new_survivor_scene = ExtResource("69_segco")
-tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
 script = ExtResource("70_u4lua")
@@ -2641,69 +2638,6 @@ position = Vector2(12.431885, 1852.4446)
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("74_6775b")]
 enemy_type = 2
 auto_spawn = true
-
-[node name="SpawnPoint0" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="0" unique_id=83608265]
-position = Vector2(170.8305, 137.54413)
-
-[node name="SpawnPoint1" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="1" unique_id=211501639]
-position = Vector2(541.24774, 127.29541)
-
-[node name="SpawnPoint2" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="2" unique_id=245667647]
-position = Vector2(876.5267, 136.08002)
-
-[node name="SpawnPoint3" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="3" unique_id=839766658]
-position = Vector2(1315.7566, 137.54413)
-
-[node name="SpawnPoint4" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="4" unique_id=1612428771]
-position = Vector2(1738.8816, 141.9364)
-
-[node name="SpawnPoint5" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="5" unique_id=1577130849]
-position = Vector2(2125.404, 140.47235)
-
-[node name="SpawnPoint6" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="6" unique_id=1946356222]
-position = Vector2(2500.2136, 139.00824)
-
-[node name="SpawnPoint7" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="7" unique_id=136284517]
-position = Vector2(2845.7412, 133.15186)
-
-[node name="SpawnPoint8" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="8" unique_id=2036447791]
-position = Vector2(2845.4624, 481.11356)
-
-[node name="SpawnPoint9" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="9" unique_id=1140941351]
-position = Vector2(2723.2778, 984.85706)
-
-[node name="SpawnPoint10" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="10" unique_id=582385230]
-position = Vector2(2804.734, 1396.4261)
-
-[node name="SpawnPoint11" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="11" unique_id=1751656809]
-position = Vector2(2806.8774, 1857.2979)
-
-[node name="SpawnPoint12" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="12" unique_id=1827751237]
-position = Vector2(2410.3135, 1857.2979)
-
-[node name="SpawnPoint13" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="13" unique_id=1294562570]
-position = Vector2(1936.5803, 1878.7338)
-
-[node name="SpawnPoint14" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="14" unique_id=1729372252]
-position = Vector2(1490.7139, 1889.4517)
-
-[node name="SpawnPoint15" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="15" unique_id=326515900]
-position = Vector2(1083.4319, 1883.0209)
-
-[node name="SpawnPoint16" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="16" unique_id=2027224268]
-position = Vector2(695.44214, 1885.1646)
-
-[node name="SpawnPoint17" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="17" unique_id=1648452573]
-position = Vector2(93.093506, 1880.8773)
-
-[node name="SpawnPoint18" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="18" unique_id=1227476439]
-position = Vector2(118.81665, 1522.898)
-
-[node name="SpawnPoint19" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="19" unique_id=1137205625]
-position = Vector2(116.673096, 1023.4417)
-
-[node name="SpawnPoint20" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="20" unique_id=1456220153]
-position = Vector2(90.94995, 474.6828)
 
 [node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
 multimesh = SubResource("MultiMesh_tc8sa")

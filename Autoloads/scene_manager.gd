@@ -14,9 +14,9 @@ enum SCENES {
 	SHOP,
 	HOME,
 	CAR_LEVELUP,
-	GOD_MOD_TRAINING
+	GOD_MOD_TRAINING,
+	RACE
 }
-
 
 var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.MAIN_MENU : "uid://gmjjc1vmgcds",
@@ -35,7 +35,9 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.SHOP : "uid://cvogwsu4e47t0",
 	SCENES.HOME : "uid://cvkxdbb1u1tw0",
 	SCENES.CAR_LEVELUP : "uid://cum1kdgu8a1di",
-	SCENES.GOD_MOD_TRAINING : "uid://dyy6lm0fy0oqs"
+	SCENES.GOD_MOD_TRAINING : "uid://df565yrwfqn1v",
+	#SCENES.GOD_MOD_TRAINING : "uid://dyy6lm0fy0oqs"
+	SCENES.RACE :"uid://cftayor44iqic"
 }
 
 
@@ -51,6 +53,8 @@ var tuto_completed: bool = false
 var commands_displayed : bool = false
 
 var ready_go_timer: float = 2.0
+
+var commands_from_menu : bool = false
 
 func load_level(scene : SCENES) -> void:
 	get_tree().call_deferred("change_scene_to_file", scenes_uid[scene])

@@ -34,14 +34,6 @@ blood_particles = ExtResource("4_0akt1")
 position = Vector2(-4, 0)
 shape = SubResource("CircleShape2D_vuwk1")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=748882352]
-path_desired_distance = 5.0
-path_max_distance = 150.0
-path_postprocessing = 1
-path_metadata_flags = 0
-simplify_path = true
-simplify_epsilon = 10.0
-
 [node name="MarkerDamages" type="Marker2D" parent="." unique_id=851039847]
 position = Vector2(0, -22)
 
@@ -91,7 +83,6 @@ autostart = true
 script = ExtResource("13_pgnhj")
 metadata/_custom_type_script = "uid://c6cihr87a2nuw"
 
-[connection signal="target_reached" from="NavigationAgent2D" to="StateMachine/Chase" method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="DamageLabelTimer" to="." method="_on_damage_timer_timeout"]
 [connection signal="timeout" from="DamageFlashTimer" to="." method="_on_damage_flash_timer_timeout"]
 [connection signal="timeout" from="DamageTimer_OnPlayer" to="." method="_on_damage_timer_on_player_timeout"]

@@ -43,6 +43,7 @@ var drifting : bool
 
 #DRIFT and BURN
 @onready var drift_manager: Node2D = $DriftManager
+@onready var bloody_engine: Node2D = $BloodyEngine
 @onready var rear_left_burn_anim: AnimatedSprite2D = $RearLeft/RearLeftBurnAnim
 @onready var rear_right_burn_anim: AnimatedSprite2D = $RearRight/RearRightBurnAnim
 signal burnout_ok(burnout : bool)
@@ -54,6 +55,7 @@ var can_dash : bool = false
 var is_dashing : bool = false
 var dash_timer : float = 0
 var original_friction : float = 0
+signal dash_end
 
 #INVINCIBLE
 @onready var collision_shape: CollisionShape2D = $CollisionShape
@@ -85,11 +87,13 @@ var can_drive:=false
 var forward_only : bool = false
 
 #UI
-#var current_life: int
-@onready var life_bar: ProgressBar = $"../CanvasLayer/Board/FuelGauge"
-@onready var life_label: Label = $"../CanvasLayer/Board/FuelGauge/LifeLabel"
+#LIFE
+@onready var life_bar: ProgressBar = $"/root/World/CanvasLayer/HUD/LifeGauge"
+@onready var life_label: Label = $"/root/World/CanvasLayer/HUD/LifeGauge/LifeLabel"
 @onready var taking_damages: Timer = $TakingDamages
-@onready var speed_label: Label = $"../CanvasLayer/Board/Speed"
+#@onready var speed_label: Label = $"/root/World/CanvasLayer/HUD/Speed"
+
+
 
 #VFX
 @onready var car_explosion: AnimatedSprite2D = $VFX/CarExplosion
@@ -156,12 +160,17 @@ func _ready() -> void:
 	#DRIFT
 	drift_manager.init_drift(self,player,rear_left,rear_right)
 
+	#FUEL
+	bloody_engine.init_bloody_engine(player)
+	
 	#AUDIO
 	start_engine_sound = player.start_engine_Sound
 	dmg_players = [dmg_sfx, dmg_sfx_2, dmg_sfx_3]
 	
 	#VFX
 	car_sprite.texture = player.car_sprite
+	
+	#LIFE
 	if TimeManager.current_day == 1 : 
 		player.current_life = int(max_life)
 
@@ -173,9 +182,12 @@ func _ready() -> void:
 		emit_signal("engine_ignited")
 		start_engine.play()
 
+
+	
+	
 func _process(_delta: float) -> void:
 	if !game_paused:
-		speed_label.text  = str(roundi(velocity.length()/player.max_speed.get_value() * player.display_max_speed.get_value()))
+		#speed_label.text  = str(roundi(velocity.length()/player.max_speed.get_value() * player.display_max_speed.get_value()))
 		life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
 
 func _physics_process(delta : float) -> void:
@@ -452,7 +464,6 @@ func _on_start_engine_finished() -> void:
 	SignalManager.emit_signal("start_timer")
 	WeaponsManager.activate_weapons(true)
 
-
 func _on_full_command(full_command : bool) -> void:
 	if !full_command:
 		can_drive = false
@@ -491,6 +502,8 @@ func _on_ghost_timer_timeout() -> void:
 	add_ghost()
 
 func dash() -> void :
+	if player.current_fuel < player.dash_fuel_down:
+		return
 	emit_signal("dashing")
 	can_dash = false
 
@@ -524,6 +537,8 @@ func end_dash() -> void:
 	dash_timer = 0.0
 	friction = original_friction
 	ghost_timer.stop()
+	emit_signal("dash_end")
+
 
 func _on_boost_full() -> void:
 	can_dash = true
@@ -615,7 +630,7 @@ func stop_invincibility_vfx() -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:
-		if area.is_in_group("ennemies") and "get_damages" in area:
-			area.get_damages(roundi(player.dmg.get_value()))
+		if area.is_in_group("ennemies") and "get_damages_from_car" in area:
+			area.get_damages_from_car(roundi(player.dmg.get_value()))
 			StatsManager.total_car_dmg += roundi(player.dmg.get_value())
 		else : return

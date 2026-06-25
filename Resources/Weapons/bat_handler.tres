@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_avvvw"]
 [ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/baseballbat.tres" id="2_ap2f1"]
-[ext_resource type="Texture2D" uid="uid://ylvo2vm75nhr" path="res://Assets/weapons/bat.png" id="2_ss2qe"]
 [ext_resource type="PackedScene" uid="uid://c5g74aadec237" path="res://Scenes/WEAPONS/baseball_bat.tscn" id="3_ddt5j"]
+[ext_resource type="Texture2D" uid="uid://bebfr5dvt68mc" path="res://Assets/weapons/bat_handler.png" id="4_ap2f1"]
 
 [resource]
 script = ExtResource("1_avvvw")
 weapon_name = "Bat Handler"
-weapon_icon = ExtResource("2_ss2qe")
+weapon_icon = ExtResource("4_ap2f1")
 max_level = 35
 description = "hit enemies on car sides"
 type_2 = 6

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://wnsnxcswp71k"]
+
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="1_4heeq"]
+[ext_resource type="Texture2D" uid="uid://dnyb5illhcv7m" path="res://Assets/Items/magnet.png" id="1_mbxx1"]
+[ext_resource type="Script" uid="uid://bxbu7hx7o3kfo" path="res://Scripts/ITEMS/EFFECTS/magnet.gd" id="1_pt2b0"]
+
+[resource]
+script = ExtResource("1_4heeq")
+name = "Magnet"
+icon = ExtResource("1_mbxx1")
+description = "attract all xp on the map"
+effect_script = ExtResource("1_pt2b0")
+metadata/_custom_type_script = "uid://ctc62ptewno8k"

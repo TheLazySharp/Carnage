@@ -22,58 +22,67 @@ var item_colors : Dictionary = {
 }
 
 const ALL_BOOSTS : Array = [
-	preload("uid://dpd83dad37goh"),
-	preload("uid://dtqdcc0f16p4f"),
-	preload("uid://5n8emckrs5pv"),
-	preload("uid://cboeim8dshmtm"),
-	preload("uid://c6e0cxngso5cp"),
-	preload("uid://bn08he2nupmi4"),
-	preload("uid://y5muklkvmup"),
-	preload("uid://bowrkjeknqqru"),
-	preload("uid://vydcpyr47y13"),
-	preload("uid://djtfdsqw457gd"),
-	preload("uid://d1kxt1otl2rfy"),
-	preload("uid://8k6vcoyxekru"),
-	preload("uid://bs1v1nyhpxmer"),
-	preload("uid://cqhcq4c1upd25"),
-	preload("uid://o6d75wr36o5d"),
-	preload("uid://cytvsdd41rvyd"),
-	preload("uid://denneeu83vykp"),
-	preload("uid://dpar3wem8fljc"),
-	preload("uid://c3gx0tkshh2qw"),
-	preload("uid://bd0gfid5eh63h"),
-	preload("uid://doj7a2p4rio26"),
-	preload("uid://bjyo2yyblhs07"),
-	preload("uid://bkpcv00gc0jjf"),
+	# --------- CAR BOOSTS ---------------------
+	preload("uid://dpd83dad37goh"), #bumper common
+	preload("uid://dtqdcc0f16p4f"), #bumper epic
+	preload("uid://5n8emckrs5pv"), #bumper rare
+	preload("uid://cboeim8dshmtm"), #carbon common
+	preload("uid://c6e0cxngso5cp"), #carbon epic 
+	preload("uid://bn08he2nupmi4"), #carbon rare
+	preload("uid://y5muklkvmup"), #engine common
+	preload("uid://bowrkjeknqqru"), #engine epic
+	preload("uid://vydcpyr47y13"), #engine rare
+	preload("uid://djtfdsqw457gd"), #nitro common
+	preload("uid://d1kxt1otl2rfy"), #nitro epic
+	preload("uid://8k6vcoyxekru"), #nitro rare
+	preload("uid://bs1v1nyhpxmer"), #shield common
+	preload("uid://cqhcq4c1upd25"), #shield epic
+	preload("uid://o6d75wr36o5d"), #shield rare
+	preload("uid://cytvsdd41rvyd"), #tank common
+	preload("uid://denneeu83vykp"), #tank epic
+	preload("uid://dpar3wem8fljc"), #tank rare
+	preload("uid://cfu8gxkhor7a5"), #turbo common
+	preload("uid://c3gx0tkshh2qw"), #turbo epic
+	preload("uid://bd0gfid5eh63h"), #turbo rare
+	preload("uid://doj7a2p4rio26"), #wheels common
+	preload("uid://bjyo2yyblhs07"), #wheels epic
+	preload("uid://bkpcv00gc0jjf"), #wheels rare
 
+	# --------------- WEAPONS BOOSTS -------------
+	preload("uid://bcdbbiu70qly7"), #flamer common
+	preload("uid://cxqsub50sexw8"), #flamer epic
+	preload("uid://dmlcx71vi7myu"), #flamer rare
+	preload("uid://jgbp675avpvv"), #landmine common
+	preload("uid://fr6ejq1bgd4x"), #landmine epic
+	preload("uid://cw8mxwa1jeupm"), #landmine rare
+	preload("uid://dk0j2xe4yfde5"), #mine laucnher common
+	preload("uid://cpuyc8iar81bw"), #mine laucnher epic
+	preload("uid://d0lnee5x6ogum"), #mine laucnher rare
+	preload("uid://cwc2xso207336"), #minigun ammo common
+	preload("uid://cm42x2i8ysvxy"), #minigun ammo epic
+	preload("uid://db7ji7qvilci0"), #minigun ammo rare
+	preload("uid://2fuut1o3nnjr"), #minigun common
+	preload("uid://cfbdbewym78ve"), #minigun epic
+	preload("uid://ddf6g3363n0hw"), #minigun rare
+	preload("uid://csc4lrpt806dt"), #revolver ammo common
+	preload("uid://ctvgrdr6ul7u0"), #revolver ammo epic
+ 	preload("uid://ckixj3qnt3s4v"), #revolver ammo rare
+	preload("uid://jfjjptcvei6w"), #revolver common
+	preload("uid://cua1s4tfr51cr"), #revolver epic
+	preload("uid://dl2rqj0xu1lys"), #revolver rare
+	preload("uid://bikf0bhaxbup8"), #baseballbat common
+	preload("uid://bg4c6fmuy7m1y"), #baseballbat epic
+	preload("uid://bip4fb5it036h"), #baseballbat rare
+	preload("uid://cn5h4lnvg26kh"), #bat handler common
+	preload("uid://bj7i14tscgwbc"), #bat handler epic
+	preload("uid://pgpxgphkp3ip"), #bat handler rare
 
-	preload("uid://bcdbbiu70qly7"),
-	preload("uid://cxqsub50sexw8"),
-	preload("uid://dmlcx71vi7myu"),
-	preload("uid://jgbp675avpvv"),
-	preload("uid://fr6ejq1bgd4x"),
-	preload("uid://cw8mxwa1jeupm"),
-	preload("uid://dk0j2xe4yfde5"),
-	preload("uid://cpuyc8iar81bw"),
-	preload("uid://d0lnee5x6ogum"),
-	preload("uid://cwc2xso207336"),
-	preload("uid://cm42x2i8ysvxy"),
-	preload("uid://db7ji7qvilci0"),
-	preload("uid://2fuut1o3nnjr"),
-	preload("uid://cfbdbewym78ve"),
-	preload("uid://ddf6g3363n0hw"),
-	preload("uid://ctvgrdr6ul7u0"),
-	preload("uid://ckixj3qnt3s4v"),
-	preload("uid://jfjjptcvei6w"),
-	preload("uid://cua1s4tfr51cr"),
-	preload("uid://dl2rqj0xu1lys")
 ]
 
 const ALL_CHARMS : Array = [
-	preload("uid://cycv6edr3ie0h"),		#invincibility
-	preload("uid://dkm27p4j8u1jj"),		#drift fire
-	preload("uid://dig2dq8y0nvfs")		#add projectil on all weapons
-	
+	preload("uid://cycv6edr3ie0h"), #invincibility
+	preload("uid://dkm27p4j8u1jj"), #drift fire
+	preload("uid://dig2dq8y0nvfs") #add projectil on all weapons
 ]
 
 var all_boosts : Array[BoostData] = []

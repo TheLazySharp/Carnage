@@ -16,6 +16,10 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_back"):
+		SceneManager.load_level(SceneManager.SCENES.MAIN_MENU)
+		
 
 func _on_back_pressed() -> void:
 	controler.hide()
@@ -24,4 +28,8 @@ func _on_back_pressed() -> void:
 
 
 func _on_ok_keyboard_pressed() -> void:
-	SceneManager.load_level(SceneManager.SCENES.MISSIONS)
+	if SceneManager.commands_from_menu : 
+		SceneManager.load_level(SceneManager.SCENES.MAIN_MENU)
+		SceneManager.commands_from_menu = false
+	else :
+		SceneManager.load_level(SceneManager.SCENES.MISSIONS)

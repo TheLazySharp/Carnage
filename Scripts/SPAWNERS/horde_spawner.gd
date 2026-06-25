@@ -16,7 +16,7 @@ var game_paused : bool = false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	max_enemy_count = 20 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 40
+	max_enemy_count = 20 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 20
 
 	if is_active:
 		create_horde()

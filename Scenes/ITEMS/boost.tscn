@@ -164,9 +164,9 @@ anchor_left = 0.23400001
 anchor_top = 0.48000002
 anchor_right = 0.23400001
 anchor_bottom = 0.48000002
-offset_left = -0.026000977
+offset_left = -14.238007
 offset_top = 0.0399971
-offset_right = 287.974
+offset_right = 309.762
 offset_bottom = 40.039997
 grow_horizontal = 2
 grow_vertical = 2
@@ -177,7 +177,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Stat0" type="Label" parent="Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification0" unique_id=101890211]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_0ftgv")
 theme_override_font_sizes/font_size = 16
@@ -191,6 +191,15 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_0ftgv")
 theme_override_font_sizes/font_size = 16
 text = "+ 5"
+vertical_alignment = 1
+script = ExtResource("4_ucdma")
+
+[node name="arrow" type="Label" parent="Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification0" unique_id=1417787767]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 16
+text = "->"
 vertical_alignment = 1
 script = ExtResource("4_ucdma")
 
@@ -208,7 +217,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Stat1" type="Label" parent="Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1" unique_id=1141864717]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_0ftgv")
 theme_override_font_sizes/font_size = 16
@@ -222,6 +231,15 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_0ftgv")
 theme_override_font_sizes/font_size = 16
 text = "+ 5 %"
+vertical_alignment = 1
+script = ExtResource("4_ucdma")
+
+[node name="arrow" type="Label" parent="Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1" unique_id=31367469]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0ftgv")
+theme_override_font_sizes/font_size = 16
+text = "->"
 vertical_alignment = 1
 script = ExtResource("4_ucdma")
 

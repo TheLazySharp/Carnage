@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="CollectableData" format=3 uid="uid://7clle8xan4lf"]
-
-[ext_resource type="Script" uid="uid://ci5hmuuj0ko68" path="res://Resources/Scripts/collectable_data.gd" id="2_exw84"]
-
-[resource]
-script = ExtResource("2_exw84")
-name = "Woodbox"
-nb_collectable = 50
-metadata/_custom_type_script = "uid://ci5hmuuj0ko68"

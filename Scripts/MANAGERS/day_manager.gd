@@ -1,18 +1,17 @@
 extends Node
 
 
-@onready var time_label: Label = $TimeUI/Time
-@onready var day_label: Label = $TimeUI/Day
+@onready var time_label: Label = $"../CanvasLayer/HUD/TimeUI/Time"
+#@onready var day_label: Label = $TimeUI/Day
 
 @onready var barriere: Node2D = $"../Land_layers/Barriere"
-
 
 @onready var world_environment: WorldEnvironment = $"../WorldEnvironment"
 @onready var directional_light_2d: DirectionalLight2D = $"../DirectionalLight2D"
 
 @onready var day_night_cycle: CanvasModulate = $"/root/World/DayAndNightCycle"
 @export var gradient_light: GradientTexture1D
-@onready var time_animation_player: AnimationPlayer = $TimeUI/Time/TimeAnimationPlayer
+@onready var time_animation_player: AnimationPlayer = $"../CanvasLayer/HUD/TimeUI/Time/TimeAnimationPlayer"
 
 var game_paused : bool = false
 var timer_stopped : bool = false
@@ -35,7 +34,7 @@ func _ready() -> void:
 	time_remaining = TimeManager.day_lenght
 	TimeManager.current_day +=1
 	SignalManager.game_paused.connect(_on_game_paused)
-	day_label.text = "DAY "+str(TimeManager.current_day)
+	#day_label.text = "DAY "+str(TimeManager.current_day)
 	#enemies_spawner_base_rate = enemies_spawner_timer.wait_time
 	
 	#TEST

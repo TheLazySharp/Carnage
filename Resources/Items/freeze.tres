@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c8r7ijia7d2fh"]
+
+[ext_resource type="Script" uid="uid://d2ppotku88svd" path="res://Scripts/ITEMS/EFFECTS/enemies_freeze.gd" id="1_ebmr7"]
+[ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="2_lrn2h"]
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="3_v7x5g"]
+
+[resource]
+script = ExtResource("3_v7x5g")
+name = "Freeze"
+icon = ExtResource("2_lrn2h")
+description = "Enemies are frozen"
+effect_script = ExtResource("1_ebmr7")
+metadata/_custom_type_script = "uid://ctc62ptewno8k"

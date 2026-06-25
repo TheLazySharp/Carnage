@@ -5,7 +5,7 @@ extends Node2D
 @onready var far_beeps: AudioStreamPlayer2D = $FarBeeps
 @onready var close_beeps: AudioStreamPlayer2D = $CloseBeeps
 @onready var beep_timer: Timer = $BeepTimer
-@onready var survivors_spawner: Node2D = $/root/World/Survivors
+@onready var survivors_spawner: Node2D = $/root/World/Spawners/Survivors
 
 var beacon_pos : Vector2
 var survivor_is_saved : bool = false

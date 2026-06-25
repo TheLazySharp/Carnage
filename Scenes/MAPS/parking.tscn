@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_qe1gh"]
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/hordes_manager.gd" id="2_pneeb"]
+[ext_resource type="PackedScene" uid="uid://cw24hp3lk0hkn" path="res://Scenes/MAPS/flow_field_manager.tscn" id="2_vmxub"]
 [ext_resource type="PackedScene" uid="uid://bbsq7ymxlm20s" path="res://Scenes/MANAGERS/audio_manager.tscn" id="3_pneeb"]
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="5_hmsud"]
 [ext_resource type="Texture2D" uid="uid://cm864gogrroh8" path="res://Shaders/daynightcycle-gradient-texture.tres" id="6_5ea3q"]
@@ -34,48 +35,24 @@
 [ext_resource type="Texture2D" uid="uid://yu2kg5j30a7h" path="res://Assets/Props/building 5.png" id="30_ffcev"]
 [ext_resource type="Texture2D" uid="uid://ds7n0qefl3svp" path="res://Assets/Props/wall_H.png" id="31_sgb08"]
 [ext_resource type="Texture2D" uid="uid://cxoune2ptoi3r" path="res://Assets/Props/wall_V.png" id="32_jhmth"]
-[ext_resource type="Script" uid="uid://dpkkxegm8kor1" path="res://Scripts/UI/fps.gd" id="33_rvfxn"]
-[ext_resource type="Texture2D" uid="uid://bgrl5ldrwntp4" path="res://Assets/UI/dashboard.png" id="34_vqc5c"]
-[ext_resource type="Script" uid="uid://bd250t2w2xvnr" path="res://Scripts/FONTS/GUI_UX_M.gd" id="35_l5n50"]
-[ext_resource type="Script" uid="uid://bbnara7ws2epv" path="res://Scripts/FONTS/GUI_UX_S.gd" id="36_ssqnc"]
-[ext_resource type="Script" uid="uid://bdiix0s1bmolp" path="res://Scripts/UI/xp_bar.gd" id="37_3abjx"]
-[ext_resource type="Script" uid="uid://bybeo7okpj2m1" path="res://Scripts/UI/drift_bonus.gd" id="37_pp6a2"]
+[ext_resource type="PackedScene" uid="uid://dljrk8342ak5s" path="res://Scenes/UI/HUD.tscn" id="36_7taos"]
 [ext_resource type="PackedScene" uid="uid://bvmq8j7dk6kfq" path="res://Scenes/MAPS/barriere.tscn" id="37_vmxub"]
-[ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="38_hbjpo"]
-[ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="39_g6ck5"]
-[ext_resource type="Script" uid="uid://ddqkvhoijl1y2" path="res://Scripts/UI/boost_gauge.gd" id="40_iekoe"]
-[ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="41_deqxr"]
-[ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="42_y47yx"]
-[ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="43_sto3m"]
-[ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="44_ln03g"]
-[ext_resource type="Script" uid="uid://dt6l27r7qstkk" path="res://Scripts/UI/UI_container.gd" id="45_iutc8"]
-[ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="47_atflo"]
-[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="48_2o1b0"]
-[ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="50_f2w51"]
-[ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="51_cccp0"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_mp5nn"]
-[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="53_bbk8f"]
-[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="54_kl0nl"]
 [ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="55_6fcfe"]
-[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="56_k8s36"]
 [ext_resource type="Texture2D" uid="uid://cigoc373iff72" path="res://Assets/UI/white_arrow.png" id="57_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://cmi5s38sxx8n1" path="res://Scenes/MENU/pause.tscn" id="58_ywo5e"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="60_mwdtc"]
+[ext_resource type="PackedScene" uid="uid://bgao02vsiwner" path="res://Scenes/MENU/new_survivor.tscn" id="60_tk2je"]
 [ext_resource type="Script" uid="uid://b53gepxrtesmg" path="res://Scripts/VFX/damage_label_pool.gd" id="68_6fcfe"]
-[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="68_88yjb"]
 [ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="69_pp6a2"]
-[ext_resource type="Script" uid="uid://cc0huil3sw502" path="res://Scripts/UI/new_survivor_canvas.gd" id="70_a17cc"]
-[ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="71_7m57v"]
-[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="72_yvi02"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="73_o2skn"]
+[ext_resource type="PackedScene" uid="uid://b4wjlmxtijley" path="res://Scenes/SPAWNERS/survivors_spawner.tscn" id="73_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://ca2xs3prb7n8k" path="res://Scenes/ENNEMIES/coloss_arrival.tscn" id="73_tk2je"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="74_x2yit"]
-[ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/ENNEMIES/spawner_auto.tscn" id="74_ywo5e"]
-[ext_resource type="Script" uid="uid://cut6npligxxy7" path="res://Scripts/SPAWNERS/survivor_spawner.gd" id="75_307np"]
+[ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="74_ywo5e"]
 [ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="75_plkwq"]
-[ext_resource type="PackedScene" uid="uid://bqpy6ahyrnpd0" path="res://Scenes/CHARACTERS/survivor_in_game.tscn" id="76_4lsee"]
 [ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="77_7oukm"]
-[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/ENNEMIES/horde.tscn" id="79_83n8t"]
+[ext_resource type="PackedScene" uid="uid://drma1if8gpubc" path="res://Scenes/SPAWNERS/item_spawner.tscn" id="77_vmxub"]
+[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="79_83n8t"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="82_4v767"]
 [ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="83_5ea3q"]
 
@@ -84,67 +61,6 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.91
-
-[sub_resource type="Animation" id="Animation_yq1aw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [null]
-}
-
-[sub_resource type="Animation" id="Animation_1cojt"]
-resource_name = "time_warning"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.49960044, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.502376, 0.9992009),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.90526885, 3.3450872e-06, 1.1551381e-06, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pyn1s"]
-_data = {
-&"RESET": SubResource("Animation_yq1aw"),
-&"time_warning": SubResource("Animation_1cojt")
-}
 
 [sub_resource type="GDScript" id="GDScript_xo07a"]
 
@@ -1008,206 +924,6 @@ sources/4 = SubResource("TileSetAtlasSource_hmdni")
 sources/10 = SubResource("TileSetAtlasSource_uvxr1")
 sources/11 = SubResource("TileSetAtlasSource_pp6a2")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0a5o"]
-bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)
-skew = Vector2(0.5, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6nya"]
-bg_color = Color(0.21547687, 1.052779, 1.6109806, 1)
-skew = Vector2(0.5, 0)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="Animation" id="Animation_rrokc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.21547687, 1.052779, 1.6109806, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-
-[sub_resource type="Animation" id="Animation_35io2"]
-resource_name = "level_up_anim"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_styles/fill:bg_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 0.08537752),
-"update": 0,
-"values": [Color(0.21547687, 1.052779, 1.6109806, 1), Color(0.95666456, 4.058873, 6.127012, 1), Color(0.21547687, 1.052779, 1.6109806, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:theme_override_font_sizes/font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.40254, 0.8),
-"transitions": PackedFloat32Array(1, 0.4506253, 1),
-"update": 1,
-"values": [null, 20, 16]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_q12la"]
-_data = {
-&"RESET": SubResource("Animation_rrokc"),
-&"level_up_anim": SubResource("Animation_35io2")
-}
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3smgn"]
-bg_color = Color(0.3254902, 0.3254902, 0.3254902, 1)
-skew = Vector2(0.5, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrsns"]
-bg_color = Color(0.12941177, 1, 0.25882354, 1)
-skew = Vector2(0.5, 0)
-
-[sub_resource type="Animation" id="Animation_tc8sa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.22940181, 1.5720325, 0.42898208, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_p4ios"]
-resource_name = "boost_full"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [16, 20, 16]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.40106815, 0.79658514),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(0.22940181, 1.5720325, 0.42898208, 1), Color(0.22940181, 1.5720325, 0.42898208, 1), Color(0.22940181, 1.5720325, 0.42898208, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xo07a"]
-_data = {
-&"RESET": SubResource("Animation_tc8sa"),
-&"boost_full": SubResource("Animation_p4ios")
-}
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axeuq"]
-bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
-skew = Vector2(0.5, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
-bg_color = Color(0.43605784, 1.0889582e-06, 2.4065375e-08, 1)
-skew = Vector2(0.5, 0)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nt7v7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osy7x"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3smgn"]
-
 [sub_resource type="Animation" id="Animation_vmxub"]
 length = 0.001
 tracks/0/type = "value"
@@ -1284,21 +1000,6 @@ _data = {
 &"blinking_red": SubResource("Animation_qe1gh")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o24rt"]
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_mqqx4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xw754"]
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_tc8sa"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
@@ -1321,6 +1022,8 @@ blend_mode = 2
 
 [node name="game_manager" parent="." unique_id=1855230744 instance=ExtResource("1_qe1gh")]
 
+[node name="FlowFieldManager" parent="." unique_id=805599683 instance=ExtResource("2_vmxub")]
+
 [node name="HordesManager" type="Node2D" parent="." unique_id=996312644]
 script = ExtResource("2_pneeb")
 
@@ -1329,38 +1032,6 @@ script = ExtResource("2_pneeb")
 [node name="DayManager" type="Node" parent="." unique_id=862331373]
 script = ExtResource("5_hmsud")
 gradient_light = ExtResource("6_5ea3q")
-
-[node name="TimeUI" type="CanvasLayer" parent="DayManager" unique_id=250829135]
-
-[node name="Time" type="Label" parent="DayManager/TimeUI" unique_id=992565047]
-offset_left = 360.0
-offset_right = 520.0
-offset_bottom = 70.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("48_2o1b0")
-theme_override_font_sizes/font_size = 56
-text = "00.00"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("7_pow3l")
-
-[node name="TimeAnimationPlayer" type="AnimationPlayer" parent="DayManager/TimeUI/Time" unique_id=2110387643]
-libraries/ = SubResource("AnimationLibrary_pyn1s")
-
-[node name="Day" type="Label" parent="DayManager/TimeUI" unique_id=490811909]
-offset_left = 46.0
-offset_right = 206.0
-offset_bottom = 70.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("48_2o1b0")
-theme_override_font_sizes/font_size = 56
-text = "DAY 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("7_pow3l")
 
 [node name="Land_layers" type="Node2D" parent="." unique_id=1449497454]
 z_as_relative = false
@@ -1382,693 +1053,7 @@ position = Vector2(2950, 928)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
 
-[node name="FPS" type="Label" parent="CanvasLayer" unique_id=1730762821]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -197.0
-offset_bottom = 74.0
-grow_horizontal = 0
-size_flags_horizontal = 8
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("48_2o1b0")
-theme_override_font_sizes/font_size = 56
-text = "FPS : 60"
-vertical_alignment = 1
-script = ExtResource("33_rvfxn")
-
-[node name="DRIFT" type="Label" parent="CanvasLayer" unique_id=1118516293]
-anchors_preset = -1
-anchor_left = -0.2875
-anchor_right = -0.2875
-offset_left = 3.0
-offset_top = 66.0
-offset_right = 646.0
-offset_bottom = 140.0
-size_flags_horizontal = 8
-theme_override_colors/font_color = Color(1, 0.7764706, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("48_2o1b0")
-theme_override_font_sizes/font_size = 56
-text = "999999"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("37_pp6a2")
-metadata/_edit_use_anchors_ = true
-
-[node name="DriftMulti" type="Label" parent="CanvasLayer" unique_id=2035024085]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = -250.0
-offset_bottom = -176.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 8
-theme_override_colors/font_color = Color(1, 0.776, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("48_2o1b0")
-theme_override_font_sizes/font_size = 56
-text = "x 1.2"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("37_pp6a2")
-
-[node name="TotalDrift" type="Label" parent="CanvasLayer" unique_id=556977860]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -424.0
-offset_top = -334.0
-offset_bottom = -260.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 8
-theme_override_colors/font_color = Color(1, 0.776, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("48_2o1b0")
-theme_override_font_sizes/font_size = 56
-text = "0 pts"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("37_pp6a2")
-
-[node name="XP" type="Control" parent="CanvasLayer" unique_id=792832250]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Board" type="Control" parent="CanvasLayer" unique_id=1317999721]
-custom_minimum_size = Vector2(0, 160)
-layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -160.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board" unique_id=1015808763]
-texture = ExtResource("34_vqc5c")
-centered = false
-
-[node name="Speed" type="Label" parent="CanvasLayer/Board" unique_id=900412374]
-layout_mode = 1
-offset_left = 53.0
-offset_top = 41.0
-offset_right = 161.0
-offset_bottom = 97.0
-theme_override_colors/font_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
-theme_override_constants/line_spacing = 0
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-text = "200"
-horizontal_alignment = 2
-vertical_alignment = 2
-justification_flags = 35
-script = ExtResource("35_l5n50")
-
-[node name="Label" type="Label" parent="CanvasLayer/Board/Speed" unique_id=1149933007]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 52.0
-offset_right = 106.0
-offset_bottom = 89.33333
-theme_override_colors/font_color = Color(0.9428228, 0.94282264, 0.94282264, 1)
-text = "MPH"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("36_ssqnc")
-
-[node name="xp_bar" type="ProgressBar" parent="CanvasLayer/Board" unique_id=311172588]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 302.0
-offset_top = 34.0
-offset_right = 565.0
-offset_bottom = 52.0
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_l0a5o")
-theme_override_styles/fill = SubResource("StyleBoxFlat_f6nya")
-step = 1.0
-value = 50.0
-show_percentage = false
-script = ExtResource("37_3abjx")
-
-[node name="Label" type="Label" parent="CanvasLayer/Board/xp_bar" unique_id=1112520545]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -82.0
-offset_top = -11.166688
-offset_right = -22.0
-offset_bottom = 11.833313
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-text = "Lvl 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("38_hbjpo")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Board/xp_bar" unique_id=1865340468]
-libraries/ = SubResource("AnimationLibrary_q12la")
-script = ExtResource("39_g6ck5")
-
-[node name="BoostGauge" type="ProgressBar" parent="CanvasLayer/Board" unique_id=343592507]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 700.0
-offset_top = 34.0
-offset_right = 969.0
-offset_bottom = 52.0
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_3smgn")
-theme_override_styles/fill = SubResource("StyleBoxFlat_vrsns")
-step = 1.0
-value = 50.0
-show_percentage = false
-script = ExtResource("40_iekoe")
-
-[node name="BoostTimer" type="Timer" parent="CanvasLayer/Board/BoostGauge" unique_id=1014647607]
-wait_time = 0.3
-
-[node name="Nitro" type="Label" parent="CanvasLayer/Board/BoostGauge" unique_id=1951328078]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -12.166667
-offset_right = -11.0
-offset_bottom = 10.833332
-grow_vertical = 2
-text = "NITRO"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("41_deqxr")
-
-[node name="Dash" type="Label" parent="CanvasLayer/Board/BoostGauge" unique_id=1406233136]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -12.000021
-offset_right = -11.0
-offset_bottom = 10.999979
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.22940181, 1.5720325, 0.42898208, 1)
-text = "DASH"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("41_deqxr")
-
-[node name="DashAnim" type="AnimationPlayer" parent="CanvasLayer/Board/BoostGauge/Dash" unique_id=1643082656]
-libraries/ = SubResource("AnimationLibrary_xo07a")
-
-[node name="FuelGauge" type="ProgressBar" parent="CanvasLayer/Board" unique_id=894934517]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 301.0
-offset_top = -60.0
-offset_right = 559.0
-offset_bottom = -23.0
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_axeuq")
-theme_override_styles/fill = SubResource("StyleBoxFlat_1cojt")
-step = 5.0
-value = 75.0
-rounded = true
-show_percentage = false
-
-[node name="LifeLabel" type="Label" parent="CanvasLayer/Board/FuelGauge" unique_id=81239408]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -140.0
-offset_top = 5.0
-offset_right = -36.0
-offset_bottom = 23.666664
-grow_horizontal = 2
-grow_vertical = 0
-text = "1000/1000"
-script = ExtResource("41_deqxr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Board/FuelGauge" unique_id=1503179586]
-position = Vector2(-43, 35)
-scale = Vector2(1.25, 1.28125)
-texture = ExtResource("42_y47yx")
-
-[node name="Gear" type="Control" parent="CanvasLayer/Board" unique_id=1192136897]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -16.0
-offset_top = 16.0
-offset_right = 287.0
-offset_bottom = 56.0
-grow_horizontal = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/Gear" unique_id=446153934]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -3.0
-offset_right = -96.33331
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.5, 1.5)
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Gear/MarginContainer" unique_id=403611011]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 4
-
-[node name="Gear0" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=222877905]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1435912683]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("43_sto3m")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear0" unique_id=1823006990]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("44_ln03g")
-
-[node name="Gear1" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=466958561]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=243986824]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("43_sto3m")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear1" unique_id=751922222]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("44_ln03g")
-
-[node name="Gear2" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=183027919]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=411205787]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("43_sto3m")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear2" unique_id=609660053]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("44_ln03g")
-
-[node name="Gear3" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=153631555]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=951361497]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("43_sto3m")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear3" unique_id=322450282]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("44_ln03g")
-
-[node name="Gear4" type="Panel" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer" unique_id=136116006]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=70414263]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("43_sto3m")
-
-[node name="Lvl" type="Label" parent="CanvasLayer/Board/Gear/MarginContainer/HBoxContainer/Gear4" unique_id=1589436148]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -5.999996
-offset_right = 5.0
-offset_bottom = 5.0416718
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("44_ln03g")
-
-[node name="Parts" type="Control" parent="CanvasLayer/Board" unique_id=102137242]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -268.0
-offset_top = -59.0
-offset_right = -117.0
-offset_bottom = -19.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/Parts" unique_id=39206195]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = -6.0
-offset_right = 7.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/Parts/MarginContainer" unique_id=255664678]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 24
-script = ExtResource("45_iutc8")
-
-[node name="GearParts" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1007908952]
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_nt7v7")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1564307233]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("47_atflo")
-stretch_mode = 3
-
-[node name="GearPartsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/GearParts" unique_id=1801570011]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -1.3333359
-offset_right = 25.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("48_2o1b0")
-text = "1800"
-horizontal_alignment = 2
-script = ExtResource("41_deqxr")
-
-[node name="Dollar" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=609149628]
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_nt7v7")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1672568784]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 2.0
-offset_right = 30.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("54_kl0nl")
-stretch_mode = 3
-
-[node name="DollarQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Dollar" unique_id=1751902233]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -1.3333359
-offset_right = 25.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("48_2o1b0")
-text = "1800"
-horizontal_alignment = 2
-script = ExtResource("41_deqxr")
-
-[node name="Frags" type="Panel" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer" unique_id=1414573419]
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_osy7x")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=1537777942]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("50_f2w51")
-stretch_mode = 3
-
-[node name="FragsQ" type="Label" parent="CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Frags" unique_id=896568205]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -1.3333359
-offset_right = 25.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("48_2o1b0")
-text = "1000"
-horizontal_alignment = 2
-script = ExtResource("41_deqxr")
-
-[node name="LuckyCharms" type="Control" parent="CanvasLayer/Board" unique_id=1384202834]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -268.0
-offset_right = -24.0
-offset_bottom = 40.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Board/LuckyCharms" unique_id=414534360]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 1
-offset_right = 222.0
-offset_bottom = 46.0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Board/LuckyCharms/MarginContainer" unique_id=890727447]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 10
-
-[node name="LuckyCharm0" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=2004849628]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm0" unique_id=1411297590]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("51_cccp0")
-
-[node name="LuckyCharm1" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1066240797]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm1" unique_id=1512544772]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("51_cccp0")
-
-[node name="LuckyCharm2" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1239802368]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm2" unique_id=2130284583]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("51_cccp0")
-
-[node name="LuckyCharm3" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1206394333]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm3" unique_id=1368181297]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("51_cccp0")
-
-[node name="LuckyCharm4" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1051707784]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm4" unique_id=794440254]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("51_cccp0")
-
-[node name="LuckyCharm5" type="Panel" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer" unique_id=1987953602]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3smgn")
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Board/LuckyCharms/MarginContainer/HBoxContainer/LuckyCharm5" unique_id=937258005]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("51_cccp0")
+[node name="HUD" parent="CanvasLayer" unique_id=1655855182 instance=ExtResource("36_7taos")]
 
 [node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
 layout_mode = 3
@@ -2249,247 +1234,7 @@ autoplay = &"blinking_red"
 [node name="Pause" parent="CanvasLayer" unique_id=739595383 instance=ExtResource("58_ywo5e")]
 visible = false
 
-[node name="NewSurvivor" type="Control" parent="CanvasLayer" unique_id=767784114]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("70_a17cc")
-
-[node name="Background" type="ColorRect" parent="CanvasLayer/NewSurvivor" unique_id=788371972]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Title" type="Label" parent="CanvasLayer/NewSurvivor" unique_id=1031134513]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -637.0
-offset_right = 639.0
-offset_bottom = 113.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_fonts/font = ExtResource("52_mp5nn")
-theme_override_font_sizes/font_size = 64
-text = "A NEW FRIEND ?"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_trim_flags = 0
-justification_flags = 0
-script = ExtResource("53_bbk8f")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/NewSurvivor" unique_id=231801612]
-custom_minimum_size = Vector2(64, 72)
-layout_mode = 0
-offset_top = 112.0
-offset_right = 416.0
-offset_bottom = 696.0
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="BoxContainer" type="GridContainer" parent="CanvasLayer/NewSurvivor/MarginContainer" unique_id=610040497]
-layout_mode = 2
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 32
-columns = 4
-
-[node name="PNJ0" type="Button" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer" unique_id=313775313]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxFlat_o24rt")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_mqqx4")
-
-[node name="PNJName" type="Label" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer/PNJ0" unique_id=1713199169]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -32.5
-offset_top = 12.0
-offset_right = 32.5
-offset_bottom = 46.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 20
-text = "Javier"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("60_mwdtc")
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer/PNJ0" unique_id=232536764]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Portrait" type="TextureRect" parent="CanvasLayer/NewSurvivor/MarginContainer/BoxContainer/PNJ0" unique_id=547100912]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("71_7m57v")
-
-[node name="SurvivorBio" type="Control" parent="CanvasLayer/NewSurvivor" unique_id=2096044592]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -822.0
-offset_top = -278.0
-offset_bottom = 376.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="PNJName" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1403401885]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 40
-text = "Javier"
-script = ExtResource("68_88yjb")
-
-[node name="PNJAge" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1031946302]
-layout_mode = 0
-offset_top = 72.0
-offset_right = 108.0
-offset_bottom = 127.0
-theme_override_font_sizes/font_size = 24
-text = "42 years old"
-script = ExtResource("60_mwdtc")
-
-[node name="PNJJob" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=1936410478]
-layout_mode = 0
-offset_top = 126.0
-offset_right = 148.0
-offset_bottom = 181.0
-theme_override_font_sizes/font_size = 24
-text = "Mechanic"
-script = ExtResource("60_mwdtc")
-
-[node name="PNJBio" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=186035308]
-layout_mode = 0
-offset_top = 202.0
-offset_right = 466.0
-offset_bottom = 569.0
-theme_override_font_sizes/font_size = 24
-text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
-autowrap_mode = 2
-script = ExtResource("60_mwdtc")
-
-[node name="WeaponIcon" type="TextureRect" parent="CanvasLayer/NewSurvivor/SurvivorBio" unique_id=741527931]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -201.0
-offset_top = 53.0
-offset_right = -105.0
-offset_bottom = 149.0
-grow_horizontal = 0
-texture = ExtResource("72_yvi02")
-
-[node name="PNJWeapon" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio/WeaponIcon" unique_id=589335879]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -74.0
-offset_top = -57.0
-offset_right = 74.0
-offset_bottom = -2.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 24
-text = "Revolver"
-horizontal_alignment = 1
-script = ExtResource("68_88yjb")
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/NewSurvivor/SurvivorBio/WeaponIcon" unique_id=1736314659]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="WeaponDescr" type="Label" parent="CanvasLayer/NewSurvivor/SurvivorBio/WeaponIcon" unique_id=1745419180]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -119.0
-offset_top = 7.0
-offset_right = 115.0
-offset_bottom = 212.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "Shot a bullet on the closest enemy"
-autowrap_mode = 2
-script = ExtResource("60_mwdtc")
-
-[node name="YesNo" type="HBoxContainer" parent="CanvasLayer/NewSurvivor" unique_id=942575216]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -180.0
-offset_top = -84.0
-offset_right = 276.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 30
-
-[node name="PickUp" type="Button" parent="CanvasLayer/NewSurvivor/YesNo" unique_id=1384149843]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("52_mp5nn")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
-text = "PICK UP"
-flat = true
-script = ExtResource("56_k8s36")
-
-[node name="Leave" type="Button" parent="CanvasLayer/NewSurvivor/YesNo" unique_id=682276171]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("52_mp5nn")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/focus = SubResource("StyleBoxEmpty_xw754")
-text = "LEAVE"
-flat = true
-script = ExtResource("56_k8s36")
+[node name="NewSurvivor" parent="CanvasLayer" unique_id=928422093 instance=ExtResource("60_tk2je")]
 
 [node name="Car" parent="." unique_id=2034565894 instance=ExtResource("73_o2skn")]
 position = Vector2(259, 996)
@@ -2529,44 +1274,45 @@ label_scene = ExtResource("69_pp6a2")
 
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 
-[node name="Survivors" type="Node2D" parent="." unique_id=104605597 node_paths=PackedStringArray("tilemap")]
-script = ExtResource("75_307np")
-new_survivor_scene = ExtResource("76_4lsee")
-tilemap = NodePath("../Land_layers/Roads")
-
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
 script = ExtResource("77_7oukm")
 ressource_scene = ExtResource("83_5ea3q")
 tilemap = NodePath("../Land_layers/Roads")
 
-[node name="Spawners" type="Node2D" parent="." unique_id=483220455]
+[node name="Spawners" type="Node2D" parent="." unique_id=556355831]
+
+[node name="Survivors" parent="Spawners" unique_id=1248185741 instance=ExtResource("73_pp6a2")]
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
-position = Vector2(825.06494, 1023.9701)
+position = Vector2(1646.9214, 226.07727)
+enemy_type = 2
 
-[node name="Horde2" parent="Spawners" unique_id=692877725 instance=ExtResource("79_83n8t")]
-position = Vector2(475.1978, 194.98907)
+[node name="Horde2" parent="Spawners" unique_id=1458679874 instance=ExtResource("79_83n8t")]
+position = Vector2(1609.8796, 1052.269)
+enemy_type = 2
 
-[node name="Horde3" parent="Spawners" unique_id=2002837950 instance=ExtResource("79_83n8t")]
-position = Vector2(1540.9905, 206.77881)
+[node name="Horde3" parent="Spawners" unique_id=1121059956 instance=ExtResource("79_83n8t")]
+position = Vector2(1663.9445, 1828.9215)
+enemy_type = 2
 
-[node name="Horde4" parent="Spawners" unique_id=1104197031 instance=ExtResource("79_83n8t")]
-position = Vector2(2479.4539, 268.08545)
+[node name="Horde4" parent="Spawners" unique_id=413539673 instance=ExtResource("79_83n8t")]
+position = Vector2(2503.8418, 193.94748)
+enemy_type = 2
 
-[node name="Horde5" parent="Spawners" unique_id=812847759 instance=ExtResource("79_83n8t")]
-position = Vector2(2316.3267, 966.68115)
+[node name="Horde5" parent="Spawners" unique_id=1815657024 instance=ExtResource("79_83n8t")]
+position = Vector2(2536.9702, 981.2294)
+enemy_type = 2
 
-[node name="Horde6" parent="Spawners" unique_id=1000029015 instance=ExtResource("79_83n8t")]
-position = Vector2(2685.024, 1356.8145)
+[node name="Horde6" parent="Spawners" unique_id=1732667245 instance=ExtResource("79_83n8t")]
+position = Vector2(2513.5854, 1842.5626)
+enemy_type = 2
 
-[node name="Horde7" parent="Spawners" unique_id=843024721 instance=ExtResource("79_83n8t")]
-position = Vector2(1784.7167, 1663.3477)
+[node name="Horde7" parent="Spawners" unique_id=1180151081 instance=ExtResource("79_83n8t")]
+position = Vector2(416.76526, 1793.8446)
+enemy_type = 2
 
-[node name="Horde8" parent="Spawners" unique_id=1286249511 instance=ExtResource("79_83n8t")]
-position = Vector2(329.21948, 1725.5117)
-
-[node name="Horde9" parent="Spawners" unique_id=1242862468 instance=ExtResource("79_83n8t")]
-position = Vector2(1636.809, 1041.7068)
+[node name="Horde8" parent="Spawners" unique_id=507418461 instance=ExtResource("79_83n8t")]
+position = Vector2(182.91919, 236.8193)
 enemy_type = 2
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("73_tk2je")]
@@ -2593,83 +1339,18 @@ position = Vector2(25.741882, 1612.8645)
 position = Vector2(12.431885, 1852.4446)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("74_ywo5e")]
-enemy_type = 2
 auto_spawn = true
 
-[node name="SpawnPoint0" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="0" unique_id=83608265]
-position = Vector2(170.8305, 137.54413)
+[node name="SpawnRate" parent="Spawners/SpawnerAuto" index="0" unique_id=2090149341]
+wait_time = 0.2
+autostart = true
 
-[node name="SpawnPoint1" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="1" unique_id=211501639]
-position = Vector2(541.24774, 127.29541)
-
-[node name="SpawnPoint2" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="2" unique_id=245667647]
-position = Vector2(876.5267, 136.08002)
-
-[node name="SpawnPoint3" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="3" unique_id=839766658]
-position = Vector2(1315.7566, 137.54413)
-
-[node name="SpawnPoint4" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="4" unique_id=1612428771]
-position = Vector2(1738.8816, 141.9364)
-
-[node name="SpawnPoint5" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="5" unique_id=1577130849]
-position = Vector2(2125.404, 140.47235)
-
-[node name="SpawnPoint6" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="6" unique_id=1946356222]
-position = Vector2(2500.2136, 139.00824)
-
-[node name="SpawnPoint7" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="7" unique_id=136284517]
-position = Vector2(2845.7412, 133.15186)
-
-[node name="SpawnPoint8" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="8" unique_id=2036447791]
-position = Vector2(2845.4624, 481.11356)
-
-[node name="SpawnPoint9" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="9" unique_id=1140941351]
-position = Vector2(2723.2778, 984.85706)
-
-[node name="SpawnPoint10" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="10" unique_id=582385230]
-position = Vector2(2804.734, 1396.4261)
-
-[node name="SpawnPoint11" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="11" unique_id=1751656809]
-position = Vector2(2806.8774, 1857.2979)
-
-[node name="SpawnPoint12" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="12" unique_id=1827751237]
-position = Vector2(2410.3135, 1857.2979)
-
-[node name="SpawnPoint13" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="13" unique_id=1294562570]
-position = Vector2(1936.5803, 1878.7338)
-
-[node name="SpawnPoint14" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="14" unique_id=1729372252]
-position = Vector2(1490.7139, 1889.4517)
-
-[node name="SpawnPoint15" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="15" unique_id=326515900]
-position = Vector2(1083.4319, 1883.0209)
-
-[node name="SpawnPoint16" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="16" unique_id=2027224268]
-position = Vector2(695.44214, 1885.1646)
-
-[node name="SpawnPoint17" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="17" unique_id=1648452573]
-position = Vector2(93.093506, 1880.8773)
-
-[node name="SpawnPoint18" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="18" unique_id=1227476439]
-position = Vector2(118.81665, 1522.898)
-
-[node name="SpawnPoint19" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="19" unique_id=1137205625]
-position = Vector2(116.673096, 1023.4417)
-
-[node name="SpawnPoint20" parent="Spawners/SpawnerAuto/SpawnPoints" parent_id_path=PackedInt32Array(210156015, 1498204308) index="20" unique_id=1456220153]
-position = Vector2(90.94995, 474.6828)
-
-[node name="SpawnRate" parent="Spawners/SpawnerAuto" index="1" unique_id=2090149341]
-wait_time = 0.8
+[node name="ItemSpawner" parent="Spawners" unique_id=951681507 instance=ExtResource("77_vmxub")]
 
 [node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
 multimesh = SubResource("MultiMesh_tc8sa")
 script = ExtResource("82_4v767")
 atlas_texture = ExtResource("75_plkwq")
-
-[connection signal="timeout" from="CanvasLayer/Board/BoostGauge/BoostTimer" to="CanvasLayer/Board/BoostGauge" method="_on_boost_timer_timeout"]
-[connection signal="pressed" from="CanvasLayer/NewSurvivor/YesNo/PickUp" to="CanvasLayer/NewSurvivor" method="_on_pick_up_pressed"]
-[connection signal="pressed" from="CanvasLayer/NewSurvivor/YesNo/Leave" to="CanvasLayer/NewSurvivor" method="_on_leave_pressed"]
 
 [editable path="Spawners/ColossArrival"]
 [editable path="Spawners/SpawnerAuto"]

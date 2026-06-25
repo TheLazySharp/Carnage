@@ -4,9 +4,9 @@ extends Node2D
 @onready var rear_left: Marker2D = $"../RearLeft"
 @onready var rear_right: Marker2D = $"../RearRight"
 
-@onready var drift_label: Label = $"../../CanvasLayer/DRIFT"
-@onready var total_label: Label = $"../../CanvasLayer/TotalDrift"
-@onready var drift_multi_label: Label = $"../../CanvasLayer/DriftMulti"
+@onready var drift_label: Label = $"../../CanvasLayer/HUD/DRIFT"
+@onready var total_label: Label = $"../../CanvasLayer/HUD/TotalDrift"
+@onready var drift_multi_label: Label = $"../../CanvasLayer/HUD/DriftMulti"
 
 var game_paused : bool = false
 
@@ -357,7 +357,7 @@ func animation_score_to_total() -> void :
 	
 	var tween : Tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(fly_label, "position", Vector2(856.0, 66.0), 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_property(fly_label, "position", Vector2(500.0, 740.0), 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_property(fly_label, "theme_override_font_sizes/font_size", 24, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_property(fly_label, "modulate:a", 0.0, 1.0)
 	

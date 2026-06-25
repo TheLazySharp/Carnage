@@ -72,6 +72,9 @@ var day_is_ended: bool = false
 var game_paused := false
 var game_over := false
 
+@onready var bloody_engine: BloodyEngine = $/root/World/Car/BloodyEngine
+
+
 #PERFS STAGGER
 var physics_skip_timer : float = 0
 var physics_skip_steps : float = 0.032
@@ -207,6 +210,17 @@ func get_damages(damages: int) -> void:
 			current_life = 0
 			call_deferred("on_death")
 
+func get_damages_from_car(damages: int) -> void:
+	if not game_paused:
+		damage_timer.start()
+		current_life -= damages
+		flash_damage()
+		display_damages(damages)
+		if current_life <= 0:
+			current_life = 0
+			call_deferred("on_death")
+			call_deferred("fuel_up")
+
 
 func flash_damage() -> void:
 	if renderer == null or mm_index < 0:
@@ -233,6 +247,9 @@ func _on_damage_timer_timeout() -> void:
 func _on_game_paused(game_on_pause: bool) -> void:
 	game_paused = game_on_pause
 
+
+func fuel_up() -> void: 
+	bloody_engine.fuel_up(1)
 
 func on_death() -> void:
 	if nb_xp == 1:

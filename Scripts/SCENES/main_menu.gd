@@ -42,15 +42,32 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 
-func _on_training_pressed() -> void:
-	SceneManager.commands_displayed = true
-	SceneManager.load_level(SceneManager.SCENES.COMMANDS)
-	#CarManager.selected_car = CarManager.cars[0]
-	#SceneManager.load_level(tuto_scene)
-
-
 func _on_skip_tuto_pressed() -> void:
 	if !SceneManager.tuto_completed :
 		SceneManager.tuto_completed = true
 
 	else : SceneManager.tuto_completed = false
+
+
+func _on_god_mode_pressed() -> void:
+		lunch_god_mode()
+		SignalManager.emit_signal("game_paused",false)
+
+
+func lunch_god_mode() -> void : 
+		GameMaster.game_mode = GameMaster.GAME_MODES.GOD
+		TimeManager.day_lenght = 120
+		SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
+	
+
+
+func _on_commands_pressed() -> void:
+	SceneManager.load_level(SceneManager.SCENES.COMMANDS)
+	SceneManager.commands_from_menu = true
+
+
+func _on_race_pressed() -> void:
+	CarManager.selected_car = CarManager.cars[0]
+	CarManager.selected_car.init_stats()
+
+	SceneManager.load_level(SceneManager.SCENES.RACE)

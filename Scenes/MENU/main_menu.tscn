@@ -89,6 +89,30 @@ flat = true
 alignment = 0
 script = ExtResource("4_k2e8w")
 
+[node name="GodMode" type="Button" parent="VBoxContainer" unique_id=1806008062]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_constants/h_separation = 24
+theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
+text = "GOD MODE"
+flat = true
+alignment = 0
+script = ExtResource("4_k2e8w")
+
+[node name="Race" type="Button" parent="VBoxContainer" unique_id=1116588153]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_constants/h_separation = 24
+theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
+text = "RACE"
+flat = true
+alignment = 0
+script = ExtResource("4_k2e8w")
+
 [node name="Commands" type="Button" parent="VBoxContainer" unique_id=1629790083]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
@@ -115,5 +139,7 @@ script = ExtResource("4_k2e8w")
 
 [connection signal="pressed" from="VBoxContainer/SkipTuto" to="." method="_on_skip_tuto_pressed"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Commands" to="." method="_on_training_pressed"]
+[connection signal="pressed" from="VBoxContainer/GodMode" to="." method="_on_god_mode_pressed"]
+[connection signal="pressed" from="VBoxContainer/Race" to="." method="_on_race_pressed"]
+[connection signal="pressed" from="VBoxContainer/Commands" to="." method="_on_commands_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

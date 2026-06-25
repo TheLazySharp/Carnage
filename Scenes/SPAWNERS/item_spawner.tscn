@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://drma1if8gpubc"]
+
+[ext_resource type="Script" uid="uid://csu6k6gclapv1" path="res://Scripts/SPAWNERS/item_spawner.gd" id="1_xx0ks"]
+[ext_resource type="PackedScene" uid="uid://dabv2qw4pbmwk" path="res://Scenes/ITEMS/item.tscn" id="2_hmt3m"]
+
+[node name="ItemSpawner" type="Node2D" unique_id=951681507]
+script = ExtResource("1_xx0ks")
+scene_to_spawn = ExtResource("2_hmt3m")
+spawn_rate = 10.0
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1870852999]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

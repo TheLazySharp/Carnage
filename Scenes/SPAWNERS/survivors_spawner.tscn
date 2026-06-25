@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b4wjlmxtijley"]
+
+[ext_resource type="Script" uid="uid://cut6npligxxy7" path="res://Scripts/SPAWNERS/survivor_spawner.gd" id="1_8rk27"]
+[ext_resource type="PackedScene" uid="uid://bqpy6ahyrnpd0" path="res://Scenes/CHARACTERS/survivor_in_game.tscn" id="2_d7txv"]
+
+[node name="Survivors" type="Node2D" unique_id=1248185741]
+script = ExtResource("1_8rk27")
+scene_to_spawn = ExtResource("2_d7txv")
