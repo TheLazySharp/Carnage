@@ -10,5 +10,6 @@ target_ressource = 1
 target_stats = Array[int]([11, 9])
 target_stats_values = Array[float]([10.0, -5.0])
 target_stats_modifier_types = Array[int]([0, 0])
+target_weapon_types = 6
 icon = ExtResource("1_3074f")
 metadata/_custom_type_script = "uid://71ta02ofykhp"

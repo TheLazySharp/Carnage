@@ -2,7 +2,7 @@ class_name DamageLabelPool
 extends Node2D
 
 @export var label_scene : PackedScene
-@export var pool_size: int = 400
+@export var pool_size: int = 1000
 var label_pool : Array[Label] = []
 
 

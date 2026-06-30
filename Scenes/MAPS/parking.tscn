@@ -1316,6 +1316,7 @@ position = Vector2(182.91919, 236.8193)
 enemy_type = 2
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("73_tk2je")]
+is_active = true
 
 [node name="Marker1" parent="Spawners/ColossArrival" index="0" unique_id=624590813]
 position = Vector2(20.901855, 172.28784)

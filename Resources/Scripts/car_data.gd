@@ -23,7 +23,7 @@ class_name CarData
 @export var turn_speed := 3.2
 @export var velocity_floor:= 50
 @export var burnout_boost := 200
-@export var dash_fuel_down := 20
+@export var dash_fuel_down := 10
 
 
 @export_group("DRIFT")

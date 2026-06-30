@@ -21,6 +21,23 @@ border_color = Color(1, 0.776, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwclg"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfktb"]
+bg_color = Color(1, 1, 1, 1)
+skew = Vector2(0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42lo8"]
+bg_color = Color(1, 0.7764706, 0, 1)
+skew = Vector2(0.6, 0)
+
 [node name="CarSelection" type="Control" unique_id=1948324265]
 layout_mode = 3
 anchors_preset = 15
@@ -167,22 +184,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -182.0
-offset_top = -147.0
-offset_right = 181.0
-offset_bottom = 147.0
+offset_left = -274.5
+offset_top = -160.5
+offset_right = 272.5
+offset_bottom = 109.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 30
 
 [node name="Stats" type="VBoxContainer" parent="CarID/StatsPanel/HBoxContainer" unique_id=829407943]
+custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 24
 
-[node name="Fuel" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=1025848201]
+[node name="Life" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=1025848201]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_alyf3")
 theme_override_font_sizes/font_size = 24
-text = "Fuel :"
+text = "Life"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("6_usysd")
+
+[node name="FuelTank" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=1589405449]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_alyf3")
+theme_override_font_sizes/font_size = 24
+text = "Fuel tank"
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("6_usysd")
 
@@ -190,7 +219,8 @@ script = ExtResource("6_usysd")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_alyf3")
 theme_override_font_sizes/font_size = 24
-text = "Speed :"
+text = "Speed"
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("6_usysd")
 
@@ -198,15 +228,8 @@ script = ExtResource("6_usysd")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_alyf3")
 theme_override_font_sizes/font_size = 24
-text = "Acceleration :"
-vertical_alignment = 1
-script = ExtResource("6_usysd")
-
-[node name="Dmg" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=1377702105]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "Damages :"
+text = "Acceleration"
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("6_usysd")
 
@@ -214,109 +237,84 @@ script = ExtResource("6_usysd")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_alyf3")
 theme_override_font_sizes/font_size = 24
-text = "Drift :"
+text = "Drift"
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("6_usysd")
 
-[node name="Tires" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=954003596]
+[node name="Dmg" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=1377702105]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_alyf3")
 theme_override_font_sizes/font_size = 24
-text = "Nitro up :"
-vertical_alignment = 1
-script = ExtResource("6_usysd")
-
-[node name="DashLenght" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=1701169714]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "Dash duration :"
-vertical_alignment = 1
-script = ExtResource("6_usysd")
-
-[node name="DashDmg" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=158070298]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "Dash damages boost :"
+text = "Damages"
+horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("6_usysd")
 
 [node name="Levels" type="VBoxContainer" parent="CarID/StatsPanel/HBoxContainer" unique_id=554250343]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 28
 
-[node name="Fuel_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=816290780]
+[node name="LifeBar" type="ProgressBar" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1630530152]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "1000"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 10.0
+value = 200.0
+show_percentage = false
 
-[node name="Speed_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1428297464]
+[node name="FuelBar" type="ProgressBar" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1025284989]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "200"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 10.0
+value = 200.0
+show_percentage = false
 
-[node name="Torque_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=922292751]
+[node name="SpeedBar" type="ProgressBar" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=174094143]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 10.0
+value = 200.0
+show_percentage = false
 
-[node name="Dmg_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1956797462]
+[node name="TorqueBar" type="ProgressBar" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=803214331]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 10.0
+value = 200.0
+show_percentage = false
 
-[node name="Drift_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1075327012]
+[node name="DriftBar" type="ProgressBar" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=603190164]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "10"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 0.1
+value = 200.0
+show_percentage = false
 
-[node name="Tires_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1717936738]
+[node name="DamagesBar" type="ProgressBar" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1674899974]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "10"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
-
-[node name="Dash_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1767730044]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "10"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
-
-[node name="Crit_lvl" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=14442377]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_alyf3")
-theme_override_font_sizes/font_size = 24
-text = "10"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("6_usysd")
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 1.0
+value = 200.0
+show_percentage = false
 
 [node name="RightArrow" type="TextureRect" parent="CarID" unique_id=1159971362]
 layout_mode = 1

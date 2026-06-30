@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://bj3qouo8llu14" path="res://Assets/Audio/SFX/Car/Beeps/beep_close.mp3" id="23_vd0i7"]
 [ext_resource type="Script" uid="uid://bqwvqyc8nxkoq" path="res://Scripts/CHARACTERS/PLAYER/drift_manager.gd" id="24_s25yl"]
 [ext_resource type="Script" uid="uid://c5ljb2upjo7kq" path="res://Scripts/CHARACTERS/PLAYER/bloody_engine.gd" id="25_vd0i7"]
+[ext_resource type="PackedScene" uid="uid://c7xodcdtwfaaw" path="res://Scenes/VFX/blood_vaccum.tscn" id="26_3jhd0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 height = 42.0
@@ -154,7 +155,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s25yl")
 }],
-"loop": false,
+"loop": 0,
 "name": &"fadeIn",
 "speed": 8.0
 }, {
@@ -186,7 +187,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xwkp5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"fadeOut",
 "speed": 16.0
 }, {
@@ -227,7 +228,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cfhr5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 16.0
 }]
@@ -314,7 +315,7 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": false,
+"loop": 0,
 "name": &"Explosion",
 "speed": 7.0
 }]
@@ -324,8 +325,11 @@ offsets = PackedFloat32Array(0, 0.6262626, 1)
 colors = PackedColorArray(0.78072965, 0, 0.008172217, 1, 1, 0.47843137, 0.17254902, 1, 1, 1, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vd0i7"]
+resource_local_to_scene = true
 shader = ExtResource("17_s25yl")
 shader_parameter/active = false
+shader_parameter/blood_tint = Color(0.55, 0.12, 0.12, 1)
+shader_parameter/blood_amount = 0.0
 
 [sub_resource type="Animation" id="Animation_3arfo"]
 length = 0.001
@@ -424,7 +428,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iish4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"moving",
 "speed": 8.0
 }]
@@ -671,6 +675,7 @@ parameters/looping = true
 
 [node name="BloodyEngine" type="Node2D" parent="." unique_id=1712951826]
 script = ExtResource("25_vd0i7")
+vaccum_particles_scene = ExtResource("26_3jhd0")
 
 [connection signal="animation_finished" from="RearLeft/RearLeftBurnAnim" to="." method="_on_rear_left_burn_anim_animation_finished"]
 [connection signal="animation_finished" from="RearRight/RearRightBurnAnim" to="." method="_on_rear_right_burn_animation_finished"]

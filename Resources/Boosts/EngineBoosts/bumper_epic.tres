@@ -10,6 +10,7 @@ target_ressource = 1
 target_stats = Array[int]([13])
 target_stats_values = Array[float]([2.0])
 target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 6
 icon = ExtResource("1_7txlt")
 rarity = 2
 metadata/_custom_type_script = "uid://71ta02ofykhp"

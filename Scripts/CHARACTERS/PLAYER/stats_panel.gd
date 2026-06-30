@@ -2,24 +2,13 @@ extends Panel
 
 var car : CarData
 
+@onready var life_bar: ProgressBar = $HBoxContainer/Levels/LifeBar
+@onready var fuel_bar: ProgressBar = $HBoxContainer/Levels/FuelBar
+@onready var speed_bar: ProgressBar = $HBoxContainer/Levels/SpeedBar
+@onready var torque_bar: ProgressBar = $HBoxContainer/Levels/TorqueBar
+@onready var drift_bar: ProgressBar = $HBoxContainer/Levels/DriftBar
+@onready var damages_bar: ProgressBar = $HBoxContainer/Levels/DamagesBar
 
-@onready var fuel: Label = $HBoxContainer/Stats/Fuel
-@onready var speed: Label = $HBoxContainer/Stats/Speed
-@onready var torque: Label = $HBoxContainer/Stats/Torque
-@onready var dmg: Label = $HBoxContainer/Stats/Dmg
-@onready var drift: Label = $HBoxContainer/Stats/Drift
-@onready var tires: Label = $HBoxContainer/Stats/Tires
-@onready var dash_lenght: Label = $HBoxContainer/Stats/DashLenght
-@onready var dash_dmg: Label = $HBoxContainer/Stats/DashDmg
-
-@onready var fuel_lvl: Label = $HBoxContainer/Levels/Fuel_lvl
-@onready var speed_lvl: Label = $HBoxContainer/Levels/Speed_lvl
-@onready var torque_lvl: Label = $HBoxContainer/Levels/Torque_lvl
-@onready var dmg_lvl: Label = $HBoxContainer/Levels/Dmg_lvl
-@onready var drift_lvl: Label = $HBoxContainer/Levels/Drift_lvl
-@onready var tires_lvl: Label = $HBoxContainer/Levels/Tires_lvl
-@onready var dash_lvl: Label = $HBoxContainer/Levels/Dash_lvl
-@onready var crit_lvl: Label = $HBoxContainer/Levels/Crit_lvl
 
 
 func _ready() -> void:
@@ -31,6 +20,13 @@ func _ready() -> void:
 	update_stats()
 	self.visibility_changed.connect(update_stats)
 	SignalManager.stats_updated.connect(_on_stats_updated)
+	
+	life_bar.max_value = 500
+	fuel_bar.max_value = 70
+	speed_bar.max_value = 800
+	torque_bar.max_value = 350
+	drift_bar.max_value = 4
+	damages_bar.max_value = 5
 
 
 func update_stats() -> void : 
@@ -39,15 +35,12 @@ func update_stats() -> void :
 	else : 
 		car = CarManager.selected_car
 
-	
-	fuel_lvl.text = str(roundi(car.max_life.get_value()))
-	speed_lvl.text = str(roundi(car.display_max_speed.get_value()))
-	torque_lvl.text = str(roundi(car.acceleration.get_value()))
-	dmg_lvl.text = str(roundi(car.dmg.get_value()))
-	drift_lvl.text = str(car.drift_turn_bonus.get_value() + car.turn_speed)
-	tires_lvl.text = str(roundi(car.nitro_up.get_value()))
-	dash_lvl.text = str(car.dash_duration.get_value())
-	crit_lvl.text = str(car.dash_dmg_bonus.get_value())
+	life_bar.value = car.max_life.get_value()
+	fuel_bar.value = car.max_fuel.get_value()
+	speed_bar.value = car.max_speed.get_value()
+	torque_bar.value = car.acceleration.get_value()
+	drift_bar.value = car.drift_turn_bonus.get_value()
+	damages_bar.value = car.dmg.get_value()
 
 
 func _on_visibility_changed() -> void:

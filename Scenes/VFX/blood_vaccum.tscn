@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c7xodcdtwfaaw"]
+
+[sub_resource type="Gradient" id="Gradient_dfktb"]
+colors = PackedColorArray(1.338125, 0.0010112295, 0, 1, 0.7739056, 0, 0, 0)
+
+[node name="BloodVaccum" type="CPUParticles2D" unique_id=2088227463]
+emitting = false
+amount = 48
+lifetime = 0.45
+one_shot = true
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 48.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 15.0
+radial_accel_min = -600.0
+radial_accel_max = -400.0
+tangential_accel_min = 40.0
+tangential_accel_max = 140.0
+damping_min = 20.0
+damping_max = 45.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_dfktb")

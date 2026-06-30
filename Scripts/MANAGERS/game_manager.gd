@@ -15,6 +15,7 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_leveling_pause)
 	ShopManager.load_pools()
 	ItemManager.load_pools()
+	TimeManager.load_time()
 	
 func _process(_delta: float) -> void:
 	process_inputs()

@@ -209,6 +209,8 @@ func get_damages(damages: int) -> void:
 		if current_life <= 0:
 			current_life = 0
 			call_deferred("on_death")
+			call_deferred("fuel_up") # TO CHANGE
+			
 
 func get_damages_from_car(damages: int) -> void:
 	if not game_paused:
@@ -249,6 +251,7 @@ func _on_game_paused(game_on_pause: bool) -> void:
 
 
 func fuel_up() -> void: 
+	bloody_engine.bloody_vaccum()
 	bloody_engine.fuel_up(1)
 
 func on_death() -> void:

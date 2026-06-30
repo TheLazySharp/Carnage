@@ -10,7 +10,6 @@ var active_time : float
 var tracking_time : bool = false
 
 func _ready() -> void:
-	day_lenght = 120 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 60
 	active_time = 0.0
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.next_day.connect(_on_raid_end)
@@ -35,3 +34,7 @@ func _on_game_over(_game_is_over : bool) -> void :
 
 func _on_timer_start() -> void : 
 	tracking_time = true
+
+func load_time() -> void : 
+	day_lenght = 60 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 60
+	

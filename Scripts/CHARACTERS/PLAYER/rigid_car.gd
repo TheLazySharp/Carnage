@@ -14,6 +14,7 @@ var display_max_speed : float
 var nitro_up : float
 var collect_radius : float
 var drift_turn_bonus : float
+var max_fuel : float
 
 
 var max_backward_speed : int
@@ -136,6 +137,7 @@ func _ready() -> void:
 	dash_dmg_bonus = player.dash_dmg_bonus.get_value()
 	max_life = player.max_life.get_value()
 	drift_turn_bonus = player.drift_turn_bonus.get_value()
+	max_fuel = player.max_fuel.get_value()
 	
 	rear_left_burn_anim.hide()
 	rear_right_burn_anim.hide()
@@ -161,7 +163,7 @@ func _ready() -> void:
 	drift_manager.init_drift(self,player,rear_left,rear_right)
 
 	#FUEL
-	bloody_engine.init_bloody_engine(player)
+	bloody_engine.init_bloody_engine(player,car_sprite)
 	
 	#AUDIO
 	start_engine_sound = player.start_engine_Sound
