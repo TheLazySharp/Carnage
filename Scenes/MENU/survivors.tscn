@@ -306,6 +306,141 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_d0hfw")
 
+[node name="PNJ5" type="Button" parent="MarginContainer/BoxContainer" unique_id=75028845]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ5" unique_id=1316572796]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_ekey8")
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ5" unique_id=550636928]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ5" unique_id=467750776]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
+[node name="PNJ6" type="Button" parent="MarginContainer/BoxContainer" unique_id=234691376]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ6" unique_id=1418634966]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_ekey8")
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ6" unique_id=1044269695]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ6" unique_id=1998125237]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
+[node name="PNJ7" type="Button" parent="MarginContainer/BoxContainer" unique_id=4442230]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+toggle_mode = true
+button_group = ExtResource("3_yfpg6")
+script = ExtResource("4_gha5h")
+
+[node name="PNJName" type="Label" parent="MarginContainer/BoxContainer/PNJ7" unique_id=1179467262]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_nea1d")
+theme_override_font_sizes/font_size = 24
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_ekey8")
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/BoxContainer/PNJ7" unique_id=875667660]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/BoxContainer/PNJ7" unique_id=300973600]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d0hfw")
+
 [node name="SurvivorBio" type="Control" parent="." unique_id=586123811]
 layout_mode = 1
 anchors_preset = 6
@@ -455,5 +590,8 @@ script = ExtResource("11_0cx78")
 [connection signal="pressed" from="MarginContainer/BoxContainer/PNJ2" to="MarginContainer/BoxContainer/PNJ2" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/BoxContainer/PNJ3" to="MarginContainer/BoxContainer/PNJ3" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/BoxContainer/PNJ4" to="MarginContainer/BoxContainer/PNJ4" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ5" to="MarginContainer/BoxContainer/PNJ5" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ6" to="MarginContainer/BoxContainer/PNJ6" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/PNJ7" to="MarginContainer/BoxContainer/PNJ7" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/Select" to="." method="_on_select_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

@@ -58,7 +58,11 @@ func lunch_god_mode() -> void :
 		GameMaster.game_mode = GameMaster.GAME_MODES.GOD
 		TimeManager.day_lenght = 120
 		SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
-	
+
+
+func lunch_sandbox() -> void : 
+	GameMaster.game_mode = GameMaster.GAME_MODES.SANDBOX
+	SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
 
 
 func _on_commands_pressed() -> void:
@@ -71,3 +75,8 @@ func _on_race_pressed() -> void:
 	CarManager.selected_car.init_stats()
 
 	SceneManager.load_level(SceneManager.SCENES.RACE)
+
+
+func _on_sandbox_pressed() -> void:
+	lunch_sandbox()
+	SignalManager.emit_signal("sandbox_mode")

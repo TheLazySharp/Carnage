@@ -17,7 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://dphqrbyjduulq" path="res://Assets/Audio/SFX/Car/car-engine-starting.mp3" id="12_s25yl"]
 [ext_resource type="AudioStream" uid="uid://btw3ucq0agu40" path="res://Assets/Audio/SFX/Car/car crash.mp3" id="13_in73v"]
 [ext_resource type="Script" uid="uid://b1scnpur1dpt5" path="res://Scripts/CHARACTERS/PLAYER/engine_audio_manager.gd" id="14_iish4"]
-[ext_resource type="Texture2D" uid="uid://brb3qquidnmhm" path="res://Assets/Characters/Cars/sedan.png" id="16_s25yl"]
+[ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="16_3jhd0"]
 [ext_resource type="Shader" uid="uid://d1quj0fpa74xf" path="res://Shaders/flash.gdshader" id="17_s25yl"]
 [ext_resource type="Script" uid="uid://cxh3wfsxbjuvm" path="res://Scripts/CHARACTERS/PLAYER/enemies_detection_area.gd" id="18_qdvgx"]
 [ext_resource type="Script" uid="uid://cgiigywajssx1" path="res://Scripts/CHARACTERS/PLAYER/car_beacon.gd" id="21_3arfo"]
@@ -28,7 +28,8 @@
 [ext_resource type="PackedScene" uid="uid://c7xodcdtwfaaw" path="res://Scenes/VFX/blood_vaccum.tscn" id="26_3jhd0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
-height = 42.0
+radius = 24.0
+height = 100.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_in73v"]
 atlas = ExtResource("3_s0c68")
@@ -237,12 +238,9 @@ animations = [{
 offsets = PackedFloat32Array(0, 0.34343433, 0.46464646)
 colors = PackedColorArray(0, 0, 0, 1, 0.16835018, 0.16835018, 0.16835018, 1, 1, 1, 1, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rsha1"]
-radius = 36.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwwk2"]
-radius = 12.0
-height = 44.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jhd0"]
+radius = 30.0
+height = 120.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qdvgx"]
 streams_count = 3
@@ -324,6 +322,49 @@ animations = [{
 offsets = PackedFloat32Array(0, 0.6262626, 1)
 colors = PackedColorArray(0.78072965, 0, 0.008172217, 1, 1, 0.47843137, 0.17254902, 1, 1, 1, 0, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpuix"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyq23"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3qw6"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdvgx"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iish4"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_in73v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpuix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyq23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3qw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdvgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iish4")
+}],
+"loop": 1,
+"name": &"moving",
+"speed": 8.0
+}]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vd0i7"]
 resource_local_to_scene = true
 shader = ExtResource("17_s25yl")
@@ -390,55 +431,8 @@ _data = {
 &"flash": SubResource("Animation_s25yl")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tpuix"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(0, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pyq23"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(32, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y3qw6"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(64, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdvgx"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(96, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iish4"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(128, 0, 32, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_in73v"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tpuix")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pyq23")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y3qw6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qdvgx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iish4")
-}],
-"loop": 1,
-"name": &"moving",
-"speed": 8.0
-}]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y3qw6"]
-height = 42.0
-
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
-scale = Vector2(1.5, 1.5)
 collision_mask = 393754
 motion_mode = 1
 wall_min_slide_angle = 1.3962634
@@ -452,12 +446,12 @@ ghost_scene = ExtResource("2_nbj0p")
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
 visible = false
 z_as_relative = false
-position = Vector2(-12, 0)
+position = Vector2(-30, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ly7qr")
 
 [node name="RearLeft" type="Marker2D" parent="." unique_id=269822107]
-position = Vector2(-26, -9)
+position = Vector2(-76.5, -16.5)
 
 [node name="RearLeftBurnAnim" type="AnimatedSprite2D" parent="RearLeft" unique_id=584128568]
 visible = false
@@ -468,7 +462,7 @@ sprite_frames = SubResource("SpriteFrames_k282b")
 animation = &"fadeOut"
 
 [node name="DrivinSmokeL2" type="CPUParticles2D" parent="RearLeft" unique_id=262545815]
-position = Vector2(-5, 0)
+position = Vector2(-2.2109375, -0.015625)
 emitting = false
 amount = 20
 lifetime = 0.1
@@ -485,15 +479,24 @@ color_ramp = SubResource("Gradient_s25yl")
 
 [node name="RearLeftLight" type="ColorRect" parent="RearLeft" unique_id=917175822]
 z_index = 2
-offset_left = -2.0
-offset_right = -0.66666794
-offset_bottom = 0.9999981
+offset_right = 1.5
+offset_bottom = 3.0
+color = Color(3, 0.1, 0.1, 0.9)
+
+[node name="RearLeftLight2" type="ColorRect" parent="RearLeft" unique_id=1379393109]
+z_index = 2
+offset_top = 4.5
+offset_right = 1.5
+offset_bottom = 7.5
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -0.5)
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="RearRight" type="Marker2D" parent="." unique_id=278920196]
-position = Vector2(-26, 9)
+position = Vector2(-76.515625, 13.4921875)
 
 [node name="RearRightBurnAnim" type="AnimatedSprite2D" parent="RearRight" unique_id=438628624]
+visible = false
 position = Vector2(-12.999994, 0)
 rotation = -1.5707964
 scale = Vector2(0.5, 0.5)
@@ -519,10 +522,17 @@ color_ramp = SubResource("Gradient_s25yl")
 
 [node name="RearRightLight" type="ColorRect" parent="RearRight" unique_id=519623567]
 z_index = 2
-offset_left = -2.0
-offset_top = -0.66666603
-offset_right = -0.66666794
-offset_bottom = 0.33333397
+offset_right = 1.5
+offset_bottom = 3.0
+color = Color(3, 0.1, 0.1, 0.9)
+
+[node name="RearRightLight2" type="ColorRect" parent="RearRight" unique_id=107812700]
+z_index = 2
+offset_top = -4.5
+offset_right = 1.5
+offset_bottom = -1.5
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -0.5)
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
@@ -533,8 +543,9 @@ monitoring = false
 script = ExtResource("7_in73v")
 
 [node name="CollectZone" type="CollisionShape2D" parent="CollectZone" unique_id=765999217 groups=["player"]]
-position = Vector2(-12, 0)
-shape = SubResource("CircleShape2D_rsha1")
+position = Vector2(-30, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_3jhd0")
 debug_color = Color(0.65457684, 0.5179122, 0, 0.41960785)
 
 [node name="TakingDamages" type="Timer" parent="." unique_id=331584337]
@@ -542,12 +553,13 @@ wait_time = 0.3
 one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1336259982 groups=["player"]]
+visible = false
 collision_mask = 262146
 
 [node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532 groups=["player"]]
-position = Vector2(-11.333336, 0)
+position = Vector2(-30, 0)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_hwwk2")
+shape = SubResource("CapsuleShape2D_ly7qr")
 debug_color = Color(0.9344128, 0.1669651, 0.49408865, 0.41960785)
 
 [node name="Weapons" type="Node2D" parent="." unique_id=997323365]
@@ -598,8 +610,8 @@ randomness = 0.15
 fixed_fps = 30
 draw_order = 1
 emission_shape = 6
-emission_ring_inner_radius = 1.0
-emission_ring_radius = 3.0
+emission_ring_inner_radius = 8.0
+emission_ring_radius = 8.0
 particle_flag_align_y = true
 direction = Vector2(1, 1)
 spread = 180.0
@@ -611,19 +623,8 @@ scale_amount_max = 4.0
 color = Color(0.87437004, 0.39763713, 0, 1)
 color_ramp = SubResource("Gradient_3arfo")
 
-[node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
-z_index = 1
-material = SubResource("ShaderMaterial_vd0i7")
-rotation = 1.5707964
-texture = ExtResource("16_s25yl")
-offset = Vector2(0, 12)
-
-[node name="Flash" type="AnimationPlayer" parent="CarSprite" unique_id=573113732]
-root_node = NodePath("../../VFX")
-libraries/ = SubResource("AnimationLibrary_vd0i7")
-
 [node name="MineMarker" type="Marker2D" parent="." unique_id=1503101015]
-position = Vector2(-37.539063, -0.0234375)
+position = Vector2(-82.01625, 0.028690338)
 
 [node name="TutoArrow" type="Marker2D" parent="." unique_id=841650673]
 position = Vector2(34, 0)
@@ -641,14 +642,13 @@ wait_time = 0.15
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=707894945]
 
 [node name="EnemiesDetectionArea" type="Area2D" parent="." unique_id=1481692765]
-visible = false
 collision_mask = 2
 script = ExtResource("18_qdvgx")
 
 [node name="EnemiesDetectionShape" type="CollisionShape2D" parent="EnemiesDetectionArea" unique_id=385055825]
-position = Vector2(-12, 0)
+position = Vector2(-30, 0)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_y3qw6")
+shape = SubResource("CapsuleShape2D_ly7qr")
 debug_color = Color(0.94509804, 0, 0, 0.41960785)
 
 [node name="Beacon" type="Node2D" parent="." unique_id=1728405434]
@@ -676,6 +676,18 @@ parameters/looping = true
 [node name="BloodyEngine" type="Node2D" parent="." unique_id=1712951826]
 script = ExtResource("25_vd0i7")
 vaccum_particles_scene = ExtResource("26_3jhd0")
+
+[node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
+z_index = 1
+material = SubResource("ShaderMaterial_vd0i7")
+rotation = 1.5707964
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("16_3jhd0")
+offset = Vector2(0, 20)
+
+[node name="Flash" type="AnimationPlayer" parent="CarSprite" unique_id=573113732]
+root_node = NodePath("../../VFX")
+libraries/ = SubResource("AnimationLibrary_vd0i7")
 
 [connection signal="animation_finished" from="RearLeft/RearLeftBurnAnim" to="." method="_on_rear_left_burn_anim_animation_finished"]
 [connection signal="animation_finished" from="RearRight/RearRightBurnAnim" to="." method="_on_rear_right_burn_animation_finished"]

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CarData" format=3 uid="uid://dubbw5mialr30"]
+
+[ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="1_ppqqq"]
+[ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_slxi1"]
+[ext_resource type="AudioStream" uid="uid://fck7cw0ivdco" path="res://Assets/Audio/SFX/Car/car-engine-ignite.mp3" id="3_f42j2"]
+
+[resource]
+script = ExtResource("2_slxi1")
+car_name = "Skyline"
+base_acceleration = 150
+base_display_max_speed = 200
+base_dmg = 1
+base_dash_dmg_bonus = 2.0
+base_nitro_up = 50
+base_drift_turn_bonus = 3.0
+base_dash_duration = 0.8
+friction = 100.0
+turn_speed = 2.6
+max_drift_damping = 0.0
+min_drift_speed = 120.0
+start_engine_Sound = ExtResource("3_f42j2")
+car_sprite = ExtResource("1_ppqqq")
+metadata/_custom_type_script = "uid://cgs6g466ko5c0"

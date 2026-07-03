@@ -21,11 +21,11 @@ enum GAME_MODES {
 	DEV,
 	BUILD,
 	RELEASE,
-	GOD
+	GOD,
+	SANDBOX
 }
 
 var game_mode : GAME_MODES
 
 func _ready() -> void:
-	
 	game_mode = GAME_MODES.DEV

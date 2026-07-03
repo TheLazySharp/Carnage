@@ -19,6 +19,7 @@ signal picked_up_survivor(new_survivor : SurvivorData)
 signal in_game_survivor_queuefree
 
 func _ready() -> void:
+	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
 	unknown_survivors.append(LEO)
 	unknown_survivors.append(VIKTOR)
 	unknown_survivors.append(MARINA)
@@ -31,7 +32,7 @@ func _ready() -> void:
 	#known_survivors.append(BORIS)
 	#known_survivors.append(LEO)
 	#known_survivors.append(MARINA)
-	
+
 func select_survivor(new_survivor : SurvivorData) -> void : 
 	if known_survivors.has(new_survivor):
 		on_board_survivors.append(new_survivor)
@@ -46,3 +47,13 @@ func pick_up_survivor(new_survivor : SurvivorData) -> void :
 
 func unload() -> void :
 	on_board_survivors.clear()
+
+func _on_sandbox_mode() -> void : 
+	known_survivors.clear()
+	unknown_survivors.clear()
+	known_survivors.append(JAVIER)
+	known_survivors.append(VIKTOR)
+	known_survivors.append(BORIS)
+	known_survivors.append(LEO)
+	known_survivors.append(MARINA)
+	print("sandbox mode survivor")

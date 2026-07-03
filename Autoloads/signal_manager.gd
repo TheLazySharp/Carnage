@@ -86,3 +86,6 @@ signal weapon_stats_initiated(weapon : WeaponData)
 
 @warning_ignore("unused_signal")
 signal player_invincible(invincible : bool)
+
+@warning_ignore("unused_signal")
+signal sandbox_mode

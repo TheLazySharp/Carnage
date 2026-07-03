@@ -15,7 +15,8 @@ enum SCENES {
 	HOME,
 	CAR_LEVELUP,
 	GOD_MOD_TRAINING,
-	RACE
+	RACE,
+	SANDBOX
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -37,7 +38,8 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.CAR_LEVELUP : "uid://cum1kdgu8a1di",
 	SCENES.GOD_MOD_TRAINING : "uid://df565yrwfqn1v",
 	#SCENES.GOD_MOD_TRAINING : "uid://dyy6lm0fy0oqs"
-	SCENES.RACE :"uid://cftayor44iqic"
+	SCENES.RACE : "uid://cftayor44iqic",
+	SCENES.SANDBOX : "uid://3akvde2gonk6"
 }
 
 

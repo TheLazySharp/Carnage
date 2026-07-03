@@ -51,6 +51,9 @@ func _on_select_pressed() -> void:
 			SceneManager.load_level(SceneManager.SCENES.ROADMAP)
 		GameMaster.GAME_MODES.GOD:
 			SceneManager.load_level(SceneManager.SCENES.GOD_MOD_TRAINING)
+		GameMaster.GAME_MODES.SANDBOX:
+			SceneManager.load_level(SceneManager.SCENES.SANDBOX)
+		
 
 
 func _on_back_pressed() -> void:

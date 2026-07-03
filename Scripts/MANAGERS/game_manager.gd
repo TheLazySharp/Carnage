@@ -4,6 +4,9 @@ var game_on_pause:= false
 var day_is_ended:=false
 var game_is_over:= false
 
+@onready var directional_light_2d: DirectionalLight2D = $"../DirectionalLight2D"
+
+
 
 @onready var player: CharacterBody2D = $"../Car"
 @onready var pause_manager: Control = $"../CanvasLayer/Pause"
