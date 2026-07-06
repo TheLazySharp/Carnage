@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_slxi1")
 car_name = "Skyline"
-base_acceleration = 150
+base_acceleration = 200
 base_display_max_speed = 200
 base_dmg = 1
 base_dash_dmg_bonus = 2.0

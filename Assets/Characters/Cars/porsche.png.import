@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj5q528ksj8is"
-path="res://.godot/imported/cab.png-7a165022911720f52b95c6be0c1039f2.ctex"
+uid="uid://ceyy8wrw5m37a"
+path="res://.godot/imported/porsche.png-4b14a34499224a3a9c661842cceb1a0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Cars/cab.png"
-dest_files=["res://.godot/imported/cab.png-7a165022911720f52b95c6be0c1039f2.ctex"]
+source_file="res://Assets/Characters/Cars/porsche.png"
+dest_files=["res://.godot/imported/porsche.png-4b14a34499224a3a9c661842cceb1a0f.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7e3axyq4s1m0"
-path="res://.godot/imported/police.png-aec23c34b1fa3c4bb56328940508f795.ctex"
+uid="uid://e7impqfhx8fa"
+path="res://.godot/imported/buggy.png-d84375fac20bc80243f9e14a522107dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Cars/police.png"
-dest_files=["res://.godot/imported/police.png-aec23c34b1fa3c4bb56328940508f795.ctex"]
+source_file="res://Assets/Characters/Cars/buggy.png"
+dest_files=["res://.godot/imported/buggy.png-d84375fac20bc80243f9e14a522107dc.ctex"]
 
 [params]
 

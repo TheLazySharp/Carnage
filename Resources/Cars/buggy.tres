@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CarData" format=3 uid="uid://b7vsscuy32osn"]
+
+[ext_resource type="Texture2D" uid="uid://e7impqfhx8fa" path="res://Assets/Characters/Cars/buggy.png" id="1_vtqsa"]
+[ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_bcjb0"]
+[ext_resource type="AudioStream" uid="uid://dphqrbyjduulq" path="res://Assets/Audio/SFX/Car/car-engine-starting.mp3" id="3_bx6nj"]
+
+[resource]
+script = ExtResource("2_bcjb0")
+car_name = "Buggy"
+base_acceleration = 100
+base_max_speed = 300
+base_max_life = 500
+base_display_max_speed = 190
+base_dmg = 5
+base_dash_dmg_bonus = 2.0
+base_drift_turn_bonus = 3.0
+base_max_fuel = 65
+turn_speed = 2.3
+velocity_floor = 30
+start_engine_Sound = ExtResource("3_bx6nj")
+car_sprite = ExtResource("1_vtqsa")
+metadata/_custom_type_script = "uid://cgs6g466ko5c0"

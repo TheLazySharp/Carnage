@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CarData" format=3 uid="uid://ol2ay5qpng31"]
+
+[ext_resource type="Texture2D" uid="uid://ceyy8wrw5m37a" path="res://Assets/Characters/Cars/porsche.png" id="1_2leby"]
+[ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_sbo6d"]
+[ext_resource type="AudioStream" uid="uid://fck7cw0ivdco" path="res://Assets/Audio/SFX/Car/car-engine-ignite.mp3" id="3_dycvk"]
+
+[resource]
+script = ExtResource("2_sbo6d")
+car_name = "Sporster"
+base_max_speed = 700
+base_max_life = 180
+base_dmg = 3
+base_dash_dmg_bonus = 2.0
+base_max_fuel = 35
+friction = 700.0
+start_engine_Sound = ExtResource("3_dycvk")
+car_sprite = ExtResource("1_2leby")
+metadata/_custom_type_script = "uid://cgs6g466ko5c0"
