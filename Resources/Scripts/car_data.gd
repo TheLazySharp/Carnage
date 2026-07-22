@@ -2,6 +2,7 @@ extends Resource
 class_name CarData
 
 @export var car_name : String
+@export var seats : int = 5
 
 
 @export_group("MAIN STATS")

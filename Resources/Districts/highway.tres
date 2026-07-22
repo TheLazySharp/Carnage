@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://bbone8fusq45o"]
+
+[ext_resource type="Texture2D" uid="uid://b0qia31ffr14m" path="res://Assets/Items/turbo.png" id="1_cqcm0"]
+[ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="2_22o50"]
+
+[resource]
+script = ExtResource("2_22o50")
+type = 2
+icon = ExtResource("1_cqcm0")
+metadata/_custom_type_script = "uid://csefvr5yw2th"

@@ -13,7 +13,7 @@ var base_position : Vector2
 var idle_tween : Tween = null
 
 func _ready() -> void:
-	text = "Save me !"
+	text = "Help me !"
 	pivot_offset = size * 0.5
 	base_position = bubble_offset
 	position = base_position

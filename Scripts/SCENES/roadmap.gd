@@ -4,6 +4,9 @@ class_name  RoadMap
 const SCROLL_SPEED : int = 15
 const MAP_LINE = preload("uid://c1x3sw3es8h4c")
 const DISTRICT = preload("uid://dy7ucna56qsok") #map_district scene
+@onready var available_seats: Label = $MapBackground/AvailableSeats
+
+
 
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var visuals: Node2D = $MapBackground/ControlMap/Visuals
@@ -17,9 +20,11 @@ var last_district : DistrictsData
 var visual_edge_x : float
 var button_index : int = 0
 
+
 func _ready() -> void:
 	SignalManager.selected_district.connect(_on_map_district_selected)
 	visual_edge_x = RoadMapManager.Y_DIST * (RoadMapManager.STEPS -1)
+	available_seats.text = "Available seats : " + str(CarManager.selected_car.seats - SurvivorsManager.on_board_survivors.size()) + " / " + str(CarManager.selected_car.seats)
 	if RoadMapManager.last_district:
 		last_district = RoadMapManager.last_district
 	else :
@@ -37,7 +42,6 @@ func generate_new_map() -> void :
 	else :
 		map_data = RoadMapManager.current_map_data
 	create_map()
-	
 
 func unlock_step(step : int = RoadMapManager.steps_reached) -> void : 
 	if step == 0 :
@@ -49,7 +53,6 @@ func unlock_step(step : int = RoadMapManager.steps_reached) -> void :
 		for map_district : MapDistrict in districts.get_children():
 			if last_district.next_districts.has(map_district.district):
 				map_district.available = true
-
 
 func unlock_next_rooms() -> void : 
 	for map_district : MapDistrict in districts.get_children():
@@ -97,7 +100,7 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_back"):
 		SceneManager.load_level(SceneManager.SCENES.CAR_SELECTION)
-	
+
 func _on_map_district_selected(district : DistrictsData)-> void : 
 	for map_district : MapDistrict in districts.get_children():
 		if map_district.district.row == district.row : 
@@ -106,7 +109,6 @@ func _on_map_district_selected(district : DistrictsData)-> void :
 	RoadMapManager.last_district = district
 	RoadMapManager.selected_districts.append(district)
 	#RoadMapManager.steps_reached += 1
-
 
 func connect_lines(district : DistrictsData) -> void : 
 	if district.next_districts.is_empty():

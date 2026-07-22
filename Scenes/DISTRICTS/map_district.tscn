@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dy7ucna56qsok"]
 
 [ext_resource type="Script" uid="uid://c63y2p6mv006j" path="res://Scripts/DISTRICTS/map_district.gd" id="1_njxfn"]
+[ext_resource type="PackedScene" uid="uid://br4te1rr7oh2a" path="res://Scenes/CHARACTERS/survivor_on_map.tscn" id="2_bslq1"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="2_njxfn"]
 [ext_resource type="Texture2D" uid="uid://bcaa7xtmbu4ho" path="res://Assets/UI/red_pin.png" id="3_r2u84"]
 
@@ -47,6 +48,7 @@ _data = {
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_njxfn")
+survivor_node = ExtResource("2_bslq1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=880650997]
 visible = false
@@ -97,6 +99,9 @@ offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
+
+[node name="SurvivorPos" type="Marker2D" parent="." unique_id=1555587433]
+position = Vector2(0.040504456, -48.01939)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

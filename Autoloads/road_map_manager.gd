@@ -1,36 +1,100 @@
 extends Node
 
 const X_DIST : int = 88
-const Y_DIST : int = 88
+const Y_DIST : int = 104
 const DIST_RANDOMNESS : int = 24
 const STEPS : int = 12
 const GRID_WIDTH : int = 5
 const PATHS : int = 5
+
+
+const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
+	GameMaster.BIOMES.CITY : {
+		DistrictsData.types.ARENA : 3,
+		DistrictsData.types.HIGHWAY : 1,
+		DistrictsData.types.SURVIVOR : 2,
+		DistrictsData.types.EVENT : 1,
+		DistrictsData.types.BANK : 3,
+		DistrictsData.types.GUNSHOP : 3,
+		DistrictsData.types.CARDEALER : 1,
+		DistrictsData.types.SHOP : 2,
+		DistrictsData.types.GARAGE : 2,
+	},
+	GameMaster.BIOMES.COUNTRYSIDE : {
+		DistrictsData.types.ARENA : 2,
+		DistrictsData.types.HIGHWAY : 4,
+		DistrictsData.types.SURVIVOR : 2,
+		DistrictsData.types.EVENT : 2,
+		DistrictsData.types.BANK : 1,
+		DistrictsData.types.GUNSHOP : 2,
+		DistrictsData.types.CARDEALER : 2,
+		DistrictsData.types.SHOP : 1,
+		DistrictsData.types.GARAGE : 2,
+	},
+	GameMaster.BIOMES.DESERT : {
+		DistrictsData.types.ARENA : 1,
+		DistrictsData.types.HIGHWAY : 2,
+		DistrictsData.types.SURVIVOR : 2,
+		DistrictsData.types.EVENT : 4,
+		DistrictsData.types.BANK : 1,
+		DistrictsData.types.GUNSHOP : 1,
+		DistrictsData.types.CARDEALER : 2,
+		DistrictsData.types.SHOP : 3,
+		DistrictsData.types.GARAGE : 2,
+	},
+	GameMaster.BIOMES.HARBOR : {
+		DistrictsData.types.ARENA : 2,
+		DistrictsData.types.HIGHWAY : 1,
+		DistrictsData.types.SURVIVOR : 2,
+		DistrictsData.types.EVENT : 1,
+		DistrictsData.types.BANK : 3,
+		DistrictsData.types.GUNSHOP : 2,
+		DistrictsData.types.CARDEALER : 3,
+		DistrictsData.types.SHOP : 2,
+		DistrictsData.types.GARAGE : 2,
+	},
+}
+
+var random_districts_weights : Dictionary = {}
+var random_districts_total_weights : int = 0
+
+
 const SHOP_DISTRICTS_WEIGHT : float = 4.0
 const GARAGE_DISTRICTS_WEIGHT : float = 6.0
-const PARKING_DISTRICTS_WEIGHT : float = 15.0
-const MISSION_DISTRICTS_WEIGHT : float = 8.0
+const ARENA_DISTRICTS_WEIGHT : float = 15.0
+const SURVIVOR_DISTRICTS_WEIGHT : float = 8.0
+const HIGHWAY_DISTRICTS_WEIGHT : float = 4.0
+const GUNSHOP_DISTRICTS_WEIGHT : float = 2.0
+const CARDEALER_DISTRICTS_WEIGHT : float = 2.0
+const BANK_DISTRICTS_WEIGHT : float = 2.0
+const EVENT_DISTRICTS_WEIGHT : float = 3.0
 
 var steps_reached : int = 0
 var current_map_data : Array[Array]
 var last_district : DistrictsData
 
-var random_districts_weights : Dictionary = {
-	DistrictsData.types.GARAGE : 0.0,
-	DistrictsData.types.MISSION : 0.0,
-	DistrictsData.types.PARKING : 0.0,
-	DistrictsData.types.SHOP : 0.0
-}
+#var random_districts_weights : Dictionary = {
+	#DistrictsData.types.GARAGE : 0.0,
+	#DistrictsData.types.ARENA : 0.0,
+	#DistrictsData.types.SURVIVOR : 0.0,
+	#DistrictsData.types.SHOP : 0.0,
+	#DistrictsData.types.HIGHWAY : 0.0,
+	#DistrictsData.types.EVENT : 0.0,
+	#DistrictsData.types.BANK : 0.0,
+	#DistrictsData.types.CARDEALER : 0.0,
+	#DistrictsData.types.GUNSHOP : 0.0,
+	#DistrictsData.types.FINAL : 0.0
+#}
 
 signal new_step_reached(new_step : int)
-var random_districts_total_weights : int = 0
 var map_data : Array[Array] #Grid is an array of floors which are array of districts
 var selected_districts : Array[DistrictsData]
 
 func _ready() -> void:
 	SignalManager.next_day.connect(_on_next_day)
 
-func generate_map() -> Array[Array] :
+func generate_map(_biome : GameMaster.BIOMES = GameMaster.current_biome) -> Array[Array] :
+	
 	map_data = generate_initial_grid()
 	var starting_points : Array[int] = get_random_starting_points()
 	
@@ -42,6 +106,7 @@ func generate_map() -> Array[Array] :
 	setup_final_district()
 	setup_random_district_weights()
 	setup_district_types()
+
 	
 	current_map_data = map_data
 	return map_data
@@ -132,26 +197,25 @@ func setup_final_district() -> void :
 			current_district.next_districts = [] as Array[DistrictsData]
 			current_district.next_districts.append(final_district)
 
-	final_district.type = DistrictsData.types.BOSS
+	final_district.type = DistrictsData.types.FINAL
 
 func setup_random_district_weights() -> void : 
-	random_districts_weights[DistrictsData.types.SHOP] = SHOP_DISTRICTS_WEIGHT
-	random_districts_weights[DistrictsData.types.GARAGE] = SHOP_DISTRICTS_WEIGHT + GARAGE_DISTRICTS_WEIGHT
-	random_districts_weights[DistrictsData.types.MISSION] = SHOP_DISTRICTS_WEIGHT + GARAGE_DISTRICTS_WEIGHT + MISSION_DISTRICTS_WEIGHT
-	random_districts_weights[DistrictsData.types.PARKING] = SHOP_DISTRICTS_WEIGHT + GARAGE_DISTRICTS_WEIGHT + MISSION_DISTRICTS_WEIGHT + PARKING_DISTRICTS_WEIGHT
-	
-	random_districts_total_weights = random_districts_weights[DistrictsData.types.PARKING]
+	random_districts_weights = DISTRICT_WEIGHTS_BY_BIOME[GameMaster.current_biome]
+	random_districts_total_weights = 0
+
+	for weight : int in random_districts_weights.values():
+		random_districts_total_weights += weight
 
 func setup_district_types() -> void : 
 	#1 first district is always a parking (no mission)
 	for district : DistrictsData in map_data[0]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.PARKING
+			district.type = DistrictsData.types.ARENA
 	
 	#2 second district is always a mission (new survivor to save)
 	for district : DistrictsData in map_data[1]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.MISSION
+			district.type = DistrictsData.types.SURVIVOR
 			
 	#3 last district before boss is always a garage
 	for district : DistrictsData in map_data[STEPS - 2]:
@@ -166,30 +230,25 @@ func setup_district_types() -> void :
 					set_district_type_randomly(next_district)
 
 func set_district_type_randomly(district_to_set : DistrictsData) -> void : 
-	var garage_below_3 : bool = true
-	var consecutive_garage : bool = true
-	var consecutive_shop : bool = true
-	var garage_2_steps_before_final : bool = true
-	
-	var type_candidate : DistrictsData.types
-	
-	type_candidate = get_random_district_type_by_weight()
-	
-	while garage_below_3 or consecutive_garage or consecutive_shop or garage_2_steps_before_final:
+	const MAX_ATTEMPTS : int = 32
+	var type_candidate : DistrictsData.types = DistrictsData.types.ARENA
+
+	for attempt in MAX_ATTEMPTS:
 		type_candidate = get_random_district_type_by_weight()
-		
+
 		var is_garage : bool = type_candidate == DistrictsData.types.GARAGE
+		var is_shop : bool = type_candidate == DistrictsData.types.SHOP  # <- corrigé
 		var has_garage_parent : bool = district_has_parent_of_type(district_to_set, DistrictsData.types.GARAGE)
-		var is_shop : bool = type_candidate == DistrictsData.types.GARAGE
 		var has_shop_parent : bool = district_has_parent_of_type(district_to_set, DistrictsData.types.SHOP)
-		
-		garage_below_3 = is_garage and district_to_set.row < 2
-		consecutive_garage = is_garage and has_garage_parent
-		consecutive_shop = is_shop and has_shop_parent
-		garage_2_steps_before_final = is_garage and district_to_set.row == STEPS - 2
-	
-		#WHEN ALL FALSE WE EXIT THE WHILE LOOP
-	
+
+		var garage_below_3 : bool = is_garage and district_to_set.row < 2
+		var consecutive_garage : bool = is_garage and has_garage_parent
+		var consecutive_shop : bool = is_shop and has_shop_parent
+		var garage_2_steps_before_final : bool = is_garage and district_to_set.row == STEPS - 2
+
+		if not (garage_below_3 or consecutive_garage or consecutive_shop or garage_2_steps_before_final):
+			break
+
 	district_to_set.type = type_candidate
 
 func district_has_parent_of_type(district : DistrictsData, type : DistrictsData.types) -> bool:
@@ -220,13 +279,15 @@ func district_has_parent_of_type(district : DistrictsData, type : DistrictsData.
 	return false
 
 func get_random_district_type_by_weight() -> DistrictsData.types :
-	var roulette : int = randi_range(0, random_districts_total_weights)
-	
+	var roulette : int = randi() % random_districts_total_weights
+	var accumulator : int = 0
+
 	for type : DistrictsData.types in random_districts_weights:
-		if random_districts_weights[type] > roulette:
+		accumulator += random_districts_weights[type]
+		if roulette < accumulator:
 			return type
 
-	return DistrictsData.types.PARKING
+	return DistrictsData.types.ARENA
 
 func _on_next_day()-> void : 
 	steps_reached += 1

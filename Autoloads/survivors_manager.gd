@@ -1,8 +1,13 @@
 extends Node
 
+var max_survivor_per_path : int = 2
+var max_survivor_on_road : int = 4 #CHANGE TO 8 WHEN CREATED
+var next_spawned_survivor : SurvivorData = null
+
 var unknown_survivors : Array[SurvivorData] = []
 var known_survivors : Array[SurvivorData] = []
 var on_board_survivors : Array[SurvivorData] = []
+var on_the_road_survivors : Array[SurvivorData] = []
 
 
 const BORIS = preload("uid://co2hy6ybsg7b6")
@@ -20,6 +25,7 @@ signal in_game_survivor_queuefree
 
 func _ready() -> void:
 	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
+	SignalManager.arena_survivor.connect(_on_arena_selected)
 	unknown_survivors.append(LEO)
 	unknown_survivors.append(VIKTOR)
 	unknown_survivors.append(MARINA)
@@ -32,6 +38,8 @@ func _ready() -> void:
 	#known_survivors.append(BORIS)
 	#known_survivors.append(LEO)
 	#known_survivors.append(MARINA)
+
+	pick_random_survivor()
 
 func select_survivor(new_survivor : SurvivorData) -> void : 
 	if known_survivors.has(new_survivor):
@@ -57,3 +65,15 @@ func _on_sandbox_mode() -> void :
 	known_survivors.append(LEO)
 	known_survivors.append(MARINA)
 	print("sandbox mode survivor")
+
+
+func pick_random_survivor() -> void:
+	if unknown_survivors.is_empty():
+		push_warning("unknown survivor is empty")
+		return
+	unknown_survivors.shuffle()
+	for i in max_survivor_on_road - 1:
+		on_the_road_survivors.append(unknown_survivors[i])
+
+func _on_arena_selected(next_survivor : SurvivorData) -> void:
+	next_spawned_survivor = next_survivor

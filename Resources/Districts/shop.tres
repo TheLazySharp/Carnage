@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://ba4xbcx4j6uu"]
 
-[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="1_4bfxe"]
+[ext_resource type="Texture2D" uid="uid://brs2kf8dgvstm" path="res://Assets/Items/one_dollar.png" id="1_4bfxe"]
 [ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="1_jnxy0"]
 
 [resource]

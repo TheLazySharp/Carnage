@@ -3,7 +3,19 @@ extends Resource
 class_name DistrictsData
 
 
-enum types {N_A, PARKING, MISSION, GARAGE, BOSS, SHOP}
+enum types {
+	N_A,
+	ARENA,
+	HIGHWAY,
+	SURVIVOR,
+	EVENT,
+	SHOP,
+	GARAGE,
+	BANK,
+	GUNSHOP,
+	CARDEALER,
+	FINAL
+	}
 
 @export var type : types
 @export var icon : Texture2D

@@ -4,9 +4,13 @@ var survivor : SurvivorData
 signal beacon_activated(beacon_pos : Vector2)
 
 
+
 func setup_trigger() -> void:
 	if !SurvivorsManager.unknown_survivors.is_empty():
 		survivor = SurvivorsManager.unknown_survivors[0] #---------FOR NOW. WILL BE MODIFY TO ALLOW SEVERAL SURVIVOR TO SPAWN
+
+	#if SurvivorsManager.next_spawned_survivor:
+		#survivor = SurvivorsManager.next_spawned_survivor
 		
 		if GameMaster.game_mode != GameMaster.GAME_MODES.GOD:
 			spawn()

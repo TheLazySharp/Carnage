@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://cxvmg4w2qvqm2"]
 
-[ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="1_c1oip"]
 [ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="1_e2gbo"]
+[ext_resource type="Texture2D" uid="uid://bebfr5dvt68mc" path="res://Assets/weapons/bat_handler.png" id="1_erm01"]
 
 [resource]
 script = ExtResource("1_e2gbo")
 type = 1
-icon = ExtResource("1_c1oip")
+icon = ExtResource("1_erm01")
 metadata/_custom_type_script = "uid://csefvr5yw2th"

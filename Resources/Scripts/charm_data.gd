@@ -11,7 +11,6 @@ var is_in_shop : bool = false
 @export var p_value_descr : String
 
 
-
 @export var effect_script : GDScript
 
 func get_rarity_string(boost_rarity : CharmsManager.Rarities) -> String:

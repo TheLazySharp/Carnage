@@ -253,6 +253,15 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("6_usysd")
 
+[node name="Seats" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=730983443]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_alyf3")
+theme_override_font_sizes/font_size = 24
+text = "Seats"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("6_usysd")
+
 [node name="Levels" type="VBoxContainer" parent="CarID/StatsPanel/HBoxContainer" unique_id=554250343]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -317,6 +326,15 @@ max_value = 500.0
 step = 1.0
 value = 200.0
 show_percentage = false
+
+[node name="SeatsQ" type="Label" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=1374958354]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_alyf3")
+theme_override_font_sizes/font_size = 24
+text = "Damages"
+vertical_alignment = 2
+script = ExtResource("6_usysd")
 
 [node name="RightArrow" type="TextureRect" parent="CarID" unique_id=1159971362]
 layout_mode = 1

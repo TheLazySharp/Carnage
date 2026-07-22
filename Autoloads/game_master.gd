@@ -6,6 +6,14 @@ enum DIFFICULTIES {
 	HARD
 }
 
+enum BIOMES {
+	CITY,
+	COUNTRYSIDE,
+	DESERT,
+	HARBOR
+	}
+
+var current_biome : BIOMES = BIOMES.CITY
 
 var DIFFICULTIES_MOD : Dictionary[DIFFICULTIES,float] = {
 	DIFFICULTIES.EASY : 0.8,
@@ -24,6 +32,8 @@ enum GAME_MODES {
 	GOD,
 	SANDBOX
 }
+
+
 
 var game_mode : GAME_MODES
 

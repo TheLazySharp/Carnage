@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://dbyjjy5xeygc4"]
+
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="1_46ivo"]
+[ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="2_mtt4o"]
+
+[resource]
+script = ExtResource("2_mtt4o")
+type = 8
+icon = ExtResource("1_46ivo")
+metadata/_custom_type_script = "uid://csefvr5yw2th"

@@ -60,3 +60,12 @@ unique_name_in_owner = true
 
 [node name="Districts" type="Node2D" parent="MapBackground/ControlMap/Visuals" unique_id=2136848043]
 unique_name_in_owner = true
+
+[node name="Survivors" type="Node2D" parent="MapBackground/ControlMap/Visuals" unique_id=1739853614]
+
+[node name="AvailableSeats" type="Label" parent="MapBackground" unique_id=941841159]
+offset_left = 25.0
+offset_top = 27.0
+offset_right = 135.0
+offset_bottom = 75.0
+text = "Seats : 0 / 4"

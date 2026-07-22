@@ -81,7 +81,7 @@ const ALL_BOOSTS : Array = [
 
 const ALL_CHARMS : Array = [
 	preload("uid://cycv6edr3ie0h"), #invincibility
-	preload("uid://dkm27p4j8u1jj"), #drift fire
+	preload("uid://dkm27p4j8u1jj"), #shop discount
 	preload("uid://dig2dq8y0nvfs") #add projectil on all weapons
 ]
 

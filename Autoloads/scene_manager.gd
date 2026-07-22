@@ -45,8 +45,14 @@ var scenes_uid: Dictionary[SCENES,String] = {
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
 	DistrictsData.types.GARAGE :"uid://df565yrwfqn1v",
-	DistrictsData.types.MISSION :"uid://df565yrwfqn1v",
-	DistrictsData.types.PARKING :"uid://df565yrwfqn1v",
+	DistrictsData.types.SURVIVOR :"uid://df565yrwfqn1v",
+	DistrictsData.types.ARENA :"uid://df565yrwfqn1v",
+	DistrictsData.types.HIGHWAY :"uid://df565yrwfqn1v",
+	DistrictsData.types.GUNSHOP :"uid://df565yrwfqn1v",
+	DistrictsData.types.CARDEALER :"uid://df565yrwfqn1v",
+	DistrictsData.types.FINAL :"uid://df565yrwfqn1v",
+	DistrictsData.types.BANK :"uid://df565yrwfqn1v",
+	DistrictsData.types.EVENT :"uid://df565yrwfqn1v",
 	DistrictsData.types.SHOP :"uid://cvogwsu4e47t0"
 }
 

@@ -8,6 +8,7 @@ var car : CarData
 @onready var torque_bar: ProgressBar = $HBoxContainer/Levels/TorqueBar
 @onready var drift_bar: ProgressBar = $HBoxContainer/Levels/DriftBar
 @onready var damages_bar: ProgressBar = $HBoxContainer/Levels/DamagesBar
+@onready var seats_q: Label = $HBoxContainer/Levels/SeatsQ
 
 
 
@@ -41,6 +42,7 @@ func update_stats() -> void :
 	torque_bar.value = car.acceleration.get_value()
 	drift_bar.value = car.drift_turn_bonus.get_value()
 	damages_bar.value = car.dmg.get_value()
+	seats_q.text = str(car.seats)
 
 
 func _on_visibility_changed() -> void:

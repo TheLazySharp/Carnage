@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://yatyeiis06lt"]
 
-[ext_resource type="Texture2D" uid="uid://cti4mltaqkgeo" path="res://Assets/UI/gas_reverse.png" id="1_emki1"]
 [ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="1_gcea5"]
+[ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="1_mod6x"]
 
 [resource]
 script = ExtResource("1_gcea5")
-type = 2
-icon = ExtResource("1_emki1")
+type = 3
+icon = ExtResource("1_mod6x")
 metadata/_custom_type_script = "uid://csefvr5yw2th"

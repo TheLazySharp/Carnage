@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://br4te1rr7oh2a"]
+
+[ext_resource type="Script" uid="uid://4h8hy7gu3qx6" path="res://Scripts/CHARACTERS/SURVIVORS/survivor_on_map.gd" id="1_iqotm"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="2_q83ig"]
+[ext_resource type="Script" uid="uid://c0jesid3lpsgv" path="res://Scripts/UI/dialogue_bubble.gd" id="3_0km1h"]
+
+[node name="SurvivorOnRoad" type="Node2D" unique_id=785524965 groups=["survivor"]]
+script = ExtResource("1_iqotm")
+
+[node name="Survivor" type="ColorRect" parent="." unique_id=476124486]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SurvivorIcon" type="TextureRect" parent="Survivor" unique_id=307125793]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Survivor" unique_id=1048928314]
+layout_mode = 1
+offset_left = -3.0
+offset_top = -31.0
+offset_right = 97.0
+offset_bottom = -8.0
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_fonts/font = ExtResource("2_q83ig")
+text = "Help me !"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_0km1h")
+
+[node name="Weapon" type="ColorRect" parent="." unique_id=473889287]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -20.0
+offset_right = 72.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="Weapon" unique_id=1022042235]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

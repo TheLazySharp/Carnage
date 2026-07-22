@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://8168u4cpjey6"]
+
+[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="1_hrcjv"]
+[ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="2_qn3ir"]
+
+[resource]
+script = ExtResource("2_qn3ir")
+type = 4
+icon = ExtResource("1_hrcjv")
+metadata/_custom_type_script = "uid://csefvr5yw2th"

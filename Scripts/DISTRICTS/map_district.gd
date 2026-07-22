@@ -2,6 +2,11 @@ extends Area2D
 class_name MapDistrict
 
 
+@export var survivor_node : PackedScene
+@onready var survivor_pos: Marker2D = $SurvivorPos
+@onready var survivors: Node = $/root/Roadmap/MapBackground/ControlMap/Visuals/Survivors
+
+
 @onready var icon: Sprite2D = $Visuals/Icon
 @onready var line_2d_back: Line2D = $Visuals/Line2DBack
 @onready var line_2d_front: Line2D = $Visuals/Line2DFront
@@ -14,11 +19,16 @@ var district : DistrictsData : set = set_district
 
 const ICONS :  Dictionary = {
 	DistrictsData.types.N_A: [null, Vector2.ONE],
-	DistrictsData.types.PARKING: [preload("uid://ers5f6abq1k"), Vector2.ONE],
-	DistrictsData.types.MISSION: [preload("uid://cti4mltaqkgeo"), Vector2.ONE],
-	DistrictsData.types.GARAGE: [preload("uid://c5r5wpwsuw4jn"), Vector2(1.25,1.25)],
-	DistrictsData.types.BOSS: [preload("uid://hi7u0rqjoil8"), Vector2(2,2)],
-	DistrictsData.types.SHOP: [preload("uid://dv0dbia1l7x8h"), Vector2.ONE]
+	DistrictsData.types.ARENA: [preload("uid://bebfr5dvt68mc"), Vector2.ONE],
+	DistrictsData.types.SURVIVOR: [preload("uid://ers5f6abq1k"), Vector2.ONE],
+	DistrictsData.types.GARAGE: [preload("uid://cti4mltaqkgeo"), Vector2(1.25,1.25)],
+	DistrictsData.types.FINAL: [preload("uid://hi7u0rqjoil8"), Vector2(2,2)],
+	DistrictsData.types.SHOP: [preload("uid://brs2kf8dgvstm"), Vector2.ONE],
+	DistrictsData.types.HIGHWAY: [preload("uid://b0qia31ffr14m"), Vector2.ONE],
+	DistrictsData.types.BANK: [preload("uid://crpyeaolqv4r7"), Vector2.ONE],
+	DistrictsData.types.GUNSHOP: [preload("uid://bx0g56iujhr01"), Vector2.ONE],
+	DistrictsData.types.CARDEALER: [preload("uid://bn3oteja0m4nn"), Vector2.ONE],
+	DistrictsData.types.EVENT: [preload("uid://dv0dbia1l7x8h"), Vector2.ONE]
 }
 
 func _ready() -> void:
@@ -63,6 +73,12 @@ func set_district(new_data : DistrictsData) -> void :
 	position = district.position
 	icon.texture = ICONS[district.type][0]
 	icon.scale = ICONS[district.type][1]
+	
+	if district.type == DistrictsData.types.SURVIVOR:
+		var survivor : Node2D = survivor_node.instantiate()
+		survivors.add_child(survivor)
+		survivor.global_position = survivor_pos.global_position
+
 	if RoadMapManager.selected_districts.has(district):
 		pin.show()
 
