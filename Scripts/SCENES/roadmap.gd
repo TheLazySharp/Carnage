@@ -109,6 +109,7 @@ func _on_map_district_selected(district : DistrictsData)-> void :
 	RoadMapManager.last_district = district
 	RoadMapManager.selected_districts.append(district)
 	#RoadMapManager.steps_reached += 1
+	print(district.type)
 
 func connect_lines(district : DistrictsData) -> void : 
 	if district.next_districts.is_empty():

@@ -20,8 +20,9 @@ func _ready() -> void:
 		SignalManager.game_paused.connect(_on_game_paused)
 
 
+
 func _process(_delta: float) -> void:
-	if survivor_is_saved or !survivors_spawner:
+	if RoadMapManager.last_district.type != DistrictsData.types.SURVIVOR or survivor_is_saved or !survivors_spawner:
 		far_beeps.stop()
 		close_beeps.stop()
 		return
@@ -57,7 +58,7 @@ func _on_survivor_picked_up(_survivor : SurvivorData) -> void:
 
 
 func _on_beep_timer_timeout() -> void:
-	if survivor_is_saved:
+	if RoadMapManager.last_district.type != DistrictsData.types.SURVIVOR or survivor_is_saved or !survivors_spawner:
 		beep_timer.stop()
 	if get_distance_from_beacon() > close_far_threshold:
 		far_beeps.play()

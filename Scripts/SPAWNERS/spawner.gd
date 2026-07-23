@@ -10,12 +10,10 @@ extends Node2D
 var free_cells : Array[Vector2i] = []
 var camera : Camera2D
 
-
 func _ready() -> void:
 	camera = get_viewport().get_camera_2d()
 	build_grid()
 	setup_trigger()
-
 
 # ---- KIDS HOOKS OVERDRIVABLE ----
 func setup_trigger() -> void:
@@ -54,7 +52,6 @@ func build_grid() -> void:
 			if !wall_cells.has(cell):
 				free_cells.append(cell)
 
-
 func spawn() -> Node:
 	if scene_to_spawn == null or free_cells.is_empty():
 		return null
@@ -75,7 +72,6 @@ func spawn() -> Node:
 		return instance
 
 	return null
-
 
 func is_on_screen(world_pos : Vector2) -> bool:
 	if camera == null:

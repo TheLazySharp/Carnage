@@ -31,6 +31,7 @@ func _ready() -> void:
 
 func unload() -> void:
 	auto_parts = 0
+	fortune = 0
 
 
 func pick_rarity() -> DollarData.Rarities:

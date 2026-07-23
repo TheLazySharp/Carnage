@@ -343,7 +343,6 @@ func _process_player_inputs(delta : float) -> void :
 					drifting = false
 					drift_manager.force_stop_skid()
 
-
 		#VFX
 		if Input.is_action_just_pressed("accelerate") or Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") :
 			play_drivin_smokes()
@@ -425,6 +424,9 @@ func on_death() -> void:
 	WeaponsManager.activate_weapons(false)
 	#WeaponsManager.unload()
 	end_dash()
+	bloody_engine.set_process(false)
+	car_sprite.modulate = Color.WHITE
+	stop_invincibility_vfx()
 	car_sprite.hide()
 	drift_manager.force_stop_skid()
 	collision_shape.set_deferred("disabled",true)

@@ -91,4 +91,4 @@ signal player_invincible(invincible : bool)
 signal sandbox_mode
 
 @warning_ignore("unused_signal")
-signal arena_survivor(survivor : SurvivorData)
+signal district_survivor(survivor : SurvivorData)
