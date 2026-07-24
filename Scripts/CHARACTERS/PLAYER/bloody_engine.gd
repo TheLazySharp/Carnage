@@ -22,6 +22,7 @@ var max_fuel : float
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	ItemManager.gas.connect(_on_gas_tank_picked_up)
 	car.dash_end.connect(_on_dash_end)
 	vaccum_particles = vaccum_particles_scene.instantiate()
 	add_child(vaccum_particles)
@@ -77,3 +78,6 @@ func update_blood_tint(absorbing : bool, delta : float) -> void:
 	var raw : Variant = mat.get_shader_parameter("blood_amount")
 	var current : float = raw if raw != null else 0.0
 	mat.set_shader_parameter("blood_amount", lerp(current, target, tint_speed * delta))
+
+func _on_gas_tank_picked_up() -> void :
+	fuel_up(int(player.max_fuel.get_value() - player.current_fuel))

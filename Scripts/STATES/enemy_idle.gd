@@ -84,7 +84,7 @@ func leader_behavior(delta : float) -> void:
 		
 		var wander_direction : Vector2 = (wander_target - enemy.global_position)
 		if wander_direction.length() > 5:
-			enemy.velocity = wander_direction.normalized() * enemy.enemy.speed.get_value()
+			enemy.velocity = wander_direction.normalized() * enemy.speed.get_value()
 		else : 
 			enemy.velocity = Vector2.ZERO
 		leader_dest = wander_target
@@ -145,7 +145,7 @@ func trouper_behavior(_delta : float) -> void:
 	var total_forces : Vector2 = attraction_force + repulsion_force
 	
 	if total_forces.length_squared() > 0.0001:
-		enemy.velocity = total_forces.normalized() * enemy.enemy.speed.get_value()
+		enemy.velocity = total_forces.normalized() * enemy.speed.get_value()
 	else : 
 		enemy.velocity = Vector2.ZERO
 		

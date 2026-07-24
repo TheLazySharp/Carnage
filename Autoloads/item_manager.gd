@@ -8,15 +8,30 @@ var all_items : Array[ItemData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 const ALL_ITEMS : Array = [
-	preload("uid://wnsnxcswp71k"), #magnet
-	preload("uid://c8r7ijia7d2fh"), #freeze
-	preload("uid://dxmsrsehqdpys"), #nitro up
+	#preload("uid://wnsnxcswp71k"), #magnet
+	#preload("uid://c8r7ijia7d2fh"), #freeze
+	#preload("uid://dxmsrsehqdpys"), #nitro up
+	#preload("uid://djm0jm8xnf3kx"), #gas
+	preload("uid://cgudfa8adx5u1"), #repair 25% of the missing life
 	
 ]
 
 
+@warning_ignore("unused_signal")
+signal freeze
+@warning_ignore("unused_signal")
+signal magnet_xp
+@warning_ignore("unused_signal")
+signal nitro_up
+@warning_ignore("unused_signal")
+signal gas
+@warning_ignore("unused_signal")
+signal repair(reparation : float)
+
+
 func _ready() -> void:
 	rng.randomize()
+
 
 func load_pools() -> void : 
 	for item : ItemData in ALL_ITEMS:

@@ -1285,35 +1285,27 @@ tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
 position = Vector2(1646.9214, 226.07727)
-enemy_type = 2
 
 [node name="Horde2" parent="Spawners" unique_id=1458679874 instance=ExtResource("79_83n8t")]
 position = Vector2(1609.8796, 1052.269)
-enemy_type = 2
 
 [node name="Horde3" parent="Spawners" unique_id=1121059956 instance=ExtResource("79_83n8t")]
 position = Vector2(1663.9445, 1828.9215)
-enemy_type = 2
 
 [node name="Horde4" parent="Spawners" unique_id=413539673 instance=ExtResource("79_83n8t")]
 position = Vector2(2503.8418, 193.94748)
-enemy_type = 2
 
 [node name="Horde5" parent="Spawners" unique_id=1815657024 instance=ExtResource("79_83n8t")]
 position = Vector2(2536.9702, 981.2294)
-enemy_type = 2
 
 [node name="Horde6" parent="Spawners" unique_id=1732667245 instance=ExtResource("79_83n8t")]
 position = Vector2(2513.5854, 1842.5626)
-enemy_type = 2
 
 [node name="Horde7" parent="Spawners" unique_id=1180151081 instance=ExtResource("79_83n8t")]
 position = Vector2(416.76526, 1793.8446)
-enemy_type = 2
 
 [node name="Horde8" parent="Spawners" unique_id=507418461 instance=ExtResource("79_83n8t")]
 position = Vector2(182.91919, 236.8193)
-enemy_type = 2
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("73_tk2je")]
 is_active = true

@@ -15,13 +15,10 @@ func configure_instance(instance : Node, _world_pos : Vector2) -> void:
 	var inst_item : Node2D = instance
 	inst_item.current_item = item
 
-
 func on_spawned(instance : Node) -> void:
 	var inst_item : Node2D = instance
 	inst_item.icon.texture = item.icon
 	print("item spawned at : ",inst_item.global_position)
-
-
 
 func _on_spawn_timer_timeout() -> void:
 	spawn()

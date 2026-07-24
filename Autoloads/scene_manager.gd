@@ -70,7 +70,6 @@ func load_level(scene : SCENES) -> void:
 func load_district(loading_district : DistrictsData) -> void : 
 	get_tree().call_deferred("change_scene_to_file", districts_scenes[loading_district.type])
 	
-
 func unload_game() -> void:
 	XPManager.unload()
 	WeaponsManager.unload()

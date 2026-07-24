@@ -15,8 +15,6 @@ var seek_weight: float = 1.0
 var repulsion_radius : float = 40
 var repulsion_radius_sq : float
 
-
-
 # STAGGER : on ne recalcule pas la direction à chaque tick SM
 var update_timer: float = 0.0
 var update_interval: float
@@ -63,7 +61,7 @@ func physics_update(delta: float)-> void:
 
 	var total: Vector2 = seek + separation
 	if total.length_squared() > 0.0001:
-		enemy.velocity = total.normalized() * enemy.enemy.speed.get_value() * chase_speed_boost
+		enemy.velocity = total.normalized() * enemy.speed.get_value() * chase_speed_boost
 	else:
 		enemy.velocity = Vector2.ZERO
 

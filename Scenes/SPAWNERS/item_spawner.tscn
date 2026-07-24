@@ -6,8 +6,9 @@
 [node name="ItemSpawner" type="Node2D" unique_id=951681507]
 script = ExtResource("1_xx0ks")
 scene_to_spawn = ExtResource("2_hmt3m")
-spawn_rate = 10.0
+spawn_rate = 3.0
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=1870852999]
+wait_time = 5.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
