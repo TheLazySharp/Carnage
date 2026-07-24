@@ -1,32 +1,20 @@
 @tool
-extends Polygon2D
+extends Node2D
 class_name BuildingShadow
 
 @export var building_size: Vector2i = Vector2i(4, 3):
-	set(value):
-		building_size = value
-		_update_shadow()
+	set(value): building_size = value; queue_redraw()
 
 @export var shadow_length: int = 6:
-	set(value):
-		shadow_length = value
-		_update_shadow()
+	set(value): shadow_length = value; queue_redraw()
 
 @export var pixel_size: int = 4:
-	set(value):
-		pixel_size = value
-		_update_shadow()
+	set(value): pixel_size = value; queue_redraw()
 
 @export var shadow_color: Color = Color(0, 0, 0, 1):
-	set(value):
-		shadow_color = value
-		_update_shadow()
+	set(value): shadow_color = value; queue_redraw()
 
-func _ready() -> void:
-	antialiased = false
-	_update_shadow()
-
-func _update_shadow() -> void:
+func _draw() -> void:
 	if not is_inside_tree():
 		return
 
@@ -49,12 +37,9 @@ func _update_shadow() -> void:
 	poly.append(bl_shifted)
 	poly.append_array(_staircase_edge(bl_shifted, bl, pixel_size, false))
 
-	polygon = poly
-	color = shadow_color
-	antialiased = false
+	draw_colored_polygon(poly, shadow_color)
 
-# Construit une arête en escalier entre deux points distants de (L, L),
-# en alternant pas horizontaux et verticaux de taille step_size.
+
 func _staircase_edge(from: Vector2, to: Vector2, step_size: int, horizontal_first: bool) -> PackedVector2Array:
 	var points := PackedVector2Array()
 	var dx_total: float = to.x - from.x
