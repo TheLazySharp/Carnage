@@ -8,11 +8,12 @@ var all_items : Array[ItemData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 const ALL_ITEMS : Array = [
-	#preload("uid://wnsnxcswp71k"), #magnet
-	#preload("uid://c8r7ijia7d2fh"), #freeze
-	#preload("uid://dxmsrsehqdpys"), #nitro up
-	#preload("uid://djm0jm8xnf3kx"), #gas
+	preload("uid://wnsnxcswp71k"), #magnet
+	preload("uid://c8r7ijia7d2fh"), #freeze
+	preload("uid://dxmsrsehqdpys"), #nitro up
+	preload("uid://djm0jm8xnf3kx"), #gas
 	preload("uid://cgudfa8adx5u1"), #repair 25% of the missing life
+	preload("uid://dcmwnvhsjlkph"), #wallet
 	
 ]
 
@@ -27,7 +28,8 @@ signal nitro_up
 signal gas
 @warning_ignore("unused_signal")
 signal repair(reparation : float)
-
+@warning_ignore("unused_signal")
+signal wallet
 
 func _ready() -> void:
 	rng.randomize()

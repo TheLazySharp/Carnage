@@ -1285,15 +1285,19 @@ tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
 position = Vector2(1646.9214, 226.07727)
+enemy_type = 2
 
 [node name="Horde2" parent="Spawners" unique_id=1458679874 instance=ExtResource("79_83n8t")]
 position = Vector2(1609.8796, 1052.269)
+enemy_type = 2
 
 [node name="Horde3" parent="Spawners" unique_id=1121059956 instance=ExtResource("79_83n8t")]
 position = Vector2(1663.9445, 1828.9215)
+enemy_type = 2
 
 [node name="Horde4" parent="Spawners" unique_id=413539673 instance=ExtResource("79_83n8t")]
 position = Vector2(2503.8418, 193.94748)
+enemy_type = 2
 
 [node name="Horde5" parent="Spawners" unique_id=1815657024 instance=ExtResource("79_83n8t")]
 position = Vector2(2536.9702, 981.2294)

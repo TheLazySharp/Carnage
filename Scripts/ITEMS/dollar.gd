@@ -26,6 +26,7 @@ var is_spawn_phase : bool = true
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	ItemManager.wallet.connect(_on_wallet_picked_up)
 	dollar = InventoryManager.pick_dollar()
 	value = dollar.value
 	icon.texture = dollar.icon
@@ -60,7 +61,7 @@ func _physics_process(delta: float) -> void:
 		velocity = dir.normalized() * speed
 		global_position += velocity * delta
 	
-	if abs(global_position - player.global_position).length() > 100 :
+	if abs(global_position - player.global_position).length() > 150 and !can_be_collected:
 		is_attracted = false
 	
 	if can_be_collected and abs(global_position - player.global_position).length() < 5:
@@ -76,3 +77,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+	
+func _on_wallet_picked_up() -> void : 
+	is_attracted = true
+	speed = 800

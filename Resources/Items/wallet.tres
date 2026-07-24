@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dcmwnvhsjlkph"]
+
+[ext_resource type="Script" uid="uid://o84vshpjne2k" path="res://Scripts/ITEMS/EFFECTS/wallet.gd" id="1_2k6cm"]
+[ext_resource type="Texture2D" uid="uid://cl14mo75l6uim" path="res://Assets/Items/wallet.png" id="2_fy4xj"]
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="3_quh07"]
+
+[resource]
+script = ExtResource("3_quh07")
+name = "Wallet"
+icon = ExtResource("2_fy4xj")
+description = "Attrack dollar to the car"
+effect_script = ExtResource("1_2k6cm")
+metadata/_custom_type_script = "uid://ctc62ptewno8k"
