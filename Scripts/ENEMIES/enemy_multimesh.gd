@@ -4,6 +4,13 @@ class_name Enemy
 var enemy : EnemyData
 
 # MAIN STATS
+var speed: Statistic
+var max_life: Statistic
+var dmg: Statistic
+var impact_force: Statistic
+var knockback_friction: Statistic
+
+@export var speed_variation: float = 10.0
 
 var nb_xp: int
 
@@ -12,8 +19,6 @@ var night_speed_boost: float
 var night_damages_boost : float
 var level_life_boost : int
 var type : EnemyManager.Enemy_Types
-var impact_force: float #the higher, the more enemy is ejected
-var knockback_friction: float #the higher, the more enemy projection is slowed
 
 
 @onready var current_life: int
@@ -85,13 +90,14 @@ var accumululated_delta : float
 var night_speed_mod := Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
 var night_dmg_mod := Modifier.new(night_damages_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_dmg_mod")
 var night_life_mod := Modifier.new(night_max_life_boost,Modifier.Type.FLAT,"day_end_enemy_life_mod")
-
+var enemy_freezer := Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer item", 3)
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.day_time_end.connect(_on_day_end)
+	ItemManager.freeze.connect(_on_freeze)
 	
-	enemy.init_stats()
+	init_stats()
 	nb_xp = 1
 
 	night_max_life_boost  = enemy.base_night_life_bonus
@@ -101,21 +107,34 @@ func _ready() -> void:
 	type = enemy.type
 	
 	if RoadMapManager.steps_reached > 1:
-		enemy.max_life.remove_modifier(EnemyManager.max_life_mod)
-		enemy.max_life.add_modifier(EnemyManager.max_life_mod)
+		max_life.remove_modifier(EnemyManager.max_life_mod)
+		max_life.add_modifier(EnemyManager.max_life_mod)
 	elif RoadMapManager.steps_reached == 1:
-		enemy.max_life.add_modifier(EnemyManager.max_life_mod)
+		max_life.add_modifier(EnemyManager.max_life_mod)
 
-	current_life = int(enemy.max_life.get_value())
+	current_life = int(max_life.get_value())
 
 	call_deferred("register_to_renderer")
+
+func init_stats() -> void:
+	speed = Statistic.new(enemy.base_speed)
+	max_life = Statistic.new(enemy.base_max_life)
+	dmg = Statistic.new(enemy.base_dmg)
+	impact_force = Statistic.new(enemy.base_impact_force)
+	knockback_friction = Statistic.new(enemy.base_knockback_friction)
+
+	if speed_variation > 0.0:
+		var variation := randf_range(-speed_variation, speed_variation)
+		speed.add_modifier(Modifier.new(variation, Modifier.Type.FLAT, "speed variation"))
+
+	SignalManager.emit_signal("enemy_stats_init")
 
 func _physics_process(delta: float) -> void:
 	if game_paused:
 		return
 	if knockback_velocity.length_squared() > 100:
 		velocity = knockback_velocity
-		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, enemy.knockback_friction.get_value() * delta)
+		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * delta)
 		knockback_velocity = knockback_velocity.normalized() * knockback_length
 	
 	accumululated_delta += delta
@@ -169,7 +188,7 @@ func register_to_renderer() -> void:
 
 func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: float, player_global_pos : Vector2) -> void:
 	if car_right == Vector2.ZERO:
-		knockback_velocity = car_forward.normalized() * enemy.impact_force.get_value() * player_speed_ratio
+		knockback_velocity = car_forward.normalized() * impact_force.get_value() * player_speed_ratio
 		return
 
 	var impact_on_enemy: Vector2 = global_position - player_global_pos
@@ -185,7 +204,7 @@ func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: fl
 		var side: int = sign(lateral_dot)
 		push_direction = car_right * side + car_forward * side_impact_ratio
 
-	knockback_velocity = push_direction.normalized() * enemy.impact_force.get_value() * player_speed_ratio
+	knockback_velocity = push_direction.normalized() * impact_force.get_value() * player_speed_ratio
 
 
 func chained_impacts() -> void:
@@ -196,7 +215,7 @@ func chained_impacts() -> void:
 			continue
 		if global_position.distance_squared_to(horde_neighbors[i].global_position) < 900: #30px * 30px
 			var push_dir: Vector2 = (horde_neighbors[i].global_position - global_position).normalized()
-			var transferred_ratio: float = (knockback_velocity.length() / enemy.impact_force.get_value()) * losing_strenght_ratio
+			var transferred_ratio: float = (knockback_velocity.length() / impact_force.get_value()) * losing_strenght_ratio
 			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio, global_position)
 
 
@@ -239,7 +258,7 @@ func set_enemy_color(color: Color) -> void:
 
 func activate(spawn_position: Vector2) -> void:
 	global_position = spawn_position
-	current_life = int(enemy.max_life.get_value())
+	current_life = int(max_life.get_value())
 	show()
 
 
@@ -291,7 +310,7 @@ func _on_damage_timer_on_player_timeout() -> void:
 	if player == null:
 		return
 	if "get_damages_from_mob" in player:
-		player.get_damages_from_mob(enemy.dmg.get_value())
+		player.get_damages_from_mob(dmg.get_value())
 
 
 func display_damages(damages: int) -> void:
@@ -320,7 +339,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		return
 	player = area.get_parent()
 	if "get_damages_from_mob" in player:
-		player.get_damages_from_mob(enemy.dmg.get_value())
+		player.get_damages_from_mob(dmg.get_value())
 	damage_timer_on_player.start()
 
 
@@ -335,3 +354,16 @@ func _on_damage_flash_timer_timeout() -> void:
 	if renderer and mm_index >= 0:
 		renderer.set_enemy_flash(mm_index, false)
 	damage_flash_timer.stop()
+
+func _on_freeze() -> void : 
+	speed.add_temp_modifier(enemy_freezer)
+
+
+func get_enemy_stat(stat: EnemyData.Enemy_Stats) -> Statistic:
+	match stat:
+		EnemyData.Enemy_Stats.SPEED: return speed
+		EnemyData.Enemy_Stats.MAX_LIFE: return max_life
+		EnemyData.Enemy_Stats.DMG: return dmg
+		EnemyData.Enemy_Stats.IMPACT_FORCE: return impact_force
+		EnemyData.Enemy_Stats.KNOCKBACK_FRICTION: return knockback_friction
+	return null

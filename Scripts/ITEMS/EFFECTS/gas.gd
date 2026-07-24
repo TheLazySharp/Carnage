@@ -1,8 +1,7 @@
 extends ItemEffect
 
 func activate() -> void:
-	ItemManager.emit_signal("nitro_up")
-	
+	ItemManager.emit_signal("gas")
 
 func deactivate() -> void:
 	pass

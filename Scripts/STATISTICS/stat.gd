@@ -22,48 +22,30 @@ func add_modifier(mod: Modifier) -> void:
 	dirty = true
 	recalculate()
 
-func add_temp_modifier(mod: Modifier) -> void:
-	mod.modifier_over.connect(_on_modifier_over)
-	TempStatManager.register(mod)
-	add_modifier(mod)
-
-func remove_modifiers_from(source: String) -> void:
-	modifiers = modifiers.filter(func(m : Modifier) -> bool: return m.source != source)
-	dirty = true
-	recalculate()
+func add_temp_modifier(template: Modifier, policy: Modifier.StackPolicy = Modifier.StackPolicy.REFRESH) -> void:
+	TempStatManager.apply(self, template, policy)
 
 func remove_modifier(mod: Modifier) -> void:
+	drop_modifier(mod)
+	TempStatManager.forget(mod)
+ 
+func remove_modifiers_from(source: String) -> void:
+	for mod : Modifier in modifiers.duplicate():
+		if mod.source == source:
+			remove_modifier(mod)
+
+func drop_modifier(mod: Modifier) -> void:
 	modifiers.erase(mod)
 	dirty = true
 	recalculate()
 
-func recalculate() -> void:
-	var flat_sum: float = base_value
-	var percent_add_sum: float = 0.0
-	var percent_mult: float = 1.0
 
-	for mod in modifiers:
-		match mod.type:
-			Modifier.Type.FLAT:
-				flat_sum += mod.value
-			Modifier.Type.PERCENT_ADD:
-				percent_add_sum += mod.value
-			Modifier.Type.PERCENT_MULT:
-				percent_mult *= (1.0 + mod.value)
-
-	final_value = (flat_sum * (1.0 + percent_add_sum)) * percent_mult
-	dirty = false
-	emit_signal("stat_adjusted",final_value)
-
-
-func preview_value(extra_mod: Modifier) -> float:
+func compute(mods: Array) -> float:
 	var flat: float = base_value
 	var percent_add: float = 0.0
 	var percent_mult: float = 1.0
-
-	var all_mods : Array = modifiers + [extra_mod]
-
-	for mod :Modifier in all_mods:
+ 
+	for mod: Modifier in mods:
 		match mod.type:
 			Modifier.Type.FLAT:
 				flat += mod.value
@@ -71,8 +53,18 @@ func preview_value(extra_mod: Modifier) -> float:
 				percent_add += mod.value
 			Modifier.Type.PERCENT_MULT:
 				percent_mult *= (1.0 + mod.value)
-
+ 
 	return (flat * (1.0 + percent_add)) * percent_mult
+
+
+func recalculate() -> void:
+	final_value = compute(modifiers)
+	dirty = false
+	stat_adjusted.emit(final_value)
+
+
+func preview_value(extra_mod: Modifier) -> float:
+	return compute(modifiers + [extra_mod])
 
 func _on_modifier_over(mod: Modifier) -> void:
 	mod.modifier_over.disconnect(_on_modifier_over)

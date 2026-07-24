@@ -22,6 +22,10 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if GameMaster.game_mode == GameMaster.GAME_MODES.GOD:
+		far_beeps.stop()
+		close_beeps.stop()
+		return
 	if RoadMapManager.last_district.type != DistrictsData.types.SURVIVOR or survivor_is_saved or !survivors_spawner:
 		far_beeps.stop()
 		close_beeps.stop()
@@ -58,6 +62,9 @@ func _on_survivor_picked_up(_survivor : SurvivorData) -> void:
 
 
 func _on_beep_timer_timeout() -> void:
+	if GameMaster.game_mode == GameMaster.GAME_MODES.GOD:
+		beep_timer.stop()
+		return
 	if RoadMapManager.last_district.type != DistrictsData.types.SURVIVOR or survivor_is_saved or !survivors_spawner:
 		beep_timer.stop()
 	if get_distance_from_beacon() > close_far_threshold:

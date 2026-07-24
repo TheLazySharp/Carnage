@@ -8,12 +8,19 @@ enum Type {
 	N_A
 }
 
+
+#policy applied if modifier of same source already exists
+enum StackPolicy {
+	STACK,
+	REFRESH,
+	IGNORE
+}
+
+
 var value: float
 var type: Type
 var source: String
-var duration : float
-
-signal modifier_over(modifier : Modifier)
+var duration : float # if == 0 = permanent
 
 
 func _init(p_value: float, p_type: Type, p_source: String, p_duration : float = 0) -> void:
@@ -22,10 +29,5 @@ func _init(p_value: float, p_type: Type, p_source: String, p_duration : float = 
 	source = p_source
 	duration = p_duration
 	
-func tick(delta: float) -> void:
-	if duration <= 0:
-		return
-	duration -= delta
-	if duration <= 0:
-		duration = 0
-		modifier_over.emit(self)
+func clone() -> Modifier:
+	return Modifier.new(value, type, source, duration)

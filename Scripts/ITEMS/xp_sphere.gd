@@ -27,6 +27,7 @@ var is_spawn_phase : bool = true
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	ItemManager.magnet_xp.connect(_on_magnet_picked_up)
 	xp_value = TimeManager.current_day
 	setup_animation()
 
@@ -59,7 +60,7 @@ func _physics_process(delta: float) -> void:
 		velocity = dir.normalized() * speed
 		global_position += velocity * delta
 	
-	if abs(global_position - player.global_position).length() > 150 :
+	if abs(global_position - player.global_position).length() > 150 and !can_be_collected:
 		is_attracted = false
 	
 	if can_be_collected and abs(global_position - player.global_position).length() < 5:
@@ -93,3 +94,7 @@ func setup_animation()-> void :
 		
 	animated_sprite_2d.sprite_frames = sprite_frames
 	animated_sprite_2d.play("blooming")
+
+func _on_magnet_picked_up() -> void : 
+	is_attracted = true
+	speed = 800

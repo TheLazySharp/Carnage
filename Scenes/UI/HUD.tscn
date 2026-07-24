@@ -370,6 +370,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_3smgn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_vrsns")
 step = 1.0
 value = 50.0
+rounded = true
 show_percentage = false
 script = ExtResource("7_55bpt")
 

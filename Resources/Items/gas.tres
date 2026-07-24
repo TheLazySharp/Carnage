@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://djm0jm8xnf3kx"]
+
+[ext_resource type="Script" uid="uid://cgfs2ugm76jis" path="res://Scripts/ITEMS/EFFECTS/gas.gd" id="1_82ahg"]
+[ext_resource type="Texture2D" uid="uid://c32m7ll3ka4tp" path="res://Assets/Items/fuel_tank.png" id="2_82ahg"]
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="3_7o2v2"]
+
+[resource]
+script = ExtResource("3_7o2v2")
+name = "Gas"
+icon = ExtResource("2_82ahg")
+description = "Add 50 gas"
+effect_script = ExtResource("1_82ahg")
+metadata/_custom_type_script = "uid://ctc62ptewno8k"

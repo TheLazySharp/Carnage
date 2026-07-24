@@ -1,8 +1,7 @@
 extends ItemEffect
 
 func activate() -> void:
-	print("magnet effect activated")
-	
+	ItemManager.emit_signal("magnet_xp")
 
 func deactivate() -> void:
 	pass

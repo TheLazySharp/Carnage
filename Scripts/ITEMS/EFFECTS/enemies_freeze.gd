@@ -1,8 +1,7 @@
 extends ItemEffect
 
 func activate() -> void:
-	print("enemies are frozen for X sec")
-	
+	ItemManager.emit_signal("freeze")
 
 func deactivate() -> void:
 	pass

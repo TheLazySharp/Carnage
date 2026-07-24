@@ -3,19 +3,6 @@ extends CharacterBody2D
 var player : CarData
 
 #CAR DATA
-#--------------- MAINS STATS
-var acceleration : float
-var max_speed : float
-var dash_duration : float
-var max_life : float
-var damages : float
-var dash_dmg_bonus : float
-var display_max_speed : float
-var nitro_up : float
-var collect_radius : float
-var drift_turn_bonus : float
-var max_fuel : float
-
 
 var max_backward_speed : int
 var friction : float
@@ -128,17 +115,6 @@ func _ready() -> void:
 	if TimeManager.current_day ==1:
 		player.init_stats()
 	
-	#MAIN STATS 
-	acceleration = player.acceleration.get_value()
-	max_speed = player.max_speed.get_value()
-	dash_duration = player.dash_duration.get_value()
-	display_max_speed = player.display_max_speed.get_value()
-	damages = player.dmg.get_value()
-	dash_dmg_bonus = player.dash_dmg_bonus.get_value()
-	max_life = player.max_life.get_value()
-	drift_turn_bonus = player.drift_turn_bonus.get_value()
-	max_fuel = player.max_fuel.get_value()
-	
 	rear_left_burn_anim.hide()
 	rear_right_burn_anim.hide()
 	##TEST
@@ -149,10 +125,11 @@ func _ready() -> void:
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
 	SignalManager.end_autopilot_transition.connect(_on_exit_transition)
 	SignalManager.player_invincible.connect(_on_invincible) 
+	ItemManager.repair.connect(_on_repair_picked_up)
 
 
 	#DRIVING
-	max_backward_speed = roundi(max_speed * 0.8)
+	max_backward_speed = roundi(player.max_speed.get_value() * 0.8)
 
 	friction = player.friction
 	turn_speed = player.turn_speed
@@ -174,9 +151,9 @@ func _ready() -> void:
 	
 	#LIFE
 	if TimeManager.current_day == 1 : 
-		player.current_life = int(max_life)
+		player.current_life = int(player.max_life.get_value())
 
-	life_bar.max_value = max_life
+	life_bar.max_value = player.max_life.get_value()
 	life_bar.value = player.current_life
 	life_label.text = str(player.current_life) + "/" + str(int(player.max_life.get_value()))
 	
@@ -300,7 +277,7 @@ func _process_player_inputs(delta : float) -> void :
 		var steer_factor : float = clamp(abs(speed) / player.max_speed.get_value(), 0.25, 1.0)
 
 		if drifting:
-			steer *= drift_turn_bonus
+			steer *= player.drift_turn_bonus.get_value()
 
 		rotation += steer * turn_speed * steer_factor * delta
 
@@ -517,7 +494,7 @@ func dash() -> void :
 
 	camera_2d.screen_shake(12, 0.4)
 
-	var mod_dmg := Modifier.new(dash_dmg_bonus, Modifier.Type.PERCENT_MULT, "dmg_dash_bonus", player.dash_duration.get_value())
+	var mod_dmg := Modifier.new(player.dash_dmg_bonus.get_value(), Modifier.Type.PERCENT_MULT, "dmg_dash_bonus", player.dash_duration.get_value())
 	var mod_max_speed := Modifier.new(1.25, Modifier.Type.PERCENT_MULT, "max_speed_dash_modifier", player.dash_duration.get_value())
 	var mod_display_max_speed := Modifier.new(90, Modifier.Type.FLAT, "display_max_speed_dash_modifier", player.dash_duration.get_value())
 	var mod_torque := Modifier.new(2, Modifier.Type.PERCENT_MULT, "torque_dash_modifier", player.dash_duration.get_value())
@@ -638,3 +615,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 			area.get_damages_from_car(roundi(player.dmg.get_value()))
 			StatsManager.total_car_dmg += roundi(player.dmg.get_value())
 		else : return
+
+func _on_repair_picked_up(repair_percent : float) -> void:
+	player.current_life += roundi((player.max_life.get_value() - player.current_life) * repair_percent)
+	life_bar.value = player.current_life
