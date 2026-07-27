@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://g6ym4sg7isei"]
+
+[ext_resource type="Texture2D" uid="uid://bp2mird5sb4mw" path="res://Assets/Léonce/Textures/Roads/Arrows/roadmarks_arrows.png" id="1_3qn3g"]
+
+[resource]
+atlas = ExtResource("1_3qn3g")
+region = Rect2(1802, 0, 104, 111)

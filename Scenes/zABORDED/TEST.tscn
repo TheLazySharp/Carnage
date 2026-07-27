@@ -17,6 +17,9 @@
 [ext_resource type="Script" uid="uid://dyuu65s454lqr" path="res://Assets/Léonce/Scripts/pixel_line_2d.gd" id="15_kpjr3"]
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Assets/Léonce/Scripts/building_shadows.gd" id="16_5g436"]
 [ext_resource type="Script" uid="uid://d1xm2r3txom34" path="res://Assets/Léonce/Scripts/cable_cast_shadow_2d.gd" id="17_1lqbc"]
+[ext_resource type="Texture2D" uid="uid://cg471e8w7q13g" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 30.tres" id="18_n7gip"]
+[ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 24.tres" id="19_wq420"]
+[ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 25.tres" id="20_kpjr3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -2018,3 +2021,22 @@ script = ExtResource("16_5g436")
 building_size = Vector2i(156, 1)
 shadow_length = 3
 pixel_size = 1
+
+[node name="RoadMarks" type="Node2D" parent="." unique_id=2122554737]
+modulate = Color(0.47788018, 0.47788012, 0.47788012, 1)
+
+[node name="Arrow1" type="Sprite2D" parent="RoadMarks" unique_id=619150422]
+z_index = 1
+position = Vector2(1788, 1060)
+rotation = 1.5707964
+texture = ExtResource("18_n7gip")
+
+[node name="Arrow2" type="Sprite2D" parent="RoadMarks" unique_id=22879353]
+position = Vector2(1789, 763)
+rotation = 1.5707964
+texture = ExtResource("19_wq420")
+
+[node name="Arrow3" type="Sprite2D" parent="RoadMarks" unique_id=1443985321]
+position = Vector2(1788, 908)
+rotation = 1.5707964
+texture = ExtResource("20_kpjr3")
