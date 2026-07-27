@@ -39,6 +39,7 @@ var rebuild_timer : float = 0.0
 var game_paused : bool = false
 var game_over : bool = false
 
+signal walls_scanned
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
@@ -88,6 +89,7 @@ func scan_walls() -> void:
 					blocked[(local_y + 1) * padded_width + (local_x + 1)] = 1
 
 	last_player_cell = Vector2i(0x7fffffff, 0x7fffffff)   # force un rebuild
+	emit_signal("walls_scanned")
 
 
 func _process(delta: float) -> void:
@@ -143,11 +145,17 @@ func get_flow_direction(world_pos: Vector2) -> Vector2:
 	var here_index : int = (local_y + 1) * padded_width + (local_x + 1)
 	var lowest_cost : int = cost[here_index]
 	if lowest_cost == UNREACHED:
-		return (target.global_position - world_pos).normalized()   # cellule injoignable : fallback
+		return escape_direction(here_index, world_pos)
 
 	var best_direction : Vector2 = Vector2.ZERO
 	for k in range(8):
-		var neighbor_cost : int = cost[here_index + neighbor_index_offsets[k]]
+		var neighbor_index : int = here_index + neighbor_index_offsets[k]
+		if blocked[neighbor_index] == 1:
+			continue
+		if k >= 4: 
+			if blocked[here_index + diagonal_ortho_a_offsets[k]] == 1 or blocked[here_index + diagonal_ortho_b_offsets[k]] == 1:
+				continue
+		var neighbor_cost : int = cost[neighbor_index]
 		if neighbor_cost < lowest_cost:
 			lowest_cost = neighbor_cost
 			best_direction = NEIGHBOR_DIRECTIONS[k]
@@ -156,8 +164,41 @@ func get_flow_direction(world_pos: Vector2) -> Vector2:
 		return (target.global_position - world_pos).normalized()
 	return best_direction
 
+func escape_direction(here_index : int, world_pos : Vector2) -> Vector2:
+	# On est sur une cellule bloquée/injoignable : sortir vers le voisin praticable le moins cher.
+	var best_cost : int = UNREACHED
+	var best_direction : Vector2 = Vector2.ZERO
+	for k in range(8):
+		var neighbor_index : int = here_index + neighbor_index_offsets[k]
+		if blocked[neighbor_index] == 1:
+			continue
+		var neighbor_cost : int = cost[neighbor_index]
+		if neighbor_cost < best_cost:
+			best_cost = neighbor_cost
+			best_direction = NEIGHBOR_DIRECTIONS[k]
+	if best_direction != Vector2.ZERO:
+		return best_direction
+	return (target.global_position - world_pos).normalized()
+
+
+func is_blocked_world(world_pos : Vector2) -> bool:
+	var local_x : int = int(floor(world_pos.x / CELL)) - map_origin_tile.x
+	var local_y : int = int(floor(world_pos.y / CELL)) - map_origin_tile.y
+	if local_x < 0 or local_y < 0 or local_x >= grid_w or local_y >= grid_h:
+		return true
+	return blocked[(local_y + 1) * padded_width + (local_x + 1)] == 1
 
 # ---- utilitaires ----
+
+func add_obstacles(cells : Array[Vector2i]) -> void:
+	for cell : Vector2i in cells:
+		var local_x : int = cell.x - map_origin_tile.x
+		var local_y : int = cell.y - map_origin_tile.y
+		if local_x >= 0 and local_y >= 0 and local_x < grid_w and local_y < grid_h:
+			blocked[(local_y + 1) * padded_width + (local_x + 1)] = 1
+	# invalide le cache pour forcer un rebuild au prochain _process (comme scan_walls)
+	last_player_cell = Vector2i(0x7fffffff, 0x7fffffff)
+
 
 func world_to_cell(p: Vector2) -> Vector2i:
 	return Vector2i(int(floor(p.x / CELL)), int(floor(p.y / CELL)))

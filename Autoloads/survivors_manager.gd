@@ -76,7 +76,7 @@ func pick_random_survivor() -> void:
 	for i in max_survivor_on_road - 1:
 		on_the_road_survivors.append(locked_survivors[i])
 	
-	print(on_the_road_survivors)
+	#print(on_the_road_survivors)
 
 func _on_district_selected(next_survivor : SurvivorData) -> void:
 	next_spawned_survivor = next_survivor

@@ -45,6 +45,7 @@ CharmsManager="*uid://dt2ws5wathrud"
 EnemyManager="*uid://bxdwykiiwe7mo"
 jobs_manager="*uid://cid3lkejoqtxp"
 ItemManager="*uid://pfnlydcuwirj"
+BuildingsManager="*uid://dhojtvnvny37"
 
 [debug]
 

@@ -25,6 +25,9 @@ var detection_horde_cursor : int = 0
 var game_paused: bool =false
 var game_over : bool = false
 
+signal wall_grid_ready
+
+
 func _ready() -> void:
 	SignalManager.enemy_is_dead.connect(_on_enemy_death)
 	SignalManager.game_paused.connect(_on_game_paused)
@@ -48,6 +51,14 @@ func build_wall_grid() -> void:
 		if wall is TileMapLayer:
 			for cell : Vector2i in wall.get_used_cells():
 				mark_cell_with_margin(cell, margin_cells)
+	
+	wall_grid_ready.emit() 
+
+func add_wall_cells(cells : Array[Vector2i]) -> void:
+	var margin_cells : int = ceili(wall_detection_radius / WALL_CELL)
+	for cell : Vector2i in cells:
+		mark_cell_with_margin(cell, margin_cells)
+
 
 func mark_cell_with_margin(cell: Vector2i, margin: int) -> void:
 	for dy in range(-margin, margin + 1):

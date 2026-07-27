@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://cxoune2ptoi3r" path="res://Assets/Props/wall_V.png" id="32_jhmth"]
 [ext_resource type="PackedScene" uid="uid://dljrk8342ak5s" path="res://Scenes/UI/HUD.tscn" id="36_7taos"]
 [ext_resource type="PackedScene" uid="uid://bvmq8j7dk6kfq" path="res://Scenes/MAPS/barriere.tscn" id="37_vmxub"]
+[ext_resource type="PackedScene" uid="uid://cj8pqinx5vrrg" path="res://Scenes/SPAWNERS/buildings_spawner.tscn" id="49_pyd7o"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_mp5nn"]
 [ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="55_6fcfe"]
 [ext_resource type="Texture2D" uid="uid://cigoc373iff72" path="res://Assets/UI/white_arrow.png" id="57_pp6a2"]
@@ -1281,7 +1282,15 @@ tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Spawners" type="Node2D" parent="." unique_id=556355831]
 
-[node name="Survivors" parent="Spawners" unique_id=1248185741 instance=ExtResource("73_pp6a2")]
+[node name="BuildingSpawner" parent="Spawners" unique_id=1248185741 instance=ExtResource("49_pyd7o")]
+cell_size = 32.0
+screen_margin = 0.0
+max_spawn_attempts = 20
+spawn_rate = 1.0
+footprint = Vector2i(1, 1)
+occupy_cells = true
+
+[node name="Survivors" parent="Spawners" unique_id=640052013 instance=ExtResource("73_pp6a2")]
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
 position = Vector2(1646.9214, 226.07727)

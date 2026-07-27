@@ -33,7 +33,8 @@ var velocity: Vector2 = Vector2.ZERO
 @onready var hordes_manager: HordeManager = $/root/World/HordesManager
 
 @onready var damage_label_pool: DamageLabelPool = $/root/World/VFX/DamageLabelPool
-
+@onready var flow_field: FlowFieldManager = $"/root/World/FlowFieldManager"
+#@export var obstacle_probe_margin: float = 12.0 #half size of the sprite
 
 # MULTIMESH
 @onready var renderer: EnemiesMultiMeshRenderer = $/root/World/EnemiesMMR2D
@@ -143,7 +144,7 @@ func _physics_process(delta: float) -> void:
 		return
 	physics_skip_timer -= physics_skip_steps
 	
-	near_wall = hordes_manager.is_near_wall(global_position)
+	#near_wall = hordes_manager.is_near_wall(global_position)
 	update_move(accumululated_delta)
 	accumululated_delta = 0
 	chained_impacts()
@@ -153,33 +154,40 @@ func _physics_process(delta: float) -> void:
 func update_move(delta: float) -> void:
 	if velocity.length_squared() < 0.01:
 		return
- 
 	var move : Vector2 = velocity * delta
- 
+
+	if move.x != 0.0 and flow_field.is_blocked_world(global_position + Vector2(move.x, 0.0)):
+		move.x = 0.0
+	if move.y != 0.0 and flow_field.is_blocked_world(global_position + Vector2(0.0, move.y)):
+		move.y = 0.0
+
+	global_position += move
+
+
 #WALL DETECTION
 
-	if !near_wall:
-		global_position += move
-		return
- 
-	var space := get_world_2d().direct_space_state
-	var params := PhysicsRayQueryParameters2D.new()
-	params.collision_mask = wall_collision_mask
-	params.exclude = [self]
- 
-	if abs(move.x) > 0.01:
-		params.from = global_position
-		params.to = global_position + Vector2(sign(move.x) * wall_test_distance, 0.0)
-		if space.intersect_ray(params):
-			move.x = 0.0
- 
-	if abs(move.y) > 0.01:
-		params.from = global_position
-		params.to = global_position + Vector2(0.0, sign(move.y) * wall_test_distance)
-		if space.intersect_ray(params):
-			move.y = 0.0
- 
-	global_position += move
+	#if !near_wall:
+		#global_position += move
+		#return
+ #
+	#var space := get_world_2d().direct_space_state
+	#var params := PhysicsRayQueryParameters2D.new()
+	#params.collision_mask = wall_collision_mask
+	#params.exclude = [self]
+ #
+	#if abs(move.x) > 0.01:
+		#params.from = global_position
+		#params.to = global_position + Vector2(sign(move.x) * wall_test_distance, 0.0)
+		#if space.intersect_ray(params):
+			#move.x = 0.0
+ #
+	#if abs(move.y) > 0.01:
+		#params.from = global_position
+		#params.to = global_position + Vector2(0.0, sign(move.y) * wall_test_distance)
+		#if space.intersect_ray(params):
+			#move.y = 0.0
+ #
+	#global_position += move
 
 
 func register_to_renderer() -> void:

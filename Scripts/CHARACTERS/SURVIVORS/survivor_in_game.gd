@@ -7,7 +7,6 @@ var survivor : SurvivorData
 @onready var pick_up: Button = $/root/World/CanvasLayer/NewSurvivor/YesNo/PickUp
 
 
-
 var game_on_pause : bool = false
 
 func _ready() -> void:

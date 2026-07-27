@@ -45,7 +45,6 @@ func physics_update(delta: float)-> void:
 		return
 	update_timer = update_interval
 
-
 	var seek: Vector2 = flow_field.get_flow_direction(enemy.global_position) * seek_weight
 
 	var separation: Vector2 = Vector2.ZERO

@@ -2,6 +2,7 @@ extends State
 class_name EnemyHorde
 
 @onready var player : CharacterBody2D = $"/root/World/Car"
+@onready var flow_field: FlowFieldManager = $"/root/World/FlowFieldManager"
 @onready var enemy: Enemy = self.get_parent().get_parent()
 
 var move_direction : Vector2
@@ -20,8 +21,10 @@ func exit()-> void:
 
 
 func physics_update(_delta: float)-> void:
-	if !game_paused:
-		enemy.velocity = move_direction * enemy.speed.get_value()
+	if game_paused:
+		return
+	var direction : Vector2 = flow_field.get_flow_direction(enemy.global_position)
+	enemy.velocity = direction * enemy.speed.get_value()
 
 
 func _on_game_paused(game_on_pause : bool) -> void:
