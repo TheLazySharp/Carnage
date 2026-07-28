@@ -1,5 +1,7 @@
 extends Node
 
+
+
 enum SCENES {
 	MAIN_MENU,
 	CAR_SELECTION,
@@ -52,9 +54,14 @@ var districts_scenes : Dictionary[DistrictsData.types,String] = {
 	DistrictsData.types.CARDEALER :"uid://df565yrwfqn1v",
 	DistrictsData.types.FINAL :"uid://df565yrwfqn1v",
 	DistrictsData.types.BANK :"uid://df565yrwfqn1v",
+	DistrictsData.types.CAR_REPAIR :"uid://df565yrwfqn1v",
 	DistrictsData.types.EVENT :"uid://df565yrwfqn1v",
 	DistrictsData.types.SHOP :"uid://cvogwsu4e47t0"
 }
+
+var current_scene : SCENES = SCENES.MAIN_MENU
+var previous_scene : SCENES 
+
 
 #TEST = true
 var tuto_completed: bool = false
@@ -65,9 +72,13 @@ var ready_go_timer: float = 2.0
 var commands_from_menu : bool = false
 
 func load_level(scene : SCENES) -> void:
+	previous_scene = current_scene
+	current_scene = scene
+	print("previous scene : ", SCENES.keys()[previous_scene]," / current scene : ", SCENES.keys()[current_scene])
 	get_tree().call_deferred("change_scene_to_file", scenes_uid[scene])
 
 func load_district(loading_district : DistrictsData) -> void : 
+	previous_scene = SCENES.ROADMAP
 	get_tree().call_deferred("change_scene_to_file", districts_scenes[loading_district.type])
 	
 func unload_game() -> void:
@@ -80,3 +91,4 @@ func unload_game() -> void:
 	RoadMapManager.unload()
 	SurvivorsManager.unload()
 	ShopManager.unload()
+	BuildingsManager.unload()

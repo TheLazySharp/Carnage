@@ -15,6 +15,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 1,
 		DistrictsData.types.BANK : 3,
+		DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.GUNSHOP : 3,
 		DistrictsData.types.CARDEALER : 1,
 		DistrictsData.types.SHOP : 2,
@@ -26,6 +27,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 2,
 		DistrictsData.types.BANK : 1,
+		DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.GUNSHOP : 2,
 		DistrictsData.types.CARDEALER : 2,
 		DistrictsData.types.SHOP : 1,
@@ -37,6 +39,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 4,
 		DistrictsData.types.BANK : 1,
+		DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.GUNSHOP : 1,
 		DistrictsData.types.CARDEALER : 2,
 		DistrictsData.types.SHOP : 3,
@@ -48,6 +51,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 1,
 		DistrictsData.types.BANK : 3,
+		DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.GUNSHOP : 2,
 		DistrictsData.types.CARDEALER : 3,
 		DistrictsData.types.SHOP : 2,
@@ -67,6 +71,7 @@ const HIGHWAY_DISTRICTS_WEIGHT : float = 4.0
 const GUNSHOP_DISTRICTS_WEIGHT : float = 2.0
 const CARDEALER_DISTRICTS_WEIGHT : float = 2.0
 const BANK_DISTRICTS_WEIGHT : float = 2.0
+const CAR_REPAIR_DISTRICTS_WEIGHT : float = 2.0
 const EVENT_DISTRICTS_WEIGHT : float = 3.0
 
 var steps_reached : int = 0
@@ -215,7 +220,7 @@ func setup_district_types() -> void :
 	#2 second district is always a mission (new survivor to save)
 	for district : DistrictsData in map_data[1]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.SURVIVOR
+			district.type = DistrictsData.types.SHOP
 			
 	#3 last district before boss is always a garage
 	for district : DistrictsData in map_data[STEPS - 2]:
@@ -237,7 +242,7 @@ func set_district_type_randomly(district_to_set : DistrictsData) -> void :
 		type_candidate = get_random_district_type_by_weight()
 
 		var is_garage : bool = type_candidate == DistrictsData.types.GARAGE
-		var is_shop : bool = type_candidate == DistrictsData.types.SHOP  # <- corrigé
+		var is_shop : bool = type_candidate == DistrictsData.types.SHOP
 		var has_garage_parent : bool = district_has_parent_of_type(district_to_set, DistrictsData.types.GARAGE)
 		var has_shop_parent : bool = district_has_parent_of_type(district_to_set, DistrictsData.types.SHOP)
 

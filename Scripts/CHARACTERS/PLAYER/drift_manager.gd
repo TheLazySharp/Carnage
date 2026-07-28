@@ -50,7 +50,7 @@ var trail_lifetime : float = 0.3
 #DRIFT BONUS -> increase car DMG
 var drift_bonus : int
 var total_drift_points : int
-var drift_points_multi : float
+var drift_point_add : float
 var car_dmg_mod : Modifier
 
 
@@ -60,10 +60,10 @@ func _ready() -> void:
 	SignalManager.connect("game_is_over",_on_game_over)
 	drift_bonus = 0
 	total_drift_points = StatsManager.total_drift
-	drift_points_multi = snappedf(total_drift_points * 0.0001,0.01) #change in the animation tween callback below
+	drift_point_add = snappedf(total_drift_points * 0.0001,0.01) #change in the animation tween callback below
 	drift_label.text = str(get_drift_bonus_points())
 	total_label.text = str(total_drift_points) + " pts"
-	drift_multi_label.text = " DMG + " + str(drift_points_multi)
+	drift_multi_label.text = " DMG + " + str(drift_point_add)
 
 
 func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker2D, p_rear_right : Marker2D) -> void : 
@@ -84,9 +84,10 @@ func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker
 	skid_lifetime = player.skid_lifetime
 	skid_fade_speed = player.skid_fade_speed
 	
-	car_dmg_mod = Modifier.new(int(drift_points_multi),Modifier.Type.FLAT,"drift manager bonus")
+	player.dmg.remove_modifiers_from("drift manager bonus")
+	car_dmg_mod = Modifier.new(int(drift_point_add),Modifier.Type.FLAT,"drift manager bonus")
 	player.dmg.add_modifier(car_dmg_mod)
-	#print("car dmg : ", player.dmg.get_value())
+	print("car dmg : ", player.dmg.get_value())
 
 func _process(_delta: float) -> void:
 	drift_label.text = str(get_drift_bonus_points())
@@ -368,14 +369,14 @@ func animation_score_to_total() -> void :
 	tween.tween_callback(fly_label.queue_free)
 	
 	tween.tween_callback(func() -> void:
-		drift_points_multi = snappedf(total_drift_points * 0.0001,0.01) # change in ready also
+		drift_point_add = snappedf(total_drift_points * 0.0001,0.01) # change in ready also
 		total_label.text = str(total_drift_points) + " pts"
-		drift_multi_label.text = "DMG + " + str(drift_points_multi)
+		drift_multi_label.text = "DMG + " + str(drift_point_add)
 		
-		player.dmg.remove_modifier(car_dmg_mod)
-		car_dmg_mod = Modifier.new(int(drift_points_multi),Modifier.Type.FLAT,"drift manager bonus")
+		player.dmg.remove_modifiers_from("drift manager bonus")
+		car_dmg_mod = Modifier.new(int(drift_point_add),Modifier.Type.FLAT,"drift manager bonus")
 		player.dmg.add_modifier(car_dmg_mod)
-		#print("car dmg : ", player.dmg.get_value())
+		print("car dmg : ", player.dmg.get_value())
 		
 		var flash_tween : Tween = create_tween()
 		flash_tween.tween_method(func(c: Color) -> void: 

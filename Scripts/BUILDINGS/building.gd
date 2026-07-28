@@ -3,12 +3,14 @@ class_name Building
 
 var building_data : BuildingData
 const CELL_SIZE : float = 32.0
-const DOLLAR_EDGE_PAD : float = 16.0 
-@export var unlock_timer : float = 5
+const OBJECT_EDGE_PAD : float = 16.0 
+var segments : int = 48
 var player_in_area : bool = false
 var footprint : Vector2i = Vector2i(1, 1)
-@export var segments : int = 48
 var margin : float
+
+@export var unlock_timer : float = 5
+@export var spawnable_item_res : ItemData
 
 @onready var line : Line2D = $Line2D
 @onready var unlockable_shape: CollisionShape2D = $BuildingArea/UnlockableShape
@@ -16,7 +18,10 @@ var margin : float
 @onready var unlock_bar: ProgressBar = $UnlockBar
 @onready var spawn_center: Marker2D = $SpawnCenter
 
+var game_paused : bool = false
+
 func _ready() -> void:
+	SignalManager.game_paused.connect(_on_game_paused)
 	footprint = (building_data.footprint_32)
 	margin = building_data.circle_margin 
 	draw_circle_around_footprint()
@@ -24,7 +29,7 @@ func _ready() -> void:
 	unlock_bar.value = unlock_timer
 
 func _process(delta: float) -> void:
-	if !player_in_area:
+	if !player_in_area or game_paused:
 		return
 	unlock_timer -= delta
 	unlock_bar.value = unlock_timer
@@ -75,10 +80,14 @@ func _on_unlock_timer_timeout() -> void :
 	for i in building_data.value:
 		var object : Node2D = building_data.spawnable.instantiate()
 		get_parent().add_child(object)
-		object.bank_launch_spawn(spawn_center.global_position, pick_dollar_landing())
+		object.building_launch_spawn(spawn_center.global_position, pick_object_landing(),spawnable_item_res)
 
-func pick_dollar_landing() -> Vector2:
+func pick_object_landing() -> Vector2:
 	var r_min : float = GeoTools.circumscribed_radius(footprint, CELL_SIZE)
-	var r_max : float = unlockable_shape.shape.radius - DOLLAR_EDGE_PAD
+	var r_max : float = unlockable_shape.shape.radius - OBJECT_EDGE_PAD
 	r_max = max(r_max, r_min + 1.0)
 	return GeoTools.random_point_in_annulus(spawn_center.global_position, r_min, r_max)
+
+
+func _on_game_paused(game_on_pause : bool) -> void:
+	game_paused = game_on_pause

@@ -4,7 +4,8 @@ var all_buildings : Array[BuildingData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 const ALL_BUILDINGS : Array = [
-	preload("uid://c5gqwsyiy73ut"), #bank
+	preload("uid://c5gqwsyiy73ut"), #bank = spawn dollars
+	preload("uid://bugfeilylsyto"), #garage = spawn repairs
 ]
 
 
@@ -23,3 +24,6 @@ func pick_building(biome : GameMaster.BIOMES, district_type : DistrictsData.type
 		return null
 
 	return candidates.pick_random()
+
+func unload() -> void : 
+	all_buildings.clear()

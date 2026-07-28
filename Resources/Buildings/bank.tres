@@ -8,7 +8,7 @@
 script = ExtResource("1_30gx7")
 name = "Bank"
 building_scene = ExtResource("1_cfhuk")
-district_type = 1
+district_type = 7
 footprint_32 = Vector2i(8, 4)
 value = 250
 spawnable = ExtResource("3_32578")

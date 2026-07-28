@@ -24,6 +24,8 @@ var font_button_focus : Array = FontManager.FONTS[FontManager.types.BUTTON_FOCUS
 var font_button_pressed : Array = FontManager.FONTS[FontManager.types.BUTTON_PRESSED]
 var font_button_hover : Array = FontManager.FONTS[FontManager.types.BUTTON_HOVER]
 
+var items_ready : bool = false
+
 func _ready() -> void:
 	SignalManager.update_fortune.connect(_on_item_baught)
 	fortune_tag.text = str(InventoryManager.fortune)
@@ -63,7 +65,11 @@ func _ready() -> void:
 		
 	proposed_boosts.clear()
 	proposed_charms.clear()
-
+	
+	items_ready = true
+	boost_container.get_child(0).get_child(0).grab_focus()
+	
+	
 func _process(_delta: float) -> void:
 	if ShopManager.get_reroll_cost() <= InventoryManager.fortune:
 		reroll_label.add_theme_color_override("font_color",Color.BLACK)
@@ -114,12 +120,15 @@ func _on_item_baught() -> void:
 			cash_register.play()
 
 func _on_back_pressed() -> void:
+	if SceneManager.previous_scene == SceneManager.SCENES.ROADMAP:
+		SceneManager.load_level(SceneManager.SCENES.ROADMAP)
+		return
 	self.hide()
 	entrance.show()
 	back_entrance.grab_focus()
 
 func _on_visibility_changed() -> void:
-	if self.visible : 
+	if self.visible and items_ready : 
 		boost_container.get_child(0).get_child(0).grab_focus()
 
 func reroll() -> void : 

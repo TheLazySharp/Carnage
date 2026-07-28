@@ -17,7 +17,7 @@ var district : DistrictsData : set = set_district
 @onready var button: Button = $Button
 @onready var pin: Sprite2D = $Visuals/Pin
 
-const ICONS :  Dictionary = {
+const ICONS :  Dictionary = { #texture,scale
 	DistrictsData.types.N_A: [null, Vector2.ONE],
 	DistrictsData.types.ARENA: [preload("uid://bebfr5dvt68mc"), Vector2.ONE],
 	DistrictsData.types.SURVIVOR: [preload("uid://ers5f6abq1k"), Vector2.ONE],
@@ -26,6 +26,7 @@ const ICONS :  Dictionary = {
 	DistrictsData.types.SHOP: [preload("uid://brs2kf8dgvstm"), Vector2.ONE],
 	DistrictsData.types.HIGHWAY: [preload("uid://b0qia31ffr14m"), Vector2.ONE],
 	DistrictsData.types.BANK: [preload("uid://crpyeaolqv4r7"), Vector2.ONE],
+	DistrictsData.types.CAR_REPAIR: [preload("uid://cmx15sgqqk0kr"), Vector2.ONE],
 	DistrictsData.types.GUNSHOP: [preload("uid://bx0g56iujhr01"), Vector2.ONE],
 	DistrictsData.types.CARDEALER: [preload("uid://bn3oteja0m4nn"), Vector2.ONE],
 	DistrictsData.types.EVENT: [preload("uid://dv0dbia1l7x8h"), Vector2.ONE]

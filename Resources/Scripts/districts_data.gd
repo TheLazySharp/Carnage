@@ -12,6 +12,7 @@ enum types {
 	SHOP,
 	GARAGE,
 	BANK,
+	CAR_REPAIR,
 	GUNSHOP,
 	CARDEALER,
 	FINAL

@@ -3,14 +3,14 @@ extends Area2D
 var dollar : DollarData
 var value : int
 @onready var icon: Sprite2D = $Sprite2D
-var game_paused : bool = false
 
 var velocity: Vector2
 var target_pos: Vector2
 var speed : = 500
-var is_attracted : bool = false
 var xp_value : int
+var is_attracted : bool = false
 var can_be_collected : bool = false
+var game_paused : bool = false
 
 #---- JUICE
 const SPAWN_SPEED_MIN : float = 200.0
@@ -47,7 +47,7 @@ func launch_spawn(spawn_position : Vector2) -> void :
 	var timer : SceneTreeTimer = get_tree().create_timer(SPAWN_DURATION)
 	timer.timeout.connect(_on_spawn_ended)
 	
-func bank_launch_spawn(origin : Vector2, landing : Vector2) -> void:
+func building_launch_spawn(origin : Vector2, landing : Vector2, _spawn_item_res : ItemData = null) -> void:
 	spawn_origin = origin
 	landing_pos = landing
 	global_position = origin
