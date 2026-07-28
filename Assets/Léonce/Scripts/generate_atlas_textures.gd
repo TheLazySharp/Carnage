@@ -2,9 +2,9 @@
 extends EditorScript
 
 # --- À adapter selon ton projet ---
-const JSON_PATH := "res://Assets/Léonce/Textures/Roads/roadmarks_arrows.json"
-const PNG_PATH := "res://Assets/Léonce/Textures/Roads/roadmarks_arrows.png"
-const OUTPUT_DIR := "res://Assets/Léonce/Textures/Roads/"
+const JSON_PATH := "res://Assets/Léonce/Props/Trash/trash.json"
+const PNG_PATH := "res://Assets/Léonce/Props/Trash/trash.png"
+const OUTPUT_DIR := "res://Assets/Léonce/Props/Trash/"
 # -----------------------------------
 
 func _run() -> void:

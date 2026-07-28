@@ -21,6 +21,55 @@
 [ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 24.tres" id="19_wq420"]
 [ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 25.tres" id="20_kpjr3"]
 [ext_resource type="Texture2D" uid="uid://cnidh8bp42p14" path="res://Assets/Léonce/Textures/Roads/roadmarks_crossings.png" id="21_wq420"]
+[ext_resource type="Script" uid="uid://lpdy5igmv6b6" path="res://Assets/Léonce/Scripts/debris_scatter.gd" id="22_kpjr3"]
+[ext_resource type="Texture2D" uid="uid://duphdoe0lr0c4" path="res://Assets/Léonce/Props/Trash/Slice 1.tres" id="23_1eaev"]
+[ext_resource type="Texture2D" uid="uid://bvw8eegittnoy" path="res://Assets/Léonce/Props/Trash/Slice 10.tres" id="24_bm8kg"]
+[ext_resource type="Texture2D" uid="uid://djw6d045mhe8e" path="res://Assets/Léonce/Props/Trash/Slice 11.tres" id="25_eyeis"]
+[ext_resource type="Texture2D" uid="uid://bjp0p0c8s54s" path="res://Assets/Léonce/Props/Trash/Slice 12.tres" id="26_wgbkv"]
+[ext_resource type="Texture2D" uid="uid://djxdahuo6kgat" path="res://Assets/Léonce/Props/Trash/Slice 13.tres" id="27_ebcnj"]
+[ext_resource type="Texture2D" uid="uid://cgnqagth1q5hx" path="res://Assets/Léonce/Props/Trash/Slice 14.tres" id="28_m6xhe"]
+[ext_resource type="Texture2D" uid="uid://cbtdr535kknh7" path="res://Assets/Léonce/Props/Trash/Slice 15.tres" id="29_2so35"]
+[ext_resource type="Texture2D" uid="uid://i2m64saowcji" path="res://Assets/Léonce/Props/Trash/Slice 16.tres" id="30_7i38y"]
+[ext_resource type="Texture2D" uid="uid://ufonnki1gueu" path="res://Assets/Léonce/Props/Trash/Slice 17.tres" id="31_q80h7"]
+[ext_resource type="Texture2D" uid="uid://cde05lupdfdpu" path="res://Assets/Léonce/Props/Trash/Slice 18.tres" id="32_uqknt"]
+[ext_resource type="Texture2D" uid="uid://cr3rpmqvp7lgi" path="res://Assets/Léonce/Props/Trash/Slice 19.tres" id="33_762fv"]
+[ext_resource type="Texture2D" uid="uid://b16an24gokc1c" path="res://Assets/Léonce/Props/Trash/Slice 2.tres" id="34_unwpx"]
+[ext_resource type="Texture2D" uid="uid://bvxdcsy8nk7on" path="res://Assets/Léonce/Props/Trash/Slice 20.tres" id="35_siu12"]
+[ext_resource type="Texture2D" uid="uid://ngace70p6wuc" path="res://Assets/Léonce/Props/Trash/Slice 21.tres" id="36_mqeix"]
+[ext_resource type="Texture2D" uid="uid://ktv48db6b3e6" path="res://Assets/Léonce/Props/Trash/Slice 22.tres" id="37_41ema"]
+[ext_resource type="Texture2D" uid="uid://d10kpgse7x5yd" path="res://Assets/Léonce/Props/Trash/Slice 23.tres" id="38_q4v6q"]
+[ext_resource type="Texture2D" uid="uid://8jy7ug6y3o2n" path="res://Assets/Léonce/Props/Trash/Slice 24.tres" id="39_5dgyk"]
+[ext_resource type="Texture2D" uid="uid://ej6dh04krvl0" path="res://Assets/Léonce/Props/Trash/Slice 25.tres" id="40_8uaht"]
+[ext_resource type="Texture2D" uid="uid://bo5hw12xyasr2" path="res://Assets/Léonce/Props/Trash/Slice 26.tres" id="41_au78y"]
+[ext_resource type="Texture2D" uid="uid://cyo6xknjpc4uv" path="res://Assets/Léonce/Props/Trash/Slice 27.tres" id="42_8l58v"]
+[ext_resource type="Texture2D" uid="uid://b7gq6gx2xm6d2" path="res://Assets/Léonce/Props/Trash/Slice 28.tres" id="43_w4um4"]
+[ext_resource type="Texture2D" uid="uid://cq7nrit45aoyf" path="res://Assets/Léonce/Props/Trash/Slice 29.tres" id="44_wsdp1"]
+[ext_resource type="Texture2D" uid="uid://bfsmw7bbtb0bl" path="res://Assets/Léonce/Props/Trash/Slice 3.tres" id="45_04oug"]
+[ext_resource type="Texture2D" uid="uid://c6yvjim4xp25t" path="res://Assets/Léonce/Props/Trash/Slice 30.tres" id="46_njwum"]
+[ext_resource type="Texture2D" uid="uid://cr25vncgqr7cf" path="res://Assets/Léonce/Props/Trash/Slice 31.tres" id="47_1113p"]
+[ext_resource type="Texture2D" uid="uid://cinqjia476jgt" path="res://Assets/Léonce/Props/Trash/Slice 32.tres" id="48_h75je"]
+[ext_resource type="Texture2D" uid="uid://d2wjbmfmf5bef" path="res://Assets/Léonce/Props/Trash/Slice 33.tres" id="49_5trsw"]
+[ext_resource type="Texture2D" uid="uid://w2u0visffiba" path="res://Assets/Léonce/Props/Trash/Slice 34.tres" id="50_gg4ck"]
+[ext_resource type="Texture2D" uid="uid://cctassackp81u" path="res://Assets/Léonce/Props/Trash/Slice 35.tres" id="51_jyj36"]
+[ext_resource type="Texture2D" uid="uid://dncpuhhl4mxmy" path="res://Assets/Léonce/Props/Trash/Slice 36.tres" id="52_mkn34"]
+[ext_resource type="Texture2D" uid="uid://du1kgakxx3frf" path="res://Assets/Léonce/Props/Trash/Slice 37.tres" id="53_b62f6"]
+[ext_resource type="Texture2D" uid="uid://b2h1i0mk1b1i8" path="res://Assets/Léonce/Props/Trash/Slice 38.tres" id="54_avlko"]
+[ext_resource type="Texture2D" uid="uid://b1tw3log7ihr4" path="res://Assets/Léonce/Props/Trash/Slice 39.tres" id="55_uhr7h"]
+[ext_resource type="Texture2D" uid="uid://bxy0wmgisph52" path="res://Assets/Léonce/Props/Trash/Slice 4.tres" id="56_8l2sf"]
+[ext_resource type="Texture2D" uid="uid://b8p8xweb1ehng" path="res://Assets/Léonce/Props/Trash/Slice 40.tres" id="57_xwer6"]
+[ext_resource type="Texture2D" uid="uid://5e1fjesimbws" path="res://Assets/Léonce/Props/Trash/Slice 41.tres" id="58_qbjlx"]
+[ext_resource type="Texture2D" uid="uid://cliuwcu4mhi4b" path="res://Assets/Léonce/Props/Trash/Slice 42.tres" id="59_ptxeq"]
+[ext_resource type="Texture2D" uid="uid://bq1l5ae4hcmjf" path="res://Assets/Léonce/Props/Trash/Slice 43.tres" id="60_k66vp"]
+[ext_resource type="Texture2D" uid="uid://cpahune7vqvai" path="res://Assets/Léonce/Props/Trash/Slice 44.tres" id="61_scbe7"]
+[ext_resource type="Texture2D" uid="uid://xj0h4n5dfs5v" path="res://Assets/Léonce/Props/Trash/Slice 45.tres" id="62_xcfsb"]
+[ext_resource type="Texture2D" uid="uid://bsxhlf45eb1bd" path="res://Assets/Léonce/Props/Trash/Slice 46.tres" id="63_vx4db"]
+[ext_resource type="Texture2D" uid="uid://bo1oe3se7l5jp" path="res://Assets/Léonce/Props/Trash/Slice 47.tres" id="64_0os8l"]
+[ext_resource type="Texture2D" uid="uid://dykop0wpnqy3d" path="res://Assets/Léonce/Props/Trash/Slice 48.tres" id="65_xdas5"]
+[ext_resource type="Texture2D" uid="uid://bkoogdb471aax" path="res://Assets/Léonce/Props/Trash/Slice 5.tres" id="66_qr506"]
+[ext_resource type="Texture2D" uid="uid://cu1gusvugy321" path="res://Assets/Léonce/Props/Trash/Slice 6.tres" id="67_uoimx"]
+[ext_resource type="Texture2D" uid="uid://b1akjmtdlno45" path="res://Assets/Léonce/Props/Trash/Slice 7.tres" id="68_mffiu"]
+[ext_resource type="Texture2D" uid="uid://cpvvpw6osc3kr" path="res://Assets/Léonce/Props/Trash/Slice 8.tres" id="69_jvd2b"]
+[ext_resource type="Texture2D" uid="uid://b53ioqwvltud4" path="res://Assets/Léonce/Props/Trash/Slice 9.tres" id="70_v1ttx"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1910,7 +1959,7 @@ zoom = Vector2(1.52, 1.52)
 top_level = true
 z_index = 20
 material = SubResource("CanvasItemMaterial_hnt52")
-position = Vector2(0, 4)
+position = Vector2(349, 86)
 amount = 20
 amount_ratio = 0.7
 lifetime = 0.32
@@ -1942,6 +1991,12 @@ tile_set = SubResource("TileSet_nhvyv")
 occlusion_enabled = false
 rendering_quadrant_size = 32
 
+[node name="Building_edges" type="TileMapLayer" parent="Land_layers" unique_id=1372943361]
+z_index = 10
+tile_map_data = PackedByteArray("AAAxACYAAAABABMAAAAxACcAAAABABQAAAAxACgAAAABABQAAAAxACkAAAADABIAAAAxACoAAAADABIAAAAxACsAAAADABIAAAAxACwAAAADABcAAAAyACwAAAAEABcAAAAzACwAAAAEABcAAAA0ACwAAAAEABcAAAA1ACwAAAAEABcAAAA2ACwAAAAEABcAAAA3ACwAAAAEABcAAAA4ACwAAAAEABcAAAA5ACwAAAAEABcAAAA6ACwAAAAHABUAAAA6ACsAAAAHABQAAAA6ACoAAAAHABQAAAA6ACkAAAAFABIAAAA6ACgAAAAFABYAAAA6ACcAAAAFABYAAAA6ACYAAAAHABMAAAAyACYAAAACABMAAAA2ACYAAAAGABMAAAAzACYAAAACABMAAAA3ACYAAAAGABMAAAA0ACYAAAACABMAAAA4ACYAAAAGABMAAAA1ACYAAAACABMAAAA5ACYAAAAGABMAAAA2ACsAAAATAAcAAAA3ACsAAAAVAAcAAAA3ACoAAAAVAAEAAAA2ACoAAAATAAEAAABGACQAAAABAAMAAABGACUAAAABAAQAAABHACQAAAACAAMAAABGACYAAAADAAYAAABGACcAAAADAAIAAABGACgAAAADAAcAAABIACQAAAAGAAMAAABJACQAAAAGAAMAAABKACQAAAAGAAMAAABLACQAAAACAAUAADBMACQAAAACAAMAAABNACQAAAAHAAMAAABNACUAAAAHAAQAAABNACYAAAAFAAIAAABNACcAAAAFAAYAAABMACgAAAAEAAcAAABNACgAAAAFAAcAAABLACgAAAAEAAcAAABKACgAAAACAAUAAABJACgAAAAHAAQAAFBIACgAAAACAAMAADBHACgAAAABAAQAAGA=")
+tile_set = SubResource("TileSet_r7ksg")
+y_sort_origin = 6
+
 [node name="Building1" type="NinePatchRect" parent="Land_layers" unique_id=1059725375]
 z_index = 9
 texture_filter = 1
@@ -1969,13 +2024,6 @@ region_rect = Rect2(0, -63.5, 512, 575.5)
 patch_margin_top = 46
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-
-[node name="Building_edges" type="TileMapLayer" parent="Land_layers/Building1" unique_id=1372943361]
-z_index = 7
-position = Vector2(-1570, -1221)
-tile_map_data = PackedByteArray("AAAxACYAAAABABMAAAAxACcAAAABABQAAAAxACgAAAABABQAAAAxACkAAAADABIAAAAxACoAAAADABIAAAAxACsAAAADABIAAAAxACwAAAADABcAAAAyACwAAAAEABcAAAAzACwAAAAEABcAAAA0ACwAAAAEABcAAAA1ACwAAAAEABcAAAA2ACwAAAAEABcAAAA3ACwAAAAEABcAAAA4ACwAAAAEABcAAAA5ACwAAAAEABcAAAA6ACwAAAAHABUAAAA6ACsAAAAHABQAAAA6ACoAAAAHABQAAAA6ACkAAAAFABIAAAA6ACgAAAAFABYAAAA6ACcAAAAFABYAAAA6ACYAAAAHABMAAAAyACYAAAACABMAAAA2ACYAAAAGABMAAAAzACYAAAACABMAAAA3ACYAAAAGABMAAAA0ACYAAAACABMAAAA4ACYAAAAGABMAAAA1ACYAAAACABMAAAA5ACYAAAAGABMAAAA2ACsAAAATAAcAAAA3ACsAAAAVAAcAAAA3ACoAAAAVAAEAAAA2ACoAAAATAAEAAABGACQAAAABAAMAAABGACUAAAABAAQAAABHACQAAAACAAMAAABGACYAAAADAAYAAABGACcAAAADAAIAAABGACgAAAADAAcAAABIACQAAAAGAAMAAABJACQAAAAGAAMAAABKACQAAAAGAAMAAABLACQAAAACAAUAADBMACQAAAACAAMAAABNACQAAAAHAAMAAABNACUAAAAHAAQAAABNACYAAAAFAAIAAABNACcAAAAFAAYAAABMACgAAAAEAAcAAABNACgAAAAFAAcAAABLACgAAAAEAAcAAABKACgAAAACAAUAAABJACgAAAAHAAQAAFBIACgAAAACAAMAADBHACgAAAABAAQAAGA=")
-tile_set = SubResource("TileSet_r7ksg")
-y_sort_origin = 6
 
 [node name="Roof_asset2" type="Sprite2D" parent="Land_layers/Building1" unique_id=1993252002]
 z_index = 8
@@ -2075,7 +2123,7 @@ shadow_samples = 50
 
 [node name="ShadowsGround" type="CanvasGroup" parent="." unique_id=891371465]
 self_modulate = Color(1, 1, 1, 0.7372549)
-z_index = 3
+z_index = 4
 position = Vector2(1567.9999, 1216.0001)
 scale = Vector2(1.4377774, 1.4520547)
 
@@ -2192,8 +2240,778 @@ position = Vector2(1627.5, 889)
 rotation = 1.5707964
 texture = ExtResource("20_kpjr3")
 
-[node name="Roadmarks" type="TileMapLayer" parent="RoadMarks" unique_id=1717996340]
+[node name="Crossings" type="TileMapLayer" parent="RoadMarks" unique_id=1717996340]
 z_index = 2
-tile_map_data = PackedByteArray("AAA1AB4AAAABAAsAAAA1AB8AAAABAAwAAAA1ACAAAAABAA0AAAA1ACEAAAABAA4AAAA1ACIAAAABAA8AAAA2AB4AAAACAAsAAAA2AB8AAAACAAwAAAA2ACAAAAACAA0AAAA2ACEAAAACAA4AAAA2ACIAAAACAA8AAAA3AB4AAAADAAsAAAA3AB8AAAADAAwAAAA3ACAAAAADAA0AAAA3ACEAAAADAA4AAAA3ACIAAAADAA8AAAA4AB4AAAAEAAsAAAA4AB8AAAAEAAwAAAA4ACAAAAAEAA0AAAA4ACEAAAAEAA4AAAA4ACIAAAAEAA8AAAA5AB4AAAAFAAsAAAA5AB8AAAAFAAwAAAA5ACAAAAAFAA0AAAA5ACEAAAAFAA4AAAA5ACIAAAAFAA8AAAA6AB4AAAAGAAsAAAA6AB8AAAAGAAwAAAA6ACAAAAAGAA0AAAA6ACEAAAAGAA4AAAA6ACIAAAAGAA8AAAA1ABgAAAABAAUAAAA1ABkAAAABAAYAAAA1ABoAAAABAAcAAAA1ABsAAAABAAgAAAA1ABwAAAABAAkAAAA1AB0AAAABAAoAAAA2ABgAAAACAAUAAAA2ABkAAAACAAYAAAA2ABoAAAACAAcAAAA2ABsAAAACAAgAAAA2ABwAAAACAAkAAAA2AB0AAAACAAoAAAA3ABgAAAADAAUAAAA3ABkAAAADAAYAAAA3ABoAAAADAAcAAAA3ABsAAAADAAgAAAA3ABwAAAADAAkAAAA3AB0AAAADAAoAAAA4ABgAAAAEAAUAAAA4ABkAAAAEAAYAAAA4ABoAAAAEAAcAAAA4ABsAAAAEAAgAAAA4ABwAAAAEAAkAAAA4AB0AAAAEAAoAAAA5ABgAAAAFAAUAAAA5ABkAAAAFAAYAAAA5ABoAAAAFAAcAAAA5ABsAAAAFAAgAAAA5ABwAAAAFAAkAAAA5AB0AAAAFAAoAAAA6ABgAAAAGAAUAAAA6ABkAAAAGAAYAAAA6ABoAAAAGAAcAAAA6ABsAAAAGAAgAAAA6ABwAAAAGAAkAAAA6AB0AAAAGAAoAAAA1ABQAAAABAAEAAAA1ABUAAAABAAIAAAA1ABYAAAABAAMAAAA1ABcAAAABAAQAAAA2ABQAAAACAAEAAAA2ABUAAAACAAIAAAA2ABYAAAACAAMAAAA2ABcAAAACAAQAAAA3ABQAAAADAAEAAAA3ABUAAAADAAIAAAA3ABYAAAADAAMAAAA3ABcAAAADAAQAAAA4ABQAAAAEAAEAAAA4ABUAAAAEAAIAAAA4ABYAAAAEAAMAAAA4ABcAAAAEAAQAAAA5ABQAAAAFAAEAAAA5ABUAAAAFAAIAAAA5ABYAAAAFAAMAAAA5ABcAAAAFAAQAAAA6ABQAAAAGAAEAAAA6ABUAAAAGAAIAAAA6ABYAAAAGAAMAAAA6ABcAAAAGAAQAAABCACcAAAABABIAAFBCACkAAAADABIAAFBBACcAAAABABMAAFBBACgAAAACABMAAFBBACkAAAADABMAAFBAACcAAAABABQAAFBAACgAAAACABQAAFBAACkAAAADABQAAFA/ACcAAAABABUAAFA/ACgAAAACABUAAFA/ACkAAAADABUAAFA+ACcAAAABABYAAFA+ACgAAAACABYAAFA+ACkAAAADABYAAFA9ACcAAAABABcAAFA9ACgAAAACABcAAFA9ACkAAAADABcAAFA=")
+tile_map_data = PackedByteArray("AAA1AB4AAAABAAsAAAA1AB8AAAABAAwAAAA1ACAAAAABAA0AAAA1ACEAAAABAA4AAAA1ACIAAAABAA8AAAA2AB4AAAACAAsAAAA2AB8AAAACAAwAAAA2ACAAAAACAA0AAAA2ACEAAAACAA4AAAA2ACIAAAACAA8AAAA3AB4AAAADAAsAAAA3AB8AAAADAAwAAAA3ACAAAAADAA0AAAA3ACEAAAADAA4AAAA3ACIAAAADAA8AAAA4AB4AAAAEAAsAAAA4AB8AAAAEAAwAAAA4ACAAAAAEAA0AAAA4ACEAAAAEAA4AAAA4ACIAAAAEAA8AAAA5AB4AAAAFAAsAAAA5AB8AAAAFAAwAAAA5ACAAAAAFAA0AAAA5ACEAAAAFAA4AAAA5ACIAAAAFAA8AAAA1ABgAAAABAAUAAAA1ABkAAAABAAYAAAA1ABoAAAABAAcAAAA1ABsAAAABAAgAAAA1ABwAAAABAAkAAAA1AB0AAAABAAoAAAA2ABgAAAACAAUAAAA2ABkAAAACAAYAAAA2ABoAAAACAAcAAAA2ABsAAAACAAgAAAA2ABwAAAACAAkAAAA2AB0AAAACAAoAAAA3ABgAAAADAAUAAAA3ABkAAAADAAYAAAA3ABoAAAADAAcAAAA3ABsAAAADAAgAAAA3ABwAAAADAAkAAAA3AB0AAAADAAoAAAA4ABgAAAAEAAUAAAA4ABkAAAAEAAYAAAA4ABoAAAAEAAcAAAA4ABsAAAAEAAgAAAA4ABwAAAAEAAkAAAA4AB0AAAAEAAoAAAA5ABgAAAAFAAUAAAA5ABkAAAAFAAYAAAA5ABoAAAAFAAcAAAA5ABsAAAAFAAgAAAA5ABwAAAAFAAkAAAA5AB0AAAAFAAoAAAA1ABQAAAABAAEAAAA1ABUAAAABAAIAAAA1ABYAAAABAAMAAAA1ABcAAAABAAQAAAA2ABQAAAACAAEAAAA2ABUAAAACAAIAAAA2ABYAAAACAAMAAAA2ABcAAAACAAQAAAA3ABQAAAADAAEAAAA3ABUAAAADAAIAAAA3ABYAAAADAAMAAAA3ABcAAAADAAQAAAA4ABQAAAAEAAEAAAA4ABUAAAAEAAIAAAA4ABYAAAAEAAMAAAA4ABcAAAAEAAQAAAA5ABQAAAAFAAEAAAA5ABUAAAAFAAIAAAA5ABYAAAAFAAMAAAA5ABcAAAAFAAQAAABCACcAAAABABIAAFBCACkAAAADABIAAFBBACcAAAABABMAAFBBACgAAAACABMAAFBBACkAAAADABMAAFBAACcAAAABABQAAFBAACgAAAACABQAAFBAACkAAAADABQAAFA/ACcAAAABABUAAFA/ACgAAAACABUAAFA/ACkAAAADABUAAFA+ACcAAAABABYAAFA+ACgAAAACABYAAFA+ACkAAAADABYAAFA9ACcAAAABABcAAFA9ACgAAAACABcAAFA9ACkAAAADABcAAFA=")
 tile_set = SubResource("TileSet_tyiq4")
 collision_enabled = false
+
+[node name="Debris" type="Node2D" parent="." unique_id=698348849]
+z_index = 3
+position = Vector2(1890, 1176)
+script = ExtResource("22_kpjr3")
+debris_textures_folder = "res://Assets/Léonce/Props/Trash/"
+debris_textures = Array[Texture2D]([ExtResource("23_1eaev"), ExtResource("24_bm8kg"), ExtResource("25_eyeis"), ExtResource("26_wgbkv"), ExtResource("27_ebcnj"), ExtResource("28_m6xhe"), ExtResource("29_2so35"), ExtResource("30_7i38y"), ExtResource("31_q80h7"), ExtResource("32_uqknt"), ExtResource("33_762fv"), ExtResource("34_unwpx"), ExtResource("35_siu12"), ExtResource("36_mqeix"), ExtResource("37_41ema"), ExtResource("38_q4v6q"), ExtResource("39_5dgyk"), ExtResource("40_8uaht"), ExtResource("41_au78y"), ExtResource("42_8l58v"), ExtResource("43_w4um4"), ExtResource("44_wsdp1"), ExtResource("45_04oug"), ExtResource("46_njwum"), ExtResource("47_1113p"), ExtResource("48_h75je"), ExtResource("49_5trsw"), ExtResource("50_gg4ck"), ExtResource("51_jyj36"), ExtResource("52_mkn34"), ExtResource("53_b62f6"), ExtResource("54_avlko"), ExtResource("55_uhr7h"), ExtResource("56_8l2sf"), ExtResource("57_xwer6"), ExtResource("58_qbjlx"), ExtResource("59_ptxeq"), ExtResource("60_k66vp"), ExtResource("61_scbe7"), ExtResource("62_xcfsb"), ExtResource("63_vx4db"), ExtResource("64_0os8l"), ExtResource("65_xdas5"), ExtResource("66_qr506"), ExtResource("67_uoimx"), ExtResource("68_mffiu"), ExtResource("69_jvd2b"), ExtResource("70_v1ttx")])
+bounds_size = Vector2i(70, 324)
+pixel_size = 1
+item_count = 51
+
+[node name="@Sprite2D@50565" type="Sprite2D" parent="Debris" unique_id=923068053]
+position = Vector2(13, 267)
+rotation = 3.1415927
+texture = ExtResource("31_q80h7")
+flip_h = true
+
+[node name="@Sprite2D@50566" type="Sprite2D" parent="Debris" unique_id=1608064161]
+position = Vector2(27, 245)
+rotation = 1.5707964
+texture = ExtResource("64_0os8l")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50567" type="Sprite2D" parent="Debris" unique_id=98103891]
+position = Vector2(21, 292)
+rotation = 4.712389
+texture = ExtResource("36_mqeix")
+
+[node name="@Sprite2D@50568" type="Sprite2D" parent="Debris" unique_id=717729077]
+position = Vector2(1, 131)
+rotation = 3.1415927
+texture = ExtResource("62_xcfsb")
+flip_v = true
+
+[node name="@Sprite2D@50569" type="Sprite2D" parent="Debris" unique_id=717278157]
+position = Vector2(67, 159)
+rotation = 1.5707964
+texture = ExtResource("29_2so35")
+
+[node name="@Sprite2D@50570" type="Sprite2D" parent="Debris" unique_id=536202643]
+position = Vector2(55, 258)
+rotation = 1.5707964
+texture = ExtResource("42_8l58v")
+
+[node name="@Sprite2D@50571" type="Sprite2D" parent="Debris" unique_id=1392399269]
+position = Vector2(36, 298)
+rotation = 4.712389
+texture = ExtResource("25_eyeis")
+
+[node name="@Sprite2D@50572" type="Sprite2D" parent="Debris" unique_id=1986948734]
+position = Vector2(1, 262)
+rotation = 3.1415927
+texture = ExtResource("67_uoimx")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50573" type="Sprite2D" parent="Debris" unique_id=360393705]
+position = Vector2(46, 8)
+rotation = 1.5707964
+texture = ExtResource("44_wsdp1")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50574" type="Sprite2D" parent="Debris" unique_id=623680928]
+position = Vector2(4, 54)
+rotation = 3.1415927
+texture = ExtResource("58_qbjlx")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50575" type="Sprite2D" parent="Debris" unique_id=401849870]
+position = Vector2(1, 205)
+rotation = 4.712389
+texture = ExtResource("56_8l2sf")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50576" type="Sprite2D" parent="Debris" unique_id=2094477497]
+position = Vector2(0, 184)
+texture = ExtResource("48_h75je")
+flip_v = true
+
+[node name="@Sprite2D@50577" type="Sprite2D" parent="Debris" unique_id=1764372536]
+position = Vector2(15, 239)
+rotation = 4.712389
+texture = ExtResource("39_5dgyk")
+flip_h = true
+
+[node name="@Sprite2D@50578" type="Sprite2D" parent="Debris" unique_id=847895794]
+position = Vector2(66, 279)
+rotation = 1.5707964
+texture = ExtResource("67_uoimx")
+flip_h = true
+
+[node name="@Sprite2D@50579" type="Sprite2D" parent="Debris" unique_id=40284344]
+position = Vector2(21, 185)
+rotation = 4.712389
+texture = ExtResource("29_2so35")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50580" type="Sprite2D" parent="Debris" unique_id=2128993626]
+position = Vector2(4, 318)
+rotation = 1.5707964
+texture = ExtResource("31_q80h7")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50581" type="Sprite2D" parent="Debris" unique_id=907673318]
+position = Vector2(15, 242)
+texture = ExtResource("41_au78y")
+
+[node name="@Sprite2D@50582" type="Sprite2D" parent="Debris" unique_id=90738565]
+position = Vector2(23, 311)
+rotation = 4.712389
+texture = ExtResource("43_w4um4")
+flip_v = true
+
+[node name="@Sprite2D@50583" type="Sprite2D" parent="Debris" unique_id=1386646261]
+position = Vector2(36, 142)
+rotation = 4.712389
+texture = ExtResource("36_mqeix")
+flip_v = true
+
+[node name="@Sprite2D@50584" type="Sprite2D" parent="Debris" unique_id=2130478297]
+position = Vector2(52, 229)
+rotation = 1.5707964
+texture = ExtResource("53_b62f6")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50585" type="Sprite2D" parent="Debris" unique_id=1978562915]
+position = Vector2(32, 99)
+rotation = 3.1415927
+texture = ExtResource("60_k66vp")
+flip_h = true
+
+[node name="@Sprite2D@50586" type="Sprite2D" parent="Debris" unique_id=1645395385]
+position = Vector2(17, 283)
+rotation = 1.5707964
+texture = ExtResource("68_mffiu")
+flip_v = true
+
+[node name="@Sprite2D@50587" type="Sprite2D" parent="Debris" unique_id=1833715897]
+position = Vector2(19, 25)
+rotation = 3.1415927
+texture = ExtResource("69_jvd2b")
+flip_v = true
+
+[node name="@Sprite2D@50588" type="Sprite2D" parent="Debris" unique_id=1931227412]
+position = Vector2(66, 294)
+rotation = 3.1415927
+texture = ExtResource("68_mffiu")
+flip_h = true
+
+[node name="@Sprite2D@50589" type="Sprite2D" parent="Debris" unique_id=1374517115]
+position = Vector2(8, 316)
+rotation = 1.5707964
+texture = ExtResource("46_njwum")
+flip_h = true
+
+[node name="@Sprite2D@50590" type="Sprite2D" parent="Debris" unique_id=1686652286]
+position = Vector2(59, 286)
+rotation = 4.712389
+texture = ExtResource("32_uqknt")
+
+[node name="@Sprite2D@50591" type="Sprite2D" parent="Debris" unique_id=700544371]
+position = Vector2(10, 29)
+rotation = 1.5707964
+texture = ExtResource("55_uhr7h")
+flip_v = true
+
+[node name="@Sprite2D@50592" type="Sprite2D" parent="Debris" unique_id=1475468100]
+position = Vector2(58, 221)
+texture = ExtResource("35_siu12")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50593" type="Sprite2D" parent="Debris" unique_id=1412175799]
+position = Vector2(15, 316)
+rotation = 1.5707964
+texture = ExtResource("45_04oug")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50594" type="Sprite2D" parent="Debris" unique_id=1756533110]
+position = Vector2(17, 36)
+rotation = 3.1415927
+texture = ExtResource("61_scbe7")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50595" type="Sprite2D" parent="Debris" unique_id=1134700790]
+position = Vector2(31, 239)
+rotation = 3.1415927
+texture = ExtResource("48_h75je")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50596" type="Sprite2D" parent="Debris" unique_id=355983929]
+position = Vector2(68, 147)
+rotation = 4.712389
+texture = ExtResource("31_q80h7")
+flip_v = true
+
+[node name="@Sprite2D@50597" type="Sprite2D" parent="Debris" unique_id=1736824405]
+position = Vector2(69, 303)
+rotation = 3.1415927
+texture = ExtResource("66_qr506")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50598" type="Sprite2D" parent="Debris" unique_id=1154577495]
+position = Vector2(37, 269)
+rotation = 1.5707964
+texture = ExtResource("63_vx4db")
+flip_v = true
+
+[node name="@Sprite2D@50599" type="Sprite2D" parent="Debris" unique_id=934368420]
+position = Vector2(51, 180)
+texture = ExtResource("47_1113p")
+flip_v = true
+
+[node name="@Sprite2D@50600" type="Sprite2D" parent="Debris" unique_id=625229344]
+position = Vector2(63, 70)
+texture = ExtResource("68_mffiu")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50601" type="Sprite2D" parent="Debris" unique_id=750083909]
+position = Vector2(23, 176)
+rotation = 1.5707964
+texture = ExtResource("48_h75je")
+flip_h = true
+
+[node name="@Sprite2D@50602" type="Sprite2D" parent="Debris" unique_id=1408932812]
+position = Vector2(19, 296)
+rotation = 1.5707964
+texture = ExtResource("43_w4um4")
+
+[node name="@Sprite2D@50603" type="Sprite2D" parent="Debris" unique_id=713539593]
+position = Vector2(4, 292)
+rotation = 1.5707964
+texture = ExtResource("57_xwer6")
+flip_h = true
+
+[node name="@Sprite2D@50604" type="Sprite2D" parent="Debris" unique_id=166712093]
+position = Vector2(65, 119)
+rotation = 4.712389
+texture = ExtResource("56_8l2sf")
+
+[node name="@Sprite2D@50605" type="Sprite2D" parent="Debris" unique_id=1755855646]
+position = Vector2(43, 156)
+rotation = 1.5707964
+texture = ExtResource("30_7i38y")
+flip_v = true
+
+[node name="@Sprite2D@50606" type="Sprite2D" parent="Debris" unique_id=1933842345]
+position = Vector2(11, 18)
+rotation = 3.1415927
+texture = ExtResource("32_uqknt")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50607" type="Sprite2D" parent="Debris" unique_id=707478182]
+position = Vector2(66, 318)
+rotation = 3.1415927
+texture = ExtResource("26_wgbkv")
+
+[node name="@Sprite2D@50608" type="Sprite2D" parent="Debris" unique_id=1548257686]
+position = Vector2(45, 62)
+texture = ExtResource("42_8l58v")
+
+[node name="@Sprite2D@50609" type="Sprite2D" parent="Debris" unique_id=1024429924]
+position = Vector2(41, 267)
+rotation = 1.5707964
+texture = ExtResource("51_jyj36")
+flip_h = true
+
+[node name="@Sprite2D@50610" type="Sprite2D" parent="Debris" unique_id=1422936220]
+position = Vector2(36, 9)
+rotation = 4.712389
+texture = ExtResource("45_04oug")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50611" type="Sprite2D" parent="Debris" unique_id=1043885512]
+position = Vector2(47, 270)
+rotation = 1.5707964
+texture = ExtResource("56_8l2sf")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@50612" type="Sprite2D" parent="Debris" unique_id=1607874359]
+position = Vector2(48, 108)
+rotation = 4.712389
+texture = ExtResource("35_siu12")
+flip_h = true
+
+[node name="@Sprite2D@50613" type="Sprite2D" parent="Debris" unique_id=612006210]
+position = Vector2(59, 102)
+rotation = 1.5707964
+texture = ExtResource("53_b62f6")
+flip_v = true
+
+[node name="@Sprite2D@50614" type="Sprite2D" parent="Debris" unique_id=432269202]
+position = Vector2(47, 69)
+rotation = 3.1415927
+texture = ExtResource("35_siu12")
+
+[node name="@Sprite2D@50615" type="Sprite2D" parent="Debris" unique_id=1294841781]
+position = Vector2(47, 53)
+rotation = 4.712389
+texture = ExtResource("24_bm8kg")
+
+[node name="Debris2" type="Node2D" parent="." unique_id=1974046202]
+z_index = 3
+position = Vector2(2556, 1313)
+rotation = 1.5707964
+script = ExtResource("22_kpjr3")
+debris_textures_folder = "res://Assets/Léonce/Props/Trash/"
+debris_textures = Array[Texture2D]([ExtResource("23_1eaev"), ExtResource("24_bm8kg"), ExtResource("25_eyeis"), ExtResource("26_wgbkv"), ExtResource("27_ebcnj"), ExtResource("28_m6xhe"), ExtResource("29_2so35"), ExtResource("30_7i38y"), ExtResource("31_q80h7"), ExtResource("32_uqknt"), ExtResource("33_762fv"), ExtResource("34_unwpx"), ExtResource("35_siu12"), ExtResource("36_mqeix"), ExtResource("37_41ema"), ExtResource("38_q4v6q"), ExtResource("39_5dgyk"), ExtResource("40_8uaht"), ExtResource("41_au78y"), ExtResource("42_8l58v"), ExtResource("43_w4um4"), ExtResource("44_wsdp1"), ExtResource("45_04oug"), ExtResource("46_njwum"), ExtResource("47_1113p"), ExtResource("48_h75je"), ExtResource("49_5trsw"), ExtResource("50_gg4ck"), ExtResource("51_jyj36"), ExtResource("52_mkn34"), ExtResource("53_b62f6"), ExtResource("54_avlko"), ExtResource("55_uhr7h"), ExtResource("56_8l2sf"), ExtResource("57_xwer6"), ExtResource("58_qbjlx"), ExtResource("59_ptxeq"), ExtResource("60_k66vp"), ExtResource("61_scbe7"), ExtResource("62_xcfsb"), ExtResource("63_vx4db"), ExtResource("64_0os8l"), ExtResource("65_xdas5"), ExtResource("66_qr506"), ExtResource("67_uoimx"), ExtResource("68_mffiu"), ExtResource("69_jvd2b"), ExtResource("70_v1ttx")])
+bounds_size = Vector2i(93, 336)
+pixel_size = 1
+item_count = 23
+
+[node name="_Sprite2D_50565" type="Sprite2D" parent="Debris2" unique_id=1391325641]
+position = Vector2(13, 267)
+rotation = 3.1415927
+texture = ExtResource("31_q80h7")
+flip_h = true
+
+[node name="_Sprite2D_50566" type="Sprite2D" parent="Debris2" unique_id=538936219]
+position = Vector2(27, 245)
+rotation = 1.5707964
+texture = ExtResource("64_0os8l")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50567" type="Sprite2D" parent="Debris2" unique_id=1831807403]
+position = Vector2(21, 292)
+rotation = 4.712389
+texture = ExtResource("36_mqeix")
+
+[node name="_Sprite2D_50568" type="Sprite2D" parent="Debris2" unique_id=1815876974]
+position = Vector2(1, 131)
+rotation = 3.1415927
+texture = ExtResource("62_xcfsb")
+flip_v = true
+
+[node name="_Sprite2D_50569" type="Sprite2D" parent="Debris2" unique_id=2036271173]
+position = Vector2(67, 159)
+rotation = 1.5707964
+texture = ExtResource("29_2so35")
+
+[node name="_Sprite2D_50570" type="Sprite2D" parent="Debris2" unique_id=488993216]
+position = Vector2(55, 258)
+rotation = 1.5707964
+texture = ExtResource("42_8l58v")
+
+[node name="_Sprite2D_50571" type="Sprite2D" parent="Debris2" unique_id=119516860]
+position = Vector2(36, 298)
+rotation = 4.712389
+texture = ExtResource("25_eyeis")
+
+[node name="_Sprite2D_50572" type="Sprite2D" parent="Debris2" unique_id=417933263]
+position = Vector2(1, 262)
+rotation = 3.1415927
+texture = ExtResource("67_uoimx")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50573" type="Sprite2D" parent="Debris2" unique_id=659388181]
+position = Vector2(46, 8)
+rotation = 1.5707964
+texture = ExtResource("44_wsdp1")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50574" type="Sprite2D" parent="Debris2" unique_id=49573848]
+position = Vector2(4, 54)
+rotation = 3.1415927
+texture = ExtResource("58_qbjlx")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50575" type="Sprite2D" parent="Debris2" unique_id=1925917983]
+position = Vector2(1, 205)
+rotation = 4.712389
+texture = ExtResource("56_8l2sf")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50576" type="Sprite2D" parent="Debris2" unique_id=1321145808]
+position = Vector2(0, 184)
+texture = ExtResource("48_h75je")
+flip_v = true
+
+[node name="_Sprite2D_50577" type="Sprite2D" parent="Debris2" unique_id=161658502]
+position = Vector2(15, 239)
+rotation = 4.712389
+texture = ExtResource("39_5dgyk")
+flip_h = true
+
+[node name="_Sprite2D_50578" type="Sprite2D" parent="Debris2" unique_id=1559373989]
+position = Vector2(66, 279)
+rotation = 1.5707964
+texture = ExtResource("67_uoimx")
+flip_h = true
+
+[node name="_Sprite2D_50579" type="Sprite2D" parent="Debris2" unique_id=1642583493]
+position = Vector2(21, 185)
+rotation = 4.712389
+texture = ExtResource("29_2so35")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50580" type="Sprite2D" parent="Debris2" unique_id=2073185194]
+position = Vector2(4, 318)
+rotation = 1.5707964
+texture = ExtResource("31_q80h7")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50581" type="Sprite2D" parent="Debris2" unique_id=986774471]
+position = Vector2(15, 242)
+texture = ExtResource("41_au78y")
+
+[node name="_Sprite2D_50582" type="Sprite2D" parent="Debris2" unique_id=1942743832]
+position = Vector2(23, 311)
+rotation = 4.712389
+texture = ExtResource("43_w4um4")
+flip_v = true
+
+[node name="_Sprite2D_50583" type="Sprite2D" parent="Debris2" unique_id=511767917]
+position = Vector2(36, 142)
+rotation = 4.712389
+texture = ExtResource("36_mqeix")
+flip_v = true
+
+[node name="_Sprite2D_50584" type="Sprite2D" parent="Debris2" unique_id=784167648]
+position = Vector2(52, 229)
+rotation = 1.5707964
+texture = ExtResource("53_b62f6")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50585" type="Sprite2D" parent="Debris2" unique_id=895462800]
+position = Vector2(32, 99)
+rotation = 3.1415927
+texture = ExtResource("60_k66vp")
+flip_h = true
+
+[node name="_Sprite2D_50586" type="Sprite2D" parent="Debris2" unique_id=113254726]
+position = Vector2(17, 283)
+rotation = 1.5707964
+texture = ExtResource("68_mffiu")
+flip_v = true
+
+[node name="_Sprite2D_50587" type="Sprite2D" parent="Debris2" unique_id=76273505]
+position = Vector2(19, 25)
+rotation = 3.1415927
+texture = ExtResource("69_jvd2b")
+flip_v = true
+
+[node name="_Sprite2D_50588" type="Sprite2D" parent="Debris2" unique_id=2099815642]
+position = Vector2(66, 294)
+rotation = 3.1415927
+texture = ExtResource("68_mffiu")
+flip_h = true
+
+[node name="_Sprite2D_50589" type="Sprite2D" parent="Debris2" unique_id=990398606]
+position = Vector2(8, 316)
+rotation = 1.5707964
+texture = ExtResource("46_njwum")
+flip_h = true
+
+[node name="_Sprite2D_50590" type="Sprite2D" parent="Debris2" unique_id=1497648454]
+position = Vector2(59, 286)
+rotation = 4.712389
+texture = ExtResource("32_uqknt")
+
+[node name="_Sprite2D_50591" type="Sprite2D" parent="Debris2" unique_id=1910227809]
+position = Vector2(10, 29)
+rotation = 1.5707964
+texture = ExtResource("55_uhr7h")
+flip_v = true
+
+[node name="_Sprite2D_50592" type="Sprite2D" parent="Debris2" unique_id=1312551057]
+position = Vector2(58, 221)
+texture = ExtResource("35_siu12")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50593" type="Sprite2D" parent="Debris2" unique_id=1413544820]
+position = Vector2(15, 316)
+rotation = 1.5707964
+texture = ExtResource("45_04oug")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50594" type="Sprite2D" parent="Debris2" unique_id=1852077653]
+position = Vector2(17, 36)
+rotation = 3.1415927
+texture = ExtResource("61_scbe7")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50595" type="Sprite2D" parent="Debris2" unique_id=1131993915]
+position = Vector2(31, 239)
+rotation = 3.1415927
+texture = ExtResource("48_h75je")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50596" type="Sprite2D" parent="Debris2" unique_id=1972359119]
+position = Vector2(68, 147)
+rotation = 4.712389
+texture = ExtResource("31_q80h7")
+flip_v = true
+
+[node name="_Sprite2D_50597" type="Sprite2D" parent="Debris2" unique_id=1255860134]
+position = Vector2(69, 303)
+rotation = 3.1415927
+texture = ExtResource("66_qr506")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50598" type="Sprite2D" parent="Debris2" unique_id=1733051553]
+position = Vector2(37, 269)
+rotation = 1.5707964
+texture = ExtResource("63_vx4db")
+flip_v = true
+
+[node name="_Sprite2D_50599" type="Sprite2D" parent="Debris2" unique_id=841785702]
+position = Vector2(51, 180)
+texture = ExtResource("47_1113p")
+flip_v = true
+
+[node name="_Sprite2D_50600" type="Sprite2D" parent="Debris2" unique_id=161178566]
+position = Vector2(63, 70)
+texture = ExtResource("68_mffiu")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50601" type="Sprite2D" parent="Debris2" unique_id=90586679]
+position = Vector2(23, 176)
+rotation = 1.5707964
+texture = ExtResource("48_h75je")
+flip_h = true
+
+[node name="_Sprite2D_50602" type="Sprite2D" parent="Debris2" unique_id=1162013636]
+position = Vector2(19, 296)
+rotation = 1.5707964
+texture = ExtResource("43_w4um4")
+
+[node name="_Sprite2D_50603" type="Sprite2D" parent="Debris2" unique_id=2138414126]
+position = Vector2(4, 292)
+rotation = 1.5707964
+texture = ExtResource("57_xwer6")
+flip_h = true
+
+[node name="_Sprite2D_50604" type="Sprite2D" parent="Debris2" unique_id=605562267]
+position = Vector2(65, 119)
+rotation = 4.712389
+texture = ExtResource("56_8l2sf")
+
+[node name="_Sprite2D_50605" type="Sprite2D" parent="Debris2" unique_id=965194136]
+position = Vector2(43, 156)
+rotation = 1.5707964
+texture = ExtResource("30_7i38y")
+flip_v = true
+
+[node name="_Sprite2D_50606" type="Sprite2D" parent="Debris2" unique_id=89442514]
+position = Vector2(11, 18)
+rotation = 3.1415927
+texture = ExtResource("32_uqknt")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50607" type="Sprite2D" parent="Debris2" unique_id=1022808566]
+position = Vector2(66, 318)
+rotation = 3.1415927
+texture = ExtResource("26_wgbkv")
+
+[node name="_Sprite2D_50608" type="Sprite2D" parent="Debris2" unique_id=440703661]
+position = Vector2(45, 62)
+texture = ExtResource("42_8l58v")
+
+[node name="_Sprite2D_50609" type="Sprite2D" parent="Debris2" unique_id=1302717498]
+position = Vector2(41, 267)
+rotation = 1.5707964
+texture = ExtResource("51_jyj36")
+flip_h = true
+
+[node name="_Sprite2D_50610" type="Sprite2D" parent="Debris2" unique_id=1123206345]
+position = Vector2(36, 9)
+rotation = 4.712389
+texture = ExtResource("45_04oug")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50611" type="Sprite2D" parent="Debris2" unique_id=364525957]
+position = Vector2(47, 270)
+rotation = 1.5707964
+texture = ExtResource("56_8l2sf")
+flip_h = true
+flip_v = true
+
+[node name="_Sprite2D_50612" type="Sprite2D" parent="Debris2" unique_id=1881394164]
+position = Vector2(48, 108)
+rotation = 4.712389
+texture = ExtResource("35_siu12")
+flip_h = true
+
+[node name="_Sprite2D_50613" type="Sprite2D" parent="Debris2" unique_id=283836936]
+position = Vector2(59, 102)
+rotation = 1.5707964
+texture = ExtResource("53_b62f6")
+flip_v = true
+
+[node name="_Sprite2D_50614" type="Sprite2D" parent="Debris2" unique_id=732076852]
+position = Vector2(47, 69)
+rotation = 3.1415927
+texture = ExtResource("35_siu12")
+
+[node name="_Sprite2D_50615" type="Sprite2D" parent="Debris2" unique_id=1055448415]
+position = Vector2(47, 53)
+rotation = 4.712389
+texture = ExtResource("24_bm8kg")
+
+[node name="@Sprite2D@51077" type="Sprite2D" parent="Debris2" unique_id=1860781586]
+position = Vector2(26, 75)
+rotation = 3.1415927
+texture = ExtResource("31_q80h7")
+flip_h = true
+
+[node name="@Sprite2D@51078" type="Sprite2D" parent="Debris2" unique_id=578742941]
+position = Vector2(29, 257)
+rotation = 1.5707964
+texture = ExtResource("64_0os8l")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51079" type="Sprite2D" parent="Debris2" unique_id=1127885587]
+position = Vector2(31, 112)
+rotation = 4.712389
+texture = ExtResource("36_mqeix")
+
+[node name="@Sprite2D@51080" type="Sprite2D" parent="Debris2" unique_id=1436958481]
+position = Vector2(82, 323)
+rotation = 3.1415927
+texture = ExtResource("62_xcfsb")
+flip_v = true
+
+[node name="@Sprite2D@51081" type="Sprite2D" parent="Debris2" unique_id=1397470032]
+position = Vector2(43, 75)
+rotation = 1.5707964
+texture = ExtResource("29_2so35")
+
+[node name="@Sprite2D@51082" type="Sprite2D" parent="Debris2" unique_id=1824061856]
+position = Vector2(26, 162)
+rotation = 1.5707964
+texture = ExtResource("42_8l58v")
+
+[node name="@Sprite2D@51083" type="Sprite2D" parent="Debris2" unique_id=861528594]
+position = Vector2(82, 334)
+rotation = 4.712389
+texture = ExtResource("25_eyeis")
+
+[node name="@Sprite2D@51084" type="Sprite2D" parent="Debris2" unique_id=1164490451]
+position = Vector2(0, 262)
+rotation = 3.1415927
+texture = ExtResource("67_uoimx")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51085" type="Sprite2D" parent="Debris2" unique_id=372082885]
+position = Vector2(19, 56)
+rotation = 1.5707964
+texture = ExtResource("44_wsdp1")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51086" type="Sprite2D" parent="Debris2" unique_id=39752711]
+position = Vector2(37, 126)
+rotation = 3.1415927
+texture = ExtResource("58_qbjlx")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51087" type="Sprite2D" parent="Debris2" unique_id=693874903]
+position = Vector2(19, 85)
+rotation = 4.712389
+texture = ExtResource("56_8l2sf")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51088" type="Sprite2D" parent="Debris2" unique_id=577513682]
+position = Vector2(67, 88)
+texture = ExtResource("48_h75je")
+flip_v = true
+
+[node name="@Sprite2D@51089" type="Sprite2D" parent="Debris2" unique_id=458995413]
+position = Vector2(17, 335)
+rotation = 4.712389
+texture = ExtResource("39_5dgyk")
+flip_h = true
+
+[node name="@Sprite2D@51090" type="Sprite2D" parent="Debris2" unique_id=1991243377]
+position = Vector2(82, 183)
+rotation = 1.5707964
+texture = ExtResource("67_uoimx")
+flip_h = true
+
+[node name="@Sprite2D@51091" type="Sprite2D" parent="Debris2" unique_id=308807791]
+position = Vector2(87, 89)
+rotation = 4.712389
+texture = ExtResource("29_2so35")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51092" type="Sprite2D" parent="Debris2" unique_id=1134197054]
+position = Vector2(13, 138)
+rotation = 1.5707964
+texture = ExtResource("31_q80h7")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51093" type="Sprite2D" parent="Debris2" unique_id=597576029]
+position = Vector2(3, 242)
+texture = ExtResource("41_au78y")
+
+[node name="@Sprite2D@51094" type="Sprite2D" parent="Debris2" unique_id=1614919503]
+position = Vector2(33, 239)
+rotation = 4.712389
+texture = ExtResource("43_w4um4")
+flip_v = true
+
+[node name="@Sprite2D@51095" type="Sprite2D" parent="Debris2" unique_id=8232280]
+position = Vector2(64, 106)
+rotation = 4.712389
+texture = ExtResource("36_mqeix")
+flip_v = true
+
+[node name="@Sprite2D@51096" type="Sprite2D" parent="Debris2" unique_id=979055990]
+position = Vector2(2, 1)
+rotation = 1.5707964
+texture = ExtResource("53_b62f6")
+flip_h = true
+flip_v = true
+
+[node name="@Sprite2D@51097" type="Sprite2D" parent="Debris2" unique_id=63686181]
+position = Vector2(54, 51)
+rotation = 3.1415927
+texture = ExtResource("60_k66vp")
+flip_h = true
+
+[node name="@Sprite2D@51098" type="Sprite2D" parent="Debris2" unique_id=1657023048]
+position = Vector2(88, 283)
+rotation = 1.5707964
+texture = ExtResource("68_mffiu")
+flip_v = true
+
+[node name="@Sprite2D@51099" type="Sprite2D" parent="Debris2" unique_id=1801159458]
+position = Vector2(32, 109)
+rotation = 3.1415927
+texture = ExtResource("69_jvd2b")
+flip_v = true
