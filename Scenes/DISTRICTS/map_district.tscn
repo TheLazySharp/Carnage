@@ -56,8 +56,14 @@ shape = SubResource("CircleShape2D_njxfn")
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1152042668]
 
-[node name="Icon" type="Sprite2D" parent="Visuals" unique_id=1000949883]
+[node name="Icon" type="TextureRect" parent="Visuals" unique_id=1213512132]
+custom_maximum_size = Vector2(48, 48)
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 texture = ExtResource("2_njxfn")
+stretch_mode = 5
 
 [node name="Pin" type="Sprite2D" parent="Visuals" unique_id=1074048317]
 position = Vector2(13, -30.000006)
@@ -65,7 +71,6 @@ rotation = 0.40491638
 texture = ExtResource("3_r2u84")
 
 [node name="Line2DBack" type="Line2D" parent="Visuals" unique_id=1002930451]
-visible = false
 position = Vector2(2.3841858e-07, 2.3841858e-07)
 scale = Vector2(1.1666666, 1.1666666)
 points = PackedVector2Array(-20.571428, -6.857143, -13.714286, -20.571428, 13.714286, -20.571428, 20.571428, -6.857143, 20.571428, 6.857143, 13.714286, 20.571428, -13.714286, 20.571428, -20.571428, 6.857143)
@@ -74,7 +79,6 @@ width = 2.0
 antialiased = true
 
 [node name="Line2DFront" type="Line2D" parent="Visuals" unique_id=1451737939]
-visible = false
 position = Vector2(-3.5, -3.5)
 scale = Vector2(1.2058823, 1.2058823)
 points = PackedVector2Array(-10.365854, -17, 16.170732, -17, 22.804878, -3.7317076, 22.804878, 9.536586, 16.170732, 22.804878, -10.365854, 22.804878, -17, 9.536586, -17, -3.7317076)

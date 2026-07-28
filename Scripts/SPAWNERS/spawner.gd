@@ -4,7 +4,7 @@ extends Node2D
 @export var scene_to_spawn : PackedScene
 @export var cell_size : float = 32.0
 @export var screen_margin : float = 0.0
-@export var max_spawn_attempts : int = 20
+@export var max_spawn_attempts : int = 50
 @export var spawn_rate : float = 1
 
 @export var footprint : Vector2i = Vector2i(1, 1)
@@ -14,6 +14,8 @@ var last_footprint_cells : Array[Vector2i] = []
 var free_cells : Array[Vector2i] = []
 var free_cell_set : Dictionary = {}
 var camera : Camera2D
+
+var map_bounds : Rect2i 
 
 func _ready() -> void:
 	camera = get_viewport().get_camera_2d()
@@ -36,6 +38,8 @@ func configure_instance(_instance : Node, _world_pos : Vector2) -> void: # BEFOR
 func get_footprint() -> Vector2i:
 	return footprint
 
+func is_placement_valid(_anchor : Vector2i, _size : Vector2i, _world_center : Vector2) -> bool:
+	return true
 
 func build_grid() -> void:
 	free_cells.clear()
@@ -55,6 +59,8 @@ func build_grid() -> void:
 	if !bounds_set:
 		push_warning("Spawner : aucun mur trouvé pour construire la grille")
 		return
+	
+	map_bounds = bounds
 
 	for y in range(bounds.position.y, bounds.end.y):
 		for x in range(bounds.position.x, bounds.end.x):
@@ -62,6 +68,7 @@ func build_grid() -> void:
 			if !wall_cells.has(cell):
 				free_cells.append(cell)
 				free_cell_set[cell] = true
+	
 
 func spawn() -> Node:
 	if scene_to_spawn == null or free_cells.is_empty():
@@ -81,6 +88,9 @@ func spawn() -> Node:
 		if is_footprint_on_screen(anchor, size):
 			continue
 
+		if !is_placement_valid(anchor, size, world_center_pos):
+			continue
+		
 		var instance : Node = scene_to_spawn.instantiate()
 		configure_instance(instance, world_center_pos)
 		get_spawn_parent().add_child(instance)
@@ -106,6 +116,8 @@ func spawn() -> Node:
 	#return view_rect.has_point(world_pos)
 	
 
+func map_rect_px() -> Rect2:
+	return Rect2(Vector2(map_bounds.position) * cell_size, Vector2(map_bounds.size) * cell_size)
 
 func is_footprint_free(anchor : Vector2i, size : Vector2i) -> bool:
 	for size_width in range(size.y):

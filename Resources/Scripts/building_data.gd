@@ -7,3 +7,5 @@ class_name BuildingData
 @export var district_type : DistrictsData.types
 @export var footprint_32 : Vector2i #32x32 cells size
 @export var value : int
+@export var spawnable : PackedScene
+@export var circle_margin : float = 80

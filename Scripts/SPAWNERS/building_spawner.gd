@@ -46,3 +46,8 @@ func on_spawned(instance : Node) -> void:
 	flow_field_manager.add_obstacles(last_footprint_cells)
 	print("building aligné sur : ", (instance as Node2D).global_position)
 	
+func is_placement_valid(_anchor : Vector2i, size : Vector2i, world_center : Vector2) -> bool:
+	if building == null:
+		return true
+	var radius : float = GeoTools.interaction_radius(size, cell_size, building.circle_margin)
+	return GeoTools.is_circle_in_rect(world_center, radius, map_rect_px())

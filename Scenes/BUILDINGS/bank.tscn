@@ -1435,8 +1435,35 @@ physics_layer_0/collision_layer = 8
 physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_f5sii")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dfktb"]
+radius = 191.5881
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oghlj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.776, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34ohe"]
+bg_color = Color(1, 0.776, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="Bank" type="Node2D" unique_id=330276966 groups=["walls"]]
 script = ExtResource("1_dj6a0")
+unlock_timer = 10.0
 
 [node name="Roof" type="TileMapLayer" parent="." unique_id=982220925 groups=["walls"]]
 tile_map_data = PackedByteArray("AAABAAAABAAFAAcAAAAAAAAABAAEAAcAAAACAAAABAAGAAcAAAADAAAABAAHAAcAAAAEAAAABAAIAAcAAAAFAAAABAAJAAcAAAAGAAAABAAKAAcAAAAHAAAABAALAAcAAAAHAAEABAALAAgAAAAHAAIABAALAAkAAAAHAAMABAALAAoAAAAAAAMABAAEAAoAAAAAAAEABAAEAAgAAAAAAAIABAAEAAkAAAABAAMABAAFAAoAAAACAAMABAAGAAoAAAADAAMABAAHAAoAAAAEAAMABAAIAAoAAAAFAAMABAAJAAoAAAAGAAMABAAKAAoAAAABAAEABAAFAAgAAAABAAIABAAFAAkAAAACAAEABAAGAAgAAAACAAIABAAGAAkAAAADAAEABAAHAAgAAAADAAIABAAHAAkAAAAEAAEABAAIAAgAAAAEAAIABAAIAAkAAAAFAAEABAAJAAgAAAAFAAIABAAJAAkAAAAGAAEABAAKAAgAAAAGAAIABAAKAAkAAAA=")
@@ -1452,3 +1479,30 @@ navigation_enabled = false
 tile_map_data = PackedByteArray("AAAHAAUAAAAEAAAAAFAGAAEAAAAAAAEAAFAGAAIAAAABAAEAAFAGAAMAAAACAAEAAFAGAAQAAAADAAEAAFAGAAUAAAAEAAEAAFAFAAEAAAAAAAIAAFAFAAIAAAABAAIAAFAFAAMAAAACAAIAAFAFAAQAAAADAAIAAFAFAAUAAAAEAAIAAFAEAAEAAAAAAAMAAFAEAAIAAAABAAMAAFAEAAMAAAACAAMAAFAEAAQAAAADAAMAAFAEAAUAAAAEAAMAAFADAAEAAAAAAAQAAFADAAIAAAABAAQAAFADAAMAAAACAAQAAFADAAQAAAADAAQAAFADAAUAAAAEAAQAAFACAAEAAAAAAAUAAFACAAIAAAABAAUAAFACAAMAAAACAAUAAFACAAQAAAADAAUAAFACAAUAAAAEAAUAAFABAAEAAAAAAAYAAFABAAIAAAABAAYAAFABAAMAAAACAAYAAFABAAQAAAADAAYAAFABAAUAAAAEAAYAAFAAAAIAAAABAAcAAFAAAAQAAAADAAcAAFA=")
 tile_set = SubResource("TileSet_42lo8")
 navigation_enabled = false
+
+[node name="Line2D" type="Line2D" parent="." unique_id=2145962234]
+
+[node name="BuildingArea" type="Area2D" parent="." unique_id=512484242]
+collision_layer = 512
+
+[node name="UnlockableShape" type="CollisionShape2D" parent="BuildingArea" unique_id=1082263173]
+shape = SubResource("CircleShape2D_dfktb")
+
+[node name="UnlockBar" type="ProgressBar" parent="." unique_id=391533645]
+z_index = 10
+offset_left = 33.0
+offset_top = -63.0
+offset_right = 224.0
+offset_bottom = -52.0
+theme_override_styles/background = SubResource("StyleBoxFlat_oghlj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_34ohe")
+max_value = 20.0
+step = 1.0
+value = 10.0
+rounded = true
+show_percentage = false
+
+[node name="SpawnCenter" type="Marker2D" parent="." unique_id=1139408044]
+
+[connection signal="body_entered" from="BuildingArea" to="." method="_on_building_area_body_entered"]
+[connection signal="body_exited" from="BuildingArea" to="." method="_on_building_area_body_exited"]

@@ -7,7 +7,7 @@ class_name MapDistrict
 @onready var survivors: Node = $/root/Roadmap/MapBackground/ControlMap/Visuals/Survivors
 var map_survivor : MapSurvivor
 
-@onready var icon: Sprite2D = $Visuals/Icon
+@onready var icon: TextureRect = $Visuals/Icon
 @onready var line_2d_back: Line2D = $Visuals/Line2DBack
 @onready var line_2d_front: Line2D = $Visuals/Line2DFront
 
@@ -72,7 +72,7 @@ func set_district(new_data : DistrictsData) -> void :
 	district = new_data
 	position = district.position
 	icon.texture = ICONS[district.type][0]
-	icon.scale = ICONS[district.type][1]
+	#icon.scale = ICONS[district.type][1]
 	
 	if district.type == DistrictsData.types.SURVIVOR and !RoadMapManager.selected_districts.has(district) :
 		map_survivor = survivor_node.instantiate()
