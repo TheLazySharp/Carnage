@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cg471e8w7q13g" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 30.tres" id="18_n7gip"]
 [ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 24.tres" id="19_wq420"]
 [ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 25.tres" id="20_kpjr3"]
+[ext_resource type="Texture2D" uid="uid://cnidh8bp42p14" path="res://Assets/Léonce/Textures/Roads/roadmarks_crossings.png" id="21_wq420"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1748,6 +1749,156 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_5g436")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kpjr3"]
+texture = ExtResource("21_wq420")
+texture_region_size = Vector2i(32, 32)
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+2:13/0 = 0
+3:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+6:13/0 = 0
+2:14/0 = 0
+3:14/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+6:14/0 = 0
+2:15/0 = 0
+3:15/0 = 0
+4:15/0 = 0
+5:15/0 = 0
+6:15/0 = 0
+2:16/0 = 0
+3:16/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+6:16/0 = 0
+3:18/0 = 0
+2:19/0 = 0
+3:19/0 = 0
+2:20/0 = 0
+3:20/0 = 0
+2:21/0 = 0
+3:21/0 = 0
+2:22/0 = 0
+3:22/0 = 0
+2:23/0 = 0
+3:23/0 = 0
+2:24/0 = 0
+3:24/0 = 0
+2:25/0 = 0
+3:25/0 = 0
+2:26/0 = 0
+3:26/0 = 0
+2:27/0 = 0
+3:27/0 = 0
+2:28/0 = 0
+3:28/0 = 0
+2:29/0 = 0
+3:29/0 = 0
+2:30/0 = 0
+3:30/0 = 0
+2:31/0 = 0
+3:31/0 = 0
+2:32/0 = 0
+3:32/0 = 0
+3:33/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+1:4/0 = 0
+1:5/0 = 0
+1:6/0 = 0
+1:7/0 = 0
+1:8/0 = 0
+1:9/0 = 0
+1:10/0 = 0
+1:11/0 = 0
+1:13/0 = 0
+1:12/0 = 0
+1:14/0 = 0
+1:15/0 = 0
+1:16/0 = 0
+1:18/0 = 0
+1:19/0 = 0
+1:20/0 = 0
+1:21/0 = 0
+1:22/0 = 0
+1:23/0 = 0
+1:24/0 = 0
+1:25/0 = 0
+1:26/0 = 0
+1:27/0 = 0
+1:28/0 = 0
+1:29/0 = 0
+1:30/0 = 0
+1:31/0 = 0
+1:32/0 = 0
+1:33/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tyiq4"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_kpjr3")
+
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
@@ -2027,16 +2178,22 @@ modulate = Color(0.47788018, 0.47788012, 0.47788012, 1)
 
 [node name="Arrow1" type="Sprite2D" parent="RoadMarks" unique_id=619150422]
 z_index = 1
-position = Vector2(1788, 1060)
+position = Vector2(1627.5, 1041)
 rotation = 1.5707964
 texture = ExtResource("18_n7gip")
 
 [node name="Arrow2" type="Sprite2D" parent="RoadMarks" unique_id=22879353]
-position = Vector2(1789, 763)
+position = Vector2(1628.5, 744)
 rotation = 1.5707964
 texture = ExtResource("19_wq420")
 
 [node name="Arrow3" type="Sprite2D" parent="RoadMarks" unique_id=1443985321]
-position = Vector2(1788, 908)
+position = Vector2(1627.5, 889)
 rotation = 1.5707964
 texture = ExtResource("20_kpjr3")
+
+[node name="Roadmarks" type="TileMapLayer" parent="RoadMarks" unique_id=1717996340]
+z_index = 2
+tile_map_data = PackedByteArray("AAA1AB4AAAABAAsAAAA1AB8AAAABAAwAAAA1ACAAAAABAA0AAAA1ACEAAAABAA4AAAA1ACIAAAABAA8AAAA2AB4AAAACAAsAAAA2AB8AAAACAAwAAAA2ACAAAAACAA0AAAA2ACEAAAACAA4AAAA2ACIAAAACAA8AAAA3AB4AAAADAAsAAAA3AB8AAAADAAwAAAA3ACAAAAADAA0AAAA3ACEAAAADAA4AAAA3ACIAAAADAA8AAAA4AB4AAAAEAAsAAAA4AB8AAAAEAAwAAAA4ACAAAAAEAA0AAAA4ACEAAAAEAA4AAAA4ACIAAAAEAA8AAAA5AB4AAAAFAAsAAAA5AB8AAAAFAAwAAAA5ACAAAAAFAA0AAAA5ACEAAAAFAA4AAAA5ACIAAAAFAA8AAAA6AB4AAAAGAAsAAAA6AB8AAAAGAAwAAAA6ACAAAAAGAA0AAAA6ACEAAAAGAA4AAAA6ACIAAAAGAA8AAAA1ABgAAAABAAUAAAA1ABkAAAABAAYAAAA1ABoAAAABAAcAAAA1ABsAAAABAAgAAAA1ABwAAAABAAkAAAA1AB0AAAABAAoAAAA2ABgAAAACAAUAAAA2ABkAAAACAAYAAAA2ABoAAAACAAcAAAA2ABsAAAACAAgAAAA2ABwAAAACAAkAAAA2AB0AAAACAAoAAAA3ABgAAAADAAUAAAA3ABkAAAADAAYAAAA3ABoAAAADAAcAAAA3ABsAAAADAAgAAAA3ABwAAAADAAkAAAA3AB0AAAADAAoAAAA4ABgAAAAEAAUAAAA4ABkAAAAEAAYAAAA4ABoAAAAEAAcAAAA4ABsAAAAEAAgAAAA4ABwAAAAEAAkAAAA4AB0AAAAEAAoAAAA5ABgAAAAFAAUAAAA5ABkAAAAFAAYAAAA5ABoAAAAFAAcAAAA5ABsAAAAFAAgAAAA5ABwAAAAFAAkAAAA5AB0AAAAFAAoAAAA6ABgAAAAGAAUAAAA6ABkAAAAGAAYAAAA6ABoAAAAGAAcAAAA6ABsAAAAGAAgAAAA6ABwAAAAGAAkAAAA6AB0AAAAGAAoAAAA1ABQAAAABAAEAAAA1ABUAAAABAAIAAAA1ABYAAAABAAMAAAA1ABcAAAABAAQAAAA2ABQAAAACAAEAAAA2ABUAAAACAAIAAAA2ABYAAAACAAMAAAA2ABcAAAACAAQAAAA3ABQAAAADAAEAAAA3ABUAAAADAAIAAAA3ABYAAAADAAMAAAA3ABcAAAADAAQAAAA4ABQAAAAEAAEAAAA4ABUAAAAEAAIAAAA4ABYAAAAEAAMAAAA4ABcAAAAEAAQAAAA5ABQAAAAFAAEAAAA5ABUAAAAFAAIAAAA5ABYAAAAFAAMAAAA5ABcAAAAFAAQAAAA6ABQAAAAGAAEAAAA6ABUAAAAGAAIAAAA6ABYAAAAGAAMAAAA6ABcAAAAGAAQAAABCACcAAAABABIAAFBCACkAAAADABIAAFBBACcAAAABABMAAFBBACgAAAACABMAAFBBACkAAAADABMAAFBAACcAAAABABQAAFBAACgAAAACABQAAFBAACkAAAADABQAAFA/ACcAAAABABUAAFA/ACgAAAACABUAAFA/ACkAAAADABUAAFA+ACcAAAABABYAAFA+ACgAAAACABYAAFA+ACkAAAADABYAAFA9ACcAAAABABcAAFA9ACgAAAACABcAAFA9ACkAAAADABcAAFA=")
+tile_set = SubResource("TileSet_tyiq4")
+collision_enabled = false
