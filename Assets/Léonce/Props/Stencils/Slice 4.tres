@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://vptgqe6gpng4"]
+
+[ext_resource type="Texture2D" uid="uid://mgln748i7gg7" path="res://Assets/Léonce/Props/Stencils/road_stencils.png" id="1_1j3vb"]
+
+[resource]
+atlas = ExtResource("1_1j3vb")
+region = Rect2(68, 0, 35, 29)
