@@ -35,7 +35,7 @@ func _input(event: InputEvent) -> void:
 func pick_boost(proposed_boosts : Array[BoostData]) -> BoostData:
 	var attempts : int = 0
 	while attempts <100:
-		var boost : BoostData = ShopManager.pick_boost()
+		var boost : BoostData = ShopManager.pick_boost(ShopManager.all_car_boosts)
 		if proposed_boosts.has(boost) or boost.target_ressource != boost.Target_Ressources.CAR :
 			attempts += 1
 			#print("boost already proposed")
@@ -48,7 +48,7 @@ func pick_boost(proposed_boosts : Array[BoostData]) -> BoostData:
 		
 		return boost
 	push_warning("shop manager : no valid boost found after 100 attempts")
-	return ShopManager.pick_boost()
+	return ShopManager.pick_boost(ShopManager.all_car_boosts)
 
 func _on_car_level_up() -> void:
 	XPManager.available_upgrades -= 1

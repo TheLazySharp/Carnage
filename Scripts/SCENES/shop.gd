@@ -16,7 +16,9 @@ extends Control
 @onready var reroll_cost_label: Label = $Background/Reroll/HBoxContainer/Cost
 @onready var reroll_label: Label = $Background/Reroll/HBoxContainer/Reroll
 
-var nb_boost : int = 4
+#var nb_boost : int
+var nb_ammo : int = 2
+var nb_weapon : int = 2
 var nb_charm : int = 3
 
 var font_button : Array = FontManager.FONTS[FontManager.types.BUTTON]
@@ -43,31 +45,7 @@ func _ready() -> void:
 	new_stylebox.border_color = FontManager.dark_yellow
 	reroll_button.add_theme_stylebox_override("focus",new_stylebox)
 		
-	
-	var proposed_boosts : Array[BoostData] = []
-	var proposed_charms : Array[CharmData] = []
-	
-	for i : int in nb_boost:
-		var boost : BoostData = pick_boost(proposed_boosts)
-		proposed_boosts.append(boost)
-		
-		var boost_card := boost_scene.instantiate()
-		boost_container.add_child(boost_card)
-		boost_card.setup(boost,true)
-		
-	for i : int in nb_charm:
-		var charm : CharmData = pick_charm(proposed_charms)
-		proposed_charms.append(charm)
-		
-		var charm_card := charm_scene.instantiate()
-		charm_container.add_child(charm_card)
-		charm_card.setup(charm,true)
-		
-	proposed_boosts.clear()
-	proposed_charms.clear()
-	
-	items_ready = true
-	boost_container.get_child(0).get_child(0).grab_focus()
+	reroll()
 	
 	
 func _process(_delta: float) -> void:
@@ -82,10 +60,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("confirm"):
 		back.grab_focus()
 
-func pick_boost(proposed_boosts : Array[BoostData]) -> BoostData:
+func pick_boost(proposed_boosts : Array[BoostData], pick_list : Array[BoostData]) -> BoostData:
 	var attempts : int = 0
 	while attempts <100:
-		var boost : BoostData = ShopManager.pick_boost()
+		var boost : BoostData = ShopManager.pick_boost(pick_list)
 		if proposed_boosts.has(boost):
 			attempts += 1
 			#print("boost already proposed")
@@ -98,7 +76,7 @@ func pick_boost(proposed_boosts : Array[BoostData]) -> BoostData:
 		
 		return boost
 	push_warning("shop manager : no valid boost found after 100 attempts")
-	return ShopManager.pick_boost()
+	return ShopManager.pick_boost(pick_list)
 
 func pick_charm(proposed_charms : Array[CharmData]) -> CharmData:
 	var attempts : int = 0
@@ -135,14 +113,26 @@ func reroll() -> void :
 	var proposed_boosts : Array[BoostData] = []
 	var proposed_charms : Array[CharmData] = []
 	
-	for i : int in nb_boost:
-		var boost : BoostData = pick_boost(proposed_boosts)
+	var ammos : int = mini(nb_ammo,WeaponsManager.weapons.size())
+	var weapons : int = mini(nb_weapon,WeaponsManager.weapons.size())
+	
+	for i : int in ammos:
+		var boost : BoostData = pick_boost(proposed_boosts, ShopManager.all_ammo_boosts)
 		proposed_boosts.append(boost)
 		
 		var boost_card := boost_scene.instantiate()
 		boost_container.add_child(boost_card)
 		boost_card.setup(boost,true)
+
+	for i : int in weapons:
+		var boost : BoostData = pick_boost(proposed_boosts, ShopManager.all_weapon_boosts)
+		proposed_boosts.append(boost)
 		
+		var boost_card := boost_scene.instantiate()
+		boost_container.add_child(boost_card)
+		boost_card.setup(boost,true)
+
+
 	for i : int in nb_charm:
 		var charm : CharmData = pick_charm(proposed_charms)
 		proposed_charms.append(charm)
@@ -150,6 +140,12 @@ func reroll() -> void :
 		var charm_card := charm_scene.instantiate()
 		charm_container.add_child(charm_card)
 		charm_card.setup(charm,true)
+		
+	proposed_boosts.clear()
+	proposed_charms.clear()
+	
+	items_ready = true
+	boost_container.get_child(0).get_child(0).grab_focus()
 
 func _on_reroll_pressed() -> void:
 	if ShopManager.get_reroll_cost() >= InventoryManager.fortune:

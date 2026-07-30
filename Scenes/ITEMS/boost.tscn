@@ -36,13 +36,13 @@ expand_margin_bottom = 8.0
 
 [node name="Boost" type="Control" unique_id=188465822]
 custom_minimum_size = Vector2(580, 120)
-layout_direction = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 580.0
 offset_bottom = 120.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+layout_direction = 2
 script = ExtResource("1_ucdma")
 
 [node name="Confirm" type="Button" parent="." unique_id=1154624133]

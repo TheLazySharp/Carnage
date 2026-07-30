@@ -21,7 +21,7 @@ var item_colors : Dictionary = {
 	BoostData.Rarities.LEGENDARY : Color.PURPLE
 }
 
-const ALL_BOOSTS : Array = [
+const CAR_BOOSTS : Array = [
 	# --------- CAR BOOSTS ---------------------
 	preload("uid://dpd83dad37goh"), #bumper common
 	preload("uid://dtqdcc0f16p4f"), #bumper epic
@@ -47,35 +47,40 @@ const ALL_BOOSTS : Array = [
 	preload("uid://doj7a2p4rio26"), #wheels common
 	preload("uid://bjyo2yyblhs07"), #wheels epic
 	preload("uid://bkpcv00gc0jjf"), #wheels rare
-
+]
+const WEAPONS_BOOSTS : Array = [
 	# --------------- WEAPONS BOOSTS -------------
 	preload("uid://bcdbbiu70qly7"), #flamer common
 	preload("uid://cxqsub50sexw8"), #flamer epic
 	preload("uid://dmlcx71vi7myu"), #flamer rare
-	preload("uid://jgbp675avpvv"), #landmine common
-	preload("uid://fr6ejq1bgd4x"), #landmine epic
-	preload("uid://cw8mxwa1jeupm"), #landmine rare
 	preload("uid://dk0j2xe4yfde5"), #mine laucnher common
 	preload("uid://cpuyc8iar81bw"), #mine laucnher epic
 	preload("uid://d0lnee5x6ogum"), #mine laucnher rare
-	preload("uid://cwc2xso207336"), #minigun ammo common
-	preload("uid://cm42x2i8ysvxy"), #minigun ammo epic
-	preload("uid://db7ji7qvilci0"), #minigun ammo rare
 	preload("uid://2fuut1o3nnjr"), #minigun common
 	preload("uid://cfbdbewym78ve"), #minigun epic
 	preload("uid://ddf6g3363n0hw"), #minigun rare
-	preload("uid://csc4lrpt806dt"), #revolver ammo common
-	preload("uid://ctvgrdr6ul7u0"), #revolver ammo epic
- 	preload("uid://ckixj3qnt3s4v"), #revolver ammo rare
 	preload("uid://jfjjptcvei6w"), #revolver common
 	preload("uid://cua1s4tfr51cr"), #revolver epic
 	preload("uid://dl2rqj0xu1lys"), #revolver rare
-	preload("uid://bikf0bhaxbup8"), #baseballbat common
-	preload("uid://bg4c6fmuy7m1y"), #baseballbat epic
-	preload("uid://bip4fb5it036h"), #baseballbat rare
 	preload("uid://cn5h4lnvg26kh"), #bat handler common
 	preload("uid://bj7i14tscgwbc"), #bat handler epic
 	preload("uid://pgpxgphkp3ip"), #bat handler rare
+]
+
+const AMMO_BOOSTS : Array = [
+	# --------------- AMMOS BOOSTS -------------
+	preload("uid://jgbp675avpvv"), #landmine common
+	preload("uid://fr6ejq1bgd4x"), #landmine epic
+	preload("uid://cw8mxwa1jeupm"), #landmine rare
+	preload("uid://bikf0bhaxbup8"), #baseballbat common
+	preload("uid://bg4c6fmuy7m1y"), #baseballbat epic
+	preload("uid://bip4fb5it036h"), #baseballbat rare
+	preload("uid://csc4lrpt806dt"), #revolver ammo common
+	preload("uid://ctvgrdr6ul7u0"), #revolver ammo epic
+ 	preload("uid://ckixj3qnt3s4v"), #revolver ammo rare
+	preload("uid://cwc2xso207336"), #minigun ammo common
+	preload("uid://cm42x2i8ysvxy"), #minigun ammo epic
+	preload("uid://db7ji7qvilci0"), #minigun ammo rare
 
 ]
 
@@ -85,7 +90,9 @@ const ALL_CHARMS : Array = [
 	preload("uid://dig2dq8y0nvfs") #add projectil on all weapons
 ]
 
-var all_boosts : Array[BoostData] = []
+var all_car_boosts : Array[BoostData] = []
+var all_weapon_boosts : Array[BoostData] = []
+var all_ammo_boosts : Array[BoostData] = []
 var all_charms : Array[CharmData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var available_boosts : int = 1
@@ -101,11 +108,16 @@ func _ready() -> void:
 	rng.randomize()
 	discount = Statistic.new(base_discount)
 	
-
 func load_pools() -> void : 
-	for boost : BoostData in ALL_BOOSTS:
-		all_boosts.append(boost)
+	for car_boost : BoostData in CAR_BOOSTS:
+		all_car_boosts.append(car_boost)
+		
+	for weapon_boost : BoostData in WEAPONS_BOOSTS:
+		all_weapon_boosts.append(weapon_boost)
 	
+	for ammo_boost : BoostData in AMMO_BOOSTS:
+		all_ammo_boosts.append(ammo_boost)
+		
 	for charm : CharmData in ALL_CHARMS:
 		all_charms.append(charm)
 
@@ -122,17 +134,54 @@ func pick_boost_rarity() -> BoostData.Rarities:
 			return rarity
 	return BoostData.Rarities.COMMON
   
-func pick_boost()-> BoostData:
+func pick_boost(boost_list : Array[BoostData])-> BoostData:
 	var rarity : BoostData.Rarities = pick_boost_rarity()
-	var pool : Array = all_boosts.filter(
+	var pool : Array = boost_list.filter(
 		func(boost : BoostData) -> bool:
 		return boost.rarity == rarity)
 	
 	if pool.is_empty():
-		push_warning("shop manager : no boost with rarity "+ str(rarity))
-		pool = all_boosts
+		push_warning("shop manager : no car boost with rarity "+ str(rarity))
+		pool = boost_list
 	
 	return pool[rng.randi_range(0,pool.size() -1)]
+
+
+#func pick_car_boost()-> BoostData:
+	#var rarity : BoostData.Rarities = pick_boost_rarity()
+	#var pool : Array = all_car_boosts.filter(
+		#func(boost : BoostData) -> bool:
+		#return boost.rarity == rarity)
+	#
+	#if pool.is_empty():
+		#push_warning("shop manager : no car boost with rarity "+ str(rarity))
+		#pool = all_car_boosts
+	#
+	#return pool[rng.randi_range(0,pool.size() -1)]
+#
+#func pick_weapon_boost()-> BoostData:
+	#var rarity : BoostData.Rarities = pick_boost_rarity()
+	#var pool : Array = all_weapon_boosts.filter(
+		#func(boost : BoostData) -> bool:
+		#return boost.rarity == rarity)
+	#
+	#if pool.is_empty():
+		#push_warning("shop manager : no weapon boost with rarity "+ str(rarity))
+		#pool = all_weapon_boosts
+	#
+	#return pool[rng.randi_range(0,pool.size() -1)]
+#
+#func pick_ammo_boost()-> BoostData:
+	#var rarity : BoostData.Rarities = pick_boost_rarity()
+	#var pool : Array = all_ammo_boosts.filter(
+		#func(boost : BoostData) -> bool:
+		#return boost.rarity == rarity)
+	#
+	#if pool.is_empty():
+		#push_warning("shop manager : no ammo boost with rarity "+ str(rarity))
+		#pool = all_ammo_boosts
+	#
+	#return pool[rng.randi_range(0,pool.size() -1)]
 
 func pick_charm_rarity() -> CharmsManager.Rarities:
 	var weighted_sum : int = 0
@@ -149,7 +198,7 @@ func pick_charm_rarity() -> CharmsManager.Rarities:
 
 func pick_charm()-> CharmData:
 	var rarity : CharmsManager.Rarities = pick_charm_rarity()
-	var pool : Array = all_boosts.filter(
+	var pool : Array = all_charms.filter(
 		func(charm : CharmData) -> bool:
 		return charm.rarity == rarity)
 	
@@ -163,5 +212,7 @@ func get_reroll_cost() -> int :
 	return 100 + reroll_count * 25
 
 func unload() -> void : 
-	all_boosts.clear()
+	all_car_boosts.clear()
+	all_weapon_boosts.clear()
+	all_ammo_boosts.clear()
 	all_charms.clear()
