@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bgpay7ff03iii" path="res://Assets/Léonce/Tilesets/Roads/road_textureA01.png" id="3_53mvi"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Léonce/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
 [ext_resource type="Texture2D" uid="uid://sfkuhbtug62q" path="res://Assets/Léonce/Tilesets/Roads/road_textureA02.png" id="4_5g436"]
-[ext_resource type="Texture2D" uid="uid://c5yjctdsewpwt" path="res://Assets/Léonce/Textures/Roofs/roof_texture04.png" id="4_5t477"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Léonce/Textures/Roofs/roof_texture01.png" id="5_1lqbc"]
 [ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Léonce/Textures/Roofs/roof_texture03.png" id="6_37n1q"]
 [ext_resource type="Texture2D" uid="uid://bj85ikkrus0ir" path="res://Assets/Léonce/Props/Roofs/Air Conditioners/Slice 7.tres" id="6_avigi"]
@@ -26,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cg471e8w7q13g" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 30.tres" id="18_n7gip"]
 [ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 24.tres" id="19_wq420"]
 [ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Léonce/Textures/Roads/Arrows/Slice 25.tres" id="20_kpjr3"]
+[ext_resource type="Texture2D" uid="uid://d3qt2bgnq2urg" path="res://Assets/Léonce/Textures/Roofs/roof_texture02.png" id="21_2so35"]
 [ext_resource type="Texture2D" uid="uid://cnidh8bp42p14" path="res://Assets/Léonce/Textures/Roads/roadmarks_crossings.png" id="21_wq420"]
 [ext_resource type="Script" uid="uid://lpdy5igmv6b6" path="res://Assets/Léonce/Scripts/debris_scatter.gd" id="22_kpjr3"]
 [ext_resource type="Texture2D" uid="uid://duphdoe0lr0c4" path="res://Assets/Léonce/Props/Trash/Slice 1.tres" id="23_1eaev"]
@@ -1978,7 +1978,6 @@ scale = Vector2(1e-05, 1e-05)
 zoom = Vector2(1.52, 1.52)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
-visible = false
 top_level = true
 z_index = 6
 material = SubResource("CanvasItemMaterial_hnt52")
@@ -1996,12 +1995,11 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_wodl8")
 
 [node name="Background" type="ColorRect" parent="Land_layers" unique_id=1339542022]
-offset_right = 2980.0
-offset_bottom = 2115.0
+offset_right = 3462.0
+offset_bottom = 2386.0
 color = Color(0.03137255, 0.03137255, 0.03137255, 1)
 
 [node name="RoadTexture" type="TileMapLayer" parent="Land_layers" unique_id=1865824352]
-visible = false
 z_index = 1
 tile_map_data = PackedByteArray("AAA+ACUAAQAkABEAAAA/ACUAAQAlABEAAAA/ACYAAQAlABIAAAA/ACcAAQAlABMAAAA/ACgAAQAlABQAAAA/ACkAAAATAA0AAAA/ACoAAAATAA4AAAA/ACsAAAATAA8AAAA/ACwAAAATABAAAAA/AC0AAAATABEAAAA8ACIAAQAiAA4AAAA9ACIAAQAjAA4AAAA/ACEAAAABAAQAAAA9ACMAAQAjAA8AAAA9ACQAAQAjABAAAAA8ACMAAQAiAA8AAAA+ACMAAQAkAA8AAAA+ACQAAQAkABAAAAA7ACAAAQAiAA0AAAA7ACEAAQAiAA4AAAA7ACIAAQAiAA8AAAA8ACEAAQAiAA0AAAA/ACIAAAABAAUAAAA/ACMAAAABAAYAAAA/ACQAAQAlABAAAAA/AC4AAAATABIAAABAACEAAAACAAQAAABAACIAAAACAAUAAABAACMAAAACAAYAAABAACQAAQAmABAAAABAACUAAQAmABEAAABAACYAAQAmABIAAABAACcAAQAmABMAAABAACgAAQAmABQAAABAACkAAAAUAA0AAABAACoAAAAUAA4AAABAACsAAAAUAA8AAABAACwAAAAUABAAAABAAC0AAAAUABEAAABAAC4AAAAUABIAAAA/AB4AAAABAAEAAAA/AB8AAAABAAIAAAA/ACAAAAABAAMAAABAAB4AAAACAAEAAABAAB8AAAACAAIAAABAACAAAAACAAMAAABBAB4AAAADAAEAAABBAB8AAAADAAIAAABCAB4AAAAEAAEAAABCAB8AAAAEAAIAAABDAB4AAAAFAAEAAABDAB8AAAAFAAIAAABEAB4AAAAGAAEAAABEAB8AAAAGAAIAAABFAB4AAAAHAAEAAABFAB8AAAAHAAIAAAA=")
 tile_set = SubResource("TileSet_1xj8r")
@@ -2010,21 +2008,22 @@ rendering_quadrant_size = 32
 collision_enabled = false
 
 [node name="RoadMarks" type="Node2D" parent="Land_layers" unique_id=2122554737]
-modulate = Color(0.47788018, 0.47788012, 0.47788012, 1)
+modulate = Color(0.7666196, 0.76661956, 0.76661956, 1)
 z_index = 2
 
-[node name="Arrow1" type="Sprite2D" parent="Land_layers/RoadMarks" unique_id=619150422]
-z_index = 1
+[node name="Arrows" type="CanvasGroup" parent="Land_layers/RoadMarks" unique_id=964372737]
+
+[node name="Arrow1" type="Sprite2D" parent="Land_layers/RoadMarks/Arrows" unique_id=619150422]
 position = Vector2(1627.5, 1041)
 rotation = 1.5707964
 texture = ExtResource("18_n7gip")
 
-[node name="Arrow2" type="Sprite2D" parent="Land_layers/RoadMarks" unique_id=22879353]
+[node name="Arrow2" type="Sprite2D" parent="Land_layers/RoadMarks/Arrows" unique_id=22879353]
 position = Vector2(1628.5, 744)
 rotation = 1.5707964
 texture = ExtResource("19_wq420")
 
-[node name="Arrow3" type="Sprite2D" parent="Land_layers/RoadMarks" unique_id=1443985321]
+[node name="Arrow3" type="Sprite2D" parent="Land_layers/RoadMarks/Arrows" unique_id=1443985321]
 position = Vector2(1627.5, 889)
 rotation = 1.5707964
 texture = ExtResource("20_kpjr3")
@@ -2042,31 +2041,31 @@ tile_set = SubResource("TileSet_nhvyv")
 occlusion_enabled = false
 rendering_quadrant_size = 32
 
-[node name="Stencils" type="Node2D" parent="Land_layers" unique_id=700577747]
+[node name="RoadProps" type="Node2D" parent="Land_layers" unique_id=700577747]
 z_index = 4
 
-[node name="Stencil1" type="Sprite2D" parent="Land_layers/Stencils" unique_id=1796634782]
-position = Vector2(2190, 1167)
+[node name="Stencil1" type="Sprite2D" parent="Land_layers/RoadProps" unique_id=1796634782]
+position = Vector2(2191, 1163)
 texture = ExtResource("9_2so35")
 
-[node name="Stencil2" type="Sprite2D" parent="Land_layers/Stencils" unique_id=1266238582]
+[node name="Stencil2" type="Sprite2D" parent="Land_layers/RoadProps" unique_id=1266238582]
 position = Vector2(2009, 1351)
 texture = ExtResource("10_7i38y")
 
-[node name="Stencil3" type="Sprite2D" parent="Land_layers/Stencils" unique_id=1569996040]
+[node name="Stencil3" type="Sprite2D" parent="Land_layers/RoadProps" unique_id=1569996040]
 position = Vector2(1732, 1182)
 rotation = 1.5707964
 texture = ExtResource("11_q80h7")
 
-[node name="Stencil4" type="Sprite2D" parent="Land_layers/Stencils" unique_id=752345085]
+[node name="Stencil4" type="Sprite2D" parent="Land_layers/RoadProps" unique_id=752345085]
 position = Vector2(2188, 1338)
 texture = ExtResource("12_uqknt")
 
-[node name="Stencil5" type="Sprite2D" parent="Land_layers/Stencils" unique_id=909303657]
+[node name="Stencil5" type="Sprite2D" parent="Land_layers/RoadProps" unique_id=909303657]
 position = Vector2(2034, 1312)
 texture = ExtResource("13_762fv")
 
-[node name="Stencil6" type="Sprite2D" parent="Land_layers/Stencils" unique_id=592011779]
+[node name="Stencil6" type="Sprite2D" parent="Land_layers/RoadProps" unique_id=592011779]
 position = Vector2(2401, 1377)
 texture = ExtResource("14_unwpx")
 
@@ -2082,14 +2081,14 @@ texture_filter = 1
 texture_repeat = 2
 offset_left = 1570.0
 offset_top = 1221.0
-offset_right = 1884.0
-offset_bottom = 1435.0
+offset_right = 1883.0
+offset_bottom = 1436.0
 texture = ExtResource("5_1lqbc")
 region_rect = Rect2(-29, -25, 598, 571)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="Roof_ground2" type="NinePatchRect" parent="Land_layers/Building1" unique_id=1184275454]
+[node name="RoofGround2" type="NinePatchRect" parent="Land_layers/Building1" unique_id=1184275454]
 z_index = 6
 texture_filter = 1
 texture_repeat = 2
@@ -2132,7 +2131,7 @@ offset_left = 2254.0
 offset_top = 1168.0
 offset_right = 2481.0
 offset_bottom = 1296.0
-texture = ExtResource("4_5t477")
+texture = ExtResource("21_2so35")
 region_rect = Rect2(-29, -25, 598, 571)
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
@@ -2157,7 +2156,7 @@ z_index = 11
 
 [node name="Cable1" type="Line2D" parent="Land_layers/Cables" unique_id=1011501698]
 position = Vector2(0, -63)
-points = PackedVector2Array(1887, 1311, 2240, 1372)
+points = PackedVector2Array(1887, 1311, 2240, 1374)
 width = 0.0
 default_color = Color(0, 0, 0, 1)
 script = ExtResource("15_kpjr3")
@@ -2211,7 +2210,10 @@ position = Vector2(-1090.5719, -837.4338)
 scale = Vector2(0.6955178, 0.68867904)
 script = ExtResource("17_1lqbc")
 cable_path = NodePath("../../Cables/Cable1")
-shadow_sag = 73
+shadow_sag = 49
+shadow_sag_position = 0.39
+shadow_samples = 64
+shadow_direction = Vector2(1.155, 1)
 
 [node name="CableShadow2" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=1826160807]
 position = Vector2(-1090.5719, -837.4338)
@@ -2234,8 +2236,8 @@ shadow_direction = Vector2(1.135, 1)
 [node name="BuildingShadow1" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=1122726596]
 position = Vector2(8.392334e-05, -8.34465e-05)
 script = ExtResource("16_5g436")
-building_size = Vector2i(222, 154)
-shadow_length = 70
+building_size = Vector2i(222, 153)
+shadow_length = 80
 pixel_size = 1
 
 [node name="BuildingShadow2" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=69224431]
@@ -2285,7 +2287,7 @@ shadow_length = 4
 pixel_size = 1
 
 [node name="RoofShadow5" type="Node2D" parent="Land_layers/ShadowsRoof" unique_id=782291483]
-position = Vector2(478.51642, -33.05668)
+position = Vector2(478.51645, -34.434036)
 scale = Vector2(0.9999998, 0.9999998)
 script = ExtResource("16_5g436")
 building_size = Vector2i(1, 88)
@@ -2293,7 +2295,7 @@ shadow_length = 3
 pixel_size = 1
 
 [node name="RoofShadow6" type="Node2D" parent="Land_layers/ShadowsRoof" unique_id=1009379506]
-position = Vector2(478.51642, -33.05668)
+position = Vector2(479.90744, -32.368)
 scale = Vector2(0.9999998, 0.9999998)
 script = ExtResource("16_5g436")
 building_size = Vector2i(156, 1)
