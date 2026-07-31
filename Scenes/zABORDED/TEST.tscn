@@ -1978,6 +1978,7 @@ scale = Vector2(1e-05, 1e-05)
 zoom = Vector2(1.52, 1.52)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
+visible = false
 top_level = true
 z_index = 6
 material = SubResource("CanvasItemMaterial_hnt52")
