@@ -62,21 +62,21 @@ func _input(event: InputEvent) -> void:
 
 func pick_boost(proposed_boosts : Array[BoostData], pick_list : Array[BoostData]) -> BoostData:
 	var attempts : int = 0
-	while attempts <100:
+	while attempts <1000:
+		attempts += 1
 		var boost : BoostData = ShopManager.pick_boost(pick_list)
-		if proposed_boosts.has(boost):
-			attempts += 1
-			#print("boost already proposed")
-			continue
 		
+		if proposed_boosts.has(boost):
+			continue
 		if boost.target_weapon != null and !WeaponsManager.weapons.has(boost.target_weapon):
-			attempts += 1
-			#print("boost weapon not equipped")
+			continue
+		#if boost.target_weapon != null and proposed_boosts.any(
+				#func(check : BoostData) -> bool: return check.name == boost.name):
 			continue
 		
 		return boost
-	push_warning("shop manager : no valid boost found after 100 attempts")
-	return ShopManager.pick_boost(pick_list)
+	push_warning("shop manager : no valid boost found after 1000 attempts")
+	return null
 
 func pick_charm(proposed_charms : Array[CharmData]) -> CharmData:
 	var attempts : int = 0
@@ -161,3 +161,4 @@ func _on_reroll_pressed() -> void:
 	
 	ShopManager.reroll_count += 1
 	reroll_cost_label.text = str(ShopManager.get_reroll_cost())
+	boost_container.get_child(0).get_child(0).grab_focus()

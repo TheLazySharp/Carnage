@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_d2xdw")
-name = "Shield Boost"
+name = 18
 target_ressource = 1
 target_stats = Array[int]([11, 9])
 target_stats_values = Array[float]([10.0, -5.0])

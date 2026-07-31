@@ -17,7 +17,7 @@ enum Stats_Types {
 
 
 @export_group("GLOBAL INFO")
-@export var weapon_name : String
+@export var weapon_name : ShopManager.Items_Name
 @export var weapon_icon: Texture2D
 @export var weapon_is_active := true
 @export var max_level : int

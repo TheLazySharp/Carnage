@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_f0dhd")
-name = "Bumper Boost"
+name = 14
 target_ressource = 1
 target_stats = Array[int]([13])
 target_stats_values = Array[float]([0.5])

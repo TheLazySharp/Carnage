@@ -36,5 +36,4 @@ func _on_timer_start() -> void :
 	tracking_time = true
 
 func load_time() -> void : 
-	day_lenght = 60 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 15
-	
+	day_lenght = 60 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 60

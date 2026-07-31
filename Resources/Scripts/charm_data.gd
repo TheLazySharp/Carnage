@@ -1,7 +1,7 @@
 extends Resource
 class_name CharmData
 
-@export var name: String
+@export var name: ShopManager.Items_Name
 @export var icon: Texture2D
 @export var description: String
 @export var rarity: CharmsManager.Rarities

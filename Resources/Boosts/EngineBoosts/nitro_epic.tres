@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_8v1ye")
-name = "Nitro Boost"
+name = 17
 target_ressource = 1
 target_stats = Array[int]([14])
 target_stats_values = Array[float]([0.5])

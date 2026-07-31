@@ -316,7 +316,6 @@ theme_override_font_sizes/font_size = 48
 text = "Not enough cash"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 2
 script = ExtResource("6_85oou")
 
 [node name="Price" type="HBoxContainer" parent="." unique_id=1913280125]

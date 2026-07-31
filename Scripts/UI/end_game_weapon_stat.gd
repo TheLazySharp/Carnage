@@ -15,7 +15,7 @@ func _ready() -> void:
 	i = int(weapon_cont.name)
 	if i < WeaponsManager.weapons.size():
 		weapon = WeaponsManager.weapons[i]
-		weapon_label.text = weapon.weapon_name
+		weapon_label.text = str(WeaponsManager.Weapons_name.keys()[weapon.weapon_name])
 		dmg_value_label.text = str(WeaponsManager.get_weapon_total_dmg(weapon))
 		dps.text = "( " + str(snappedf(WeaponsManager.get_weapon_dps(weapon),0.01)) + " dps )"
 	else : 
@@ -27,7 +27,7 @@ func _on_game_paused(game_paused : bool) -> void :
 		if i < WeaponsManager.weapons.size():
 			weapon_cont.show()
 			weapon = WeaponsManager.weapons[i]
-			weapon_label.text = weapon.weapon_name
+			weapon_label.text = str(WeaponsManager.Weapons_name.keys()[weapon.weapon_name])
 			dmg_value_label.text = str(WeaponsManager.get_weapon_total_dmg(weapon))
 			dps.text = "( " + str(snappedf(WeaponsManager.get_weapon_dps(weapon),0.01)) + " dps )"
 		else : 
@@ -39,7 +39,7 @@ func _on_game_over(game_is_over : bool) -> void :
 		if i < WeaponsManager.weapons.size():
 			weapon_cont.show()
 			weapon = WeaponsManager.weapons[i]
-			weapon_label.text = weapon.weapon_name
+			weapon_label.text = str(WeaponsManager.Weapons_name.keys()[weapon.weapon_name])
 			dmg_value_label.text = str(WeaponsManager.get_weapon_total_dmg(weapon))
 			dps.text = "( " + str(snappedf(WeaponsManager.get_weapon_dps(weapon),0.01)) + " dps )"
 		else : 

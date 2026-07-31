@@ -29,7 +29,7 @@ func _on_grid_ready() -> void :
 	try_spawn()
 
 func try_spawn() -> void:
-	if has_spawned or !flow_ready or !grid_ready:
+	if has_spawned or !flow_ready or !grid_ready or GameMaster.game_mode == GameMaster.GAME_MODES.GOD:
 		return
 	has_spawned = true
 	building = BuildingsManager.pick_building(GameMaster.current_biome, RoadMapManager.last_district.type)

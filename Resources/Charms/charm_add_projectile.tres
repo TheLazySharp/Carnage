@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_gn3sl")
-name = "Add projectile"
+name = 12
 icon = ExtResource("1_luwhx")
 description = "Add projectile to all weapons"
 effect_script = ExtResource("1_eur3l")

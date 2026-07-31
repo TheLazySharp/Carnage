@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("1_evf8p")
-weapon_name = "Flame Launcher"
+weapon_name = 3
 weapon_icon = ExtResource("4_is0hv")
 max_level = 35
 description = "Throw fire in front of the car"

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_qpru8")
-name = "Carbon Boost"
+name = 15
 target_ressource = 1
 target_stats = Array[int]([9, 11])
 target_stats_values = Array[float]([10.0, -5.0])

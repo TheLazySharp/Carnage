@@ -13,6 +13,8 @@ const FLAME_LAUNCHER = preload("uid://bgv4w4g2bvoby")
 const FLAME = preload("uid://c5l0xm4m5tt65")
 const BAT_HANDLER = preload("uid://b6wbgylc6laab")
 
+
+
 var weapon_scenes: Array[Array] = []
 var weapons : Array[WeaponData] = []
 var unequipped_weapons: Array[WeaponData] = []
@@ -81,10 +83,10 @@ func test_weapons() ->void:
 func check_weapons() -> void:
 	print("EQUIPPED WEAPONS :")
 	for j in weapons.size():
-		print(weapons[j].weapon_name)
+		print(str(WeaponsManager.Weapons_name.keys()[weapons[j].weapon_name]))
 	print("UNEQUIPPED :")
 	for k in unequipped_weapons.size():
-		print(unequipped_weapons[k].weapon_name)
+		print(str(WeaponsManager.Weapons_name.keys()[unequipped_weapons[k].weapon_name]))
 	if unequipped_weapons.is_empty() :
 		print("empty")
 

@@ -81,7 +81,6 @@ const AMMO_BOOSTS : Array = [
 	preload("uid://cwc2xso207336"), #minigun ammo common
 	preload("uid://cm42x2i8ysvxy"), #minigun ammo epic
 	preload("uid://db7ji7qvilci0"), #minigun ammo rare
-
 ]
 
 const ALL_CHARMS : Array = [
@@ -89,6 +88,33 @@ const ALL_CHARMS : Array = [
 	preload("uid://dkm27p4j8u1jj"), #shop discount
 	preload("uid://dig2dq8y0nvfs") #add projectil on all weapons
 ]
+
+enum Items_Name {
+	N_A,
+	Revolver,
+	Minigun,
+	Bat_Handler,
+	Flame_Launcher,
+	Mine_Launcher,
+	Bullet,
+	MG_Bullet,
+	Landmine,
+	Flame,
+	Baseball_Bat,
+	Invincibility,
+	Add_Projectile,
+	Shop_Discount,
+	Bumper,
+	Carbon,
+	Engine,
+	Nitro,
+	Shield,
+	Gas_Tank,
+	Turbo,
+	Wheels
+}
+
+
 
 var all_car_boosts : Array[BoostData] = []
 var all_weapon_boosts : Array[BoostData] = []
@@ -136,7 +162,7 @@ func pick_boost_rarity() -> BoostData.Rarities:
   
 func pick_boost(boost_list : Array[BoostData])-> BoostData:
 	var rarity : BoostData.Rarities = pick_boost_rarity()
-	var pool : Array = boost_list.filter(
+	var pool : Array[BoostData] = boost_list.filter(
 		func(boost : BoostData) -> bool:
 		return boost.rarity == rarity)
 	

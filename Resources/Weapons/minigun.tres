@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("1_nojgw")
-weapon_name = "Minigun"
+weapon_name = 1
 weapon_icon = ExtResource("3_sioub")
 max_level = 35
 description = "Shot bullets on sight"

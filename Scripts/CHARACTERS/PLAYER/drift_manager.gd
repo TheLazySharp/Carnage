@@ -376,7 +376,7 @@ func animation_score_to_total() -> void :
 		player.dmg.remove_modifiers_from("drift manager bonus")
 		car_dmg_mod = Modifier.new(int(drift_point_add),Modifier.Type.FLAT,"drift manager bonus")
 		player.dmg.add_modifier(car_dmg_mod)
-		print("car dmg : ", player.dmg.get_value())
+		#print("car dmg : ", player.dmg.get_value())
 		
 		var flash_tween : Tween = create_tween()
 		flash_tween.tween_method(func(c: Color) -> void: 

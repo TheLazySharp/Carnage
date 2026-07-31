@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("1_avvvw")
-weapon_name = "Bat Handler"
+weapon_name = 2
 weapon_icon = ExtResource("4_ap2f1")
 max_level = 35
 description = "hit enemies on car sides"

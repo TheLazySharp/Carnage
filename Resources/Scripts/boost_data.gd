@@ -43,7 +43,7 @@ enum Rarities {
 	LEGENDARY
 }
 
-@export var name : String
+@export var name : ShopManager.Items_Name
 @export var target_ressource : Target_Ressources
 @export var target_weapon : WeaponData
 @export var target_stats : Array[Target_Stats]

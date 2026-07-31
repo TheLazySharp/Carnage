@@ -21,8 +21,9 @@ var boost : BoostData
 @onready var discount_tag: Label = $Price/Tags/DiscountTag
 @onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
 @onready var not_enough_cash_rect: ColorRect = $Confirm/MarginContainer/NotEnoughCash
-var discounted_price : int
+@onready var arrow: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/arrow
 
+var discounted_price : int
 
 var card_color : Color
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -40,7 +41,7 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void :
 	discounted_price = int(boost.price * ShopManager.discount.get_value())
 	price_tag.text = str(boost.price)
 	discount_tag.text = str(discounted_price)
-	boost_name.text = boost.name
+	boost_name.text = str(WeaponsManager.Weapons_name.keys()[boost.name])
 	icon.texture = boost.icon
 	card.color = boost.get_shop_color()
 	stat_0.text = boost.get_stat_string(boost.target_stats[0])
@@ -51,11 +52,11 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void :
 
 	match boost.target_ressource:
 		boost.Target_Ressources.CAR:
-			new_value_0.text = str(boost.get_car_stat(boost.target_stats[0],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + boost.name)))
+			new_value_0.text = str(boost.get_car_stat(boost.target_stats[0],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 		boost.Target_Ressources.WEAPONS:
-			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + boost.name)))
+			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 		boost.Target_Ressources.AMMOS:
-			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + boost.name)))
+			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 		
 	
 	sold_out.hide()
@@ -68,11 +69,11 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void :
 		bonus_1.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[1],1)
 		match boost.target_ressource:
 			boost.Target_Ressources.CAR:
-				new_value_1.text = str(boost.get_car_stat(boost.target_stats[1],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " + boost.name)))
+				new_value_1.text = str(boost.get_car_stat(boost.target_stats[1],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 			boost.Target_Ressources.WEAPONS:
-				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " + boost.name)))
+				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 			boost.Target_Ressources.AMMOS:
-				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " + boost.name)))
+				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 	else :
 		stat_1.hide()
 		bonus_1.hide()
@@ -84,6 +85,9 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void :
 	else : 
 		discount_tag.hide()
 		strike_price.hide()
+	
+	if boost.target_stats.size() <=1:
+		arrow.hide()
 
 
 func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index : int) -> String:
@@ -109,14 +113,14 @@ func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index :
 func _on_confirm_pressed() -> void:
 	var base_max_life : int = int(CarManager.selected_car.max_life.get_value())
 	for selected_boost : Dictionary in boost.get_stats():
-		var mod := Modifier.new(selected_boost["value"],selected_boost["type"],"boost applied " + boost.name)
+		var mod := Modifier.new(selected_boost["value"],selected_boost["type"],"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))
 		selected_boost["stat"].add_modifier(mod)
 		SignalManager.emit_signal("stats_updated")
 	var new_max_life : int = int(CarManager.selected_car.max_life.get_value())
 	CarManager.selected_car.current_life += new_max_life - base_max_life
 	
 
-	if boost.is_in_shop:
+	if boost.is_in_shop and boost.target_ressource != BoostData.Target_Ressources.CAR :
 		if min(boost.price, discounted_price) <= InventoryManager.fortune:
 			InventoryManager.fortune -= min(boost.price, discounted_price)
 			SignalManager.emit_signal("update_fortune")
@@ -126,7 +130,7 @@ func _on_confirm_pressed() -> void:
 		else : 
 			not_enough_cash()
 	
-	else : 
+	elif boost.target_ressource == BoostData.Target_Ressources.CAR : 
 		SignalManager.emit_signal("car_level_up_upgrade")
 
 
@@ -148,22 +152,22 @@ func _on_stats_updated() -> void :
 
 	match boost.target_ressource:
 		boost.Target_Ressources.CAR:
-			new_value_0.text = str(boost.get_car_stat(boost.target_stats[0],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + boost.name)))
+			new_value_0.text = str(boost.get_car_stat(boost.target_stats[0],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 		boost.Target_Ressources.WEAPONS:
-			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + boost.name)))
+			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 		boost.Target_Ressources.AMMOS:
-			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + boost.name)))
+			new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 			
 	if boost.target_stats.size()>1:
 		stat_1.text = boost.get_stat_string(boost.target_stats[1])
 		bonus_1.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[1],1)
 		match boost.target_ressource:
 			boost.Target_Ressources.CAR:
-				new_value_1.text = str(boost.get_car_stat(boost.target_stats[1],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " + boost.name)))
+				new_value_1.text = str(boost.get_car_stat(boost.target_stats[1],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 			boost.Target_Ressources.WEAPONS:
-				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " + boost.name)))
+				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 			boost.Target_Ressources.AMMOS:
-				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " + boost.name)))
+				new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  str(WeaponsManager.Weapons_name.keys()[boost.name]))))
 	else :
 		stat_1.hide()
 		bonus_1.hide()

@@ -10,8 +10,11 @@ extends Control
 var nb_boost : int = 3
 
 func _ready() -> void:
+	if XPManager.available_upgrades <1:
+		SceneManager.load_level(SceneManager.SCENES.HOME)
+		return
 	SignalManager.car_level_up_upgrade.connect(_on_car_level_up)
-	upgrades_tag.text = str(XPManager.available_upgrades)
+	upgrades_tag.text = str(maxi(0,XPManager.available_upgrades))
 	icon.texture = CarManager.selected_car.car_sprite
 	
 
@@ -41,13 +44,8 @@ func pick_boost(proposed_boosts : Array[BoostData]) -> BoostData:
 			#print("boost already proposed")
 			continue
 		
-		if boost.target_weapon != null and !WeaponsManager.weapons.has(boost.target_weapon):
-			attempts += 1
-			#print("boost weapon not equipped")
-			continue
-		
 		return boost
-	push_warning("shop manager : no valid boost found after 100 attempts")
+	push_warning("shop manager : no valid car boost found after 100 attempts")
 	return ShopManager.pick_boost(ShopManager.all_car_boosts)
 
 func _on_car_level_up() -> void:

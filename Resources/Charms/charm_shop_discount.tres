@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_4n25c")
-name = "Shop Discount"
+name = 13
 icon = ExtResource("2_8xe52")
 description = "apply a 10% discount on all shop items"
 effect_script = ExtResource("1_hc0g3")
