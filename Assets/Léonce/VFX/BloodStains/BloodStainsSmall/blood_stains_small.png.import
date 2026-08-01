@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brvdptbldt0m0"
-path="res://.godot/imported/blood_stains_big.png-b752ab3a4206409a1945f34c415e6bdb.ctex"
+uid="uid://bwybv6h7y0mlc"
+path="res://.godot/imported/blood_stains_small.png-20fad0b43337df68eae2093b52fedeff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Léonce/VFX/blood_stains_big.png"
-dest_files=["res://.godot/imported/blood_stains_big.png-b752ab3a4206409a1945f34c415e6bdb.ctex"]
+source_file="res://Assets/Léonce/VFX/BloodStains/BloodStainsSmall/blood_stains_small.png"
+dest_files=["res://.godot/imported/blood_stains_small.png-20fad0b43337df68eae2093b52fedeff.ctex"]
 
 [params]
 

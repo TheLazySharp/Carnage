@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasGroup
 class_name BloodSplatter
 
 @export_group("Dossiers des pools")
@@ -7,30 +7,41 @@ class_name BloodSplatter
 @export_dir var small_folder: String = "res://Assets/Blood/small"
 
 @export_group("Quantités")
-@export_range(1, 3, 1) var big_count_min: int = 1
-@export_range(1, 3, 1) var big_count_max: int = 3
-@export_range(1, 8, 1) var small_count_min: int = 3
-@export_range(1, 8, 1) var small_count_max: int = 6
+@export_range(1, 10, 1) var big_count_min: int = 1
+@export_range(1, 10, 1) var big_count_max: int = 3
+@export_range(1, 30, 1) var small_count_min: int = 3
+@export_range(1, 30, 1) var small_count_max: int = 6
 
 @export_group("Placement")
-@export var pixel_size: int = 1
-@export var big_scatter_radius: int = 8
-@export var small_scatter_radius: int = 14
-@export var min_distance: int = 3
+@export_range(1, 16, 1) var pixel_size: int = 1
+@export_range(0, 128, 1) var big_scatter_radius: int = 8
+@export_range(0, 256, 1) var small_scatter_radius: int = 14
+@export_range(0, 64, 1) var min_distance: int = 3
 
-@export_group("Rotation")
+## Décale le centre de dispersion des grosses taches le long de l'axe X local.
+## Négatif = derrière la tache principale (sens opposé à la projection).
+@export var big_scatter_offset: int = -4
+
+## Idem pour les petites taches (généralement plus négatif).
+@export var small_scatter_offset: int = -8
+
+@export_group("Rotation (grosses/petites taches uniquement)")
 @export var constrain_rotation_90: bool = false
 @export var allow_flip: bool = true
 
 @export_group("Timing")
-@export var delay_before_big: float = 0.05
-@export var delay_before_small: float = 0.05
+## Durée totale sur laquelle toutes les taches apparaissent l'une après l'autre,
+## triées de la valeur X locale la plus haute (spawn en premier) à la plus basse
+## (spawn en dernier). 0 = toutes les taches apparaissent instantanément.
+@export_range(0.0, 3.0, 0.01) var spawn_duration: float = 0.25
 
-@export_group("Fusion (CanvasGroup)")
-@export_range(0.0, 1.0, 0.01) var splatter_alpha: float = 1.0
+@export_group("Apparence")
+@export var blood_color: Color = Color.WHITE:
+	set(value):
+		blood_color = value
+		self_modulate = blood_color
 
 var _rng := RandomNumberGenerator.new()
-var _canvas_group: CanvasGroup
 var _placed_positions: Array[Vector2] = []
 
 var _main_textures: Array[Texture2D] = []
@@ -40,20 +51,24 @@ var _small_textures: Array[Texture2D] = []
 
 func _ready() -> void:
 	_rng.randomize()
+	self_modulate = blood_color
+
 	_main_textures = _load_folder(main_folder)
 	_big_textures = _load_folder(big_folder)
 	_small_textures = _load_folder(small_folder)
 
-	_canvas_group = CanvasGroup.new()
-	_canvas_group.self_modulate = Color(1, 1, 1, splatter_alpha)
-	add_child(_canvas_group)
 	_spawn_sequence()
+
+
+func face_direction(direction: Vector2) -> void:
+	if direction.length_squared() > 0.0:
+		rotation = direction.angle()
 
 
 func _load_folder(path: String) -> Array[Texture2D]:
 	var result: Array[Texture2D] = []
 	if path.is_empty() or not DirAccess.dir_exists_absolute(path):
-		push_warning("BloodSplatterEffect2D: dossier introuvable : %s" % path)
+		push_warning("BloodSplatter: dossier introuvable : %s" % path)
 		return result
 	var dir := DirAccess.open(path)
 	dir.list_dir_begin()
@@ -69,31 +84,57 @@ func _load_folder(path: String) -> Array[Texture2D]:
 	return result
 
 
-func _spawn_sequence() -> void:
-	if not _main_textures.is_empty():
-		_spawn_one(_main_textures, Vector2.ZERO)
-	else:
-		push_warning("BloodSplatterEffect2D: aucune texture dans main_folder.")
+## Représente une tache à venir avant qu'elle ne soit réellement instanciée :
+## on calcule toutes les positions d'abord, pour pouvoir trier par X avant de spawn.
+class PendingSplat:
+	var texture: Texture2D
+	var position: Vector2
 
-	await get_tree().create_timer(delay_before_big).timeout
+
+func _spawn_sequence() -> void:
+	var pending: Array[PendingSplat] = []
+
+	if not _main_textures.is_empty():
+		var main_tex: Texture2D = _main_textures[_rng.randi_range(0, _main_textures.size() - 1)]
+		pending.append(_make_pending(main_tex, Vector2.ZERO))
+	else:
+		push_warning("BloodSplatter: aucune texture dans main_folder.")
 
 	if not _big_textures.is_empty():
+		var big_center := Vector2(big_scatter_offset, 0) * pixel_size
 		var big_count := _rng.randi_range(big_count_min, big_count_max)
 		for i in range(big_count):
-			_spawn_one(_big_textures, _find_scatter_position(big_scatter_radius))
-
-	await get_tree().create_timer(delay_before_small).timeout
+			var pos := big_center + _find_scatter_position(big_scatter_radius)
+			var tex: Texture2D = _big_textures[_rng.randi_range(0, _big_textures.size() - 1)]
+			pending.append(_make_pending(tex, pos))
 
 	if not _small_textures.is_empty():
+		var small_center := Vector2(small_scatter_offset, 0) * pixel_size
 		var small_count := _rng.randi_range(small_count_min, small_count_max)
 		for i in range(small_count):
-			_spawn_one(_small_textures, _find_scatter_position(small_scatter_radius))
+			var pos := small_center + _find_scatter_position(small_scatter_radius)
+			var tex: Texture2D = _small_textures[_rng.randi_range(0, _small_textures.size() - 1)]
+			pending.append(_make_pending(tex, pos))
 
-	var parent := get_parent()
-	remove_child(_canvas_group)
-	parent.add_child(_canvas_group)
-	_canvas_group.global_position = global_position
-	queue_free()
+	# Tri par X local décroissant : la valeur la plus haute apparaît en premier.
+	pending.sort_custom(func(a: PendingSplat, b: PendingSplat) -> bool: return a.position.x > b.position.x)
+
+	if pending.is_empty():
+		return
+
+	var delay_between: float = spawn_duration / float(pending.size())
+	for splat in pending:
+		_instantiate_splat(splat)
+		if delay_between > 0.0:
+			await get_tree().create_timer(delay_between).timeout
+
+
+func _make_pending(tex: Texture2D, pos: Vector2) -> PendingSplat:
+	var p := PendingSplat.new()
+	p.texture = tex
+	p.position = pos
+	_placed_positions.append(pos)  # réservé dès le calcul, pour que min_distance reste cohérent entre pools
+	return p
 
 
 func _find_scatter_position(radius: int) -> Vector2:
@@ -125,20 +166,21 @@ func _snap(pos: Vector2) -> Vector2:
 	return (pos / pixel_size).round() * pixel_size
 
 
-func _spawn_one(pool: Array[Texture2D], pos: Vector2) -> void:
-	var tex: Texture2D = pool[_rng.randi_range(0, pool.size() - 1)]
+func _instantiate_splat(splat: PendingSplat) -> void:
 	var spr := Sprite2D.new()
-	spr.texture = tex
-	spr.position = pos
+	spr.texture = splat.texture
+	spr.position = splat.position
 
-	if constrain_rotation_90:
-		spr.rotation = _rng.randi_range(0, 3) * (PI / 2.0)
+	# La tache principale (position exactement à l'origine) garde une orientation fixe.
+	if splat.position == Vector2.ZERO:
+		spr.rotation = 0.0
 	else:
-		spr.rotation = _rng.randf_range(0, TAU)
+		if constrain_rotation_90:
+			spr.rotation = _rng.randi_range(0, 3) * (PI / 2.0)
+		else:
+			spr.rotation = _rng.randf_range(0, TAU)
+		if allow_flip:
+			spr.flip_h = _rng.randi_range(0, 1) == 1
+			spr.flip_v = _rng.randi_range(0, 1) == 1
 
-	if allow_flip:
-		spr.flip_h = _rng.randi_range(0, 1) == 1
-		spr.flip_v = _rng.randi_range(0, 1) == 1
-
-	_canvas_group.add_child(spr)
-	_placed_positions.append(pos)
+	add_child(spr)

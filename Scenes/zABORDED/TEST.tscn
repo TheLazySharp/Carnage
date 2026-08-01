@@ -76,6 +76,9 @@
 [ext_resource type="Texture2D" uid="uid://b1akjmtdlno45" path="res://Assets/Léonce/Props/Trash/Slice 7.tres" id="68_mffiu"]
 [ext_resource type="Texture2D" uid="uid://cpvvpw6osc3kr" path="res://Assets/Léonce/Props/Trash/Slice 8.tres" id="69_jvd2b"]
 [ext_resource type="Texture2D" uid="uid://b53ioqwvltud4" path="res://Assets/Léonce/Props/Trash/Slice 9.tres" id="70_v1ttx"]
+[ext_resource type="Script" uid="uid://5i2ge8d1gyrg" path="res://Assets/Léonce/Scripts/generate_atlas_textures.gd" id="77_uqknt"]
+[ext_resource type="Texture2D" uid="uid://brvdptbldt0m0" path="res://Assets/Léonce/VFX/BloodStains/BloodStainsBig/blood_stains_big.png" id="78_762fv"]
+[ext_resource type="Script" uid="uid://dwtqecayboddx" path="res://Assets/Léonce/Scripts/blood_splatter.gd" id="79_unwpx"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -3465,3 +3468,25 @@ z_index = 6
 
 [node name="Enemy" type="Node2D" parent="." unique_id=54077896]
 z_index = 7
+
+[node name="TextureSlicer" type="Node2D" parent="." unique_id=142767713]
+script = ExtResource("77_uqknt")
+atlas_texture = ExtResource("78_762fv")
+json_path = "res://Assets/Léonce/VFX/BloodStains/BloodStainsBig/blood_stains_big.json"
+
+[node name="BloodSplatter" type="CanvasGroup" parent="." unique_id=964080426]
+z_index = 16
+position = Vector2(2062, 1220)
+script = ExtResource("79_unwpx")
+main_folder = "res://Assets/Léonce/VFX/BloodStains/BloodStainsBig/"
+big_folder = "res://Assets/Léonce/VFX/BloodStains/BloodStainsMedium/"
+small_folder = "res://Assets/Léonce/VFX/BloodStains/BloodStainsSmall/"
+small_count_min = 4
+small_count_max = 12
+big_scatter_radius = 20
+small_scatter_radius = 40
+big_scatter_offset = -10
+small_scatter_offset = -30
+constrain_rotation_90 = true
+spawn_duration = 0.1
+blood_color = Color(0.7411765, 0.08627451, 0.08627451, 1)
