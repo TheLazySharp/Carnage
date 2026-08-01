@@ -35,7 +35,7 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	discounted_price = int(charm.price * ShopManager.discount.get_value())
 	price_tag.text = str(charm.price)
 	discount_tag.text = str(discounted_price)
-	charm_name.text = charm.name
+	charm_name.text = InventoryManager.get_charm_name(p_charm)
 	icon.texture = charm.icon
 	card.color = charm.get_shop_color()
 	charm_rarity.text = charm.get_rarity_string(charm.rarity)

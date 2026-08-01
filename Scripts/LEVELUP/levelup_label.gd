@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 	elif i == weapon_list.size():
 		weapon = new_weapon
 	if weapon:
-		set_text(str(WeaponsManager.Weapons_name.keys()[weapon.weapon_name]))
+		set_text(InventoryManager.get_weapon_name(weapon))
 
 
 func _update_weapons_list(new_weapon_to_equiped : WeaponData, new_weapons_list : Array,_weapon_show : bool) -> void:

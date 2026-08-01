@@ -34,7 +34,7 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 	pnj_job.text = new_survivor.job_ressource.name
 	pnj_bio.text = new_survivor.job_ressource.description
 	weapon_icon.texture = new_survivor.weapon.weapon_icon
-	pnj_weapon.text = str(WeaponsManager.Weapons_name.keys()[new_survivor.weapon.weapon_name])
+	pnj_weapon.text = InventoryManager.get_weapon_name(new_survivor.weapon)
 	weapon_descr.text = new_survivor.weapon.description
 	pick_up.grab_focus()
 

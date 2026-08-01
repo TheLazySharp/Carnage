@@ -98,7 +98,7 @@ func _process(_delta: float) -> void:
 			if i < weapons.size():
 				
 				upgrades.show()
-				weapon_name.text = str(WeaponsManager.Weapons_name.keys()[weapons[i].weapon_name])
+				weapon_name.text = InventoryManager.get_weapon_name(weapons[i])
 				weapon_descr.text = weapons[i].description
 				weapon_icon.texture = weapons[i].weapon_icon
 				weapon_levels.text = str(weapons[i].current_level)
@@ -114,7 +114,7 @@ func _process(_delta: float) -> void:
 
 				if weapons[i].weapon_ammo_scene != null:
 					ammo_name.show()
-					ammo_name.text = str(WeaponsManager.Weapons_name.keys()[weapons[i].weapon_ammo_res.weapon_name])
+					ammo_name.text = InventoryManager.get_weapon_name(weapons[i].weapon_ammo_res)
 					ammo_levels.show()
 					ammo_levels.text = str(weapons[i].weapon_ammo_res.current_level)
 					ammo_icon.get_parent().show()

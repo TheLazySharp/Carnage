@@ -70,12 +70,13 @@ func pick_boost(proposed_boosts : Array[BoostData], pick_list : Array[BoostData]
 			continue
 		if boost.target_weapon != null and !WeaponsManager.weapons.has(boost.target_weapon):
 			continue
-		#if boost.target_weapon != null and proposed_boosts.any(
-				#func(check : BoostData) -> bool: return check.name == boost.name):
+		if boost.target_weapon != null and proposed_boosts.any(
+				func(check : BoostData) -> bool: return InventoryManager.get_boost_name(check) == InventoryManager.get_boost_name(boost)):
 			continue
 		
 		return boost
 	push_warning("shop manager : no valid boost found after 1000 attempts")
+	SceneManager.load_level(SceneManager.SCENES.MAIN_MENU)
 	return null
 
 func pick_charm(proposed_charms : Array[CharmData]) -> CharmData:

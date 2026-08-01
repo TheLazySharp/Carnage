@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_xa5hb")
-weapon_name = 9
+weapon_name = 10
 weapon_icon = ExtResource("3_xa5hb")
 max_level = 35
 description = "hit enemies on car sides"
