@@ -49,12 +49,6 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	district.selected = true
 	
 	
-	
-	# UI Ex SFX/DRAW.. 
-	#and wait for the animation finished for emit the selected signal
-	#CALL FROM THE ANIMATION PLAYER !!!
-	#add track -> call method -> chose the node on with there is a script with the callable -> add key frame and chose the method
-	#/!\ hard to track -> add print in the callable for debug tracking
 
 func set_available(new_value : bool) -> void : 
 	available = new_value

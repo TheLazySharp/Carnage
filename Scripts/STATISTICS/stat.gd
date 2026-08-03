@@ -10,6 +10,7 @@ signal stat_adjusted(new_value : float)
 
 func _init(p_base : float = 0.0) -> void:
 	base_value = p_base
+	TempStatManager.register_stat(self)
 
 
 func get_value() -> float:
@@ -70,3 +71,10 @@ func _on_modifier_over(mod: Modifier) -> void:
 	mod.modifier_over.disconnect(_on_modifier_over)
 	remove_modifier(mod)
 	TempStatManager.temp_modifiers.erase(mod)
+
+func clear_modifiers() -> void:
+	for mod : Modifier in modifiers.duplicate():
+		TempStatManager.forget(mod)
+	modifiers.clear()
+	dirty = true
+	recalculate()

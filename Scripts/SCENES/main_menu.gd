@@ -25,6 +25,7 @@ func _ready() -> void:
 
 
 func _on_start_pressed() -> void:
+	TempStatManager.clear_all_modifiers()
 	if !SceneManager.commands_displayed:
 		SceneManager.load_level(SceneManager.SCENES.COMMANDS)
 		return

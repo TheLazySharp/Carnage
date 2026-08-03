@@ -16,7 +16,7 @@ var shake_offset : Vector2 = Vector2.ZERO
 var lookahead_offset : Vector2 = Vector2.ZERO
 
 # ---- ZOOM IN % SPEED ----
-@export var zoom_base : float = 1.5
+@export var zoom_base : float = 2
 @export var zoom_max_out : float = 0.75
 @export var zoom_speed : float = 3.0
 @export var speed_max : float = 600.0
@@ -28,7 +28,8 @@ var target_zoom : float = 1.0
 @export var roll_speed : float = 20.0
 var target_roll : float = 0.0
 
-
+func _ready() -> void:
+	zoom = Vector2i(zoom_base,zoom_base)
 
 func _physics_process(delta: float) -> void:
 

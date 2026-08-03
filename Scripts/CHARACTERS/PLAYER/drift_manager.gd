@@ -90,7 +90,11 @@ func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker
 	print("car dmg : ", player.dmg.get_value())
 
 func _process(_delta: float) -> void:
-	drift_label.text = str(get_drift_bonus_points())
+	if get_drift_bonus_points() <=0 :
+		drift_label.hide()
+	else : 
+		drift_label.show()
+		drift_label.text = str(get_drift_bonus_points())
 
 func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vector2, p_lateral_velocity : Vector2, p_forward : Vector2, p_velocity : Vector2) -> Vector2:
 	drifting = input_drifting

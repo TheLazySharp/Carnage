@@ -1,7 +1,7 @@
 extends ItemEffect
 
 func activate() -> void:
-	ItemManager.emit_signal("repair",0.25)
+	ItemManager.emit_signal("repair",50)
 
 func deactivate() -> void:
 	pass

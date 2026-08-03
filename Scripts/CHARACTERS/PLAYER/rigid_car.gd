@@ -616,6 +616,6 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 			StatsManager.total_car_dmg += roundi(player.dmg.get_value())
 		else : return
 
-func _on_repair_picked_up(repair_percent : float) -> void:
-	player.current_life += roundi((player.max_life.get_value() - player.current_life) * repair_percent)
+func _on_repair_picked_up(repair_amount : int) -> void:
+	player.current_life += mini((int(player.max_life.get_value() - player.current_life)), repair_amount)
 	life_bar.value = player.current_life

@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://bebfr5dvt68mc" path="res://Assets/weapons/bat_handler.png" id="1_6xqmw"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_13x1l"]
-[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/baseballbat.tres" id="3_yk2wu"]
+[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/bat_handler.tres" id="3_6xqmw"]
 
 [resource]
 script = ExtResource("2_13x1l")
 name = 3
 target_ressource = 3
-target_weapon = ExtResource("3_yk2wu")
+target_weapon = ExtResource("3_6xqmw")
 target_stats = Array[int]([2])
 target_stats_values = Array[float]([-0.2])
 target_stats_modifier_types = Array[int]([0])

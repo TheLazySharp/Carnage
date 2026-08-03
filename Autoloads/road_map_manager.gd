@@ -92,7 +92,7 @@ var last_district : DistrictsData
 #}
 
 signal new_step_reached(new_step : int)
-var map_data : Array[Array] #Grid is an array of floors which are array of districts
+var map_data : Array[Array] #Grid is an array of steps which are array of districts
 var selected_districts : Array[DistrictsData]
 
 func _ready() -> void:

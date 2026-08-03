@@ -40,7 +40,7 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 
 
 func _on_pick_up_pressed() -> void:
-	SurvivorsManager.pick_up_survivor(survivor)
+	SurvivorsManager._on_survivor_picked_up(survivor)
 	var job : JobData = survivor.job_ressource
 	var effect : JobEffect = job.effect_script.new()
 	effect.activate()

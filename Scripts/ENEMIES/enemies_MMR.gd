@@ -88,8 +88,8 @@ func setup_default_states() -> void:
 	var walk_state: EnemySpriteState = EnemySpriteState.new()
 	walk_state.state_name = "walk"
 	walk_state.sheet_row = 0
-	walk_state.frame_count = 8
-	walk_state.fps = 10.0
+	walk_state.frame_count = 16
+	walk_state.fps = 20.0
 	walk_state.loop = true
 	states["walk"] = walk_state
 

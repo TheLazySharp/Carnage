@@ -15,7 +15,7 @@
 radius = 15.033297
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pfax6"]
-radius = 17.117243
+radius = 15.033297
 
 [node name="Ennemy" type="Area2D" unique_id=1375081379 groups=["ennemies"]]
 z_index = 20
@@ -31,7 +31,6 @@ damages_label = ExtResource("2_gvr15")
 blood_particles = ExtResource("4_0akt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324095049 groups=["ennemies"]]
-position = Vector2(-4, 0)
 shape = SubResource("CircleShape2D_vuwk1")
 
 [node name="MarkerDamages" type="Marker2D" parent="." unique_id=851039847]
@@ -43,13 +42,28 @@ wait_time = 1.5
 [node name="DamageFlashTimer" type="Timer" parent="." unique_id=1060557146]
 wait_time = 0.5
 
-[node name="Visuals" type="Node" parent="." unique_id=40556897]
+[node name="Visuals" type="Node2D" parent="." unique_id=1403813484]
+
+[node name="TextureRect" type="ColorRect" parent="Visuals" unique_id=1597687548]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+custom_maximum_size = Vector2(20, 20)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="DamageTimer_OnPlayer" type="Timer" parent="." unique_id=340256879]
 wait_time = 0.3
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=326414836 groups=["ennemies"]]
-visible = false
 z_index = 21
 collision_layer = 2
 collision_mask = 271365

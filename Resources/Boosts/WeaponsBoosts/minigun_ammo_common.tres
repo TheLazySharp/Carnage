@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://cwc2xso207336"]
 
-[ext_resource type="Texture2D" uid="uid://ct3fv10tajqes" path="res://Assets/weapons/minigun.png" id="1_y4ylk"]
+[ext_resource type="Texture2D" uid="uid://dld63d0r7lmc8" path="res://Assets/weapons/long_bullet.png" id="1_y4ylk"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="1_yf4rn"]
 [ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/minigun.tres" id="2_10a8m"]
 

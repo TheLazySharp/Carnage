@@ -307,7 +307,7 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_evvto")
 theme_override_font_sizes/font_size = 24
-text = "Back"
+text = "CONTINUE"
 flat = true
 script = ExtResource("14_imly0")
 

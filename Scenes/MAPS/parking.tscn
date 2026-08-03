@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://cj8pqinx5vrrg" path="res://Scenes/SPAWNERS/buildings_spawner.tscn" id="49_pyd7o"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_mp5nn"]
 [ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="55_6fcfe"]
+[ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="56_pyd7o"]
 [ext_resource type="Texture2D" uid="uid://cigoc373iff72" path="res://Assets/UI/white_arrow.png" id="57_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://cmi5s38sxx8n1" path="res://Scenes/MENU/pause.tscn" id="58_ywo5e"]
 [ext_resource type="PackedScene" uid="uid://bgao02vsiwner" path="res://Scenes/MENU/new_survivor.tscn" id="60_tk2je"]
@@ -50,7 +51,6 @@
 [ext_resource type="PackedScene" uid="uid://ca2xs3prb7n8k" path="res://Scenes/ENNEMIES/coloss_arrival.tscn" id="73_tk2je"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="74_x2yit"]
 [ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="74_ywo5e"]
-[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="75_plkwq"]
 [ext_resource type="Script" uid="uid://bbyymaw7qkruc" path="res://Scripts/SPAWNERS/ressources_spawner.gd" id="77_7oukm"]
 [ext_resource type="PackedScene" uid="uid://drma1if8gpubc" path="res://Scenes/SPAWNERS/item_spawner.tscn" id="77_vmxub"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="79_83n8t"]
@@ -1283,11 +1283,7 @@ tilemap = NodePath("../Land_layers/Roads")
 [node name="Spawners" type="Node2D" parent="." unique_id=556355831]
 
 [node name="BuildingSpawner" parent="Spawners" unique_id=1248185741 instance=ExtResource("49_pyd7o")]
-cell_size = 32.0
-screen_margin = 0.0
 max_spawn_attempts = 20
-spawn_rate = 1.0
-footprint = Vector2i(1, 1)
 occupy_cells = true
 
 [node name="Survivors" parent="Spawners" unique_id=640052013 instance=ExtResource("73_pp6a2")]
@@ -1356,7 +1352,9 @@ autostart = true
 [node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
 multimesh = SubResource("MultiMesh_tc8sa")
 script = ExtResource("82_4v767")
-atlas_texture = ExtResource("75_plkwq")
+atlas_texture = ExtResource("56_pyd7o")
+frame_width = 20
+frame_height = 20
 
 [editable path="Spawners/ColossArrival"]
 [editable path="Spawners/SpawnerAuto"]

@@ -25,11 +25,11 @@
 [ext_resource type="Script" uid="uid://bqwvqyc8nxkoq" path="res://Scripts/CHARACTERS/PLAYER/drift_manager.gd" id="24_s25yl"]
 [ext_resource type="Script" uid="uid://c5ljb2upjo7kq" path="res://Scripts/CHARACTERS/PLAYER/bloody_engine.gd" id="25_vd0i7"]
 [ext_resource type="PackedScene" uid="uid://c7xodcdtwfaaw" path="res://Scenes/VFX/blood_vaccum.tscn" id="26_3jhd0"]
-[ext_resource type="Texture2D" uid="uid://ceyy8wrw5m37a" path="res://Assets/Characters/Cars/porsche.png" id="26_nbmfc"]
+[ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="26_nbmfc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
-radius = 24.0
-height = 100.0
+radius = 19.0
+height = 74.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_in73v"]
 atlas = ExtResource("3_s0c68")
@@ -239,8 +239,8 @@ offsets = PackedFloat32Array(0, 0.34343433, 0.46464646)
 colors = PackedColorArray(0, 0, 0, 1, 0.16835018, 0.16835018, 0.16835018, 1, 1, 1, 1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jhd0"]
-radius = 36.0
-height = 130.0
+radius = 29.0
+height = 116.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qdvgx"]
 streams_count = 3
@@ -444,14 +444,13 @@ script = ExtResource("1_rsha1")
 ghost_scene = ExtResource("2_nbj0p")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
-visible = false
 z_as_relative = false
-position = Vector2(-30, 0)
+position = Vector2(-21, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ly7qr")
 
 [node name="RearLeft" type="Marker2D" parent="." unique_id=269822107]
-position = Vector2(-76.5, -16.5)
+position = Vector2(-51, -11)
 
 [node name="RearLeftBurnAnim" type="AnimatedSprite2D" parent="RearLeft" unique_id=584128568]
 visible = false
@@ -479,8 +478,8 @@ color_ramp = SubResource("Gradient_s25yl")
 
 [node name="RearLeftLight" type="ColorRect" parent="RearLeft" unique_id=917175822]
 z_index = 2
-offset_right = 1.5
-offset_bottom = 3.0
+offset_right = 1.0
+offset_bottom = 2.0
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="RearLeftLight2" type="ColorRect" parent="RearLeft" unique_id=1379393109]
@@ -494,7 +493,7 @@ offset_transform_position = Vector2(0, -0.5)
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="RearRight" type="Marker2D" parent="." unique_id=278920196]
-position = Vector2(-76.515625, 13.4921875)
+position = Vector2(-51.007813, 8.9921875)
 
 [node name="RearRightBurnAnim" type="AnimatedSprite2D" parent="RearRight" unique_id=438628624]
 visible = false
@@ -523,8 +522,8 @@ color_ramp = SubResource("Gradient_s25yl")
 
 [node name="RearRightLight" type="ColorRect" parent="RearRight" unique_id=519623567]
 z_index = 2
-offset_right = 1.5
-offset_bottom = 3.0
+offset_right = 1.0
+offset_bottom = 2.0
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="RearRightLight2" type="ColorRect" parent="RearRight" unique_id=107812700]
@@ -538,13 +537,14 @@ offset_transform_position = Vector2(0, -0.5)
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
+visible = false
 collision_layer = 256
 collision_mask = 512
 monitoring = false
 script = ExtResource("7_in73v")
 
 [node name="CollectZone" type="CollisionShape2D" parent="CollectZone" unique_id=765999217 groups=["player"]]
-position = Vector2(-30, 0)
+position = Vector2(-21, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_3jhd0")
 debug_color = Color(0.65457684, 0.5179122, 0, 0.41960785)
@@ -555,6 +555,7 @@ one_shot = true
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1336259982 groups=["player"]]
 visible = false
+position = Vector2(9, 0)
 collision_mask = 262146
 
 [node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=907009532 groups=["player"]]
@@ -625,10 +626,10 @@ color = Color(0.87437004, 0.39763713, 0, 1)
 color_ramp = SubResource("Gradient_3arfo")
 
 [node name="MineMarker" type="Marker2D" parent="." unique_id=1503101015]
-position = Vector2(-82.01625, 0.028690338)
+position = Vector2(-58.01625, 0.028690338)
 
 [node name="TutoArrow" type="Marker2D" parent="." unique_id=841650673]
-position = Vector2(34, 0)
+position = Vector2(25, 0)
 
 [node name="GarageArrow" type="AnimatedSprite2D" parent="TutoArrow" unique_id=1849266520]
 visible = false
@@ -643,6 +644,7 @@ wait_time = 0.15
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=707894945]
 
 [node name="EnemiesDetectionArea" type="Area2D" parent="." unique_id=1481692765]
+position = Vector2(9, 0)
 collision_mask = 2
 script = ExtResource("18_qdvgx")
 
@@ -682,7 +684,6 @@ vaccum_particles_scene = ExtResource("26_3jhd0")
 z_index = 1
 material = SubResource("ShaderMaterial_vd0i7")
 rotation = 1.5707964
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("26_nbmfc")
 offset = Vector2(0, 20)
 

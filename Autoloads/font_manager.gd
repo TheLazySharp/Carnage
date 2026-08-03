@@ -45,6 +45,6 @@ var FONTS : Dictionary = {
 	
 	types.VFX:[preload("uid://ka3caedu5yxc"),32,dark_yellow],
 	
-	types.SOLD_OUT:[preload("uid://ka3caedu5yxc"),48,Color.RED],
+	types.SOLD_OUT:[preload("uid://ka3caedu5yxc"),38,Color.RED],
 	
 }

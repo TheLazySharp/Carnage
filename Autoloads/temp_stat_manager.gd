@@ -8,6 +8,7 @@ class Entry:
 		mod = p_mod
 
 var entries: Array[Entry] = []
+var all_stats: Array[WeakRef] = []
 
 func apply(stat: Statistic, template: Modifier, policy: Modifier.StackPolicy = Modifier.StackPolicy.REFRESH) -> void:
 	if template.duration <= 0.0:
@@ -47,3 +48,16 @@ func _process(delta: float) -> void:
 		else:
 			remaining_entries.append(entry)
 	entries = remaining_entries
+
+func register_stat(stat: Statistic) -> void:
+	all_stats.append(weakref(stat))
+
+func clear_all_modifiers() -> void:
+	entries.clear()
+	var alive: Array[WeakRef] = []
+	for weak_ref : WeakRef in all_stats:
+		var stat: Statistic = weak_ref.get_ref() as Statistic
+		if stat != null:
+			stat.clear_modifiers()
+			alive.append(weak_ref)
+	all_stats = alive

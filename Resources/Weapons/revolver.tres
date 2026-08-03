@@ -20,6 +20,6 @@ weapon_ammo_res = ExtResource("2_e4v8e")
 weapon_sfx = ExtResource("5_e4v8e")
 base_dmg = 0
 base_speed_rotation = 0
-base_fire_rate = 0.8
+base_fire_rate = 1.0
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

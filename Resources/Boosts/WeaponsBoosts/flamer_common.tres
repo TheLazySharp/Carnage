@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="1_17cg7"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_qleis"]
-[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flame.tres" id="3_qleis"]
+[ext_resource type="Resource" uid="uid://bgv4w4g2bvoby" path="res://Resources/Weapons/flame_launcher.tres" id="3_17cg7"]
 
 [resource]
 script = ExtResource("2_qleis")
 name = 4
 target_ressource = 3
-target_weapon = ExtResource("3_qleis")
+target_weapon = ExtResource("3_17cg7")
 target_stats = Array[int]([1])
 target_stats_values = Array[float]([2.0])
 target_stats_modifier_types = Array[int]([0])

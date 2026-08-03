@@ -81,6 +81,9 @@ const AMMO_BOOSTS : Array = [
 	preload("uid://cwc2xso207336"), #minigun ammo common
 	preload("uid://cm42x2i8ysvxy"), #minigun ammo epic
 	preload("uid://db7ji7qvilci0"), #minigun ammo rare
+	preload("uid://bqcyrkmw7dgtg"), #flame
+	preload("uid://r78bgiis3pkw"), #flame
+	preload("uid://mevmn0algbg4"), #flame
 ]
 
 const ALL_CHARMS : Array = [
