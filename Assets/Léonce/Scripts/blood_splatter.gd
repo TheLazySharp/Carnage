@@ -1,12 +1,12 @@
 extends CanvasGroup
 class_name BloodSplatter
 
-@export_group("Dossiers des pools")
+@export_group("Texture Pools")
 @export_dir var main_folder: String = "res://Assets/Blood/main"
 @export_dir var big_folder: String = "res://Assets/Blood/big"
 @export_dir var small_folder: String = "res://Assets/Blood/small"
 
-@export_group("Quantités")
+@export_group("Quantity")
 @export_range(1, 10, 1) var big_count_min: int = 1
 @export_range(1, 10, 1) var big_count_max: int = 3
 @export_range(1, 30, 1) var small_count_min: int = 3
@@ -25,7 +25,7 @@ class_name BloodSplatter
 ## Idem pour les petites taches (généralement plus négatif).
 @export var small_scatter_offset: int = -8
 
-@export_group("Rotation (grosses/petites taches uniquement)")
+@export_group("Rotation")
 @export var constrain_rotation_90: bool = false
 @export var allow_flip: bool = true
 
@@ -35,7 +35,7 @@ class_name BloodSplatter
 ## (spawn en dernier). 0 = toutes les taches apparaissent instantanément.
 @export_range(0.0, 3.0, 0.01) var spawn_duration: float = 0.25
 
-@export_group("Apparence")
+@export_group("Appearence")
 @export var blood_color: Color = Color.WHITE:
 	set(value):
 		blood_color = value
@@ -52,11 +52,19 @@ var _small_textures: Array[Texture2D] = []
 func _ready() -> void:
 	_rng.randomize()
 	self_modulate = blood_color
-
 	_main_textures = _load_folder(main_folder)
 	_big_textures = _load_folder(big_folder)
 	_small_textures = _load_folder(small_folder)
+	# Retire l'appel automatique -- on déclenche via play() à la place
+	# _spawn_sequence()
 
+
+## Méthode publique à appeler depuis une piste "Call Method" de l'AnimationPlayer
+func play() -> void:
+	# Nettoie les taches précédentes si tu rejoues l'animation plusieurs fois
+	for child in get_children():
+		child.free()
+	_placed_positions.clear()
 	_spawn_sequence()
 
 

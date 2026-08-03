@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://cce5m7cm86pbq"]
-
-[ext_resource type="Texture2D" uid="uid://dcqvkynkdjewo" path="res://Assets/Léonce/VFX/BloodStains/BloodStainsMedium/blood_stains_medium.png" id="1_sdp6j"]
-
-[resource]
-atlas = ExtResource("1_sdp6j")
-region = Rect2(194, 69, 23, 23)
