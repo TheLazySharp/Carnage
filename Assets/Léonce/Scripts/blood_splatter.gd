@@ -42,6 +42,7 @@ func _ready() -> void:
 
 
 func face_direction(direction: Vector2) -> void:
+	print("face_direction: ", direction)
 	if direction.length_squared() > 0.0:
 		rotation = direction.angle()
 

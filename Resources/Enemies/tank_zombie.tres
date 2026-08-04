@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cdu4vgc1bsrud"]
 
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_bemir"]
-[ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="1_higrc"]
+[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="1_higrc"]
 [ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_higrc"]
 [ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="3_le2cb"]
 

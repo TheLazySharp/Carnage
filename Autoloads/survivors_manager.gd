@@ -13,8 +13,8 @@ var survivors_pool : Array[SurvivorData] = [] #contains all the survivor that ca
 
 
 const ALL_SURVIVORS : Array = [
-	preload("uid://co2hy6ybsg7b6"), #BORIS
 	preload("uid://b5ctlqm42kkmh"), #JAVIER
+	preload("uid://co2hy6ybsg7b6"), #BORIS
 	preload("uid://b6nh0gs2w1hog"), #LEO
 	preload("uid://c4cxif75gn4yr"), #VIKTOR
 	preload("uid://d3q6e2ttbedxt"), #MARINA

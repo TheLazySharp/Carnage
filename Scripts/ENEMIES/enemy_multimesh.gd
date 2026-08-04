@@ -53,6 +53,7 @@ var losing_strenght_ratio: float = 0.6 #of impact speed is transfered to neighbo
 var night_losing_strenght_boost : float = 2
 var side_impact_ratio: float = 0.3
 var front_impact_ratio: float = -1.2
+var last_move_dir := Vector2.RIGHT
 
 @export var speed_variation: float = 10.0
 
@@ -155,6 +156,9 @@ func _physics_process(delta: float) -> void:
 func update_move(delta: float) -> void:
 	if velocity.length_squared() < 0.01:
 		return
+	last_move_dir = velocity.normalized()
+	if velocity.length_squared() < 0.01:
+		return
 	var move : Vector2 = velocity * delta
  
 	if move.x != 0.0 and flow_field.is_blocked_world(global_position + Vector2(move.x, 0.0)):
@@ -247,6 +251,8 @@ func activate(spawn_position: Vector2) -> void:
  
 func _on_damage_timer_timeout() -> void:
 	damage_timer.stop()
+
+	
  
 func _on_game_paused(game_on_pause: bool) -> void:
 	game_paused = game_on_pause
@@ -257,6 +263,8 @@ func fuel_up() -> void:
 	bloody_engine.fuel_up(1)
  
 func on_death() -> void:
+	set_animation_state("dead")
+	mm_pool.set_enemy_flash(mm_index, false)
 	if nb_xp == 1:
 		blow_up(global_position)
 		collision_box.set_deferred("disabled", true)
@@ -274,7 +282,7 @@ func on_death() -> void:
  
 		StatsManager.frags += 1
  
-		unregister_from_renderer()
+		#unregister_from_renderer()
  
 		SignalManager.emit_signal("enemy_is_dead", self, self.horde)
  
@@ -308,9 +316,11 @@ func display_damages(damages: int) -> void:
  
 func blow_up(blood_position: Vector2) -> void:
 	if enemy.blood_particles:
-		var blood: CPUParticles2D = enemy.blood_particles.instantiate()
+		var blood: Node2D = enemy.blood_particles.instantiate()
 		get_node("/root/World/VFX").add_child(blood)
 		blood.global_position = blood_position
+		blood.rotation = (last_move_dir).angle()
+		blood.get_node("BloodSplatter").play()
  
  
 func _on_day_end(_day_end: bool) -> void:
