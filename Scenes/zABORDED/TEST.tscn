@@ -3733,7 +3733,7 @@ script = ExtResource("80_unwpx")
 pixel_size = 1
 stamp_folder = "res://Assets/Léonce/Textures/Roads/RoadBrushes/"
 stamp_spacing = 1
-perpendicular_jitter = 17
+perpendicular_jitter = 2
 detail_folder = "res://Assets/Léonce/Textures/Roads/RoadBrushes/"
 detail_spacing = 12
 detail_spawn_chance = 0.0
@@ -3802,9 +3802,6 @@ playback_auto_capture = false
 z_index = 5
 position = Vector2(2192, 1121)
 script = ExtResource("79_unwpx")
-main_folder = "res://Assets/Léonce/VFX/Blood/BloodStains/BloodStainsBig/"
-big_folder = "res://Assets/Léonce/VFX/Blood/BloodStains/BloodStainsMedium/"
-small_folder = "res://Assets/Léonce/VFX/Blood/BloodStains/BloodStainsSmall/"
 small_count_min = 4
 small_count_max = 12
 big_scatter_radius = 20
@@ -3812,7 +3809,7 @@ small_scatter_radius = 40
 big_scatter_offset = -10
 small_scatter_offset = -30
 constrain_rotation_90 = true
-spawn_duration = 0.1
+spawn_duration = 0.3
 blood_color = Color(0.7411765, 0.08627451, 0.08627451, 0.9764706)
 
 [node name="ImpactParticles" type="GPUParticles2D" parent="Impact" unique_id=1929229431]
@@ -3822,13 +3819,13 @@ position = Vector2(2210, 1123)
 emitting = false
 amount = 7
 texture = ExtResource("82_5dgyk")
-lifetime = 0.09999999999999999
+lifetime = 0.1
 one_shot = true
 randomness = 0.9
 process_material = SubResource("ParticleProcessMaterial_au78y")
 
 [node name="BloodParticles" type="GPUParticles2D" parent="Impact" unique_id=952233085]
-z_index = 7
+z_index = 6
 position = Vector2(2228, 1124)
 emitting = false
 amount = 75

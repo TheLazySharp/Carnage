@@ -46,6 +46,7 @@ EnemyManager="*uid://bxdwykiiwe7mo"
 jobs_manager="*uid://cid3lkejoqtxp"
 ItemManager="*uid://pfnlydcuwirj"
 BuildingsManager="*uid://dhojtvnvny37"
+BloodPools="*uid://cgpoghihr5qer"
 
 [debug]
 
