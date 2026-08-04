@@ -1,18 +1,36 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cdu4vgc1bsrud"]
 
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_bemir"]
-[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="2_le2cb"]
+[ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="1_higrc"]
+[ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_higrc"]
+[ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="3_le2cb"]
+
+[sub_resource type="Resource" id="Resource_higrc"]
+script = ExtResource("3_higrc")
+frame_count = 16
+fps = 20.0
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_4utwn"]
+script = ExtResource("3_higrc")
+state_name = "dead"
+sheet_row = 1
+frame_count = 3
+loop = false
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
 [resource]
 script = ExtResource("1_bemir")
-name = "Coloss"
-sprite = ExtResource("2_le2cb")
+name = "Tank"
+type = 2
+spritesheet = ExtResource("3_le2cb")
+sprite_states = Array[ExtResource("3_higrc")]([SubResource("Resource_higrc"), SubResource("Resource_4utwn")])
+scale_mod = Vector2(2, 2)
+blood_particles = ExtResource("1_higrc")
 base_speed = 50.0
 base_max_life = 100.0
 base_dmg = 5.0
-xp_type = 2
 base_impact_force = 220.0
 base_knockback_friction = 1200.0
-type = 2
-scale_mod = Vector2(2, 2)
+xp_type = 2
 metadata/_custom_type_script = "uid://o5x50j5uyp7f"

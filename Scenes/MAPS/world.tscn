@@ -70,8 +70,6 @@
 [ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="60_x5yq3"]
 [ext_resource type="Script" uid="uid://cut6npligxxy7" path="res://Scripts/SPAWNERS/survivor_spawner.gd" id="61_ojh6y"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="62_7jfna"]
-[ext_resource type="PackedScene" uid="uid://bqpy6ahyrnpd0" path="res://Scenes/CHARACTERS/survivor_in_game.tscn" id="62_rhyfu"]
-[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="66_yxmws"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="70_bva4u"]
 [ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="80_kkvuv"]
 
@@ -1505,13 +1503,6 @@ expand_margin_bottom = 4.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_283wp"]
 size = Vector2(30, 320)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_tc8sa"]
-
-[sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
-use_colors = true
-use_custom_data = true
-mesh = SubResource("PlaneMesh_tc8sa")
-
 [node name="World" type="Node2D" unique_id=1548430314]
 z_as_relative = false
 y_sort_enabled = true
@@ -2823,10 +2814,8 @@ z_index = 50
 
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 
-[node name="Survivors" type="Node2D" parent="." unique_id=104605597 node_paths=PackedStringArray("tilemap")]
+[node name="Survivors" type="Node2D" parent="." unique_id=104605597]
 script = ExtResource("61_ojh6y")
-new_survivor_scene = ExtResource("62_rhyfu")
-tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
 script = ExtResource("52_vrsns")
@@ -2884,10 +2873,8 @@ collision_mask = 3
 position = Vector2(2, -19)
 shape = SubResource("RectangleShape2D_283wp")
 
-[node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
-multimesh = SubResource("MultiMesh_tc8sa")
+[node name="EnemiesMMR2D" type="Node2D" parent="." unique_id=847607285]
 script = ExtResource("55_tc8sa")
-sprite_texture = ExtResource("66_yxmws")
 
 [connection signal="timeout" from="CanvasLayer/Board/BoostGauge/BoostTimer" to="CanvasLayer/Board/BoostGauge" method="_on_boost_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Resume" to="CanvasLayer/Pause" method="_on_resume_pressed"]

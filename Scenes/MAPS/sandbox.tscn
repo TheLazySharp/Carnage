@@ -54,7 +54,6 @@
 [ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="52_5od2g"]
 [ext_resource type="PackedScene" uid="uid://drma1if8gpubc" path="res://Scenes/SPAWNERS/item_spawner.tscn" id="53_43qga"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="54_dpq5j"]
-[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="55_fpkf5"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
 background_mode = 3
@@ -1000,13 +999,6 @@ _data = {
 &"blinking_red": SubResource("Animation_qe1gh")
 }
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_tc8sa"]
-
-[sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
-use_colors = true
-use_custom_data = true
-mesh = SubResource("PlaneMesh_tc8sa")
-
 [node name="World" type="Node2D" unique_id=1548430314]
 z_as_relative = false
 y_sort_enabled = true
@@ -1347,10 +1339,8 @@ autostart = true
 
 [node name="ItemSpawner" parent="Spawners" unique_id=951681507 instance=ExtResource("53_43qga")]
 
-[node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
-multimesh = SubResource("MultiMesh_tc8sa")
+[node name="EnemiesMMR2D" type="Node2D" parent="." unique_id=2025914850]
 script = ExtResource("54_dpq5j")
-atlas_texture = ExtResource("55_fpkf5")
 
 [editable path="Spawners/ColossArrival"]
 [editable path="Spawners/SpawnerAuto"]

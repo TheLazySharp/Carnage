@@ -74,7 +74,6 @@
 [ext_resource type="PackedScene" uid="uid://ca2xs3prb7n8k" path="res://Scenes/ENNEMIES/coloss_arrival.tscn" id="73_7dxwe"]
 [ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="74_6775b"]
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="75_5w5fu"]
-[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="76_lsr18"]
 
 [sub_resource type="Environment" id="Environment_0pcbe"]
 background_mode = 3
@@ -1295,13 +1294,6 @@ expand_margin_bottom = 4.0
 [sub_resource type="ButtonGroup" id="ButtonGroup_mqqx4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xw754"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_tc8sa"]
-
-[sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
-use_colors = true
-use_custom_data = true
-mesh = SubResource("PlaneMesh_tc8sa")
 
 [node name="World" type="Node2D" unique_id=1548430314]
 z_as_relative = false
@@ -2639,10 +2631,8 @@ position = Vector2(12.431885, 1852.4446)
 enemy_type = 2
 auto_spawn = true
 
-[node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
-multimesh = SubResource("MultiMesh_tc8sa")
+[node name="EnemiesMMR2D" type="Node2D" parent="." unique_id=407265559]
 script = ExtResource("75_5w5fu")
-atlas_texture = ExtResource("76_lsr18")
 
 [connection signal="timeout" from="CanvasLayer/Board/BoostGauge/BoostTimer" to="CanvasLayer/Board/BoostGauge" method="_on_boost_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/NewSurvivor/YesNo/PickUp" to="CanvasLayer/NewSurvivor" method="_on_pick_up_pressed"]

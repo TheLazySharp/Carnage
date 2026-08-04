@@ -1,11 +1,29 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://c8whek5n8pers"]
 
+[ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="1_b0njb"]
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_exg4w"]
-[ext_resource type="Texture2D" uid="uid://s6nyqeerho15" path="res://Assets/Characters/Enemies/Zombie_BNW.png" id="1_tpwqb"]
+[ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_b0njb"]
+[ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="4_iyvnk"]
+
+[sub_resource type="Resource" id="Resource_b0njb"]
+script = ExtResource("3_b0njb")
+frame_count = 16
+fps = 20.0
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_tf6ne"]
+script = ExtResource("3_b0njb")
+state_name = "dead"
+sheet_row = 1
+frame_count = 3
+loop = false
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
 [resource]
 script = ExtResource("1_exg4w")
 name = "Common"
-sprite = ExtResource("1_tpwqb")
+spritesheet = ExtResource("4_iyvnk")
+sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_tf6ne")])
+blood_particles = ExtResource("1_b0njb")
 base_speed = 70.0
 metadata/_custom_type_script = "uid://o5x50j5uyp7f"

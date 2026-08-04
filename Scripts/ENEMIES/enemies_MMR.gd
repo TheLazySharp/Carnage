@@ -1,187 +1,43 @@
-## SPRITESHEET ATTENDUE :
-##   - Chaque ligne = un état (walk ligne 0, attack ligne 1, etc.)
-##   - Chaque colonne = une frame
-##   - Taille par frame : frame_width x frame_height pixels
-##
-## POUR AJOUTER UN ÉTAT VISUEL :
-##   1. Ajouter une nouvelle ligne à la spritesheet
-##   2. Créer un EnemySpriteState (sheet_row = nouvelle ligne, frame_count = nb frames)
-##   3. L'ajouter dans le dictionnaire states via _setup_default_states() ou l'inspecteur
-
-
 class_name EnemiesMultiMeshRenderer
-extends MultiMeshInstance2D
+extends Node2D
 
-@export var atlas_texture : Texture2D
-@export var frame_width: int = 48
-@export var frame_height: int = 48
-@export var max_instances: int = 1000
-
-# --------- ORIENTATION 360 -------------------
-## Cible vers laquelle les ennemis s'orientent (la voiture).
 @onready var car: Node2D = get_node_or_null("/root/World/Car")
-## Décalage d'angle en degrés si le sprite de base ne "regarde" pas vers la droite (+X).
-## Ex : sprite dessiné regardant vers le haut -> mettre 90 ; vers le bas -> -90.
-@export var sprite_angle_offset: float = 0.0
 
-# --------------ANIMATION STATES -----------------------
-
-var states: Dictionary = {} # États disponibles. Clé = nom de l'état, Valeur = ZombieSpriteState.
-
-# Tableau des ennemis enregistrés (index = instance MultiMesh)
-#var registered_enemies: Array = []
-
-# ----------- INSTANCES ---------------------
-var free_indices: Array[int] = [] # Index libre pour attribution rapide
-#var instance_data: Dictionary = {} # Clé = instance_index, Valeur = { state, current_frame, timer, enemy_ref }
-
-var active_indices: Array[int] = []   # remplace l'itération sur instance_data
-var inst_enemy: Array = []            # Enemy ou null
-var inst_state: Array = []            # EnemySpriteState
-var inst_frame: PackedInt32Array
-var inst_timer: PackedFloat32Array
-var inst_flip: PackedByteArray
-var inst_rot: PackedFloat32Array     # rotation courante (radians) vers la voiture
-var inst_row: PackedInt32Array
-var inst_scale: Array = []            # Vector2
-var inst_last_pos: Array = []
-
-# --------- SPRITE SHEET -------------------
-var sheet_cols: int = 0   # calculé depuis frame_width et texture
-var sheet_rows: int = 0   # calculé depuis frame_height et texture
-var frame_w_norm: float = 0.0
-var frame_h_norm: float = 0.0
+var pools: Dictionary = {} #key = EnemyData, Value = EnemyTypePool
+var sprite_sheet_shader: Shader = null
 
 # ---------------------- PERFS ----------------
-var render_skip_timer : float = 0
-var render_skip_steps : float = 0.033
-var buffer_is_dirty : bool = false
-
-
-# ---------- BUFFER --------------------
-## Buffer plat envoyé au GPU en un seul appel.
-## 14 floats par instance : 6 transform + 4 color + 4 custom_data
-var buffer: PackedFloat32Array
-const FLOATS_PER_INSTANCE: int = 16
-const OFFSET_TRANSFORM: int = 0
-const OFFSET_COLOR: int = 8
-const OFFSET_CUSTOM: int = 12
-
-
-
-
-
+var render_skip_timer: float = 0.0
+var render_skip_steps: float = 0.033
 
 func _ready() -> void:
 	position = Vector2.ZERO
-	z_index = 0
-	show()
-	modulate = Color.WHITE
-	self_modulate = Color.WHITE
-	setup_default_states()
-	setup_multimesh()
+	sprite_sheet_shader = create_sprite_sheet_shader()
+
+func get_pool(enemy_data: EnemyData) -> EnemyTypePool:
+	if pools.has(enemy_data):
+		return pools[enemy_data]
+
+	var new_pool: EnemyTypePool = EnemyTypePool.new()
+	new_pool.setup(enemy_data, sprite_sheet_shader, car)
+	add_child(new_pool)
+	pools[enemy_data] = new_pool
+	return new_pool
 
 
-func setup_default_states() -> void:
-	## POUR AJOUTER UN ÉTAT : dupliquer le bloc ci-dessous avec le bon sheet_row.
-
-	var walk_state: EnemySpriteState = EnemySpriteState.new()
-	walk_state.state_name = "walk"
-	walk_state.sheet_row = 0
-	walk_state.frame_count = 16
-	walk_state.fps = 20.0
-	walk_state.loop = true
-	states["walk"] = walk_state
-
-
-
-func setup_multimesh() -> void:
-	inst_enemy.resize(max_instances)
-	inst_state.resize(max_instances)
-	inst_frame.resize(max_instances)
-	inst_timer.resize(max_instances)
-	inst_flip.resize(max_instances)
-	inst_rot.resize(max_instances)
-	inst_row.resize(max_instances)
-	inst_scale.resize(max_instances)
-	inst_last_pos.resize(max_instances)
-	inst_scale.fill(Vector2.ONE)
-
-
-	if atlas_texture == null:
-		push_error("EnemyMultiMeshRenderer : missing sprite_texture")
+func _process(delta: float) -> void:
+	render_skip_timer += delta
+	if render_skip_timer < render_skip_steps:
 		return
-	var sprite_texture: Texture2D = atlas_texture
-	@warning_ignore("integer_division")
-	sheet_cols = int(sprite_texture.get_width()) / frame_width
-	@warning_ignore("integer_division")
-	sheet_rows = int(sprite_texture.get_height()) / frame_height
-	frame_w_norm = float(frame_width) / float(sprite_texture.get_width())
-	frame_h_norm = float(frame_height) / float(sprite_texture.get_height())
+	var step: float = render_skip_timer
+	render_skip_timer = 0.0
 
-	var quad: QuadMesh = QuadMesh.new()
-	quad.size = Vector2(frame_width, frame_height)
+	for pool: EnemyTypePool in pools.values():
+		pool.update_instances(step)
 
-	var mm: MultiMesh = MultiMesh.new()
-	mm.transform_format = MultiMesh.TRANSFORM_2D
-	mm.use_custom_data = true
-	mm.use_colors = true
-	mm.mesh = quad
-	mm.custom_aabb = AABB(Vector3(-1e6, -1e6, -1e6), Vector3(2e6, 2e6, 2e6))
-	mm.instance_count = max_instances
-	mm.visible_instance_count = -1
-	multimesh = mm
-	texture = sprite_texture
-	show()
-	texture = sprite_texture
-
-	var mat: ShaderMaterial = ShaderMaterial.new()
-	mat.shader = create_sprite_sheet_shader()
-	material = mat
-
-
-# Initialiser le buffer plat
-	buffer = PackedFloat32Array()
-	buffer.resize(max_instances * FLOATS_PER_INSTANCE)
-	buffer.fill(0.0)
-
-
-
-	# Initialiser chaque instance : hors écran + blanc + UV zéro
-	for i: int in range(max_instances):
-		var base: int = i * FLOATS_PER_INSTANCE
-		buffer[base + 0] = 0.0   # x.x
-		buffer[base + 1] = 0.0   # y.x
-		buffer[base + 2] = 0.0   # padding
-		buffer[base + 3] = 0.0   # origin.x
-		buffer[base + 4] = 0.0   # x.y
-		buffer[base + 5] = 0.0   # y.y
-		buffer[base + 6] = 0.0   # padding
-		buffer[base + 7] = 0.0   # origin.y
-
-		# Color : blanc opaque
-		buffer[base + 8]  = 1.0
-		buffer[base + 9]  = 1.0
-		buffer[base + 10] = 1.0
-		buffer[base + 11] = 0.0
-		# Custom data : UV frame 0
-		buffer[base + 12] = 0.0
-		buffer[base + 13] = 0.0
-		buffer[base + 14] = frame_w_norm
-		buffer[base + 15] = frame_h_norm
-
-	multimesh.visible_instance_count = -1
-
-	RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
-
-
-	# Pré-remplir les indices libres
-	free_indices.resize(max_instances)
-	for i: int in range(max_instances):
-		free_indices[i] = max_instances - 1 - i
 
 func create_sprite_sheet_shader() -> Shader:
-	## Shader qui lit les coordonnées UV depuis custom_data pour chaque instance.
+	## Shader partagé par tous les pools.
 	## custom_data.x = colonne de frame (normalisée 0..1)
 	## custom_data.y = ligne d'état (normalisée 0..1)
 	## custom_data.z = largeur d'une frame normalisée
@@ -226,191 +82,312 @@ void fragment() {
 """
 	return shader
 
-# ─────────────────────────────────────────────
-#  API PUBLIQUE — appelée par les ennemis
-# ─────────────────────────────────────────────
 
+# ================================================================================
+#------------------- EnemyTypePool — MultiMeshInstance2D per enemy type
+#------------------- Enemies reach it from their mm_pool + mm_index 
+# ================================================================================
 
-func register_enemy(enemy: Enemy) -> int:
-	if free_indices.is_empty():
-		push_warning("EnemyMultiMeshRenderer : max_instances reached !")
-		return -1
+class EnemyTypePool extends MultiMeshInstance2D:
 
-	var idx: int = free_indices.pop_back()
-	active_indices.append(idx)
-	var scale_modifier: Vector2 = enemy.enemy.scale_mod if enemy.enemy else Vector2.ONE
-	var atlas_row: int = enemy.enemy.atlas_row if enemy.enemy else 0
+	# ---------- BUFFER --------------------
+	## Buffer plat envoyé au GPU en un seul appel.
+	## 16 floats par instance : 8 transform (avec padding) + 4 color + 4 custom_data
+	const FLOATS_PER_INSTANCE: int = 16
+	const OFFSET_TRANSFORM: int = 0
+	const OFFSET_COLOR: int = 8
+	const OFFSET_CUSTOM: int = 12
 
-	var base: int = idx * FLOATS_PER_INSTANCE + OFFSET_COLOR
-	buffer[base + 0] = 1.0
-	buffer[base + 1] = 1.0
-	buffer[base + 2] = 1.0
-	buffer[base + 3] = 0.0
+	var enemy_data: EnemyData = null
+	var car: Node2D = null
+	var sprite_angle_offset_radians: float = 0.0
 
-	var init_rot: float = angle_to_car(enemy.global_position)
+	# --------------ANIMATION STATES -----------------------
+	var state_variants: Dictionary = {}#key = state_name, Value = Array[EnemySpriteState]
+	var default_state_variants: Array[EnemySpriteState] = []
 
-	inst_enemy[idx] = enemy
-	inst_state[idx] = states["walk"]
-	inst_frame[idx] = 0
-	inst_timer[idx] = 0.0
-	inst_flip[idx] = 0
-	inst_rot[idx] = init_rot
-	inst_row[idx] = atlas_row
-	inst_scale[idx] = scale_modifier
-	inst_last_pos[idx] = Vector2.INF
+	# --------- SPRITE SHEET -------------------
+	var max_instances: int = 0
+	var frame_uv_width: float = 0.0
+	var frame_uv_height: float = 0.0
 
+	# ----------- INSTANCES ---------------------
+	var free_instance_indices: Array[int] = []
+	var active_instance_indices: Array[int] = []
 
-	write_transform(idx, enemy.global_position, init_rot, false, scale_modifier)
-	write_uv(idx, 0, atlas_row)
-	return idx
+	var instance_enemies: Array[Enemy] = []
+	var instance_states: Array[EnemySpriteState] = []
+	var instance_frames: PackedInt32Array
+	var instance_timers: PackedFloat32Array
+	var instance_rotations: PackedFloat32Array    # rotation courante (radians) vers la voiture
+	var instance_rows: PackedInt32Array           # ligne courante = sheet_row de l'état courant
+	var instance_scales: Array[Vector2] = []
+	var instance_last_positions: Array[Vector2] = []
 
+	var buffer: PackedFloat32Array
+	var buffer_is_dirty: bool = false
 
-func unregister_enemy(instance_index: int) -> void:
-	if instance_index < 0:
-		return
+	func setup(data: EnemyData, sprite_sheet_shader: Shader, car_node: Node2D) -> void:
+		enemy_data = data
+		car = car_node
+		sprite_angle_offset_radians = deg_to_rad(data.sprite_angle_offset)
+		max_instances = data.max_rendered_instances
+		name = "Pool_" + data.name
 
-	var base: int = instance_index * FLOATS_PER_INSTANCE
-	buffer[base + 0] = 0.0
-	buffer[base + 1] = 0.0
-	buffer[base + 4] = 0.0
-	buffer[base + 5] = 0.0
-	buffer[base + 7] = 0.0
-	buffer_is_dirty = true
+		if data.spritesheet == null:
+			push_error("EnemyTypePool : spritesheet manquante pour " + data.name)
+			return
+		if data.sprite_states.is_empty():
+			push_error("EnemyTypePool : aucun EnemySpriteState défini pour " + data.name)
+			return
 
-	inst_enemy[instance_index] = null
-	active_indices.erase(instance_index)
-	free_indices.push_back(instance_index)
+		for sprite_state: EnemySpriteState in data.sprite_states:
+			var key: String = sprite_state.state_name.to_lower()
+			if !state_variants.has(key):
+				var variants: Array[EnemySpriteState] = []
+				state_variants[key] = variants
+			state_variants[key].append(sprite_state)
 
+		if state_variants.has("walk"):
+			default_state_variants = state_variants["walk"]
+		else:
+			default_state_variants = state_variants[data.sprite_states[0].state_name.to_lower()]
 
-func set_enemy_state(instance_index: int, new_state_name: String) -> void:
-	if instance_index < 0 or inst_enemy[instance_index] == null:
-		return
-	var key: String = new_state_name.to_lower()
-	if !states.has(key):
-		push_warning("EnemyMultiMeshRenderer : unknown state : " + new_state_name)
-		return
-	if inst_state[instance_index].state_name == key:
-		return
-	inst_state[instance_index] = states[key]
-	inst_frame[instance_index] = 0
-	inst_timer[instance_index] = 0.0
+		frame_uv_width = float(data.frame_size.x) / float(data.spritesheet.get_width())
+		frame_uv_height = float(data.frame_size.y) / float(data.spritesheet.get_height())
 
+		instance_enemies.resize(max_instances)
+		instance_states.resize(max_instances)
+		instance_frames.resize(max_instances)
+		instance_timers.resize(max_instances)
+		instance_rotations.resize(max_instances)
+		instance_rows.resize(max_instances)
+		instance_scales.resize(max_instances)
+		instance_last_positions.resize(max_instances)
+		instance_scales.fill(Vector2.ONE)
 
-## Angle (radians) pointant depuis pos vers la voiture, + décalage sprite.
-func angle_to_car(pos: Vector2) -> float:
-	if car == null:
-		return 0.0
-	return (car.global_position - pos).angle() + deg_to_rad(sprite_angle_offset)
+		var quad: QuadMesh = QuadMesh.new()
+		quad.size = Vector2(data.frame_size)
 
+		var mm: MultiMesh = MultiMesh.new()
+		mm.transform_format = MultiMesh.TRANSFORM_2D
+		mm.use_custom_data = true
+		mm.use_colors = true
+		mm.mesh = quad
+		mm.custom_aabb = AABB(Vector3(-1e6, -1e6, -1e6), Vector3(2e6, 2e6, 2e6))
+		mm.instance_count = max_instances
+		mm.visible_instance_count = -1
+		multimesh = mm
+		texture = data.spritesheet
 
-func _process(delta: float) -> void:
-	if multimesh == null:
-		return
+		var shader_material: ShaderMaterial = ShaderMaterial.new()
+		shader_material.shader = sprite_sheet_shader
+		material = shader_material
 
-	render_skip_timer += delta
-	if render_skip_timer < render_skip_steps:
-		return
-	var step: float = render_skip_timer   # delta accumulé : l'animation garde sa vitesse réelle
-	render_skip_timer = 0.0
+		# Initialiser le buffer plat : hors écran + blanc + UV frame 0
+		buffer = PackedFloat32Array()
+		buffer.resize(max_instances * FLOATS_PER_INSTANCE)
+		buffer.fill(0.0)
 
-	for k: int in range(active_indices.size() - 1, -1, -1):
-		var idx: int = active_indices[k]
-		var enemy: Enemy = inst_enemy[idx]
-		if !is_instance_valid(enemy):
-			continue
+		for i: int in range(max_instances):
+			var base: int = i * FLOATS_PER_INSTANCE
+			# Transform : tout à zéro (déjà fait par fill), instance invisible
+			# Color : blanc opaque, alpha 0 = pas de flash
+			buffer[base + 8]  = 1.0
+			buffer[base + 9]  = 1.0
+			buffer[base + 10] = 1.0
+			buffer[base + 11] = 0.0
+			# Custom data : UV frame 0
+			buffer[base + 12] = 0.0
+			buffer[base + 13] = 0.0
+			buffer[base + 14] = frame_uv_width
+			buffer[base + 15] = frame_uv_height
 
-		# ── Transform : orientation selon l'état ──
-		# Chase / Attack -> face à la voiture (360). Sinon (idle) -> direction du déplacement.
-		var pos: Vector2 = enemy.global_position
-		var rot: float = inst_rot[idx]   # conserve l'angle courant par défaut (ex : idle immobile)
-		var sname: String = ""
-		var sm:= enemy.state_machine
-		if sm != null and sm.current_state != null:
-			sname = String(sm.current_state.name).to_lower()
-		if sname == "chase" or sname == "attack":
-			rot = angle_to_car(pos)
-		elif enemy.velocity.length_squared() > 0.01:
-			rot = enemy.velocity.angle() + deg_to_rad(sprite_angle_offset)
-		if pos != inst_last_pos[idx] or rot != inst_rot[idx]:
-			inst_last_pos[idx] = pos
-			inst_rot[idx] = rot
-			write_transform(idx, pos, rot, false, inst_scale[idx])
-
-		# ── Animation ──
-		var st: EnemySpriteState = inst_state[idx]
-		if st == null:
-			continue
-		inst_timer[idx] += step
-		var frame_duration: float = 1.0 / st.fps
-		if inst_timer[idx] >= frame_duration:
-			inst_timer[idx] -= frame_duration
-			var next_frame: int = (inst_frame[idx] + 1) % st.frame_count
-			if not st.loop:
-				next_frame = mini(inst_frame[idx] + 1, st.frame_count - 1)
-			if next_frame != inst_frame[idx]:
-				inst_frame[idx] = next_frame
-				write_uv(idx, next_frame, inst_row[idx])
-
-	if buffer_is_dirty:
 		RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
-		buffer_is_dirty = false
+
+		# Pré-remplir les indices libres
+		free_instance_indices.resize(max_instances)
+		for i: int in range(max_instances):
+			free_instance_indices[i] = max_instances - 1 - i
 
 
-func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool, new_scale: Vector2 = Vector2.ONE) -> void:
-	# Matrice de rotation 2D propre (Transform2D) + échelle + flip horizontal éventuel.
-	var sx: float = -new_scale.x if flip_h else new_scale.x
-	var sy: float = new_scale.y
-	var xf: Transform2D = Transform2D(rot, pos)
-	xf.x *= sx   # axe X mis à l'échelle (et inversé si flip)
-	xf.y *= sy   # axe Y mis à l'échelle
-	var base: int = idx * FLOATS_PER_INSTANCE + OFFSET_TRANSFORM
-	buffer[base + 0] = xf.x.x     # x.x
-	buffer[base + 1] = xf.y.x     # y.x
-	buffer[base + 2] = 0.0        # padding
-	buffer[base + 3] = xf.origin.x
-	buffer[base + 4] = xf.x.y     # x.y
-	buffer[base + 5] = xf.y.y     # y.y
-	buffer[base + 6] = 0.0        # padding
-	buffer[base + 7] = xf.origin.y
-	buffer_is_dirty = true
+	# ─────────────────────────────────────────────
+	#  public API called by enemies
+	# ─────────────────────────────────────────────
 
-func write_uv(idx: int, frame_col: int, frame_row: int) -> void:
-	var base: int = idx * FLOATS_PER_INSTANCE + OFFSET_CUSTOM
-	buffer[base + 0] = frame_col * frame_w_norm  # u_offset
-	buffer[base + 1] = frame_row * frame_h_norm  # v_offset
-	buffer[base + 2] = frame_w_norm
-	buffer[base + 3] = frame_h_norm
+	func register_enemy(enemy: Enemy) -> int:
+		if free_instance_indices.is_empty():
+			push_warning("EnemyTypePool (" + enemy_data.name + ") : max_rendered_instances atteint !")
+			return -1
 
-	buffer_is_dirty = true
+		var idx: int = free_instance_indices.pop_back()
+		active_instance_indices.append(idx)
 
+		var base: int = idx * FLOATS_PER_INSTANCE + OFFSET_COLOR
+		buffer[base + 0] = 1.0
+		buffer[base + 1] = 1.0
+		buffer[base + 2] = 1.0
+		buffer[base + 3] = 0.0
 
-func set_enemy_color(instance_index: int, color: Color) -> void:
-	if instance_index < 0:
-		return
-	var base: int = instance_index * FLOATS_PER_INSTANCE + OFFSET_COLOR
+		var initial_rotation: float = angle_to_car(enemy.global_position)
+		var initial_state: EnemySpriteState = default_state_variants.pick_random()
 
-	buffer[base + 0] = color.r
-	buffer[base + 1] = color.g
-	buffer[base + 2] = color.b
-	buffer[base + 3] = color.a
+		instance_enemies[idx] = enemy
+		instance_states[idx] = initial_state
+		instance_frames[idx] = 0
+		instance_timers[idx] = 0.0
+		instance_rotations[idx] = initial_rotation
+		instance_rows[idx] = initial_state.sheet_row
+		instance_scales[idx] = enemy_data.scale_mod
+		instance_last_positions[idx] = Vector2.INF
 
-	buffer_is_dirty = true
+		write_transform(idx, enemy.global_position, initial_rotation, false, enemy_data.scale_mod)
+		write_uv(idx, 0, initial_state.sheet_row)
+		return idx
 
 
+	func unregister_enemy(instance_index: int) -> void:
+		if instance_index < 0:
+			return
 
-func multimesh_set_color_by_index(idx: int, color: Color) -> void:
-	set_enemy_color(idx, color)
+		var base: int = instance_index * FLOATS_PER_INSTANCE
+		for offset: int in range(8):
+			buffer[base + offset] = 0.0
+		buffer_is_dirty = true
 
-func set_enemy_flash(instance_index: int, flashing: bool) -> void:
-	if instance_index < 0:
-		return
-	var base: int = instance_index * FLOATS_PER_INSTANCE + OFFSET_COLOR
-	buffer[base + 3] = 1.0 if flashing else 0.0
+		instance_enemies[instance_index] = null
+		active_instance_indices.erase(instance_index)
+		free_instance_indices.push_back(instance_index)
 
-	buffer_is_dirty = true
 
-func set_enemy_scale(instance_index: int, new_scale: Vector2) -> void:
-	if instance_index < 0:
-		return
-	inst_scale[instance_index] = new_scale
-	inst_last_pos[instance_index] = Vector2.INF
+	func set_enemy_state(instance_index: int, new_state_name: String) -> void:
+		if instance_index < 0 or instance_enemies[instance_index] == null:
+			return
+		var key: String = new_state_name.to_lower()
+		if !state_variants.has(key):
+			push_warning("EnemyTypePool (" + enemy_data.name + ") : unknown state : " + new_state_name)
+			return
+		# Déjà dans cet état (quel que soit le variant) -> on ne reroll pas.
+		var current_state: EnemySpriteState = instance_states[instance_index]
+		if current_state != null and current_state.state_name.to_lower() == key:
+			return
+		var new_state: EnemySpriteState = state_variants[key].pick_random()
+		instance_states[instance_index] = new_state
+		instance_frames[instance_index] = 0
+		instance_timers[instance_index] = 0.0
+		instance_rows[instance_index] = new_state.sheet_row
+		write_uv(instance_index, 0, new_state.sheet_row)
+
+
+	func set_enemy_color(instance_index: int, color: Color) -> void:
+		if instance_index < 0:
+			return
+		var base: int = instance_index * FLOATS_PER_INSTANCE + OFFSET_COLOR
+		buffer[base + 0] = color.r
+		buffer[base + 1] = color.g
+		buffer[base + 2] = color.b
+		buffer[base + 3] = color.a
+		buffer_is_dirty = true
+
+
+	func set_enemy_flash(instance_index: int, flashing: bool) -> void:
+		if instance_index < 0:
+			return
+		var base: int = instance_index * FLOATS_PER_INSTANCE + OFFSET_COLOR
+		buffer[base + 3] = 1.0 if flashing else 0.0
+		buffer_is_dirty = true
+
+
+	func set_enemy_scale(instance_index: int, new_scale: Vector2) -> void:
+		if instance_index < 0:
+			return
+		instance_scales[instance_index] = new_scale
+		instance_last_positions[instance_index] = Vector2.INF
+
+
+	# ─────────────────────────────────────────────
+	#  UPDATE — called by parent renderer
+	# ─────────────────────────────────────────────
+
+	func update_instances(step: float) -> void:
+		if multimesh == null:
+			return
+
+		for k: int in range(active_instance_indices.size() - 1, -1, -1):
+			var idx: int = active_instance_indices[k]
+			var enemy: Enemy = instance_enemies[idx]
+			if !is_instance_valid(enemy):
+				continue
+
+			# ── Transform : orientation selon l'état ──
+			# Chase / Attack -> face the car (360). else (idle) -> toward ranom direction.
+			var pos: Vector2 = enemy.global_position
+			var rot: float = instance_rotations[idx]
+			var state_name: String = ""
+			var state_machine: Node = enemy.state_machine
+			if state_machine != null and state_machine.current_state != null:
+				state_name = String(state_machine.current_state.name).to_lower()
+			if state_name == "chase" or state_name == "attack":
+				rot = angle_to_car(pos)
+			elif enemy.velocity.length_squared() > 0.01:
+				rot = enemy.velocity.angle() + sprite_angle_offset_radians
+			if pos != instance_last_positions[idx] or rot != instance_rotations[idx]:
+				instance_last_positions[idx] = pos
+				instance_rotations[idx] = rot
+				write_transform(idx, pos, rot, false, instance_scales[idx])
+
+			# ── Animation ──
+			var sprite_state: EnemySpriteState = instance_states[idx]
+			if sprite_state == null:
+				continue
+			instance_timers[idx] += step
+			var frame_duration: float = 1.0 / sprite_state.fps
+			if instance_timers[idx] >= frame_duration:
+				instance_timers[idx] -= frame_duration
+				var next_frame: int = (instance_frames[idx] + 1) % sprite_state.frame_count
+				if not sprite_state.loop:
+					next_frame = mini(instance_frames[idx] + 1, sprite_state.frame_count - 1)
+				if next_frame != instance_frames[idx]:
+					instance_frames[idx] = next_frame
+					write_uv(idx, next_frame, instance_rows[idx])
+
+		if buffer_is_dirty:
+			RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
+			buffer_is_dirty = false
+
+
+	# ─────────────────────────────────────────────
+	#  INTERNES
+	# ─────────────────────────────────────────────
+
+	func angle_to_car(pos: Vector2) -> float:
+		if car == null:
+			return 0.0
+		return (car.global_position - pos).angle() + sprite_angle_offset_radians
+
+
+	func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool, new_scale: Vector2 = Vector2.ONE) -> void:
+		var scale_x: float = -new_scale.x if flip_h else new_scale.x
+		var scale_y: float = new_scale.y
+		var xf: Transform2D = Transform2D(rot, pos)
+		xf.x *= scale_x   # axe X mis à l'échelle (et inversé si flip)
+		xf.y *= scale_y   # axe Y mis à l'échelle
+		var base: int = idx * FLOATS_PER_INSTANCE + OFFSET_TRANSFORM
+		buffer[base + 0] = xf.x.x     # x.x
+		buffer[base + 1] = xf.y.x     # y.x
+		buffer[base + 2] = 0.0        # padding
+		buffer[base + 3] = xf.origin.x
+		buffer[base + 4] = xf.x.y     # x.y
+		buffer[base + 5] = xf.y.y     # y.y
+		buffer[base + 6] = 0.0        # padding
+		buffer[base + 7] = xf.origin.y
+		buffer_is_dirty = true
+
+
+	func write_uv(idx: int, frame_col: int, frame_row: int) -> void:
+		var base: int = idx * FLOATS_PER_INSTANCE + OFFSET_CUSTOM
+		buffer[base + 0] = frame_col * frame_uv_width   # u_offset
+		buffer[base + 1] = frame_row * frame_uv_height  # v_offset
+		buffer[base + 2] = frame_uv_width
+		buffer[base + 3] = frame_uv_height
+		buffer_is_dirty = true

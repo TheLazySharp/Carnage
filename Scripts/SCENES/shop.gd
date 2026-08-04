@@ -147,7 +147,6 @@ func reroll() -> void :
 	proposed_charms.clear()
 	
 	items_ready = true
-	boost_container.get_child(0).get_child(0).grab_focus()
 
 func _on_reroll_pressed() -> void:
 	if ShopManager.get_reroll_cost() >= InventoryManager.fortune:

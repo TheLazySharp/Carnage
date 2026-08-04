@@ -40,7 +40,6 @@
 [ext_resource type="PackedScene" uid="uid://cj8pqinx5vrrg" path="res://Scenes/SPAWNERS/buildings_spawner.tscn" id="49_pyd7o"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_mp5nn"]
 [ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="55_6fcfe"]
-[ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="56_pyd7o"]
 [ext_resource type="Texture2D" uid="uid://cigoc373iff72" path="res://Assets/UI/white_arrow.png" id="57_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://cmi5s38sxx8n1" path="res://Scenes/MENU/pause.tscn" id="58_ywo5e"]
 [ext_resource type="PackedScene" uid="uid://bgao02vsiwner" path="res://Scenes/MENU/new_survivor.tscn" id="60_tk2je"]
@@ -1001,13 +1000,6 @@ _data = {
 &"blinking_red": SubResource("Animation_qe1gh")
 }
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_tc8sa"]
-
-[sub_resource type="MultiMesh" id="MultiMesh_tc8sa"]
-use_colors = true
-use_custom_data = true
-mesh = SubResource("PlaneMesh_tc8sa")
-
 [node name="World" type="Node2D" unique_id=1548430314]
 z_as_relative = false
 y_sort_enabled = true
@@ -1349,12 +1341,8 @@ autostart = true
 
 [node name="ItemSpawner" parent="Spawners" unique_id=951681507 instance=ExtResource("77_vmxub")]
 
-[node name="EnemiesMMR2D" type="MultiMeshInstance2D" parent="." unique_id=589249683]
-multimesh = SubResource("MultiMesh_tc8sa")
+[node name="EnemiesMMR2D" type="Node2D" parent="." unique_id=1063083092]
 script = ExtResource("82_4v767")
-atlas_texture = ExtResource("56_pyd7o")
-frame_width = 20
-frame_height = 20
 
 [editable path="Spawners/ColossArrival"]
 [editable path="Spawners/SpawnerAuto"]
