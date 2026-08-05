@@ -1,6 +1,6 @@
 @tool
 extends Node2D
-class_name CableCastShadow2D
+class_name CableShadow
 
 ## Le PixelLine2D représentant le câble visible (peut être ailleurs dans l'arbre)
 @export var cable_path: NodePath:

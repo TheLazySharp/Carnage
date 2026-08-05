@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mgln748i7gg7"
-path="res://.godot/imported/road_stencils.png-171642526c3d3865d6904ce1147437a6.ctex"
+path="res://.godot/imported/road_stencils.png-9634081aa5b6ff9552cd6c7083dafefb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Léonce/Props/Stencils/road_stencils.png"
-dest_files=["res://.godot/imported/road_stencils.png-171642526c3d3865d6904ce1147437a6.ctex"]
+source_file="res://Assets/Léonce/Props/Ground/road_stencils.png"
+dest_files=["res://.godot/imported/road_stencils.png-9634081aa5b6ff9552cd6c7083dafefb.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://crnn46r1osfbx"]
 
 [ext_resource type="Script" uid="uid://bjek0tdmk701o" path="res://Scripts/BUILDINGS/building.gd" id="1_dj6a0"]
-[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Assets/Léonce/Scripts/building_shadows.gd" id="2_e0a3u"]
+[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Assets/Léonce/Scripts/building_shadow.gd" id="2_e0a3u"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6jy3x"]
 load_path = "res://.godot/imported/roof_texture04.png-2356b87db6be5ba6a749842dd82d82c1.ctex"
