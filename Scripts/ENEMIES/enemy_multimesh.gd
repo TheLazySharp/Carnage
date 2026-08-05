@@ -272,12 +272,12 @@ func on_death() -> void:
  
 		var xp := xp_scene.instantiate()
 		xp.xp_data = XPManager.xp_ressources[enemy.xp_type]
-		get_parent().add_child(xp)
+		get_node("/root/World/Collectables").add_child(xp)
 		xp.launch_spawn(global_position)
  
 		if enemy.drops_dollar:
 			var dollar := dollar_scene.instantiate()
-			get_parent().add_child(dollar)
+			get_node("/root/World/Collectables").add_child(dollar)
 			dollar.launch_spawn(global_position)
  
 		StatsManager.frags += 1
@@ -317,7 +317,7 @@ func display_damages(damages: int) -> void:
 func blow_up(blood_position: Vector2) -> void:
 	if enemy.blood_particles:
 		var blood: Node2D = enemy.blood_particles.instantiate()
-		get_node("/root/World/VFX").add_child(blood)
+		get_node("/root/World/Blood").add_child(blood)
 		blood.global_position = blood_position
 		blood.rotation = (last_move_dir).angle()
 		blood.get_node("BloodSplatter").play()

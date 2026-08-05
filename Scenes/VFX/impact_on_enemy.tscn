@@ -30,7 +30,7 @@ tracks/1/path = NodePath("../BloodParticles")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.13333334),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [false],
@@ -44,7 +44,7 @@ tracks/2/path = NodePath("../BloodParticles/BloodTrails")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.13333336),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [false],
@@ -58,7 +58,7 @@ tracks/3/path = NodePath("../BloodParticles/BloodBlobs/BloodBlobs1")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1.1),
+"times": PackedFloat32Array(0.13333333),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [false],
@@ -72,7 +72,7 @@ tracks/4/path = NodePath("../BloodParticles/BloodBlobs/BloodBlobs2")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(1.1),
+"times": PackedFloat32Array(0.13333333),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [false],
@@ -86,7 +86,7 @@ tracks/5/path = NodePath("../BloodParticles/BloodBlobs/BloodBlobs3")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(1.1),
+"times": PackedFloat32Array(0.13333333),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [false],
@@ -100,7 +100,7 @@ tracks/6/path = NodePath("../BloodParticles/BloodBlobs/BloodBlobs4")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(1.1),
+"times": PackedFloat32Array(0.13333333),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [false],
@@ -109,12 +109,12 @@ tracks/6/keys = {
 }
 tracks/7/type = "method"
 tracks/7/imported = false
-tracks/7/enabled = true
+tracks/7/enabled = false
 tracks/7/path = NodePath("../BloodSplatter")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -126,34 +126,6 @@ tracks/7/keys = {
 _data = {
 &"death_enemy": SubResource("Animation_5dgyk")
 }
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8uaht"]
-particles_animation = true
-particles_anim_h_frames = 9
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="Curve" id="Curve_w4um4"]
-_data = [Vector2(0.014124297, 0), 0.0, 0.0, 0, 0, Vector2(0.10451978, 1), -0.048976447, -0.048976447, 0, 0, Vector2(1, 0), -3.3218646, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_8l58v"]
-curve = SubResource("Curve_w4um4")
-
-[sub_resource type="Gradient" id="Gradient_w4um4"]
-offsets = PackedFloat32Array(0, 0.0030487804, 0.0121951215)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.021341464, 0.021341464, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_04oug"]
-gradient = SubResource("Gradient_w4um4")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_au78y"]
-particle_flag_disable_z = true
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-color_initial_ramp = SubResource("GradientTexture1D_04oug")
-alpha_curve = SubResource("CurveTexture_8l58v")
-anim_offset_max = 1.0
 
 [sub_resource type="Curve" id="Curve_mqeix"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.68926555, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -241,7 +213,36 @@ anim_speed_min = 0.26
 anim_speed_max = 0.65
 anim_speed_curve = SubResource("CurveTexture_q4v6q")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8uaht"]
+particles_animation = true
+particles_anim_h_frames = 9
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_w4um4"]
+_data = [Vector2(0.014124297, 0), 0.0, 0.0, 0, 0, Vector2(0.10451978, 1), -0.048976447, -0.048976447, 0, 0, Vector2(1, 0), -3.3218646, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8l58v"]
+curve = SubResource("Curve_w4um4")
+
+[sub_resource type="Gradient" id="Gradient_w4um4"]
+offsets = PackedFloat32Array(0, 0.0030487804, 0.0121951215)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.021341464, 0.021341464, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_04oug"]
+gradient = SubResource("Gradient_w4um4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_au78y"]
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+color_initial_ramp = SubResource("GradientTexture1D_04oug")
+alpha_curve = SubResource("CurveTexture_8l58v")
+anim_offset_max = 1.0
+
 [node name="ImpactOnEnemy" type="Node2D" unique_id=899358896]
+z_as_relative = false
 
 [node name="Impact" type="AnimationPlayer" parent="." unique_id=1581693087]
 root_node = NodePath("../ImpactParticles")
@@ -250,10 +251,9 @@ autoplay = &"death_enemy"
 playback_auto_capture = false
 
 [node name="BloodSplatter" type="CanvasGroup" parent="." unique_id=2104654791]
-z_index = 5
+z_index = 1
+z_as_relative = false
 script = ExtResource("1_0kynx")
-small_count_min = 4
-small_count_max = 12
 big_scatter_radius = 20
 small_scatter_radius = 40
 big_scatter_offset = -10
@@ -262,21 +262,9 @@ constrain_rotation_90 = true
 spawn_duration = 0.3
 blood_color = Color(0.7411765, 0.08627451, 0.08627451, 0.9764706)
 
-[node name="ImpactParticles" type="GPUParticles2D" parent="." unique_id=2068156452]
-z_index = 7
-material = SubResource("CanvasItemMaterial_8uaht")
-emitting = false
-amount = 7
-texture = ExtResource("2_4ylkj")
-lifetime = 0.1
-one_shot = true
-randomness = 0.9
-fixed_fps = 20
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_au78y")
-
 [node name="BloodParticles" type="GPUParticles2D" parent="." unique_id=121481534]
-z_index = 6
+z_index = 2
+z_as_relative = false
 emitting = false
 amount = 75
 sub_emitter = NodePath("BloodTrails")
@@ -292,7 +280,8 @@ trail_section_subdivisions = 1
 process_material = SubResource("ParticleProcessMaterial_762fv")
 
 [node name="BloodTrails" type="GPUParticles2D" parent="BloodParticles" unique_id=725600688]
-z_index = 7
+z_index = 3
+z_as_relative = false
 emitting = false
 lifetime = 0.5
 one_shot = true
@@ -358,3 +347,17 @@ one_shot = true
 explosiveness = 0.1
 randomness = 0.1
 process_material = SubResource("ParticleProcessMaterial_r7ksg")
+
+[node name="ImpactParticles" type="GPUParticles2D" parent="." unique_id=2068156452]
+z_index = 3
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_8uaht")
+emitting = false
+amount = 7
+texture = ExtResource("2_4ylkj")
+lifetime = 0.1
+one_shot = true
+randomness = 0.9
+fixed_fps = 12
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_au78y")

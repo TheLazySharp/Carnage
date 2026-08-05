@@ -433,6 +433,8 @@ _data = {
 
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
+z_index = 20
+z_as_relative = false
 collision_mask = 393754
 motion_mode = 1
 wall_min_slide_angle = 1.3962634
@@ -681,7 +683,6 @@ script = ExtResource("25_vd0i7")
 vaccum_particles_scene = ExtResource("26_3jhd0")
 
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
-z_index = 1
 material = SubResource("ShaderMaterial_vd0i7")
 rotation = 1.5707964
 texture = ExtResource("26_nbmfc")

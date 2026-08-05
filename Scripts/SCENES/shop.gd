@@ -125,7 +125,7 @@ func reroll() -> void :
 		var boost_card := boost_scene.instantiate()
 		boost_container.add_child(boost_card)
 		boost_card.setup(boost,true)
-
+		
 	for i : int in weapons:
 		var boost : BoostData = pick_boost(proposed_boosts, ShopManager.all_weapon_boosts)
 		proposed_boosts.append(boost)
@@ -162,4 +162,5 @@ func _on_reroll_pressed() -> void:
 	
 	ShopManager.reroll_count += 1
 	reroll_cost_label.text = str(ShopManager.get_reroll_cost())
-	boost_container.get_child(0).get_child(0).grab_focus()
+	reroll_button.grab_focus()
+	

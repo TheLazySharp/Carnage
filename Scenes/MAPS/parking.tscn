@@ -1001,8 +1001,6 @@ _data = {
 }
 
 [node name="World" type="Node2D" unique_id=1548430314]
-z_as_relative = false
-y_sort_enabled = true
 metadata/_edit_horizontal_guides_ = [1941.0]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=9101506]
@@ -1245,10 +1243,12 @@ position_smoothing_enabled = true
 script = ExtResource("74_x2yit")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1932136132]
+z_index = 20
 z_as_relative = false
-y_sort_enabled = true
 
 [node name="Horde" type="Node2D" parent="." unique_id=992034029]
+z_index = 20
+z_as_relative = false
 
 [node name="Bullets" type="Node2D" parent="." unique_id=1946491604]
 z_as_relative = false
@@ -1256,6 +1256,9 @@ y_sort_enabled = true
 
 [node name="SkidMarks" type="Node2D" parent="." unique_id=180617962]
 z_index = 10
+z_as_relative = false
+
+[node name="Blood" type="Node2D" parent="." unique_id=2127842897]
 z_as_relative = false
 
 [node name="VFX" type="Node2D" parent="." unique_id=1933595906]
@@ -1268,11 +1271,14 @@ label_scene = ExtResource("69_pp6a2")
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
+z_index = 12
+z_as_relative = false
 script = ExtResource("77_7oukm")
 ressource_scene = ExtResource("83_5ea3q")
 tilemap = NodePath("../Land_layers/Roads")
 
 [node name="Spawners" type="Node2D" parent="." unique_id=556355831]
+z_index = 10
 
 [node name="BuildingSpawner" parent="Spawners" unique_id=1248185741 instance=ExtResource("49_pyd7o")]
 max_spawn_attempts = 20
@@ -1342,6 +1348,7 @@ autostart = true
 [node name="ItemSpawner" parent="Spawners" unique_id=951681507 instance=ExtResource("77_vmxub")]
 
 [node name="EnemiesMMR2D" type="Node2D" parent="." unique_id=1063083092]
+z_index = 10
 script = ExtResource("82_4v767")
 
 [editable path="Spawners/ColossArrival"]

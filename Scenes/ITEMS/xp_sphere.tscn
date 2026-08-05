@@ -11,7 +11,6 @@ animations = []
 
 [node name="XPSphere" type="Area2D" unique_id=19153739 groups=["collectables"]]
 modulate = Color(1.572, 1.572, 1.572, 1)
-z_as_relative = false
 collision_layer = 512
 collision_mask = 256
 script = ExtResource("1_i8ppg")
@@ -22,7 +21,6 @@ visible = false
 shape = SubResource("CircleShape2D_obv3a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1518349450]
-z_as_relative = false
 sprite_frames = SubResource("SpriteFrames_ts882")
 animation = &""
 
