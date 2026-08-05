@@ -13,6 +13,8 @@ class_name EnemyData
 @export var scale_mod : Vector2 = Vector2.ONE
 @export var sprite_angle_offset : float = 0.0 #if sprite do not face right
 @export var max_rendered_instances : int = 1000
+@export var max_corpses : int = 500
+@export var corpse_z_index : int = -1
 @export var blood_particles : PackedScene
 
 @export_group("STATS")

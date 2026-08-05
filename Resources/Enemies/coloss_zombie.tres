@@ -17,6 +17,7 @@ state_name = "dead"
 sheet_row = 1
 frame_count = 3
 loop = false
+is_death_state = true
 metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
 [resource]

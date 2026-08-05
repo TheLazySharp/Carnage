@@ -7,7 +7,7 @@ const ENEMY = preload("uid://c31g0smlywes2")
 @export var is_infinite : bool = true
 @export var enemy_type : EnemyManager.Enemy_Types
 var renderer : EnemiesMultiMeshRenderer
-var max_enemy_count : int = 100
+@export var max_enemy_count : int = 10
 
 var nb_active_enemies : int = 0
 var game_paused : bool = false

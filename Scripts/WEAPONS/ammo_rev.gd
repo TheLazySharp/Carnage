@@ -9,7 +9,7 @@ var damages : int
 var damages_upgrade : int
 var current_lvl : int
 var max_lvl : int
-#@onready var trail: CPUParticles2D = $VFX
+var knockback_force : int = 150
 
 var velocity : Vector2
 var start_position : Vector2
@@ -79,10 +79,10 @@ func activate()->void:
 		set_process(true)
 		set_physics_process(true)
 
-
 func _on_area_entered(area: Area2D) -> void:
 	if "get_damages" in area and area.is_in_group("ennemies") and is_active:
-		area.get_damages(bullet_data.dmg.get_value())
+# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
+		area.get_damages(bullet_data.dmg.get_value(), velocity, knockback_force)
 		bullet_data.total_damages_dealt += int(bullet_data.dmg.get_value())
 		desactivate()
 	elif area.is_in_group("walls"):

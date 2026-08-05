@@ -6,6 +6,8 @@ var damages_upgrade : int
 var current_lvl : int
 var max_lvl : int
 var timer : float
+var knockback_force : int = 300
+
 @onready var smash_shape: CollisionShape2D = $SmashZone/SmashShape
 @onready var whoosh_sfx: AudioStreamPlayer = $WhooshSFX
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -48,7 +50,8 @@ func smash() -> void :
 
 func _on_smash_zone_area_entered(area: Area2D) -> void:
 	if "get_damages" in area and area.is_in_group("ennemies"):
-		area.get_damages(bat_data.dmg.get_value())
+# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
+		area.get_damages(bat_data.dmg.get_value(), -area.velocity, knockback_force)
 		bat_data.total_damages_dealt += int(bat_data.dmg.get_value())
 
 func _on_animation_finished() -> void:

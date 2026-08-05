@@ -61,12 +61,13 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": false,
+"loop": 0,
 "name": &"slashing",
 "speed": 12.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ho26o"]
+radius = 13.0
 height = 52.0
 
 [node name="BaseballBat" type="Node2D" unique_id=2134397831]

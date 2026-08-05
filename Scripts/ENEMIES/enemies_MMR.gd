@@ -4,6 +4,7 @@ extends Node2D
 @onready var car: Node2D = get_node_or_null("/root/World/Car")
 
 var pools: Dictionary = {} #key = EnemyData, Value = EnemyTypePool
+var corpse_pools: Dictionary = {} #key = EnemyData, Value = CorpsePool
 var sprite_sheet_shader: Shader = null
 
 # ---------------------- PERFS ----------------
@@ -18,8 +19,14 @@ func get_pool(enemy_data: EnemyData) -> EnemyTypePool:
 	if pools.has(enemy_data):
 		return pools[enemy_data]
 
+	var new_corpse_pool: CorpsePool = CorpsePool.new()
+	new_corpse_pool.setup(enemy_data, sprite_sheet_shader)
+	add_child(new_corpse_pool)
+	corpse_pools[enemy_data] = new_corpse_pool
+
 	var new_pool: EnemyTypePool = EnemyTypePool.new()
 	new_pool.setup(enemy_data, sprite_sheet_shader, car)
+	new_pool.corpse_pool = new_corpse_pool
 	add_child(new_pool)
 	pools[enemy_data] = new_pool
 	return new_pool
@@ -27,14 +34,18 @@ func get_pool(enemy_data: EnemyData) -> EnemyTypePool:
 
 func _process(delta: float) -> void:
 	render_skip_timer += delta
-	if render_skip_timer < render_skip_steps:
-		return
-	var step: float = render_skip_timer
-	render_skip_timer = 0.0
+	if render_skip_timer >= render_skip_steps:
+		var step: float = render_skip_timer
+		render_skip_timer = 0.0
+		for pool: EnemyTypePool in pools.values():
+			pool.update_instances(step)
 
-	for pool: EnemyTypePool in pools.values():
-		pool.update_instances(step)
+	for corpse_pool: CorpsePool in corpse_pools.values():
+		corpse_pool.flush()
 
+func clear_all_corpses() -> void:
+	for corpse_pool: CorpsePool in corpse_pools.values():
+		corpse_pool.clear_all()
 
 func create_sprite_sheet_shader() -> Shader:
 	## Shader partagé par tous les pools.
@@ -114,6 +125,9 @@ class EnemyTypePool extends MultiMeshInstance2D:
 	# ----------- INSTANCES ---------------------
 	var free_instance_indices: Array[int] = []
 	var active_instance_indices: Array[int] = []
+
+	var corpse_pool: CorpsePool = null
+	var finished_deaths: Array[int] = []
 
 	var instance_enemies: Array[Enemy] = []
 	var instance_states: Array[EnemySpriteState] = []
@@ -319,18 +333,18 @@ class EnemyTypePool extends MultiMeshInstance2D:
 			if !is_instance_valid(enemy):
 				continue
 
-			# ── Transform : orientation selon l'état ──
-			# Chase / Attack -> face the car (360). else (idle) -> toward ranom direction.
+			# ── Transform ──
 			var pos: Vector2 = enemy.global_position
 			var rot: float = instance_rotations[idx]
-			var state_name: String = ""
-			var state_machine: Node = enemy.state_machine
-			if state_machine != null and state_machine.current_state != null:
-				state_name = String(state_machine.current_state.name).to_lower()
-			if state_name == "chase" or state_name == "attack":
-				rot = angle_to_car(pos)
-			elif enemy.velocity.length_squared() > 0.01:
-				rot = enemy.velocity.angle() + sprite_angle_offset_radians
+			if !enemy.is_dead:
+				var state_name: String = ""
+				var state_machine: Node = enemy.state_machine
+				if state_machine != null and state_machine.current_state != null:
+					state_name = String(state_machine.current_state.name).to_lower()
+				if state_name == "chase" or state_name == "attack":
+					rot = angle_to_car(pos)
+				elif enemy.velocity.length_squared() > 0.01:
+					rot = enemy.velocity.angle() + sprite_angle_offset_radians
 			if pos != instance_last_positions[idx] or rot != instance_rotations[idx]:
 				instance_last_positions[idx] = pos
 				instance_rotations[idx] = rot
@@ -342,19 +356,55 @@ class EnemyTypePool extends MultiMeshInstance2D:
 				continue
 			instance_timers[idx] += step
 			var frame_duration: float = 1.0 / sprite_state.fps
-			if instance_timers[idx] >= frame_duration:
-				instance_timers[idx] -= frame_duration
-				var next_frame: int = (instance_frames[idx] + 1) % sprite_state.frame_count
-				if not sprite_state.loop:
-					next_frame = mini(instance_frames[idx] + 1, sprite_state.frame_count - 1)
-				if next_frame != instance_frames[idx]:
-					instance_frames[idx] = next_frame
-					write_uv(idx, next_frame, instance_rows[idx])
+			if instance_timers[idx] < frame_duration:
+				continue
+			instance_timers[idx] -= frame_duration
+
+			var last_frame: int = sprite_state.frame_count - 1
+			var next_frame: int
+			if sprite_state.loop:
+				next_frame = (instance_frames[idx] + 1) % sprite_state.frame_count
+			else:
+				next_frame = mini(instance_frames[idx] + 1, last_frame)
+
+			if next_frame != instance_frames[idx]:
+				instance_frames[idx] = next_frame
+				write_uv(idx, next_frame, instance_rows[idx])
+
+			if sprite_state.is_death_state and instance_frames[idx] >= last_frame:
+				finished_deaths.append(idx)
+
+		# ── Transferts living -> corpses (out of loop)
+		for dead_idx: int in finished_deaths:
+			finalize_death(dead_idx)
+		finished_deaths.clear()
 
 		if buffer_is_dirty:
 			RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
 			buffer_is_dirty = false
 
+
+	## drop corpse on final position, free index.
+	func finalize_death(instance_index: int) -> void:
+		var enemy: Enemy = instance_enemies[instance_index]
+		if enemy == null:
+			return
+
+		var final_position: Vector2 = enemy.global_position if is_instance_valid(enemy) else instance_last_positions[instance_index]
+
+		if corpse_pool != null:
+			corpse_pool.add_corpse(
+				final_position,
+				instance_rotations[instance_index],
+				instance_scales[instance_index],
+				instance_frames[instance_index],
+				instance_rows[instance_index]
+			)
+
+		unregister_enemy(instance_index)
+
+		if is_instance_valid(enemy):
+			enemy.on_death_finished()
 
 	# ─────────────────────────────────────────────
 	#  INTERNES
@@ -390,4 +440,111 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		buffer[base + 1] = frame_row * frame_uv_height  # v_offset
 		buffer[base + 2] = frame_uv_width
 		buffer[base + 3] = frame_uv_height
+		buffer_is_dirty = true
+
+
+# ================================================================================
+#------------------- CorpsePool — MultiMeshInstance2D of static corpses
+#------------------- no animation, one draw call.
+# ================================================================================
+
+class CorpsePool extends MultiMeshInstance2D:
+
+	const FLOATS_PER_INSTANCE: int = 16
+	const OFFSET_TRANSFORM: int = 0
+	const OFFSET_COLOR: int = 8
+	const OFFSET_CUSTOM: int = 12
+
+	var max_corpses: int = 500
+	var write_cursor: int = 0
+	var frame_uv_width: float = 0.0
+	var frame_uv_height: float = 0.0
+
+	var buffer: PackedFloat32Array
+	var buffer_is_dirty: bool = false
+
+
+	func setup(data: EnemyData, sprite_sheet_shader: Shader) -> void:
+		name = "Corpses_" + data.name
+		max_corpses = maxi(1, data.max_corpses)
+		z_index = data.corpse_z_index
+
+		frame_uv_width = float(data.frame_size.x) / float(data.spritesheet.get_width())
+		frame_uv_height = float(data.frame_size.y) / float(data.spritesheet.get_height())
+
+		var quad: QuadMesh = QuadMesh.new()
+		quad.size = Vector2(data.frame_size)
+
+		var mm: MultiMesh = MultiMesh.new()
+		mm.transform_format = MultiMesh.TRANSFORM_2D
+		mm.use_custom_data = true
+		mm.use_colors = true
+		mm.mesh = quad
+		mm.custom_aabb = AABB(Vector3(-1e6, -1e6, -1e6), Vector3(2e6, 2e6, 2e6))
+		mm.instance_count = max_corpses
+		mm.visible_instance_count = -1
+		multimesh = mm
+		texture = data.spritesheet
+
+		var shader_material: ShaderMaterial = ShaderMaterial.new()
+		shader_material.shader = sprite_sheet_shader
+		material = shader_material
+
+		buffer = PackedFloat32Array()
+		buffer.resize(max_corpses * FLOATS_PER_INSTANCE)
+		buffer.fill(0.0)
+		for i: int in range(max_corpses):
+			var base: int = i * FLOATS_PER_INSTANCE
+			buffer[base + 8]  = 1.0
+			buffer[base + 9]  = 1.0
+			buffer[base + 10] = 1.0
+			buffer[base + 11] = 0.0   # pas de flash
+			buffer[base + 14] = frame_uv_width
+			buffer[base + 15] = frame_uv_height
+
+		RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
+
+
+	## drop a corpses. if buffer is full, recycle the older one.
+	func add_corpse(pos: Vector2, rot: float, corpse_scale: Vector2, frame_col: int, frame_row: int) -> void:
+		var idx: int = write_cursor
+		write_cursor = (write_cursor + 1) % max_corpses
+
+		var xf: Transform2D = Transform2D(rot, pos)
+		xf.x *= corpse_scale.x
+		xf.y *= corpse_scale.y
+
+		var base: int = idx * FLOATS_PER_INSTANCE
+		buffer[base + 0] = xf.x.x
+		buffer[base + 1] = xf.y.x
+		buffer[base + 2] = 0.0
+		buffer[base + 3] = xf.origin.x
+		buffer[base + 4] = xf.x.y
+		buffer[base + 5] = xf.y.y
+		buffer[base + 6] = 0.0
+		buffer[base + 7] = xf.origin.y
+
+		buffer[base + OFFSET_COLOR + 0] = 1.0
+		buffer[base + OFFSET_COLOR + 1] = 1.0
+		buffer[base + OFFSET_COLOR + 2] = 1.0
+		buffer[base + OFFSET_COLOR + 3] = 0.0
+
+		buffer[base + OFFSET_CUSTOM + 0] = frame_col * frame_uv_width
+		buffer[base + OFFSET_CUSTOM + 1] = frame_row * frame_uv_height
+		buffer[base + OFFSET_CUSTOM + 2] = frame_uv_width
+		buffer[base + OFFSET_CUSTOM + 3] = frame_uv_height
+
+		buffer_is_dirty = true
+
+
+	func flush() -> void:
+		if !buffer_is_dirty:
+			return
+		RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
+		buffer_is_dirty = false
+
+
+	func clear_all() -> void:
+		buffer.fill(0.0)
+		write_cursor = 0
 		buffer_is_dirty = true

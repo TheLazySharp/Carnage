@@ -37,7 +37,7 @@ func spawn_baseballbat(car_rotation : float,p_nb_projectile : int = int(handler_
 	
 	for i in range(min(p_nb_projectile,spawn_pos_angles.size())):
 		var angle : float = spawn_pos_angles[i] + car_rotation
-		var offset : Vector2 = Vector2.RIGHT.rotated(angle) * car_height
+		var offset : Vector2 = Vector2.RIGHT.rotated(angle) * car_height * 0.5
 		var bat : Node2D = BASEBALL_BAT.instantiate()
 		add_child(bat)
 		bat.global_position = origin + offset

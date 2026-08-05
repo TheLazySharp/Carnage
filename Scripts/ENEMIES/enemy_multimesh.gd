@@ -21,6 +21,7 @@ var type : EnemyManager.Enemy_Types
 
 
 @onready var current_life: int
+var is_dead: bool = false
 @export var leader: Enemy = null
 var is_leader: bool = false
 var horde: Array
@@ -100,7 +101,7 @@ var enemy_freezer := Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer 
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	SignalManager.day_time_end.connect(_on_day_end)
+	SignalManager.next_day.connect(_on_next_day)
 	ItemManager.freeze.connect(_on_freeze)
  
 	init_stats()
@@ -137,18 +138,30 @@ func init_stats() -> void:
 func _physics_process(delta: float) -> void:
 	if game_paused:
 		return
+		
+	if is_dead:
+		if knockback_velocity.length_squared() > 1.0:
+			velocity = knockback_velocity
+			var dead_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * delta)
+			knockback_velocity = knockback_velocity.normalized() * dead_length
+			update_move(delta)
+		else:
+			knockback_velocity = Vector2.ZERO
+			velocity = Vector2.ZERO
+		return
+
+
 	if knockback_velocity.length_squared() > 100:
 		velocity = knockback_velocity
 		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * delta)
 		knockback_velocity = knockback_velocity.normalized() * knockback_length
- 
+
 	accumululated_delta += delta
 	physics_skip_timer += delta
 	if physics_skip_timer < physics_skip_steps:
 		return
 	physics_skip_timer -= physics_skip_steps
- 
-	#near_wall = hordes_manager.is_near_wall(global_position)
+
 	update_move(accumululated_delta)
 	accumululated_delta = 0
 	chained_impacts()
@@ -206,16 +219,18 @@ func chained_impacts() -> void:
 			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio, global_position)
  
  
-func get_damages(damages: int) -> void:
-	if not game_paused:
-		damage_timer.start()
-		current_life -= damages
-		flash_damage()
-		display_damages(damages)
-		if current_life <= 0:
-			current_life = 0
-			call_deferred("on_death")
-			call_deferred("fuel_up") # TO CHANGE
+func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
+	if game_paused or is_dead:
+		return
+	damage_timer.start()
+	current_life -= damages
+	flash_damage()
+	display_damages(damages)
+	apply_knockback(hit_direction, knockback_force)   # impact non létal
+	if current_life <= 0:
+		current_life = 0
+		call_deferred("on_death", hit_direction, knockback_force * 2.0)
+		call_deferred("fuel_up")
  
  
 func get_damages_from_car(damages: int) -> void:
@@ -262,30 +277,53 @@ func fuel_up() -> void:
 	bloody_engine.bloody_vaccum()
 	bloody_engine.fuel_up(1)
  
-func on_death() -> void:
+func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0) -> void:
+	if is_dead:
+		return
+	is_dead = true
+
+	#cut interractions
+	collision_box.set_deferred("disabled", true)
+	damage_timer_on_player.stop()
+	damage_flash_timer.stop()
+	if state_machine != null:
+		state_machine.process_mode = Node.PROCESS_MODE_DISABLED
+	if mm_pool != null and mm_index >= 0:
+		mm_pool.set_enemy_flash(mm_index, false)
+
+	# 2. projection
+	var push_direction: Vector2 = death_direction if death_direction != Vector2.ZERO else last_move_dir
+	var push_force: float = death_force if death_force > 0.0 else impact_force.get_value() * 0.5
+	apply_knockback(push_direction, push_force)
+
+	# 3. blood vfx
+	blow_up(global_position, push_direction)
+
+	# 4. drops
+	var xp := xp_scene.instantiate()
+	xp.xp_data = XPManager.xp_ressources[enemy.xp_type]
+	get_node("/root/World/Collectables").add_child(xp)
+	xp.launch_spawn(global_position)
+
+	if enemy.drops_dollar:
+		var dollar := dollar_scene.instantiate()
+		get_node("/root/World/Collectables").add_child(dollar)
+		dollar.launch_spawn(global_position)
+
+	StatsManager.frags += 1
+	SignalManager.emit_signal("enemy_is_dead", self, self.horde)
+
+	# 5. dead sprites :
 	set_animation_state("dead")
-	mm_pool.set_enemy_flash(mm_index, false)
-	if nb_xp == 1:
-		blow_up(global_position)
-		collision_box.set_deferred("disabled", true)
-		nb_xp = 0
+	if mm_pool == null or mm_index < 0:
+		on_death_finished()
  
-		var xp := xp_scene.instantiate()
-		xp.xp_data = XPManager.xp_ressources[enemy.xp_type]
-		get_node("/root/World/Collectables").add_child(xp)
-		xp.launch_spawn(global_position)
- 
-		if enemy.drops_dollar:
-			var dollar := dollar_scene.instantiate()
-			get_node("/root/World/Collectables").add_child(dollar)
-			dollar.launch_spawn(global_position)
- 
-		StatsManager.frags += 1
- 
-		#unregister_from_renderer()
- 
-		SignalManager.emit_signal("enemy_is_dead", self, self.horde)
- 
+func on_death_finished() -> void:
+	mm_index = -1
+	mm_pool = null
+	queue_free()
+
+
 func on_coloss_death() -> void :
 	blow_up(global_position)
 	collision_box.set_deferred("disabled", true)
@@ -314,17 +352,18 @@ func display_damages(damages: int) -> void:
 	damage_label_pool.show_damages(damages, marker_damages.global_position + text_offset)
  
  
-func blow_up(blood_position: Vector2) -> void:
-	if enemy.blood_particles:
-		var blood: Node2D = enemy.blood_particles.instantiate()
-		get_node("/root/World/Blood").add_child(blood)
-		blood.global_position = blood_position
-		blood.rotation = (last_move_dir).angle()
-		blood.get_node("BloodSplatter").play()
+func blow_up(blood_position: Vector2, blood_direction: Vector2 = Vector2.ZERO) -> void:
+	if enemy.blood_particles == null:
+		return
+	var blood: Node2D = enemy.blood_particles.instantiate()
+	get_node("/root/World/Blood").add_child(blood)
+	blood.global_position = blood_position
+	blood.rotation = (blood_direction if blood_direction != Vector2.ZERO else last_move_dir).angle()
+	blood.get_node("BloodSplatter").play()
  
  
-func _on_day_end(_day_end: bool) -> void:
-	pass
+func _on_next_day() -> void:
+	renderer.clear_all_corpses()
  
  
 func set_animation_state(state_name: String) -> void:
@@ -365,3 +404,8 @@ func get_enemy_stat(stat: EnemyData.Enemy_Stats) -> Statistic:
 		EnemyData.Enemy_Stats.IMPACT_FORCE: return impact_force
 		EnemyData.Enemy_Stats.KNOCKBACK_FRICTION: return knockback_friction
 	return null
+
+func apply_knockback(direction: Vector2, force: float) -> void:
+	if direction == Vector2.ZERO or force <= 0.0:
+		return
+	knockback_velocity += direction.normalized() * force
