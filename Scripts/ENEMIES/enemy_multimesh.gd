@@ -297,7 +297,7 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	apply_knockback(push_direction, push_force)
 
 	# 3. blood vfx
-	blow_up(global_position, push_direction)
+	blow_up(global_position, -push_direction)
 
 	# 4. drops
 	var xp := xp_scene.instantiate()
