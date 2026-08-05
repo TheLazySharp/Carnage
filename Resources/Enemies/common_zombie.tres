@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="1_b0njb"]
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_exg4w"]
 [ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_b0njb"]
-[ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="4_iyvnk"]
+[ext_resource type="Texture2D" uid="uid://cchuw5ikbvb0d" path="res://Assets/Characters/Enemies/zombieA_Atlas.png" id="4_b0njb"]
 
 [sub_resource type="Resource" id="Resource_b0njb"]
 script = ExtResource("3_b0njb")
@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 [resource]
 script = ExtResource("1_exg4w")
 name = "Common"
-spritesheet = ExtResource("4_iyvnk")
+spritesheet = ExtResource("4_b0njb")
 sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_tf6ne")])
 blood_particles = ExtResource("1_b0njb")
 base_speed = 70.0

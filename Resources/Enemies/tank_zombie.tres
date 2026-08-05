@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_bemir"]
 [ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="1_higrc"]
 [ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_higrc"]
-[ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="3_le2cb"]
+[ext_resource type="Texture2D" uid="uid://cchuw5ikbvb0d" path="res://Assets/Characters/Enemies/zombieA_Atlas.png" id="4_higrc"]
 
 [sub_resource type="Resource" id="Resource_higrc"]
 script = ExtResource("3_higrc")
@@ -24,7 +24,7 @@ metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 script = ExtResource("1_bemir")
 name = "Tank"
 type = 2
-spritesheet = ExtResource("3_le2cb")
+spritesheet = ExtResource("4_higrc")
 sprite_states = Array[ExtResource("3_higrc")]([SubResource("Resource_higrc"), SubResource("Resource_4utwn")])
 scale_mod = Vector2(2, 2)
 blood_particles = ExtResource("1_higrc")

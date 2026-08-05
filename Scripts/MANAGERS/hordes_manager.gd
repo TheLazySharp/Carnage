@@ -149,7 +149,7 @@ func _on_enemy_death(dead_enemy : Enemy, dead_enemy_horde : Array) -> void :
 		dead_enemy_horde.erase(dead_enemy)
 	
 	var was_leader : bool = dead_enemy.is_leader
-	dead_enemy.queue_free()
+	#dead_enemy.queue_free()
 	if was_leader :
 		leaders_check(dead_enemy_horde)
 

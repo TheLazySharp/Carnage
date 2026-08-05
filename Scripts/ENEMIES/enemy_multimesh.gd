@@ -138,9 +138,12 @@ func init_stats() -> void:
 func _physics_process(delta: float) -> void:
 	if game_paused:
 		return
-		
 	if is_dead:
 		if knockback_velocity.length_squared() > 1.0:
+		
+		
+	#if is_dead:
+		#if knockback_velocity.length_squared() > 1.0:
 			velocity = knockback_velocity
 			var dead_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * delta)
 			knockback_velocity = knockback_velocity.normalized() * dead_length
@@ -263,11 +266,9 @@ func activate(spawn_position: Vector2) -> void:
 	current_life = int(max_life.get_value())
 	show()
  
- 
+
 func _on_damage_timer_timeout() -> void:
 	damage_timer.stop()
-
-	
  
 func _on_game_paused(game_on_pause: bool) -> void:
 	game_paused = game_on_pause
@@ -291,15 +292,7 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	if mm_pool != null and mm_index >= 0:
 		mm_pool.set_enemy_flash(mm_index, false)
 
-	# 2. projection
-	var push_direction: Vector2 = death_direction if death_direction != Vector2.ZERO else last_move_dir
-	var push_force: float = death_force if death_force > 0.0 else impact_force.get_value() * 0.5
-	apply_knockback(push_direction, push_force)
-
-	# 3. blood vfx
-	blow_up(global_position, -push_direction)
-
-	# 4. drops
+	# 2. drops
 	var xp := xp_scene.instantiate()
 	xp.xp_data = XPManager.xp_ressources[enemy.xp_type]
 	get_node("/root/World/Collectables").add_child(xp)
@@ -313,11 +306,23 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	StatsManager.frags += 1
 	SignalManager.emit_signal("enemy_is_dead", self, self.horde)
 
+	set_physics_process(true)
+	process_mode = Node.PROCESS_MODE_INHERIT
+
+	# 3. projection
+	var push_direction: Vector2 = death_direction if death_direction != Vector2.ZERO else -last_move_dir
+	var push_force: float = death_force if death_force > 0.0 else impact_force.get_value() * 0.5
+	knockback_velocity = Vector2.ZERO
+	apply_knockback(push_direction, push_force)
+
+	# 4. blood vfx
+	blow_up(global_position, push_direction)
+
 	# 5. dead sprites :
 	set_animation_state("dead")
 	if mm_pool == null or mm_index < 0:
 		on_death_finished()
- 
+		
 func on_death_finished() -> void:
 	mm_index = -1
 	mm_pool = null

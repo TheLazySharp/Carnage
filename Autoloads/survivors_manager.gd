@@ -77,9 +77,6 @@ func load_on_road_survivors() -> void:
 	survivors_pool.shuffle()
 	for i in max_survivor_on_road - 1:
 		on_the_road_survivors.append(survivors_pool[i])
-	print("on the road : ",on_the_road_survivors)
-	print("pool: ",survivors_pool)
-	
 
 func _on_district_selected(next_survivor : SurvivorData) -> void:
 	next_spawned_survivor = next_survivor

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_ddtnx"]
 [ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="1_n6fwv"]
 [ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_7vqt3"]
-[ext_resource type="Texture2D" uid="uid://b7cvi0mfcxvkw" path="res://Assets/Léonce/Enemies/zombieA_walk01.png" id="3_n6fwv"]
+[ext_resource type="Texture2D" uid="uid://cchuw5ikbvb0d" path="res://Assets/Characters/Enemies/zombieA_Atlas.png" id="4_n6fwv"]
 
 [sub_resource type="Resource" id="Resource_n6fwv"]
 script = ExtResource("3_7vqt3")
@@ -24,7 +24,7 @@ metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 script = ExtResource("1_ddtnx")
 name = "Coloss"
 type = 1
-spritesheet = ExtResource("3_n6fwv")
+spritesheet = ExtResource("4_n6fwv")
 sprite_states = Array[ExtResource("3_7vqt3")]([SubResource("Resource_n6fwv"), SubResource("Resource_7vqt3")])
 scale_mod = Vector2(5, 5)
 blood_particles = ExtResource("1_n6fwv")
