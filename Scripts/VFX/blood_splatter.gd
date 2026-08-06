@@ -22,11 +22,21 @@ class_name BloodSplatter
 @export_group("Timing")
 @export_range(0.0, 3.0, 0.01) var spawn_duration: float = 0.25
 
-@export_group("Appearence")
-@export var blood_color: Color = Color.WHITE:
+@export_group("Colors")
+@export var fresh_color: Color = Color.WHITE:
 	set(value):
-		blood_color = value
-		self_modulate = blood_color
+		fresh_color = value
+		self_modulate = fresh_color   # aperçu dans l'éditeur
+## Teinte du sang mort, non récoltable.
+@export var rotten_color: Color = Color(0.35, 0.12, 0.12)
+
+## aged_ratio : 0.0 = tout frais, 1.0 = complètement pourri.
+func set_freshness(aged_ratio: float) -> void:
+	self_modulate = fresh_color.lerp(rotten_color, aged_ratio)
+
+func set_rotten() -> void:
+	self_modulate = rotten_color
+
 
 ## Désactive pour réutiliser l'effet sans la tache d'impact principale
 ## (par exemple pour des éclaboussures secondaires dans un autre contexte).
@@ -35,14 +45,12 @@ class_name BloodSplatter
 var _rng := RandomNumberGenerator.new()
 var _placed_positions: Array[Vector2] = []
 
-
 func _ready() -> void:
 	_rng.randomize()
-	self_modulate = blood_color
+	self_modulate = fresh_color
 
 
 func face_direction(direction: Vector2) -> void:
-	print("face_direction: ", direction)
 	if direction.length_squared() > 0.0:
 		rotation = direction.angle()
 
@@ -154,3 +162,8 @@ func _instantiate_splat(splat: PendingSplat) -> void:
 			spr.flip_v = _rng.randi_range(0, 1) == 1
 
 	add_child(spr)
+
+func clear_splats() -> void:
+	for child in get_children():
+		child.free()
+	_placed_positions.clear()

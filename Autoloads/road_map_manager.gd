@@ -220,7 +220,7 @@ func setup_district_types() -> void :
 	#2 second district is always a mission (new survivor to save)
 	for district : DistrictsData in map_data[1]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.SURVIVOR
+			district.type = DistrictsData.types.SHOP
 			
 	#3 last district before boss is always a garage
 	for district : DistrictsData in map_data[STEPS - 2]:

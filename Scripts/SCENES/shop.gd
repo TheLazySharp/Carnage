@@ -1,7 +1,7 @@
 extends Control
 
-@onready var entrance: Control = $"/root/Home/Entrance"
-@onready var back_entrance: Button = $"/root/Home/Entrance/EntranceButtons/Back"
+@onready var entrance: Control
+@onready var back_entrance: Button
 
 @onready var boost_container: GridContainer = $BoostContainer
 @onready var charm_container: GridContainer = $CharmContainer
@@ -44,9 +44,15 @@ func _ready() -> void:
 	var new_stylebox : StyleBox = reroll_button.get_theme_stylebox("focus")
 	new_stylebox.border_color = FontManager.dark_yellow
 	reroll_button.add_theme_stylebox_override("focus",new_stylebox)
-		
+	
 	reroll()
 	
+	if SceneManager.previous_scene == SceneManager.SCENES.ROADMAP:
+		boost_container.get_child(0).get_child(0).grab_focus()
+		#if !boost_container.get_child(0).get_child(0)
+	else :
+		entrance = $"/root/Home/Entrance"
+		back_entrance = $"/root/Home/Entrance/EntranceButtons/Back"
 	
 func _process(_delta: float) -> void:
 	if ShopManager.get_reroll_cost() <= InventoryManager.fortune:

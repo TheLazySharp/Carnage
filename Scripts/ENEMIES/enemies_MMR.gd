@@ -14,6 +14,7 @@ var render_skip_steps: float = 0.033
 func _ready() -> void:
 	position = Vector2.ZERO
 	sprite_sheet_shader = create_sprite_sheet_shader()
+	SignalManager.next_day.connect(clear_all_corpses)
 
 func get_pool(enemy_data: EnemyData) -> EnemyTypePool:
 	if pools.has(enemy_data):

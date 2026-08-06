@@ -172,45 +172,9 @@ func pick_boost(boost_list : Array[BoostData])-> BoostData:
 	if pool.is_empty():
 		push_warning("shop manager : no car boost with rarity "+ str(rarity))
 		pool = boost_list
-	
+		
 	return pool[rng.randi_range(0,pool.size() -1)]
 
-
-#func pick_car_boost()-> BoostData:
-	#var rarity : BoostData.Rarities = pick_boost_rarity()
-	#var pool : Array = all_car_boosts.filter(
-		#func(boost : BoostData) -> bool:
-		#return boost.rarity == rarity)
-	#
-	#if pool.is_empty():
-		#push_warning("shop manager : no car boost with rarity "+ str(rarity))
-		#pool = all_car_boosts
-	#
-	#return pool[rng.randi_range(0,pool.size() -1)]
-#
-#func pick_weapon_boost()-> BoostData:
-	#var rarity : BoostData.Rarities = pick_boost_rarity()
-	#var pool : Array = all_weapon_boosts.filter(
-		#func(boost : BoostData) -> bool:
-		#return boost.rarity == rarity)
-	#
-	#if pool.is_empty():
-		#push_warning("shop manager : no weapon boost with rarity "+ str(rarity))
-		#pool = all_weapon_boosts
-	#
-	#return pool[rng.randi_range(0,pool.size() -1)]
-#
-#func pick_ammo_boost()-> BoostData:
-	#var rarity : BoostData.Rarities = pick_boost_rarity()
-	#var pool : Array = all_ammo_boosts.filter(
-		#func(boost : BoostData) -> bool:
-		#return boost.rarity == rarity)
-	#
-	#if pool.is_empty():
-		#push_warning("shop manager : no ammo boost with rarity "+ str(rarity))
-		#pool = all_ammo_boosts
-	#
-	#return pool[rng.randi_range(0,pool.size() -1)]
 
 func pick_charm_rarity() -> CharmsManager.Rarities:
 	var weighted_sum : int = 0

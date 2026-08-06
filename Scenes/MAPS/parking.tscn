@@ -37,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://cxoune2ptoi3r" path="res://Assets/Props/wall_V.png" id="32_jhmth"]
 [ext_resource type="PackedScene" uid="uid://dljrk8342ak5s" path="res://Scenes/UI/HUD.tscn" id="36_7taos"]
 [ext_resource type="PackedScene" uid="uid://bvmq8j7dk6kfq" path="res://Scenes/MAPS/barriere.tscn" id="37_vmxub"]
+[ext_resource type="Script" uid="uid://cwjmyhyvmlkqc" path="res://Scripts/VFX/blood_impact_pool.gd" id="47_pyd7o"]
+[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="48_quewe"]
 [ext_resource type="PackedScene" uid="uid://cj8pqinx5vrrg" path="res://Scenes/SPAWNERS/buildings_spawner.tscn" id="49_pyd7o"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_mp5nn"]
 [ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="55_6fcfe"]
@@ -1267,6 +1269,11 @@ z_index = 50
 [node name="DamageLabelPool" type="Node2D" parent="VFX" unique_id=280784807]
 script = ExtResource("68_6fcfe")
 label_scene = ExtResource("69_pp6a2")
+
+[node name="BloodImpactPool" type="Node2D" parent="VFX" unique_id=468181774]
+script = ExtResource("47_pyd7o")
+blood_scene = ExtResource("48_quewe")
+pool_size = 800
 
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 

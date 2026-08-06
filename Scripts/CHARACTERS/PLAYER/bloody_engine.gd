@@ -6,7 +6,8 @@ var game_paused : bool = false
 @onready var car: CharacterBody2D = $".."
 var car_sprite : Sprite2D = null
 
-
+@onready var blood_impact_pool: BloodImpactPool = $/root/World/VFX/BloodImpactPool
+@export var fuel_per_splat: int = 1
 #VFX
 @export var vaccum_particles_scene : PackedScene
 var vaccum_particles : CPUParticles2D = null
@@ -50,6 +51,13 @@ func _process(delta: float) -> void:
 
 	update_blood_tint(absorbing, delta)
 
+func _physics_process(_delta: float) -> void:
+	if game_paused:
+		return
+	var harvested: int = blood_impact_pool.harvest(car.global_position)
+	if harvested > 0:
+		fuel_up(harvested * fuel_per_splat)
+		bloody_vaccum()
 
 func _on_game_paused(game_on_pause :bool) -> void:
 	game_paused = game_on_pause

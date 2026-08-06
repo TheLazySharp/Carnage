@@ -19,7 +19,6 @@ var night_damages_boost : float
 var level_life_boost : int
 var type : EnemyManager.Enemy_Types
 
-
 @onready var current_life: int
 var is_dead: bool = false
 @export var leader: Enemy = null
@@ -33,9 +32,9 @@ var velocity: Vector2 = Vector2.ZERO
 @onready var hordes_manager: HordeManager = $/root/World/HordesManager
 
 @onready var damage_label_pool: DamageLabelPool = $/root/World/VFX/DamageLabelPool
+@onready var blood_impact_pool: BloodImpactPool = $/root/World/VFX/BloodImpactPool
 @onready var flow_field: FlowFieldManager = $"/root/World/FlowFieldManager"
 #@export var obstacle_probe_margin: float = 12.0 #half size of the sprite
-
 
 # MULTIMESH
 @onready var renderer: EnemiesMultiMeshRenderer = $/root/World/EnemiesMMR2D
@@ -75,7 +74,7 @@ var near_wall : bool = false
 @onready var collision_box: CollisionShape2D = $CollisionShape2D
 @onready var marker_damages: Marker2D = $MarkerDamages
 @export var damages_label: PackedScene
-@export var blood_particles: PackedScene = null
+#@export var blood_particles: PackedScene = null
 
 # GAME
 @onready var day_manager: Node = $/root/World/DayManager
@@ -85,12 +84,10 @@ var game_over := false
 
 @onready var bloody_engine: BloodyEngine = $/root/World/Car/BloodyEngine
 
-
 #PERFS STAGGER
 var physics_skip_timer : float = 0
 var physics_skip_steps : float = 0.032
 var accumululated_delta : float
-
 
 #NIGHT MODIFIERS
 var night_speed_mod := Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
@@ -101,7 +98,6 @@ var enemy_freezer := Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer 
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	SignalManager.next_day.connect(_on_next_day)
 	ItemManager.freeze.connect(_on_freeze)
  
 	init_stats()
@@ -152,7 +148,6 @@ func _physics_process(delta: float) -> void:
 			knockback_velocity = Vector2.ZERO
 			velocity = Vector2.ZERO
 		return
-
 
 	if knockback_velocity.length_squared() > 100:
 		velocity = knockback_velocity
@@ -208,8 +203,7 @@ func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: fl
 		push_direction = car_right * side + car_forward * side_impact_ratio
  
 	knockback_velocity = push_direction.normalized() * impact_force.get_value() * player_speed_ratio
- 
- 
+  
 func chained_impacts() -> void:
 	if knockback_velocity.length_squared() < chained_impacts_threshold * chained_impacts_threshold:
 		return
@@ -220,7 +214,6 @@ func chained_impacts() -> void:
 			var push_dir: Vector2 = (horde_neighbors[i].global_position - global_position).normalized()
 			var transferred_ratio: float = (knockback_velocity.length() / impact_force.get_value()) * losing_strenght_ratio
 			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio, global_position)
- 
  
 func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
 	if game_paused or is_dead:
@@ -233,8 +226,7 @@ func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_
 	if current_life <= 0:
 		current_life = 0
 		call_deferred("on_death", hit_direction, knockback_force * 2.0)
-		call_deferred("fuel_up")
- 
+		#call_deferred("fuel_up")
  
 func get_damages_from_car(damages: int) -> void:
 	if not game_paused:
@@ -245,8 +237,7 @@ func get_damages_from_car(damages: int) -> void:
 		if current_life <= 0:
 			current_life = 0
 			call_deferred("on_death")
-			call_deferred("fuel_up")
- 
+			#call_deferred("fuel_up")
  
 func flash_damage() -> void:
 	if mm_pool == null or mm_index < 0:
@@ -254,29 +245,25 @@ func flash_damage() -> void:
 	mm_pool.set_enemy_flash(mm_index, true)
 	damage_flash_timer.start()
  
- 
 func set_enemy_color(color: Color) -> void:
 	if mm_pool == null or mm_index < 0:
 		return
 	mm_pool.set_enemy_color(mm_index, color)
- 
  
 func activate(spawn_position: Vector2) -> void:
 	global_position = spawn_position
 	current_life = int(max_life.get_value())
 	show()
  
-
 func _on_damage_timer_timeout() -> void:
 	damage_timer.stop()
  
 func _on_game_paused(game_on_pause: bool) -> void:
 	game_paused = game_on_pause
  
- 
-func fuel_up() -> void:
-	bloody_engine.bloody_vaccum()
-	bloody_engine.fuel_up(1)
+#func fuel_up() -> void:
+	#bloody_engine.bloody_vaccum()
+	#bloody_engine.fuel_up(1)
  
 func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0) -> void:
 	if is_dead:
@@ -322,60 +309,45 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	set_animation_state("dead")
 	if mm_pool == null or mm_index < 0:
 		on_death_finished()
-		
+
 func on_death_finished() -> void:
 	mm_index = -1
 	mm_pool = null
 	queue_free()
 
-
 func on_coloss_death() -> void :
-	blow_up(global_position)
+	#blow_up(global_position)
 	collision_box.set_deferred("disabled", true)
  
 	unregister_from_renderer()
  
 	SignalManager.emit_signal("enemy_is_dead", self, self.horde)
- 
- 
+  
 func unregister_from_renderer() -> void:
 	if mm_pool and mm_index >= 0:
 		mm_pool.unregister_enemy(mm_index)
 	mm_index = -1
 	mm_pool = null
- 
- 
+  
 func _on_damage_timer_on_player_timeout() -> void:
 	if player == null:
 		return
 	if "get_damages_from_mob" in player:
 		player.get_damages_from_mob(dmg.get_value())
- 
- 
+  
 func display_damages(damages: int) -> void:
 	var text_offset := Vector2(randf_range(-10.0, 10.0), randf_range(-50.0, 10.0))
 	damage_label_pool.show_damages(damages, marker_damages.global_position + text_offset)
- 
- 
-func blow_up(blood_position: Vector2, blood_direction: Vector2 = Vector2.ZERO) -> void:
-	if enemy.blood_particles == null:
-		return
-	var blood: Node2D = enemy.blood_particles.instantiate()
-	get_node("/root/World/Blood").add_child(blood)
-	blood.global_position = blood_position
-	blood.rotation = (blood_direction if blood_direction != Vector2.ZERO else last_move_dir).angle()
-	blood.get_node("BloodSplatter").play()
- 
- 
-func _on_next_day() -> void:
-	renderer.clear_all_corpses()
- 
+  
+func blow_up(blood_position: Vector2, blood_direction : Vector2)-> void:
+	var blood_rotation: float = (blood_direction if blood_direction != Vector2.ZERO else last_move_dir).angle()
+	blood_impact_pool.splat_blood(blood_position, blood_rotation)
+
  
 func set_animation_state(state_name: String) -> void:
 	if mm_pool and mm_index >= 0:
 		mm_pool.set_enemy_state(mm_index, state_name.to_lower())
- 
- 
+  
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
@@ -383,14 +355,12 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if "get_damages_from_mob" in player:
 		player.get_damages_from_mob(dmg.get_value())
 	damage_timer_on_player.start()
- 
- 
+  
 func _on_hitbox_area_exited(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
 	player = null
 	damage_timer_on_player.stop()
- 
  
 func _on_damage_flash_timer_timeout() -> void:
 	if mm_pool and mm_index >= 0:
@@ -399,7 +369,6 @@ func _on_damage_flash_timer_timeout() -> void:
  
 func _on_freeze() -> void :
 	speed.add_temp_modifier(enemy_freezer)
- 
  
 func get_enemy_stat(stat: EnemyData.Enemy_Stats) -> Statistic:
 	match stat:

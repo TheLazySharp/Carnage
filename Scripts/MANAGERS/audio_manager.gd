@@ -1,7 +1,7 @@
 extends Node
 
 var current_biome: String
-var music_volume: int
+#var music_volume: int
 var sfx_volume: int
 var game_paused:=false
 

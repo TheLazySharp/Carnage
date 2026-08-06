@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://csipc7vvea0td"]
 
-[ext_resource type="Script" uid="uid://dwtqecayboddx" path="res://Assets/Léonce/Scripts/blood_splatter.gd" id="1_0kynx"]
+[ext_resource type="Script" uid="uid://dwtqecayboddx" path="res://Scripts/VFX/blood_splatter.gd" id="1_0kynx"]
 [ext_resource type="Texture2D" uid="uid://b02jhom2qglcm" path="res://Assets/Léonce/VFX/impact01.png" id="2_4ylkj"]
 [ext_resource type="Texture2D" uid="uid://dtvpjotilfh2b" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs01.png" id="3_7u4kt"]
 [ext_resource type="Texture2D" uid="uid://cel6m8cx3j7i0" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs02.png" id="4_0jg3i"]
@@ -260,7 +260,8 @@ big_scatter_offset = -10
 small_scatter_offset = -30
 constrain_rotation_90 = true
 spawn_duration = 0.3
-blood_color = Color(0.7411765, 0.08627451, 0.08627451, 0.9764706)
+fresh_color = Color(0.92770386, 5.968213e-06, 9.62615e-07, 1)
+rotten_color = Color(0.43863472, 9.024516e-07, 2.1658838e-07, 1)
 
 [node name="BloodParticles" type="GPUParticles2D" parent="." unique_id=121481534]
 z_index = 2

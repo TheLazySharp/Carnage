@@ -9,8 +9,8 @@ extends Node
 @onready var world_environment: WorldEnvironment = $"../WorldEnvironment"
 @onready var directional_light_2d: DirectionalLight2D = $"../DirectionalLight2D"
 
-@onready var day_night_cycle: CanvasModulate = $"/root/World/DayAndNightCycle"
-@export var gradient_light: GradientTexture1D
+#@onready var day_night_cycle: CanvasModulate = $"/root/World/DayAndNightCycle"
+#@export var gradient_light: GradientTexture1D
 @onready var time_animation_player: AnimationPlayer = $"../CanvasLayer/HUD/TimeUI/Time/TimeAnimationPlayer"
 
 var game_paused : bool = false
@@ -53,7 +53,7 @@ func _process(delta: float) -> void:
 		time_remaining -=delta
 		time_label.text = mmss_timer(time_remaining)
 		var value : float = time_remaining / TimeManager.day_lenght + 0.3 #to improve
-		directional_light_2d.color = gradient_light.gradient.sample(value)
+		#directional_light_2d.color = gradient_light.gradient.sample(value)
 
 	if time_remaining <= TimeManager.day_lenght * critical_time and !game_paused:
 		time_animation_player.play("time_warning")
