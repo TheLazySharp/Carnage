@@ -113,7 +113,8 @@ class EnemyTypePool extends MultiMeshInstance2D:
 	var enemy_data: EnemyData = null
 	var car: Node2D = null
 	var sprite_angle_offset_radians: float = 0.0
-
+	var rotation_snap_step: float = 0.0
+	
 	# --------------ANIMATION STATES -----------------------
 	var state_variants: Dictionary = {}#key = state_name, Value = Array[EnemySpriteState]
 	var default_state_variants: Array[EnemySpriteState] = []
@@ -146,6 +147,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		enemy_data = data
 		car = car_node
 		sprite_angle_offset_radians = deg_to_rad(data.sprite_angle_offset)
+		rotation_snap_step = EnemyManager.get_rotation_snap_step()
 		max_instances = data.max_rendered_instances
 		name = "Pool_" + data.name
 
@@ -338,6 +340,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 			var pos: Vector2 = enemy.global_position
 			var rot: float = instance_rotations[idx]
 			if !enemy.is_dead:
+				rotation_snap_step = EnemyManager.get_rotation_snap_step()
 				var state_name: String = ""
 				var state_machine: Node = enemy.state_machine
 				if state_machine != null and state_machine.current_state != null:
@@ -345,7 +348,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 				if state_name == "chase" or state_name == "attack":
 					rot = angle_to_car(pos)
 				elif enemy.velocity.length_squared() > 0.01:
-					rot = enemy.velocity.angle() + sprite_angle_offset_radians
+					rot = direction_to_rotation(enemy.velocity.angle())
 			if pos != instance_last_positions[idx] or rot != instance_rotations[idx]:
 				instance_last_positions[idx] = pos
 				instance_rotations[idx] = rot
@@ -414,9 +417,14 @@ class EnemyTypePool extends MultiMeshInstance2D:
 	func angle_to_car(pos: Vector2) -> float:
 		if car == null:
 			return 0.0
-		return (car.global_position - pos).angle() + sprite_angle_offset_radians
+		return direction_to_rotation((car.global_position - pos).angle())
 
-
+	func direction_to_rotation(direction_angle: float) -> float:
+		if rotation_snap_step > 0.0:
+			direction_angle = snappedf(direction_angle, rotation_snap_step)
+		return direction_angle + sprite_angle_offset_radians
+		
+		
 	func write_transform(idx: int, pos: Vector2, rot: float, flip_h: bool, new_scale: Vector2 = Vector2.ONE) -> void:
 		var scale_x: float = -new_scale.x if flip_h else new_scale.x
 		var scale_y: float = new_scale.y
