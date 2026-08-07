@@ -30,7 +30,10 @@ class_name BloodSplatter
 ## Teinte du sang mort, non récoltable.
 @export var rotten_color: Color = Color(0.35, 0.12, 0.12)
 
-## aged_ratio : 0.0 = tout frais, 1.0 = complètement pourri.
+var play_generation: int = 0
+
+## aged_ratio : 0.0 = fresh 1.0 = rotten.
+
 func set_freshness(aged_ratio: float) -> void:
 	self_modulate = fresh_color.lerp(rotten_color, aged_ratio)
 
@@ -58,10 +61,9 @@ func face_direction(direction: Vector2) -> void:
 ## Méthode publique à appeler depuis une piste "Call Method" de l'AnimationPlayer,
 ## ou directement depuis le script qui gère les dégâts/la mort de l'ennemi.
 func play() -> void:
-	for child in get_children():
-		child.free()
-	_placed_positions.clear()
-	_spawn_sequence()
+	play_generation += 1
+	clear_splats()
+	_spawn_sequence(play_generation)
 
 
 class PendingSplat:
@@ -70,7 +72,7 @@ class PendingSplat:
 	var is_main: bool = false
 
 
-func _spawn_sequence() -> void:
+func _spawn_sequence(generation: int) -> void:
 	var pending: Array[PendingSplat] = []
 
 	if spawn_main_splat and not BloodPools.main_textures.is_empty():
@@ -102,6 +104,8 @@ func _spawn_sequence() -> void:
 
 	var delay_between: float = spawn_duration / float(pending.size())
 	for splat in pending:
+		if generation != play_generation:
+			return
 		_instantiate_splat(splat)
 		if delay_between > 0.0:
 			await get_tree().create_timer(delay_between).timeout

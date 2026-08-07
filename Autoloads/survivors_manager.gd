@@ -9,7 +9,7 @@ var locked_survivors : Array[SurvivorData] = [] #not available survivor
 var known_survivors : Array[SurvivorData] = [] #available to start a game with
 var on_board_survivors : Array[SurvivorData] = [] #in the car during a game
 var on_the_road_survivors : Array[SurvivorData] = [] #selected for the current game / could be saved and onboarded / picked in known and locked survivors
-var survivors_pool : Array[SurvivorData] = [] #contains all the survivor that can be encountered in game : known + locked
+var survivors_pool : Array[SurvivorData] = [] #contains all the survivor that can be encountered in a run : known + locked
 
 
 const ALL_SURVIVORS : Array = [
@@ -32,10 +32,7 @@ func _ready() -> void:
 	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
 	SignalManager.district_survivor.connect(_on_district_selected)
 
-	
-	load_known_survivors()
-	load_survivors_pool()
-	#load_unknown_survivors()
+	reload()
 
 func select_survivor(new_survivor : SurvivorData) -> void : 
 	if survivors_pool.has(new_survivor):
@@ -56,11 +53,7 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 func unload() -> void :
 	known_survivors.clear()
 	locked_survivors.clear()
-	survivors_pool.clear()
-	on_the_road_survivors.clear()
-	on_board_survivors.clear()
-	load_known_survivors()
-	load_survivors_pool()
+	reload()
 
 func _on_sandbox_mode() -> void : 
 	known_survivors.clear()
@@ -75,13 +68,12 @@ func load_on_road_survivors() -> void:
 		push_warning("unknown survivor is empty")
 		return
 	survivors_pool.shuffle()
-	for i in max_survivor_on_road - 1:
+	for i in mini(max_survivor_on_road, survivors_pool.size()):
 		on_the_road_survivors.append(survivors_pool[i])
 
 func _on_district_selected(next_survivor : SurvivorData) -> void:
 	next_spawned_survivor = next_survivor
 	
-
 func load_known_survivors() -> void : 
 	for known_survivor : SurvivorData in ALL_SURVIVORS:
 		known_survivors.append(known_survivor)
@@ -91,3 +83,10 @@ func load_survivors_pool() -> void :
 		survivors_pool.append(survivor)
 	if next_survivor_to_unlock:
 		survivors_pool.append(next_survivor_to_unlock)
+
+func reload() -> void : 
+	survivors_pool.clear()
+	on_the_road_survivors.clear()
+	on_board_survivors.clear()
+	load_known_survivors()
+	load_survivors_pool()

@@ -92,3 +92,4 @@ func unload_game() -> void:
 	SurvivorsManager.unload()
 	ShopManager.unload()
 	BuildingsManager.unload()
+	jobs_manager.unload()
