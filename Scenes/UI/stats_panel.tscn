@@ -1,0 +1,195 @@
+[gd_scene format=3 uid="uid://ixdl4ots01ik"]
+
+[ext_resource type="Script" uid="uid://dtnows4f4j3w1" path="res://Scripts/CHARACTERS/PLAYER/stats_panel.gd" id="1_l56va"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="2_t1a85"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="3_jjrmp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwclg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfktb"]
+bg_color = Color(1, 1, 1, 1)
+skew = Vector2(0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42lo8"]
+bg_color = Color(1, 0.7764706, 0, 1)
+skew = Vector2(0.6, 0)
+
+[node name="StatsPanel" type="Panel" unique_id=1102893059]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.5
+offset_top = -303.0
+offset_right = 260.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hwclg")
+script = ExtResource("1_l56va")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1841999821]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -274.5
+offset_top = -160.5
+offset_right = 272.5
+offset_bottom = 109.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Stats" type="VBoxContainer" parent="HBoxContainer" unique_id=724482356]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Life" type="Label" parent="HBoxContainer/Stats" unique_id=1765142114]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Life"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("3_jjrmp")
+
+[node name="FuelTank" type="Label" parent="HBoxContainer/Stats" unique_id=35440440]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Fuel tank"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("3_jjrmp")
+
+[node name="Speed" type="Label" parent="HBoxContainer/Stats" unique_id=923228833]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Speed"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("3_jjrmp")
+
+[node name="Torque" type="Label" parent="HBoxContainer/Stats" unique_id=240636267]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Acceleration"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("3_jjrmp")
+
+[node name="Drift" type="Label" parent="HBoxContainer/Stats" unique_id=1574556420]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Drift"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("3_jjrmp")
+
+[node name="Dmg" type="Label" parent="HBoxContainer/Stats" unique_id=722099680]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Damages"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("3_jjrmp")
+
+[node name="Seats" type="Label" parent="HBoxContainer/Stats" unique_id=481355496]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Seats"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("3_jjrmp")
+
+[node name="Levels" type="VBoxContainer" parent="HBoxContainer" unique_id=1502966394]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="LifeBar" type="ProgressBar" parent="HBoxContainer/Levels" unique_id=1260924554]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 1.0
+value = 200.0
+show_percentage = false
+
+[node name="FuelBar" type="ProgressBar" parent="HBoxContainer/Levels" unique_id=854042719]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 1.0
+value = 200.0
+show_percentage = false
+
+[node name="SpeedBar" type="ProgressBar" parent="HBoxContainer/Levels" unique_id=2009163225]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 1.0
+value = 200.0
+show_percentage = false
+
+[node name="TorqueBar" type="ProgressBar" parent="HBoxContainer/Levels" unique_id=25020234]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 1.0
+value = 200.0
+show_percentage = false
+
+[node name="DriftBar" type="ProgressBar" parent="HBoxContainer/Levels" unique_id=207233820]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 0.1
+value = 200.0
+show_percentage = false
+
+[node name="DamagesBar" type="ProgressBar" parent="HBoxContainer/Levels" unique_id=957672511]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 1.0
+value = 200.0
+show_percentage = false
+
+[node name="SeatsQ" type="Label" parent="HBoxContainer/Levels" unique_id=434506766]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_t1a85")
+theme_override_font_sizes/font_size = 24
+text = "Damages"
+vertical_alignment = 2
+script = ExtResource("3_jjrmp")

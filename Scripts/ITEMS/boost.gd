@@ -1,6 +1,5 @@
 extends Control
 
-
 var boost : BoostData
 @onready var card: ColorRect = $Confirm/MarginContainer/Card
 @onready var boost_name: Label = $Confirm/MarginContainer/Card/PanelColor/Name
@@ -172,3 +171,11 @@ func _on_stats_updated() -> void :
 		stat_1.hide()
 		bonus_1.hide()
 		new_value_1.hide()
+
+
+func _on_confirm_focus_entered() -> void:
+	SignalManager.emit_signal("focused_entered",self.get_node("Confirm"))
+
+
+func _on_confirm_focus_exited() -> void:
+	pass # Replace with function body.

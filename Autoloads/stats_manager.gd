@@ -7,6 +7,16 @@ var total_car_dmg : int
 @warning_ignore("unused_signal")
 signal stats_updated
 
+
+#MAX CAR STATS
+var max_life : int = 500
+var max_fuel : int = 70
+var max_speed : int = 800
+var max_torque : int = 350
+var max_drift : int = 4
+var max_damages : int = 5
+
+
 func _ready() -> void:
 	frags = 0
 	total_drift = 0

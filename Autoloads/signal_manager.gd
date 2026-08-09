@@ -92,3 +92,6 @@ signal sandbox_mode
 
 @warning_ignore("unused_signal")
 signal district_survivor(survivor : SurvivorData)
+
+@warning_ignore("unused_signal")
+signal focused_entered(button : Button)

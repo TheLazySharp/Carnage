@@ -366,4 +366,6 @@ layout_mode = 2
 texture = ExtResource("7_85oou")
 stretch_mode = 3
 
+[connection signal="focus_entered" from="Confirm" to="." method="_on_confirm_focus_entered"]
+[connection signal="focus_exited" from="Confirm" to="." method="_on_confirm_focus_exited"]
 [connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]

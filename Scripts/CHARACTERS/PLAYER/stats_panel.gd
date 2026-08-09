@@ -22,12 +22,12 @@ func _ready() -> void:
 	self.visibility_changed.connect(update_stats)
 	SignalManager.stats_updated.connect(_on_stats_updated)
 	
-	life_bar.max_value = 500
-	fuel_bar.max_value = 70
-	speed_bar.max_value = 800
-	torque_bar.max_value = 350
-	drift_bar.max_value = 4
-	damages_bar.max_value = 5
+	life_bar.max_value = StatsManager.max_life
+	fuel_bar.max_value = StatsManager.max_fuel
+	speed_bar.max_value = StatsManager.max_speed
+	torque_bar.max_value = StatsManager.max_torque
+	drift_bar.max_value = StatsManager.max_drift
+	damages_bar.max_value = StatsManager.max_damages
 
 
 func update_stats() -> void : 
