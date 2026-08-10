@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://d0122v77j3cdh"]
 
 [ext_resource type="Script" uid="uid://bjek0tdmk701o" path="res://Scripts/BUILDINGS/building.gd" id="1_84rsm"]
-[ext_resource type="Texture2D" uid="uid://ds1kmupdfxgc3" path="res://Assets/Léonce/Textures/Roofs/roof_texture05.png" id="2_5jtho"]
+[ext_resource type="Texture2D" uid="uid://ds1kmupdfxgc3" path="res://Assets/Léonce/Tilesets/Roofs/roof_texture05.png" id="2_5jtho"]
 [ext_resource type="Resource" uid="uid://cgudfa8adx5u1" path="res://Resources/Items/repair.tres" id="2_bdyik"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_arwkk"]

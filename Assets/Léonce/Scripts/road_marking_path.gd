@@ -103,30 +103,24 @@ func _generate_single_line(line: RoadMarkingLine, index: int) -> void:
 		var dash_end: float = min(dist + line.dash_length, _path_length)
 
 		if dash_end > dash_start:
-			var samples := _sample_curve_positions(dash_start, dash_end, offset, line.curve_sample_step)
-			if samples.size() >= 2:
-				var dash_cells: Dictionary = {}
+			var start_xform: Transform2D = curve.sample_baked_with_rotation(dash_start)
+			var end_xform: Transform2D = curve.sample_baked_with_rotation(dash_end)
 
-				for i in range(samples.size() - 1):
-					var frame := _dash_frame(samples[i]["pos"], samples[i + 1]["pos"], half_thick)
-					if not frame.is_empty():
-						for c in _rasterize_dash(frame):
-							dash_cells[c] = true
+			var start_pos: Vector2 = start_xform.origin + start_xform.y * offset
+			var end_pos: Vector2 = end_xform.origin + end_xform.y * offset
 
+			var frame := _dash_frame(start_pos, end_pos, half_thick)
+			if not frame.is_empty():
+				var seeds: Array = []
 				if line.enable_wear:
-					var seeds := _generate_bite_seeds_curved(samples, half_thick, line, rng)
-					dash_cells = _apply_edge_erosion(dash_cells, seeds)
+					seeds = _generate_bite_seeds(frame, line, rng)
+
+				var cells := _rasterize_dash(frame, seeds)
 
 				if line.enable_wear and line.interior_wear_density > 0.0:
-					var cells_list: Array[Vector2i] = []
-					for c: Vector2i in dash_cells.keys():
-						cells_list.append(c)
-					cells_list = _apply_interior_wear(cells_list, line, rng)
-					dash_cells.clear()
-					for c in cells_list:
-						dash_cells[c] = true
+					cells = _apply_interior_wear(cells, line, rng)
 
-				for c: Vector2i in dash_cells.keys():
+				for c in cells:
 					cell_dict[c] = true
 
 		dist += cycle
@@ -136,26 +130,6 @@ func _generate_single_line(line: RoadMarkingLine, index: int) -> void:
 		items.append({"type": "rect", "pos": Vector2(c) * pixel_size, "size": Vector2(pixel_size, pixel_size)})
 
 	fill_surface.set_items(items)
-
-
-## Échantillonne la courbe à intervalles réguliers entre dash_start et dash_end,
-## pour que le tiret suive réellement l'arc plutôt qu'une simple corde droite.
-func _sample_curve_positions(dash_start: float, dash_end: float, offset: float, sample_step: int) -> Array:
-	var step: float = max(sample_step, 1) * pixel_size
-	var result: Array = []
-
-	var d: float = dash_start
-	while d < dash_end:
-		var xform: Transform2D = curve.sample_baked_with_rotation(d)
-		var pos: Vector2 = xform.origin + xform.y * offset
-		result.append({"pos": pos, "normal": xform.y})
-		d += step
-
-	var end_xform: Transform2D = curve.sample_baked_with_rotation(dash_end)
-	var end_pos: Vector2 = end_xform.origin + end_xform.y * offset
-	result.append({"pos": end_pos, "normal": end_xform.y})
-
-	return result
 
 
 func _dash_frame(start_pos: Vector2, end_pos: Vector2, half_thick: float) -> Dictionary:
@@ -177,7 +151,7 @@ func _dash_frame(start_pos: Vector2, end_pos: Vector2, half_thick: float) -> Dic
 	}
 
 
-func _rasterize_dash(frame: Dictionary) -> Array[Vector2i]:
+func _rasterize_dash(frame: Dictionary, seeds: Array) -> Array[Vector2i]:
 	var dir: Vector2 = frame["dir"]
 	var normal: Vector2 = frame["normal"]
 	var length: float = frame["length"]
@@ -216,58 +190,24 @@ func _rasterize_dash(frame: Dictionary) -> Array[Vector2i]:
 			var along: float = rel.dot(dir)
 			var perp: float = rel.dot(normal)
 
-			if abs(along) <= half_len and abs(perp) <= half_thick:
+			if abs(along) > half_len or abs(perp) > half_thick:
+				continue
+
+			var eroded := false
+			for seed: Dictionary in seeds:
+				if cell_center.distance_to(seed["pos"]) < seed["radius"]:
+					eroded = true
+					break
+
+			if not eroded:
 				result.append(Vector2i(cx, cy))
 
 	return result
 
 
-func _cell_center(c: Vector2i) -> Vector2:
-	return Vector2((c.x + 0.5) * pixel_size, (c.y + 0.5) * pixel_size)
-
-
-## Place des points d'érosion le long des bords, en suivant la polyligne
-## de samples (donc la vraie courbe) plutôt qu'une simple corde.
-func _generate_bite_seeds_curved(samples: Array, half_thick: float, line: RoadMarkingLine, rng: RandomNumberGenerator) -> Array:
-	var seeds: Array = []
-	var step: float = line.wear_spacing * pixel_size
-
-	for i in range(samples.size() - 1):
-		var a: Vector2 = samples[i]["pos"]
-		var b: Vector2 = samples[i + 1]["pos"]
-		var normal: Vector2 = samples[i]["normal"]
-		var seg_len: float = a.distance_to(b)
-		var segs: int = max(int(seg_len / step), 1)
-
-		for s in range(segs):
-			var t: float = float(s) / segs
-			var pos: Vector2 = a.lerp(b, t)
-
-			if rng.randf() < line.wear_density:
-				var radius: float = rng.randf_range(line.wear_bite_min, line.wear_bite_max) * pixel_size
-				seeds.append({"pos": pos + normal * half_thick, "radius": radius})
-
-			if rng.randf() < line.wear_density:
-				var radius2: float = rng.randf_range(line.wear_bite_min, line.wear_bite_max) * pixel_size
-				seeds.append({"pos": pos - normal * half_thick, "radius": radius2})
-
-	return seeds
-
-
-func _apply_edge_erosion(cells: Dictionary, seeds: Array) -> Dictionary:
-	var result: Dictionary = {}
-	for c: Vector2i in cells.keys():
-		var center := _cell_center(c)
-		var eroded := false
-		for seed: Dictionary in seeds:
-			if center.distance_to(seed["pos"]) < seed["radius"]:
-				eroded = true
-				break
-		if not eroded:
-			result[c] = true
-	return result
-
-
+## Retire aléatoirement des cellules isolées (ou en paire) N'IMPORTE OÙ dans
+## le tiret, bord ou intérieur -- simule les petits trous/écailles au milieu
+## du marquage, pas seulement le grignotage des bords.
 func _apply_interior_wear(cells: Array[Vector2i], line: RoadMarkingLine, rng: RandomNumberGenerator) -> Array[Vector2i]:
 	var cell_set: Dictionary = {}
 	for c in cells:
@@ -290,6 +230,33 @@ func _apply_interior_wear(cells: Array[Vector2i], line: RoadMarkingLine, rng: Ra
 			result.append(c)
 
 	return result
+
+
+func _generate_bite_seeds(frame: Dictionary, line: RoadMarkingLine, rng: RandomNumberGenerator) -> Array:
+	var dir: Vector2 = frame["dir"]
+	var normal: Vector2 = frame["normal"]
+	var length: float = frame["length"]
+	var center: Vector2 = frame["center"]
+	var half_thick: float = frame["half_thick"]
+
+	var seeds: Array = []
+	var step: float = line.wear_spacing * pixel_size
+	var steps: int = max(int(length / step), 1)
+
+	for i in range(steps + 1):
+		var t: float = (float(i) / steps - 0.5) * length
+
+		if rng.randf() < line.wear_density:
+			var radius: float = rng.randf_range(line.wear_bite_min, line.wear_bite_max) * pixel_size
+			var pos: Vector2 = center + dir * t + normal * half_thick
+			seeds.append({"pos": pos, "radius": radius})
+
+		if rng.randf() < line.wear_density:
+			var radius2: float = rng.randf_range(line.wear_bite_min, line.wear_bite_max) * pixel_size
+			var pos2: Vector2 = center + dir * t - normal * half_thick
+			seeds.append({"pos": pos2, "radius": radius2})
+
+	return seeds
 
 
 func _snap(pos: Vector2) -> Vector2:
