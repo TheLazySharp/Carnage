@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 	elif game_start: 
 		time_remaining -=delta
 		time_label.text = mmss_timer(time_remaining)
-		var value : float = time_remaining / TimeManager.day_lenght + 0.3 #to improve
+		#var value : float = time_remaining / TimeManager.day_lenght + 0.3 #to improve
 		#directional_light_2d.color = gradient_light.gradient.sample(value)
 
 	if time_remaining <= TimeManager.day_lenght * critical_time and !game_paused:

@@ -10,11 +10,11 @@ signal stats_updated
 
 #MAX CAR STATS
 var max_life : int = 500
-var max_fuel : int = 70
-var max_speed : int = 800
+var max_fuel : int = 200
+var max_speed : int = 350
 var max_torque : int = 350
 var max_drift : int = 4
-var max_damages : int = 5
+var max_damages : int = 10
 
 
 func _ready() -> void:

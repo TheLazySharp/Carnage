@@ -81,8 +81,6 @@ var forward_only : bool = false
 @onready var taking_damages: Timer = $TakingDamages
 #@onready var speed_label: Label = $"/root/World/CanvasLayer/HUD/Speed"
 
-
-
 #VFX
 @onready var car_explosion: AnimatedSprite2D = $VFX/CarExplosion
 @onready var sparkles: CPUParticles2D = $VFX/Sparkles
@@ -161,9 +159,6 @@ func _ready() -> void:
 		emit_signal("engine_ignited")
 		start_engine.play()
 
-
-	
-	
 func _process(_delta: float) -> void:
 	if !game_paused:
 		#speed_label.text  = str(roundi(velocity.length()/player.max_speed.get_value() * player.display_max_speed.get_value()))
@@ -251,7 +246,6 @@ func _process_player_inputs(delta : float) -> void :
 			if can_dash:
 				dash()
 		
-
 
 		if rear_right_burn_anim.animation == "idle" and !burning:
 			rear_right_burn_anim.play("fadeOut")
@@ -520,7 +514,6 @@ func end_dash() -> void:
 	ghost_timer.stop()
 	emit_signal("dash_end")
 
-
 func _on_boost_full() -> void:
 	can_dash = true
 
@@ -571,7 +564,7 @@ func _on_invincible(player_invincible : bool) -> void :
 		start_invincibility_vfx()
 	else:
 		stop_invincibility_vfx()
-		
+
 func start_invincibility_vfx() -> void:
 	print("start invincibility pulse")
 	# --- GLOW SPRITE ---
@@ -606,8 +599,6 @@ func stop_invincibility_vfx() -> void:
 		glow_sprite.queue_free()
 		glow_sprite = null
 	#invincibility_particles.emitting = false
-		
-
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if !game_paused and velocity.length() >= velocity_floor:

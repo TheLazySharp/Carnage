@@ -268,7 +268,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 300.0
 show_percentage = false
 
@@ -280,7 +280,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 200.0
 show_percentage = false
 
@@ -290,7 +290,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 300.0
 show_percentage = false
 
@@ -302,7 +302,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 200.0
 show_percentage = false
 
@@ -312,7 +312,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 300.0
 show_percentage = false
 
@@ -324,7 +324,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 200.0
 show_percentage = false
 
@@ -334,7 +334,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 300.0
 show_percentage = false
 
@@ -346,7 +346,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 200.0
 show_percentage = false
 
@@ -378,7 +378,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 300.0
 show_percentage = false
 
@@ -390,7 +390,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 1.0
+step = 10.0
 value = 200.0
 show_percentage = false
 

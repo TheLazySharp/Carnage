@@ -57,7 +57,6 @@ func _ready() -> void:
 	boost_container.get_child(0).get_child(0).grab_focus()
 	append_buttons()
 
-
 	life_bar.max_value = StatsManager.max_life
 	fuel_bar.max_value = StatsManager.max_fuel
 	speed_bar.max_value = StatsManager.max_speed
@@ -212,24 +211,23 @@ func _on_button_focused(button : Button) -> void:
 	for idx in focused_boost.target_stats.size():
 		if show_modified_stats(focused_boost,idx) >= focused_boost.get_car_stat(focused_boost.target_stats[idx],car).get_value():
 			var stylebox_back : StyleBox = StyleBoxFlat.new()
-			stylebox_back.bg_color = Color.WEB_GREEN
+			set_stylebox(stylebox_back, Color.DARK_GREEN)
 			get_modified_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_back)
 			
 			var stylebox_front : StyleBox = StyleBoxFlat.new()
-			stylebox_front.bg_color = FontManager.dark_yellow
+			set_stylebox(stylebox_front, FontManager.dark_yellow)
 			get_current_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_front)
 			
 			get_modified_bar(focused_boost,idx).value = show_modified_stats(focused_boost,idx)
 			get_current_bar(focused_boost,idx).value = focused_boost.get_car_stat(focused_boost.target_stats[idx],car).get_value()
-			
 		
 		else : 
 			var stylebox_back : StyleBox = StyleBoxFlat.new()
-			stylebox_back.bg_color = Color.DARK_RED
+			set_stylebox(stylebox_back, Color.DARK_RED)
 			get_modified_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_back)
 			
 			var stylebox_front : StyleBox = StyleBoxFlat.new()
-			stylebox_front.bg_color = FontManager.dark_yellow
+			set_stylebox(stylebox_front, FontManager.dark_yellow)
 			get_current_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_front)
 			
 			get_current_bar(focused_boost,idx).value = show_modified_stats(focused_boost,idx)
@@ -243,3 +241,9 @@ func reset_new_bars() -> void :
 	drift_bar_new.value = drift_bar.value
 	damages_bar_new.value = damages_bar.value
 	test_bar_new.value = test_bar.value
+
+func set_stylebox(sb : StyleBox, color : Color) -> void:
+	sb.bg_color = color
+	sb.skew = Vector2(0.6,0)
+	sb.draw_center = true
+	sb.corner_detail = 8
