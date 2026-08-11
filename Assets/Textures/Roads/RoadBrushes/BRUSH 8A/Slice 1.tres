@@ -1,7 +1,7 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://leif0uwkj4se"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://pj8cqv0qgiso"]
 
-[ext_resource type="Texture2D" uid="uid://br3hpqdopd0ta" path="res://Assets/Textures/Roads/RoadBrushes/Ressources/road_grainb.png" id="1_ha5fb"]
+[ext_resource type="Texture2D" uid="uid://c0s4fyjbyf7b3" path="res://Assets/Textures/Roads/RoadBrushes/Ressources/road_brush8.png" id="1_ehe4u"]
 
 [resource]
-atlas = ExtResource("1_ha5fb")
-region = Rect2(1, 1, 5, 5)
+atlas = ExtResource("1_ehe4u")
+region = Rect2(0, 0, 8, 8)

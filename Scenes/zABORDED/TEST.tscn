@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://v03gacy7rgdm"]
 
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="1_qodwh"]
-[ext_resource type="Texture2D" uid="uid://br3hpqdopd0ta" path="res://Assets/Textures/Roads/RoadBrushes/Ressources/road_grainb.png" id="2_5dgyk"]
+[ext_resource type="Texture2D" uid="uid://c0s4fyjbyf7b3" path="res://Assets/Textures/Roads/RoadBrushes/Ressources/road_brush8.png" id="2_au78y"]
 [ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]
@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 24.tres" id="19_wq420"]
 [ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 25.tres" id="20_kpjr3"]
 [ext_resource type="Texture2D" uid="uid://d3qt2bgnq2urg" path="res://Assets/Tilesets/Roofs/roof_texture02.png" id="21_2so35"]
-[ext_resource type="Texture2D" uid="uid://cnidh8bp42p14" path="res://Assets/Textures/Roads/Markings/roadmarks_crossings.png" id="21_wq420"]
+[ext_resource type="Texture2D" uid="uid://cnidh8bp42p14" path="res://Assets/Textures/Roads/Markings/Crossings/roadmarks_crossings.png" id="21_wq420"]
 [ext_resource type="Script" uid="uid://lpdy5igmv6b6" path="res://Scripts/MAP TOOLS/debris_scatter.gd" id="22_kpjr3"]
 [ext_resource type="Texture2D" uid="uid://duphdoe0lr0c4" path="res://Assets/Props/Trash/Slice 1.tres" id="23_1eaev"]
 [ext_resource type="Texture2D" uid="uid://bvw8eegittnoy" path="res://Assets/Props/Trash/Slice 10.tres" id="24_bm8kg"]
@@ -144,921 +144,6 @@ turbulence_initial_displacement_max = 80.0
 shader = ExtResource("1_qodwh")
 shader_parameter/intensity = 1.0
 script = SubResource("GDScript_xo07a")
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5dgyk"]
-load_path = "res://.godot/imported/road_textureA01.png-c415fe758cf5eb4f18f6b17a673a988b.ctex"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fg7k0"]
-texture = SubResource("CompressedTexture2D_5dgyk")
-texture_region_size = Vector2i(32, 32)
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-6:1/0 = 0
-7:1/0 = 0
-8:1/0 = 0
-9:1/0 = 0
-10:1/0 = 0
-11:1/0 = 0
-12:1/0 = 0
-13:1/0 = 0
-14:1/0 = 0
-15:1/0 = 0
-16:1/0 = 0
-17:1/0 = 0
-18:1/0 = 0
-19:1/0 = 0
-20:1/0 = 0
-21:1/0 = 0
-22:1/0 = 0
-23:1/0 = 0
-24:1/0 = 0
-25:1/0 = 0
-26:1/0 = 0
-27:1/0 = 0
-28:1/0 = 0
-29:1/0 = 0
-30:1/0 = 0
-31:1/0 = 0
-32:1/0 = 0
-33:1/0 = 0
-34:1/0 = 0
-35:1/0 = 0
-36:1/0 = 0
-37:1/0 = 0
-38:1/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-8:2/0 = 0
-9:2/0 = 0
-10:2/0 = 0
-11:2/0 = 0
-12:2/0 = 0
-13:2/0 = 0
-14:2/0 = 0
-15:2/0 = 0
-16:2/0 = 0
-17:2/0 = 0
-18:2/0 = 0
-19:2/0 = 0
-20:2/0 = 0
-21:2/0 = 0
-22:2/0 = 0
-23:2/0 = 0
-24:2/0 = 0
-25:2/0 = 0
-26:2/0 = 0
-27:2/0 = 0
-28:2/0 = 0
-29:2/0 = 0
-30:2/0 = 0
-31:2/0 = 0
-32:2/0 = 0
-33:2/0 = 0
-34:2/0 = 0
-35:2/0 = 0
-36:2/0 = 0
-37:2/0 = 0
-38:2/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-17:3/0 = 0
-18:3/0 = 0
-19:3/0 = 0
-20:3/0 = 0
-21:3/0 = 0
-22:3/0 = 0
-37:3/0 = 0
-38:3/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-19:4/0 = 0
-20:4/0 = 0
-37:4/0 = 0
-38:4/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-19:5/0 = 0
-20:5/0 = 0
-37:5/0 = 0
-38:5/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-19:6/0 = 0
-20:6/0 = 0
-37:6/0 = 0
-38:6/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-19:7/0 = 0
-20:7/0 = 0
-37:7/0 = 0
-38:7/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-19:8/0 = 0
-20:8/0 = 0
-37:8/0 = 0
-38:8/0 = 0
-1:9/0 = 0
-2:9/0 = 0
-19:9/0 = 0
-20:9/0 = 0
-37:9/0 = 0
-38:9/0 = 0
-1:10/0 = 0
-2:10/0 = 0
-19:10/0 = 0
-20:10/0 = 0
-37:10/0 = 0
-38:10/0 = 0
-1:11/0 = 0
-2:11/0 = 0
-19:11/0 = 0
-20:11/0 = 0
-37:11/0 = 0
-38:11/0 = 0
-1:12/0 = 0
-2:12/0 = 0
-19:12/0 = 0
-20:12/0 = 0
-37:12/0 = 0
-38:12/0 = 0
-1:13/0 = 0
-2:13/0 = 0
-19:13/0 = 0
-20:13/0 = 0
-37:13/0 = 0
-38:13/0 = 0
-1:14/0 = 0
-2:14/0 = 0
-19:14/0 = 0
-20:14/0 = 0
-37:14/0 = 0
-38:14/0 = 0
-1:15/0 = 0
-2:15/0 = 0
-19:15/0 = 0
-20:15/0 = 0
-37:15/0 = 0
-38:15/0 = 0
-1:16/0 = 0
-2:16/0 = 0
-19:16/0 = 0
-20:16/0 = 0
-37:16/0 = 0
-38:16/0 = 0
-1:17/0 = 0
-2:17/0 = 0
-3:17/0 = 0
-19:17/0 = 0
-20:17/0 = 0
-36:17/0 = 0
-37:17/0 = 0
-38:17/0 = 0
-1:18/0 = 0
-2:18/0 = 0
-3:18/0 = 0
-19:18/0 = 0
-20:18/0 = 0
-36:18/0 = 0
-37:18/0 = 0
-38:18/0 = 0
-1:19/0 = 0
-2:19/0 = 0
-3:19/0 = 0
-4:19/0 = 0
-5:19/0 = 0
-6:19/0 = 0
-7:19/0 = 0
-8:19/0 = 0
-9:19/0 = 0
-10:19/0 = 0
-11:19/0 = 0
-12:19/0 = 0
-13:19/0 = 0
-14:19/0 = 0
-15:19/0 = 0
-16:19/0 = 0
-17:19/0 = 0
-18:19/0 = 0
-19:19/0 = 0
-20:19/0 = 0
-21:19/0 = 0
-22:19/0 = 0
-23:19/0 = 0
-24:19/0 = 0
-25:19/0 = 0
-26:19/0 = 0
-27:19/0 = 0
-28:19/0 = 0
-29:19/0 = 0
-30:19/0 = 0
-31:19/0 = 0
-32:19/0 = 0
-33:19/0 = 0
-34:19/0 = 0
-35:19/0 = 0
-36:19/0 = 0
-37:19/0 = 0
-38:19/0 = 0
-1:20/0 = 0
-2:20/0 = 0
-3:20/0 = 0
-4:20/0 = 0
-5:20/0 = 0
-6:20/0 = 0
-7:20/0 = 0
-8:20/0 = 0
-9:20/0 = 0
-10:20/0 = 0
-11:20/0 = 0
-12:20/0 = 0
-13:20/0 = 0
-14:20/0 = 0
-15:20/0 = 0
-16:20/0 = 0
-17:20/0 = 0
-18:20/0 = 0
-19:20/0 = 0
-20:20/0 = 0
-21:20/0 = 0
-22:20/0 = 0
-23:20/0 = 0
-24:20/0 = 0
-25:20/0 = 0
-26:20/0 = 0
-27:20/0 = 0
-28:20/0 = 0
-29:20/0 = 0
-30:20/0 = 0
-31:20/0 = 0
-32:20/0 = 0
-33:20/0 = 0
-34:20/0 = 0
-35:20/0 = 0
-36:20/0 = 0
-37:20/0 = 0
-38:20/0 = 0
-1:21/0 = 0
-2:21/0 = 0
-3:21/0 = 0
-19:21/0 = 0
-20:21/0 = 0
-36:21/0 = 0
-37:21/0 = 0
-38:21/0 = 0
-1:22/0 = 0
-2:22/0 = 0
-3:22/0 = 0
-19:22/0 = 0
-20:22/0 = 0
-36:22/0 = 0
-37:22/0 = 0
-38:22/0 = 0
-1:23/0 = 0
-2:23/0 = 0
-19:23/0 = 0
-20:23/0 = 0
-37:23/0 = 0
-38:23/0 = 0
-1:24/0 = 0
-2:24/0 = 0
-19:24/0 = 0
-20:24/0 = 0
-37:24/0 = 0
-38:24/0 = 0
-1:25/0 = 0
-2:25/0 = 0
-19:25/0 = 0
-20:25/0 = 0
-37:25/0 = 0
-38:25/0 = 0
-1:26/0 = 0
-2:26/0 = 0
-19:26/0 = 0
-20:26/0 = 0
-37:26/0 = 0
-38:26/0 = 0
-1:27/0 = 0
-2:27/0 = 0
-19:27/0 = 0
-20:27/0 = 0
-37:27/0 = 0
-38:27/0 = 0
-1:28/0 = 0
-2:28/0 = 0
-19:28/0 = 0
-20:28/0 = 0
-37:28/0 = 0
-38:28/0 = 0
-1:29/0 = 0
-2:29/0 = 0
-19:29/0 = 0
-20:29/0 = 0
-37:29/0 = 0
-38:29/0 = 0
-1:30/0 = 0
-2:30/0 = 0
-19:30/0 = 0
-20:30/0 = 0
-37:30/0 = 0
-38:30/0 = 0
-1:31/0 = 0
-2:31/0 = 0
-19:31/0 = 0
-20:31/0 = 0
-37:31/0 = 0
-38:31/0 = 0
-1:32/0 = 0
-2:32/0 = 0
-19:32/0 = 0
-20:32/0 = 0
-37:32/0 = 0
-38:32/0 = 0
-1:33/0 = 0
-2:33/0 = 0
-19:33/0 = 0
-20:33/0 = 0
-37:33/0 = 0
-38:33/0 = 0
-1:34/0 = 0
-2:34/0 = 0
-19:34/0 = 0
-20:34/0 = 0
-37:34/0 = 0
-38:34/0 = 0
-1:35/0 = 0
-2:35/0 = 0
-18:35/0 = 0
-19:35/0 = 0
-20:35/0 = 0
-21:35/0 = 0
-37:35/0 = 0
-38:35/0 = 0
-1:36/0 = 0
-2:36/0 = 0
-17:36/0 = 0
-18:36/0 = 0
-19:36/0 = 0
-20:36/0 = 0
-21:36/0 = 0
-22:36/0 = 0
-37:36/0 = 0
-38:36/0 = 0
-1:37/0 = 0
-2:37/0 = 0
-3:37/0 = 0
-4:37/0 = 0
-5:37/0 = 0
-6:37/0 = 0
-7:37/0 = 0
-8:37/0 = 0
-9:37/0 = 0
-10:37/0 = 0
-11:37/0 = 0
-12:37/0 = 0
-13:37/0 = 0
-14:37/0 = 0
-15:37/0 = 0
-16:37/0 = 0
-17:37/0 = 0
-18:37/0 = 0
-19:37/0 = 0
-20:37/0 = 0
-21:37/0 = 0
-22:37/0 = 0
-23:37/0 = 0
-24:37/0 = 0
-25:37/0 = 0
-26:37/0 = 0
-27:37/0 = 0
-28:37/0 = 0
-29:37/0 = 0
-30:37/0 = 0
-31:37/0 = 0
-32:37/0 = 0
-33:37/0 = 0
-34:37/0 = 0
-35:37/0 = 0
-36:37/0 = 0
-37:37/0 = 0
-38:37/0 = 0
-1:38/0 = 0
-2:38/0 = 0
-3:38/0 = 0
-4:38/0 = 0
-5:38/0 = 0
-6:38/0 = 0
-7:38/0 = 0
-8:38/0 = 0
-9:38/0 = 0
-10:38/0 = 0
-11:38/0 = 0
-12:38/0 = 0
-13:38/0 = 0
-14:38/0 = 0
-15:38/0 = 0
-16:38/0 = 0
-17:38/0 = 0
-18:38/0 = 0
-19:38/0 = 0
-20:38/0 = 0
-21:38/0 = 0
-22:38/0 = 0
-23:38/0 = 0
-24:38/0 = 0
-25:38/0 = 0
-26:38/0 = 0
-27:38/0 = 0
-28:38/0 = 0
-29:38/0 = 0
-30:38/0 = 0
-31:38/0 = 0
-32:38/0 = 0
-33:38/0 = 0
-34:38/0 = 0
-35:38/0 = 0
-36:38/0 = 0
-37:38/0 = 0
-38:38/0 = 0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8uaht"]
-load_path = "res://.godot/imported/road_textureA02.png-678c1a8ada92ec30a214b2e107c32f24.ctex"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m2hs8"]
-texture = SubResource("CompressedTexture2D_8uaht")
-texture_region_size = Vector2i(32, 32)
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-5:1/0 = 0
-6:1/0 = 0
-7:1/0 = 0
-8:1/0 = 0
-9:1/0 = 0
-10:1/0 = 0
-11:1/0 = 0
-12:1/0 = 0
-13:1/0 = 0
-14:1/0 = 0
-15:1/0 = 0
-16:1/0 = 0
-17:1/0 = 0
-18:1/0 = 0
-19:1/0 = 0
-20:1/0 = 0
-21:1/0 = 0
-22:1/0 = 0
-23:1/0 = 0
-24:1/0 = 0
-25:1/0 = 0
-26:1/0 = 0
-27:1/0 = 0
-28:1/0 = 0
-29:1/0 = 0
-30:1/0 = 0
-31:1/0 = 0
-32:1/0 = 0
-33:1/0 = 0
-34:1/0 = 0
-35:1/0 = 0
-36:1/0 = 0
-37:1/0 = 0
-38:1/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-8:2/0 = 0
-9:2/0 = 0
-10:2/0 = 0
-11:2/0 = 0
-12:2/0 = 0
-13:2/0 = 0
-14:2/0 = 0
-15:2/0 = 0
-16:2/0 = 0
-17:2/0 = 0
-18:2/0 = 0
-19:2/0 = 0
-20:2/0 = 0
-21:2/0 = 0
-22:2/0 = 0
-23:2/0 = 0
-24:2/0 = 0
-25:2/0 = 0
-26:2/0 = 0
-27:2/0 = 0
-28:2/0 = 0
-29:2/0 = 0
-30:2/0 = 0
-31:2/0 = 0
-32:2/0 = 0
-33:2/0 = 0
-34:2/0 = 0
-35:2/0 = 0
-36:2/0 = 0
-37:2/0 = 0
-38:2/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-15:3/0 = 0
-16:3/0 = 0
-17:3/0 = 0
-22:3/0 = 0
-23:3/0 = 0
-24:3/0 = 0
-37:3/0 = 0
-38:3/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-14:4/0 = 0
-15:4/0 = 0
-16:4/0 = 0
-23:4/0 = 0
-24:4/0 = 0
-25:4/0 = 0
-37:4/0 = 0
-38:4/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-13:5/0 = 0
-14:5/0 = 0
-15:5/0 = 0
-24:5/0 = 0
-25:5/0 = 0
-26:5/0 = 0
-37:5/0 = 0
-38:5/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-12:6/0 = 0
-13:6/0 = 0
-14:6/0 = 0
-25:6/0 = 0
-26:6/0 = 0
-27:6/0 = 0
-37:6/0 = 0
-38:6/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-11:7/0 = 0
-12:7/0 = 0
-13:7/0 = 0
-26:7/0 = 0
-27:7/0 = 0
-28:7/0 = 0
-37:7/0 = 0
-38:7/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-10:8/0 = 0
-11:8/0 = 0
-12:8/0 = 0
-27:8/0 = 0
-28:8/0 = 0
-29:8/0 = 0
-37:8/0 = 0
-38:8/0 = 0
-1:9/0 = 0
-2:9/0 = 0
-9:9/0 = 0
-10:9/0 = 0
-11:9/0 = 0
-28:9/0 = 0
-29:9/0 = 0
-30:9/0 = 0
-37:9/0 = 0
-38:9/0 = 0
-1:10/0 = 0
-2:10/0 = 0
-8:10/0 = 0
-9:10/0 = 0
-10:10/0 = 0
-29:10/0 = 0
-30:10/0 = 0
-31:10/0 = 0
-37:10/0 = 0
-38:10/0 = 0
-1:11/0 = 0
-2:11/0 = 0
-7:11/0 = 0
-8:11/0 = 0
-9:11/0 = 0
-30:11/0 = 0
-31:11/0 = 0
-32:11/0 = 0
-37:11/0 = 0
-38:11/0 = 0
-1:12/0 = 0
-2:12/0 = 0
-6:12/0 = 0
-7:12/0 = 0
-8:12/0 = 0
-31:12/0 = 0
-32:12/0 = 0
-33:12/0 = 0
-37:12/0 = 0
-38:12/0 = 0
-1:13/0 = 0
-2:13/0 = 0
-5:13/0 = 0
-6:13/0 = 0
-7:13/0 = 0
-32:13/0 = 0
-33:13/0 = 0
-34:13/0 = 0
-37:13/0 = 0
-38:13/0 = 0
-1:14/0 = 0
-2:14/0 = 0
-4:14/0 = 0
-5:14/0 = 0
-6:14/0 = 0
-33:14/0 = 0
-34:14/0 = 0
-35:14/0 = 0
-37:14/0 = 0
-38:14/0 = 0
-1:15/0 = 0
-2:15/0 = 0
-3:15/0 = 0
-4:15/0 = 0
-5:15/0 = 0
-34:15/0 = 0
-35:15/0 = 0
-36:15/0 = 0
-37:15/0 = 0
-38:15/0 = 0
-1:16/0 = 0
-2:16/0 = 0
-3:16/0 = 0
-4:16/0 = 0
-35:16/0 = 0
-36:16/0 = 0
-37:16/0 = 0
-38:16/0 = 0
-1:17/0 = 0
-2:17/0 = 0
-3:17/0 = 0
-36:17/0 = 0
-37:17/0 = 0
-38:17/0 = 0
-1:18/0 = 0
-2:18/0 = 0
-37:18/0 = 0
-38:18/0 = 0
-1:19/0 = 0
-2:19/0 = 0
-37:19/0 = 0
-38:19/0 = 0
-1:20/0 = 0
-2:20/0 = 0
-37:20/0 = 0
-38:20/0 = 0
-1:21/0 = 0
-2:21/0 = 0
-36:21/0 = 0
-37:21/0 = 0
-38:21/0 = 0
-1:22/0 = 0
-2:22/0 = 0
-3:22/0 = 0
-36:22/0 = 0
-37:22/0 = 0
-38:22/0 = 0
-1:23/0 = 0
-2:23/0 = 0
-3:23/0 = 0
-4:23/0 = 0
-35:23/0 = 0
-36:23/0 = 0
-37:23/0 = 0
-38:23/0 = 0
-1:24/0 = 0
-2:24/0 = 0
-3:24/0 = 0
-4:24/0 = 0
-5:24/0 = 0
-34:24/0 = 0
-35:24/0 = 0
-36:24/0 = 0
-37:24/0 = 0
-38:24/0 = 0
-1:25/0 = 0
-2:25/0 = 0
-4:25/0 = 0
-5:25/0 = 0
-6:25/0 = 0
-33:25/0 = 0
-34:25/0 = 0
-35:25/0 = 0
-37:25/0 = 0
-38:25/0 = 0
-1:26/0 = 0
-2:26/0 = 0
-5:26/0 = 0
-6:26/0 = 0
-7:26/0 = 0
-32:26/0 = 0
-33:26/0 = 0
-34:26/0 = 0
-37:26/0 = 0
-38:26/0 = 0
-1:27/0 = 0
-2:27/0 = 0
-6:27/0 = 0
-7:27/0 = 0
-8:27/0 = 0
-31:27/0 = 0
-32:27/0 = 0
-33:27/0 = 0
-37:27/0 = 0
-38:27/0 = 0
-1:28/0 = 0
-2:28/0 = 0
-7:28/0 = 0
-8:28/0 = 0
-9:28/0 = 0
-30:28/0 = 0
-31:28/0 = 0
-32:28/0 = 0
-33:28/0 = 0
-37:28/0 = 0
-38:28/0 = 0
-1:29/0 = 0
-2:29/0 = 0
-8:29/0 = 0
-9:29/0 = 0
-10:29/0 = 0
-29:29/0 = 0
-30:29/0 = 0
-31:29/0 = 0
-37:29/0 = 0
-38:29/0 = 0
-1:30/0 = 0
-2:30/0 = 0
-9:30/0 = 0
-10:30/0 = 0
-11:30/0 = 0
-28:30/0 = 0
-29:30/0 = 0
-30:30/0 = 0
-37:30/0 = 0
-38:30/0 = 0
-1:31/0 = 0
-2:31/0 = 0
-10:31/0 = 0
-11:31/0 = 0
-12:31/0 = 0
-27:31/0 = 0
-28:31/0 = 0
-29:31/0 = 0
-37:31/0 = 0
-38:31/0 = 0
-1:32/0 = 0
-2:32/0 = 0
-11:32/0 = 0
-12:32/0 = 0
-13:32/0 = 0
-26:32/0 = 0
-27:32/0 = 0
-28:32/0 = 0
-37:32/0 = 0
-38:32/0 = 0
-1:33/0 = 0
-2:33/0 = 0
-12:33/0 = 0
-13:33/0 = 0
-14:33/0 = 0
-25:33/0 = 0
-26:33/0 = 0
-27:33/0 = 0
-37:33/0 = 0
-38:33/0 = 0
-1:34/0 = 0
-2:34/0 = 0
-13:34/0 = 0
-14:34/0 = 0
-15:34/0 = 0
-24:34/0 = 0
-25:34/0 = 0
-26:34/0 = 0
-37:34/0 = 0
-38:34/0 = 0
-1:35/0 = 0
-2:35/0 = 0
-14:35/0 = 0
-15:35/0 = 0
-16:35/0 = 0
-23:35/0 = 0
-24:35/0 = 0
-25:35/0 = 0
-37:35/0 = 0
-38:35/0 = 0
-1:36/0 = 0
-2:36/0 = 0
-15:36/0 = 0
-16:36/0 = 0
-17:36/0 = 0
-22:36/0 = 0
-23:36/0 = 0
-24:36/0 = 0
-37:36/0 = 0
-38:36/0 = 0
-1:37/0 = 0
-2:37/0 = 0
-3:37/0 = 0
-4:37/0 = 0
-5:37/0 = 0
-6:37/0 = 0
-7:37/0 = 0
-8:37/0 = 0
-9:37/0 = 0
-10:37/0 = 0
-11:37/0 = 0
-12:37/0 = 0
-13:37/0 = 0
-14:37/0 = 0
-15:37/0 = 0
-16:37/0 = 0
-17:37/0 = 0
-18:37/0 = 0
-19:37/0 = 0
-20:37/0 = 0
-21:37/0 = 0
-22:37/0 = 0
-23:37/0 = 0
-24:37/0 = 0
-25:37/0 = 0
-26:37/0 = 0
-27:37/0 = 0
-28:37/0 = 0
-29:37/0 = 0
-30:37/0 = 0
-31:37/0 = 0
-32:37/0 = 0
-33:37/0 = 0
-34:37/0 = 0
-35:37/0 = 0
-36:37/0 = 0
-37:37/0 = 0
-38:37/0 = 0
-1:38/0 = 0
-2:38/0 = 0
-3:38/0 = 0
-4:38/0 = 0
-5:38/0 = 0
-6:38/0 = 0
-7:38/0 = 0
-8:38/0 = 0
-9:38/0 = 0
-10:38/0 = 0
-11:38/0 = 0
-12:38/0 = 0
-13:38/0 = 0
-14:38/0 = 0
-15:38/0 = 0
-16:38/0 = 0
-17:38/0 = 0
-18:38/0 = 0
-19:38/0 = 0
-20:38/0 = 0
-21:38/0 = 0
-22:38/0 = 0
-23:38/0 = 0
-24:38/0 = 0
-25:38/0 = 0
-26:38/0 = 0
-27:38/0 = 0
-28:38/0 = 0
-29:38/0 = 0
-30:38/0 = 0
-31:38/0 = 0
-32:38/0 = 0
-33:38/0 = 0
-34:38/0 = 0
-35:38/0 = 0
-36:38/0 = 0
-37:38/0 = 0
-38:38/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_1xj8r"]
-tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_fg7k0")
-sources/1 = SubResource("TileSetAtlasSource_m2hs8")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_53mvi"]
 texture = ExtResource("2_n3gmv")
@@ -1848,6 +933,7 @@ point_count = 4
 script = ExtResource("74_5dgyk")
 texture_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 16A/"
 perpendicular_offset = -5.6850000000000005
+spacing = 6.65
 coverage_ratio = 0.89
 fade_start_length = 7.415
 fade_end_length = 3.185
@@ -1873,39 +959,27 @@ point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_au78y"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.6858479, -0.5554654, 0, 0, 0, 0, -3.4291687, -0.88931835, 0, 0, 0, 0, -5.198399, -1.0323182, 0, 0, 0, 0, -6.9606614, -0.8200526, 0, 0, 0, 0, -8.695248, -0.4434395, 0, 0, 0, 0, -10.347668, 0.20473853, 0, 0, 0, 0, -12.0616665, 0.6660788, 0, 0, 0, 0, -13.828104, 0.84021664, 0, 0, 0, 0, -15.602041, 0.90162027, 0, 0, 0, 0, -17.34202, 1.2524755, 0, 0, 0, 0, -19.11667, 1.2876567, 0, 0, 0, 0, -20.859665, 0.9521059, 0, 0, 0, 0, -22.59636, 0.5853347, 0, 0, 0, 0, -24.36918, 0.4974292, 0, 0, 0, 0, -26.143415, 0.4452851, 0, 0, 0, 0, -27.917957, 0.40492314, 0, 0, 0, 0, -29.657547, 0.7577026, 0, 0, 0, 0, -31.432236, 0.790954, 0, 0, 0, 0, -33.190014, 1.0376247, 0, 0, 0, 0, -34.94532, 1.3012938, 0, 0, 0, 0, -36.6904, 1.6258202, 0, 0, 0, 0, -38.46256, 1.726176, 0, 0, 0, 0, -40.22459, 1.9403449, 0, 0, 0, 0, -41.999126, 1.8998439, 0, 0, 0, 0, -43.76425, 2.0867984, 0, 0, 0, 0, -45.53877, 2.0454597, 0, 0, 0, 0, -47.31215, 1.9696646, 0, 0, 0, 0, -49.08683, 2.0031998, 0, 0, 0, 0, -50.844143, 1.7532427, 0, 0, 0, 0, -52.61861, 1.7097278, 0, 0, 0, 0, -54.38411, 1.5263245, 0, 0, 0, 0, -56.120964, 1.160312, 0, 0, 0, 0, -57.891895, 1.0401932, 0, 0, 0, 0, -59.647198, 1.3039031, 0, 0, 0, 0, -61.421238, 1.3623058, 0, 0, 0, 0, -63.190178, 1.2157596, 0, 0, 0, 0, -64.957375, 1.0495275, 0, 0, 0, 0, -66.65606, 0.53465265, 0, 0, 0, 0, -68.42038, 0.34022546, 0, 0, 0, 0, -70.17, 0.041123718, 0, 0, 0, 0, -71.93608, -0.13658494, 0, 0, 0, 0, -73.70226, -0.31327665, 0, 0, 0, 0, -75.471146, -0.4604748, 0, 0, 0, 0, -77.2457, -0.5002225, 0, 0, 0, 0, -78.97827, -0.88598603, 0, 0, 0, 0, -80.65598, -1.4655626, 0, 0, 0, 0, -82.332565, -2.0483992, 0, 0, 0, 0, -84.08927, -2.302583, 0, 0, 0, 0, -85.77695, -2.8524733, 0, 0, 0, 0, -87.51407, -3.2171946, 0, 0, 0, 0, -89.25094, -3.5831335, 0, 0, 0, 0, -90.9961, -3.907201, 0, 0, 0, 0, -92.76279, -4.0787883, 0, 0, 0, 0, -94.52759, -4.2687664, 0, 0, 0, 0, -96.22576, -4.7853293, 0, 0, 0, 0, -97.875916, -5.4392447, 0, 0, 0, 0, -99.53575, -6.0681877, 0, 0, 0, 0, -101.289, -6.3452134, 0, 0, 0, 0, -103.061676, -6.4361086, 0, 0, 0, 0, -104.818, -6.1793084, 0, 0, 0, 0, -106.58983, -6.0732565, 0, 0, 0, 0, -108.36318, -5.9967875, 0, 0, 0, 0, -110.13214, -5.850475, 0, 0, 0, 0, -111.84217, -5.374638, 0, 0, 0, 0, -113.53802, -4.850493, 0, 0, 0, 0, -115.22386, -4.2950225, 0, 0, 0, 0, -116.97237, -3.9894907, 0, 0, 0, 0, -118.741615, -3.8467624, 0, 0, 0, 0, -120.51657, -3.8338954, 0, 0, 0, 0, -122.2698, -4.111064, 0, 0, 0, 0, -124.04311, -4.0337853, 0, 0, 0, 0, -125.812645, -4.173031, 0, 0, 0, 0, -127.542694, -4.569955, 0, 0, 0, 0, -129.26355, -5.005014, 0, 0, 0, 0, -130.92712, -5.624005, 0, 0, 0, 0, -132.68199, -5.890577, 0, 0, 0, 0, -134.45691, -5.9078417, 0, 0, 0, 0, -136.2248, -5.7489905, 0, 0, 0, 0, -137.93259, -5.2651978, 0, 0, 0, 0, -139.65916, -4.853451, 0, 0, 0, 0, -141.38055, -4.420512, 0, 0, 0, 0, -143.14224, -4.203528, 0, 0, 0, 0, -144.91609, -4.2674217, 0, 0, 0, 0, -146.68687, -4.1450977, 0, 0, 0, 0, -148.44957, -3.9365263, 0, 0, 0, 0, -150.15486, -3.4439933, 0, 0, 0, 0, -151.88724, -3.0573323, 0, 0, 0, 0, -153.62035, -2.6739795, 0, 0, 0, 0, -155.3362, -2.2195632, 0, 0, 0, 0, -157.09937, -2.0150104, 0, 0, 0, 0, -158.8714, -1.9124506, 0, 0, 0, 0, -160.61865, -1.5998393, 0, 0, 0, 0, -162.28116, -0.9780017, 0, 0, 0, 0, -164.03139, -0.6825297, 0, 0, 0, 0, -165.79686, -0.4988857, 0, 0, 0, 0, -167.5627, -0.31875905, 0, 0, 0, 0, -169.29193, 0.08169058, 0, 0, 0, 0, -171.05257, 0.30705643, 0, 0, 0, 0, -172.82275, 0.1764992, 0, 0, 0, 0, -174.59775, 0.17863674, 0, 0, 0, 0, -176.36406, 0.0032523125, 0, 0, 0, 0, -178.11661, -0.27814895, 0, 0, 0, 0, -179.88873, -0.37917224, 0, 0, 0, 0, -181.6536, -0.18968609, 0, 0, 0, 0, -183.3481, 0.33880696, 0, 0, 0, 0, -185.0824, 0.71676993, 0, 0, 0, 0, -186.82596, 1.0493264, 0, 0, 0, 0, -188.47789, 1.6987435, 0, 0, 0, 0, -189.95372, 2.684926, 0, 0, 0, 0, -191.47676, 3.5964966, 0, 0, 0, 0, -193.15065, 4.187033, 0, 0, 0, 0, -194.85652, 4.677576, 0, 0, 0, 0, -196.56027, 5.1754484, 0, 0, 0, 0, -198.31091, 5.468469, 0, 0, 0, 0, -200.08115, 5.598551, 0, 0, 0, 0, -201.85611, 5.5862412, 0, 0, 0, 0, -203.63068, 5.625083, 0, 0, 0, 0, -205.40256, 5.519984, 0, 0, 0, 0, -207.1218, 5.078552)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5.98, -0.0012289637, 0, 0, 0, 0, 11.9469795, -0.39563802, 0, 0, 0, 0, 17.910442, 0.048798084, 0, 0, 0, 0, 23.678122, 1.6281283, 0, 0, 0, 0, 29.30782, 3.6447818, 0, 0, 0, 0, 35.216003, 4.5687795, 0, 0, 0, 0, 40.877434, 6.4945507, 0, 0, 0, 0, 46.365883, 8.86886, 0, 0, 0, 0, 52.119896, 10.4972725, 0, 0, 0, 0, 58.03185, 11.396833, 0, 0, 0, 0, 63.987595, 11.934871, 0, 0, 0, 0, 69.92752, 12.6260395, 0, 0, 0, 0, 75.89486, 13.015037, 0, 0, 0, 0, 81.844536, 13.616471, 0, 0, 0, 0, 87.77677, 14.370797, 0, 0, 0, 0, 93.75332, 14.574094, 0, 0, 0, 0, 99.71111, 14.059254, 0, 0, 0, 0, 105.62077, 13.144737, 0, 0, 0, 0, 111.593895, 13.431542, 0, 0, 0, 0, 117.573875, 13.446022, 0, 0, 0, 0, 123.4718, 14.433394, 0, 0, 0, 0, 129.4386, 14.830602, 0, 0, 0, 0, 135.41711, 14.6975565, 0, 0, 0, 0, 141.29425, 13.593145, 0, 0, 0, 0, 147.21942, 12.785186, 0, 0, 0, 0, 153.19617, 12.982526, 0, 0, 0, 0, 159.15736, 13.456471, 0, 0, 0, 0, 164.94458, 14.962649, 0, 0, 0, 0, 170.85172, 15.893305, 0, 0, 0, 0, 176.83171, 15.90062, 0, 0, 0, 0, 182.74043, 14.980034, 0, 0, 0, 0, 188.68279, 14.310055, 0, 0, 0, 0, 194.65314, 13.970445, 0, 0, 0, 0, 200.63034, 14.153302, 0, 0, 0, 0, 206.5774, 14.780175, 0, 0, 0, 0, 212.54176, 14.348069, 0, 0, 0, 0, 218.36005, 12.966787, 0, 0, 0, 0, 224.26677, 12.033496, 0, 0, 0, 0, 229.9036, 10.036855, 0, 0, 0, 0, 235.1334, 7.1369524, 0, 0, 0, 0, 239.80096, 3.3987174, 0, 0, 0, 0, 244.47673, -0.32922912, 0, 0, 0, 0, 248.64642, -4.6157255, 0, 0, 0, 0, 253.24294, -8.440964)
 }
-point_count = 120
+point_count = 45
 
 [sub_resource type="Curve2D" id="Curve2D_8l58v"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5093818, -0.9340194, 0, 0, 0, 0, 3.0682127, -1.7829429, 0, 0, 0, 0, 4.590242, -2.6962078, 0, 0, 0, 0, 6.16109, -3.5226831, 0, 0, 0, 0, 7.752864, -4.3081, 0, 0, 0, 0, 9.263498, -5.2400928, 0, 0, 0, 0, 10.867864, -5.9994583, 0, 0, 0, 0, 12.407277, -6.8831043, 0, 0, 0, 0, 13.793991, -7.991098, 0, 0, 0, 0, 15.018067, -9.276502, 0, 0, 0, 0, 16.22416, -10.578794, 0, 0, 0, 0, 17.417936, -11.892385)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.1078405, -5.1089845, 0, 0, 0, 0, -6.856947, -9.767803, 0, 0, 0, 0, -10.534861, -14.483028, 0, 0, 0, 0, -13.991198, -19.363, 0, 0, 0, 0, -18.351099, -23.45588, 0, 0, 0, 0, -22.742893, -27.514515, 0, 0, 0, 0, -26.304789, -32.31798, 0, 0, 0, 0, -30.724556, -36.346138, 0, 0, 0, 0, -35.188316, -40.325493, 0, 0, 0, 0, -39.6431, -44.31489, 0, 0, 0, 0, -43.373264, -48.98889, 0, 0, 0, 0, -47.216297, -53.570538, 0, 0, 0, 0, -50.927574, -58.25955, 0, 0, 0, 0, -53.89345, -63.452232, 0, 0, 0, 0, -57.058384, -68.52605, 0, 0, 0, 0, -60.580456, -73.35879, 0, 0, 0, 0, -64.88223, -77.51271, 0, 0, 0, 0, -68.40097, -82.34788, 0, 0, 0, 0, -71.118454, -87.67476, 0, 0, 0, 0, -73.39675, -93.20375, 0, 0, 0, 0, -74.796005, -99.01774, 0, 0, 0, 0, -76.10988, -104.851616, 0, 0, 0, 0, -77.78285, -110.592834)
 }
-point_count = 13
+point_count = 24
 
 [sub_resource type="Curve2D" id="Curve2D_w4um4"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.071562, 1.4150547, 0, 0, 0, 0, 2.176847, 2.8039284, 0, 0, 0, 0, 3.150985, 4.2877345, 0, 0, 0, 0, 3.828535, 5.928329, 0, 0, 0, 0, 4.4695807, 7.5835285, 0, 0, 0, 0, 5.149976, 9.222945, 0, 0, 0, 0, 5.832958, 10.861286, 0, 0, 0, 0, 6.6714387, 12.425759, 0, 0, 0, 0, 7.7037005, 13.869733, 0, 0, 0, 0, 8.99334, 15.089346, 0, 0, 0, 0, 10.061451, 16.507008)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.4528459, -5.962829, 0, 0, 0, 0, 1.1818264, -11.898231, 0, 0, 0, 0, 2.678286, -17.687963, 0, 0, 0, 0, 4.634323, -23.33901, 0, 0, 0, 0, 5.8797474, -29.187883, 0, 0, 0, 0, 7.2360597, -35.012043)
 }
-point_count = 12
+point_count = 7
 
 [sub_resource type="Curve2D" id="Curve2D_wsdp1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.231189, 1.2785925, 0, 0, 0, 0, 2.533643, 2.4845107, 0, 0, 0, 0, 3.9816027, 3.5111742, 0, 0, 0, 0, 5.480385, 4.462109, 0, 0, 0, 0, 7.011774, 5.35959, 0, 0, 0, 0, 8.674179, 5.981712, 0, 0, 0, 0, 10.406052, 6.3706093, 0, 0, 0, 0, 12.166871, 6.594531, 0, 0, 0, 0, 13.941437, 6.5552807, 0, 0, 0, 0, 15.681322, 6.203963)
-}
-point_count = 11
-
-[sub_resource type="Curve2D" id="Curve2D_04oug"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.2780901, -1.2317101, 0, 0, 0, 0, -2.550639, -2.4691443, 0, 0, 0, 0, -3.6888194, -3.8311906, 0, 0, 0, 0, -4.840546, -5.181802, 0, 0, 0, 0, -5.756265, -6.7023554)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.7798212, 5.2946196, 0, 0, 0, 0, 6.2843494, 10.1401005, 0, 0, 0, 0, 10.094632, 14.749022, 0, 0, 0, 0, 14.501709, 18.791061, 0, 0, 0, 0, 18.378239, 23.344404)
 }
 point_count = 6
-
-[sub_resource type="Curve2D" id="Curve2D_njwum"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.6356341, -0.689439, 0, 0, 0, 0, 3.3002617, -1.3055882, 0, 0, 0, 0, 4.9989867, -1.8203287)
-}
-point_count = 4
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kpjr3"]
 texture = ExtResource("21_wq420")
@@ -2059,16 +1133,15 @@ sources/0 = SubResource("TileSetAtlasSource_kpjr3")
 
 [sub_resource type="Curve2D" id="Curve2D_k66vp"]
 _data = {
-"points": PackedVector2Array(-112.55481, 0.28265357, 112.55481, -0.28265357, 1434, 961, -32.68504, 0.3442545, 32.68504, -0.3442545, 1518, 961)
+"points": PackedVector2Array(-112.55481, 0.28265357, 112.55481, -0.28265357, 1062, 771, 87.51831, -133.39795, -87.51831, 133.39795, 1081, 1253)
 }
 point_count = 2
 
 [sub_resource type="Resource" id="Resource_1113p"]
 script = ExtResource("85_8uaht")
 thickness = 7
-dash_length = 93
+dash_length = 1
 gap_length = 0
-perpendicular_offset = -49.185
 enable_wear = true
 wear_spacing = 0.84
 wear_density = 0.02
@@ -2078,51 +1151,26 @@ interior_wear_density = 0.042
 interior_wear_pair_chance = 0.42
 metadata/_custom_type_script = "uid://b68t07w6s0djw"
 
-[sub_resource type="Resource" id="Resource_5dgyk"]
-script = ExtResource("85_8uaht")
-thickness = 7
-dash_length = 93
-gap_length = 0
-perpendicular_offset = -7.66
-enable_wear = true
-wear_spacing = 0.84
-wear_density = 0.02
-wear_bite_max = 1
-line_seed = 29
-interior_wear_density = 0.042
-interior_wear_pair_chance = 0.42
-metadata/_custom_type_script = "uid://b68t07w6s0djw"
+[sub_resource type="Curve2D" id="Curve2D_1113p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1661, 415, -245.8848, -494.50168, 245.8848, 494.50168, 2496, 693)
+}
+point_count = 2
 
-[sub_resource type="Resource" id="Resource_h75je"]
+[sub_resource type="Resource" id="Resource_au78y"]
 script = ExtResource("85_8uaht")
-thickness = 7
-dash_length = 93
-gap_length = 0
-perpendicular_offset = -86.22
-enable_wear = true
-wear_spacing = 0.84
-wear_density = 0.02
-wear_bite_max = 1
-line_seed = 29
-interior_wear_density = 0.042
-interior_wear_pair_chance = 0.42
-metadata/_custom_type_script = "uid://b68t07w6s0djw"
-
-[sub_resource type="Resource" id="Resource_cenje"]
-script = ExtResource("85_8uaht")
-metadata/_custom_type_script = "uid://b68t07w6s0djw"
-
-[sub_resource type="Resource" id="Resource_dqt2m"]
-script = ExtResource("85_8uaht")
-metadata/_custom_type_script = "uid://b68t07w6s0djw"
+thickness = 8
+dash_length = 106
+gap_length = 118
+curve_sample_step = 1
 
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
 [node name="TextureSlicer" type="Node2D" parent="." unique_id=142767713]
 script = ExtResource("77_uqknt")
-atlas_texture = ExtResource("2_5dgyk")
-json_path = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/Ressources/road_grainb.json"
-output_dir_override = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/RoadGrain/"
+atlas_texture = ExtResource("2_au78y")
+json_path = "res://Assets/Textures/Roads/RoadBrushes/Ressources/road_brush8.json"
+output_dir_override = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
 position = Vector2(2001.0001, 1130)
@@ -2154,15 +1202,6 @@ offset_top = 76.0
 offset_right = 3528.0
 offset_bottom = 2462.0
 color = Color(0.03137255, 0.03137255, 0.03137255, 1)
-
-[node name="RoadTexture" type="TileMapLayer" parent="Land_layers" unique_id=1865824352]
-visible = false
-z_index = 1
-tile_map_data = PackedByteArray("AAA+ACUAAQAkABEAAAA/ACUAAQAlABEAAAA/ACYAAQAlABIAAAA/ACcAAQAlABMAAAA/ACgAAQAlABQAAAA/ACkAAAATAA0AAAA/ACoAAAATAA4AAAA/ACsAAAATAA8AAAA/ACwAAAATABAAAAA/AC0AAAATABEAAAA8ACIAAQAiAA4AAAA9ACIAAQAjAA4AAAA/ACEAAAABAAQAAAA9ACMAAQAjAA8AAAA9ACQAAQAjABAAAAA8ACMAAQAiAA8AAAA+ACMAAQAkAA8AAAA+ACQAAQAkABAAAAA7ACAAAQAiAA0AAAA7ACEAAQAiAA4AAAA7ACIAAQAiAA8AAAA8ACEAAQAiAA0AAAA/ACIAAAABAAUAAAA/ACMAAAABAAYAAAA/ACQAAQAlABAAAAA/AC4AAAATABIAAABAACEAAAACAAQAAABAACIAAAACAAUAAABAACMAAAACAAYAAABAACQAAQAmABAAAABAACUAAQAmABEAAABAACYAAQAmABIAAABAACcAAQAmABMAAABAACgAAQAmABQAAABAACkAAAAUAA0AAABAACoAAAAUAA4AAABAACsAAAAUAA8AAABAACwAAAAUABAAAABAAC0AAAAUABEAAABAAC4AAAAUABIAAAA/AB4AAAABAAEAAAA/AB8AAAABAAIAAAA/ACAAAAABAAMAAABAAB4AAAACAAEAAABAAB8AAAACAAIAAABAACAAAAACAAMAAABBAB4AAAADAAEAAABBAB8AAAADAAIAAABCAB4AAAAEAAEAAABCAB8AAAAEAAIAAABDAB4AAAAFAAEAAABDAB8AAAAFAAIAAABEAB4AAAAGAAEAAABEAB8AAAAGAAIAAABFAB4AAAAHAAEAAABFAB8AAAAHAAIAAAA=")
-tile_set = SubResource("TileSet_1xj8r")
-occlusion_enabled = false
-rendering_quadrant_size = 32
-collision_enabled = false
 
 [node name="Sidewalks" type="TileMapLayer" parent="Land_layers" unique_id=1976538112]
 z_index = 3
@@ -3589,28 +2628,24 @@ position = Vector2(9, 66)
 rotation = 1.5707964
 texture = ExtResource("61_scbe7")
 
-[node name="Player" type="Node2D" parent="." unique_id=1892447495]
-z_index = 6
+[node name="Roads" type="Node2D" parent="Land_layers" unique_id=931904209]
 
-[node name="Roads" type="Node2D" parent="." unique_id=931904209]
+[node name="TireMarks" type="Node2D" parent="Land_layers/Roads" unique_id=674685423]
 
-[node name="TireMarks" type="Node2D" parent="Roads" unique_id=674685423]
-
-[node name="TireMarkSmall" parent="Roads/TireMarks" unique_id=401786165 instance=ExtResource("73_au78y")]
+[node name="TireMarkSmall" parent="Land_layers/Roads/TireMarks" unique_id=401786165 instance=ExtResource("73_au78y")]
 position = Vector2(32, -115)
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/TiremarksSmall/"
 
-[node name="TireMarkBig" parent="Roads/TireMarks" unique_id=1984968233 instance=ExtResource("74_8l58v")]
+[node name="TireMarkBig" parent="Land_layers/Roads/TireMarks" unique_id=1984968233 instance=ExtResource("74_8l58v")]
 position = Vector2(13, -21)
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/TiremarksBig/"
 
-[node name="RoadPath" type="Node2D" parent="Roads" unique_id=626982507]
+[node name="RoadPath" type="Node2D" parent="Land_layers/Roads" unique_id=626982507]
 
-[node name="RoadBrushPath2D3" type="Path2D" parent="Roads/RoadPath" unique_id=1906681667]
+[node name="RoadBrushPath2D3" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1906681667]
 position = Vector2(-13, 6)
 curve = SubResource("Curve2D_siu12")
 script = ExtResource("80_unwpx")
-pixel_size = 1
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
 stamp_spacing = 43
 perpendicular_jitter = 19
@@ -3622,31 +2657,30 @@ detail_spawn_chance = 0.78
 detail_radial_bias = 1.2
 wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_higrc"), SubResource("Resource_j3pel")])
 stamp_color = Color(0.10747974, 0.10747973, 0.107479684, 1)
-detail_color = Color(1, 1, 1, 0.05490196)
+detail_color = Color(1, 1, 1, 0.050980393)
 metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=459490554]
+[node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=459490554]
 self_modulate = Color(0.10747974, 0.10747973, 0.107479684, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=1170243157]
-self_modulate = Color(1, 1, 1, 0.05490196)
+[node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1170243157]
+self_modulate = Color(1, 1, 1, 0.050980393)
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=489217881]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=489217881]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=598831824]
+[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=833659068]
 self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
 
-[node name="WearLine_1" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=1639220149]
+[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1915796863]
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
-[node name="RoadBrushPath2D4" type="Path2D" parent="Roads/RoadPath" unique_id=1462920717]
+[node name="RoadBrushPath2D4" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1462920717]
 position = Vector2(-27, 25)
 curve = SubResource("Curve2D_mqeix")
 script = ExtResource("80_unwpx")
-pixel_size = 1
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
 stamp_spacing = 34
 perpendicular_jitter = 2
@@ -3660,198 +2694,180 @@ stamp_color = Color(0.096204735, 0.09620475, 0.09620472, 1)
 detail_color = Color(0.25565878, 0.25565878, 0.25565878, 0.69803923)
 metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D4" unique_id=831914724]
+[node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D4" unique_id=831914724]
 self_modulate = Color(0.096204735, 0.09620475, 0.09620472, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D4" unique_id=448146499]
+[node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D4" unique_id=448146499]
 self_modulate = Color(0.25565878, 0.25565878, 0.25565878, 0.69803923)
 
-[node name="RoadCracks" type="Node2D" parent="Roads" unique_id=2039001729]
+[node name="RoadCracks" type="Node2D" parent="Land_layers/Roads" unique_id=2039001729]
 
-[node name="SerpentineCracks1" type="Node2D" parent="Roads/RoadCracks" unique_id=1883233838]
+[node name="SerpentineCracks1" type="Node2D" parent="Land_layers/Roads/RoadCracks" unique_id=1883233838]
 z_index = 6
-position = Vector2(1670, 1090)
+position = Vector2(1431, 1073)
 script = ExtResource("81_mqeix")
 brush_script = ExtResource("80_unwpx")
-start_angle_degrees = 193.0
-total_length = 209.945
-segment_length = 1.775
-max_turn_degrees = 14.5
+total_length = 262.805
+segment_length = 5.98
+max_turn_degrees = 13.0
 turn_smoothing = 0.11
-branch_chance = 0.04
-branch_length_ratio = 0.1
+branch_chance = 0.08
+branch_length_ratio = 0.85
 branch_angle_spread_degrees = 274.48
 max_branch_depth = 1
-rng_seed = 2
+rng_seed = 3
 default_stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
-default_stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
+default_stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 default_pixel_size = 1
 default_stamp_spacing = 1
 
-[node name="Crack_Root" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=537551299]
+[node name="Crack_Root" type="Path2D" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1" unique_id=1519498046]
 curve = SubResource("Curve2D_au78y")
 script = ExtResource("80_unwpx")
-pixel_size = 1
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
+stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=610113058]
-self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=1033014548]
+self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=11329155]
+[node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=87448795]
 
-[node name="Crack_Branch_1" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=829898245]
-position = Vector2(-8.695248, -0.4434395)
+[node name="Crack_Branch_1" type="Path2D" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1" unique_id=171555935]
+position = Vector2(99.71111, 14.059254)
 curve = SubResource("Curve2D_8l58v")
 script = ExtResource("80_unwpx")
-pixel_size = 1
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
+stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=2045073805]
-self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=980606704]
+self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=1818165906]
+[node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=1864259045]
 
-[node name="Crack_Branch_2" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1968252845]
-position = Vector2(-26.143415, 0.4452851)
+[node name="Crack_Branch_2" type="Path2D" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1" unique_id=1261257342]
+position = Vector2(218.36005, 12.966787)
 curve = SubResource("Curve2D_w4um4")
 script = ExtResource("80_unwpx")
-pixel_size = 1
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
+stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=1930804726]
-self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=668993529]
+self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=1369043204]
+[node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=855604202]
 
-[node name="Crack_Branch_3" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1355655525]
-position = Vector2(-49.08683, 2.0031998)
+[node name="Crack_Branch_3" type="Path2D" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1" unique_id=1392745091]
+position = Vector2(229.9036, 10.036855)
 curve = SubResource("Curve2D_wsdp1")
 script = ExtResource("80_unwpx")
-pixel_size = 1
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
+stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=1462834003]
-self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=1453049905]
+self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=1821260251]
+[node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=84188155]
 
-[node name="Crack_Branch_4" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1688101311]
-position = Vector2(-136.2248, -5.7489905)
-curve = SubResource("Curve2D_04oug")
-script = ExtResource("80_unwpx")
-pixel_size = 1
-stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
-stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
-
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_4" unique_id=1184653091]
-self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
-
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_4" unique_id=286569625]
-
-[node name="Crack_Branch_5" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1050142595]
-position = Vector2(-169.29193, 0.08169058)
-curve = SubResource("Curve2D_njwum")
-script = ExtResource("80_unwpx")
-pixel_size = 1
-stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
-stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
-
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_5" unique_id=1534136892]
-self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
-
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_5" unique_id=1015352763]
-
-[node name="Cracks" type="CanvasGroup" parent="Roads/RoadCracks" unique_id=560618745]
-self_modulate = Color(0.019607844, 0.019607844, 0.019607844, 0.5882353)
+[node name="Cracks" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks" unique_id=560618745]
+visible = false
+self_modulate = Color(0.019607844, 0.019607844, 0.019607844, 1)
 z_index = 12
-position = Vector2(2881, 1523)
+position = Vector2(2133, 1371)
 script = ExtResource("82_41ema")
 start_angle_degrees = 180.0
-total_length = 105
-max_turn_degrees = 22.0
-thickness_max = 2
+total_length = 209
+max_turn_degrees = 30.0
 thickness_variation_step = 0.5
-branch_chance = 0.06
-branch_chance_falloff = 0.39
-branch_length_ratio = 1.0
-branch_angle_spread_degrees = -267.245
-thickness_falloff_per_depth = 3
-crack_color = Color(0.019607844, 0.019607844, 0.019607844, 0.5882353)
+branch_chance_falloff = 0.5
+branch_length_ratio = 0.9
+branch_angle_spread_degrees = -172.91
+thickness_falloff_per_depth = 0
+crack_color = Color(0.019607844, 0.019607844, 0.019607844, 1)
 rng_seed = 5
 
-[node name="DrawSurface" type="Node2D" parent="Roads/RoadCracks/Cracks" unique_id=839561181]
+[node name="DrawSurface" type="Node2D" parent="Land_layers/Roads/RoadCracks/Cracks" unique_id=839561181]
 position = Vector2(-538.99994, -227.00009)
 script = ExtResource("83_q4v6q")
 
-[node name="RoadMarks" type="Node2D" parent="Roads" unique_id=1041874057]
-modulate = Color(0.7079665, 0.7079665, 0.7079664, 1)
+[node name="CrackNetworkGenerator" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks" unique_id=1616940104]
+self_modulate = Color(1, 1, 1, 0.007843138)
+z_index = 2
+position = Vector2(1470, 1074)
+script = ExtResource("82_41ema")
+start_angle_degrees = 15.0
+total_length = 341
+segment_length = 2
+max_turn_degrees = 29.5
+thickness_max = 1
+thickness_variation_step = 1.1
+branch_chance = 0.19
+branch_chance_falloff = 0.11
+branch_length_ratio = 0.1
+max_branch_depth = 1
+crack_color = Color(1, 1, 1, 0.007843138)
+rng_seed = 17
+metadata/_custom_type_script = "uid://35fqax0nsl4d"
 
-[node name="Crossings" type="TileMapLayer" parent="Roads/RoadMarks" unique_id=1717996340]
+[node name="DrawSurface" type="Node2D" parent="Land_layers/Roads/RoadCracks/CrackNetworkGenerator" unique_id=1200395982]
+script = ExtResource("83_q4v6q")
+
+[node name="RoadMarkings" type="Node2D" parent="Land_layers/Roads" unique_id=1041874057]
+modulate = Color(0.6955031, 0.6955032, 0.6955029, 1)
+
+[node name="Crossings" type="TileMapLayer" parent="Land_layers/Roads/RoadMarkings" unique_id=1717996340]
 z_index = 2
 tile_map_data = PackedByteArray("AAA1AB4AAAABAAsAAAA1AB8AAAABAAwAAAA1ACAAAAABAA0AAAA1ACEAAAABAA4AAAA1ACIAAAABAA8AAAA2AB4AAAACAAsAAAA2AB8AAAACAAwAAAA2ACAAAAACAA0AAAA2ACEAAAACAA4AAAA2ACIAAAACAA8AAAA3AB4AAAADAAsAAAA3AB8AAAADAAwAAAA3ACAAAAADAA0AAAA3ACEAAAADAA4AAAA3ACIAAAADAA8AAAA4AB4AAAAEAAsAAAA4AB8AAAAEAAwAAAA4ACAAAAAEAA0AAAA4ACEAAAAEAA4AAAA4ACIAAAAEAA8AAAA5AB4AAAAFAAsAAAA5AB8AAAAFAAwAAAA5ACAAAAAFAA0AAAA5ACEAAAAFAA4AAAA5ACIAAAAFAA8AAAA1ABgAAAABAAUAAAA1ABkAAAABAAYAAAA1ABoAAAABAAcAAAA1ABsAAAABAAgAAAA1ABwAAAABAAkAAAA1AB0AAAABAAoAAAA2ABgAAAACAAUAAAA2ABkAAAACAAYAAAA2ABoAAAACAAcAAAA2ABsAAAACAAgAAAA2ABwAAAACAAkAAAA2AB0AAAACAAoAAAA3ABgAAAADAAUAAAA3ABkAAAADAAYAAAA3ABoAAAADAAcAAAA3ABsAAAADAAgAAAA3ABwAAAADAAkAAAA3AB0AAAADAAoAAAA4ABgAAAAEAAUAAAA4ABkAAAAEAAYAAAA4ABoAAAAEAAcAAAA4ABsAAAAEAAgAAAA4ABwAAAAEAAkAAAA4AB0AAAAEAAoAAAA5ABgAAAAFAAUAAAA5ABkAAAAFAAYAAAA5ABoAAAAFAAcAAAA5ABsAAAAFAAgAAAA5ABwAAAAFAAkAAAA5AB0AAAAFAAoAAAA1ABQAAAABAAEAAAA1ABUAAAABAAIAAAA1ABYAAAABAAMAAAA1ABcAAAABAAQAAAA2ABQAAAACAAEAAAA2ABUAAAACAAIAAAA2ABYAAAACAAMAAAA2ABcAAAACAAQAAAA3ABQAAAADAAEAAAA3ABUAAAADAAIAAAA3ABYAAAADAAMAAAA3ABcAAAADAAQAAAA4ABQAAAAEAAEAAAA4ABUAAAAEAAIAAAA4ABYAAAAEAAMAAAA4ABcAAAAEAAQAAAA5ABQAAAAFAAEAAAA5ABUAAAAFAAIAAAA5ABYAAAAFAAMAAAA5ABcAAAAFAAQAAABCACcAAAABABIAAFBCACkAAAADABIAAFBBACcAAAABABMAAFBBACgAAAACABMAAFBBACkAAAADABMAAFBAACcAAAABABQAAFBAACgAAAACABQAAFBAACkAAAADABQAAFA/ACcAAAABABUAAFA/ACgAAAACABUAAFA/ACkAAAADABUAAFA+ACcAAAABABYAAFA+ACgAAAACABYAAFA+ACkAAAADABYAAFA9ACcAAAABABcAAFA9ACgAAAACABcAAFA9ACkAAAADABcAAFA=")
 tile_set = SubResource("TileSet_tyiq4")
 collision_enabled = false
 
-[node name="RoadLine1" type="Path2D" parent="Roads/RoadMarks" unique_id=605787046]
+[node name="RoadLine1" type="Path2D" parent="Land_layers/Roads/RoadMarkings" unique_id=605787046]
+visible = false
 z_index = 5
-position = Vector2(3163, -429)
-rotation = 1.5707964
+position = Vector2(970, -121)
 curve = SubResource("Curve2D_k66vp")
 script = ExtResource("84_5dgyk")
-pixel_size = 1
-lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p"), SubResource("Resource_5dgyk"), SubResource("Resource_h75je"), SubResource("Resource_cenje"), SubResource("Resource_dqt2m")])
+lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p")])
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=682903643]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=1289926586]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_0" unique_id=589491810]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1942482764]
 script = ExtResource("86_au78y")
 
-[node name="MarkingLine_1" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=1146602867]
+[node name="Arrows" type="Node2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1192627376]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_1" unique_id=156997251]
-script = ExtResource("86_au78y")
-
-[node name="MarkingLine_2" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=1872007589]
-
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_2" unique_id=870533166]
-script = ExtResource("86_au78y")
-
-[node name="MarkingLine_3" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=2000824867]
-
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_3" unique_id=399990859]
-script = ExtResource("86_au78y")
-
-[node name="MarkingLine_4" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=589959081]
-
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_4" unique_id=791272061]
-script = ExtResource("86_au78y")
-
-[node name="Arrows" type="Node2D" parent="Roads/RoadMarks" unique_id=1192627376]
-
-[node name="Arrow1" type="Sprite2D" parent="Roads/RoadMarks/Arrows" unique_id=619150422]
+[node name="Arrow1" type="Sprite2D" parent="Land_layers/Roads/RoadMarkings/Arrows" unique_id=619150422]
 position = Vector2(1627.5, 1041)
 rotation = 1.5707964
 texture = ExtResource("18_n7gip")
 
-[node name="Arrow2" type="Sprite2D" parent="Roads/RoadMarks/Arrows" unique_id=22879353]
+[node name="Arrow2" type="Sprite2D" parent="Land_layers/Roads/RoadMarkings/Arrows" unique_id=22879353]
 position = Vector2(1628.5, 744)
 rotation = 1.5707964
 texture = ExtResource("19_wq420")
 
-[node name="Arrow3" type="Sprite2D" parent="Roads/RoadMarks/Arrows" unique_id=1443985321]
+[node name="Arrow3" type="Sprite2D" parent="Land_layers/Roads/RoadMarkings/Arrows" unique_id=1443985321]
 position = Vector2(1627.5, 889)
 rotation = 1.5707964
 texture = ExtResource("20_kpjr3")
+
+[node name="RoadMarkingPath2D" type="Path2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1562486276]
+visible = false
+curve = SubResource("Curve2D_1113p")
+script = ExtResource("84_5dgyk")
+lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_au78y")])
+metadata/_custom_type_script = "uid://cstre1l5ksgef"
+
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1045754766]
+
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1793426523]
+script = ExtResource("86_au78y")
+
+[node name="Player" type="Node2D" parent="." unique_id=1892447495]
+z_index = 6
 
 [node name="Enemy" type="Sprite2D" parent="." unique_id=1038086393]
 z_index = 8

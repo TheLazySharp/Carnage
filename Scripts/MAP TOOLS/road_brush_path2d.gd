@@ -2,7 +2,7 @@
 extends Path2D
 class_name RoadBrushPath2D
 
-@export var pixel_size: int = 4:
+@export var pixel_size: int = 1:
 	set(value):
 		pixel_size = value
 		generate_all()
