@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://6pt8l3jkm47c"]
-
-[ext_resource type="Texture2D" uid="uid://br3hpqdopd0ta" path="res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/Ressources/road_grainb.png" id="1_v34mp"]
-
-[resource]
-atlas = ExtResource("1_v34mp")
-region = Rect2(16, 27, 3, 3)

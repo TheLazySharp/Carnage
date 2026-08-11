@@ -1,93 +1,93 @@
 [gd_scene format=4 uid="uid://v03gacy7rgdm"]
 
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="1_qodwh"]
-[ext_resource type="Texture2D" uid="uid://br3hpqdopd0ta" path="res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/Ressources/road_grainb.png" id="2_5dgyk"]
-[ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Léonce/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
-[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Léonce/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
-[ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Léonce/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]
-[ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Léonce/Tilesets/Roofs/roof_texture03.png" id="6_37n1q"]
-[ext_resource type="Texture2D" uid="uid://bj85ikkrus0ir" path="res://Assets/Léonce/Props/Roofs/Air Conditioners/Slice 7.tres" id="6_avigi"]
-[ext_resource type="Texture2D" uid="uid://bxnhcjxpquhdl" path="res://Assets/Léonce/Props/Roofs/Air Conditioners/Slice 8.tres" id="7_d7n4m"]
-[ext_resource type="Texture2D" uid="uid://k7ogewhnov0k" path="res://Assets/Léonce/Props/Roofs/Air Conditioners/Slice 9.tres" id="8_8xgci"]
-[ext_resource type="Texture2D" uid="uid://bomjdb68ne2n3" path="res://Assets/Léonce/Props/Roofs/Air Conditioners/Slice 3.tres" id="8_wwgf1"]
-[ext_resource type="Texture2D" uid="uid://cvtqp2oi6kk1p" path="res://Assets/Léonce/Props/Ground/Slice 2.tres" id="9_2so35"]
-[ext_resource type="Texture2D" uid="uid://vptgqe6gpng4" path="res://Assets/Léonce/Props/Ground/Slice 4.tres" id="10_7i38y"]
-[ext_resource type="Texture2D" uid="uid://b7tqvwpa5bmks" path="res://Assets/Léonce/Props/Ground/Slice 6.tres" id="11_q80h7"]
-[ext_resource type="Texture2D" uid="uid://4oeayhyhylax" path="res://Assets/Léonce/Props/Roofs/Air Conditioners/Slice 12.tres" id="12_n7gip"]
-[ext_resource type="Texture2D" uid="uid://c41put4ikqs86" path="res://Assets/Léonce/Props/Ground/Slice 8.tres" id="12_uqknt"]
-[ext_resource type="Texture2D" uid="uid://1maduwq3nmju" path="res://Assets/Léonce/Props/Ground/Slice 3.tres" id="13_762fv"]
-[ext_resource type="Texture2D" uid="uid://d0ojqgv4dssbo" path="res://Assets/Léonce/Props/Roofs/Air Conditioners/Slice 11.tres" id="13_wq420"]
-[ext_resource type="Texture2D" uid="uid://d3isube7pygku" path="res://Assets/Léonce/Props/Ground/Slice 5.tres" id="14_unwpx"]
-[ext_resource type="Script" uid="uid://dyuu65s454lqr" path="res://Assets/Léonce/Scripts/pixel_line_2d.gd" id="15_kpjr3"]
-[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Assets/Léonce/Scripts/building_shadow.gd" id="16_5g436"]
-[ext_resource type="Script" uid="uid://d1xm2r3txom34" path="res://Assets/Léonce/Scripts/cable_shadow.gd" id="17_1lqbc"]
-[ext_resource type="Texture2D" uid="uid://cg471e8w7q13g" path="res://Assets/Léonce/Textures/RoadBrushes/Markings/Arrows/Slice 30.tres" id="18_n7gip"]
-[ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Léonce/Textures/RoadBrushes/Markings/Arrows/Slice 24.tres" id="19_wq420"]
-[ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Léonce/Textures/RoadBrushes/Markings/Arrows/Slice 25.tres" id="20_kpjr3"]
-[ext_resource type="Texture2D" uid="uid://d3qt2bgnq2urg" path="res://Assets/Léonce/Tilesets/Roofs/roof_texture02.png" id="21_2so35"]
-[ext_resource type="Texture2D" uid="uid://cnidh8bp42p14" path="res://Assets/Léonce/Textures/RoadBrushes/Markings/roadmarks_crossings.png" id="21_wq420"]
-[ext_resource type="Script" uid="uid://lpdy5igmv6b6" path="res://Assets/Léonce/Scripts/debris_scatter.gd" id="22_kpjr3"]
-[ext_resource type="Texture2D" uid="uid://duphdoe0lr0c4" path="res://Assets/Léonce/Props/Trash/Slice 1.tres" id="23_1eaev"]
-[ext_resource type="Texture2D" uid="uid://bvw8eegittnoy" path="res://Assets/Léonce/Props/Trash/Slice 10.tres" id="24_bm8kg"]
-[ext_resource type="Texture2D" uid="uid://djw6d045mhe8e" path="res://Assets/Léonce/Props/Trash/Slice 11.tres" id="25_eyeis"]
-[ext_resource type="Texture2D" uid="uid://bjp0p0c8s54s" path="res://Assets/Léonce/Props/Trash/Slice 12.tres" id="26_wgbkv"]
-[ext_resource type="Texture2D" uid="uid://djxdahuo6kgat" path="res://Assets/Léonce/Props/Trash/Slice 13.tres" id="27_ebcnj"]
-[ext_resource type="Texture2D" uid="uid://cgnqagth1q5hx" path="res://Assets/Léonce/Props/Trash/Slice 14.tres" id="28_m6xhe"]
-[ext_resource type="Texture2D" uid="uid://cbtdr535kknh7" path="res://Assets/Léonce/Props/Trash/Slice 15.tres" id="29_2so35"]
-[ext_resource type="Texture2D" uid="uid://i2m64saowcji" path="res://Assets/Léonce/Props/Trash/Slice 16.tres" id="30_7i38y"]
-[ext_resource type="Texture2D" uid="uid://ufonnki1gueu" path="res://Assets/Léonce/Props/Trash/Slice 17.tres" id="31_q80h7"]
-[ext_resource type="Texture2D" uid="uid://cde05lupdfdpu" path="res://Assets/Léonce/Props/Trash/Slice 18.tres" id="32_uqknt"]
-[ext_resource type="Texture2D" uid="uid://cr3rpmqvp7lgi" path="res://Assets/Léonce/Props/Trash/Slice 19.tres" id="33_762fv"]
-[ext_resource type="Texture2D" uid="uid://b16an24gokc1c" path="res://Assets/Léonce/Props/Trash/Slice 2.tres" id="34_unwpx"]
-[ext_resource type="Texture2D" uid="uid://bvxdcsy8nk7on" path="res://Assets/Léonce/Props/Trash/Slice 20.tres" id="35_siu12"]
-[ext_resource type="Texture2D" uid="uid://ngace70p6wuc" path="res://Assets/Léonce/Props/Trash/Slice 21.tres" id="36_mqeix"]
-[ext_resource type="Texture2D" uid="uid://ktv48db6b3e6" path="res://Assets/Léonce/Props/Trash/Slice 22.tres" id="37_41ema"]
-[ext_resource type="Texture2D" uid="uid://d10kpgse7x5yd" path="res://Assets/Léonce/Props/Trash/Slice 23.tres" id="38_q4v6q"]
-[ext_resource type="Texture2D" uid="uid://8jy7ug6y3o2n" path="res://Assets/Léonce/Props/Trash/Slice 24.tres" id="39_5dgyk"]
-[ext_resource type="Texture2D" uid="uid://ej6dh04krvl0" path="res://Assets/Léonce/Props/Trash/Slice 25.tres" id="40_8uaht"]
-[ext_resource type="Texture2D" uid="uid://bo5hw12xyasr2" path="res://Assets/Léonce/Props/Trash/Slice 26.tres" id="41_au78y"]
-[ext_resource type="Texture2D" uid="uid://cyo6xknjpc4uv" path="res://Assets/Léonce/Props/Trash/Slice 27.tres" id="42_8l58v"]
-[ext_resource type="Texture2D" uid="uid://b7gq6gx2xm6d2" path="res://Assets/Léonce/Props/Trash/Slice 28.tres" id="43_w4um4"]
-[ext_resource type="Texture2D" uid="uid://cq7nrit45aoyf" path="res://Assets/Léonce/Props/Trash/Slice 29.tres" id="44_wsdp1"]
-[ext_resource type="Texture2D" uid="uid://bfsmw7bbtb0bl" path="res://Assets/Léonce/Props/Trash/Slice 3.tres" id="45_04oug"]
-[ext_resource type="Texture2D" uid="uid://c6yvjim4xp25t" path="res://Assets/Léonce/Props/Trash/Slice 30.tres" id="46_njwum"]
-[ext_resource type="Texture2D" uid="uid://cr25vncgqr7cf" path="res://Assets/Léonce/Props/Trash/Slice 31.tres" id="47_1113p"]
-[ext_resource type="Texture2D" uid="uid://cinqjia476jgt" path="res://Assets/Léonce/Props/Trash/Slice 32.tres" id="48_h75je"]
-[ext_resource type="Texture2D" uid="uid://d2wjbmfmf5bef" path="res://Assets/Léonce/Props/Trash/Slice 33.tres" id="49_5trsw"]
-[ext_resource type="Texture2D" uid="uid://w2u0visffiba" path="res://Assets/Léonce/Props/Trash/Slice 34.tres" id="50_gg4ck"]
-[ext_resource type="Texture2D" uid="uid://cctassackp81u" path="res://Assets/Léonce/Props/Trash/Slice 35.tres" id="51_jyj36"]
-[ext_resource type="Texture2D" uid="uid://dncpuhhl4mxmy" path="res://Assets/Léonce/Props/Trash/Slice 36.tres" id="52_mkn34"]
-[ext_resource type="Texture2D" uid="uid://du1kgakxx3frf" path="res://Assets/Léonce/Props/Trash/Slice 37.tres" id="53_b62f6"]
-[ext_resource type="Texture2D" uid="uid://b2h1i0mk1b1i8" path="res://Assets/Léonce/Props/Trash/Slice 38.tres" id="54_avlko"]
-[ext_resource type="Texture2D" uid="uid://b1tw3log7ihr4" path="res://Assets/Léonce/Props/Trash/Slice 39.tres" id="55_uhr7h"]
-[ext_resource type="Texture2D" uid="uid://bxy0wmgisph52" path="res://Assets/Léonce/Props/Trash/Slice 4.tres" id="56_8l2sf"]
-[ext_resource type="Texture2D" uid="uid://b8p8xweb1ehng" path="res://Assets/Léonce/Props/Trash/Slice 40.tres" id="57_xwer6"]
-[ext_resource type="Texture2D" uid="uid://5e1fjesimbws" path="res://Assets/Léonce/Props/Trash/Slice 41.tres" id="58_qbjlx"]
-[ext_resource type="Texture2D" uid="uid://cliuwcu4mhi4b" path="res://Assets/Léonce/Props/Trash/Slice 42.tres" id="59_ptxeq"]
-[ext_resource type="Texture2D" uid="uid://bq1l5ae4hcmjf" path="res://Assets/Léonce/Props/Trash/Slice 43.tres" id="60_k66vp"]
-[ext_resource type="Texture2D" uid="uid://cpahune7vqvai" path="res://Assets/Léonce/Props/Trash/Slice 44.tres" id="61_scbe7"]
-[ext_resource type="Texture2D" uid="uid://xj0h4n5dfs5v" path="res://Assets/Léonce/Props/Trash/Slice 45.tres" id="62_xcfsb"]
-[ext_resource type="Texture2D" uid="uid://bsxhlf45eb1bd" path="res://Assets/Léonce/Props/Trash/Slice 46.tres" id="63_vx4db"]
-[ext_resource type="Texture2D" uid="uid://bo1oe3se7l5jp" path="res://Assets/Léonce/Props/Trash/Slice 47.tres" id="64_0os8l"]
-[ext_resource type="Texture2D" uid="uid://dykop0wpnqy3d" path="res://Assets/Léonce/Props/Trash/Slice 48.tres" id="65_xdas5"]
-[ext_resource type="Texture2D" uid="uid://bkoogdb471aax" path="res://Assets/Léonce/Props/Trash/Slice 5.tres" id="66_qr506"]
-[ext_resource type="Texture2D" uid="uid://cu1gusvugy321" path="res://Assets/Léonce/Props/Trash/Slice 6.tres" id="67_uoimx"]
-[ext_resource type="Texture2D" uid="uid://b1akjmtdlno45" path="res://Assets/Léonce/Props/Trash/Slice 7.tres" id="68_mffiu"]
-[ext_resource type="Texture2D" uid="uid://cpvvpw6osc3kr" path="res://Assets/Léonce/Props/Trash/Slice 8.tres" id="69_jvd2b"]
-[ext_resource type="Texture2D" uid="uid://b53ioqwvltud4" path="res://Assets/Léonce/Props/Trash/Slice 9.tres" id="70_v1ttx"]
+[ext_resource type="Texture2D" uid="uid://br3hpqdopd0ta" path="res://Assets/Textures/Roads/RoadBrushes/Ressources/road_grainb.png" id="2_5dgyk"]
+[ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
+[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
+[ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]
+[ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Tilesets/Roofs/roof_texture03.png" id="6_37n1q"]
+[ext_resource type="Texture2D" uid="uid://bj85ikkrus0ir" path="res://Assets/Props/Roofs/Air Conditioners/Slice 7.tres" id="6_avigi"]
+[ext_resource type="Texture2D" uid="uid://bxnhcjxpquhdl" path="res://Assets/Props/Roofs/Air Conditioners/Slice 8.tres" id="7_d7n4m"]
+[ext_resource type="Texture2D" uid="uid://k7ogewhnov0k" path="res://Assets/Props/Roofs/Air Conditioners/Slice 9.tres" id="8_8xgci"]
+[ext_resource type="Texture2D" uid="uid://bomjdb68ne2n3" path="res://Assets/Props/Roofs/Air Conditioners/Slice 3.tres" id="8_wwgf1"]
+[ext_resource type="Texture2D" uid="uid://cvtqp2oi6kk1p" path="res://Assets/Props/Ground/Slice 2.tres" id="9_2so35"]
+[ext_resource type="Texture2D" uid="uid://vptgqe6gpng4" path="res://Assets/Props/Ground/Slice 4.tres" id="10_7i38y"]
+[ext_resource type="Texture2D" uid="uid://b7tqvwpa5bmks" path="res://Assets/Props/Ground/Slice 6.tres" id="11_q80h7"]
+[ext_resource type="Texture2D" uid="uid://4oeayhyhylax" path="res://Assets/Props/Roofs/Air Conditioners/Slice 12.tres" id="12_n7gip"]
+[ext_resource type="Texture2D" uid="uid://c41put4ikqs86" path="res://Assets/Props/Ground/Slice 8.tres" id="12_uqknt"]
+[ext_resource type="Texture2D" uid="uid://1maduwq3nmju" path="res://Assets/Props/Ground/Slice 3.tres" id="13_762fv"]
+[ext_resource type="Texture2D" uid="uid://d0ojqgv4dssbo" path="res://Assets/Props/Roofs/Air Conditioners/Slice 11.tres" id="13_wq420"]
+[ext_resource type="Texture2D" uid="uid://d3isube7pygku" path="res://Assets/Props/Ground/Slice 5.tres" id="14_unwpx"]
+[ext_resource type="Script" uid="uid://dyuu65s454lqr" path="res://Scripts/MAP TOOLS/pixel_line_2d.gd" id="15_kpjr3"]
+[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="16_5g436"]
+[ext_resource type="Script" uid="uid://d1xm2r3txom34" path="res://Scripts/MAP TOOLS/cable_shadow.gd" id="17_1lqbc"]
+[ext_resource type="Texture2D" uid="uid://cg471e8w7q13g" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 30.tres" id="18_n7gip"]
+[ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 24.tres" id="19_wq420"]
+[ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 25.tres" id="20_kpjr3"]
+[ext_resource type="Texture2D" uid="uid://d3qt2bgnq2urg" path="res://Assets/Tilesets/Roofs/roof_texture02.png" id="21_2so35"]
+[ext_resource type="Texture2D" uid="uid://cnidh8bp42p14" path="res://Assets/Textures/Roads/Markings/roadmarks_crossings.png" id="21_wq420"]
+[ext_resource type="Script" uid="uid://lpdy5igmv6b6" path="res://Scripts/MAP TOOLS/debris_scatter.gd" id="22_kpjr3"]
+[ext_resource type="Texture2D" uid="uid://duphdoe0lr0c4" path="res://Assets/Props/Trash/Slice 1.tres" id="23_1eaev"]
+[ext_resource type="Texture2D" uid="uid://bvw8eegittnoy" path="res://Assets/Props/Trash/Slice 10.tres" id="24_bm8kg"]
+[ext_resource type="Texture2D" uid="uid://djw6d045mhe8e" path="res://Assets/Props/Trash/Slice 11.tres" id="25_eyeis"]
+[ext_resource type="Texture2D" uid="uid://bjp0p0c8s54s" path="res://Assets/Props/Trash/Slice 12.tres" id="26_wgbkv"]
+[ext_resource type="Texture2D" uid="uid://djxdahuo6kgat" path="res://Assets/Props/Trash/Slice 13.tres" id="27_ebcnj"]
+[ext_resource type="Texture2D" uid="uid://cgnqagth1q5hx" path="res://Assets/Props/Trash/Slice 14.tres" id="28_m6xhe"]
+[ext_resource type="Texture2D" uid="uid://cbtdr535kknh7" path="res://Assets/Props/Trash/Slice 15.tres" id="29_2so35"]
+[ext_resource type="Texture2D" uid="uid://i2m64saowcji" path="res://Assets/Props/Trash/Slice 16.tres" id="30_7i38y"]
+[ext_resource type="Texture2D" uid="uid://ufonnki1gueu" path="res://Assets/Props/Trash/Slice 17.tres" id="31_q80h7"]
+[ext_resource type="Texture2D" uid="uid://cde05lupdfdpu" path="res://Assets/Props/Trash/Slice 18.tres" id="32_uqknt"]
+[ext_resource type="Texture2D" uid="uid://cr3rpmqvp7lgi" path="res://Assets/Props/Trash/Slice 19.tres" id="33_762fv"]
+[ext_resource type="Texture2D" uid="uid://b16an24gokc1c" path="res://Assets/Props/Trash/Slice 2.tres" id="34_unwpx"]
+[ext_resource type="Texture2D" uid="uid://bvxdcsy8nk7on" path="res://Assets/Props/Trash/Slice 20.tres" id="35_siu12"]
+[ext_resource type="Texture2D" uid="uid://ngace70p6wuc" path="res://Assets/Props/Trash/Slice 21.tres" id="36_mqeix"]
+[ext_resource type="Texture2D" uid="uid://ktv48db6b3e6" path="res://Assets/Props/Trash/Slice 22.tres" id="37_41ema"]
+[ext_resource type="Texture2D" uid="uid://d10kpgse7x5yd" path="res://Assets/Props/Trash/Slice 23.tres" id="38_q4v6q"]
+[ext_resource type="Texture2D" uid="uid://8jy7ug6y3o2n" path="res://Assets/Props/Trash/Slice 24.tres" id="39_5dgyk"]
+[ext_resource type="Texture2D" uid="uid://ej6dh04krvl0" path="res://Assets/Props/Trash/Slice 25.tres" id="40_8uaht"]
+[ext_resource type="Texture2D" uid="uid://bo5hw12xyasr2" path="res://Assets/Props/Trash/Slice 26.tres" id="41_au78y"]
+[ext_resource type="Texture2D" uid="uid://cyo6xknjpc4uv" path="res://Assets/Props/Trash/Slice 27.tres" id="42_8l58v"]
+[ext_resource type="Texture2D" uid="uid://b7gq6gx2xm6d2" path="res://Assets/Props/Trash/Slice 28.tres" id="43_w4um4"]
+[ext_resource type="Texture2D" uid="uid://cq7nrit45aoyf" path="res://Assets/Props/Trash/Slice 29.tres" id="44_wsdp1"]
+[ext_resource type="Texture2D" uid="uid://bfsmw7bbtb0bl" path="res://Assets/Props/Trash/Slice 3.tres" id="45_04oug"]
+[ext_resource type="Texture2D" uid="uid://c6yvjim4xp25t" path="res://Assets/Props/Trash/Slice 30.tres" id="46_njwum"]
+[ext_resource type="Texture2D" uid="uid://cr25vncgqr7cf" path="res://Assets/Props/Trash/Slice 31.tres" id="47_1113p"]
+[ext_resource type="Texture2D" uid="uid://cinqjia476jgt" path="res://Assets/Props/Trash/Slice 32.tres" id="48_h75je"]
+[ext_resource type="Texture2D" uid="uid://d2wjbmfmf5bef" path="res://Assets/Props/Trash/Slice 33.tres" id="49_5trsw"]
+[ext_resource type="Texture2D" uid="uid://w2u0visffiba" path="res://Assets/Props/Trash/Slice 34.tres" id="50_gg4ck"]
+[ext_resource type="Texture2D" uid="uid://cctassackp81u" path="res://Assets/Props/Trash/Slice 35.tres" id="51_jyj36"]
+[ext_resource type="Texture2D" uid="uid://dncpuhhl4mxmy" path="res://Assets/Props/Trash/Slice 36.tres" id="52_mkn34"]
+[ext_resource type="Texture2D" uid="uid://du1kgakxx3frf" path="res://Assets/Props/Trash/Slice 37.tres" id="53_b62f6"]
+[ext_resource type="Texture2D" uid="uid://b2h1i0mk1b1i8" path="res://Assets/Props/Trash/Slice 38.tres" id="54_avlko"]
+[ext_resource type="Texture2D" uid="uid://b1tw3log7ihr4" path="res://Assets/Props/Trash/Slice 39.tres" id="55_uhr7h"]
+[ext_resource type="Texture2D" uid="uid://bxy0wmgisph52" path="res://Assets/Props/Trash/Slice 4.tres" id="56_8l2sf"]
+[ext_resource type="Texture2D" uid="uid://b8p8xweb1ehng" path="res://Assets/Props/Trash/Slice 40.tres" id="57_xwer6"]
+[ext_resource type="Texture2D" uid="uid://5e1fjesimbws" path="res://Assets/Props/Trash/Slice 41.tres" id="58_qbjlx"]
+[ext_resource type="Texture2D" uid="uid://cliuwcu4mhi4b" path="res://Assets/Props/Trash/Slice 42.tres" id="59_ptxeq"]
+[ext_resource type="Texture2D" uid="uid://bq1l5ae4hcmjf" path="res://Assets/Props/Trash/Slice 43.tres" id="60_k66vp"]
+[ext_resource type="Texture2D" uid="uid://cpahune7vqvai" path="res://Assets/Props/Trash/Slice 44.tres" id="61_scbe7"]
+[ext_resource type="Texture2D" uid="uid://xj0h4n5dfs5v" path="res://Assets/Props/Trash/Slice 45.tres" id="62_xcfsb"]
+[ext_resource type="Texture2D" uid="uid://bsxhlf45eb1bd" path="res://Assets/Props/Trash/Slice 46.tres" id="63_vx4db"]
+[ext_resource type="Texture2D" uid="uid://bo1oe3se7l5jp" path="res://Assets/Props/Trash/Slice 47.tres" id="64_0os8l"]
+[ext_resource type="Texture2D" uid="uid://dykop0wpnqy3d" path="res://Assets/Props/Trash/Slice 48.tres" id="65_xdas5"]
+[ext_resource type="Texture2D" uid="uid://bkoogdb471aax" path="res://Assets/Props/Trash/Slice 5.tres" id="66_qr506"]
+[ext_resource type="Texture2D" uid="uid://cu1gusvugy321" path="res://Assets/Props/Trash/Slice 6.tres" id="67_uoimx"]
+[ext_resource type="Texture2D" uid="uid://b1akjmtdlno45" path="res://Assets/Props/Trash/Slice 7.tres" id="68_mffiu"]
+[ext_resource type="Texture2D" uid="uid://cpvvpw6osc3kr" path="res://Assets/Props/Trash/Slice 8.tres" id="69_jvd2b"]
+[ext_resource type="Texture2D" uid="uid://b53ioqwvltud4" path="res://Assets/Props/Trash/Slice 9.tres" id="70_v1ttx"]
 [ext_resource type="PackedScene" uid="uid://bln3grsge0fm2" path="res://Scenes/MAP TOOLS/tire_mark_small.tscn" id="73_au78y"]
-[ext_resource type="Script" uid="uid://b40y10gh6j4su" path="res://Assets/Léonce/Scripts/RoadWearLine.gd" id="74_5dgyk"]
+[ext_resource type="Script" uid="uid://b40y10gh6j4su" path="res://Scripts/MAP TOOLS/RoadWearLine.gd" id="74_5dgyk"]
 [ext_resource type="PackedScene" uid="uid://b41b6t1673wqj" path="res://Scenes/MAP TOOLS/tire_mark_big.tscn" id="74_8l58v"]
 [ext_resource type="Script" uid="uid://5i2ge8d1gyrg" path="res://Assets/Léonce/Scripts/generate_atlas_textures.gd" id="77_uqknt"]
-[ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Assets/Léonce/Scripts/road_brush_path2d.gd" id="80_unwpx"]
-[ext_resource type="Script" uid="uid://4dsvxjn84gim" path="res://Assets/Léonce/Scripts/serpentine_crack_generator.gd" id="81_mqeix"]
+[ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Scripts/MAP TOOLS/road_brush_path2d.gd" id="80_unwpx"]
+[ext_resource type="Script" uid="uid://4dsvxjn84gim" path="res://Scripts/MAP TOOLS/serpentine_crack_generator.gd" id="81_mqeix"]
 [ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="81_siu12"]
 [ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="81_unwpx"]
-[ext_resource type="Script" uid="uid://35fqax0nsl4d" path="res://Assets/Léonce/Scripts/crack_network_generator.gd" id="82_41ema"]
-[ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Assets/Léonce/Scripts/CrackDrawSurface.gd" id="83_q4v6q"]
-[ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Assets/Léonce/Scripts/road_marking_path.gd" id="84_5dgyk"]
-[ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Assets/Léonce/Scripts/RoadMarkingLine.gd" id="85_8uaht"]
-[ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Assets/Léonce/Scripts/DrawSurface2d.gd" id="86_au78y"]
+[ext_resource type="Script" uid="uid://35fqax0nsl4d" path="res://Scripts/MAP TOOLS/crack_network_generator.gd" id="82_41ema"]
+[ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/CrackDrawSurface.gd" id="83_q4v6q"]
+[ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/road_marking_path.gd" id="84_5dgyk"]
+[ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="85_8uaht"]
+[ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="86_au78y"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1846,7 +1846,7 @@ point_count = 4
 
 [sub_resource type="Resource" id="Resource_higrc"]
 script = ExtResource("74_5dgyk")
-texture_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 16A/"
+texture_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 16A/"
 perpendicular_offset = -5.6850000000000005
 coverage_ratio = 0.89
 fade_start_length = 7.415
@@ -1856,7 +1856,7 @@ metadata/_custom_type_script = "uid://b40y10gh6j4su"
 
 [sub_resource type="Resource" id="Resource_j3pel"]
 script = ExtResource("74_5dgyk")
-texture_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 32A/"
+texture_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 32A/"
 perpendicular_offset = -4.615
 spacing = 2.34
 spacing_jitter = 6.735
@@ -1871,53 +1871,41 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="Curve2D" id="Curve2D_5dgyk"]
+[sub_resource type="Curve2D" id="Curve2D_au78y"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.1586281, -1.3446954, 0, 0, 0, 0, -2.7498913, -2.1311471, 0, 0, 0, 0, -4.511676, -2.3473434, 0, 0, 0, 0, -6.069205, -1.4960334, 0, 0, 0, 0, -7.316368, -0.23301756, 0, 0, 0, 0, -8.347136, 1.2120233, 0, 0, 0, 0, -8.499219, 2.980496, 0, 0, 0, 0, -8.134106, 4.717539, 0, 0, 0, 0, -6.915291, 6.007932, 0, 0, 0, 0, -5.2255554, 6.551457, 0, 0, 0, 0, -3.946657, 7.782328, 0, 0, 0, 0, -2.4639573, 8.758149, 0, 0, 0, 0, -0.689471, 8.800847, 0, 0, 0, 0, 0.6739657, 9.937362, 0, 0, 0, 0, 1.7461904, 11.351914, 0, 0, 0, 0, 1.9930053, 13.109671, 0, 0, 0, 0, 3.217461, 14.394712, 0, 0, 0, 0, 3.8797848, 16.041513, 0, 0, 0, 0, 3.7488954, 17.811682, 0, 0, 0, 0, 3.496997, 19.568716, 0, 0, 0, 0, 2.6783042, 21.143635, 0, 0, 0, 0, 2.9580288, 22.896456, 0, 0, 0, 0, 3.9542766, 24.365509, 0, 0, 0, 0, 5.3493176, 25.463, 0, 0, 0, 0, 6.937613, 26.255428, 0, 0, 0, 0, 8.512748, 27.073704, 0, 0, 0, 0, 9.93777, 28.131975, 0, 0, 0, 0, 11.660366, 28.560097, 0, 0, 0, 0, 12.715254, 29.987625, 0, 0, 0, 0, 13.735156, 31.440355, 0, 0, 0, 0, 14.182745, 33.157997, 0, 0, 0, 0, 13.725484, 34.87309, 0, 0, 0, 0, 12.955815, 36.472538, 0, 0, 0, 0, 11.874832, 37.88041, 0, 0, 0, 0, 10.574889, 39.089035, 0, 0, 0, 0, 9.175034, 40.180378, 0, 0, 0, 0, 7.4985504, 40.763496, 0, 0, 0, 0, 5.803879, 40.235565, 0, 0, 0, 0, 4.0328836, 40.116398, 0, 0, 0, 0, 2.305735, 40.52577, 0, 0, 0, 0, 1.0583111, 41.78853, 0, 0, 0, 0, -0.6356722, 42.318665, 0, 0, 0, 0, -1.8132007, 43.64684, 0, 0, 0, 0, -2.2980886, 45.354324, 0, 0, 0, 0, -2.5593953, 47.109985, 0, 0, 0, 0, -3.8621798, 48.315548, 0, 0, 0, 0, -5.606433, 48.644493, 0, 0, 0, 0, -7.3161087, 49.121605, 0, 0, 0, 0, -9.082806, 49.293087, 0, 0, 0, 0, -10.6254835, 48.415154, 0, 0, 0, 0, -12.216219, 47.627636, 0, 0, 0, 0, -13.950592, 48.00523, 0, 0, 0, 0, -15.679899, 48.405384, 0, 0, 0, 0, -17.246317, 49.240223, 0, 0, 0, 0, -19.003975, 48.992714, 0, 0, 0, 0, -20.758957, 48.726887, 0, 0, 0, 0, -22.525766, 48.897205, 0, 0, 0, 0, -23.934166, 49.9775, 0, 0, 0, 0, -25.705996, 50.083546, 0, 0, 0, 0, -27.26943, 50.92396, 0, 0, 0, 0, -29.02969, 51.152245, 0, 0, 0, 0, -30.289967, 52.402176, 0, 0, 0, 0, -31.58565, 53.615368, 0, 0, 0, 0, -32.380848, 55.20228, 0, 0, 0, 0, -33.97708, 55.978592, 0, 0, 0, 0, -35.635715, 56.610695, 0, 0, 0, 0, -37.378918, 56.27622, 0, 0, 0, 0, -39.03917, 56.90406, 0, 0, 0, 0, -40.776028, 56.538063, 0, 0, 0, 0, -42.537823, 56.754173, 0, 0, 0, 0, -43.880386, 57.91527, 0, 0, 0, 0, -44.473526, 59.588238, 0, 0, 0, 0, -44.449615, 61.363075, 0, 0, 0, 0, -44.412888, 63.137695, 0, 0, 0, 0, -43.348698, 64.558304, 0, 0, 0, 0, -42.17912, 65.893486, 0, 0, 0, 0, -41.92548, 67.65027, 0, 0, 0, 0, -40.848427, 69.06115, 0, 0, 0, 0, -40.400475, 70.778694, 0, 0, 0, 0, -41.112335, 72.40469, 0, 0, 0, 0, -42.34955, 73.67746, 0, 0, 0, 0, -43.92892, 74.487526, 0, 0, 0, 0, -44.97743, 75.91975, 0, 0, 0, 0, -45.519028, 77.6101, 0, 0, 0, 0, -44.87388, 79.2637, 0, 0, 0, 0, -43.6914, 80.58747, 0, 0, 0, 0, -43.21235, 82.29661, 0, 0, 0, 0, -43.004868, 84.05944, 0, 0, 0, 0, -42.25235, 85.66703, 0, 0, 0, 0, -42.193188, 87.44104, 0, 0, 0, 0, -41.846226, 89.1818, 0, 0, 0, 0, -42.005863, 90.94961, 0, 0, 0, 0, -43.04389, 92.38944, 0, 0, 0, 0, -43.699688, 94.03886, 0, 0, 0, 0, -44.701073, 95.50441, 0, 0, 0, 0, -46.121964, 96.56822, 0, 0, 0, 0, -47.83238, 97.04268, 0, 0, 0, 0, -49.225952, 98.14203, 0, 0, 0, 0, -50.453613, 99.424, 0, 0, 0, 0, -51.69413, 100.69354, 0, 0, 0, 0, -52.977814, 101.91942, 0, 0, 0, 0, -54.68703, 102.39816, 0, 0, 0, 0, -56.45763, 102.27323, 0, 0, 0, 0, -58.20268, 102.59792, 0, 0, 0, 0, -59.938816, 102.967316, 0, 0, 0, 0, -61.103485, 104.30678, 0, 0, 0, 0, -61.146606, 106.08125, 0, 0, 0, 0, -62.082363, 107.58956, 0, 0, 0, 0, -63.201393, 108.967384, 0, 0, 0, 0, -63.65311, 110.683945, 0, 0, 0, 0, -63.625557, 112.45873, 0, 0, 0, 0, -63.011982, 114.12431, 0, 0, 0, 0, -61.481525, 115.023384, 0, 0, 0, 0, -60.5079, 116.50753, 0, 0, 0, 0, -59.13432, 117.63177, 0, 0, 0, 0, -57.570004, 118.470535, 0, 0, 0, 0, -56.62258, 119.97154, 0, 0, 0, 0, -55.140026, 120.94758, 0, 0, 0, 0, -53.612873, 121.85225)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.6858479, -0.5554654, 0, 0, 0, 0, -3.4291687, -0.88931835, 0, 0, 0, 0, -5.198399, -1.0323182, 0, 0, 0, 0, -6.9606614, -0.8200526, 0, 0, 0, 0, -8.695248, -0.4434395, 0, 0, 0, 0, -10.347668, 0.20473853, 0, 0, 0, 0, -12.0616665, 0.6660788, 0, 0, 0, 0, -13.828104, 0.84021664, 0, 0, 0, 0, -15.602041, 0.90162027, 0, 0, 0, 0, -17.34202, 1.2524755, 0, 0, 0, 0, -19.11667, 1.2876567, 0, 0, 0, 0, -20.859665, 0.9521059, 0, 0, 0, 0, -22.59636, 0.5853347, 0, 0, 0, 0, -24.36918, 0.4974292, 0, 0, 0, 0, -26.143415, 0.4452851, 0, 0, 0, 0, -27.917957, 0.40492314, 0, 0, 0, 0, -29.657547, 0.7577026, 0, 0, 0, 0, -31.432236, 0.790954, 0, 0, 0, 0, -33.190014, 1.0376247, 0, 0, 0, 0, -34.94532, 1.3012938, 0, 0, 0, 0, -36.6904, 1.6258202, 0, 0, 0, 0, -38.46256, 1.726176, 0, 0, 0, 0, -40.22459, 1.9403449, 0, 0, 0, 0, -41.999126, 1.8998439, 0, 0, 0, 0, -43.76425, 2.0867984, 0, 0, 0, 0, -45.53877, 2.0454597, 0, 0, 0, 0, -47.31215, 1.9696646, 0, 0, 0, 0, -49.08683, 2.0031998, 0, 0, 0, 0, -50.844143, 1.7532427, 0, 0, 0, 0, -52.61861, 1.7097278, 0, 0, 0, 0, -54.38411, 1.5263245, 0, 0, 0, 0, -56.120964, 1.160312, 0, 0, 0, 0, -57.891895, 1.0401932, 0, 0, 0, 0, -59.647198, 1.3039031, 0, 0, 0, 0, -61.421238, 1.3623058, 0, 0, 0, 0, -63.190178, 1.2157596, 0, 0, 0, 0, -64.957375, 1.0495275, 0, 0, 0, 0, -66.65606, 0.53465265, 0, 0, 0, 0, -68.42038, 0.34022546, 0, 0, 0, 0, -70.17, 0.041123718, 0, 0, 0, 0, -71.93608, -0.13658494, 0, 0, 0, 0, -73.70226, -0.31327665, 0, 0, 0, 0, -75.471146, -0.4604748, 0, 0, 0, 0, -77.2457, -0.5002225, 0, 0, 0, 0, -78.97827, -0.88598603, 0, 0, 0, 0, -80.65598, -1.4655626, 0, 0, 0, 0, -82.332565, -2.0483992, 0, 0, 0, 0, -84.08927, -2.302583, 0, 0, 0, 0, -85.77695, -2.8524733, 0, 0, 0, 0, -87.51407, -3.2171946, 0, 0, 0, 0, -89.25094, -3.5831335, 0, 0, 0, 0, -90.9961, -3.907201, 0, 0, 0, 0, -92.76279, -4.0787883, 0, 0, 0, 0, -94.52759, -4.2687664, 0, 0, 0, 0, -96.22576, -4.7853293, 0, 0, 0, 0, -97.875916, -5.4392447, 0, 0, 0, 0, -99.53575, -6.0681877, 0, 0, 0, 0, -101.289, -6.3452134, 0, 0, 0, 0, -103.061676, -6.4361086, 0, 0, 0, 0, -104.818, -6.1793084, 0, 0, 0, 0, -106.58983, -6.0732565, 0, 0, 0, 0, -108.36318, -5.9967875, 0, 0, 0, 0, -110.13214, -5.850475, 0, 0, 0, 0, -111.84217, -5.374638, 0, 0, 0, 0, -113.53802, -4.850493, 0, 0, 0, 0, -115.22386, -4.2950225, 0, 0, 0, 0, -116.97237, -3.9894907, 0, 0, 0, 0, -118.741615, -3.8467624, 0, 0, 0, 0, -120.51657, -3.8338954, 0, 0, 0, 0, -122.2698, -4.111064, 0, 0, 0, 0, -124.04311, -4.0337853, 0, 0, 0, 0, -125.812645, -4.173031, 0, 0, 0, 0, -127.542694, -4.569955, 0, 0, 0, 0, -129.26355, -5.005014, 0, 0, 0, 0, -130.92712, -5.624005, 0, 0, 0, 0, -132.68199, -5.890577, 0, 0, 0, 0, -134.45691, -5.9078417, 0, 0, 0, 0, -136.2248, -5.7489905, 0, 0, 0, 0, -137.93259, -5.2651978, 0, 0, 0, 0, -139.65916, -4.853451, 0, 0, 0, 0, -141.38055, -4.420512, 0, 0, 0, 0, -143.14224, -4.203528, 0, 0, 0, 0, -144.91609, -4.2674217, 0, 0, 0, 0, -146.68687, -4.1450977, 0, 0, 0, 0, -148.44957, -3.9365263, 0, 0, 0, 0, -150.15486, -3.4439933, 0, 0, 0, 0, -151.88724, -3.0573323, 0, 0, 0, 0, -153.62035, -2.6739795, 0, 0, 0, 0, -155.3362, -2.2195632, 0, 0, 0, 0, -157.09937, -2.0150104, 0, 0, 0, 0, -158.8714, -1.9124506, 0, 0, 0, 0, -160.61865, -1.5998393, 0, 0, 0, 0, -162.28116, -0.9780017, 0, 0, 0, 0, -164.03139, -0.6825297, 0, 0, 0, 0, -165.79686, -0.4988857, 0, 0, 0, 0, -167.5627, -0.31875905, 0, 0, 0, 0, -169.29193, 0.08169058, 0, 0, 0, 0, -171.05257, 0.30705643, 0, 0, 0, 0, -172.82275, 0.1764992, 0, 0, 0, 0, -174.59775, 0.17863674, 0, 0, 0, 0, -176.36406, 0.0032523125, 0, 0, 0, 0, -178.11661, -0.27814895, 0, 0, 0, 0, -179.88873, -0.37917224, 0, 0, 0, 0, -181.6536, -0.18968609, 0, 0, 0, 0, -183.3481, 0.33880696, 0, 0, 0, 0, -185.0824, 0.71676993, 0, 0, 0, 0, -186.82596, 1.0493264, 0, 0, 0, 0, -188.47789, 1.6987435, 0, 0, 0, 0, -189.95372, 2.684926, 0, 0, 0, 0, -191.47676, 3.5964966, 0, 0, 0, 0, -193.15065, 4.187033, 0, 0, 0, 0, -194.85652, 4.677576, 0, 0, 0, 0, -196.56027, 5.1754484, 0, 0, 0, 0, -198.31091, 5.468469, 0, 0, 0, 0, -200.08115, 5.598551, 0, 0, 0, 0, -201.85611, 5.5862412, 0, 0, 0, 0, -203.63068, 5.625083, 0, 0, 0, 0, -205.40256, 5.519984, 0, 0, 0, 0, -207.1218, 5.078552)
 }
 point_count = 120
 
-[sub_resource type="Curve2D" id="Curve2D_8uaht"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.90024066, -1.5297686, 0, 0, 0, 0, 2.049161, -2.8827682, 0, 0, 0, 0, 3.0135765, -4.372912, 0, 0, 0, 0, 4.221573, -5.673439, 0, 0, 0, 0, 5.530327, -6.872517, 0, 0, 0, 0, 6.4369326, -8.398522, 0, 0, 0, 0, 7.8046494, -9.529882, 0, 0, 0, 0, 8.856753, -10.959464, 0, 0, 0, 0, 9.138656, -12.711936, 0, 0, 0, 0, 8.679536, -14.426531, 0, 0, 0, 0, 8.146908, -16.119732, 0, 0, 0, 0, 7.5650334, -17.796648, 0, 0, 0, 0, 6.2545, -18.993782, 0, 0, 0, 0, 4.579232, -19.580385, 0, 0, 0, 0, 3.2000966, -20.697798, 0, 0, 0, 0, 2.1389475, -22.120678, 0, 0, 0, 0, 1.9092653, -23.880754, 0, 0, 0, 0, 2.6279712, -25.503742, 0, 0, 0, 0, 3.6512756, -26.954077, 0, 0, 0, 0, 5.1284695, -27.938211, 0, 0, 0, 0, 5.937047, -29.518347, 0, 0, 0, 0, 6.9564466, -30.97143, 0, 0, 0, 0, 8.58922, -31.667618, 0, 0, 0, 0, 10.363531, -31.618172, 0, 0, 0, 0, 11.744156, -30.5026, 0, 0, 0, 0, 12.558962, -28.925667, 0, 0, 0, 0, 13.284734, -27.305828, 0, 0, 0, 0, 14.470567, -25.985062, 0, 0, 0, 0, 16.139765, -25.381401, 0, 0, 0, 0, 17.544302, -24.29609, 0, 0, 0, 0, 19.01396, -23.300735, 0, 0, 0, 0, 20.78685, -23.387266, 0, 0, 0, 0, 22.297789, -22.455769, 0, 0, 0, 0, 24.00034, -21.95383, 0, 0, 0, 0, 25.735584, -21.580261, 0, 0, 0, 0, 27.297348, -20.736746, 0, 0, 0, 0, 28.1298, -19.169058, 0, 0, 0, 0, 28.8526, -17.54789, 0, 0, 0, 0, 29.693481, -15.984706, 0, 0, 0, 0, 30.542011, -14.425661, 0, 0, 0, 0, 31.814747, -13.188419, 0, 0, 0, 0, 33.468334, -12.54323, 0, 0, 0, 0, 35.19824, -12.940792, 0, 0, 0, 0, 36.896946, -12.425996, 0, 0, 0, 0, 38.6059, -11.946312, 0, 0, 0, 0, 40.377895, -12.049539, 0, 0, 0, 0, 41.677, -13.259066, 0, 0, 0, 0, 42.143597, -14.97164, 0, 0, 0, 0, 43.451984, -16.171116, 0, 0, 0, 0, 45.22403, -16.273481, 0, 0, 0, 0, 46.835777, -17.01705, 0, 0, 0, 0, 47.90724, -18.432177, 0, 0, 0, 0, 48.93573, -19.87884, 0, 0, 0, 0, 50.5722, -20.566294, 0, 0, 0, 0, 52.12512, -21.425985, 0, 0, 0, 0, 53.772446, -22.086994, 0, 0, 0, 0, 55.547283, -22.063091, 0, 0, 0, 0, 57.322105, -22.08821, 0, 0, 0, 0, 59.05663, -22.465107, 0, 0, 0, 0, 60.807194, -22.17159, 0, 0, 0, 0, 62.259712, -21.151384, 0, 0, 0, 0, 62.742653, -19.443346, 0, 0, 0, 0, 63.850258, -18.056322, 0, 0, 0, 0, 65.42961, -17.24622, 0, 0, 0, 0, 66.569145, -15.8853035, 0, 0, 0, 0, 66.78005, -14.122878, 0, 0, 0, 0, 66.8844, -12.350948, 0, 0, 0, 0, 66.48243, -10.622062, 0, 0, 0, 0, 66.416336, -8.848292, 0, 0, 0, 0, 67.438065, -7.396846, 0, 0, 0, 0, 68.86575, -6.342177, 0, 0, 0, 0, 70.57522, -5.864306, 0, 0, 0, 0, 72.342285, -5.6966443, 0, 0, 0, 0, 74.03303, -6.2370358)
-}
-point_count = 75
-
-[sub_resource type="Curve2D" id="Curve2D_au78y"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.6297933, -0.70313513, 0, 0, 0, 0, 3.1766, -1.5737753, 0, 0, 0, 0, 4.9305887, -1.8460774, 0, 0, 0, 0, 6.314522, -2.9575424, 0, 0, 0, 0, 7.736027, -4.020533, 0, 0, 0, 0, 8.58717, -5.5781536, 0, 0, 0, 0, 10.186684, -6.3476853, 0, 0, 0, 0, 11.95993, -6.2688265, 0, 0, 0, 0, 13.492954, -7.163512, 0, 0, 0, 0, 15.167811, -7.751285, 0, 0, 0, 0, 16.922165, -8.021227, 0, 0, 0, 0, 18.569445, -7.3600945, 0, 0, 0, 0, 20.319622, -7.0642824, 0, 0, 0, 0, 22.058813, -7.419024, 0, 0, 0, 0, 23.797367, -7.776873, 0, 0, 0, 0, 25.500795, -8.275827, 0, 0, 0, 0, 27.176115, -8.862284, 0, 0, 0, 0, 28.950848, -8.89305, 0, 0, 0, 0, 30.688503, -9.255239, 0, 0, 0, 0, 32.43863, -9.551353, 0, 0, 0, 0, 34.042446, -8.79083, 0, 0, 0, 0, 35.783752, -9.135039, 0, 0, 0, 0, 37.53686, -8.857134, 0, 0, 0, 0, 38.927433, -7.7539883, 0, 0, 0, 0, 40.311325, -6.6424737, 0, 0, 0, 0, 40.942825, -4.983609, 0, 0, 0, 0, 42.392906, -3.9599419, 0, 0, 0, 0, 43.72584, -2.7878056, 0, 0, 0, 0, 44.28071, -1.1017606, 0, 0, 0, 0, 45.232914, 0.39621377, 0, 0, 0, 0, 46.624966, 1.4974948, 0, 0, 0, 0, 47.50735, 3.0376325, 0, 0, 0, 0, 48.386383, 4.579686, 0, 0, 0, 0, 49.793518, 5.6616287, 0, 0, 0, 0, 51.27741, 6.635637, 0, 0, 0, 0, 53.04018, 6.8436165, 0, 0, 0, 0, 54.794746, 6.5750556, 0, 0, 0, 0, 56.513607, 6.132178, 0, 0, 0, 0, 58.245884, 5.745081, 0, 0, 0, 0, 59.898544, 6.392642, 0, 0, 0, 0, 60.92079, 7.8437214, 0, 0, 0, 0, 62.526814, 8.599573, 0, 0, 0, 0, 63.890842, 9.735375, 0, 0, 0, 0, 65.48582, 10.514271, 0, 0, 0, 0, 67.1155, 11.217649, 0, 0, 0, 0, 68.46422, 12.371596, 0, 0, 0, 0, 70.23487, 12.4957485, 0, 0, 0, 0, 71.76068, 13.40268, 0, 0, 0, 0, 73.49708, 13.770845, 0, 0, 0, 0, 75.255066, 14.016017, 0, 0, 0, 0, 76.83679, 13.21056, 0, 0, 0, 0, 78.09343, 11.956968, 0, 0, 0, 0, 79.63456, 11.076326, 0, 0, 0, 0, 81.409546, 11.06871, 0, 0, 0, 0, 83.18254, 11.152994, 0, 0, 0, 0, 84.834, 10.502376, 0, 0, 0, 0, 86.39369, 9.655044, 0, 0, 0, 0, 88.11672, 9.228678, 0, 0, 0, 0, 89.31628, 7.9203644, 0, 0, 0, 0, 90.70904, 6.8199797, 0, 0, 0, 0, 91.99966, 5.6014075, 0, 0, 0, 0, 92.839714, 4.037783, 0, 0, 0, 0, 93.58854, 2.4284704, 0, 0, 0, 0, 93.74916, 0.66075313, 0, 0, 0, 0, 94.664085, -0.8602779, 0, 0, 0, 0, 96.26903, -1.618424, 0, 0, 0, 0, 98.02295, -1.8911461, 0, 0, 0, 0, 99.73627, -2.355011)
-}
-point_count = 69
-
 [sub_resource type="Curve2D" id="Curve2D_8l58v"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.6761373, 1.6411774, 0, 0, 0, 0, -1.3750694, 3.2727776, 0, 0, 0, 0, -2.552501, 4.6010394, 0, 0, 0, 0, -3.6882036, 5.9651527, 0, 0, 0, 0, -5.344711, 6.602812, 0, 0, 0, 0, -6.3828773, 8.042546, 0, 0, 0, 0, -7.8871355, 8.984796, 0, 0, 0, 0, -9.500987, 9.723787, 0, 0, 0, 0, -11.257627, 9.469142, 0, 0, 0, 0, -13.022699, 9.281677, 0, 0, 0, 0, -14.357833, 8.112043, 0, 0, 0, 0, -15.157009, 6.527133, 0, 0, 0, 0, -16.646418, 5.5615826, 0, 0, 0, 0, -17.502943, 4.0069156, 0, 0, 0, 0, -18.802658, 2.7980452, 0, 0, 0, 0, -20.420906, 2.0687323, 0, 0, 0, 0, -22.192684, 2.1756325, 0, 0, 0, 0, -23.928045, 2.5486581, 0, 0, 0, 0, -25.688353, 2.7765667, 0, 0, 0, 0, -27.116463, 3.8306675, 0, 0, 0, 0, -28.573778, 4.844007, 0, 0, 0, 0, -30.197035, 5.5621037, 0, 0, 0, 0, -31.970995, 5.6228504, 0, 0, 0, 0, -33.745285, 5.6730847, 0, 0, 0, 0, -35.491215, 5.353164, 0, 0, 0, 0, -37.263687, 5.2585015, 0, 0, 0, 0, -39.03753, 5.322649, 0, 0, 0, 0, -40.666218, 4.6169605, 0, 0, 0, 0, -42.432472, 4.7929506, 0, 0, 0, 0, -44.201836, 4.651613, 0, 0, 0, 0, -45.95845, 4.3968053, 0, 0, 0, 0, -47.688324, 4.7945023, 0, 0, 0, 0, -49.296783, 4.043846, 0, 0, 0, 0, -51.058, 4.2646327, 0, 0, 0, 0, -52.612892, 3.4085207, 0, 0, 0, 0, -53.42581, 1.8306146, 0, 0, 0, 0, -53.083344, 0.088965654, 0, 0, 0, 0, -52.406013, -1.5517203, 0, 0, 0, 0, -50.988674, -2.6202562, 0, 0, 0, 0, -49.564754, -3.6800094, 0, 0, 0, 0, -47.876, -4.226567, 0, 0, 0, 0, -46.522713, -5.3751497, 0, 0, 0, 0, -46.22096, -7.1243124, 0, 0, 0, 0, -45.168686, -8.55377, 0, 0, 0, 0, -45.187782, -10.328667, 0, 0, 0, 0, -44.962864, -12.089358, 0, 0, 0, 0, -44.414383, -13.777492, 0, 0, 0, 0, -43.375435, -15.216662, 0, 0, 0, 0, -41.803436, -16.040945, 0, 0, 0, 0, -40.04596, -15.792137, 0, 0, 0, 0, -38.3352, -15.318926, 0, 0, 0, 0, -36.56146, -15.252115, 0, 0, 0, 0, -34.789837, -15.142689, 0, 0, 0, 0, -33.136612, -14.496566, 0, 0, 0, 0, -31.362011, -14.458992, 0, 0, 0, 0, -29.625313, -14.092247, 0, 0, 0, 0, -28.318985, -12.890527, 0, 0, 0, 0, -26.702879, -12.15648, 0, 0, 0, 0, -25.02524, -11.576696, 0, 0, 0, 0, -23.277634, -11.88734, 0, 0, 0, 0, -21.714436, -11.046485, 0, 0, 0, 0, -19.950718, -11.246301)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5093818, -0.9340194, 0, 0, 0, 0, 3.0682127, -1.7829429, 0, 0, 0, 0, 4.590242, -2.6962078, 0, 0, 0, 0, 6.16109, -3.5226831, 0, 0, 0, 0, 7.752864, -4.3081, 0, 0, 0, 0, 9.263498, -5.2400928, 0, 0, 0, 0, 10.867864, -5.9994583, 0, 0, 0, 0, 12.407277, -6.8831043, 0, 0, 0, 0, 13.793991, -7.991098, 0, 0, 0, 0, 15.018067, -9.276502, 0, 0, 0, 0, 16.22416, -10.578794, 0, 0, 0, 0, 17.417936, -11.892385)
 }
-point_count = 63
+point_count = 13
 
 [sub_resource type="Curve2D" id="Curve2D_w4um4"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.48053753, 1.7087156, 0, 0, 0, 0, -0.025447458, 3.4243839, 0, 0, 0, 0, -0.653934, 5.0843925, 0, 0, 0, 0, -1.3376936, 6.7224092, 0, 0, 0, 0, -2.3089907, 8.2080765, 0, 0, 0, 0, -3.7154655, 9.290875, 0, 0, 0, 0, -5.107368, 10.3923435, 0, 0, 0, 0, -6.6666374, 11.240461, 0, 0, 0, 0, -8.426541, 11.471465, 0, 0, 0, 0, -10.188404, 11.687022, 0, 0, 0, 0, -11.93921, 11.394954, 0, 0, 0, 0, -13.4775715, 10.509477, 0, 0, 0, 0, -14.7500725, 9.271993, 0, 0, 0, 0, -16.035542, 8.047984, 0, 0, 0, 0, -17.425201, 6.9436874, 0, 0, 0, 0, -18.747463, 5.759521, 0, 0, 0, 0, -19.73302, 4.2832756, 0, 0, 0, 0, -19.846405, 2.5119007, 0, 0, 0, 0, -18.945705, 0.9824028, 0, 0, 0, 0, -19.00453, -0.79162216, 0, 0, 0, 0, -19.68674, -2.430284, 0, 0, 0, 0, -19.324383, -4.167904, 0, 0, 0, 0, -19.44788, -5.9386024, 0, 0, 0, 0, -19.845282, -7.668544, 0, 0, 0, 0, -20.837969, -9.140004, 0, 0, 0, 0, -21.110012, -10.894033, 0, 0, 0, 0, -20.27887, -12.462417, 0, 0, 0, 0, -18.759083, -13.379407, 0, 0, 0, 0, -17.663105, -14.775637, 0, 0, 0, 0, -16.043465, -15.501853, 0, 0, 0, 0, -14.709576, -16.672907, 0, 0, 0, 0, -12.935476, -16.729431, 0, 0, 0, 0, -11.596646, -17.894833, 0, 0, 0, 0, -9.831161, -18.078365, 0, 0, 0, 0, -8.056585, -18.039522, 0, 0, 0, 0, -6.455933, -18.806684, 0, 0, 0, 0, -4.781221, -19.394873, 0, 0, 0, 0, -3.0426774, -19.036974, 0, 0, 0, 0, -1.5982716, -18.005316, 0, 0, 0, 0, 0.07573366, -17.41512, 0, 0, 0, 0, 1.3462396, -16.175587, 0, 0, 0, 0, 3.017025, -15.576336, 0, 0, 0, 0, 4.7431016, -15.990203, 0, 0, 0, 0, 6.134063, -17.09286, 0, 0, 0, 0, 7.1098905, -18.575554, 0, 0, 0, 0, 8.757007, -19.237093, 0, 0, 0, 0, 10.511995, -18.971312, 0, 0, 0, 0, 11.87595, -17.835419, 0, 0, 0, 0, 12.833434, -16.340813, 0, 0, 0, 0, 14.079216, -15.076434, 0, 0, 0, 0, 15.125975, -13.642935, 0, 0, 0, 0, 15.52096, -11.91244, 0, 0, 0, 0, 16.701672, -10.587092, 0, 0, 0, 0, 17.449545, -8.977337, 0, 0, 0, 0, 17.957724, -7.276637, 0, 0, 0, 0, 18.846102, -5.739949, 0, 0, 0, 0, 19.533648, -4.103518, 0, 0, 0, 0, 20.873878, -2.9397287, 0, 0, 0, 0, 22.032055, -1.5946441)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.071562, 1.4150547, 0, 0, 0, 0, 2.176847, 2.8039284, 0, 0, 0, 0, 3.150985, 4.2877345, 0, 0, 0, 0, 3.828535, 5.928329, 0, 0, 0, 0, 4.4695807, 7.5835285, 0, 0, 0, 0, 5.149976, 9.222945, 0, 0, 0, 0, 5.832958, 10.861286, 0, 0, 0, 0, 6.6714387, 12.425759, 0, 0, 0, 0, 7.7037005, 13.869733, 0, 0, 0, 0, 8.99334, 15.089346, 0, 0, 0, 0, 10.061451, 16.507008)
 }
-point_count = 60
+point_count = 12
 
 [sub_resource type="Curve2D" id="Curve2D_wsdp1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.7356633, -0.3716157, 0, 0, 0, 0, 3.5095, -0.43586862, 0, 0, 0, 0, 5.1599216, 0.21737957, 0, 0, 0, 0, 6.8160076, 0.8561309, 0, 0, 0, 0, 8.553052, 1.2212355, 0, 0, 0, 0, 10.282552, 0.821916, 0, 0, 0, 0, 11.539812, -0.43104863, 0, 0, 0, 0, 13.289038, -0.7324396, 0, 0, 0, 0, 15.031998, -0.3967106, 0, 0, 0, 0, 16.80533, -0.4736247, 0, 0, 0, 0, 18.56866, -0.27042574, 0, 0, 0, 0, 19.849844, 0.9580671, 0, 0, 0, 0, 20.698895, 2.5168285, 0, 0, 0, 0, 22.252996, 3.3743787, 0, 0, 0, 0, 23.079317, 4.9453077, 0, 0, 0, 0, 22.962189, 6.7164392, 0, 0, 0, 0, 23.724745, 8.319291, 0, 0, 0, 0, 24.74679, 9.7705145, 0, 0, 0, 0, 26.437977, 10.309504, 0, 0, 0, 0, 28.207134, 10.453416, 0, 0, 0, 0, 29.74485, 9.566817, 0, 0, 0, 0, 31.516836, 9.670215, 0, 0, 0, 0, 33.20091, 9.10939, 0, 0, 0, 0, 34.97376, 9.196768, 0, 0, 0, 0, 36.414406, 10.233669, 0, 0, 0, 0, 37.860798, 11.26254, 0, 0, 0, 0, 38.527344, 12.907637, 0, 0, 0, 0, 39.692837, 14.246387, 0, 0, 0, 0, 40.69184, 15.713566, 0, 0, 0, 0, 41.500008, 17.293911, 0, 0, 0, 0, 42.883114, 18.406404, 0, 0, 0, 0, 44.117928, 19.681498, 0, 0, 0, 0, 44.66542, 21.369951, 0, 0, 0, 0, 45.42613, 22.97368, 0, 0, 0, 0, 46.90973, 23.948132, 0, 0, 0, 0, 48.25034, 25.111485, 0, 0, 0, 0, 49.81674, 25.946365, 0, 0, 0, 0, 51.19963, 27.059124, 0, 0, 0, 0, 52.192787, 28.530268, 0, 0, 0, 0, 52.47052, 30.283405, 0, 0, 0, 0, 52.303253, 32.050507, 0, 0, 0, 0, 51.51426, 33.64051, 0, 0, 0, 0, 51.2406, 35.394287, 0, 0, 0, 0, 51.31151, 37.16787, 0, 0, 0, 0, 50.743816, 38.84964, 0, 0, 0, 0, 49.446335, 40.060905, 0, 0, 0, 0, 47.74728, 40.574554, 0, 0, 0, 0, 46.472652, 41.809845, 0, 0, 0, 0, 45.116344, 42.95486)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.231189, 1.2785925, 0, 0, 0, 0, 2.533643, 2.4845107, 0, 0, 0, 0, 3.9816027, 3.5111742, 0, 0, 0, 0, 5.480385, 4.462109, 0, 0, 0, 0, 7.011774, 5.35959, 0, 0, 0, 0, 8.674179, 5.981712, 0, 0, 0, 0, 10.406052, 6.3706093, 0, 0, 0, 0, 12.166871, 6.594531, 0, 0, 0, 0, 13.941437, 6.5552807, 0, 0, 0, 0, 15.681322, 6.203963)
 }
-point_count = 50
+point_count = 11
 
 [sub_resource type="Curve2D" id="Curve2D_04oug"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.563567, 0.8401685, 0, 0, 0, 0, -3.2145119, 1.4920931, 0, 0, 0, 0, -4.492388, 2.7240262, 0, 0, 0, 0, -5.9057045, 3.7978797, 0, 0, 0, 0, -7.2398252, 4.9686685, 0, 0, 0, 0, -8.781209, 5.848874, 0, 0, 0, 0, -10.059056, 7.080837, 0, 0, 0, 0, -11.700717, 7.7558007, 0, 0, 0, 0, -13.431149, 8.151064, 0, 0, 0, 0, -15.068309, 8.83687, 0, 0, 0, 0, -16.701775, 9.531431, 0, 0, 0, 0, -18.476772, 9.52807, 0, 0, 0, 0, -20.188065, 9.999347, 0, 0, 0, 0, -21.960308, 10.0982275, 0, 0, 0, 0, -23.714819, 10.36714, 0, 0, 0, 0, -25.48866, 10.4312315, 0, 0, 0, 0, -27.257551, 10.578371, 0, 0, 0, 0, -28.98373, 10.991809, 0, 0, 0, 0, -30.737629, 10.718923, 0, 0, 0, 0, -32.501404, 10.918238, 0, 0, 0, 0, -34.246693, 11.2416525, 0, 0, 0, 0, -36.019577, 11.15499, 0, 0, 0, 0, -37.79345, 11.218295, 0, 0, 0, 0, -39.545525, 10.933948, 0, 0, 0, 0, -41.298275, 10.653785, 0, 0, 0, 0, -42.952797, 10.010992, 0, 0, 0, 0, -44.675957, 9.585147, 0, 0, 0, 0, -46.081535, 8.501184, 0, 0, 0, 0, -47.546455, 7.4988728)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.2780901, -1.2317101, 0, 0, 0, 0, -2.550639, -2.4691443, 0, 0, 0, 0, -3.6888194, -3.8311906, 0, 0, 0, 0, -4.840546, -5.181802, 0, 0, 0, 0, -5.756265, -6.7023554)
 }
-point_count = 30
+point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_njwum"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.27195448, -1.7540427, 0, 0, 0, 0, -0.15579727, -3.525238, 0, 0, 0, 0, 0.5949509, -5.133654, 0, 0, 0, 0, 0.6168419, -6.9085193, 0, 0, 0, 0, 0.7270026, -8.680098, 0, 0, 0, 0, 1.1795754, -10.396432, 0, 0, 0, 0, 2.0396283, -11.94915, 0, 0, 0, 0, 2.3103185, -13.703388, 0, 0, 0, 0, 2.259, -15.477646, 0, 0, 0, 0, 1.7042663, -17.163734)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.6356341, -0.689439, 0, 0, 0, 0, 3.3002617, -1.3055882, 0, 0, 0, 0, 4.9989867, -1.8203287)
 }
-point_count = 11
+point_count = 4
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kpjr3"]
 texture = ExtResource("21_wq420")
@@ -2450,7 +2438,7 @@ z_index = 5
 [node name="Debris1" type="Node2D" parent="Land_layers/Debris" unique_id=698348849]
 position = Vector2(1890, 1176)
 script = ExtResource("22_kpjr3")
-debris_textures_folder = "res://Assets/Léonce/Props/Trash/"
+debris_textures_folder = "res://Assets/Props/Trash/"
 debris_textures = Array[Texture2D]([ExtResource("23_1eaev"), ExtResource("24_bm8kg"), ExtResource("25_eyeis"), ExtResource("26_wgbkv"), ExtResource("27_ebcnj"), ExtResource("28_m6xhe"), ExtResource("29_2so35"), ExtResource("30_7i38y"), ExtResource("31_q80h7"), ExtResource("32_uqknt"), ExtResource("33_762fv"), ExtResource("34_unwpx"), ExtResource("35_siu12"), ExtResource("36_mqeix"), ExtResource("37_41ema"), ExtResource("38_q4v6q"), ExtResource("39_5dgyk"), ExtResource("40_8uaht"), ExtResource("41_au78y"), ExtResource("42_8l58v"), ExtResource("43_w4um4"), ExtResource("44_wsdp1"), ExtResource("45_04oug"), ExtResource("46_njwum"), ExtResource("47_1113p"), ExtResource("48_h75je"), ExtResource("49_5trsw"), ExtResource("50_gg4ck"), ExtResource("51_jyj36"), ExtResource("52_mkn34"), ExtResource("53_b62f6"), ExtResource("54_avlko"), ExtResource("55_uhr7h"), ExtResource("56_8l2sf"), ExtResource("57_xwer6"), ExtResource("58_qbjlx"), ExtResource("59_ptxeq"), ExtResource("60_k66vp"), ExtResource("61_scbe7"), ExtResource("62_xcfsb"), ExtResource("63_vx4db"), ExtResource("64_0os8l"), ExtResource("65_xdas5"), ExtResource("66_qr506"), ExtResource("67_uoimx"), ExtResource("68_mffiu"), ExtResource("69_jvd2b"), ExtResource("70_v1ttx")])
 bounds_size = Vector2i(70, 324)
 pixel_size = 1
@@ -2766,7 +2754,7 @@ modulate = Color(0.11858138, 0.11858138, 0.11858138, 1)
 position = Vector2(2548, 1312)
 rotation = 1.5707964
 script = ExtResource("22_kpjr3")
-debris_textures_folder = "res://Assets/Léonce/Props/Trash/"
+debris_textures_folder = "res://Assets/Props/Trash/"
 debris_textures = Array[Texture2D]([ExtResource("23_1eaev"), ExtResource("24_bm8kg"), ExtResource("25_eyeis"), ExtResource("26_wgbkv"), ExtResource("27_ebcnj"), ExtResource("28_m6xhe"), ExtResource("29_2so35"), ExtResource("30_7i38y"), ExtResource("31_q80h7"), ExtResource("32_uqknt"), ExtResource("33_762fv"), ExtResource("34_unwpx"), ExtResource("35_siu12"), ExtResource("36_mqeix"), ExtResource("37_41ema"), ExtResource("38_q4v6q"), ExtResource("39_5dgyk"), ExtResource("40_8uaht"), ExtResource("41_au78y"), ExtResource("42_8l58v"), ExtResource("43_w4um4"), ExtResource("44_wsdp1"), ExtResource("45_04oug"), ExtResource("46_njwum"), ExtResource("47_1113p"), ExtResource("48_h75je"), ExtResource("49_5trsw"), ExtResource("50_gg4ck"), ExtResource("51_jyj36"), ExtResource("52_mkn34"), ExtResource("53_b62f6"), ExtResource("54_avlko"), ExtResource("55_uhr7h"), ExtResource("56_8l2sf"), ExtResource("57_xwer6"), ExtResource("58_qbjlx"), ExtResource("59_ptxeq"), ExtResource("60_k66vp"), ExtResource("61_scbe7"), ExtResource("62_xcfsb"), ExtResource("63_vx4db"), ExtResource("64_0os8l"), ExtResource("65_xdas5"), ExtResource("66_qr506"), ExtResource("67_uoimx"), ExtResource("68_mffiu"), ExtResource("69_jvd2b"), ExtResource("70_v1ttx")])
 bounds_size = Vector2i(23, 336)
 pixel_size = 1
@@ -2858,7 +2846,7 @@ flip_v = true
 position = Vector2(2556, 1313)
 rotation = 1.5707964
 script = ExtResource("22_kpjr3")
-debris_textures_folder = "res://Assets/Léonce/Props/Trash/"
+debris_textures_folder = "res://Assets/Props/Trash/"
 debris_textures = Array[Texture2D]([ExtResource("23_1eaev"), ExtResource("24_bm8kg"), ExtResource("25_eyeis"), ExtResource("26_wgbkv"), ExtResource("27_ebcnj"), ExtResource("28_m6xhe"), ExtResource("29_2so35"), ExtResource("30_7i38y"), ExtResource("31_q80h7"), ExtResource("32_uqknt"), ExtResource("33_762fv"), ExtResource("34_unwpx"), ExtResource("35_siu12"), ExtResource("36_mqeix"), ExtResource("37_41ema"), ExtResource("38_q4v6q"), ExtResource("39_5dgyk"), ExtResource("40_8uaht"), ExtResource("41_au78y"), ExtResource("42_8l58v"), ExtResource("43_w4um4"), ExtResource("44_wsdp1"), ExtResource("45_04oug"), ExtResource("46_njwum"), ExtResource("47_1113p"), ExtResource("48_h75je"), ExtResource("49_5trsw"), ExtResource("50_gg4ck"), ExtResource("51_jyj36"), ExtResource("52_mkn34"), ExtResource("53_b62f6"), ExtResource("54_avlko"), ExtResource("55_uhr7h"), ExtResource("56_8l2sf"), ExtResource("57_xwer6"), ExtResource("58_qbjlx"), ExtResource("59_ptxeq"), ExtResource("60_k66vp"), ExtResource("61_scbe7"), ExtResource("62_xcfsb"), ExtResource("63_vx4db"), ExtResource("64_0os8l"), ExtResource("65_xdas5"), ExtResource("66_qr506"), ExtResource("67_uoimx"), ExtResource("68_mffiu"), ExtResource("69_jvd2b"), ExtResource("70_v1ttx")])
 bounds_size = Vector2i(93, 336)
 pixel_size = 1
@@ -3312,7 +3300,7 @@ flip_v = true
 position = Vector2(1892, 1439)
 rotation = 1.5707964
 script = ExtResource("22_kpjr3")
-debris_textures_folder = "res://Assets/Léonce/Props/Trash/"
+debris_textures_folder = "res://Assets/Props/Trash/"
 debris_textures = Array[Texture2D]([ExtResource("23_1eaev"), ExtResource("24_bm8kg"), ExtResource("25_eyeis"), ExtResource("26_wgbkv"), ExtResource("27_ebcnj"), ExtResource("28_m6xhe"), ExtResource("29_2so35"), ExtResource("30_7i38y"), ExtResource("31_q80h7"), ExtResource("32_uqknt"), ExtResource("33_762fv"), ExtResource("34_unwpx"), ExtResource("35_siu12"), ExtResource("36_mqeix"), ExtResource("37_41ema"), ExtResource("38_q4v6q"), ExtResource("39_5dgyk"), ExtResource("40_8uaht"), ExtResource("41_au78y"), ExtResource("42_8l58v"), ExtResource("43_w4um4"), ExtResource("44_wsdp1"), ExtResource("45_04oug"), ExtResource("46_njwum"), ExtResource("47_1113p"), ExtResource("48_h75je"), ExtResource("49_5trsw"), ExtResource("50_gg4ck"), ExtResource("51_jyj36"), ExtResource("52_mkn34"), ExtResource("53_b62f6"), ExtResource("54_avlko"), ExtResource("55_uhr7h"), ExtResource("56_8l2sf"), ExtResource("57_xwer6"), ExtResource("58_qbjlx"), ExtResource("59_ptxeq"), ExtResource("60_k66vp"), ExtResource("61_scbe7"), ExtResource("62_xcfsb"), ExtResource("63_vx4db"), ExtResource("64_0os8l"), ExtResource("65_xdas5"), ExtResource("66_qr506"), ExtResource("67_uoimx"), ExtResource("68_mffiu"), ExtResource("69_jvd2b"), ExtResource("70_v1ttx")])
 bounds_size = Vector2i(15, 335)
 pixel_size = 1
@@ -3460,7 +3448,7 @@ flip_h = true
 position = Vector2(1898, 1201)
 rotation = 1.5707964
 script = ExtResource("22_kpjr3")
-debris_textures_folder = "res://Assets/Léonce/Props/Trash/"
+debris_textures_folder = "res://Assets/Props/Trash/"
 debris_textures = Array[Texture2D]([ExtResource("23_1eaev"), ExtResource("24_bm8kg"), ExtResource("25_eyeis"), ExtResource("26_wgbkv"), ExtResource("27_ebcnj"), ExtResource("28_m6xhe"), ExtResource("29_2so35"), ExtResource("30_7i38y"), ExtResource("31_q80h7"), ExtResource("32_uqknt"), ExtResource("33_762fv"), ExtResource("34_unwpx"), ExtResource("35_siu12"), ExtResource("36_mqeix"), ExtResource("37_41ema"), ExtResource("38_q4v6q"), ExtResource("39_5dgyk"), ExtResource("40_8uaht"), ExtResource("41_au78y"), ExtResource("42_8l58v"), ExtResource("43_w4um4"), ExtResource("44_wsdp1"), ExtResource("45_04oug"), ExtResource("46_njwum"), ExtResource("47_1113p"), ExtResource("48_h75je"), ExtResource("49_5trsw"), ExtResource("50_gg4ck"), ExtResource("51_jyj36"), ExtResource("52_mkn34"), ExtResource("53_b62f6"), ExtResource("54_avlko"), ExtResource("55_uhr7h"), ExtResource("56_8l2sf"), ExtResource("57_xwer6"), ExtResource("58_qbjlx"), ExtResource("59_ptxeq"), ExtResource("60_k66vp"), ExtResource("61_scbe7"), ExtResource("62_xcfsb"), ExtResource("63_vx4db"), ExtResource("64_0os8l"), ExtResource("65_xdas5"), ExtResource("66_qr506"), ExtResource("67_uoimx"), ExtResource("68_mffiu"), ExtResource("69_jvd2b"), ExtResource("70_v1ttx")])
 bounds_size = Vector2i(15, 335)
 pixel_size = 1
@@ -3610,9 +3598,11 @@ z_index = 6
 
 [node name="TireMarkSmall" parent="Roads/TireMarks" unique_id=401786165 instance=ExtResource("73_au78y")]
 position = Vector2(32, -115)
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/TiremarksSmall/"
 
 [node name="TireMarkBig" parent="Roads/TireMarks" unique_id=1984968233 instance=ExtResource("74_8l58v")]
 position = Vector2(13, -21)
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/TiremarksBig/"
 
 [node name="RoadPath" type="Node2D" parent="Roads" unique_id=626982507]
 
@@ -3621,10 +3611,10 @@ position = Vector2(-13, 6)
 curve = SubResource("Curve2D_siu12")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH MAIN 96A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
 stamp_spacing = 43
 perpendicular_jitter = 19
-detail_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/RoadGrain/"
+detail_folder = "res://Assets/Textures/Roads/RoadBrushes/RoadGrain/"
 detail_spacing = 1
 detail_scatter_radius = 31
 detail_min_distance = 11
@@ -3646,10 +3636,10 @@ self_modulate = Color(1, 1, 1, 0.05490196)
 [node name="FillSurface" type="Node2D" parent="Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=2018918948]
+[node name="WearLine_0" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=598831824]
 self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
 
-[node name="WearLine_1" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=1949734913]
+[node name="WearLine_1" type="CanvasGroup" parent="Roads/RoadPath/RoadBrushPath2D3" unique_id=1639220149]
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
 [node name="RoadBrushPath2D4" type="Path2D" parent="Roads/RoadPath" unique_id=1462920717]
@@ -3657,10 +3647,10 @@ position = Vector2(-27, 25)
 curve = SubResource("Curve2D_mqeix")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH MAIN 96A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
 stamp_spacing = 34
 perpendicular_jitter = 2
-detail_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/RoadGrain/"
+detail_folder = "res://Assets/Textures/Roads/RoadBrushes/RoadGrain/"
 detail_spacing = 1
 detail_scatter_radius = 23
 detail_min_distance = 0
@@ -3680,134 +3670,106 @@ self_modulate = Color(0.25565878, 0.25565878, 0.25565878, 0.69803923)
 
 [node name="SerpentineCracks1" type="Node2D" parent="Roads/RoadCracks" unique_id=1883233838]
 z_index = 6
-position = Vector2(1491, 1036)
+position = Vector2(1670, 1090)
 script = ExtResource("81_mqeix")
 brush_script = ExtResource("80_unwpx")
-start_angle_degrees = 213.0
+start_angle_degrees = 193.0
 total_length = 209.945
 segment_length = 1.775
-max_turn_degrees = 45.0
+max_turn_degrees = 14.5
 turn_smoothing = 0.11
 branch_chance = 0.04
-branch_length_ratio = 0.65
+branch_length_ratio = 0.1
 branch_angle_spread_degrees = 274.48
 max_branch_depth = 1
 rng_seed = 2
-default_stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
-default_stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+default_stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
+default_stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 default_pixel_size = 1
 default_stamp_spacing = 1
 
-[node name="Crack_Root" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1034280860]
-curve = SubResource("Curve2D_5dgyk")
-script = ExtResource("80_unwpx")
-pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
-
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=901342158]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
-
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=1805104702]
-
-[node name="Crack_Branch_1" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=486464871]
-position = Vector2(-7.316368, -0.23301756)
-curve = SubResource("Curve2D_8uaht")
-script = ExtResource("80_unwpx")
-pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
-
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=890510974]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
-
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=111468892]
-
-[node name="Crack_Branch_2" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=2039628718]
-position = Vector2(0.6739657, 9.937362)
+[node name="Crack_Root" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=537551299]
 curve = SubResource("Curve2D_au78y")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=597611475]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=610113058]
+self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=612326201]
+[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=11329155]
 
-[node name="Crack_Branch_3" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=284516484]
-position = Vector2(5.3493176, 25.463)
+[node name="Crack_Branch_1" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=829898245]
+position = Vector2(-8.695248, -0.4434395)
 curve = SubResource("Curve2D_8l58v")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=1460743857]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=2045073805]
+self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=298039709]
+[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=1818165906]
 
-[node name="Crack_Branch_4" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1539997457]
-position = Vector2(11.660366, 28.560097)
+[node name="Crack_Branch_2" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1968252845]
+position = Vector2(-26.143415, 0.4452851)
 curve = SubResource("Curve2D_w4um4")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_4" unique_id=1015617412]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=1930804726]
+self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_4" unique_id=1453229292]
+[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=1369043204]
 
-[node name="Crack_Branch_5" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=65711488]
-position = Vector2(-1.8132007, 43.64684)
+[node name="Crack_Branch_3" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1355655525]
+position = Vector2(-49.08683, 2.0031998)
 curve = SubResource("Curve2D_wsdp1")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_5" unique_id=1211657791]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=1462834003]
+self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_5" unique_id=1826266931]
+[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=1821260251]
 
-[node name="Crack_Branch_6" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=65776184]
-position = Vector2(-44.412888, 63.137695)
+[node name="Crack_Branch_4" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1688101311]
+position = Vector2(-136.2248, -5.7489905)
 curve = SubResource("Curve2D_04oug")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_6" unique_id=217327820]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_4" unique_id=1184653091]
+self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_6" unique_id=1791966833]
+[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_4" unique_id=286569625]
 
-[node name="Crack_Branch_7" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1858327940]
-position = Vector2(-56.45763, 102.27323)
+[node name="Crack_Branch_5" type="Path2D" parent="Roads/RoadCracks/SerpentineCracks1" unique_id=1050142595]
+position = Vector2(-169.29193, 0.08169058)
 curve = SubResource("Curve2D_njwum")
 script = ExtResource("80_unwpx")
 pixel_size = 1
-stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/BRUSH 4A/"
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
 stamp_spacing = 1
-stamp_color = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+stamp_color = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_7" unique_id=1584469550]
-self_modulate = Color(0.0142752165, 0.014275219, 0.014275211, 1)
+[node name="StampLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_5" unique_id=1534136892]
+self_modulate = Color(0.0253638, 0.0253638, 0.025363795, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_7" unique_id=203530260]
+[node name="DetailLayer" type="CanvasGroup" parent="Roads/RoadCracks/SerpentineCracks1/Crack_Branch_5" unique_id=1015352763]
 
 [node name="Cracks" type="CanvasGroup" parent="Roads/RoadCracks" unique_id=560618745]
 self_modulate = Color(0.019607844, 0.019607844, 0.019607844, 0.5882353)
@@ -3849,29 +3811,29 @@ script = ExtResource("84_5dgyk")
 pixel_size = 1
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p"), SubResource("Resource_5dgyk"), SubResource("Resource_h75je"), SubResource("Resource_cenje"), SubResource("Resource_dqt2m")])
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=1297120485]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=682903643]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_0" unique_id=1807261716]
+[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_0" unique_id=589491810]
 script = ExtResource("86_au78y")
 
-[node name="MarkingLine_1" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=119483436]
+[node name="MarkingLine_1" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=1146602867]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_1" unique_id=851043890]
+[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_1" unique_id=156997251]
 script = ExtResource("86_au78y")
 
-[node name="MarkingLine_2" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=1234542223]
+[node name="MarkingLine_2" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=1872007589]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_2" unique_id=867749527]
+[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_2" unique_id=870533166]
 script = ExtResource("86_au78y")
 
-[node name="MarkingLine_3" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=709301822]
+[node name="MarkingLine_3" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=2000824867]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_3" unique_id=989719229]
+[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_3" unique_id=399990859]
 script = ExtResource("86_au78y")
 
-[node name="MarkingLine_4" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=1335131793]
+[node name="MarkingLine_4" type="CanvasGroup" parent="Roads/RoadMarks/RoadLine1" unique_id=589959081]
 
-[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_4" unique_id=1818304806]
+[node name="FillSurface" type="Node2D" parent="Roads/RoadMarks/RoadLine1/MarkingLine_4" unique_id=791272061]
 script = ExtResource("86_au78y")
 
 [node name="Arrows" type="Node2D" parent="Roads/RoadMarks" unique_id=1192627376]

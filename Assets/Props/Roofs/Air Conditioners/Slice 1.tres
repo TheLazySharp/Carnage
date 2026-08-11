@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://crvx0hyanu6up"]
+
+[ext_resource type="Texture2D" uid="uid://cju7wylek71rl" path="res://Assets/Props/Roofs/Air Conditioners/air_conditioners.png" id="1_oqtgm"]
+
+[resource]
+atlas = ExtResource("1_oqtgm")
+region = Rect2(0, 0, 81, 121)

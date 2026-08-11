@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bln3grsge0fm2"]
 
-[ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Assets/Léonce/Scripts/road_brush_path2d.gd" id="1_7a48u"]
+[ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Scripts/MAP TOOLS/road_brush_path2d.gd" id="1_7a48u"]
 
 [sub_resource type="Curve2D" id="Curve2D_q4v6q"]
 _data = {

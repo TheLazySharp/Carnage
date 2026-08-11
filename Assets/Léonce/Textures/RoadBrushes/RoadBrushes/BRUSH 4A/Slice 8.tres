@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://mjv3mq4iw7u1"]
-
-[ext_resource type="Texture2D" uid="uid://1ysvk807yi2h" path="res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/Ressources/road_fissure_serpentine.png" id="1_0ibas"]
-
-[resource]
-atlas = ExtResource("1_0ibas")
-region = Rect2(24, 0, 8, 8)

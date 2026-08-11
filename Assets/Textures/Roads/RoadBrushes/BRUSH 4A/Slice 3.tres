@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://oj0cqsidn8j1"]
+
+[ext_resource type="Texture2D" uid="uid://1ysvk807yi2h" path="res://Assets/Textures/Roads/RoadBrushes/Ressources/road_fissure_serpentine.png" id="1_51c1y"]
+
+[resource]
+atlas = ExtResource("1_51c1y")
+region = Rect2(8, 0, 8, 8)

@@ -5,11 +5,10 @@
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/hordes_manager.gd" id="3_8313k"]
 [ext_resource type="PackedScene" uid="uid://bbsq7ymxlm20s" path="res://Scenes/MANAGERS/audio_manager.tscn" id="4_qcxgn"]
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="5_l4xxo"]
-[ext_resource type="Texture2D" uid="uid://cm864gogrroh8" path="res://Shaders/daynightcycle-gradient-texture.tres" id="6_86uqb"]
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="7_bs4fq"]
 [ext_resource type="Texture2D" uid="uid://bnqi4ga22683s" path="res://Assets/TilesBNW/grass_BNW.png" id="8_g2sv0"]
 [ext_resource type="Texture2D" uid="uid://bqgd4p0rsoxmr" path="res://Assets/TilesBNW/road_32x32_BNW.png" id="9_yxjor"]
-[ext_resource type="Texture2D" uid="uid://tlhptwaxxjid" path="res://Assets/Tilsets/g_terrain1.png" id="10_7y0c2"]
+[ext_resource type="Texture2D" uid="uid://tlhptwaxxjid" path="res://Assets/Tilesets/g_terrain1.png" id="10_7y0c2"]
 [ext_resource type="Texture2D" uid="uid://x2t7fo48be7k" path="res://Assets/TilesBNW/placeholder.png" id="11_rr0rk"]
 [ext_resource type="Texture2D" uid="uid://cqiphjwy0mfc6" path="res://Assets/TilesBNW/road_edge_BNW.png" id="12_fmmuc"]
 [ext_resource type="Texture2D" uid="uid://bklicrq6b3kd4" path="res://Assets/TilesBNW/pavement_BNW.png" id="13_t5ak6"]
@@ -17,11 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://bg5bh6ul6jduf" path="res://Assets/TilesBNW/road_32x32_BNW_line.png" id="15_jpouj"]
 [ext_resource type="Texture2D" uid="uid://diwt8qxctu3iw" path="res://Assets/TilesBNW/road_BNW.png" id="16_siqcl"]
 [ext_resource type="Texture2D" uid="uid://btfp61nyne8jt" path="res://Assets/TilesBNW/parking.png" id="17_xp3pt"]
-[ext_resource type="Texture2D" uid="uid://flcn1qbe5bvo" path="res://Assets/Tilsets/road1.png" id="18_mhl8t"]
-[ext_resource type="Texture2D" uid="uid://c85wlo542cj06" path="res://Assets/Tilsets/road_32x32.png" id="19_bnf6u"]
-[ext_resource type="Texture2D" uid="uid://bks38teh85dtk" path="res://Assets/Tilsets/road_32x32H.png" id="20_hn0sd"]
-[ext_resource type="Texture2D" uid="uid://523fcj0rkldk" path="res://Assets/Tilsets/road_cut_32x32.png" id="21_jtpwy"]
-[ext_resource type="Texture2D" uid="uid://ddyqvd8lrr5nv" path="res://Assets/Tilsets/road_cut_32x32H.png" id="22_3yp8x"]
+[ext_resource type="Texture2D" uid="uid://flcn1qbe5bvo" path="res://Assets/Tilesets/road1.png" id="18_mhl8t"]
+[ext_resource type="Texture2D" uid="uid://c85wlo542cj06" path="res://Assets/Tilesets/road_32x32.png" id="19_bnf6u"]
+[ext_resource type="Texture2D" uid="uid://bks38teh85dtk" path="res://Assets/Tilesets/road_32x32H.png" id="20_hn0sd"]
+[ext_resource type="Texture2D" uid="uid://523fcj0rkldk" path="res://Assets/Tilesets/road_cut_32x32.png" id="21_jtpwy"]
+[ext_resource type="Texture2D" uid="uid://ddyqvd8lrr5nv" path="res://Assets/Tilesets/road_cut_32x32H.png" id="22_3yp8x"]
 [ext_resource type="Texture2D" uid="uid://krble3ht5j42" path="res://Assets/Props/building1.png" id="23_sovjl"]
 [ext_resource type="Texture2D" uid="uid://ccl4k8q0lsm1" path="res://Assets/Props/building3.png" id="24_fc5ph"]
 [ext_resource type="Texture2D" uid="uid://l7q388k73bhh" path="res://Assets/Props/cart_area.png" id="25_uxqh1"]
@@ -1023,7 +1022,6 @@ script = ExtResource("3_8313k")
 
 [node name="DayManager" type="Node" parent="." unique_id=862331373]
 script = ExtResource("5_l4xxo")
-gradient_light = ExtResource("6_86uqb")
 
 [node name="Land_layers" type="Node2D" parent="." unique_id=1449497454]
 z_as_relative = false

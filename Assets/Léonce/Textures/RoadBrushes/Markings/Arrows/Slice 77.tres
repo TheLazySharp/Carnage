@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://cxbpfrcraani5"]
-
-[ext_resource type="Texture2D" uid="uid://bp2mird5sb4mw" path="res://Assets/Léonce/Textures/RoadBrushes/Markings/Arrows/roadmarks_arrows.png" id="1_01xw2"]
-
-[resource]
-atlas = ExtResource("1_01xw2")
-region = Rect2(1421, 141, 62, 60)
