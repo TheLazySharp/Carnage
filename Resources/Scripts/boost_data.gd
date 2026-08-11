@@ -156,7 +156,7 @@ func get_rarity_string(boost_rarity : Rarities) -> String:
 func get_car_stat(target_stat : Target_Stats, car : CarData) -> Statistic:
 	match target_stat:
 		Target_Stats.ACCELERATION: return car.acceleration
-		Target_Stats.MAX_SPEED: return car.display_max_speed
+		Target_Stats.MAX_SPEED: return car.max_speed
 		Target_Stats.MAX_LIFE: return car.max_life
 		Target_Stats.MAX_FUEL: return car.max_fuel
 		Target_Stats.COLLECT_RADIUS: return car.collect_radius

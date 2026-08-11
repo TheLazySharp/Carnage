@@ -7,9 +7,9 @@ class_name CarData
 
 @export_group("MAIN STATS")
 @export var base_acceleration := 300
-@export var base_max_speed := 500
+@export var base_max_speed := 250
 @export var base_max_life : int = 250
-@export var base_display_max_speed : int = 250
+#@export var base_display_max_speed : int = 250
 @export var base_dmg : int = 15
 @export var base_dash_dmg_bonus : float = 1.0 #modifier in percent_mult = 100%
 @export var base_nitro_up : int = 10
@@ -90,7 +90,7 @@ enum Car_Upgrades {
 var acceleration: Statistic
 var max_speed: Statistic
 var max_life: Statistic
-var display_max_speed: Statistic
+#var display_max_speed: Statistic
 var dmg: Statistic
 var dash_dmg_bonus : Statistic #dmg during dash
 var dash_duration : Statistic #dash duration
@@ -125,12 +125,11 @@ func init_stats() -> void:
 	dash_duration = Statistic.new(base_dash_duration)
 	nitro_up = Statistic.new(base_nitro_up)
 	collect_radius = Statistic.new(base_collect_radius)
-	display_max_speed = Statistic.new(base_display_max_speed)
+	#display_max_speed = Statistic.new(base_display_max_speed)
 	drift_turn_bonus = Statistic.new(base_drift_turn_bonus)
 	max_fuel = Statistic.new(base_max_fuel)
 
 
-	
 func get_car_stat(stat : Car_Stats) -> Statistic:
 	match stat:
 		Car_Stats.ACCELERATION: return acceleration
@@ -145,3 +144,5 @@ func get_car_stat(stat : Car_Stats) -> Statistic:
 		Car_Stats.MAX_FUEL: return max_fuel
 	return null
 	
+func unscaled_speed()-> float:
+	return max_speed.get_value() * StatsManager.max_speed / StatsManager.display_max_speed

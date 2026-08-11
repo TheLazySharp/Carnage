@@ -9,9 +9,10 @@ signal stats_updated
 
 
 #MAX CAR STATS
-var max_life : int = 500
+var max_life : int = 700
 var max_fuel : int = 200
-var max_speed : int = 350
+var max_speed : int = 800
+var display_max_speed : int = 350
 var max_torque : int = 350
 var max_drift : int = 4
 var max_damages : int = 10
