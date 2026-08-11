@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bln3grsge0fm2"]
+
+[ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Assets/Léonce/Scripts/road_brush_path2d.gd" id="1_7a48u"]
+
+[sub_resource type="Curve2D" id="Curve2D_q4v6q"]
+_data = {
+"points": PackedVector2Array(60.59691, 71.39042, -60.59691, -71.39042, 2036, 1227, 65.28938, -15.160815, -65.28938, 15.160815, 1840, 1167)
+}
+point_count = 2
+
+[node name="TireMarkSmall" type="Path2D" unique_id=401786165]
+z_index = 6
+curve = SubResource("Curve2D_q4v6q")
+script = ExtResource("1_7a48u")
+pixel_size = 1
+stamp_folder = "res://Assets/Léonce/Textures/RoadBrushes/RoadBrushes/TiremarksSmall/"
+stamp_spacing = 1
+constrain_rotation_90 = false
+allow_flip = false
+fade_start_length = 168
+stamp_color = Color(0, 0, 0, 0.76862746)
+metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
+
+[node name="StampLayer" type="CanvasGroup" parent="." unique_id=1151511768]
+self_modulate = Color(0, 0, 0, 0.76862746)
+
+[node name="DetailLayer" type="CanvasGroup" parent="." unique_id=1910953856]
