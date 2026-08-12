@@ -26,6 +26,12 @@ class_name SpriteFXManager
 @export var spring_damping : float = 10.0 # damping (lower = oscillates longer)
 @export var max_offset_deg : float = 14.0 # max chassis travel
 
+@export_group("Skid ghosts (arcade afterimage trail)")
+@export var enable_skid_ghosts : bool = true
+@export var ghost_scene : PackedScene
+@export var ghost_interval : float = 0.06
+@export var ghost_tint : Color = Color(1.0, 1.0, 1.0, 0.45)
+
 var car : CharacterBody2D
 var sprite : Sprite2D
 var base_scale : Vector2 = Vector2.ONE
@@ -42,6 +48,9 @@ var last_car_rotation : float = 0.0
 var last_ang_vel : float = 0.0
 var spring_offset : float = 0.0
 var spring_vel : float = 0.0
+
+# ---- SKID GHOSTS ----
+var ghost_cooldown : float = 0.0
 
 
 func init_fx(p_car : CharacterBody2D, p_sprite : Sprite2D, dash_manager : DashManager) -> void:
@@ -72,8 +81,7 @@ func _physics_process(delta : float) -> void:
 		stretch = lerpf(stretch, 0.0, smooth_speed * delta)
 	last_speed = speed
 
-	# ---- CHASSIS INERTIA ----
-
+	# ---- CHASSIS INERTIA (rotational spring) ----
 	var chassis : float = 0.0
 	if enable_chassis_inertia:
 		var ang_vel : float = wrapf(car.rotation - last_car_rotation, -PI, PI) / maxf(delta, 0.0001)
@@ -84,6 +92,16 @@ func _physics_process(delta : float) -> void:
 		last_ang_vel = ang_vel
 		chassis = spring_offset
 	last_car_rotation = car.rotation
+
+	# ---- SKID GHOSTS: afterimage trail while drifting or sliding ----
+	if enable_skid_ghosts and ghost_scene != null and car.get_drift_factor() != 0.0:
+		ghost_cooldown -= delta
+		if ghost_cooldown <= 0.0:
+			ghost_cooldown = ghost_interval
+			var ghost : Node2D = ghost_scene.instantiate()
+			ghost.set_property(car.position, car.scale, car.rotation)
+			ghost.modulate = ghost_tint
+			get_tree().current_scene.add_child(ghost)
 
 	# ---- STEERING LEAN ----
 	var target_lean : float = 0.0
@@ -102,13 +120,14 @@ func _physics_process(delta : float) -> void:
 func _on_dash_anticipating() -> void:
 	if !enable_dash_anticipation_fx:
 		return
-	pulse(Vector2(1.0 - impact_squash, 1.0 + impact_squash * 0.6), 0.09) # Recoil: the sprite compresses backward before the propulsion
+	# Recoil: the sprite compresses backward before the propulsion
+	_pulse(Vector2(1.0 - impact_squash, 1.0 + impact_squash * 0.6), 0.09)
 
 
 func _on_dash_started() -> void:
 	if !enable_squash_stretch:
 		return
-	pulse(Vector2(1.0 + dash_stretch, 1.0 - dash_stretch * 0.5), 0.3)
+	_pulse(Vector2(1.0 + dash_stretch, 1.0 - dash_stretch * 0.5), 0.3)
 
 
 func _on_wall_impact(impact_speed : float) -> void:
@@ -117,10 +136,10 @@ func _on_wall_impact(impact_speed : float) -> void:
 	if pulse_tween and pulse_tween.is_running():
 		return  # anti-spam while scraping along a wall
 	var amount : float = impact_squash * clampf(impact_speed / impact_speed_reference, 0.3, 1.0)
-	pulse(Vector2(1.0 - amount, 1.0 + amount), 0.2)
+	_pulse(Vector2(1.0 - amount, 1.0 + amount), 0.2)
 
 
-func pulse(target_mult : Vector2, duration : float) -> void:
+func _pulse(target_mult : Vector2, duration : float) -> void:
 	if pulse_tween:
 		pulse_tween.kill()
 	pulse_tween = create_tween()

@@ -17,6 +17,7 @@ base_atk_range = 200.0
 base_radius = 0
 base_speed_rotation = 0
 base_nb_ammo = 0
+max_projectile = 1
 base_speed = 1000.0
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

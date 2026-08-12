@@ -40,6 +40,7 @@ enum Stats_Types {
 @export var base_fire_rate: float
 @export var base_cool_down: float
 @export var base_nb_ammo: int = 1
+@export var max_projectile: int = 10
 @export var base_nb_projectile: int = 1
 @export var base_speed : float
 

@@ -703,6 +703,7 @@ libraries/ = SubResource("AnimationLibrary_vd0i7")
 
 [node name="SpriteFX" type="Node2D" parent="." unique_id=124961842]
 script = ExtResource("29_5bcg3")
+ghost_scene = ExtResource("2_nbj0p")
 
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

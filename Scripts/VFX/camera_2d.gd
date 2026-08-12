@@ -1,11 +1,12 @@
 extends Camera2D
 
-
 # ---- TOGGLES JUICE ----
 @export var enable_shake : bool = true
 @export var enable_lookahead : bool = true
 @export var enable_dynamic_zoom : bool = true
 @export var enable_drift_roll : bool = true
+@export var enable_drift_punch : bool = true
+@export var drift_punch_zoom : float = 0.15
 
 # ---- SHAKE ----
 var shake_intensity : float = 0.0
@@ -40,6 +41,8 @@ var tracking_enabled : bool = true
 var zoom_locked : bool = false
 var game_paused : bool = false
 var zoom_tween : Tween = null
+var zoom_punch : float = 0.0
+var was_skidding : bool = false
 
 
 func _ready() -> void:
@@ -52,7 +55,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta : float) -> void:
-	# ---- SHAKE (tourne même en pause, comme avant) ----
+	# ---- SHAKE ----
 	if active_shake_time > 0:
 		shake_time += delta * shake_time_speed
 		active_shake_time -= delta
@@ -64,10 +67,11 @@ func _physics_process(delta : float) -> void:
 		shake_offset = shake_offset.lerp(Vector2.ZERO, 10.5 * delta)
 
 	offset = lookahead_offset + shake_offset
-	zoom = zoom.lerp(Vector2.ONE * target_zoom, zoom_speed * delta)
+	zoom_punch = lerpf(zoom_punch, 0.0, 4.0 * delta)
+	zoom = zoom.lerp(Vector2.ONE * (target_zoom + zoom_punch), zoom_speed * delta)
 	rotation = lerp_angle(rotation, deg_to_rad(target_roll), roll_speed * delta)
 
-	# ---- SUIVI VOITURE (remplace les appels update_* faits par rigid_car) ----
+	# ---- SUIVI VOITURE  ----
 	if !is_instance_valid(car):
 		car = get_tree().get_first_node_in_group("player_car") as CharacterBody2D
 		if car == null:
@@ -77,7 +81,7 @@ func _physics_process(delta : float) -> void:
 		if enable_lookahead:
 			update_lookahead(car.velocity)
 		else:
-			update_lookahead(Vector2.ZERO)  # ramène l'offset à zéro en douceur
+			update_lookahead(Vector2.ZERO)
 		if !zoom_locked:
 			if enable_dynamic_zoom:
 				update_zoom(car.velocity.length())
@@ -87,6 +91,11 @@ func _physics_process(delta : float) -> void:
 			update_roll(car.get_drift_factor())
 		else:
 			target_roll = 0.0
+
+		var skidding : bool = car.get_drift_factor() != 0.0
+		if enable_drift_punch and skidding != was_skidding:
+			zoom_punch = drift_punch_zoom
+		was_skidding = skidding
 
 
 func screen_shake(intensity : float, time : float) -> void:
@@ -132,7 +141,7 @@ func _on_autopilot_transition_start() -> void:
 func _on_exit_transition() -> void:
 	tracking_enabled = false
 	zoom_locked = false
-	top_level = true  # caméra fixe
+	top_level = true
 	if is_instance_valid(car):
 		global_position = car.global_position
 

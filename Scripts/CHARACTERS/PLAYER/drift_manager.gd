@@ -9,14 +9,35 @@ extends Node2D
 # ---------------- AUTO SLIDE ----------------
 @export var enable_auto_slide : bool = true
 @export_group("Auto slide")
-@export var slide_grip : float = 0.08            # between drift_grip (0.015) and normal_grip (0.18)
-@export var slide_steer_threshold : float = 0.85 # min to slide
+@export var slide_grip : float = 0.04            # close to drift_grip (0.015), the rear really steps out
+@export var slide_steer_threshold : float = 0.85 # |steer| mini to slide
 @export var slide_speed_ratio : float = 0.7      # % of max speed to slide
 @export var slide_grip_lerp : float = 6.0
-@export var slide_steer_authority : float = 0.7  # steering authority while sliding: <1 = understeer (you steer, the car turns less, trajectory runs wide)
+@export var slide_turn_bonus : float = 1.5       # extra rotation while sliding, between 1.0 (none) and drift_turn_bonus (3.2): the slide takes an angle like a lighter manual drift
+@export var slide_damping_mult : float = 0.5     # drift forward damping applied at half strength while sliding
 @export var slide_volume_offset_db : float = -10.0
 @export var slide_skid_width : float = 3.0
 @export var slide_skid_alpha : float = 0.45
+
+# ---------------- DRIFT CHARGE (Mario Kart style mini-turbo) ----------------
+# Holding a drift charges tiers: rear trails change color and get thicker.
+# Releasing a charged drift grants a speed boost.
+@export_group("Drift charge")
+@export var enable_drift_charge : bool = true
+@export var charge_tier_time : float = 0.9   # seconds of drifting per tier
+@export var charge_colors : Array[Color] = [
+	Color(3.0, 0.1, 0.1, 0.9),   # tier 0 : red (base)
+	Color(3.0, 2.2, 0.2, 0.95),  # tier 1 : gold
+	Color(0.3, 1.6, 3.0, 1.0),   # tier 2 : electric blue
+]
+@export var enable_charge_boost : bool = true
+@export var boost_per_tier : float = 70.0            # velocity kick per tier on release (currently unused)
+@export var boost_max_speed_per_tier : float = 0.1   # +10% temporary max speed per tier
+@export var boost_torque : float = 2.0               # temporary acceleration multiplier on release
+@export var boost_duration : float = 0.6
+
+var drift_charge : float = 0.0
+var charge_tier : int = 0
 
 var game_paused : bool = false
 
@@ -119,7 +140,7 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	var lateral_velocity : Vector2 = p_lateral_velocity
 	var steer : float = get_steer_input()
 
-	# ------------------- AUTO SLIDE DETECTION 
+	# ------------------- AUTO SLIDE DETECTION (with hysteresis to avoid flickering)
 	if enable_auto_slide and !drifting:
 		var speed_ok : bool
 		var steer_ok : bool
@@ -133,8 +154,8 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	else:
 		sliding = false
 
-	# ------------------- SLIDE & DAMPING --------------------------
-	if drifting and forward_velocity.length() > min_drift_speed:
+	# ------------------- SLIDE & DAMPING (drift and auto-slide, slide at reduced strength)
+	if (drifting or sliding) and forward_velocity.length() > min_drift_speed:
 		if p_velocity.length() > 10:
 			var slip_angle : float = clamp(abs(p_velocity.angle_to(p_forward)) / (PI / 2), 0.0, 1.0)
 			var damping : float
@@ -144,6 +165,8 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 			else:
 				forward_damp = 0.99
 				damping = 0.0
+			if sliding:
+				damping *= slide_damping_mult
 			forward_velocity *= (1.0 - damping * delta) * forward_damp
 
 	# ----------------- GRIP -----------------
@@ -164,6 +187,7 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	if skidding and !skidding_last_frame:
 		start_skid(sliding)
 	elif skidding and skid_is_slide != sliding:
+		# drift <-> slide transition: restart the skid with the right style
 		end_skid()
 		start_skid(sliding)
 	elif skidding:
@@ -172,11 +196,30 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	if !skidding and skidding_last_frame:
 		end_skid()
 
+	# ----------------- DRIFT CHARGE (mini-turbo) -----------------
+	if enable_drift_charge and drifting:
+		drift_charge += delta
+		var tier : int = clampi(int(drift_charge / charge_tier_time), 0, charge_colors.size() - 1)
+		if tier != charge_tier:
+			charge_tier = tier
+			apply_charge_tier()
+	elif !drifting:
+		drift_charge = 0.0
+		charge_tier = 0
+
 	was_drifting = drifting
 	skidding_last_frame = skidding
 	player.drifting = drifting
 
 	return forward_velocity + lateral_velocity
+
+
+func apply_charge_tier() -> void:
+	# Whole trail switches color + gets thicker: instantly readable tier feedback
+	for trail : Line2D in [left_trail, right_trail]:
+		if trail != null:
+			trail.default_color = charge_colors[charge_tier]
+			trail.width = 2.0 + charge_tier * 1.5
 
 
 func start_skid(is_slide : bool) -> void:
@@ -200,6 +243,7 @@ func start_skid(is_slide : bool) -> void:
 	last_left_pos = Vector2.ZERO
 	last_right_pos = Vector2.ZERO
 
+	# Light trails: real drift only
 	if !is_slide:
 		left_trail = create_trail_line()
 		right_trail = create_trail_line()
@@ -227,7 +271,7 @@ func create_skid_line(is_slide : bool) -> Array:
 func create_trail_line() -> Line2D:
 	var trail : Line2D = Line2D.new()
 	trail.width = 2
-	trail.default_color = Color(3.0, 0.1, 0.1, 0.9)
+	trail.default_color = charge_colors[0] if charge_colors.size() > 0 else Color(3.0, 0.1, 0.1, 0.9)
 	trail.antialiased = true
 	trail.z_index = 2
 	trail.begin_cap_mode = Line2D.LINE_CAP_ROUND
@@ -256,7 +300,7 @@ func update_skid_points() -> void:
 			right_border.add_point(right_wheel)
 			last_right_pos = right_wheel
 
-	# LIGHT TRAILS
+	# LIGHT TRAILS (drift only)
 	if left_trail == null:
 		return
 
@@ -307,10 +351,18 @@ func fade_trail(trail : Line2D) -> void:
 
 
 func end_skid() -> void:
-	# Score only applies to real drifts (drift_bonus stays 0 while sliding)
 	total_drift_points += drift_bonus
 	StatsManager.total_drift += drift_bonus
 	animation_score_to_total()
+
+	# Mini-turbo: releasing a charged drift grants a boost
+	if enable_charge_boost and charge_tier > 0 and car != null:
+		var boost_mod : Modifier = Modifier.new(1.0 + boost_max_speed_per_tier * charge_tier, Modifier.Type.PERCENT_MULT, "drift_charge_boost", boost_duration)
+		var torque_mod : Modifier = Modifier.new(boost_torque, Modifier.Type.PERCENT_MULT, "drift_charge_accel_boost", boost_duration)
+		player.max_speed.add_temp_modifier(boost_mod)
+		player.acceleration.add_temp_modifier(torque_mod)
+	drift_charge = 0.0
+	charge_tier = 0
 
 	fade_and_destroy(left_line, left_border)
 	fade_and_destroy(right_line, right_border)
@@ -363,8 +415,8 @@ func is_sliding() -> bool:
 	return sliding
 
 
-func get_slide_steer_authority() -> float:
-	return slide_steer_authority
+func get_slide_turn_bonus() -> float:
+	return slide_turn_bonus
 
 
 func get_steer_input() -> float:

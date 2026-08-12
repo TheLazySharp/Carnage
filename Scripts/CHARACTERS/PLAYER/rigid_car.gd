@@ -187,15 +187,15 @@ func _process_player_inputs(delta : float) -> void:
 		velocity = velocity.limit_length(max_backward_speed)
 
 	# ----------------- ROTATION -----------------
-		# Understeer: while sliding you steer but the car turns less,
-		# the trajectory runs wide -> loss of control feeling
 	var speed : float = velocity.dot(forward)
 	var steer_factor : float = clamp(abs(speed) / player.unscaled_speed(), MIN_STEER_FACTOR, 1.0)
 
 	if drifting:
 		steer *= player.drift_turn_bonus.get_value()
 	elif drift_manager.is_sliding():
-		steer *= drift_manager.get_slide_steer_authority()
+		# Auto-slide behaves like a lighter manual drift:
+		# extra rotation + low grip -> the rear steps out and the car takes an angle
+		steer *= drift_manager.get_slide_turn_bonus()
 
 	rotation += steer * turn_speed * steer_factor * delta
 
@@ -275,7 +275,6 @@ func _process_autopilot_exit(delta : float) -> void:
 func _on_autopilot_transition_start() -> void:
 	autopilot_state = AutopilotState.ZOOM
 	autopilot_speed = velocity.length()
-
 
 func _on_zoom_complete() -> void:
 	autopilot_state = AutopilotState.DRIVE
