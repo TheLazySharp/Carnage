@@ -19,5 +19,6 @@ weapon_ammo_res = ExtResource("2_ap2f1")
 base_radius = 0
 base_speed_rotation = 0
 base_fire_rate = 2.0
+max_projectile = 8
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

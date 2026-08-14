@@ -95,3 +95,12 @@ signal district_survivor(survivor : SurvivorData)
 
 @warning_ignore("unused_signal")
 signal focused_entered(button : Button)
+
+@warning_ignore("unused_signal")
+signal player_life_changed(current_life : int, max_life : int)
+
+@warning_ignore("unused_signal")
+signal screen_shake_requested(intensity : float, duration : float)
+
+@warning_ignore("unused_signal")
+signal autopilot_zoom_completed

@@ -59,14 +59,14 @@ func _ready() -> void:
 
 	life_bar.max_value = StatsManager.max_life
 	fuel_bar.max_value = StatsManager.max_fuel
-	speed_bar.max_value = StatsManager.max_speed
+	speed_bar.max_value = StatsManager.display_max_speed
 	torque_bar.max_value = StatsManager.max_torque
 	drift_bar.max_value = StatsManager.max_drift
 	damages_bar.max_value = StatsManager.max_damages
 
 	life_bar_new.max_value = StatsManager.max_life
 	fuel_bar_new.max_value = StatsManager.max_fuel
-	speed_bar_new.max_value = StatsManager.max_speed
+	speed_bar_new.max_value = StatsManager.display_max_speed
 	torque_bar_new.max_value = StatsManager.max_torque
 	drift_bar_new.max_value = StatsManager.max_drift
 	damages_bar_new.max_value = StatsManager.max_damages

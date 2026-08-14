@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cw8n0bknao44l" path="res://Scripts/UI/xp_label.gd" id="5_ako3u"]
 [ext_resource type="Script" uid="uid://dwfne52n2qvgo" path="res://Scripts/UI/xp_animation_player.gd" id="6_khvou"]
 [ext_resource type="Script" uid="uid://ddqkvhoijl1y2" path="res://Scripts/UI/boost_gauge.gd" id="7_55bpt"]
+[ext_resource type="Script" uid="uid://d1xu8d7hxi5wr" path="res://Scripts/UI/life_gauge.gd" id="8_dds1n"]
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="8_yd1yt"]
 [ext_resource type="Texture2D" uid="uid://byvl7ln21r8ot" path="res://Assets/UI/gas.png" id="9_0n5r3"]
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="10_5h4o4"]
@@ -466,6 +467,7 @@ step = 5.0
 value = 75.0
 rounded = true
 show_percentage = false
+script = ExtResource("8_dds1n")
 
 [node name="LifeLabel" type="Label" parent="LifeGauge" unique_id=1193735100]
 layout_mode = 1

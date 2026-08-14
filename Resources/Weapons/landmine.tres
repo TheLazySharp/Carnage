@@ -18,5 +18,6 @@ base_dmg = 10
 base_radius = 0
 base_speed_rotation = 0
 base_nb_ammo = 0
+max_projectile = 1
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

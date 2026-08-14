@@ -111,11 +111,11 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 18.0
-offset_top = -305.0
+offset_top = -324.0
 offset_right = 1032.0
-offset_bottom = 246.0
+offset_bottom = 347.0
 grow_vertical = 2
-theme_override_constants/separation = 80
+theme_override_constants/separation = 72
 
 [node name="Label" type="Label" parent="VBoxContainer2" unique_id=781912048]
 custom_minimum_size = Vector2(200, 40)
@@ -137,6 +137,17 @@ theme_override_constants/paragraph_spacing = 10
 theme_override_fonts/font = ExtResource("3_q67s5")
 theme_override_font_sizes/font_size = 32
 text = "Slay zombies to gain XP and money "
+autowrap_mode = 2
+script = ExtResource("6_cpiun")
+
+[node name="Label6" type="Label" parent="VBoxContainer2" unique_id=335957198]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+theme_override_constants/line_spacing = 6
+theme_override_constants/paragraph_spacing = 10
+theme_override_fonts/font = ExtResource("3_q67s5")
+theme_override_font_sizes/font_size = 32
+text = "Your engine needs blood to dash. Drive on blood splats to fill it before it get rotten"
 autowrap_mode = 2
 script = ExtResource("6_cpiun")
 
@@ -174,7 +185,7 @@ autowrap_mode = 2
 script = ExtResource("6_cpiun")
 
 [node name="Xp" type="AnimatedSprite2D" parent="." unique_id=1598532915]
-position = Vector2(732, 259.99997)
+position = Vector2(696, 229.99997)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_e7xhg")
 animation = &"Sphere"
@@ -186,10 +197,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 824.0
-offset_top = 212.0
-offset_right = -360.0
-offset_bottom = -492.0
+offset_left = 780.0
+offset_top = 190.0
+offset_right = -404.0
+offset_bottom = -514.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_agu6a")

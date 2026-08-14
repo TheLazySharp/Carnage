@@ -23,9 +23,12 @@
 [ext_resource type="AudioStream" uid="uid://dxkrhhd1y7ehy" path="res://Assets/Audio/SFX/Car/Beeps/beep_far.mp3" id="22_s25yl"]
 [ext_resource type="AudioStream" uid="uid://bj3qouo8llu14" path="res://Assets/Audio/SFX/Car/Beeps/beep_close.mp3" id="23_vd0i7"]
 [ext_resource type="Script" uid="uid://bqwvqyc8nxkoq" path="res://Scripts/CHARACTERS/PLAYER/drift_manager.gd" id="24_s25yl"]
+[ext_resource type="Script" uid="uid://d2hlfbbyr8pnm" path="res://Scripts/CHARACTERS/PLAYER/burnout_manager.gd" id="25_nbmfc"]
 [ext_resource type="Script" uid="uid://c5ljb2upjo7kq" path="res://Scripts/CHARACTERS/PLAYER/bloody_engine.gd" id="25_vd0i7"]
 [ext_resource type="PackedScene" uid="uid://c7xodcdtwfaaw" path="res://Scenes/VFX/blood_vaccum.tscn" id="26_3jhd0"]
+[ext_resource type="Script" uid="uid://5ophynjbob84" path="res://Scripts/CHARACTERS/PLAYER/dash_manager.gd" id="26_dmmou"]
 [ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="26_nbmfc"]
+[ext_resource type="Script" uid="uid://u50nem48pd8" path="res://Scripts/CHARACTERS/PLAYER/sprite_fx_manager.gd" id="29_5bcg3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 radius = 19.0
@@ -443,7 +446,6 @@ platform_floor_layers = 0
 platform_wall_layers = 8
 safe_margin = 0.01
 script = ExtResource("1_rsha1")
-ghost_scene = ExtResource("2_nbj0p")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
 z_as_relative = false
@@ -682,6 +684,13 @@ parameters/looping = true
 script = ExtResource("25_vd0i7")
 vaccum_particles_scene = ExtResource("26_3jhd0")
 
+[node name="BurnoutManager" type="Node2D" parent="." unique_id=479621051]
+script = ExtResource("25_nbmfc")
+
+[node name="DashManager" type="Node2D" parent="." unique_id=1598535898]
+script = ExtResource("26_dmmou")
+ghost_scene = ExtResource("2_nbj0p")
+
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
 material = SubResource("ShaderMaterial_vd0i7")
 rotation = 1.5707964
@@ -692,8 +701,10 @@ offset = Vector2(0, 20)
 root_node = NodePath("../../VFX")
 libraries/ = SubResource("AnimationLibrary_vd0i7")
 
-[connection signal="animation_finished" from="RearLeft/RearLeftBurnAnim" to="." method="_on_rear_left_burn_anim_animation_finished"]
-[connection signal="animation_finished" from="RearRight/RearRightBurnAnim" to="." method="_on_rear_right_burn_animation_finished"]
+[node name="SpriteFX" type="Node2D" parent="." unique_id=124961842]
+script = ExtResource("29_5bcg3")
+ghost_scene = ExtResource("2_nbj0p")
+
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="finished" from="Audio/StartEngine" to="." method="_on_start_engine_finished"]
