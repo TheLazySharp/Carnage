@@ -23,7 +23,7 @@ signal freeze
 @warning_ignore("unused_signal")
 signal magnet_xp
 @warning_ignore("unused_signal")
-signal nitro_up
+signal nitro_up(nitro_added : float)
 @warning_ignore("unused_signal")
 signal gas
 @warning_ignore("unused_signal")

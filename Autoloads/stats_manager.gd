@@ -18,7 +18,7 @@ var max_drift : int = 4
 var max_damages : int = 50
 var max_dash_duration : int = 2.0 #secondes
 var max_dash_damages : int = 5
-var max_nitro_up : int = 100
+var max_nitro_up : int = 20
 var max_nitro_tank : int = 200
 
 

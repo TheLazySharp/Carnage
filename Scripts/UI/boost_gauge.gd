@@ -65,8 +65,8 @@ func _on_player_dashing() -> void:
 	refresh_display()
 
 
-func _on_nitro_picked_up() -> void:
-	car_data.current_nitro = max_nitro
+func _on_nitro_picked_up(nitro_added : float) -> void:
+	car_data.current_nitro += min(nitro_added, car_data.max_nitro.get_value() - car_data.current_nitro)
 	refresh_display()
 	SignalManager.boost_gauge_is_full.emit()
 	boost_can_load = false

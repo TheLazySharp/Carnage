@@ -5,10 +5,10 @@ extends EditorScript
 # Usage : open this file in the Godot script editor, then File > Run (Ctrl+Shift+X).
 
 # ---- CONFIG ----
-const ATLAS_PATH : String = "res://Assets/Items/Drops/Dollars/bills_bigger.png"
+const ATLAS_PATH : String = "res://Assets/Items/Drops/Dollars/bills_even_bigger.png"
 const OUTPUT_DIR : String = "res://Assets/Items/Drops/Dollars/"
 const PREFIX : String = "dollar_"
-const FRAME_SIZE : Vector2i = Vector2i(9, 9)
+const FRAME_SIZE : Vector2i = Vector2i(16, 14)
 const SPACING : Vector2i = Vector2i.ZERO	# gap between frames
 const MARGIN : Vector2i = Vector2i.ZERO		# offset before the first frame
 const SKIP_EMPTY : bool = true				# do not export fully transparent frames

@@ -8,6 +8,6 @@
 script = ExtResource("3_42cuo")
 name = "Nitro"
 icon = ExtResource("1_oigfk")
-description = "Fill up nitro gauge"
+description = "Add 50 nitro"
 effect_script = ExtResource("1_8j24u")
 metadata/_custom_type_script = "uid://ctc62ptewno8k"
