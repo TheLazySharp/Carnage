@@ -94,6 +94,8 @@
 [ext_resource type="PackedScene" uid="uid://cijhdrivadyv5" path="res://Scenes/VFX/blood_vacuum_particles.tscn" id="95_jyj36"]
 [ext_resource type="Texture2D" uid="uid://2o2pm4p154ix" path="res://Assets/Léonce/VFX/Slice 1.tres" id="96_b62f6"]
 [ext_resource type="Texture2D" uid="uid://ch6832b6yotg8" path="res://Assets/Léonce/VFX/Slice 5.tres" id="97_avlko"]
+[ext_resource type="Texture2D" uid="uid://wjsxhjsuew86" path="res://Assets/Léonce/VFX/hit01.png" id="97_jyj36"]
+[ext_resource type="Texture2D" uid="uid://ceqdnwlef3u67" path="res://Assets/Léonce/Masks/blood_pool_mask.png" id="98_mkn34"]
 [ext_resource type="Texture2D" uid="uid://j04h0nhkytgg" path="res://Assets/Léonce/VFX/Slice 3.tres" id="98_uhr7h"]
 [ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="99_8l2sf"]
 
@@ -1245,6 +1247,81 @@ radial_accel_curve = SubResource("CurveTexture_gd1db")
 damping_min = 68.109
 damping_max = 68.109
 anim_offset_max = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b62f6"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(0, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avlko"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(17, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhr7h"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(34, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8l2sf"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(51, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwer6"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(68, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbjlx"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(85, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptxeq"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(102, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k66vp"]
+atlas = ExtResource("97_jyj36")
+region = Rect2(119, 0, 17, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scbe7"]
+atlas = ExtResource("98_mkn34")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r7ksg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b62f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avlko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhr7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8l2sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwer6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbjlx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptxeq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k66vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scbe7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 50.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_xcfsb"]
+offsets = PackedFloat32Array(0, 0.392, 0.55466664, 0.73066664, 1)
+colors = PackedColorArray(1, 0.8283282, 0.68169165, 1, 1, 0.43137255, 0.24313726, 1, 0.89980805, 0.62222433, 0, 1, 0.89967036, 0.5737876, 0, 1, 0.8980392, 0, 0, 1)
 
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
@@ -3029,3 +3106,31 @@ position = Vector2(2104, 1159)
 
 [node name="BloodVacuum" parent="." unique_id=1239086187 instance=ExtResource("94_1113p")]
 position = Vector2(2067, 1161)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2005661527]
+z_index = 18
+position = Vector2(2063, 1011)
+sprite_frames = SubResource("SpriteFrames_r7ksg")
+autoplay = "default"
+frame = 8
+frame_progress = 1.0
+
+[node name="GPUParticles2D" type="CPUParticles2D" parent="AnimatedSprite2D" unique_id=621994753]
+z_index = 12
+emitting = false
+amount = 3
+lifetime = 0.3
+one_shot = true
+preprocess = 0.04
+explosiveness = 0.8
+lifetime_randomness = 0.7
+fixed_fps = 120
+draw_order = 1
+direction = Vector2(125.65, -39.085)
+spread = 29.858
+gravity = Vector2(0, 197.72)
+initial_velocity_min = 161.73
+initial_velocity_max = 298.4
+damping_max = 50.342003
+color_ramp = SubResource("Gradient_xcfsb")
+anim_offset_max = 1.0
