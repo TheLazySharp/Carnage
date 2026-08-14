@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://v03gacy7rgdm"]
 
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="1_qodwh"]
-[ext_resource type="Texture2D" uid="uid://c0s4fyjbyf7b3" path="res://Assets/Textures/Roads/RoadBrushes/Ressources/road_brush8.png" id="2_au78y"]
+[ext_resource type="Texture2D" uid="uid://0cuev6stvoad" path="res://Assets/Items/Drops/bills.png" id="2_mkn34"]
 [ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]
@@ -81,13 +81,21 @@
 [ext_resource type="Script" uid="uid://5i2ge8d1gyrg" path="res://Assets/Léonce/Scripts/generate_atlas_textures.gd" id="77_uqknt"]
 [ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Scripts/MAP TOOLS/road_brush_path2d.gd" id="80_unwpx"]
 [ext_resource type="Script" uid="uid://4dsvxjn84gim" path="res://Scripts/MAP TOOLS/serpentine_crack_generator.gd" id="81_mqeix"]
-[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="81_siu12"]
 [ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="81_unwpx"]
 [ext_resource type="Script" uid="uid://35fqax0nsl4d" path="res://Scripts/MAP TOOLS/crack_network_generator.gd" id="82_41ema"]
 [ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/CrackDrawSurface.gd" id="83_q4v6q"]
 [ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/road_marking_path.gd" id="84_5dgyk"]
 [ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="85_8uaht"]
 [ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="86_au78y"]
+[ext_resource type="PackedScene" uid="uid://cnottdkm4adhv" path="res://Scenes/VFX/smoke_particles01.tscn" id="89_5trsw"]
+[ext_resource type="Texture2D" uid="uid://cr4mx80ya130l" path="res://Assets/VFX/particles_misc01.png" id="89_8l58v"]
+[ext_resource type="PackedScene" uid="uid://ccarv624txvb1" path="res://Scenes/VFX/bloodshot_particles.tscn" id="90_gg4ck"]
+[ext_resource type="PackedScene" uid="uid://ciyl0n3vyh8gq" path="res://Scenes/VFX/blood_mask.tscn" id="94_1113p"]
+[ext_resource type="PackedScene" uid="uid://cijhdrivadyv5" path="res://Scenes/VFX/blood_vacuum_particles.tscn" id="95_jyj36"]
+[ext_resource type="Texture2D" uid="uid://2o2pm4p154ix" path="res://Assets/Léonce/VFX/Slice 1.tres" id="96_b62f6"]
+[ext_resource type="Texture2D" uid="uid://ch6832b6yotg8" path="res://Assets/Léonce/VFX/Slice 5.tres" id="97_avlko"]
+[ext_resource type="Texture2D" uid="uid://j04h0nhkytgg" path="res://Assets/Léonce/VFX/Slice 3.tres" id="98_uhr7h"]
+[ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="99_8l2sf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -957,6 +965,12 @@ _data = {
 }
 point_count = 4
 
+[sub_resource type="Curve2D" id="Curve2D_04oug"]
+_data = {
+"points": PackedVector2Array(2.3132591, -82.50624, -2.3132591, 82.50624, 1327, 1038, 0.82798505, -59.22766, -0.82798505, 59.22766, 1318, 1405, -89.726425, 0, 89.726425, 0, 1488, 1454, -229.74084, 5.8081536, 229.74084, -5.8081536, 1867, 1450)
+}
+point_count = 4
+
 [sub_resource type="Curve2D" id="Curve2D_au78y"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5.98, -0.0012289637, 0, 0, 0, 0, 11.9469795, -0.39563802, 0, 0, 0, 0, 17.910442, 0.048798084, 0, 0, 0, 0, 23.678122, 1.6281283, 0, 0, 0, 0, 29.30782, 3.6447818, 0, 0, 0, 0, 35.216003, 4.5687795, 0, 0, 0, 0, 40.877434, 6.4945507, 0, 0, 0, 0, 46.365883, 8.86886, 0, 0, 0, 0, 52.119896, 10.4972725, 0, 0, 0, 0, 58.03185, 11.396833, 0, 0, 0, 0, 63.987595, 11.934871, 0, 0, 0, 0, 69.92752, 12.6260395, 0, 0, 0, 0, 75.89486, 13.015037, 0, 0, 0, 0, 81.844536, 13.616471, 0, 0, 0, 0, 87.77677, 14.370797, 0, 0, 0, 0, 93.75332, 14.574094, 0, 0, 0, 0, 99.71111, 14.059254, 0, 0, 0, 0, 105.62077, 13.144737, 0, 0, 0, 0, 111.593895, 13.431542, 0, 0, 0, 0, 117.573875, 13.446022, 0, 0, 0, 0, 123.4718, 14.433394, 0, 0, 0, 0, 129.4386, 14.830602, 0, 0, 0, 0, 135.41711, 14.6975565, 0, 0, 0, 0, 141.29425, 13.593145, 0, 0, 0, 0, 147.21942, 12.785186, 0, 0, 0, 0, 153.19617, 12.982526, 0, 0, 0, 0, 159.15736, 13.456471, 0, 0, 0, 0, 164.94458, 14.962649, 0, 0, 0, 0, 170.85172, 15.893305, 0, 0, 0, 0, 176.83171, 15.90062, 0, 0, 0, 0, 182.74043, 14.980034, 0, 0, 0, 0, 188.68279, 14.310055, 0, 0, 0, 0, 194.65314, 13.970445, 0, 0, 0, 0, 200.63034, 14.153302, 0, 0, 0, 0, 206.5774, 14.780175, 0, 0, 0, 0, 212.54176, 14.348069, 0, 0, 0, 0, 218.36005, 12.966787, 0, 0, 0, 0, 224.26677, 12.033496, 0, 0, 0, 0, 229.9036, 10.036855, 0, 0, 0, 0, 235.1334, 7.1369524, 0, 0, 0, 0, 239.80096, 3.3987174, 0, 0, 0, 0, 244.47673, -0.32922912, 0, 0, 0, 0, 248.64642, -4.6157255, 0, 0, 0, 0, 253.24294, -8.440964)
@@ -1164,19 +1178,87 @@ dash_length = 106
 gap_length = 118
 curve_sample_step = 1
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8l58v"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Gradient" id="Gradient_w4um4"]
+colors = PackedColorArray(0.3137255, 0.3137255, 0.3137255, 0.39607844, 0.5882353, 0.5882353, 0.5882353, 0.2784314)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d30n1"]
+gradient = SubResource("Gradient_w4um4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wsdp1"]
+particle_flag_disable_z = true
+direction = Vector3(0, -90.015, 0)
+spread = 10.064
+initial_velocity_max = 62.129997
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+damping_max = 14.290001
+attractor_interaction_enabled = false
+color_ramp = SubResource("GradientTexture1D_d30n1")
+anim_speed_max = 1.0
+anim_offset_min = 0.4822
+anim_offset_max = 0.4822
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r7ksg"]
+particles_animation = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_xwer6"]
+_limits = [0.0, 90.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(0.509, 90), 0.0, 0.0, 0, 0, Vector2(1, 90), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_881lp"]
+curve = SubResource("Curve_xwer6")
+
+[sub_resource type="Curve" id="Curve_qbjlx"]
+_limits = [-3.726715, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 200), 0.0, 0.0, 0, 0, Vector2(1, -3.726715), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gd1db"]
+curve = SubResource("Curve_qbjlx")
+
+[sub_resource type="Curve" id="Curve_rrb4x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cbgfx"]
+curve = SubResource("Curve_rrb4x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tyiq4"]
+particle_flag_disable_z = true
+angle_curve = SubResource("CurveTexture_881lp")
+radial_velocity_min = 20.939978
+radial_velocity_max = 94.51997
+radial_velocity_curve = SubResource("CurveTexture_cbgfx")
+gravity = Vector3(0, 0, 0)
+radial_accel_curve = SubResource("CurveTexture_gd1db")
+damping_min = 68.109
+damping_max = 68.109
+anim_offset_max = 1.0
+
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
 [node name="TextureSlicer" type="Node2D" parent="." unique_id=142767713]
 script = ExtResource("77_uqknt")
-atlas_texture = ExtResource("2_au78y")
-json_path = "res://Assets/Textures/Roads/RoadBrushes/Ressources/road_brush8.json"
-output_dir_override = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/"
+atlas_texture = ExtResource("2_mkn34")
+json_path = "res://Assets/Léonce/VFX/bills.json"
+output_dir_override = "res://Assets/Léonce/VFX/"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
 position = Vector2(2001.0001, 1130)
 scale = Vector2(1e-05, 1e-05)
 offset = Vector2(0, -5.32)
-zoom = Vector2(2.27, 2.27)
+zoom = Vector2(0.75, 0.75)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
 visible = false
@@ -1197,10 +1279,10 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_wodl8")
 
 [node name="Background" type="ColorRect" parent="Land_layers" unique_id=1339542022]
-offset_left = 66.0
-offset_top = 76.0
-offset_right = 3528.0
-offset_bottom = 2462.0
+offset_left = 191.0
+offset_top = 146.0
+offset_right = 3653.0
+offset_bottom = 2532.0
 color = Color(0.03137255, 0.03137255, 0.03137255, 1)
 
 [node name="Sidewalks" type="TileMapLayer" parent="Land_layers" unique_id=1976538112]
@@ -2671,10 +2753,10 @@ self_modulate = Color(1, 1, 1, 0.050980393)
 [node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=833659068]
+[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=889267785]
 self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
 
-[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1915796863]
+[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=942127056]
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
 [node name="RoadBrushPath2D4" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1462920717]
@@ -2699,6 +2781,21 @@ self_modulate = Color(0.096204735, 0.09620475, 0.09620472, 1)
 
 [node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D4" unique_id=448146499]
 self_modulate = Color(0.25565878, 0.25565878, 0.25565878, 0.69803923)
+
+[node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1445693986]
+visible = false
+position = Vector2(84, 83)
+curve = SubResource("Curve2D_04oug")
+script = ExtResource("80_unwpx")
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/"
+stamp_spacing = 11
+stamp_color = Color(0.14509805, 0.14509805, 0.14509805, 0.58431375)
+metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
+
+[node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D" unique_id=615102922]
+self_modulate = Color(0.14509805, 0.14509805, 0.14509805, 0.58431375)
+
+[node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D" unique_id=358385964]
 
 [node name="RoadCracks" type="Node2D" parent="Land_layers/Roads" unique_id=2039001729]
 
@@ -2832,9 +2929,9 @@ curve = SubResource("Curve2D_k66vp")
 script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p")])
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=1289926586]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=1069751716]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1942482764]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1356202411]
 script = ExtResource("86_au78y")
 
 [node name="Arrows" type="Node2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1192627376]
@@ -2861,9 +2958,9 @@ script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_au78y")])
 metadata/_custom_type_script = "uid://cstre1l5ksgef"
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1045754766]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1558431181]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1793426523]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=732303720]
 script = ExtResource("86_au78y")
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -2876,4 +2973,59 @@ texture = ExtResource("81_unwpx")
 hframes = 3
 frame = 1
 
-[node name="Impact" parent="." unique_id=1581693087 instance=ExtResource("81_siu12")]
+[node name="SmokeParticles02" type="GPUParticles2D" parent="." unique_id=183136815]
+visible = false
+material = SubResource("CanvasItemMaterial_8l58v")
+position = Vector2(2029, 1056)
+emitting = false
+amount = 1
+texture = ExtResource("89_8l58v")
+lifetime = 0.63
+one_shot = true
+randomness = 0.47
+process_material = SubResource("ParticleProcessMaterial_wsdp1")
+
+[node name="SmokeParticles01" parent="." unique_id=1661156667 instance=ExtResource("89_5trsw")]
+position = Vector2(2070, 993)
+
+[node name="BloodShotParticles" parent="." unique_id=883590076 instance=ExtResource("90_gg4ck")]
+position = Vector2(2216, 1020)
+
+[node name="Slice1" type="Sprite2D" parent="." unique_id=2084298007]
+z_index = 7
+position = Vector2(2209, 1117)
+texture = ExtResource("96_b62f6")
+
+[node name="Slice5" type="Sprite2D" parent="." unique_id=533781565]
+z_index = 6
+position = Vector2(2196, 1122)
+texture = ExtResource("97_avlko")
+
+[node name="Slice3" type="Sprite2D" parent="." unique_id=1731521128]
+z_index = 5
+position = Vector2(2204, 1122)
+rotation = 1.5707964
+texture = ExtResource("98_uhr7h")
+
+[node name="Bills" type="GPUParticles2D" parent="." unique_id=770497221]
+material = SubResource("CanvasItemMaterial_r7ksg")
+position = Vector2(2161, 1072)
+emitting = false
+amount = 6
+texture = ExtResource("2_mkn34")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_tyiq4")
+
+[node name="Skyline" type="Sprite2D" parent="." unique_id=953112584]
+z_index = 10
+position = Vector2(2079, 1026)
+rotation = 3.1481745
+texture = ExtResource("99_8l2sf")
+
+[node name="BloodVacuumParticles" parent="." unique_id=741759721 instance=ExtResource("95_jyj36")]
+position = Vector2(2104, 1159)
+
+[node name="BloodVacuum" parent="." unique_id=1239086187 instance=ExtResource("94_1113p")]
+position = Vector2(2067, 1161)

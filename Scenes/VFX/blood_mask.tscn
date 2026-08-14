@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://ciyl0n3vyh8gq"]
+
+[ext_resource type="Texture2D" uid="uid://ceqdnwlef3u67" path="res://Assets/Léonce/Masks/blood_pool_mask.png" id="1_oepd4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h75je"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5trsw"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gg4ck"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyj36"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkn34"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b62f6"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avlko"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhr7h"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8l2sf"]
+atlas = ExtResource("1_oepd4")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r7ksg"]
+animations = [{
+"frames": [{
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_h75je")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_5trsw")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_gg4ck")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_jyj36")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_mkn34")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_b62f6")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_avlko")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_uhr7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8l2sf")
+}],
+"loop": 0,
+"name": &"BloodVacuum",
+"speed": 7.0
+}]
+
+[node name="BloodVacuum" type="AnimatedSprite2D" unique_id=1239086187]
+modulate = Color(0.85882354, 0, 0.16862746, 0.90588236)
+clip_children = 1
+sprite_frames = SubResource("SpriteFrames_r7ksg")
+animation = &"BloodVacuum"
