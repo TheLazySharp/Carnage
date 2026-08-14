@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wl1ksp78nuka"
-path="res://.godot/imported/bills_bigger.png-87f4ceb996752dc8c18177308a80259d.ctex"
+uid="uid://0cuev6stvoad"
+path="res://.godot/imported/bills.png-58f0268af554d00554a8a65c07aad089.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/Drops/bills_bigger.png"
-dest_files=["res://.godot/imported/bills_bigger.png-87f4ceb996752dc8c18177308a80259d.ctex"]
+source_file="res://Assets/Items/Drops/Dollars/bills.png"
+dest_files=["res://.godot/imported/bills.png-58f0268af554d00554a8a65c07aad089.ctex"]
 
 [params]
 

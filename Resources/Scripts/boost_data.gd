@@ -27,7 +27,8 @@ enum Target_Stats {
 	NITRO_UP,
 	COLLECT_RADIUS,
 	DRIFT_TURN_BONUS,
-	MAX_FUEL
+	MAX_FUEL,
+	MAX_NITRO
 }
 
 enum Mod_Type {
@@ -129,6 +130,7 @@ func get_stat_string(stat : Target_Stats) -> String:
 		Target_Stats.MAX_SPEED: return "Max Speed"
 		Target_Stats.MAX_LIFE: return "Max Life"
 		Target_Stats.MAX_FUEL: return "Max Fuel"
+		Target_Stats.MAX_NITRO: return "Max Nitro"
 		Target_Stats.CAR_DMG: return "Car Damages"
 		Target_Stats.DASH_DMG_BONUS: return "Dash Damages"
 		Target_Stats.DASH_DURATION: return "Dash Duration"
@@ -165,6 +167,7 @@ func get_car_stat(target_stat : Target_Stats, car : CarData) -> Statistic:
 		Target_Stats.NITRO_UP: return car.nitro_up
 		Target_Stats.DRIFT_TURN_BONUS: return car.drift_turn_bonus
 		Target_Stats.CAR_DMG: return car.dmg
+		Target_Stats.MAX_NITRO: return car.max_nitro
 	return null
 
 func get_weapon_stat(target_stat : Target_Stats, weapon : WeaponData) -> Statistic:

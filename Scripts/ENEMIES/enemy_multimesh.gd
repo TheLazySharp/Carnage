@@ -83,6 +83,7 @@ var game_paused := false
 var game_over := false
 
 @onready var bloody_engine: BloodyEngine = $/root/World/Car/BloodyEngine
+@onready var blood_shot_pool: BloodShotPool = $/root/World/VFX/BloodShotPool
 
 #PERFS STAGGER
 var physics_skip_timer : float = 0
@@ -226,7 +227,11 @@ func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_
 	if current_life <= 0:
 		current_life = 0
 		call_deferred("on_death", hit_direction, knockback_force * 2.0)
-		#call_deferred("fuel_up")
+		return
+	
+	var shot_rotation: float = hit_direction.angle() if hit_direction != Vector2.ZERO else last_move_dir.angle()
+	blood_shot_pool.shoot_blood(global_position, shot_rotation)
+
  
 func get_damages_from_car(damages: int) -> void:
 	if not game_paused:

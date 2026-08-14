@@ -21,8 +21,16 @@ var car : CarData = CarManager.selected_car
 @onready var drift_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/DriftBarNew/DriftBar
 @onready var damages_bar_new: ProgressBar = $StatsPanel/HBoxContainer/Levels/DamagesBarNew
 @onready var damages_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/DamagesBarNew/DamagesBar
-@onready var test_bar_new: ProgressBar = $StatsPanel/HBoxContainer/Levels/TestBarNew
-@onready var test_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/TestBarNew/TestBar
+@onready var dash_duration_bar_new: ProgressBar = $StatsPanel/HBoxContainer/Levels/DashDurationBarNew
+@onready var dash_duration_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/DashDurationBarNew/DashDurationBar
+@onready var dash_dmg_bar_new: ProgressBar = $StatsPanel/HBoxContainer/Levels/DashDmgBarNew
+@onready var dash_dmg_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/DashDmgBarNew/DashDmgBar
+@onready var nitro_tank_bar_new: ProgressBar = $StatsPanel/HBoxContainer/Levels/NitroTankBarNew
+@onready var nitro_tank_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/NitroTankBarNew/NitroTankBar
+@onready var nitro_gain_bar_new: ProgressBar = $StatsPanel/HBoxContainer/Levels/NitroGainBarNew
+@onready var nitro_gain_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/NitroGainBarNew/NitroGainBar
+
+
 
 var final_boosts : Array[BoostData] = []
 var buttons : Array[Button] =  []
@@ -63,6 +71,11 @@ func _ready() -> void:
 	torque_bar.max_value = StatsManager.max_torque
 	drift_bar.max_value = StatsManager.max_drift
 	damages_bar.max_value = StatsManager.max_damages
+	dash_dmg_bar.max_value = StatsManager.max_dash_damages
+	dash_duration_bar.max_value = StatsManager.max_dash_duration
+	nitro_gain_bar.max_value = StatsManager.max_nitro_up
+	nitro_tank_bar.max_value = StatsManager.max_nitro_tank
+
 
 	life_bar_new.max_value = StatsManager.max_life
 	fuel_bar_new.max_value = StatsManager.max_fuel
@@ -70,7 +83,11 @@ func _ready() -> void:
 	torque_bar_new.max_value = StatsManager.max_torque
 	drift_bar_new.max_value = StatsManager.max_drift
 	damages_bar_new.max_value = StatsManager.max_damages
-	test_bar_new.max_value = 10
+	dash_dmg_bar_new.max_value = StatsManager.max_dash_damages
+	dash_duration_bar_new.max_value = StatsManager.max_dash_duration
+	nitro_gain_bar_new.max_value = StatsManager.max_nitro_up
+	nitro_tank_bar_new.max_value = StatsManager.max_nitro_tank
+	
 
 	life_bar.value = car.max_life.get_value()
 	fuel_bar.value = car.max_fuel.get_value()
@@ -78,7 +95,10 @@ func _ready() -> void:
 	torque_bar.value = car.acceleration.get_value()
 	drift_bar.value = car.drift_turn_bonus.get_value()
 	damages_bar.value = car.dmg.get_value()
-	test_bar.value = 0
+	dash_dmg_bar.value = car.dash_dmg_bonus.get_value()
+	dash_duration_bar.value = car.dash_duration.get_value()
+	nitro_gain_bar.value = car.nitro_up.get_value()
+	nitro_tank_bar.value = car.max_nitro.get_value()
 	
 	reset_new_bars()
 
@@ -169,13 +189,13 @@ func get_modified_bar(boost : BoostData, target_stat_idx : int) -> ProgressBar:
 		boost.Target_Stats.DRIFT_TURN_BONUS:
 			return drift_bar_new
 		boost.Target_Stats.DASH_DMG_BONUS:
-			return test_bar_new
+			return dash_dmg_bar_new
 		boost.Target_Stats.DASH_DURATION:
-			return test_bar_new
+			return dash_duration_bar_new
 		boost.Target_Stats.NITRO_UP:
-			return test_bar_new
-		boost.Target_Stats.COLLECT_RADIUS:
-			return test_bar_new
+			return nitro_gain_bar_new
+		boost.Target_Stats.MAX_NITRO:
+			return nitro_tank_bar_new
 	return null
 
 func get_current_bar(boost : BoostData, target_stat_idx : int) -> ProgressBar:
@@ -193,13 +213,13 @@ func get_current_bar(boost : BoostData, target_stat_idx : int) -> ProgressBar:
 		boost.Target_Stats.DRIFT_TURN_BONUS:
 			return drift_bar
 		boost.Target_Stats.DASH_DMG_BONUS:
-			return test_bar
+			return dash_dmg_bar
 		boost.Target_Stats.DASH_DURATION:
-			return test_bar
+			return dash_duration_bar
 		boost.Target_Stats.NITRO_UP:
-			return test_bar
-		boost.Target_Stats.COLLECT_RADIUS:
-			return test_bar
+			return nitro_gain_bar
+		boost.Target_Stats.MAX_NITRO:
+			return nitro_tank_bar
 	return null
 
 
@@ -240,7 +260,11 @@ func reset_new_bars() -> void :
 	torque_bar_new.value = torque_bar.value
 	drift_bar_new.value = drift_bar.value
 	damages_bar_new.value = damages_bar.value
-	test_bar_new.value = test_bar.value
+	dash_dmg_bar_new.value = dash_dmg_bar.value
+	dash_duration_bar_new.value = dash_duration_bar.value
+	nitro_gain_bar_new.value = nitro_gain_bar.value
+	nitro_tank_bar_new.value = nitro_tank_bar.value
+
 
 func set_stylebox(sb : StyleBox, color : Color) -> void:
 	sb.bg_color = color

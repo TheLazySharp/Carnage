@@ -104,3 +104,6 @@ signal screen_shake_requested(intensity : float, duration : float)
 
 @warning_ignore("unused_signal")
 signal autopilot_zoom_completed
+
+@warning_ignore("unused_signal")
+signal nitro_changed(current_nitro : int)

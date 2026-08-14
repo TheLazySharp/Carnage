@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cdu4vgc1bsrud"]
 
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_bemir"]
-[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="1_higrc"]
+[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/blood_enemy_death.tscn" id="1_higrc"]
 [ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_higrc"]
 [ext_resource type="Texture2D" uid="uid://cchuw5ikbvb0d" path="res://Assets/Characters/Enemies/zombieA_Atlas.png" id="4_higrc"]
 

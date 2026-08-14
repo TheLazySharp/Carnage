@@ -8,42 +8,19 @@ particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Curve" id="Curve_nhvyv"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.03990025, 1), -0.44832256, -0.44832256, 0, 0, Vector2(1, 0), -3.3495426, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_r7ksg"]
-curve = SubResource("Curve_nhvyv")
-
-[sub_resource type="Curve" id="Curve_1xj8r"]
-_limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, 0.8385093), 0.0, -3.2570474, 0, 0, Vector2(0.26683295, 0.018633485), -0.59301907, -0.59301907, 0, 0, Vector2(0.9925188, -1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_tyiq4"]
-curve = SubResource("Curve_1xj8r")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nhvyv"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xyy8v"]
 lifetime_randomness = 0.1
 particle_flag_disable_z = true
-emission_shape_scale = Vector3(30, 30, 1)
 emission_shape = 1
 emission_sphere_radius = 1.0
-inherit_velocity_ratio = 0.376
 orbit_velocity_min = -0.09999991
 orbit_velocity_max = 0.1000001
-radial_velocity_min = 31.889977
-radial_velocity_max = 502.53998
-radial_velocity_curve = SubResource("CurveTexture_tyiq4")
 gravity = Vector3(0, 0, 0)
-radial_accel_min = -2.2351742e-06
-radial_accel_max = -2.2351742e-06
 color = Color(1, 0.20392157, 0.3137255, 1)
-alpha_curve = SubResource("CurveTexture_r7ksg")
 anim_speed_min = 0.69
 anim_speed_max = 1.02
 
-[node name="BloodVacuumParticles" type="GPUParticles2D" unique_id=741759721]
+[node name="BloodVacuumParticles" type="GPUParticles2D" unique_id=1398004309]
 z_index = 9
 material = SubResource("CanvasItemMaterial_cbgfx")
 emitting = false
@@ -52,7 +29,5 @@ texture = ExtResource("1_xyy8v")
 lifetime = 0.62
 one_shot = true
 explosiveness = 0.3
-trail_lifetime = 0.53
-trail_sections = 2
-trail_section_subdivisions = 11
-process_material = SubResource("ParticleProcessMaterial_nhvyv")
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_xyy8v")

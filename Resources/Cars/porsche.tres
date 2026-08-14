@@ -13,6 +13,7 @@ base_dmg = 3
 base_dash_dmg_bonus = 2.0
 base_max_fuel = 35
 friction = 700.0
+dash_fuel_down = 1
 start_engine_Sound = ExtResource("3_dycvk")
 car_sprite = ExtResource("1_2leby")
 metadata/_custom_type_script = "uid://cgs6g466ko5c0"

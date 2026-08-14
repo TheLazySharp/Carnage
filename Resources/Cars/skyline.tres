@@ -8,14 +8,14 @@
 script = ExtResource("2_slxi1")
 car_name = "Skyline"
 base_acceleration = 200
-base_display_max_speed = 200
 base_dmg = 1
 base_dash_dmg_bonus = 2.0
-base_nitro_up = 50
+base_nitro_up = 5
 base_drift_turn_bonus = 3.0
 base_dash_duration = 0.8
 friction = 100.0
-turn_speed = 2.6
+turn_speed = 5.0
+dash_fuel_down = 5
 max_drift_damping = 0.0
 min_drift_speed = 120.0
 start_engine_Sound = ExtResource("3_f42j2")

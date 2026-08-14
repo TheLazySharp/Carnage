@@ -10,6 +10,7 @@ var velocity_floor : int = 0
 
 @onready var car_sprite : Sprite2D = $CarSprite
 
+
 # ---------------- SFX ----------------
 @onready var start_engine : AudioStreamPlayer = $Audio/StartEngine
 @onready var dmg_sfx : AudioStreamPlayer = $Audio/DmgSFX
@@ -85,7 +86,6 @@ func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("dash") and !game_paused:
 		dash_manager.try_dash()
 
-
 func _ready() -> void:
 	add_to_group("player_car")  # used by the camera to find the car
 	player = CarManager.selected_car
@@ -112,12 +112,13 @@ func _ready() -> void:
 	burnout_manager.burnout_ended.connect(func() -> void: burnout_ok.emit(false))
 	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
 	dash_manager.init_dash(self, player)
+	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_timed_dash())
 	dash_manager.dash_started.connect(func() -> void: dashing.emit())
 	dash_manager.dash_ended.connect(func() -> void: dash_end.emit())
 	sprite_fx.init_fx(self, car_sprite, dash_manager)
 
 	# FUEL
-	bloody_engine.init_bloody_engine(player, car_sprite)
+	bloody_engine.init_bloody_engine(player, car_sprite, dash_manager)
 
 	# AUDIO
 	start_engine.stream = player.start_engine_Sound  # per-car engine start sound

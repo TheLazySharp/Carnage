@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="2_gvr15"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="3_1b0bn"]
 [ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="3_57ln3"]
-[ext_resource type="PackedScene" uid="uid://d4e12yx6gttoi" path="res://Scenes/VFX/blood_particles.tscn" id="4_0akt1"]
 [ext_resource type="Script" uid="uid://sn54tu4gkdhw" path="res://Scripts/STATES/enemy_sm.gd" id="9_63ifu"]
 [ext_resource type="Script" uid="uid://bfe53jrbcnaeb" path="res://Scripts/STATES/enemy_idle.gd" id="10_57ln3"]
 [ext_resource type="Script" uid="uid://bfuqfd7v7wobh" path="res://Scripts/STATES/enemy_chase.gd" id="11_oxihe"]
@@ -25,7 +24,6 @@ script = ExtResource("1_63ifu")
 xp_scene = ExtResource("3_1b0bn")
 dollar_scene = ExtResource("3_57ln3")
 damages_label = ExtResource("2_gvr15")
-blood_particles = ExtResource("4_0akt1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324095049 groups=["ennemies"]]
 shape = SubResource("CircleShape2D_vuwk1")

@@ -37,7 +37,9 @@
 [ext_resource type="PackedScene" uid="uid://dljrk8342ak5s" path="res://Scenes/UI/HUD.tscn" id="36_7taos"]
 [ext_resource type="PackedScene" uid="uid://bvmq8j7dk6kfq" path="res://Scenes/MAPS/barriere.tscn" id="37_vmxub"]
 [ext_resource type="Script" uid="uid://cwjmyhyvmlkqc" path="res://Scripts/VFX/blood_impact_pool.gd" id="47_pyd7o"]
-[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/impact_on_enemy.tscn" id="48_quewe"]
+[ext_resource type="Script" uid="uid://deh0gmmbray7" path="res://Scripts/VFX/blood_shot_pool.gd" id="48_i5dpw"]
+[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/blood_enemy_death.tscn" id="48_quewe"]
+[ext_resource type="PackedScene" uid="uid://ccarv624txvb1" path="res://Scenes/VFX/bloodshot_particles.tscn" id="49_i5dpw"]
 [ext_resource type="PackedScene" uid="uid://cj8pqinx5vrrg" path="res://Scenes/SPAWNERS/buildings_spawner.tscn" id="49_pyd7o"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="52_mp5nn"]
 [ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="55_6fcfe"]
@@ -1273,6 +1275,10 @@ script = ExtResource("47_pyd7o")
 blood_scene = ExtResource("48_quewe")
 pool_size = 800
 
+[node name="BloodShotPool" type="Node2D" parent="VFX" unique_id=138263947]
+script = ExtResource("48_i5dpw")
+blood_shot_scene = ExtResource("49_i5dpw")
+
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788 node_paths=PackedStringArray("tilemap")]
@@ -1293,7 +1299,6 @@ occupy_cells = true
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
 position = Vector2(1646.9214, 226.07727)
-enemy_type = 2
 
 [node name="Horde2" parent="Spawners" unique_id=1458679874 instance=ExtResource("79_83n8t")]
 position = Vector2(1609.8796, 1052.269)

@@ -16,6 +16,8 @@ var game_paused : bool = false
 
 
 func setup_trigger() -> void:
+	if !is_active:
+		return
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.half_time.connect(_on_half_time)
 	if auto_spawn:
@@ -41,7 +43,7 @@ func activated_enemies(n : int) -> int:
 	
 
 func _on_spawn_rate_timeout() -> void:
-	if game_paused or !auto_spawn:
+	if game_paused or !auto_spawn or !is_active:
 		return
 	if !is_infinite and nb_active_enemies >= max_enemy_count:
 		spawn_timer.stop()

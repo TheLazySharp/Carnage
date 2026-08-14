@@ -110,11 +110,12 @@ enum Items_Name {
 	Bumper,
 	Carbon,
 	Engine,
-	Nitro,
+	Nitro_Lenght,
 	Shield,
 	Gas_Tank,
 	Turbo,
-	Wheels
+	Wheels,
+	Nitro_Tank
 }
 
 

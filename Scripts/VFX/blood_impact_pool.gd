@@ -27,7 +27,7 @@ func _ready() -> void:
 		add_child(root)
 		root.hide()
 		blood_roots[i] = root
-		blood_splatters[i] = root.get_node("BloodSplatter") as BloodSplatter
+		blood_splatters[i] = root.get_node("BloodMask") as BloodSplatter
 	spawn_times.resize(pool_size)
 	splat_positions.resize(pool_size)
 
@@ -61,7 +61,7 @@ func splat_blood(blood_position: Vector2, blood_rotation: float) -> void:
 	blood_splatters[idx].set_freshness(0.0)
 	fresh_indices.append(idx)
 	
-	blood_splatters[idx].play()
+	blood_splatters[idx].splat_blood()
 	
 func harvest(harvest_position: Vector2) -> int:
 	var harvested: int = 0
@@ -69,7 +69,7 @@ func harvest(harvest_position: Vector2) -> int:
 	for k: int in range(fresh_indices.size() - 1, -1, -1):
 		var idx: int = fresh_indices[k]
 		if splat_positions[idx].distance_squared_to(harvest_position) <= radius_squared:
-			blood_splatters[idx].set_rotten()
+			blood_splatters[idx].vacuum()
 			fresh_indices.remove_at(k)
 			harvested += 1
 	return harvested

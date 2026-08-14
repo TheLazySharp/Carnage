@@ -15,7 +15,11 @@ var max_speed : int = 800
 var display_max_speed : int = 350
 var max_torque : int = 350
 var max_drift : int = 4
-var max_damages : int = 10
+var max_damages : int = 50
+var max_dash_duration : int = 2.0 #secondes
+var max_dash_damages : int = 5
+var max_nitro_up : int = 100
+var max_nitro_tank : int = 200
 
 
 func _ready() -> void:

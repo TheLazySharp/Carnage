@@ -242,8 +242,8 @@ offsets = PackedFloat32Array(0, 0.34343433, 0.46464646)
 colors = PackedColorArray(0, 0, 0, 1, 0.16835018, 0.16835018, 0.16835018, 1, 1, 1, 1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jhd0"]
-radius = 29.0
-height = 116.0
+radius = 35.0
+height = 122.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qdvgx"]
 streams_count = 3
@@ -680,16 +680,20 @@ stream = ExtResource("9_qjiw1")
 bus = &"Skids"
 parameters/looping = true
 
+[node name="DashManager" type="Node2D" parent="." unique_id=1598535898]
+script = ExtResource("26_dmmou")
+ghost_scene = ExtResource("2_nbj0p")
+
 [node name="BloodyEngine" type="Node2D" parent="." unique_id=1712951826]
 script = ExtResource("25_vd0i7")
 vaccum_particles_scene = ExtResource("26_3jhd0")
 
+[node name="FuelTimer" type="Timer" parent="BloodyEngine" unique_id=1184317257]
+wait_time = 3.0
+autostart = true
+
 [node name="BurnoutManager" type="Node2D" parent="." unique_id=479621051]
 script = ExtResource("25_nbmfc")
-
-[node name="DashManager" type="Node2D" parent="." unique_id=1598535898]
-script = ExtResource("26_dmmou")
-ghost_scene = ExtResource("2_nbj0p")
 
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
 material = SubResource("ShaderMaterial_vd0i7")
@@ -711,3 +715,4 @@ ghost_scene = ExtResource("2_nbj0p")
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="area_entered" from="EnemiesDetectionArea" to="EnemiesDetectionArea" method="_on_area_entered"]
 [connection signal="timeout" from="Beacon/BeepTimer" to="Beacon" method="_on_beep_timer_timeout"]
+[connection signal="timeout" from="BloodyEngine/FuelTimer" to="BloodyEngine" method="_on_fuel_timer_timeout"]

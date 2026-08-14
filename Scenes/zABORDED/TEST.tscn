@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://v03gacy7rgdm"]
 
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="1_qodwh"]
-[ext_resource type="Texture2D" uid="uid://0cuev6stvoad" path="res://Assets/Items/Drops/bills.png" id="2_mkn34"]
+[ext_resource type="Texture2D" uid="uid://0cuev6stvoad" path="res://Assets/Items/Drops/Dollars/bills.png" id="2_mkn34"]
 [ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]

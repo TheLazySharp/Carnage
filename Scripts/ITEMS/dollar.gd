@@ -94,14 +94,14 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player") and can_be_collected:
-		is_attracted = true
-
-
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 	
 func _on_wallet_picked_up() -> void : 
 	is_attracted = true
 	speed = 800
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player") and can_be_collected:
+		is_attracted = true

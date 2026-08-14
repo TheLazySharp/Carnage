@@ -17,14 +17,16 @@ class_name CarData
 @export var base_drift_turn_bonus := 3.2
 @export var base_dash_duration := 0.75
 @export var base_max_fuel := 40
+@export var base_max_nitro := 100
 
 
 @export_group("DRIVING")
 @export var friction := 500.0
 @export var turn_speed := 3.2
-@export var velocity_floor:= 50
-@export var burnout_boost := 200
-@export var dash_fuel_down := 10
+@export var velocity_floor: float = 50
+@export var burnout_boost : float = 200
+@export var dash_fuel_down : int = 10
+@export var regular_fuel_leak : int = 1
 
 
 @export_group("DRIFT")
@@ -34,7 +36,6 @@ class_name CarData
 @export var min_drift_speed := 150.0
 @export var snap_grip := 0.75
 @export var snap_speed := 8.0
-@export var max_boost_gauge : int = 100 
 var drifting : bool = false
 
 @export_group("SKIDS")
@@ -72,7 +73,8 @@ enum Car_Stats {
 	NITRO_UP,
 	COLLECT_RADIUS,
 	DRIFT_TURN_BONUS,
-	MAX_FUEL
+	MAX_FUEL,
+	MAX_NITRO
 }
 
 enum Car_Upgrades {
@@ -90,7 +92,7 @@ enum Car_Upgrades {
 var acceleration: Statistic
 var max_speed: Statistic
 var max_life: Statistic
-#var display_max_speed: Statistic
+
 var dmg: Statistic
 var dash_dmg_bonus : Statistic #dmg during dash
 var dash_duration : Statistic #dash duration
@@ -98,12 +100,15 @@ var nitro_up : Statistic #nitro gauge fill up speed
 var collect_radius : Statistic
 var drift_turn_bonus : Statistic
 var max_fuel : Statistic
+var max_nitro : Statistic
 
 var stat_modifiers : Array[Modifier] = []
 @warning_ignore("unused_signal")
 signal stat_adjusted(stat : Statistic )
+
 var current_life : int 
 var current_fuel : int 
+var current_nitro : int
 
 var invincible : bool = false
 
@@ -125,9 +130,9 @@ func init_stats() -> void:
 	dash_duration = Statistic.new(base_dash_duration)
 	nitro_up = Statistic.new(base_nitro_up)
 	collect_radius = Statistic.new(base_collect_radius)
-	#display_max_speed = Statistic.new(base_display_max_speed)
 	drift_turn_bonus = Statistic.new(base_drift_turn_bonus)
 	max_fuel = Statistic.new(base_max_fuel)
+	max_nitro = Statistic.new(base_max_nitro)
 
 
 func get_car_stat(stat : Car_Stats) -> Statistic:
@@ -142,6 +147,7 @@ func get_car_stat(stat : Car_Stats) -> Statistic:
 		Car_Stats.COLLECT_RADIUS: return collect_radius
 		Car_Stats.DRIFT_TURN_BONUS: return drift_turn_bonus
 		Car_Stats.MAX_FUEL: return max_fuel
+		Car_Stats.MAX_NITRO: return max_nitro
 	return null
 	
 func unscaled_speed()-> float:

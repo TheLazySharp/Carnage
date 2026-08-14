@@ -1,25 +1,39 @@
 [gd_scene format=3 uid="uid://c7xodcdtwfaaw"]
 
+[ext_resource type="Texture2D" uid="uid://jus7iamoitk8" path="res://Assets/VFX/particles_misc02.png" id="1_6ydw1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6ydw1"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
 [sub_resource type="Gradient" id="Gradient_dfktb"]
 colors = PackedColorArray(1.338125, 0.0010112295, 0, 1, 0.7739056, 0, 0, 0)
 
 [node name="BloodVaccum" type="CPUParticles2D" unique_id=2088227463]
+material = SubResource("CanvasItemMaterial_6ydw1")
 emitting = false
-amount = 48
-lifetime = 0.45
+amount = 64
+texture = ExtResource("1_6ydw1")
+lifetime = 0.6
 one_shot = true
+speed_scale = 2.07
 local_coords = true
 emission_shape = 1
-emission_sphere_radius = 48.0
+emission_sphere_radius = 64.0
 spread = 180.0
 gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
 initial_velocity_max = 15.0
-radial_accel_min = -600.0
-radial_accel_max = -400.0
+radial_accel_min = -800.0
+radial_accel_max = -500.0
 tangential_accel_min = 40.0
 tangential_accel_max = 140.0
 damping_min = 20.0
 damping_max = 45.0
-scale_amount_min = 2.0
-scale_amount_max = 4.0
+scale_amount_min = 0.7
+scale_amount_max = 1.5
 color_ramp = SubResource("Gradient_dfktb")
+anim_offset_min = 0.333
+anim_offset_max = 1.0

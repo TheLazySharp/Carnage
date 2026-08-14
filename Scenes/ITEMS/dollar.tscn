@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://xhbaiyiukqyj"]
 
 [ext_resource type="Script" uid="uid://8xv4df7bfhs0" path="res://Scripts/ITEMS/dollar.gd" id="1_l6dcs"]
-[ext_resource type="Texture2D" uid="uid://brs2kf8dgvstm" path="res://Assets/Items/one_dollar.png" id="3_n1isw"]
+[ext_resource type="Texture2D" uid="uid://cevk5cjqbd36v" path="res://Assets/Items/dollar.png" id="2_l6dcs"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hcfh"]
-size = Vector2(68, 69)
+[sub_resource type="CircleShape2D" id="CircleShape2D_rbh1n"]
+radius = 11.011357
 
 [node name="Dollar" type="Area2D" unique_id=72571651 groups=["collectables"]]
 modulate = Color(1.6197081, 1.6197081, 1.6197081, 1)
 collision_layer = 512
+collision_mask = 257
 script = ExtResource("1_l6dcs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=929984361]
 position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_6hcfh")
+shape = SubResource("CircleShape2D_rbh1n")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1641893794]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_n1isw")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1641893794 groups=["collectables"]]
+texture = ExtResource("2_l6dcs")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

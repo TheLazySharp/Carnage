@@ -238,21 +238,38 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("8_0lu01")
 
-[node name="Test" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=516088958]
+[node name="DashLenght" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=516088958]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_1yhnf")
 theme_override_font_sizes/font_size = 24
-text = "Test"
+text = "Dash duration"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("8_0lu01")
 
-[node name="Seats" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=9925603]
-visible = false
+[node name="DashDmg" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=368419747]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_1yhnf")
 theme_override_font_sizes/font_size = 24
-text = "Seats"
+text = "Dash damages"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="NitroTank" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=1425642987]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_font_sizes/font_size = 24
+text = "Nitro tank"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="NitroGain" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=862060931]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_font_sizes/font_size = 24
+text = "Nitro gain"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("8_0lu01")
@@ -378,7 +395,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 300.0
 show_percentage = false
 
@@ -390,11 +407,11 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 200.0
 show_percentage = false
 
-[node name="TestBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=222275096]
+[node name="DashDurationBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=222275096]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
@@ -404,7 +421,51 @@ step = 0.1
 value = 300.0
 show_percentage = false
 
-[node name="TestBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/TestBarNew" unique_id=2049582365]
+[node name="DashDurationBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/DashDurationBarNew" unique_id=2049582365]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 0.1
+value = 200.0
+show_percentage = false
+
+[node name="DashDmgBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1156534774]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
+max_value = 500.0
+step = 1.0
+value = 300.0
+show_percentage = false
+
+[node name="DashDmgBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/DashDmgBarNew" unique_id=1467885159]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 1.0
+value = 200.0
+show_percentage = false
+
+[node name="NitroTankBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1554916201]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
+max_value = 500.0
+step = 10.0
+value = 300.0
+show_percentage = false
+
+[node name="NitroTankBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/NitroTankBarNew" unique_id=1839791686]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 0
 offset_right = 200.0
@@ -416,15 +477,27 @@ step = 10.0
 value = 200.0
 show_percentage = false
 
-[node name="SeatsQ" type="Label" parent="StatsPanel/HBoxContainer/Levels" unique_id=476717734]
-visible = false
-custom_minimum_size = Vector2(0, 32)
+[node name="NitroGainBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1716134723]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
-theme_override_font_sizes/font_size = 24
-text = "Damages"
-vertical_alignment = 2
-script = ExtResource("8_0lu01")
+theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
+max_value = 500.0
+step = 0.1
+value = 300.0
+show_percentage = false
+
+[node name="NitroGainBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/NitroGainBarNew" unique_id=1944846127]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 500.0
+step = 0.1
+value = 200.0
+show_percentage = false
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/Ignore" to="." method="_on_ignore_pressed"]

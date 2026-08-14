@@ -207,7 +207,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
-bg_color = Color(0.3075619, 2.9480086e-07, 1.5642495e-07, 1)
+bg_color = Color(0.64288586, 0, 0, 1)
 skew = Vector2(0.5, 0)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
@@ -232,7 +232,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dds1n"]
-bg_color = Color(4.7529116e-07, 0.35508442, 0.047550194, 1)
+bg_color = Color(0, 0.98460776, 0.2026129, 1)
 skew = Vector2(0.5, 0)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
