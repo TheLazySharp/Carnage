@@ -1687,6 +1687,7 @@ occlusion_enabled = false
 rendering_quadrant_size = 32
 
 [node name="GroundProps" type="Node2D" parent="Land_layers" unique_id=700577747]
+visible = false
 z_index = 4
 
 [node name="Stencil1" type="Sprite2D" parent="Land_layers/GroundProps" unique_id=1796634782]
@@ -1715,12 +1716,14 @@ position = Vector2(2401, 1377)
 texture = ExtResource("14_unwpx")
 
 [node name="BuildingEdges" type="TileMapLayer" parent="Land_layers" unique_id=1372943361]
+visible = false
 z_index = 12
 tile_map_data = PackedByteArray("AAAxACYAAAABABMAAAAxACcAAAABABQAAAAxACgAAAABABQAAAAxACkAAAADABIAAAAxACoAAAADABIAAAAxACsAAAADABIAAAAxACwAAAADABcAAAAyACwAAAAEABcAAAAzACwAAAAEABcAAAA0ACwAAAAEABcAAAA1ACwAAAAEABcAAAA2ACwAAAAEABcAAAA3ACwAAAAEABcAAAA4ACwAAAAEABcAAAA5ACwAAAAEABcAAAA6ACwAAAAHABUAAAA6ACsAAAAHABQAAAA6ACoAAAAHABQAAAA6ACkAAAAFABIAAAA6ACgAAAAFABYAAAA6ACcAAAAFABYAAAA6ACYAAAAHABMAAAAyACYAAAACABMAAAA2ACYAAAAGABMAAAAzACYAAAACABMAAAA3ACYAAAAGABMAAAA0ACYAAAACABMAAAA4ACYAAAAGABMAAAA1ACYAAAACABMAAAA5ACYAAAAGABMAAAA2ACsAAAATAAcAAAA3ACsAAAAVAAcAAAA3ACoAAAAVAAEAAAA2ACoAAAATAAEAAABGACQAAAABAAMAAABGACUAAAABAAQAAABHACQAAAACAAMAAABGACYAAAADAAYAAABGACcAAAADAAIAAABGACgAAAADAAcAAABIACQAAAAGAAMAAABJACQAAAAGAAMAAABKACQAAAAGAAMAAABLACQAAAACAAUAADBMACQAAAACAAMAAABNACQAAAAHAAMAAABNACUAAAAHAAQAAABNACYAAAAFAAIAAABNACcAAAAFAAYAAABMACgAAAAEAAcAAABNACgAAAAFAAcAAABLACgAAAAEAAcAAABKACgAAAACAAUAAABJACgAAAAHAAQAAFBIACgAAAACAAMAADBHACgAAAABAAQAAGA=")
 tile_set = SubResource("TileSet_r7ksg")
 y_sort_origin = 6
 
 [node name="Building1" type="NinePatchRect" parent="Land_layers" unique_id=1059725375]
+visible = false
 z_index = 11
 texture_filter = 1
 texture_repeat = 2
@@ -1769,6 +1772,7 @@ position = Vector2(288, 66)
 texture = ExtResource("8_8xgci")
 
 [node name="Building2" type="NinePatchRect" parent="Land_layers" unique_id=350692511]
+visible = false
 z_index = 6
 texture_filter = 1
 texture_repeat = 2
@@ -1797,6 +1801,7 @@ position = Vector2(196, 94)
 texture = ExtResource("6_avigi")
 
 [node name="Cables" type="Node2D" parent="Land_layers" unique_id=1507815003]
+visible = false
 z_index = 11
 
 [node name="Cable1" type="Line2D" parent="Land_layers/Cables" unique_id=1011501698]
@@ -1845,6 +1850,7 @@ shadow_curve_shape = 0.8500000000000001
 shadow_samples = 50
 
 [node name="ShadowsGround" type="CanvasGroup" parent="Land_layers" unique_id=891371465]
+visible = false
 self_modulate = Color(1, 1, 1, 0.7372549)
 z_index = 10
 position = Vector2(1567.9999, 1216.0001)
@@ -1894,6 +1900,7 @@ shadow_length = 39
 pixel_size = 1
 
 [node name="ShadowsRoof" type="CanvasGroup" parent="Land_layers" unique_id=1431220454]
+visible = false
 self_modulate = Color(1, 1, 1, 0.7372549)
 z_index = 11
 position = Vector2(1567.9999, 1216.0001)
@@ -1948,6 +1955,7 @@ shadow_length = 3
 pixel_size = 1
 
 [node name="Debris" type="Node2D" parent="Land_layers" unique_id=470326484]
+visible = false
 z_index = 5
 
 [node name="Debris1" type="Node2D" parent="Land_layers/Debris" unique_id=698348849]
@@ -3107,6 +3115,7 @@ texture = ExtResource("61_scbe7")
 [node name="Roads" type="Node2D" parent="Land_layers" unique_id=931904209]
 
 [node name="TireMarks" type="Node2D" parent="Land_layers/Roads" unique_id=674685423]
+visible = false
 
 [node name="TireMarkSmall" parent="Land_layers/Roads/TireMarks" unique_id=401786165 instance=ExtResource("73_au78y")]
 position = Vector2(32, -115)
@@ -3147,10 +3156,10 @@ self_modulate = Color(1, 1, 1, 0.050980393)
 [node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1583908402]
+[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=356817057]
 self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
 
-[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=539262095]
+[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=824972672]
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
 [node name="RoadBrushPath2D4" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1462920717]
@@ -3192,6 +3201,7 @@ self_modulate = Color(0.14509805, 0.14509805, 0.14509805, 0.58431375)
 [node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D" unique_id=358385964]
 
 [node name="RoadCracks" type="Node2D" parent="Land_layers/Roads" unique_id=2039001729]
+visible = false
 
 [node name="SerpentineCracks1" type="Node2D" parent="Land_layers/Roads/RoadCracks" unique_id=1883233838]
 z_index = 6
@@ -3307,6 +3317,7 @@ metadata/_custom_type_script = "uid://35fqax0nsl4d"
 script = ExtResource("83_q4v6q")
 
 [node name="RoadMarkings" type="Node2D" parent="Land_layers/Roads" unique_id=1041874057]
+visible = false
 modulate = Color(0.6955031, 0.6955032, 0.6955029, 1)
 
 [node name="Crossings" type="TileMapLayer" parent="Land_layers/Roads/RoadMarkings" unique_id=1717996340]
@@ -3323,9 +3334,9 @@ curve = SubResource("Curve2D_k66vp")
 script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p")])
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=222421574]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=179041919]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=955161266]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=359735917]
 script = ExtResource("86_au78y")
 
 [node name="Arrows" type="Node2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1192627376]
@@ -3352,9 +3363,9 @@ script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_au78y")])
 metadata/_custom_type_script = "uid://cstre1l5ksgef"
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=525093633]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1528201203]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1488460728]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=100787593]
 script = ExtResource("86_au78y")
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]

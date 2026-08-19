@@ -22,6 +22,15 @@ var max_fuel : float
 
 
 func _ready() -> void:
+	if owner != null and owner.get("debug_drive_mode") == true:
+		set_process(false)
+		set_physics_process(false)
+		for child : Node in get_children():
+			var timer : Timer = child as Timer
+			if timer != null:
+				timer.stop()
+		return
+		
 	SignalManager.game_paused.connect(_on_game_paused)
 	ItemManager.gas.connect(_on_gas_tank_picked_up)
 

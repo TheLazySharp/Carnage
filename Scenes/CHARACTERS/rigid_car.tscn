@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bx50mtpiyyt2j"]
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/PLAYER/rigid_car.gd" id="1_rsha1"]
+[ext_resource type="Resource" uid="uid://dubbw5mialr30" path="res://Resources/Cars/skyline.tres" id="2_73b8b"]
 [ext_resource type="PackedScene" uid="uid://caih21wmxphk2" path="res://Scenes/VFX/ghost.tscn" id="2_nbj0p"]
 [ext_resource type="Texture2D" uid="uid://b3rc8ngbuu013" path="res://Assets/VFX/Smoke_v8_Fade_In.png" id="3_s0c68"]
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
@@ -446,6 +447,8 @@ platform_floor_layers = 0
 platform_wall_layers = 8
 safe_margin = 0.01
 script = ExtResource("1_rsha1")
+debug_drive_mode = true
+debug_car_data = ExtResource("2_73b8b")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
 z_as_relative = false

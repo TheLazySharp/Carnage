@@ -9,14 +9,28 @@ class_name RoadBrushPath2D
 
 @export_group("Main Stamps")
 @export_dir var stamp_folder: String = ""
-@export var stamp_spacing: int = 2:
+## Spacing between two stamps, randomized per stamp within [min, max].
+@export var stamp_spacing_min: int = 2:
 	set(value):
-		stamp_spacing = max(value, 1)
+		stamp_spacing_min = max(value, 1)
+		stamp_spacing_max = max(stamp_spacing_max, stamp_spacing_min)
 		generate_all()
-@export var perpendicular_jitter: int = 0:
+@export var stamp_spacing_max: int = 4:
 	set(value):
-		perpendicular_jitter = value
+		stamp_spacing_max = max(value, stamp_spacing_min)
 		generate_all()
+## Lateral offset amplitude, randomized per stamp within [min, max],
+## then applied on a random side. Set min to 0 for a plain jitter.
+@export var perpendicular_jitter_min: int = 0:
+	set(value):
+		perpendicular_jitter_min = max(value, 0)
+		perpendicular_jitter_max = max(perpendicular_jitter_max, perpendicular_jitter_min)
+		generate_all()
+@export var perpendicular_jitter_max: int = 0:
+	set(value):
+		perpendicular_jitter_max = max(value, perpendicular_jitter_min)
+		generate_all()
+		
 @export var constrain_rotation_90: bool = true:
 	set(value):
 		constrain_rotation_90 = value
@@ -241,27 +255,22 @@ func _fade_probability(dist: float) -> float:
 func _generate_stamps(rng: RandomNumberGenerator) -> void:
 	if _stamp_textures.is_empty():
 		return
-
-	var step: float = stamp_spacing * pixel_size
-	var count: int = int(_path_length / step)
-
-	for i in range(count + 1):
-		var dist: float = min(i * step, _path_length)
-
+	var dist: float = 0.0
+	while dist <= _path_length:
 		var fade: float = _fade_probability(dist)
-		if fade < 1.0 and rng.randf() > fade:
-			continue
-
-		var xform: Transform2D = curve.sample_baked_with_rotation(dist)
-		var pos: Vector2 = xform.origin
-		var normal: Vector2 = xform.y
-
-		var lateral: float = 0.0
-		if perpendicular_jitter > 0:
-			lateral = rng.randf_range(-perpendicular_jitter, perpendicular_jitter) * pixel_size
-
-		var final_pos := _snap(pos + normal * lateral)
-		_spawn_stamp(_stamp_layer, _stamp_textures, final_pos, rng, constrain_rotation_90, allow_flip)
+		if fade >= 1.0 or rng.randf() <= fade:
+			var xform: Transform2D = curve.sample_baked_with_rotation(dist)
+			var pos: Vector2 = xform.origin
+			var normal: Vector2 = xform.y
+			var lateral: float = 0.0
+			if perpendicular_jitter_max > 0:
+				# amplitude in [min, max], random side
+				var amplitude: float = rng.randf_range(float(perpendicular_jitter_min), float(perpendicular_jitter_max))
+				var side: float = 1.0 if rng.randf() < 0.5 else -1.0
+				lateral = amplitude * side * pixel_size
+			var final_pos: Vector2 = _snap(pos + normal * lateral)
+			_spawn_stamp(_stamp_layer, _stamp_textures, final_pos, rng, constrain_rotation_90, allow_flip)
+		dist += float(rng.randi_range(stamp_spacing_min, stamp_spacing_max)) * pixel_size
 
 
 func _generate_details(rng: RandomNumberGenerator) -> void:

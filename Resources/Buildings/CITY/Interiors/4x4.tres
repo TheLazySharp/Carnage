@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://b0o6ksfc8imq6"]
+
+[ext_resource type="PackedScene" uid="uid://butjkegjy42eg" path="res://Scenes/BUILDINGS/build_4x4.tscn" id="1_3bqov"]
+[ext_resource type="Script" uid="uid://dq1yshanauw6j" path="res://Resources/Scripts/building_data.gd" id="2_m47of"]
+
+[resource]
+script = ExtResource("2_m47of")
+name = "4x4"
+building_scene = ExtResource("1_3bqov")
+footprint_32 = Vector2i(4, 4)
+circle_margin = 0.0
+metadata/_custom_type_script = "uid://dq1yshanauw6j"

@@ -14,6 +14,8 @@ var beeps_steps : float = 200
 
 
 func _ready() -> void:
+	if owner != null and owner.get("debug_drive_mode") == true:
+		return
 	if survivors_spawner:
 		survivors_spawner.beacon_activated.connect(_on_beacon_activated)
 		SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)
@@ -22,6 +24,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if owner != null and owner.get("debug_drive_mode") == true:
+		return
 	if GameMaster.game_mode == GameMaster.GAME_MODES.GOD or GameMaster.game_mode == GameMaster.GAME_MODES.SANDBOX :
 		far_beeps.stop()
 		close_beeps.stop()
@@ -62,6 +66,8 @@ func _on_survivor_picked_up(_survivor : SurvivorData) -> void:
 
 
 func _on_beep_timer_timeout() -> void:
+	if owner != null and owner.get("debug_drive_mode") == true:
+		return
 	if GameMaster.game_mode == GameMaster.GAME_MODES.GOD or GameMaster.game_mode == GameMaster.GAME_MODES.SANDBOX :
 		beep_timer.stop()
 		return
