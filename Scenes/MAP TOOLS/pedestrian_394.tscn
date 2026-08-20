@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c1jhyfdpse5ja"]
+
+[ext_resource type="Texture2D" uid="uid://q2vh71ewatrx" path="res://Assets/Textures/Roads/Markings/Crossings/pedestrian_394.png" id="1_4j3xr"]
+
+[node name="Pedestrian394" type="Sprite2D" unique_id=112191254]
+texture = ExtResource("1_4j3xr")

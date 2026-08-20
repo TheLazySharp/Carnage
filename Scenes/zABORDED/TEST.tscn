@@ -87,6 +87,7 @@
 [ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/road_marking_path.gd" id="84_5dgyk"]
 [ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="85_8uaht"]
 [ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="86_au78y"]
+[ext_resource type="PackedScene" uid="uid://cqddfo4uf5ux1" path="res://Scenes/MAP TOOLS/road_lines_192.tscn" id="87_8l2sf"]
 [ext_resource type="PackedScene" uid="uid://cnottdkm4adhv" path="res://Scenes/VFX/smoke_particles01.tscn" id="89_5trsw"]
 [ext_resource type="Texture2D" uid="uid://cr4mx80ya130l" path="res://Assets/VFX/particles_misc01.png" id="89_8l58v"]
 [ext_resource type="PackedScene" uid="uid://ccarv624txvb1" path="res://Scenes/VFX/bloodshot_particles.tscn" id="90_gg4ck"]
@@ -1171,19 +1172,6 @@ interior_wear_density = 0.042
 interior_wear_pair_chance = 0.42
 metadata/_custom_type_script = "uid://b68t07w6s0djw"
 
-[sub_resource type="Curve2D" id="Curve2D_1113p"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1661, 415, -245.8848, -494.50168, 245.8848, 494.50168, 2496, 693)
-}
-point_count = 2
-
-[sub_resource type="Resource" id="Resource_au78y"]
-script = ExtResource("85_8uaht")
-thickness = 8
-dash_length = 106
-gap_length = 118
-curve_sample_step = 1
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8l58v"]
 particles_animation = true
 particles_anim_h_frames = 5
@@ -1655,7 +1643,6 @@ offset = Vector2(82.99, 36.805)
 zoom = Vector2(3.21, 3.21)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
-visible = false
 top_level = true
 z_index = 6
 material = SubResource("CanvasItemMaterial_hnt52")
@@ -1673,10 +1660,10 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_wodl8")
 
 [node name="Background" type="ColorRect" parent="Land_layers" unique_id=1339542022]
-offset_left = 191.0
-offset_top = 146.0
-offset_right = 3653.0
-offset_bottom = 2532.0
+offset_left = -40.0
+offset_top = 211.0
+offset_right = 3422.0
+offset_bottom = 2597.0
 color = Color(0.03137255, 0.03137255, 0.03137255, 1)
 
 [node name="Sidewalks" type="TileMapLayer" parent="Land_layers" unique_id=1976538112]
@@ -1687,7 +1674,6 @@ occlusion_enabled = false
 rendering_quadrant_size = 32
 
 [node name="GroundProps" type="Node2D" parent="Land_layers" unique_id=700577747]
-visible = false
 z_index = 4
 
 [node name="Stencil1" type="Sprite2D" parent="Land_layers/GroundProps" unique_id=1796634782]
@@ -1716,14 +1702,12 @@ position = Vector2(2401, 1377)
 texture = ExtResource("14_unwpx")
 
 [node name="BuildingEdges" type="TileMapLayer" parent="Land_layers" unique_id=1372943361]
-visible = false
 z_index = 12
 tile_map_data = PackedByteArray("AAAxACYAAAABABMAAAAxACcAAAABABQAAAAxACgAAAABABQAAAAxACkAAAADABIAAAAxACoAAAADABIAAAAxACsAAAADABIAAAAxACwAAAADABcAAAAyACwAAAAEABcAAAAzACwAAAAEABcAAAA0ACwAAAAEABcAAAA1ACwAAAAEABcAAAA2ACwAAAAEABcAAAA3ACwAAAAEABcAAAA4ACwAAAAEABcAAAA5ACwAAAAEABcAAAA6ACwAAAAHABUAAAA6ACsAAAAHABQAAAA6ACoAAAAHABQAAAA6ACkAAAAFABIAAAA6ACgAAAAFABYAAAA6ACcAAAAFABYAAAA6ACYAAAAHABMAAAAyACYAAAACABMAAAA2ACYAAAAGABMAAAAzACYAAAACABMAAAA3ACYAAAAGABMAAAA0ACYAAAACABMAAAA4ACYAAAAGABMAAAA1ACYAAAACABMAAAA5ACYAAAAGABMAAAA2ACsAAAATAAcAAAA3ACsAAAAVAAcAAAA3ACoAAAAVAAEAAAA2ACoAAAATAAEAAABGACQAAAABAAMAAABGACUAAAABAAQAAABHACQAAAACAAMAAABGACYAAAADAAYAAABGACcAAAADAAIAAABGACgAAAADAAcAAABIACQAAAAGAAMAAABJACQAAAAGAAMAAABKACQAAAAGAAMAAABLACQAAAACAAUAADBMACQAAAACAAMAAABNACQAAAAHAAMAAABNACUAAAAHAAQAAABNACYAAAAFAAIAAABNACcAAAAFAAYAAABMACgAAAAEAAcAAABNACgAAAAFAAcAAABLACgAAAAEAAcAAABKACgAAAACAAUAAABJACgAAAAHAAQAAFBIACgAAAACAAMAADBHACgAAAABAAQAAGA=")
 tile_set = SubResource("TileSet_r7ksg")
 y_sort_origin = 6
 
 [node name="Building1" type="NinePatchRect" parent="Land_layers" unique_id=1059725375]
-visible = false
 z_index = 11
 texture_filter = 1
 texture_repeat = 2
@@ -1772,7 +1756,6 @@ position = Vector2(288, 66)
 texture = ExtResource("8_8xgci")
 
 [node name="Building2" type="NinePatchRect" parent="Land_layers" unique_id=350692511]
-visible = false
 z_index = 6
 texture_filter = 1
 texture_repeat = 2
@@ -1801,10 +1784,10 @@ position = Vector2(196, 94)
 texture = ExtResource("6_avigi")
 
 [node name="Cables" type="Node2D" parent="Land_layers" unique_id=1507815003]
-visible = false
 z_index = 11
 
 [node name="Cable1" type="Line2D" parent="Land_layers/Cables" unique_id=1011501698]
+visible = false
 position = Vector2(0, -63)
 points = PackedVector2Array(1887, 1311, 2240, 1374)
 width = 0.0
@@ -1820,6 +1803,7 @@ shadow_curve_shape = 0.8500000000000001
 shadow_samples = 50
 
 [node name="Cable2" type="Line2D" parent="Land_layers/Cables" unique_id=1225226809]
+visible = false
 position = Vector2(0, -63)
 points = PackedVector2Array(1891, 1497, 2240, 1374)
 width = 0.0
@@ -1850,13 +1834,13 @@ shadow_curve_shape = 0.8500000000000001
 shadow_samples = 50
 
 [node name="ShadowsGround" type="CanvasGroup" parent="Land_layers" unique_id=891371465]
-visible = false
 self_modulate = Color(1, 1, 1, 0.7372549)
 z_index = 10
 position = Vector2(1567.9999, 1216.0001)
 scale = Vector2(1.4377774, 1.4520547)
 
 [node name="CableShadow1" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=368096560]
+visible = false
 position = Vector2(-1090.5719, -837.4338)
 scale = Vector2(0.6955178, 0.68867904)
 script = ExtResource("17_1lqbc")
@@ -1867,6 +1851,7 @@ shadow_samples = 64
 shadow_direction = Vector2(1.155, 1)
 
 [node name="CableShadow2" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=1826160807]
+visible = false
 position = Vector2(-1090.5719, -837.4338)
 scale = Vector2(0.6955178, 0.68867904)
 script = ExtResource("17_1lqbc")
@@ -1887,7 +1872,7 @@ shadow_direction = Vector2(1.135, 1)
 [node name="BuildingShadow1" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=1122726596]
 position = Vector2(8.392334e-05, -8.34465e-05)
 script = ExtResource("16_5g436")
-building_size = Vector2i(222, 153)
+building_size = Vector2i(222, 154)
 shadow_length = 80
 pixel_size = 1
 
@@ -1900,7 +1885,6 @@ shadow_length = 39
 pixel_size = 1
 
 [node name="ShadowsRoof" type="CanvasGroup" parent="Land_layers" unique_id=1431220454]
-visible = false
 self_modulate = Color(1, 1, 1, 0.7372549)
 z_index = 11
 position = Vector2(1567.9999, 1216.0001)
@@ -1947,6 +1931,7 @@ shadow_length = 3
 pixel_size = 1
 
 [node name="RoofShadow6" type="Node2D" parent="Land_layers/ShadowsRoof" unique_id=1009379506]
+visible = false
 position = Vector2(479.90744, -32.368)
 scale = Vector2(0.9999998, 0.9999998)
 script = ExtResource("16_5g436")
@@ -1955,7 +1940,6 @@ shadow_length = 3
 pixel_size = 1
 
 [node name="Debris" type="Node2D" parent="Land_layers" unique_id=470326484]
-visible = false
 z_index = 5
 
 [node name="Debris1" type="Node2D" parent="Land_layers/Debris" unique_id=698348849]
@@ -3115,7 +3099,6 @@ texture = ExtResource("61_scbe7")
 [node name="Roads" type="Node2D" parent="Land_layers" unique_id=931904209]
 
 [node name="TireMarks" type="Node2D" parent="Land_layers/Roads" unique_id=674685423]
-visible = false
 
 [node name="TireMarkSmall" parent="Land_layers/Roads/TireMarks" unique_id=401786165 instance=ExtResource("73_au78y")]
 position = Vector2(32, -115)
@@ -3132,8 +3115,6 @@ position = Vector2(-13, 6)
 curve = SubResource("Curve2D_siu12")
 script = ExtResource("80_unwpx")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
-stamp_spacing = 43
-perpendicular_jitter = 19
 detail_folder = "res://Assets/Textures/Roads/RoadBrushes/RoadGrain/"
 detail_spacing = 1
 detail_scatter_radius = 31
@@ -3156,10 +3137,10 @@ self_modulate = Color(1, 1, 1, 0.050980393)
 [node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=356817057]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=863806998]
 self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
 
-[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=824972672]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=947052089]
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
 [node name="RoadBrushPath2D4" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1462920717]
@@ -3167,8 +3148,6 @@ position = Vector2(-27, 25)
 curve = SubResource("Curve2D_mqeix")
 script = ExtResource("80_unwpx")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
-stamp_spacing = 34
-perpendicular_jitter = 2
 detail_folder = "res://Assets/Textures/Roads/RoadBrushes/RoadGrain/"
 detail_spacing = 1
 detail_scatter_radius = 23
@@ -3186,12 +3165,10 @@ self_modulate = Color(0.096204735, 0.09620475, 0.09620472, 1)
 self_modulate = Color(0.25565878, 0.25565878, 0.25565878, 0.69803923)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1445693986]
-visible = false
 position = Vector2(84, 83)
 curve = SubResource("Curve2D_04oug")
 script = ExtResource("80_unwpx")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/"
-stamp_spacing = 11
 stamp_color = Color(0.14509805, 0.14509805, 0.14509805, 0.58431375)
 metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 
@@ -3201,7 +3178,6 @@ self_modulate = Color(0.14509805, 0.14509805, 0.14509805, 0.58431375)
 [node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D" unique_id=358385964]
 
 [node name="RoadCracks" type="Node2D" parent="Land_layers/Roads" unique_id=2039001729]
-visible = false
 
 [node name="SerpentineCracks1" type="Node2D" parent="Land_layers/Roads/RoadCracks" unique_id=1883233838]
 z_index = 6
@@ -3226,7 +3202,6 @@ default_stamp_spacing = 1
 curve = SubResource("Curve2D_au78y")
 script = ExtResource("80_unwpx")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
 stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
 [node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Root" unique_id=1033014548]
@@ -3239,7 +3214,6 @@ position = Vector2(99.71111, 14.059254)
 curve = SubResource("Curve2D_8l58v")
 script = ExtResource("80_unwpx")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
 stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
 [node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_1" unique_id=980606704]
@@ -3252,7 +3226,6 @@ position = Vector2(218.36005, 12.966787)
 curve = SubResource("Curve2D_w4um4")
 script = ExtResource("80_unwpx")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
 stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
 [node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_2" unique_id=668993529]
@@ -3265,7 +3238,6 @@ position = Vector2(229.9036, 10.036855)
 curve = SubResource("Curve2D_wsdp1")
 script = ExtResource("80_unwpx")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/"
-stamp_spacing = 1
 stamp_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
 [node name="StampLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=1453049905]
@@ -3274,7 +3246,6 @@ self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
 [node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=84188155]
 
 [node name="Cracks" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks" unique_id=560618745]
-visible = false
 self_modulate = Color(0.019607844, 0.019607844, 0.019607844, 1)
 z_index = 12
 position = Vector2(2133, 1371)
@@ -3317,7 +3288,6 @@ metadata/_custom_type_script = "uid://35fqax0nsl4d"
 script = ExtResource("83_q4v6q")
 
 [node name="RoadMarkings" type="Node2D" parent="Land_layers/Roads" unique_id=1041874057]
-visible = false
 modulate = Color(0.6955031, 0.6955032, 0.6955029, 1)
 
 [node name="Crossings" type="TileMapLayer" parent="Land_layers/Roads/RoadMarkings" unique_id=1717996340]
@@ -3327,16 +3297,15 @@ tile_set = SubResource("TileSet_tyiq4")
 collision_enabled = false
 
 [node name="RoadLine1" type="Path2D" parent="Land_layers/Roads/RoadMarkings" unique_id=605787046]
-visible = false
 z_index = 5
 position = Vector2(970, -121)
 curve = SubResource("Curve2D_k66vp")
 script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p")])
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=179041919]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=2125560495]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=359735917]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1608228305]
 script = ExtResource("86_au78y")
 
 [node name="Arrows" type="Node2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1192627376]
@@ -3356,16 +3325,11 @@ position = Vector2(1627.5, 889)
 rotation = 1.5707964
 texture = ExtResource("20_kpjr3")
 
-[node name="RoadMarkingPath2D" type="Path2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1562486276]
-visible = false
-curve = SubResource("Curve2D_1113p")
-script = ExtResource("84_5dgyk")
-lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_au78y")])
-metadata/_custom_type_script = "uid://cstre1l5ksgef"
+[node name="RoadMarkingPath2D" parent="Land_layers/Roads/RoadMarkings" unique_id=408457340 instance=ExtResource("87_8l2sf")]
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1528201203]
+[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=260673767]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=100787593]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1549956864]
 script = ExtResource("86_au78y")
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -3379,7 +3343,6 @@ hframes = 3
 frame = 1
 
 [node name="SmokeParticles02" type="GPUParticles2D" parent="." unique_id=183136815]
-visible = false
 material = SubResource("CanvasItemMaterial_8l58v")
 position = Vector2(2029, 1056)
 emitting = false

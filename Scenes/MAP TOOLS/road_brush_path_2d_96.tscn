@@ -3,15 +3,14 @@
 [ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Scripts/MAP TOOLS/road_brush_path2d.gd" id="1_qg77e"]
 
 [node name="RoadBrushPath2D" type="Path2D" unique_id=1978061340]
+modulate = Color(0.12298488, 0.12298488, 0.12298488, 1)
 script = ExtResource("1_qg77e")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A"
-stamp_spacing_min = 4
-stamp_spacing_max = 24
 perpendicular_jitter_max = 10
 stamp_color = Color(0.105882354, 0.105882354, 0.105882354, 1)
 metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 
-[node name="StampLayer" type="CanvasGroup" parent="." unique_id=1880115401]
+[node name="StampLayer" type="Node2D" parent="." unique_id=1489860789]
 self_modulate = Color(0.105882354, 0.105882354, 0.105882354, 1)
 
-[node name="DetailLayer" type="CanvasGroup" parent="." unique_id=2020539806]
+[node name="DetailLayer" type="Node2D" parent="." unique_id=1848839475]

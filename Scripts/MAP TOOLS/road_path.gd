@@ -13,16 +13,20 @@ extends Node2D
 @export var artery_template : PackedScene = null   # optional, falls back on street_template
 @export var use_map_seed : bool = true             # rng_seed = map seed + index (deterministic)
 
+@export_group("Baking")
+## Roads never move: render every stamp ONCE into a SubViewport and keep only
+## the resulting texture. Kills the per-frame overdraw of thousands of sprites.
+@export var bake_to_texture : bool = true
+## Uncheck to keep the source sprites alive (useful while tuning the brush)
+@export var free_sources_after_bake : bool = true
+
 @export_group("Lanes")
 @export var build_straights : bool = true
 @export var build_turns : bool = true
 ## Corner radius of the turn arcs, in lane widths. Bigger = wider, faster curves.
 @export_range(0.5, 4.0, 0.05) var corner_radius_lanes : float = 1.4
 ## Ratio of possible turns actually drawn at each intersection (organic wear).
-@export_range(0.0, 1.0, 0.05) var turn_chance : float = 1.0
-## Gap left between a straight lane and the intersection center, in lane widths.
-## 0 = lanes cross the intersection (cars do drive straight through), no holes.
-@export_range(0.0, 3.0, 0.05) var straight_margin_lanes : float = 0.0
+@export_range(0.0, 1.0, 0.05) var turn_chance : float = 0.7
 ## Random lateral offset applied to each lane path, in pixels.
 @export var lane_jitter_px : float = 6.0
 
@@ -52,6 +56,48 @@ func build(data : MapData) -> void:
 
 	print("[MapRoadPaths] built ", _built, " lane paths")
 
+	if bake_to_texture:
+		_bake(Vector2i(data.map_size_cells) * data.cell_size)
+
+
+# =================================================================
+# BAKING
+# =================================================================
+func _bake(size_px : Vector2i) -> void:
+	# Move every generated path into an offscreen viewport, render one frame,
+	# then display the result as a single sprite.
+	var holder : Node2D = Node2D.new()
+	holder.name = "BakeSource"
+	var sources : Array[Node] = get_children()
+	add_child(holder)
+	for child : Node in sources:
+		remove_child(child)
+		holder.add_child(child)
+
+	var viewport : SubViewport = SubViewport.new()
+	viewport.size = size_px
+	viewport.transparent_bg = true
+	viewport.disable_3d = true
+	viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
+	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	remove_child(holder)
+	viewport.add_child(holder)
+	add_child(viewport)
+
+	# Let the viewport render its single frame
+	await RenderingServer.frame_post_draw
+
+	var sprite : Sprite2D = Sprite2D.new()
+	sprite.name = "BakedRoads"
+	sprite.texture = viewport.get_texture()
+	sprite.centered = false
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	add_child(sprite)
+
+	if free_sources_after_bake:
+		holder.queue_free()  # the render target keeps the baked image
+	print("[MapRoadPaths] baked roads into a %s texture" % str(size_px))
+
 
 # =================================================================
 # STRAIGHT LANES
@@ -70,12 +116,10 @@ func get_lane_polylines(data : MapData) -> Array[Dictionary]:
 		var dir : Vector2 = (b - a).normalized()
 		var perp : Vector2 = Vector2(-dir.y, dir.x)
 
-		# Straights run node to node; turn arcs are layered on top, so
-		# intersections get denser wear instead of holes
-		var margin : float = lane_w * straight_margin_lanes
+		# Leave room for the intersection box + the turn arcs at both ends
+		var margin : float = (data.artery_width_px() if artery else data.street_width_px()) * 0.5 + radius
 		var start : Vector2 = a + dir * margin
 		var stop : Vector2 = b - dir * margin
-		
 		if start.distance_squared_to(stop) < lane_w * lane_w:
 			continue  # run too short once shortened
 

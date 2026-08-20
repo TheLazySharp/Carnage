@@ -115,8 +115,8 @@ class_name RoadBrushPath2D
 
 @export_tool_button("Generate") var generate_btn: Callable = generate_all
 
-var _stamp_layer: CanvasGroup
-var _detail_layer: CanvasGroup
+var _stamp_layer: Node2D
+var _detail_layer: Node2D
 var _stamp_textures: Array[Texture2D] = []
 var _detail_textures: Array[Texture2D] = []
 var _curve_signal_connected: bool = false
@@ -157,7 +157,7 @@ func _add_wear_line() -> void:
 func _ensure_layers() -> void:
 	_stamp_layer = get_node_or_null("StampLayer")
 	if _stamp_layer == null:
-		_stamp_layer = CanvasGroup.new()
+		_stamp_layer = Node2D.new()
 		_stamp_layer.name = "StampLayer"
 		add_child(_stamp_layer)
 		if Engine.is_editor_hint():
@@ -166,7 +166,7 @@ func _ensure_layers() -> void:
 
 	_detail_layer = get_node_or_null("DetailLayer")
 	if _detail_layer == null:
-		_detail_layer = CanvasGroup.new()
+		_detail_layer = Node2D.new()
 		_detail_layer.name = "DetailLayer"
 		add_child(_detail_layer)
 		if Engine.is_editor_hint():
@@ -221,7 +221,7 @@ func generate_all() -> void:
 	_generate_wear_lines()
 
 
-func _clear_layer(layer: CanvasGroup) -> void:
+func _clear_layer(layer: Node2D) -> void:
 	for child in layer.get_children():
 		layer.remove_child(child)
 		child.free()
@@ -332,7 +332,7 @@ func _generate_single_wear_line(line: RoadWearLine, index: int) -> void:
 	if textures.is_empty():
 		return
 
-	var layer := CanvasGroup.new()
+	var layer := Node2D.new()
 	layer.name = "WearLine_%d" % index
 	add_child(layer)
 	if Engine.is_editor_hint():
@@ -412,7 +412,7 @@ func _grid_has_neighbor_within(pos: Vector2, min_dist: float) -> bool:
 	return false
 
 
-func _spawn_stamp(layer: CanvasGroup, pool: Array[Texture2D], pos: Vector2, rng: RandomNumberGenerator, constrain_90: bool, flip: bool) -> void:
+func _spawn_stamp(layer: Node2D, pool: Array[Texture2D], pos: Vector2, rng: RandomNumberGenerator, constrain_90: bool, flip: bool) -> void:
 	var tex: Texture2D = pool[rng.randi_range(0, pool.size() - 1)]
 	var spr := Sprite2D.new()
 	spr.texture = tex

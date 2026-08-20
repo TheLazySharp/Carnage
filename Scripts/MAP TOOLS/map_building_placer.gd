@@ -9,7 +9,17 @@ extends Node2D
 ## Then MapData.finalize_sidewalks() turns whatever is left into pavement,
 ## ready for a single set_cells_terrain_connect() call.
 
+const SIDE_TOP : int = 0
+const SIDE_RIGHT : int = 1
+const SIDE_BOTTOM : int = 2
+const SIDE_LEFT : int = 3
+
 @export var pool : BuildingPool = null
+## Shared ground-shadow layer. Each building's ShadowsGroup children are moved
+## here so the whole map can be baked as one, without overlap accumulation.
+@export var shadows_ground : MapShadowsGround = null
+## Name of the node holding the ground shadows inside a building scene
+@export var shadow_source_name : String = "ShadowsGroup"
 ## District of the current run; N_A places no district building
 @export var district_type : DistrictsData.types = DistrictsData.types.N_A
 ## Depth of the belt buildings, in cells (they all share it by design)
@@ -22,6 +32,9 @@ extends Node2D
 ## Footprint cells of every placed building: feed this to the flow field
 ## (FlowFieldManager.add_obstacles) and to the horde wall grid.
 var obstacle_cells : Array[Vector2i] = []
+## Footprint of every placed building, in cells. Used by the cable pass to
+## find anchors on opposite sides of a street.
+var building_rects : Array[Rect2i] = []
 
 var _data : MapData = null
 var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -32,7 +45,10 @@ func build(data : MapData) -> void:
 	for child : Node in get_children():
 		child.queue_free()
 	obstacle_cells.clear()
+	building_rects.clear()
 	_placed = 0
+	if shadows_ground != null:
+		shadows_ground.clear_shadows()
 
 	if pool == null:
 		push_error("[MapBuildingsPlacer] no BuildingPool assigned")
@@ -55,6 +71,21 @@ func build(data : MapData) -> void:
 	print("[MapBuildingsPlacer] placed ", _placed, " buildings")
 
 
+func _collect_ground_shadows(instance : Node2D) -> void:
+	# Moves the building's ground shadows to the shared layer, keeping their
+	# world position. Roof shadows stay in the building: they are authored
+	# without overlap, so they need no global compositing.
+	if shadows_ground == null:
+		return
+	var source : Node2D = instance.get_node_or_null(shadow_source_name) as Node2D
+	if source == null:
+		return
+	for shadow : Node in source.get_children():
+		var item : Node2D = shadow as Node2D
+		if item != null:
+			shadows_ground.collect(item)
+
+
 ## Fails fast with an explicit message instead of a silent empty result
 func _check_setup() -> bool:
 	for required : String in ["district_plot", "district_block_id", "cell_block_id"]:
@@ -73,8 +104,8 @@ func _check_setup() -> bool:
 		_data.block_rects.size(), str(_data.district_plot.size), _data.district_block_id])
 
 	var usable : int = 0
-	for entry : BuildingData in pool.interiors:
-		if entry != null and entry.building_scene != null and entry.biome == pool.biome and not entry.is_district_specific():
+	for candidate : BuildingData in pool.interiors:
+		if candidate != null and candidate.building_scene != null and candidate.biome == pool.biome and not candidate.is_district_specific():
 			usable += 1
 	if usable == 0 and not pool.interiors.is_empty():
 		push_warning("[MapBuildingsPlacer] no usable interior: check that each BuildingData has a scene, the pool's biome, and district_type = N_A")
@@ -107,7 +138,7 @@ func _place_district_building() -> void:
 		return
 	if not _interaction_circle_fits(rect, data.circle_margin):
 		push_warning("[MapBuildingsPlacer] '%s' interaction circle does not fit the map" % data.name)
-	_place(data, rect, 0)
+	_place(data, rect)
 
 
 ## The building's interaction circle must stay inside the map, or the player
@@ -132,10 +163,10 @@ func _place_belt() -> void:
 	_place_belt_corners()
 	# Sides are paved between the corners; the entry / extraction mouths are
 	# skipped for free, since their cells are not FREE in the raster.
-	_pave_side(BuildingData.Side.TOP)
-	_pave_side(BuildingData.Side.BOTTOM)
-	_pave_side(BuildingData.Side.LEFT)
-	_pave_side(BuildingData.Side.RIGHT)
+	_pave_side(SIDE_TOP)
+	_pave_side(SIDE_BOTTOM)
+	_pave_side(SIDE_LEFT)
+	_pave_side(SIDE_RIGHT)
 
 
 func _place_belt_corners() -> void:
@@ -148,28 +179,27 @@ func _place_belt_corners() -> void:
 		if entry.is_empty():
 			return
 		var data : BuildingData = entry["data"]
-		var turns : int = BuildingData.quarter_turns_for_corner(corner)
-		var size : Vector2i = BuildingData.rotated_size(data.footprint_32, turns)
+		var size : Vector2i = data.footprint_32
 		var origin : Vector2i = Vector2i.ZERO
 		match corner:
-			BuildingData.Corner.TOP_LEFT:
+			0:  # top-left
 				origin = Vector2i.ZERO
-			BuildingData.Corner.TOP_RIGHT:
+			1:  # top-right
 				origin = Vector2i(w - size.x, 0)
-			BuildingData.Corner.BOTTOM_RIGHT:
+			2:  # bottom-right
 				origin = Vector2i(w - size.x, h - size.y)
-			_:
+			_:  # bottom-left
 				origin = Vector2i(0, h - size.y)
 		var rect : Rect2i = Rect2i(origin, size)
 		if _data.can_place_building(rect):
-			_place(data, rect, turns)
+			_place(data, rect)
 
 
 func _pave_side(side : int) -> void:
-	# Walks the side and places the widest piece that fits at each step.
+	# Walks the side and places the longest piece that fits at each step.
 	# Anything that cannot be filled stays FREE and becomes sidewalk.
-	var turns : int = BuildingData.quarter_turns_for_side(side)
-	var length : int = _data.map_size_cells.x if (side == BuildingData.Side.TOP or side == BuildingData.Side.BOTTOM) else _data.map_size_cells.y
+	var horizontal : bool = side == SIDE_TOP or side == SIDE_BOTTOM
+	var length : int = _data.map_size_cells.x if horizontal else _data.map_size_cells.y
 	var cursor : int = 0
 	var unpaved : int = 0
 
@@ -179,9 +209,9 @@ func _pave_side(side : int) -> void:
 			cursor += 1
 			continue
 
-		var entry : Dictionary = pool.pick_peripheral(free_run, belt_depth_cells, _rng)
+		var entry : Dictionary = pool.pick_peripheral(free_run, belt_depth_cells, horizontal, _rng)
 		if entry.is_empty():
-			entry = pool.pick_filler(free_run, belt_depth_cells, _rng)
+			entry = pool.pick_filler(free_run, belt_depth_cells, horizontal, _rng)
 		if entry.is_empty():
 			# Nothing fits this gap: leave it as pavement and move on
 			unpaved += free_run
@@ -189,16 +219,16 @@ func _pave_side(side : int) -> void:
 			continue
 
 		var data : BuildingData = entry["data"]
-		var rect : Rect2i = _side_rect(side, cursor, data.footprint_32.x, data.footprint_32.y)
+		var piece_length : int = data.footprint_32.x if horizontal else data.footprint_32.y
+		var rect : Rect2i = _side_rect(side, cursor, piece_length, belt_depth_cells)
 		if _data.can_place_building(rect):
-			_place(data, rect, turns)
-			cursor += data.footprint_32.x
+			_place(data, rect)
+			cursor += piece_length
 		else:
 			cursor += 1
 
 	if unpaved > 0:
-		print("[MapBuildingsPlacer] %s belt: %d cells left unpaved (add narrower fillers to close them)" % [
-			BuildingData.Side.keys()[side], unpaved])
+		print("[MapBuildingsPlacer] belt side %d: %d cells left unpaved (add narrower pieces to close them)" % [side, unpaved])
 
 
 func _free_run(side : int, cursor : int, length : int) -> int:
@@ -209,20 +239,20 @@ func _free_run(side : int, cursor : int, length : int) -> int:
 	return run
 
 
-func _side_rect(side : int, cursor : int, width : int, depth : int) -> Rect2i:
-	# Rect occupied on the map by a piece of `width` along the side and
+func _side_rect(side : int, cursor : int, piece_length : int, depth : int) -> Rect2i:
+	# Rect occupied on the map by a piece of `piece_length` along the side and
 	# `depth` toward the city, placed at `cursor`
 	var w : int = _data.map_size_cells.x
 	var h : int = _data.map_size_cells.y
 	match side:
-		BuildingData.Side.TOP:
-			return Rect2i(cursor, 0, width, depth)
-		BuildingData.Side.BOTTOM:
-			return Rect2i(cursor, h - depth, width, depth)
-		BuildingData.Side.LEFT:
-			return Rect2i(0, cursor, depth, width)
+		SIDE_TOP:
+			return Rect2i(cursor, 0, piece_length, depth)
+		SIDE_BOTTOM:
+			return Rect2i(cursor, h - depth, piece_length, depth)
+		SIDE_LEFT:
+			return Rect2i(0, cursor, depth, piece_length)
 		_:  # RIGHT
-			return Rect2i(w - depth, cursor, depth, width)
+			return Rect2i(w - depth, cursor, depth, piece_length)
 
 
 # =================================================================
@@ -255,11 +285,9 @@ func _fill_blocks() -> void:
 				continue
 
 			var data : BuildingData = entry["data"]
-			var turns : int = entry["quarter_turns"]
-			var size : Vector2i = BuildingData.rotated_size(data.footprint_32, turns)
-			var rect : Rect2i = Rect2i(Vector2i(x, y), size)
+			var rect : Rect2i = Rect2i(Vector2i(x, y), data.footprint_32)
 			if _data.can_place_building(rect):
-				_place(data, rect, turns)
+				_place(data, rect)
 				if building_gap_cells > 0:
 					_reserve_gap(rect)
 
@@ -308,23 +336,22 @@ func _reserve_gap(rect : Rect2i) -> void:
 # =================================================================
 # SPAWN
 # =================================================================
-func _place(data : BuildingData, rect : Rect2i, quarter_turns : int) -> void:
+func _place(data : BuildingData, rect : Rect2i) -> void:
 	var instance : Node2D = data.building_scene.instantiate() as Node2D
 	if instance == null:
 		push_error("[MapBuildingsPlacer] '%s' scene root must be a Node2D" % data.name)
 		return
 
-	var cell : int = _data.cell_size
-	# The scene origin is its top-left corner; rotating around that origin
-	# moves the content, rotation_offset() puts it back on the rect
-	instance.position = Vector2(rect.position) * float(cell) \
-		+ BuildingData.rotation_offset(data.footprint_32, quarter_turns, cell)
-	instance.rotation = float(quarter_turns) * PI * 0.5
+	# No rotation ever: the scene origin is its top-left corner, so it lands
+	# straight on the placement rect
+	instance.position = Vector2(rect.position) * float(_data.cell_size)
 	if "building_data" in instance:
 		instance.set("building_data", data)
 	add_child(instance)
+	_collect_ground_shadows(instance)
 
 	_data.mark_building(rect)
+	building_rects.append(rect)
 	for y : int in range(rect.position.y, rect.end.y):
 		for x : int in range(rect.position.x, rect.end.x):
 			obstacle_cells.append(Vector2i(x, y))
