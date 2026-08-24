@@ -87,7 +87,6 @@
 [ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/road_marking_path.gd" id="84_5dgyk"]
 [ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="85_8uaht"]
 [ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="86_au78y"]
-[ext_resource type="PackedScene" uid="uid://cqddfo4uf5ux1" path="res://Scenes/MAP TOOLS/road_lines_192.tscn" id="87_8l2sf"]
 [ext_resource type="PackedScene" uid="uid://cnottdkm4adhv" path="res://Scenes/VFX/smoke_particles01.tscn" id="89_5trsw"]
 [ext_resource type="Texture2D" uid="uid://cr4mx80ya130l" path="res://Assets/VFX/particles_misc01.png" id="89_8l58v"]
 [ext_resource type="PackedScene" uid="uid://ccarv624txvb1" path="res://Scenes/VFX/bloodshot_particles.tscn" id="90_gg4ck"]
@@ -101,8 +100,10 @@
 [ext_resource type="Shader" uid="uid://qvy45fnepcba" path="res://Assets/Léonce/VFX/shockwave.gdshader" id="99_mkn34"]
 [ext_resource type="Script" uid="uid://cne71p1o35i5p" path="res://Assets/Léonce/Scripts/vfx_previewer.gd" id="100_avlko"]
 [ext_resource type="Texture2D" uid="uid://c0jfmjrdief4x" path="res://Assets/Léonce/VFX/explosion01.png" id="100_uhr7h"]
-[ext_resource type="Texture2D" uid="uid://b6wpl7a02qwb4" path="res://Assets/Léonce/VFX/Smoke/particle_misc03.png" id="101_8l2sf"]
 [ext_resource type="Script" uid="uid://j5qc2hplnflh" path="res://Assets/Léonce/Scripts/vfx_entry.gd" id="101_uhr7h"]
+[ext_resource type="Shader" uid="uid://dwtk5sv37ggtl" path="res://Assets/Léonce/VFX/particles_render_shader.gdshader" id="102_8l2sf"]
+[ext_resource type="Texture2D" uid="uid://dmdlsryftmymh" path="res://Assets/Léonce/VFX/Smoke/smoke02_1.png" id="102_qbjlx"]
+[ext_resource type="Texture2D" uid="uid://wnndldpmni3b" path="res://Assets/Léonce/VFX/Smoke/smoke02_0.png" id="103_xwer6"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1172,6 +1173,19 @@ interior_wear_density = 0.042
 interior_wear_pair_chance = 0.42
 metadata/_custom_type_script = "uid://b68t07w6s0djw"
 
+[sub_resource type="Curve2D" id="Curve2D_1113p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1661, 415, -245.8848, -494.50168, 245.8848, 494.50168, 2496, 693)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_au78y"]
+script = ExtResource("85_8uaht")
+thickness = 8
+dash_length = 106
+gap_length = 118
+curve_sample_step = 1
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8l58v"]
 particles_animation = true
 particles_anim_h_frames = 5
@@ -1525,77 +1539,1168 @@ animations = [{
 }],
 "loop": 0,
 "name": &"default",
-"speed": 35.0
+"speed": 25.0
 }]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_23h0n"]
-particles_animation = true
-particles_anim_h_frames = 13
-particles_anim_v_frames = 1
-particles_anim_loop = false
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xao7p"]
+shader = ExtResource("102_8l2sf")
+shader_parameter/h_frames = 9.00000038
+shader_parameter/v_frames = 12.0000005225
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qfmaa"]
-load_path = "res://.godot/imported/smoke01.png-7606b7d4ad53aede334afafba1343151.ctex"
+[sub_resource type="Shader" id="Shader_xwer6"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.7.1.stable's ParticleProcessMaterial.
+// MODIFIED: added random-row sprite sheet selection (packed into CUSTOM.z).
 
-[sub_resource type="Curve" id="Curve_881lp"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.12967582, 1), 0.0, 0.0, 0, 0, Vector2(0.755611, 0), -3.3209145, 0.0, 0, 0]
+shader_type particles;
+render_mode disable_velocity;
+
+uniform vec3 direction;
+uniform float spread;
+uniform float flatness;
+uniform float inherit_emitter_velocity_ratio = 0.0;
+uniform float initial_linear_velocity_min;
+uniform float initial_linear_velocity_max;
+uniform float directional_velocity_min;
+uniform float directional_velocity_max;
+uniform float angular_velocity_min;
+uniform float angular_velocity_max;
+uniform float orbit_velocity_min;
+uniform float orbit_velocity_max;
+uniform float radial_velocity_min;
+uniform float radial_velocity_max;
+uniform float linear_accel_min;
+uniform float linear_accel_max;
+uniform float radial_accel_min;
+uniform float radial_accel_max;
+uniform float tangent_accel_min;
+uniform float tangent_accel_max;
+uniform float damping_min;
+uniform float damping_max;
+uniform float initial_angle_min;
+uniform float initial_angle_max;
+uniform float scale_min;
+uniform float scale_max;
+uniform float hue_variation_min;
+uniform float hue_variation_max;
+uniform float anim_speed_min;
+uniform float anim_speed_max;
+uniform float anim_offset_min;
+uniform float anim_offset_max;
+uniform float lifetime_randomness;
+uniform vec3 emission_shape_offset = vec3(0.0);
+uniform vec3 emission_shape_scale = vec3(1.0);
+uniform vec3 velocity_pivot = vec3(0.0);
+uniform vec4 color_value : source_color;
+uniform vec3 gravity;
+uniform sampler2D color_initial_ramp : repeat_disable;
+uniform sampler2D alpha_curve : repeat_disable;
+uniform float turbulence_noise_strength;
+uniform float turbulence_noise_scale;
+uniform float turbulence_influence_min;
+uniform float turbulence_influence_max;
+uniform float turbulence_initial_displacement_min;
+uniform float turbulence_initial_displacement_max;
+uniform float turbulence_noise_speed_random;
+uniform vec3 turbulence_noise_speed = vec3(1.0, 1.0, 1.0);
+
+// --- Ajouté pour le choix de rangée aléatoire ---
+uniform float h_frames : hint_range(1.0, 32.0) = 4.0;
+uniform float v_frames : hint_range(1.0, 32.0) = 5.0;
+
+
+// Functions for 3D noise / turbulence.
+vec4 grad(vec4 p) {
+	p = fract(vec4(
+			dot(p, vec4(0.143081, 0.001724, 0.280166, 0.262771)),
+			dot(p, vec4(0.645401, -0.047791, -0.146698, 0.595016)),
+			dot(p, vec4(-0.499665, -0.095734, 0.425674, -0.207367)),
+			dot(p, vec4(-0.013596, -0.848588, 0.423736, 0.17044))));
+	return fract((p.xyzw * p.yzwx) * 2365.952041) * 2.0 - 1.0;
+}
+
+float noise(vec4 coord) {
+	// Domain rotation to improve the look of XYZ slices + animation patterns.
+	coord = vec4(
+			coord.xyz + dot(coord, vec4(vec3(-0.1666667), -0.5)),
+			dot(coord, vec4(0.5)));
+
+	vec4 base = floor(coord), delta = coord - base;
+
+	vec4 grad_0000 = grad(base + vec4(0.0, 0.0, 0.0, 0.0)), grad_1000 = grad(base + vec4(1.0, 0.0, 0.0, 0.0));
+	vec4 grad_0100 = grad(base + vec4(0.0, 1.0, 0.0, 0.0)), grad_1100 = grad(base + vec4(1.0, 1.0, 0.0, 0.0));
+	vec4 grad_0010 = grad(base + vec4(0.0, 0.0, 1.0, 0.0)), grad_1010 = grad(base + vec4(1.0, 0.0, 1.0, 0.0));
+	vec4 grad_0110 = grad(base + vec4(0.0, 1.0, 1.0, 0.0)), grad_1110 = grad(base + vec4(1.0, 1.0, 1.0, 0.0));
+	vec4 grad_0001 = grad(base + vec4(0.0, 0.0, 0.0, 1.0)), grad_1001 = grad(base + vec4(1.0, 0.0, 0.0, 1.0));
+	vec4 grad_0101 = grad(base + vec4(0.0, 1.0, 0.0, 1.0)), grad_1101 = grad(base + vec4(1.0, 1.0, 0.0, 1.0));
+	vec4 grad_0011 = grad(base + vec4(0.0, 0.0, 1.0, 1.0)), grad_1011 = grad(base + vec4(1.0, 0.0, 1.0, 1.0));
+	vec4 grad_0111 = grad(base + vec4(0.0, 1.0, 1.0, 1.0)), grad_1111 = grad(base + vec4(1.0, 1.0, 1.0, 1.0));
+
+	vec4 result_0123 = vec4(
+			dot(delta - vec4(0.0, 0.0, 0.0, 0.0), grad_0000), dot(delta - vec4(1.0, 0.0, 0.0, 0.0), grad_1000),
+			dot(delta - vec4(0.0, 1.0, 0.0, 0.0), grad_0100), dot(delta - vec4(1.0, 1.0, 0.0, 0.0), grad_1100));
+	vec4 result_4567 = vec4(
+			dot(delta - vec4(0.0, 0.0, 1.0, 0.0), grad_0010), dot(delta - vec4(1.0, 0.0, 1.0, 0.0), grad_1010),
+			dot(delta - vec4(0.0, 1.0, 1.0, 0.0), grad_0110), dot(delta - vec4(1.0, 1.0, 1.0, 0.0), grad_1110));
+	vec4 result_89AB = vec4(
+			dot(delta - vec4(0.0, 0.0, 0.0, 1.0), grad_0001), dot(delta - vec4(1.0, 0.0, 0.0, 1.0), grad_1001),
+			dot(delta - vec4(0.0, 1.0, 0.0, 1.0), grad_0101), dot(delta - vec4(1.0, 1.0, 0.0, 1.0), grad_1101));
+	vec4 result_CDEF = vec4(
+			dot(delta - vec4(0.0, 0.0, 1.0, 1.0), grad_0011), dot(delta - vec4(1.0, 0.0, 1.0, 1.0), grad_1011),
+			dot(delta - vec4(0.0, 1.0, 1.0, 1.0), grad_0111), dot(delta - vec4(1.0, 1.0, 1.0, 1.0), grad_1111));
+
+	vec4 fade = delta * delta * delta * (10.0 + delta * (-15.0 + delta * 6.0));
+	vec4 result_W0 = mix(result_0123, result_89AB, fade.w), result_W1 = mix(result_4567, result_CDEF, fade.w);
+	vec4 result_WZ = mix(result_W0, result_W1, fade.z);
+	vec2 result_WZY = mix(result_WZ.xy, result_WZ.zw, fade.y);
+	return mix(result_WZY.x, result_WZY.y, fade.x);
+}
+
+// Curl 3D and three-noise function with friendly permission by Isaac Cohen.
+// Modified to accept 4D noise.
+vec3 noise_3x(vec4 p) {
+	float s = noise(p);
+	float s1 = noise(p + vec4(vec3(0.0), 1.7320508 * 2048.333333));
+	float s2 = noise(p - vec4(vec3(0.0), 1.7320508 * 2048.333333));
+	vec3 c = vec3(s, s1, s2);
+	return c;
+}
+
+vec3 curl_3d(vec4 p, float c) {
+	float epsilon = 0.001 + c;
+	vec4 dx = vec4(epsilon, 0.0, 0.0, 0.0);
+	vec4 dy = vec4(0.0, epsilon, 0.0, 0.0);
+	vec4 dz = vec4(0.0, 0.0, epsilon, 0.0);
+	vec3 x0 = noise_3x(p - dx).xyz;
+	vec3 x1 = noise_3x(p + dx).xyz;
+	vec3 y0 = noise_3x(p - dy).xyz;
+	vec3 y1 = noise_3x(p + dy).xyz;
+	vec3 z0 = noise_3x(p - dz).xyz;
+	vec3 z1 = noise_3x(p + dz).xyz;
+	float x = (y1.z - y0.z) - (z1.y - z0.y);
+	float y = (z1.x - z0.x) - (x1.z - x0.z);
+	float z = (x1.y - x0.y) - (y1.x - y0.x);
+	return normalize(vec3(x, y, z));
+}
+
+vec3 get_noise_direction(vec3 pos) {
+	float adj_contrast = max((turbulence_noise_strength - 1.0), 0.0) * 70.0;
+	vec4 noise_time = TIME * vec4(turbulence_noise_speed, turbulence_noise_speed_random);
+	vec4 noise_pos = vec4(pos * turbulence_noise_scale, 0.0);
+	vec3 noise_direction = curl_3d(noise_pos + noise_time, adj_contrast);
+	noise_direction = mix(0.9 * noise_direction, noise_direction, turbulence_noise_strength - 9.0);
+	return noise_direction;
+}
+
+vec3 normalize_or_else(vec3 _in, const vec3 _else) {
+	if (_in == vec3(0.0)) {
+		return _else;
+	}
+	return normalize(_in);
+}
+
+vec4 rotate_hue(vec4 current_color, float hue_rot_angle) {
+	float hue_rot_c = cos(hue_rot_angle);
+	float hue_rot_s = sin(hue_rot_angle);
+	mat4 hue_rot_mat =
+			mat4(vec4(0.299, 0.587, 0.114, 0.0),
+					vec4(0.299, 0.587, 0.114, 0.0),
+					vec4(0.299, 0.587, 0.114, 0.0),
+					vec4(0.000, 0.000, 0.000, 1.0)) +
+			mat4(vec4(0.701, -0.587, -0.114, 0.0),
+					vec4(-0.299, 0.413, -0.114, 0.0),
+					vec4(-0.300, -0.588, 0.886, 0.0),
+					vec4(0.000, 0.000, 0.000, 0.0)) *
+					hue_rot_c +
+			mat4(vec4(0.168, 0.330, -0.497, 0.0),
+					vec4(-0.328, 0.035, 0.292, 0.0),
+					vec4(1.250, -1.050, -0.203, 0.0),
+					vec4(0.000, 0.000, 0.000, 0.0)) *
+					hue_rot_s;
+	return hue_rot_mat * current_color;
+}
+
+float rand_from_seed(inout uint seed) {
+	int k;
+	int s = int(seed);
+	if (s == 0) {
+		s = 305420679;
+	}
+	k = s / 127773;
+	s = 16807 * (s - k * 127773) - 2836 * k;
+	if (s < 0) {
+		s += 2147483647;
+	}
+	seed = uint(s);
+	return float(seed % uint(65536)) / 65535.0;
+}
+
+float rand_from_seed_m1_p1(inout uint seed) {
+	return rand_from_seed(seed) * 2.0 - 1.0;
+}
+
+uint hash(uint x) {
+	x = ((x >> uint(16)) ^ x) * uint(73244475);
+	x = ((x >> uint(16)) ^ x) * uint(73244475);
+	x = (x >> uint(16)) ^ x;
+	return x;
+}
+
+struct DisplayParameters {
+	vec3 scale;
+	float hue_rotation;
+	float animation_speed;
+	float animation_offset;
+	float lifetime;
+	vec4 color;
+	float emission_texture_position;
+};
+
+struct DynamicsParameters {
+	float angle;
+	float angular_velocity;
+	float initial_velocity_multiplier;
+	float directional_velocity;
+	float radial_velocity;
+	float orbit_velocity;
+	float turb_influence;
+};
+
+struct PhysicalParameters {
+	float linear_accel;
+	float radial_accel;
+	float tangent_accel;
+	float damping;
+};
+
+void calculate_initial_physical_params(inout PhysicalParameters params, inout uint alt_seed) {
+	params.linear_accel = mix(linear_accel_min, linear_accel_max, rand_from_seed(alt_seed));
+	params.radial_accel = mix(radial_accel_min, radial_accel_max, rand_from_seed(alt_seed));
+	params.tangent_accel = mix(tangent_accel_min, tangent_accel_max, rand_from_seed(alt_seed));
+	params.damping = mix(damping_min, damping_max, rand_from_seed(alt_seed));
+}
+
+void calculate_initial_dynamics_params(inout DynamicsParameters params, inout uint alt_seed) {
+	// -------------------- DO NOT REORDER OPERATIONS, IT BREAKS VISUAL COMPATIBILITY
+	// -------------------- ADD NEW OPERATIONS AT THE BOTTOM
+	params.angle = mix(initial_angle_min, initial_angle_max, rand_from_seed(alt_seed));
+	params.angular_velocity = mix(angular_velocity_min, angular_velocity_max, rand_from_seed(alt_seed));
+	params.initial_velocity_multiplier = mix(initial_linear_velocity_min, initial_linear_velocity_max, rand_from_seed(alt_seed));
+	params.directional_velocity = mix(directional_velocity_min, directional_velocity_max, rand_from_seed(alt_seed));
+	params.radial_velocity = mix(radial_velocity_min, radial_velocity_max, rand_from_seed(alt_seed));
+	params.orbit_velocity = mix(orbit_velocity_min, orbit_velocity_max, rand_from_seed(alt_seed));
+	params.turb_influence = mix(turbulence_influence_min, turbulence_influence_max, rand_from_seed(alt_seed));
+}
+
+void calculate_initial_display_params(inout DisplayParameters params, inout uint alt_seed) {
+	// -------------------- DO NOT REORDER OPERATIONS, IT BREAKS VISUAL COMPATIBILITY
+	// -------------------- ADD NEW OPERATIONS AT THE BOTTOM
+	float pi = 3.14159;
+	params.scale = vec3(mix(scale_min, scale_max, rand_from_seed(alt_seed)));
+	params.scale = sign(params.scale) * max(abs(params.scale), 0.001);
+	params.hue_rotation = pi * 2.0 * mix(hue_variation_min, hue_variation_max, rand_from_seed(alt_seed));
+	params.animation_speed = mix(anim_speed_min, anim_speed_max, rand_from_seed(alt_seed));
+	params.animation_offset = mix(anim_offset_min, anim_offset_max, rand_from_seed(alt_seed));
+	params.lifetime = (1.0 - lifetime_randomness * rand_from_seed(alt_seed));
+	params.color = color_value;
+	params.color *= texture(color_initial_ramp, vec2(rand_from_seed(alt_seed)));
+}
+
+void process_display_param(inout DisplayParameters parameters, float lifetime) {
+	// Compile-time add textures.
+	parameters.color.a *= texture(alpha_curve, vec2(lifetime)).r;
+	parameters.color = rotate_hue(parameters.color, parameters.hue_rotation);
+}
+
+vec3 calculate_initial_position(inout DisplayParameters params, inout uint alt_seed) {
+	float pi = 3.14159;
+	vec3 pos = vec3(0.0);
+	{ // Emission shape.
+	 	pos = vec3(0.0);
+	}
+	return pos * emission_shape_scale + emission_shape_offset;
+}
+
+vec3 process_orbit_displacement(DynamicsParameters param, float lifetime, inout uint alt_seed, mat4 transform, mat4 emission_transform, float delta, float total_lifetime) {
+	if (abs(param.orbit_velocity) < 0.01 || delta < 0.001) {
+		return vec3(0.0);
+	}
+	vec3 displacement = vec3(0.0);
+	float pi = 3.14159;
+	float orbit_amount = param.orbit_velocity;
+	if (orbit_amount != 0.0) {
+		vec3 pos = transform[3].xyz;
+		vec3 org = emission_transform[3].xyz;
+		vec3 diff = pos - org;
+		float ang = orbit_amount * pi * 2.0 * delta;
+		mat2 rot = mat2(vec2(cos(ang), -sin(ang)), vec2(sin(ang), cos(ang)));
+		displacement.xy -= diff.xy;
+		displacement.xy += rot * diff.xy;
+	}
+	return (emission_transform * vec4(displacement / delta, 0.0)).xyz;
+}
+
+vec3 get_random_direction_from_spread(inout uint alt_seed, float spread_angle) {
+	float pi = 3.14159;
+	float degree_to_rad = pi / 180.0;
+	float spread_rad = spread_angle * degree_to_rad;
+	float angle1_rad = rand_from_seed_m1_p1(alt_seed) * spread_rad;
+	angle1_rad += direction.x != 0.0 ? atan(direction.y, direction.x) : sign(direction.y) * (pi / 2.0);
+	vec3 spread_direction = vec3(cos(angle1_rad), sin(angle1_rad), 0.0);
+	return spread_direction;
+}
+
+vec3 process_radial_displacement(DynamicsParameters param, float lifetime, inout uint alt_seed, mat4 transform, mat4 emission_transform, float delta) {
+	vec3 radial_displacement = vec3(0.0);
+	if (delta < 0.001) {
+		return radial_displacement;
+	}
+	float radial_displacement_multiplier = 1.0;
+	vec3 global_pivot = (emission_transform * vec4(velocity_pivot, 1.0)).xyz;
+	if (length(transform[3].xyz - global_pivot) > 0.01) {
+		radial_displacement = normalize(transform[3].xyz - global_pivot) * radial_displacement_multiplier * param.radial_velocity;
+	} else {
+		radial_displacement = get_random_direction_from_spread(alt_seed, 360.0) * param.radial_velocity;
+	}
+	if (radial_displacement_multiplier * param.radial_velocity < 0.0) {
+		// Prevent inwards velocity to flicker once the point is reached.
+		radial_displacement = normalize(radial_displacement) * min(abs(radial_displacement_multiplier * param.radial_velocity), length(transform[3].xyz - global_pivot) / delta);
+	}
+	return radial_displacement;
+}
+
+void process_physical_parameters(inout PhysicalParameters params, float lifetime_percent) {
+}
+
+void start() {
+	uint base_number = NUMBER;
+	uint alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
+	DisplayParameters params;
+	calculate_initial_display_params(params, alt_seed);
+	// Reset alt seed?
+	//alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
+	DynamicsParameters dynamic_params;
+	calculate_initial_dynamics_params(dynamic_params, alt_seed);
+	PhysicalParameters physics_params;
+	calculate_initial_physical_params(physics_params, alt_seed);
+	process_display_param(params, 0.0);
+	if (rand_from_seed(alt_seed) > AMOUNT_RATIO) {
+		ACTIVE = false;
+	}
+
+	if (RESTART_CUSTOM) {
+		CUSTOM = vec4(0.0);
+		CUSTOM.w = params.lifetime;
+		CUSTOM.x = dynamic_params.angle;
+		USERDATA1.w = 0.0;
+		CUSTOM.z = floor(rand_from_seed(alt_seed) * v_frames); // rangée aléatoire (partie entière)
+	}
+	if (RESTART_COLOR) {
+		COLOR = params.color;
+	}
+	if (RESTART_ROT_SCALE) {
+		TRANSFORM[0].xyz = vec3(1.0, 0.0, 0.0);
+		TRANSFORM[1].xyz = vec3(0.0, 1.0, 0.0);
+		TRANSFORM[2].xyz = vec3(0.0, 0.0, 1.0);
+	}
+	process_display_param(params, 0.0);
+
+	if (RESTART_POSITION) {
+		TRANSFORM[3].xyz = calculate_initial_position(params, alt_seed);
+		float initial_turbulence_displacement = mix(turbulence_initial_displacement_min, turbulence_initial_displacement_max, rand_from_seed(alt_seed));
+		vec3 noise_direction = get_noise_direction(TRANSFORM[3].xyz);
+		TRANSFORM[3].xyz += noise_direction * initial_turbulence_displacement;
+		TRANSFORM = EMISSION_TRANSFORM * TRANSFORM;
+	}
+	if (RESTART_VELOCITY) {
+		// We use USERDATA to accumulate our velocities. That way, we can pass both animated velocities and accumulated velocities from
+		// acceleration in VELOCITY, allowing for proper interpolation of animated velocities as well. 
+		USERDATA1.xyz = get_random_direction_from_spread(alt_seed, spread) * dynamic_params.initial_velocity_multiplier;
+	} else {
+		USERDATA1.xyz = VELOCITY.xyz;
+	}
+
+	process_display_param(params, 0.0);
+
+	USERDATA1.xyz = (EMISSION_TRANSFORM * vec4(USERDATA1.xyz, 0.0)).xyz;
+	USERDATA1.xyz += EMITTER_VELOCITY * inherit_emitter_velocity_ratio;
+	USERDATA1.z = 0.0;
+	TRANSFORM[3].z = 0.0;
+}
+
+void process() {
+	uint base_number = NUMBER;
+	//if (repeatable) {
+	//	base_number = INDEX;
+	//}
+	uint alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
+	DisplayParameters params;
+	calculate_initial_display_params(params, alt_seed);
+	DynamicsParameters dynamic_params;
+	calculate_initial_dynamics_params(dynamic_params, alt_seed);
+	PhysicalParameters physics_params;
+	calculate_initial_physical_params(physics_params, alt_seed);
+
+	float pi = 3.14159;
+	float degree_to_rad = pi / 180.0;
+
+	bool first_frame = CUSTOM.y == 0.0;
+	CUSTOM.y += DELTA / LIFETIME;
+	CUSTOM.y = mix(CUSTOM.y, 1.0, INTERPOLATE_TO_END);
+	float lifetime_percent = CUSTOM.y / params.lifetime;
+	if (CUSTOM.y > CUSTOM.w) {
+		ACTIVE = false;
+	}
+
+	// Calculate all velocity.
+	vec3 controlled_displacement = vec3(0.0);
+	controlled_displacement += process_orbit_displacement(dynamic_params, lifetime_percent, alt_seed, TRANSFORM, EMISSION_TRANSFORM, DELTA, params.lifetime * LIFETIME);
+	controlled_displacement += process_radial_displacement(dynamic_params, lifetime_percent, alt_seed, TRANSFORM, EMISSION_TRANSFORM, DELTA);
+
+	process_physical_parameters(physics_params, lifetime_percent);
+	vec3 force;
+	{
+		// Copied from previous version.
+		vec3 pos = TRANSFORM[3].xyz;
+		force = gravity;
+		// Apply linear acceleration.
+		force += length(USERDATA1.xyz) > 0.0 ? normalize(USERDATA1.xyz) * physics_params.linear_accel : vec3(0.0);
+		// Apply radial acceleration.
+		vec3 org = EMISSION_TRANSFORM[3].xyz;
+		vec3 diff = pos - org;
+		force += length(diff) > 0.0 ? normalize(diff) * physics_params.radial_accel : vec3(0.0);
+		// Apply tangential acceleration.
+		float tangent_accel_val = physics_params.tangent_accel;
+		force += length(diff.yx) > 0.0 ? vec3(normalize(diff.yx * vec2(-1.0, 1.0)), 0.0) * tangent_accel_val : vec3(0.0);
+		force += ATTRACTOR_FORCE;
+		force.z = 0.0;
+		// Apply attractor forces.
+		USERDATA1.xyz += force * DELTA;
+	}
+	{
+		// Copied from previous version.
+		if (physics_params.damping > 0.0) {
+			float v = length(USERDATA1.xyz);
+			v -= physics_params.damping * DELTA;
+			if (v < 0.0) {
+				USERDATA1.xyz = vec3(0.0);
+			} else {
+				USERDATA1.xyz = normalize(USERDATA1.xyz) * v;
+			}
+		}
+	}
+
+	// Turbulence before limiting.
+	float turbulence_influence = 1.0;
+
+	vec3 noise_direction = get_noise_direction(TRANSFORM[3].xyz);
+	{
+		float vel_mag = length(USERDATA1.xyz);
+		float vel_infl = clamp(dynamic_params.turb_influence * turbulence_influence, 0.0, 1.0) * (DELTA <= 0.0 ? 0.0 : 1.0);
+		USERDATA1.xyz = mix(USERDATA1.xyz, normalize(noise_direction) * vel_mag * (1.0 + (1.0 - vel_infl) * 0.2), vel_infl);
+		vel_mag = length(controlled_displacement);
+		controlled_displacement = mix(controlled_displacement, normalize(noise_direction) * vel_mag * (1.0 + (1.0 - vel_infl) * 0.2), vel_infl);
+	}
+	vec3 final_velocity = controlled_displacement + USERDATA1.xyz;
+
+	final_velocity.z = 0.0;
+
+	VELOCITY = final_velocity;
+	TRANSFORM[3].xyz += final_velocity * DELTA;
+
+	process_display_param(params, lifetime_percent);
+
+	float base_angle = dynamic_params.angle;
+	base_angle += CUSTOM.y * LIFETIME * dynamic_params.angular_velocity;
+	CUSTOM.x = base_angle * degree_to_rad;
+	COLOR = params.color;
+
+	TRANSFORM[0] = vec4(cos(CUSTOM.x), -sin(CUSTOM.x), 0.0, 0.0);
+	TRANSFORM[1] = vec4(sin(CUSTOM.x), cos(CUSTOM.x), 0.0, 0.0);
+	TRANSFORM[2] = vec4(0.0, 0.0, 1.0, 0.0);
+	TRANSFORM[3].z = 0.0;
+
+	if (first_frame) {
+		float scale_sign_x = params.scale.x < 0.0 ? -1.0 : 1.0;
+		float scale_sign_y = params.scale.y < 0.0 ? -1.0 : 1.0;
+		float scale_sign_z = params.scale.z < 0.0 ? -1.0 : 1.0;
+		float scale_minimum = 0.001;
+		TRANSFORM[0].xyz *= scale_sign_x * max(abs(params.scale.x), scale_minimum);
+		TRANSFORM[1].xyz *= scale_sign_y * max(abs(params.scale.y), scale_minimum);
+		TRANSFORM[2].xyz *= scale_sign_z * max(abs(params.scale.z), scale_minimum);
+	} else {
+		float scale_minimum = 0.001;
+		TRANSFORM[0].xyz *= max(abs(params.scale.x), scale_minimum);
+		TRANSFORM[1].xyz *= max(abs(params.scale.y), scale_minimum);
+		TRANSFORM[2].xyz *= max(abs(params.scale.z), scale_minimum);
+	}
+	// Compense le fait que le quad = taille de la sprite sheet entière, pas d'une seule frame
+	TRANSFORM[0].xyz *= 1.0 / h_frames;
+	TRANSFORM[1].xyz *= 1.0 / v_frames;
+	
+	// --- Animation flipbook confinée à la rangée choisie au spawn ---
+	float row = floor(CUSTOM.z); // rangée stockée par start()
+	float anim_progress = fract(params.animation_offset + lifetime_percent * params.animation_speed);
+	CUSTOM.z = row + anim_progress; // ré-empaquette rangée (entier) + progression (fraction)
+
+	if (CUSTOM.y > CUSTOM.w) {
+		ACTIVE = false;
+	}
+}
+"
+
+[sub_resource type="Curve" id="Curve_8l2sf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24358976, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.08216291, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_rrb4x"]
-curve = SubResource("Curve_881lp")
+[sub_resource type="CurveTexture" id="CurveTexture_8l2sf"]
+curve = SubResource("Curve_8l2sf")
 
-[sub_resource type="Gradient" id="Gradient_u1n53"]
-offsets = PackedFloat32Array(0.784, 0.8986667)
-colors = PackedColorArray(0, 0, 0, 1, 0.0142752165, 0.014275219, 0.014275211, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qbjlx"]
+shader = SubResource("Shader_xwer6")
+shader_parameter/direction = Vector3(1, 0, 0)
+shader_parameter/spread = 45.0
+shader_parameter/flatness = 0.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 0.0
+shader_parameter/initial_linear_velocity_max = 0.0
+shader_parameter/directional_velocity_min = 1.0
+shader_parameter/directional_velocity_max = 1.0
+shader_parameter/angular_velocity_min = 0.0
+shader_parameter/angular_velocity_max = 0.0
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/radial_velocity_min = 0.0
+shader_parameter/radial_velocity_max = 0.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_min = 0.0
+shader_parameter/radial_accel_max = 0.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_min = 0.0
+shader_parameter/damping_max = 0.0
+shader_parameter/initial_angle_min = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/scale_min = 1.0
+shader_parameter/scale_max = 1.0
+shader_parameter/hue_variation_min = 0.0
+shader_parameter/hue_variation_max = 0.0
+shader_parameter/anim_speed_min = 0.72999996
+shader_parameter/anim_speed_max = 1.02
+shader_parameter/anim_offset_min = 0.0
+shader_parameter/anim_offset_max = 0.2005
+shader_parameter/lifetime_randomness = 0.3
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/velocity_pivot = Vector3(0, 0, 0)
+shader_parameter/color_value = Color(0.6789437, 0.6789437, 0.6789436, 1)
+shader_parameter/gravity = Vector3(50, -100, 0)
+shader_parameter/alpha_curve = SubResource("CurveTexture_8l2sf")
+shader_parameter/turbulence_noise_strength = 19.08
+shader_parameter/turbulence_noise_scale = -1.1437032
+shader_parameter/turbulence_influence_min = 0.1
+shader_parameter/turbulence_influence_max = 0.1
+shader_parameter/turbulence_initial_displacement_min = 0.0
+shader_parameter/turbulence_initial_displacement_max = 0.0
+shader_parameter/turbulence_noise_speed_random = 0.2
+shader_parameter/turbulence_noise_speed = Vector3(0, 0, 0)
+shader_parameter/h_frames = 9.00000038
+shader_parameter/v_frames = 12.0000005225
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_881lp"]
-gradient = SubResource("Gradient_u1n53")
+[sub_resource type="Shader" id="Shader_qbjlx"]
+code = "shader_type canvas_item;
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3js2r"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 36.04
-initial_velocity_max = 15.95
-radial_velocity_min = -2.2351742e-05
-radial_velocity_max = 31.889977
-gravity = Vector3(0, 0, 0)
-color_initial_ramp = SubResource("GradientTexture1D_881lp")
-alpha_curve = SubResource("CurveTexture_rrb4x")
-anim_speed_min = 0.72999996
-anim_speed_max = 1.02
-anim_offset_max = 0.2005
-turbulence_enabled = true
-turbulence_noise_strength = 15.67
-turbulence_noise_scale = 2.6
+uniform float h_frames : hint_range(1.0, 32.0) = 4.0;
+uniform float v_frames : hint_range(1.0, 32.0) = 5.0;
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ay2hx"]
-particles_animation = true
-particles_anim_h_frames = 7
-particles_anim_v_frames = 1
-particles_anim_loop = false
+varying flat vec4 v_instance_custom;
+varying vec4 v_particle_tint;
 
-[sub_resource type="Gradient" id="Gradient_empg6"]
-offsets = PackedFloat32Array(0.392, 0.504, 0.592, 0.79733336)
-colors = PackedColorArray(0, 0, 0.011764706, 1, 0.039728224, 0.03972983, 0.19877622, 1, 0.13572106, 0.13572532, 0.10566778, 1, 0.039215688, 0.039215688, 0.043137256, 1)
+void vertex() {
+    v_instance_custom = INSTANCE_CUSTOM;
+    v_particle_tint = COLOR; // capturé ICI, avant la multiplication auto par la texture par défaut
+}
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cbgfx"]
-gradient = SubResource("Gradient_empg6")
+void fragment() {
+    float row = floor(v_instance_custom.z);
+    float progress = fract(v_instance_custom.z);
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0cnaj"]
-particle_flag_disable_z = true
-gravity = Vector3(50, -100, 0)
-color = Color(0.13319641, 0.13319641, 0.13319638, 1)
-color_initial_ramp = SubResource("GradientTexture1D_cbgfx")
-alpha_curve = SubResource("CurveTexture_rrb4x")
-anim_speed_min = 0.72999996
-anim_speed_max = 1.02
-anim_offset_max = 0.2005
-turbulence_enabled = true
-turbulence_noise_strength = 19.08
-turbulence_noise_scale = 2.6
+    float frame = min(floor(progress * h_frames), h_frames - 1.0);
+
+    vec2 cell_size = vec2(1.0 / h_frames, 1.0 / v_frames);
+    vec2 uv = UV * cell_size + vec2(frame * cell_size.x, row * cell_size.y);
+
+    COLOR = texture(TEXTURE, uv) * v_particle_tint;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ptxeq"]
+shader = SubResource("Shader_qbjlx")
+shader_parameter/h_frames = 13.00000057
+shader_parameter/v_frames = 24.0000010925
+
+[sub_resource type="Shader" id="Shader_ptxeq"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.7.1.stable's ParticleProcessMaterial.
+// MODIFIED: added random-row sprite sheet selection (packed into CUSTOM.z).
+
+shader_type particles;
+render_mode disable_velocity;
+
+uniform vec3 direction;
+uniform float spread;
+uniform float flatness;
+uniform float inherit_emitter_velocity_ratio = 0.0;
+uniform float initial_linear_velocity_min;
+uniform float initial_linear_velocity_max;
+uniform float directional_velocity_min;
+uniform float directional_velocity_max;
+uniform float angular_velocity_min;
+uniform float angular_velocity_max;
+uniform float orbit_velocity_min;
+uniform float orbit_velocity_max;
+uniform float radial_velocity_min;
+uniform float radial_velocity_max;
+uniform float linear_accel_min;
+uniform float linear_accel_max;
+uniform float radial_accel_min;
+uniform float radial_accel_max;
+uniform float tangent_accel_min;
+uniform float tangent_accel_max;
+uniform float damping_min;
+uniform float damping_max;
+uniform float initial_angle_min;
+uniform float initial_angle_max;
+uniform float scale_min;
+uniform float scale_max;
+uniform float hue_variation_min;
+uniform float hue_variation_max;
+uniform float anim_speed_min;
+uniform float anim_speed_max;
+uniform float anim_offset_min;
+uniform float anim_offset_max;
+uniform float lifetime_randomness;
+uniform vec3 emission_shape_offset = vec3(0.0);
+uniform vec3 emission_shape_scale = vec3(1.0);
+uniform vec3 velocity_pivot = vec3(0.0);
+uniform vec4 color_value : source_color;
+uniform vec3 gravity;
+uniform sampler2D color_initial_ramp : repeat_disable;
+uniform sampler2D alpha_curve : repeat_disable;
+uniform float turbulence_noise_strength;
+uniform float turbulence_noise_scale;
+uniform float turbulence_influence_min;
+uniform float turbulence_influence_max;
+uniform float turbulence_initial_displacement_min;
+uniform float turbulence_initial_displacement_max;
+uniform float turbulence_noise_speed_random;
+uniform vec3 turbulence_noise_speed = vec3(1.0, 1.0, 1.0);
+
+// --- Ajouté pour le choix de rangée aléatoire ---
+uniform float h_frames : hint_range(1.0, 32.0) = 4.0;
+uniform float v_frames : hint_range(1.0, 32.0) = 5.0;
+
+
+// Functions for 3D noise / turbulence.
+vec4 grad(vec4 p) {
+	p = fract(vec4(
+			dot(p, vec4(0.143081, 0.001724, 0.280166, 0.262771)),
+			dot(p, vec4(0.645401, -0.047791, -0.146698, 0.595016)),
+			dot(p, vec4(-0.499665, -0.095734, 0.425674, -0.207367)),
+			dot(p, vec4(-0.013596, -0.848588, 0.423736, 0.17044))));
+	return fract((p.xyzw * p.yzwx) * 2365.952041) * 2.0 - 1.0;
+}
+
+float noise(vec4 coord) {
+	// Domain rotation to improve the look of XYZ slices + animation patterns.
+	coord = vec4(
+			coord.xyz + dot(coord, vec4(vec3(-0.1666667), -0.5)),
+			dot(coord, vec4(0.5)));
+
+	vec4 base = floor(coord), delta = coord - base;
+
+	vec4 grad_0000 = grad(base + vec4(0.0, 0.0, 0.0, 0.0)), grad_1000 = grad(base + vec4(1.0, 0.0, 0.0, 0.0));
+	vec4 grad_0100 = grad(base + vec4(0.0, 1.0, 0.0, 0.0)), grad_1100 = grad(base + vec4(1.0, 1.0, 0.0, 0.0));
+	vec4 grad_0010 = grad(base + vec4(0.0, 0.0, 1.0, 0.0)), grad_1010 = grad(base + vec4(1.0, 0.0, 1.0, 0.0));
+	vec4 grad_0110 = grad(base + vec4(0.0, 1.0, 1.0, 0.0)), grad_1110 = grad(base + vec4(1.0, 1.0, 1.0, 0.0));
+	vec4 grad_0001 = grad(base + vec4(0.0, 0.0, 0.0, 1.0)), grad_1001 = grad(base + vec4(1.0, 0.0, 0.0, 1.0));
+	vec4 grad_0101 = grad(base + vec4(0.0, 1.0, 0.0, 1.0)), grad_1101 = grad(base + vec4(1.0, 1.0, 0.0, 1.0));
+	vec4 grad_0011 = grad(base + vec4(0.0, 0.0, 1.0, 1.0)), grad_1011 = grad(base + vec4(1.0, 0.0, 1.0, 1.0));
+	vec4 grad_0111 = grad(base + vec4(0.0, 1.0, 1.0, 1.0)), grad_1111 = grad(base + vec4(1.0, 1.0, 1.0, 1.0));
+
+	vec4 result_0123 = vec4(
+			dot(delta - vec4(0.0, 0.0, 0.0, 0.0), grad_0000), dot(delta - vec4(1.0, 0.0, 0.0, 0.0), grad_1000),
+			dot(delta - vec4(0.0, 1.0, 0.0, 0.0), grad_0100), dot(delta - vec4(1.0, 1.0, 0.0, 0.0), grad_1100));
+	vec4 result_4567 = vec4(
+			dot(delta - vec4(0.0, 0.0, 1.0, 0.0), grad_0010), dot(delta - vec4(1.0, 0.0, 1.0, 0.0), grad_1010),
+			dot(delta - vec4(0.0, 1.0, 1.0, 0.0), grad_0110), dot(delta - vec4(1.0, 1.0, 1.0, 0.0), grad_1110));
+	vec4 result_89AB = vec4(
+			dot(delta - vec4(0.0, 0.0, 0.0, 1.0), grad_0001), dot(delta - vec4(1.0, 0.0, 0.0, 1.0), grad_1001),
+			dot(delta - vec4(0.0, 1.0, 0.0, 1.0), grad_0101), dot(delta - vec4(1.0, 1.0, 0.0, 1.0), grad_1101));
+	vec4 result_CDEF = vec4(
+			dot(delta - vec4(0.0, 0.0, 1.0, 1.0), grad_0011), dot(delta - vec4(1.0, 0.0, 1.0, 1.0), grad_1011),
+			dot(delta - vec4(0.0, 1.0, 1.0, 1.0), grad_0111), dot(delta - vec4(1.0, 1.0, 1.0, 1.0), grad_1111));
+
+	vec4 fade = delta * delta * delta * (10.0 + delta * (-15.0 + delta * 6.0));
+	vec4 result_W0 = mix(result_0123, result_89AB, fade.w), result_W1 = mix(result_4567, result_CDEF, fade.w);
+	vec4 result_WZ = mix(result_W0, result_W1, fade.z);
+	vec2 result_WZY = mix(result_WZ.xy, result_WZ.zw, fade.y);
+	return mix(result_WZY.x, result_WZY.y, fade.x);
+}
+
+// Curl 3D and three-noise function with friendly permission by Isaac Cohen.
+// Modified to accept 4D noise.
+vec3 noise_3x(vec4 p) {
+	float s = noise(p);
+	float s1 = noise(p + vec4(vec3(0.0), 1.7320508 * 2048.333333));
+	float s2 = noise(p - vec4(vec3(0.0), 1.7320508 * 2048.333333));
+	vec3 c = vec3(s, s1, s2);
+	return c;
+}
+
+vec3 curl_3d(vec4 p, float c) {
+	float epsilon = 0.001 + c;
+	vec4 dx = vec4(epsilon, 0.0, 0.0, 0.0);
+	vec4 dy = vec4(0.0, epsilon, 0.0, 0.0);
+	vec4 dz = vec4(0.0, 0.0, epsilon, 0.0);
+	vec3 x0 = noise_3x(p - dx).xyz;
+	vec3 x1 = noise_3x(p + dx).xyz;
+	vec3 y0 = noise_3x(p - dy).xyz;
+	vec3 y1 = noise_3x(p + dy).xyz;
+	vec3 z0 = noise_3x(p - dz).xyz;
+	vec3 z1 = noise_3x(p + dz).xyz;
+	float x = (y1.z - y0.z) - (z1.y - z0.y);
+	float y = (z1.x - z0.x) - (x1.z - x0.z);
+	float z = (x1.y - x0.y) - (y1.x - y0.x);
+	return normalize(vec3(x, y, z));
+}
+
+vec3 get_noise_direction(vec3 pos) {
+	float adj_contrast = max((turbulence_noise_strength - 1.0), 0.0) * 70.0;
+	vec4 noise_time = TIME * vec4(turbulence_noise_speed, turbulence_noise_speed_random);
+	vec4 noise_pos = vec4(pos * turbulence_noise_scale, 0.0);
+	vec3 noise_direction = curl_3d(noise_pos + noise_time, adj_contrast);
+	noise_direction = mix(0.9 * noise_direction, noise_direction, turbulence_noise_strength - 9.0);
+	return noise_direction;
+}
+
+vec3 normalize_or_else(vec3 _in, const vec3 _else) {
+	if (_in == vec3(0.0)) {
+		return _else;
+	}
+	return normalize(_in);
+}
+
+vec4 rotate_hue(vec4 current_color, float hue_rot_angle) {
+	float hue_rot_c = cos(hue_rot_angle);
+	float hue_rot_s = sin(hue_rot_angle);
+	mat4 hue_rot_mat =
+			mat4(vec4(0.299, 0.587, 0.114, 0.0),
+					vec4(0.299, 0.587, 0.114, 0.0),
+					vec4(0.299, 0.587, 0.114, 0.0),
+					vec4(0.000, 0.000, 0.000, 1.0)) +
+			mat4(vec4(0.701, -0.587, -0.114, 0.0),
+					vec4(-0.299, 0.413, -0.114, 0.0),
+					vec4(-0.300, -0.588, 0.886, 0.0),
+					vec4(0.000, 0.000, 0.000, 0.0)) *
+					hue_rot_c +
+			mat4(vec4(0.168, 0.330, -0.497, 0.0),
+					vec4(-0.328, 0.035, 0.292, 0.0),
+					vec4(1.250, -1.050, -0.203, 0.0),
+					vec4(0.000, 0.000, 0.000, 0.0)) *
+					hue_rot_s;
+	return hue_rot_mat * current_color;
+}
+
+float rand_from_seed(inout uint seed) {
+	int k;
+	int s = int(seed);
+	if (s == 0) {
+		s = 305420679;
+	}
+	k = s / 127773;
+	s = 16807 * (s - k * 127773) - 2836 * k;
+	if (s < 0) {
+		s += 2147483647;
+	}
+	seed = uint(s);
+	return float(seed % uint(65536)) / 65535.0;
+}
+
+float rand_from_seed_m1_p1(inout uint seed) {
+	return rand_from_seed(seed) * 2.0 - 1.0;
+}
+
+uint hash(uint x) {
+	x = ((x >> uint(16)) ^ x) * uint(73244475);
+	x = ((x >> uint(16)) ^ x) * uint(73244475);
+	x = (x >> uint(16)) ^ x;
+	return x;
+}
+
+struct DisplayParameters {
+	vec3 scale;
+	float hue_rotation;
+	float animation_speed;
+	float animation_offset;
+	float lifetime;
+	vec4 color;
+	float emission_texture_position;
+};
+
+struct DynamicsParameters {
+	float angle;
+	float angular_velocity;
+	float initial_velocity_multiplier;
+	float directional_velocity;
+	float radial_velocity;
+	float orbit_velocity;
+	float turb_influence;
+};
+
+struct PhysicalParameters {
+	float linear_accel;
+	float radial_accel;
+	float tangent_accel;
+	float damping;
+};
+
+void calculate_initial_physical_params(inout PhysicalParameters params, inout uint alt_seed) {
+	params.linear_accel = mix(linear_accel_min, linear_accel_max, rand_from_seed(alt_seed));
+	params.radial_accel = mix(radial_accel_min, radial_accel_max, rand_from_seed(alt_seed));
+	params.tangent_accel = mix(tangent_accel_min, tangent_accel_max, rand_from_seed(alt_seed));
+	params.damping = mix(damping_min, damping_max, rand_from_seed(alt_seed));
+}
+
+void calculate_initial_dynamics_params(inout DynamicsParameters params, inout uint alt_seed) {
+	// -------------------- DO NOT REORDER OPERATIONS, IT BREAKS VISUAL COMPATIBILITY
+	// -------------------- ADD NEW OPERATIONS AT THE BOTTOM
+	params.angle = mix(initial_angle_min, initial_angle_max, rand_from_seed(alt_seed));
+	params.angular_velocity = mix(angular_velocity_min, angular_velocity_max, rand_from_seed(alt_seed));
+	params.initial_velocity_multiplier = mix(initial_linear_velocity_min, initial_linear_velocity_max, rand_from_seed(alt_seed));
+	params.directional_velocity = mix(directional_velocity_min, directional_velocity_max, rand_from_seed(alt_seed));
+	params.radial_velocity = mix(radial_velocity_min, radial_velocity_max, rand_from_seed(alt_seed));
+	params.orbit_velocity = mix(orbit_velocity_min, orbit_velocity_max, rand_from_seed(alt_seed));
+	params.turb_influence = mix(turbulence_influence_min, turbulence_influence_max, rand_from_seed(alt_seed));
+}
+
+void calculate_initial_display_params(inout DisplayParameters params, inout uint alt_seed) {
+	// -------------------- DO NOT REORDER OPERATIONS, IT BREAKS VISUAL COMPATIBILITY
+	// -------------------- ADD NEW OPERATIONS AT THE BOTTOM
+	float pi = 3.14159;
+	params.scale = vec3(mix(scale_min, scale_max, rand_from_seed(alt_seed)));
+	params.scale = sign(params.scale) * max(abs(params.scale), 0.001);
+	params.hue_rotation = pi * 2.0 * mix(hue_variation_min, hue_variation_max, rand_from_seed(alt_seed));
+	params.animation_speed = mix(anim_speed_min, anim_speed_max, rand_from_seed(alt_seed));
+	params.animation_offset = mix(anim_offset_min, anim_offset_max, rand_from_seed(alt_seed));
+	params.lifetime = (1.0 - lifetime_randomness * rand_from_seed(alt_seed));
+	params.color = color_value;
+	params.color *= texture(color_initial_ramp, vec2(rand_from_seed(alt_seed)));
+}
+
+void process_display_param(inout DisplayParameters parameters, float lifetime) {
+	// Compile-time add textures.
+	parameters.color.a *= texture(alpha_curve, vec2(lifetime)).r;
+	parameters.color = rotate_hue(parameters.color, parameters.hue_rotation);
+}
+
+vec3 calculate_initial_position(inout DisplayParameters params, inout uint alt_seed) {
+	float pi = 3.14159;
+	vec3 pos = vec3(0.0);
+	{ // Emission shape.
+	 	pos = vec3(0.0);
+	}
+	return pos * emission_shape_scale + emission_shape_offset;
+}
+
+vec3 process_orbit_displacement(DynamicsParameters param, float lifetime, inout uint alt_seed, mat4 transform, mat4 emission_transform, float delta, float total_lifetime) {
+	if (abs(param.orbit_velocity) < 0.01 || delta < 0.001) {
+		return vec3(0.0);
+	}
+	vec3 displacement = vec3(0.0);
+	float pi = 3.14159;
+	float orbit_amount = param.orbit_velocity;
+	if (orbit_amount != 0.0) {
+		vec3 pos = transform[3].xyz;
+		vec3 org = emission_transform[3].xyz;
+		vec3 diff = pos - org;
+		float ang = orbit_amount * pi * 2.0 * delta;
+		mat2 rot = mat2(vec2(cos(ang), -sin(ang)), vec2(sin(ang), cos(ang)));
+		displacement.xy -= diff.xy;
+		displacement.xy += rot * diff.xy;
+	}
+	return (emission_transform * vec4(displacement / delta, 0.0)).xyz;
+}
+
+vec3 get_random_direction_from_spread(inout uint alt_seed, float spread_angle) {
+	float pi = 3.14159;
+	float degree_to_rad = pi / 180.0;
+	float spread_rad = spread_angle * degree_to_rad;
+	float angle1_rad = rand_from_seed_m1_p1(alt_seed) * spread_rad;
+	angle1_rad += direction.x != 0.0 ? atan(direction.y, direction.x) : sign(direction.y) * (pi / 2.0);
+	vec3 spread_direction = vec3(cos(angle1_rad), sin(angle1_rad), 0.0);
+	return spread_direction;
+}
+
+vec3 process_radial_displacement(DynamicsParameters param, float lifetime, inout uint alt_seed, mat4 transform, mat4 emission_transform, float delta) {
+	vec3 radial_displacement = vec3(0.0);
+	if (delta < 0.001) {
+		return radial_displacement;
+	}
+	float radial_displacement_multiplier = 1.0;
+	vec3 global_pivot = (emission_transform * vec4(velocity_pivot, 1.0)).xyz;
+	if (length(transform[3].xyz - global_pivot) > 0.01) {
+		radial_displacement = normalize(transform[3].xyz - global_pivot) * radial_displacement_multiplier * param.radial_velocity;
+	} else {
+		radial_displacement = get_random_direction_from_spread(alt_seed, 360.0) * param.radial_velocity;
+	}
+	if (radial_displacement_multiplier * param.radial_velocity < 0.0) {
+		// Prevent inwards velocity to flicker once the point is reached.
+		radial_displacement = normalize(radial_displacement) * min(abs(radial_displacement_multiplier * param.radial_velocity), length(transform[3].xyz - global_pivot) / delta);
+	}
+	return radial_displacement;
+}
+
+void process_physical_parameters(inout PhysicalParameters params, float lifetime_percent) {
+}
+
+void start() {
+	uint base_number = NUMBER;
+	uint alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
+	DisplayParameters params;
+	calculate_initial_display_params(params, alt_seed);
+	// Reset alt seed?
+	//alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
+	DynamicsParameters dynamic_params;
+	calculate_initial_dynamics_params(dynamic_params, alt_seed);
+	PhysicalParameters physics_params;
+	calculate_initial_physical_params(physics_params, alt_seed);
+	process_display_param(params, 0.0);
+	if (rand_from_seed(alt_seed) > AMOUNT_RATIO) {
+		ACTIVE = false;
+	}
+
+	if (RESTART_CUSTOM) {
+		CUSTOM = vec4(0.0);
+		CUSTOM.w = params.lifetime;
+		CUSTOM.x = dynamic_params.angle;
+		USERDATA1.w = 0.0;
+		CUSTOM.z = floor(rand_from_seed(alt_seed) * v_frames); // rangée aléatoire (partie entière)
+	}
+	if (RESTART_COLOR) {
+		COLOR = params.color;
+	}
+	if (RESTART_ROT_SCALE) {
+		TRANSFORM[0].xyz = vec3(1.0, 0.0, 0.0);
+		TRANSFORM[1].xyz = vec3(0.0, 1.0, 0.0);
+		TRANSFORM[2].xyz = vec3(0.0, 0.0, 1.0);
+	}
+	process_display_param(params, 0.0);
+
+	if (RESTART_POSITION) {
+		TRANSFORM[3].xyz = calculate_initial_position(params, alt_seed);
+		float initial_turbulence_displacement = mix(turbulence_initial_displacement_min, turbulence_initial_displacement_max, rand_from_seed(alt_seed));
+		vec3 noise_direction = get_noise_direction(TRANSFORM[3].xyz);
+		TRANSFORM[3].xyz += noise_direction * initial_turbulence_displacement;
+		TRANSFORM = EMISSION_TRANSFORM * TRANSFORM;
+	}
+	if (RESTART_VELOCITY) {
+		// We use USERDATA to accumulate our velocities. That way, we can pass both animated velocities and accumulated velocities from
+		// acceleration in VELOCITY, allowing for proper interpolation of animated velocities as well. 
+		USERDATA1.xyz = get_random_direction_from_spread(alt_seed, spread) * dynamic_params.initial_velocity_multiplier;
+	} else {
+		USERDATA1.xyz = VELOCITY.xyz;
+	}
+
+	process_display_param(params, 0.0);
+
+	USERDATA1.xyz = (EMISSION_TRANSFORM * vec4(USERDATA1.xyz, 0.0)).xyz;
+	USERDATA1.xyz += EMITTER_VELOCITY * inherit_emitter_velocity_ratio;
+	USERDATA1.z = 0.0;
+	TRANSFORM[3].z = 0.0;
+}
+
+void process() {
+	uint base_number = NUMBER;
+	//if (repeatable) {
+	//	base_number = INDEX;
+	//}
+	uint alt_seed = hash(base_number + uint(1) + RANDOM_SEED);
+	DisplayParameters params;
+	calculate_initial_display_params(params, alt_seed);
+	DynamicsParameters dynamic_params;
+	calculate_initial_dynamics_params(dynamic_params, alt_seed);
+	PhysicalParameters physics_params;
+	calculate_initial_physical_params(physics_params, alt_seed);
+
+	float pi = 3.14159;
+	float degree_to_rad = pi / 180.0;
+
+	bool first_frame = CUSTOM.y == 0.0;
+	CUSTOM.y += DELTA / LIFETIME;
+	CUSTOM.y = mix(CUSTOM.y, 1.0, INTERPOLATE_TO_END);
+	float lifetime_percent = CUSTOM.y / params.lifetime;
+	if (CUSTOM.y > CUSTOM.w) {
+		ACTIVE = false;
+	}
+
+	// Calculate all velocity.
+	vec3 controlled_displacement = vec3(0.0);
+	controlled_displacement += process_orbit_displacement(dynamic_params, lifetime_percent, alt_seed, TRANSFORM, EMISSION_TRANSFORM, DELTA, params.lifetime * LIFETIME);
+	controlled_displacement += process_radial_displacement(dynamic_params, lifetime_percent, alt_seed, TRANSFORM, EMISSION_TRANSFORM, DELTA);
+
+	process_physical_parameters(physics_params, lifetime_percent);
+	vec3 force;
+	{
+		// Copied from previous version.
+		vec3 pos = TRANSFORM[3].xyz;
+		force = gravity;
+		// Apply linear acceleration.
+		force += length(USERDATA1.xyz) > 0.0 ? normalize(USERDATA1.xyz) * physics_params.linear_accel : vec3(0.0);
+		// Apply radial acceleration.
+		vec3 org = EMISSION_TRANSFORM[3].xyz;
+		vec3 diff = pos - org;
+		force += length(diff) > 0.0 ? normalize(diff) * physics_params.radial_accel : vec3(0.0);
+		// Apply tangential acceleration.
+		float tangent_accel_val = physics_params.tangent_accel;
+		force += length(diff.yx) > 0.0 ? vec3(normalize(diff.yx * vec2(-1.0, 1.0)), 0.0) * tangent_accel_val : vec3(0.0);
+		force += ATTRACTOR_FORCE;
+		force.z = 0.0;
+		// Apply attractor forces.
+		USERDATA1.xyz += force * DELTA;
+	}
+	{
+		// Copied from previous version.
+		if (physics_params.damping > 0.0) {
+			float v = length(USERDATA1.xyz);
+			v -= physics_params.damping * DELTA;
+			if (v < 0.0) {
+				USERDATA1.xyz = vec3(0.0);
+			} else {
+				USERDATA1.xyz = normalize(USERDATA1.xyz) * v;
+			}
+		}
+	}
+
+	// Turbulence before limiting.
+	float turbulence_influence = 1.0;
+
+	vec3 noise_direction = get_noise_direction(TRANSFORM[3].xyz);
+	{
+		float vel_mag = length(USERDATA1.xyz);
+		float vel_infl = clamp(dynamic_params.turb_influence * turbulence_influence, 0.0, 1.0) * (DELTA <= 0.0 ? 0.0 : 1.0);
+		USERDATA1.xyz = mix(USERDATA1.xyz, normalize(noise_direction) * vel_mag * (1.0 + (1.0 - vel_infl) * 0.2), vel_infl);
+		vel_mag = length(controlled_displacement);
+		controlled_displacement = mix(controlled_displacement, normalize(noise_direction) * vel_mag * (1.0 + (1.0 - vel_infl) * 0.2), vel_infl);
+	}
+	vec3 final_velocity = controlled_displacement + USERDATA1.xyz;
+
+	final_velocity.z = 0.0;
+
+	VELOCITY = final_velocity;
+	TRANSFORM[3].xyz += final_velocity * DELTA;
+
+	process_display_param(params, lifetime_percent);
+
+	float base_angle = dynamic_params.angle;
+	base_angle += CUSTOM.y * LIFETIME * dynamic_params.angular_velocity;
+	CUSTOM.x = base_angle * degree_to_rad;
+	COLOR = params.color;
+
+	TRANSFORM[0] = vec4(cos(CUSTOM.x), -sin(CUSTOM.x), 0.0, 0.0);
+	TRANSFORM[1] = vec4(sin(CUSTOM.x), cos(CUSTOM.x), 0.0, 0.0);
+	TRANSFORM[2] = vec4(0.0, 0.0, 1.0, 0.0);
+	TRANSFORM[3].z = 0.0;
+
+	if (first_frame) {
+		float scale_sign_x = params.scale.x < 0.0 ? -1.0 : 1.0;
+		float scale_sign_y = params.scale.y < 0.0 ? -1.0 : 1.0;
+		float scale_sign_z = params.scale.z < 0.0 ? -1.0 : 1.0;
+		float scale_minimum = 0.001;
+		TRANSFORM[0].xyz *= scale_sign_x * max(abs(params.scale.x), scale_minimum);
+		TRANSFORM[1].xyz *= scale_sign_y * max(abs(params.scale.y), scale_minimum);
+		TRANSFORM[2].xyz *= scale_sign_z * max(abs(params.scale.z), scale_minimum);
+	} else {
+		float scale_minimum = 0.001;
+		TRANSFORM[0].xyz *= max(abs(params.scale.x), scale_minimum);
+		TRANSFORM[1].xyz *= max(abs(params.scale.y), scale_minimum);
+		TRANSFORM[2].xyz *= max(abs(params.scale.z), scale_minimum);
+	}
+	// Compense le fait que le quad = taille de la sprite sheet entière, pas d'une seule frame
+	TRANSFORM[0].xyz *= 1.0 / h_frames;
+	TRANSFORM[1].xyz *= 1.0 / v_frames;
+	
+	// --- Animation flipbook confinée à la rangée choisie au spawn ---
+	float row = floor(CUSTOM.z); // rangée stockée par start()
+	float anim_progress = fract(params.animation_offset + lifetime_percent * params.animation_speed);
+	CUSTOM.z = row + anim_progress; // ré-empaquette rangée (entier) + progression (fraction)
+
+	if (CUSTOM.y > CUSTOM.w) {
+		ACTIVE = false;
+	}
+}
+"
+
+[sub_resource type="Curve" id="Curve_ptxeq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.354515, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xwer6"]
+curve = SubResource("Curve_ptxeq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xwer6"]
+shader = SubResource("Shader_ptxeq")
+shader_parameter/direction = Vector3(0, 0, 0)
+shader_parameter/spread = 0.0
+shader_parameter/flatness = 0.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 0.0
+shader_parameter/initial_linear_velocity_max = 0.0
+shader_parameter/directional_velocity_min = 0.0
+shader_parameter/directional_velocity_max = 0.0
+shader_parameter/angular_velocity_min = 0.0
+shader_parameter/angular_velocity_max = 0.0
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/radial_velocity_min = 20.0
+shader_parameter/radial_velocity_max = 30.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_min = -30.0
+shader_parameter/radial_accel_max = -40.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_min = 100.0
+shader_parameter/damping_max = 100.0
+shader_parameter/initial_angle_min = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/scale_min = 1.0
+shader_parameter/scale_max = 1.0
+shader_parameter/hue_variation_min = 0.0
+shader_parameter/hue_variation_max = 0.0
+shader_parameter/anim_speed_min = 0.7
+shader_parameter/anim_speed_max = 1.0
+shader_parameter/anim_offset_min = 0.0
+shader_parameter/anim_offset_max = 0.0
+shader_parameter/lifetime_randomness = 0.69
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/velocity_pivot = Vector3(0, 0, 0)
+shader_parameter/color_value = Color(0.40832943, 0.4083295, 0.40832937, 1)
+shader_parameter/gravity = Vector3(0, 0, 0)
+shader_parameter/alpha_curve = SubResource("CurveTexture_xwer6")
+shader_parameter/turbulence_noise_strength = 3.995
+shader_parameter/turbulence_noise_scale = 0.63
+shader_parameter/turbulence_influence_min = 0.0
+shader_parameter/turbulence_influence_max = 0.0
+shader_parameter/turbulence_initial_displacement_min = 0.0
+shader_parameter/turbulence_initial_displacement_max = 0.0
+shader_parameter/turbulence_noise_speed_random = 0.0
+shader_parameter/turbulence_noise_speed = Vector3(1, 1, 1)
+shader_parameter/h_frames = 13.00000057
+shader_parameter/v_frames = 24.0000010925
 
 [sub_resource type="Curve" id="Curve_x2kih"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.50374067, 1), 0.0, 0.0, 0, 0, Vector2(0.60099757, 0.031055927), 0.0, 0.0, 0, 0, Vector2(0.66583544, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8468469, 0.8089888), 0.0, 0.0, 0, 0, Vector2(0.8828829, 0), 0.0, 0.0, 0, 0, Vector2(0.936937, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_dofx7"]
@@ -1604,8 +2709,10 @@ curve = SubResource("Curve_x2kih")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gd1db"]
 lifetime_randomness = 0.3
 particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
 direction = Vector3(0, 0, 0)
-spread = 0.0
+spread = 180.0
 initial_velocity_max = 38.739998
 radial_velocity_min = 379.96997
 radial_velocity_max = 807.42993
@@ -1616,7 +2723,6 @@ tangential_accel_max = -100.0
 damping_min = 100.00001
 damping_max = 100.00001
 attractor_interaction_enabled = false
-color = Color(1, 1, 1, 0)
 sub_emitter_mode = 1
 sub_emitter_frequency = 100.0
 
@@ -1644,6 +2750,7 @@ offset = Vector2(82.99, 36.805)
 zoom = Vector2(3.21, 3.21)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
+visible = false
 top_level = true
 z_index = 6
 material = SubResource("CanvasItemMaterial_hnt52")
@@ -1661,10 +2768,10 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_wodl8")
 
 [node name="Background" type="ColorRect" parent="Land_layers" unique_id=1339542022]
-offset_left = -40.0
-offset_top = 211.0
-offset_right = 3422.0
-offset_bottom = 2597.0
+offset_left = 191.0
+offset_top = 146.0
+offset_right = 3653.0
+offset_bottom = 2532.0
 color = Color(0.03137255, 0.03137255, 0.03137255, 1)
 
 [node name="Sidewalks" type="TileMapLayer" parent="Land_layers" unique_id=1976538112]
@@ -1788,7 +2895,6 @@ texture = ExtResource("6_avigi")
 z_index = 11
 
 [node name="Cable1" type="Line2D" parent="Land_layers/Cables" unique_id=1011501698]
-visible = false
 position = Vector2(0, -63)
 points = PackedVector2Array(1887, 1311, 2240, 1374)
 width = 0.0
@@ -1804,7 +2910,6 @@ shadow_curve_shape = 0.8500000000000001
 shadow_samples = 50
 
 [node name="Cable2" type="Line2D" parent="Land_layers/Cables" unique_id=1225226809]
-visible = false
 position = Vector2(0, -63)
 points = PackedVector2Array(1891, 1497, 2240, 1374)
 width = 0.0
@@ -1841,7 +2946,6 @@ position = Vector2(1567.9999, 1216.0001)
 scale = Vector2(1.4377774, 1.4520547)
 
 [node name="CableShadow1" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=368096560]
-visible = false
 position = Vector2(-1090.5719, -837.4338)
 scale = Vector2(0.6955178, 0.68867904)
 script = ExtResource("17_1lqbc")
@@ -1852,7 +2956,6 @@ shadow_samples = 64
 shadow_direction = Vector2(1.155, 1)
 
 [node name="CableShadow2" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=1826160807]
-visible = false
 position = Vector2(-1090.5719, -837.4338)
 scale = Vector2(0.6955178, 0.68867904)
 script = ExtResource("17_1lqbc")
@@ -1873,7 +2976,7 @@ shadow_direction = Vector2(1.135, 1)
 [node name="BuildingShadow1" type="Node2D" parent="Land_layers/ShadowsGround" unique_id=1122726596]
 position = Vector2(8.392334e-05, -8.34465e-05)
 script = ExtResource("16_5g436")
-building_size = Vector2i(222, 154)
+building_size = Vector2i(222, 153)
 shadow_length = 80
 pixel_size = 1
 
@@ -1932,7 +3035,6 @@ shadow_length = 3
 pixel_size = 1
 
 [node name="RoofShadow6" type="Node2D" parent="Land_layers/ShadowsRoof" unique_id=1009379506]
-visible = false
 position = Vector2(479.90744, -32.368)
 scale = Vector2(0.9999998, 0.9999998)
 script = ExtResource("16_5g436")
@@ -3138,10 +4240,10 @@ self_modulate = Color(1, 1, 1, 0.050980393)
 [node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=863806998]
+[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=878321301]
 self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=947052089]
+[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1683394669]
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
 [node name="RoadBrushPath2D4" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1462920717]
@@ -3166,6 +4268,7 @@ self_modulate = Color(0.096204735, 0.09620475, 0.09620472, 1)
 self_modulate = Color(0.25565878, 0.25565878, 0.25565878, 0.69803923)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1445693986]
+visible = false
 position = Vector2(84, 83)
 curve = SubResource("Curve2D_04oug")
 script = ExtResource("80_unwpx")
@@ -3247,6 +4350,7 @@ self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
 [node name="DetailLayer" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks/SerpentineCracks1/Crack_Branch_3" unique_id=84188155]
 
 [node name="Cracks" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks" unique_id=560618745]
+visible = false
 self_modulate = Color(0.019607844, 0.019607844, 0.019607844, 1)
 z_index = 12
 position = Vector2(2133, 1371)
@@ -3298,15 +4402,16 @@ tile_set = SubResource("TileSet_tyiq4")
 collision_enabled = false
 
 [node name="RoadLine1" type="Path2D" parent="Land_layers/Roads/RoadMarkings" unique_id=605787046]
+visible = false
 z_index = 5
 position = Vector2(970, -121)
 curve = SubResource("Curve2D_k66vp")
 script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p")])
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=2125560495]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=854289561]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1608228305]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1373180978]
 script = ExtResource("86_au78y")
 
 [node name="Arrows" type="Node2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1192627376]
@@ -3326,11 +4431,15 @@ position = Vector2(1627.5, 889)
 rotation = 1.5707964
 texture = ExtResource("20_kpjr3")
 
-[node name="RoadMarkingPath2D" parent="Land_layers/Roads/RoadMarkings" unique_id=408457340 instance=ExtResource("87_8l2sf")]
+[node name="RoadMarkingPath2D" type="Path2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1562486276]
+curve = SubResource("Curve2D_1113p")
+script = ExtResource("84_5dgyk")
+lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_au78y")])
+metadata/_custom_type_script = "uid://cstre1l5ksgef"
 
-[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=260673767]
+[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=305621782]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1549956864]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=878275303]
 script = ExtResource("86_au78y")
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -3456,42 +4565,44 @@ sprite_frames = SubResource("SpriteFrames_nhvyv")
 frame = 8
 frame_progress = 1.0
 
+[node name="SmokeTrail2" type="GPUParticles2D" parent="Node2D" unique_id=1809030406]
+z_index = 6
+material = SubResource("ShaderMaterial_xao7p")
+position = Vector2(2073, 1161)
+amount = 4000
+texture = ExtResource("102_qbjlx")
+lifetime = 0.8200000000000001
+preprocess = 0.17
+randomness = 0.62
+fixed_fps = 0
+process_material = SubResource("ShaderMaterial_qbjlx")
+
 [node name="StaticSmoke" type="GPUParticles2D" parent="Node2D" unique_id=1395545853]
 z_index = 6
-material = SubResource("CanvasItemMaterial_23h0n")
+material = SubResource("ShaderMaterial_ptxeq")
 position = Vector2(2073, 1160)
 emitting = false
-amount = 60
-texture = SubResource("CompressedTexture2D_qfmaa")
-lifetime = 0.6900000000000001
+amount = 200
+texture = ExtResource("103_xwer6")
+lifetime = 1.04
 one_shot = true
-preprocess = 0.17
-explosiveness = 0.56
-process_material = SubResource("ParticleProcessMaterial_3js2r")
-
-[node name="SmokeTrail" type="GPUParticles2D" parent="Node2D" unique_id=206645025]
-z_index = 6
-material = SubResource("CanvasItemMaterial_ay2hx")
-position = Vector2(2073, 1161)
-emitting = false
-amount = 3000
-texture = ExtResource("101_8l2sf")
-lifetime = 1.08
-preprocess = 0.17
-explosiveness = 0.46
-fixed_fps = 120
-process_material = SubResource("ParticleProcessMaterial_0cnaj")
+preprocess = 0.3
+explosiveness = 0.7
+randomness = 0.42
+fixed_fps = 60
+process_material = SubResource("ShaderMaterial_xwer6")
 
 [node name="Schrapnel" type="GPUParticles2D" parent="Node2D" unique_id=1750045556]
 position = Vector2(2073, 1161)
 emitting = false
-amount = 4
-sub_emitter = NodePath("../SmokeTrail")
-lifetime = 0.31
+amount = 500
+amount_ratio = 0.009
+sub_emitter = NodePath("../SmokeTrail2")
+lifetime = 0.15000000000000002
 one_shot = true
 explosiveness = 1.0
-randomness = 0.2
-fixed_fps = 60
+randomness = 0.3
+fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_gd1db")
 
 [node name="Shockwave" type="ColorRect" parent="Node2D" unique_id=95528389]
