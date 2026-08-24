@@ -109,14 +109,16 @@ func finalize_sidewalks() -> void:
 			cells[i] = CellType.SIDEWALK
 
 
-## Feed this straight to TileMapLayer.set_cells_terrain_connect(): one single
-## call over the whole set is what makes the corner joints resolve correctly.
+## Every cell that is not a road: whole block interiors (building footprints
+## included, since buildings are drawn on top) plus the bands along the roads.
+## A block with no building therefore reads as a plaza.
 func get_sidewalk_cells() -> Array[Vector2i]:
 	var result : Array[Vector2i] = []
 	for y : int in map_size_cells.y:
 		var row : int = y * map_size_cells.x
 		for x : int in map_size_cells.x:
-			if cells[row + x] == CellType.SIDEWALK:
+			var type : int = cells[row + x]
+			if type != CellType.STREET and type != CellType.ARTERY:
 				result.append(Vector2i(x, y))
 	return result
 

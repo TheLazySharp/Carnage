@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://b7f82u1r73s67"]
+
+[ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/road_marking_path.gd" id="1_pagt5"]
+[ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="2_v7lj5"]
+[ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="3_aryry"]
+
+[sub_resource type="Curve2D" id="Curve2D_1113p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1661, 415, -245.8848, -494.50168, 245.8848, 494.50168, 2496, 693)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_au78y"]
+script = ExtResource("2_v7lj5")
+thickness = 4
+dash_length = 99999
+gap_length = 0
+perpendicular_offset = 4.0
+curve_sample_step = 1
+enable_wear = true
+
+[sub_resource type="Resource" id="Resource_xwer6"]
+script = ExtResource("2_v7lj5")
+thickness = 4
+dash_length = 99999
+gap_length = 0
+perpendicular_offset = -4.0
+curve_sample_step = 1
+metadata/_custom_type_script = "uid://b68t07w6s0djw"
+
+[sub_resource type="Resource" id="Resource_d6xl6"]
+script = ExtResource("2_v7lj5")
+thickness = 4
+dash_length = 64
+gap_length = 96
+perpendicular_offset = -96.0
+
+[sub_resource type="Resource" id="Resource_qgir2"]
+script = ExtResource("2_v7lj5")
+thickness = 4
+dash_length = 64
+gap_length = 96
+perpendicular_offset = 96.0
+
+[node name="RoadLines394" type="Path2D" unique_id=408457340]
+curve = SubResource("Curve2D_1113p")
+script = ExtResource("1_pagt5")
+lines = Array[ExtResource("2_v7lj5")]([SubResource("Resource_au78y"), SubResource("Resource_xwer6"), SubResource("Resource_d6xl6"), SubResource("Resource_qgir2")])
+metadata/_custom_type_script = "uid://cstre1l5ksgef"
+
+[node name="MarkingLine_0" type="Node2D" parent="." unique_id=1472828533]
+
+[node name="FillSurface" type="Node2D" parent="MarkingLine_0" unique_id=1998067834]
+script = ExtResource("3_aryry")
+
+[node name="MarkingLine_1" type="Node2D" parent="." unique_id=1673327698]
+
+[node name="FillSurface" type="Node2D" parent="MarkingLine_1" unique_id=466468001]
+script = ExtResource("3_aryry")
+
+[node name="MarkingLine_2" type="Node2D" parent="." unique_id=1408935497]
+
+[node name="FillSurface" type="Node2D" parent="MarkingLine_2" unique_id=1036765501]
+script = ExtResource("3_aryry")
+
+[node name="MarkingLine_3" type="Node2D" parent="." unique_id=885657559]
+
+[node name="FillSurface" type="Node2D" parent="MarkingLine_3" unique_id=1167108027]
+script = ExtResource("3_aryry")

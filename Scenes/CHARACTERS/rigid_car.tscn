@@ -437,7 +437,7 @@ _data = {
 
 [node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
-z_index = 20
+z_index = 11
 z_as_relative = false
 collision_mask = 393754
 motion_mode = 1

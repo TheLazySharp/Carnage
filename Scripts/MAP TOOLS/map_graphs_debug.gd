@@ -111,8 +111,13 @@ func generate() -> void:
 			" | nodes: ", data.nodes.size(),
 			" | edges: ", data.edges.size(),
 			" | blocks: ", data.block_rects.size())
-	_build_buildings()  # before queue_redraw: it changes the cell raster
+	_build_buildings()   # before queue_redraw: it changes the cell raster
+	_build_sidewalks()   # after the buildings: paints whatever is left
+	_build_cables()
+	_build_road_lines()
+	_build_road_marks()
 	queue_redraw()
+	_bake_shadows()
 	_build_road_paths()
 	# Deferred: on the very first generation (inside our _ready) the car node
 	# may not have entered its groups yet
@@ -322,6 +327,98 @@ func _find_placer(node : Node) -> MapBuildingsPlacer:
 		return node as MapBuildingsPlacer
 	for child : Node in node.get_children():
 		var found : MapBuildingsPlacer = _find_placer(child)
+		if found != null:
+			return found
+	return null
+
+func _build_sidewalks() -> void:
+	var sidewalks : MapSidewalks = _find_sidewalks(get_tree().root)
+	if sidewalks == null:
+		print("[MapGraph] no MapSidewalks node found in the scene -> sidewalks skipped")
+		return
+	sidewalks.build(data)
+
+
+func _find_sidewalks(node : Node) -> MapSidewalks:
+	if node is MapSidewalks:
+		return node as MapSidewalks
+	for child : Node in node.get_children():
+		var found : MapSidewalks = _find_sidewalks(child)
+		if found != null:
+			return found
+	return null
+
+
+func _bake_shadows() -> void:
+	var shadows : MapShadowsGround = _find_shadows_ground(get_tree().root)
+	if shadows == null:
+		print("[MapGraph] no MapShadowsGround node found in the scene -> shadows not baked")
+		return
+	shadows.bake(Vector2i(data.map_size_cells) * data.cell_size)
+
+
+func _find_shadows_ground(node : Node) -> MapShadowsGround:
+	if node is MapShadowsGround:
+		return node as MapShadowsGround
+	for child : Node in node.get_children():
+		var found : MapShadowsGround = _find_shadows_ground(child)
+		if found != null:
+			return found
+	return null
+
+
+func _build_cables() -> void:
+	var cables : MapCables = _find_cables(get_tree().root)
+	if cables == null:
+		print("[MapGraph] no MapCables node found in the scene -> cables skipped")
+		return
+	var placer : MapBuildingsPlacer = _find_placer(get_tree().root)
+	if placer == null:
+		print("[MapGraph] no MapBuildingsPlacer found -> cables skipped")
+		return
+	cables.build(data, placer.building_rects)
+
+
+func _find_cables(node : Node) -> MapCables:
+	if node is MapCables:
+		return node as MapCables
+	for child : Node in node.get_children():
+		var found : MapCables = _find_cables(child)
+		if found != null:
+			return found
+	return null
+
+func _build_road_marks() -> void:
+	var marks : MapRoadMarks = _find_road_marks(get_tree().root)
+	if marks == null:
+		print("[MapGraph] no MapRoadMarks node found in the scene -> road marks skipped")
+		return
+	marks.build(data)
+
+
+func _find_road_marks(node : Node) -> MapRoadMarks:
+	if node is MapRoadMarks:
+		return node as MapRoadMarks
+	for child : Node in node.get_children():
+		var found : MapRoadMarks = _find_road_marks(child)
+		if found != null:
+			return found
+	return null
+
+
+func _build_road_lines() -> void:
+	var lines : MapRoadLines = _find_road_lines(get_tree().root)
+	if lines == null:
+		print("[MapGraph] no MapRoadLines node found in the scene -> road lines skipped")
+		return
+	lines.build(data)
+
+
+func _find_road_lines(node : Node) -> MapRoadLines:
+	if node is MapRoadLines:
+		return node as MapRoadLines
+	for child : Node in node.get_children():
+		var found : MapRoadLines = _find_road_lines(child)
 		if found != null:
 			return found
 	return null
