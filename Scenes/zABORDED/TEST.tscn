@@ -1628,6 +1628,7 @@ tangential_accel_max = -100.0
 damping_min = 100.00001
 damping_max = 100.00001
 attractor_interaction_enabled = false
+color = Color(1, 1, 1, 0)
 sub_emitter_mode = 1
 sub_emitter_frequency = 100.0
 
