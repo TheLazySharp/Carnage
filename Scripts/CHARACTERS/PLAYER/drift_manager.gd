@@ -89,8 +89,12 @@ var total_drift_points : int = 0
 var drift_point_add : float = 0.0
 var car_dmg_mod : Modifier
 
+var debug_mode : bool = false
 
 func _ready() -> void:
+	if owner != null and owner.get("debug_drive_mode") == true:
+		_ready_debug()
+		return
 	SignalManager.wall_collision.connect(_on_wall_collision)
 	SignalManager.game_paused.connect(_on_game_paused)
 	drift_sfx_base_volume = drift_sfx.volume_db
@@ -436,6 +440,8 @@ func get_drift_bonus_points() -> int:
 
 
 func animation_score_to_total() -> void:
+	if debug_mode:
+		return
 	if drift_bonus <= 0:
 		return
 
@@ -484,3 +490,20 @@ func _on_wall_collision() -> void:
 
 func _on_game_paused(pause : bool) -> void:
 	game_paused = pause
+
+
+func _ready_debug() -> void:
+	# Map test scene: /root/World and the HUD don't exist.
+	# Local skid parent so drift physics, skid marks and charge trails work
+	# unchanged; HUD labels and the score animation are disabled.
+	debug_mode = true
+	set_process(false)  # _process only feeds the HUD drift label
+	skid_parent = Node2D.new()
+	skid_parent.name = "SkidMarksDebug"
+	get_tree().current_scene.add_child.call_deferred(skid_parent)
+	SignalManager.wall_collision.connect(_on_wall_collision)
+	SignalManager.game_paused.connect(_on_game_paused)
+	drift_sfx_base_volume = drift_sfx.volume_db
+	drift_bonus = 0
+	total_drift_points = StatsManager.total_drift
+	drift_point_add = snappedf(total_drift_points * 0.0001, 0.01)

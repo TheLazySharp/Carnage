@@ -9,14 +9,28 @@ class_name RoadBrushPath2D
 
 @export_group("Main Stamps")
 @export_dir var stamp_folder: String = ""
-@export var stamp_spacing: int = 2:
+## Spacing between two stamps, randomized per stamp within [min, max].
+@export var stamp_spacing_min: int = 2:
 	set(value):
-		stamp_spacing = max(value, 1)
+		stamp_spacing_min = max(value, 1)
+		stamp_spacing_max = max(stamp_spacing_max, stamp_spacing_min)
 		generate_all()
-@export var perpendicular_jitter: int = 0:
+@export var stamp_spacing_max: int = 4:
 	set(value):
-		perpendicular_jitter = value
+		stamp_spacing_max = max(value, stamp_spacing_min)
 		generate_all()
+## Lateral offset amplitude, randomized per stamp within [min, max],
+## then applied on a random side. Set min to 0 for a plain jitter.
+@export var perpendicular_jitter_min: int = 0:
+	set(value):
+		perpendicular_jitter_min = max(value, 0)
+		perpendicular_jitter_max = max(perpendicular_jitter_max, perpendicular_jitter_min)
+		generate_all()
+@export var perpendicular_jitter_max: int = 0:
+	set(value):
+		perpendicular_jitter_max = max(value, perpendicular_jitter_min)
+		generate_all()
+		
 @export var constrain_rotation_90: bool = true:
 	set(value):
 		constrain_rotation_90 = value
@@ -101,8 +115,8 @@ class_name RoadBrushPath2D
 
 @export_tool_button("Generate") var generate_btn: Callable = generate_all
 
-var _stamp_layer: CanvasGroup
-var _detail_layer: CanvasGroup
+var _stamp_layer: Node2D
+var _detail_layer: Node2D
 var _stamp_textures: Array[Texture2D] = []
 var _detail_textures: Array[Texture2D] = []
 var _curve_signal_connected: bool = false
@@ -143,7 +157,7 @@ func _add_wear_line() -> void:
 func _ensure_layers() -> void:
 	_stamp_layer = get_node_or_null("StampLayer")
 	if _stamp_layer == null:
-		_stamp_layer = CanvasGroup.new()
+		_stamp_layer = Node2D.new()
 		_stamp_layer.name = "StampLayer"
 		add_child(_stamp_layer)
 		if Engine.is_editor_hint():
@@ -152,7 +166,7 @@ func _ensure_layers() -> void:
 
 	_detail_layer = get_node_or_null("DetailLayer")
 	if _detail_layer == null:
-		_detail_layer = CanvasGroup.new()
+		_detail_layer = Node2D.new()
 		_detail_layer.name = "DetailLayer"
 		add_child(_detail_layer)
 		if Engine.is_editor_hint():
@@ -207,7 +221,7 @@ func generate_all() -> void:
 	_generate_wear_lines()
 
 
-func _clear_layer(layer: CanvasGroup) -> void:
+func _clear_layer(layer: Node2D) -> void:
 	for child in layer.get_children():
 		layer.remove_child(child)
 		child.free()
@@ -241,27 +255,22 @@ func _fade_probability(dist: float) -> float:
 func _generate_stamps(rng: RandomNumberGenerator) -> void:
 	if _stamp_textures.is_empty():
 		return
-
-	var step: float = stamp_spacing * pixel_size
-	var count: int = int(_path_length / step)
-
-	for i in range(count + 1):
-		var dist: float = min(i * step, _path_length)
-
+	var dist: float = 0.0
+	while dist <= _path_length:
 		var fade: float = _fade_probability(dist)
-		if fade < 1.0 and rng.randf() > fade:
-			continue
-
-		var xform: Transform2D = curve.sample_baked_with_rotation(dist)
-		var pos: Vector2 = xform.origin
-		var normal: Vector2 = xform.y
-
-		var lateral: float = 0.0
-		if perpendicular_jitter > 0:
-			lateral = rng.randf_range(-perpendicular_jitter, perpendicular_jitter) * pixel_size
-
-		var final_pos := _snap(pos + normal * lateral)
-		_spawn_stamp(_stamp_layer, _stamp_textures, final_pos, rng, constrain_rotation_90, allow_flip)
+		if fade >= 1.0 or rng.randf() <= fade:
+			var xform: Transform2D = curve.sample_baked_with_rotation(dist)
+			var pos: Vector2 = xform.origin
+			var normal: Vector2 = xform.y
+			var lateral: float = 0.0
+			if perpendicular_jitter_max > 0:
+				# amplitude in [min, max], random side
+				var amplitude: float = rng.randf_range(float(perpendicular_jitter_min), float(perpendicular_jitter_max))
+				var side: float = 1.0 if rng.randf() < 0.5 else -1.0
+				lateral = amplitude * side * pixel_size
+			var final_pos: Vector2 = _snap(pos + normal * lateral)
+			_spawn_stamp(_stamp_layer, _stamp_textures, final_pos, rng, constrain_rotation_90, allow_flip)
+		dist += float(rng.randi_range(stamp_spacing_min, stamp_spacing_max)) * pixel_size
 
 
 func _generate_details(rng: RandomNumberGenerator) -> void:
@@ -323,7 +332,7 @@ func _generate_single_wear_line(line: RoadWearLine, index: int) -> void:
 	if textures.is_empty():
 		return
 
-	var layer := CanvasGroup.new()
+	var layer := Node2D.new()
 	layer.name = "WearLine_%d" % index
 	add_child(layer)
 	if Engine.is_editor_hint():
@@ -403,7 +412,7 @@ func _grid_has_neighbor_within(pos: Vector2, min_dist: float) -> bool:
 	return false
 
 
-func _spawn_stamp(layer: CanvasGroup, pool: Array[Texture2D], pos: Vector2, rng: RandomNumberGenerator, constrain_90: bool, flip: bool) -> void:
+func _spawn_stamp(layer: Node2D, pool: Array[Texture2D], pos: Vector2, rng: RandomNumberGenerator, constrain_90: bool, flip: bool) -> void:
 	var tex: Texture2D = pool[rng.randi_range(0, pool.size() - 1)]
 	var spr := Sprite2D.new()
 	spr.texture = tex

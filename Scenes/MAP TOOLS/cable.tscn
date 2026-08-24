@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://clmjgo8xetb4i"]
+
+[ext_resource type="Script" uid="uid://dyuu65s454lqr" path="res://Scripts/MAP TOOLS/pixel_line_2d.gd" id="1_c7yix"]
+
+[node name="Cable" type="Line2D" unique_id=342633430]
+points = PackedVector2Array(1887, 1311, 2240, 1374)
+width = 0.0
+default_color = Color(0, 0, 0, 1)
+script = ExtResource("1_c7yix")
+pixel_size = 1
+pixel_color = Color(0, 0, 0, 1)
+thickness = 2
+shadow_color = Color(0, 0, 0, 0.78431374)
+shadow_direction = Vector2(0.285, 1.37)
+shadow_sag = 8
+shadow_curve_shape = 0.8500000000000001
+shadow_samples = 50

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cuap810rfbio4"]
+
+[ext_resource type="Script" uid="uid://d1xm2r3txom34" path="res://Scripts/MAP TOOLS/cable_shadow.gd" id="1_ply3n"]
+
+[node name="CableShadow" type="Node2D" unique_id=290460558]
+z_index = 13
+scale = Vector2(0.6955178, 0.68867904)
+script = ExtResource("1_ply3n")
+cable_path = NodePath("../../Cables/Cable3")
+shadow_sag = 73
+shadow_direction = Vector2(1.135, 1)

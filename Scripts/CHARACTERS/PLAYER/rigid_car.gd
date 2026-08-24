@@ -81,6 +81,10 @@ const WALL_ROTATION_SPEED : float = 5.0
 const MIN_STEER_FACTOR : float = 0.25
 const WALL_IMPACT_MIN_SPEED : float = 80.0  # min frontal speed component to emit wall_impact
 
+# ---------------- DEBUG ----------------
+@export var debug_drive_mode : bool = false  # drop the car scene in a map test scene: driving only
+@export var debug_car_data : CarData = null  # CarData used when launching outside the normal game flow
+
 
 func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("dash") and !game_paused:
@@ -88,6 +92,9 @@ func _input(event : InputEvent) -> void:
 
 func _ready() -> void:
 	add_to_group("player_car")  # used by the camera to find the car
+	if debug_drive_mode:
+		_ready_debug()
+		return
 	player = CarManager.selected_car
 	if TimeManager.current_day == 1:
 		player.init_stats()
@@ -449,3 +456,42 @@ func stop_invincibility_vfx() -> void:
 	if glow_sprite:
 		glow_sprite.queue_free()
 		glow_sprite = null
+
+func _ready_debug() -> void:
+	# Minimal init for map test scenes: driving only.
+	# No weapons, no run flow, BloodyEngine off (it needs the World HUD/blood pool).
+	player = debug_car_data if debug_car_data != null else CarManager.selected_car
+	if player == null:
+		push_error("[RigidCar] debug_drive_mode: no CarData (set debug_car_data in the inspector)")
+		set_physics_process(false)
+		return
+	player.init_stats()
+
+	# DRIVING
+	max_backward_speed = roundi(player.unscaled_speed() * 0.8)
+	friction = player.friction
+	turn_speed = player.turn_speed
+	velocity_floor = player.velocity_floor
+
+	# COMPONENTS
+	drift_manager.init_drift(self, player, rear_left, rear_right)
+	burnout_manager.init_burnout(player, rear_left_burn_anim, rear_right_burn_anim)
+	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
+	dash_manager.init_dash(self, player)
+	sprite_fx.init_fx(self, car_sprite, dash_manager)
+
+
+	# Free dash for testing: fuel and nitro always topped up
+	player.current_fuel = int(player.max_fuel.get_value())
+	player.current_nitro = 999999
+	dash_manager.dash_ended.connect(func() -> void:
+		player.current_fuel = int(player.max_fuel.get_value())
+		player.current_nitro = 999999
+	)
+
+	# VFX / AUDIO / LIFE
+	car_sprite.texture = player.car_sprite
+	dmg_players = [dmg_sfx, dmg_sfx_2, dmg_sfx_3]
+	player.current_life = int(player.max_life.get_value())
+
+	can_drive = true  # no engine-start sound gate in debug

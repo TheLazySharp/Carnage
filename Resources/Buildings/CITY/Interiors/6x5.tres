@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://ciljb2jwhm4iq"]
+
+[ext_resource type="Script" uid="uid://dq1yshanauw6j" path="res://Resources/Scripts/building_data.gd" id="1_g6fo2"]
+
+[resource]
+script = ExtResource("1_g6fo2")
+name = "6x5"
+footprint_32 = Vector2i(6, 5)
+circle_margin = 0.0
+metadata/_custom_type_script = "uid://dq1yshanauw6j"

@@ -74,12 +74,12 @@ func _clear_previous() -> void:
 
 
 func _generate_single_line(line: RoadMarkingLine, index: int) -> void:
-	var layer := CanvasGroup.new()
+	var layer := Node2D.new()
 	layer.name = "MarkingLine_%d" % index
 	add_child(layer)
 	if Engine.is_editor_hint():
 		layer.owner = get_tree().edited_scene_root
-	layer.self_modulate = line.color
+	layer.modulate = line.color
 
 	var fill_surface := DrawSurface2D.new()
 	fill_surface.name = "FillSurface"
@@ -101,28 +101,31 @@ func _generate_single_line(line: RoadMarkingLine, index: int) -> void:
 	while dist < _path_length:
 		var dash_start: float = dist
 		var dash_end: float = min(dist + line.dash_length, _path_length)
-
 		if dash_end > dash_start:
-			var start_xform: Transform2D = curve.sample_baked_with_rotation(dash_start)
-			var end_xform: Transform2D = curve.sample_baked_with_rotation(dash_end)
-
-			var start_pos: Vector2 = start_xform.origin + start_xform.y * offset
-			var end_pos: Vector2 = end_xform.origin + end_xform.y * offset
-
-			var frame := _dash_frame(start_pos, end_pos, half_thick)
-			if not frame.is_empty():
-				var seeds: Array = []
-				if line.enable_wear:
-					seeds = _generate_bite_seeds(frame, line, rng)
-
-				var cells := _rasterize_dash(frame, seeds)
-
-				if line.enable_wear and line.interior_wear_density > 0.0:
-					cells = _apply_interior_wear(cells, line, rng)
-
-				for c in cells:
-					cell_dict[c] = true
-
+			# A dash is drawn as a straight quad between its ends, so it must be
+			# subdivided wherever the curve actually bends
+			var chord: float = curve.sample_baked(dash_start).distance_to(curve.sample_baked(dash_end))
+			var step: float = dash_end - dash_start
+			if absf(chord - step) > 1.0:  # curved: follow it
+				step = max(line.curve_sample_step * pixel_size, 8.0)
+			var sub: float = dash_start
+			while sub < dash_end:
+				var sub_end: float = min(sub + step, dash_end)
+				var start_xform: Transform2D = curve.sample_baked_with_rotation(sub)
+				var end_xform: Transform2D = curve.sample_baked_with_rotation(sub_end)
+				var start_pos: Vector2 = start_xform.origin + start_xform.y * offset
+				var end_pos: Vector2 = end_xform.origin + end_xform.y * offset
+				var frame := _dash_frame(start_pos, end_pos, half_thick)
+				if not frame.is_empty():
+					var seeds: Array = []
+					if line.enable_wear:
+						seeds = _generate_bite_seeds(frame, line, rng)
+					var cells := _rasterize_dash(frame, seeds)
+					if line.enable_wear and line.interior_wear_density > 0.0:
+						cells = _apply_interior_wear(cells, line, rng)
+					for c in cells:
+						cell_dict[c] = true
+				sub = sub_end
 		dist += cycle
 
 	var items: Array = []
