@@ -79,7 +79,7 @@ func _on_unlock_timer_timeout() -> void :
 	
 	for i in building_data.value:
 		var object : Node2D = building_data.spawnable.instantiate()
-		get_parent().add_child(object)
+		get_node("/root/World/Collectables").add_child(object)
 		object.building_launch_spawn(spawn_center.global_position, pick_object_landing(),spawnable_item_res)
 
 func pick_object_landing() -> Vector2:

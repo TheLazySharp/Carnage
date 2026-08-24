@@ -14,14 +14,20 @@ extends Node2D
 
 # ---------------- PROPS ----------------
 @export_group("Props")
-## Flat decals scattered on the sidewalk (manholes, drains, grates...).
-## Tiles of this layer are picked at random among prop_tiles.
-@export var props_layer : TileMapLayer = null
-@export var prop_source_id : int = 0
-@export var prop_tiles : Array[Vector2i] = []
+## Flat decals scattered on the pavement (manholes, drains, grates...).
+## One sliced .tres per prop, as delivered by the artist.
+@export var prop_textures : Array[Texture2D] = []
+## Where the sprites are parented (e.g. Lands/RoadProps). Defaults to this node.
+@export var props_parent : Node2D = null
 @export_range(0.0, 0.2, 0.001) var prop_chance : float = 0.01
 ## Minimum distance between two props, in cells
 @export var prop_min_distance : int = 4
+## Random offset inside the cell, in pixels, to break the grid
+@export var prop_jitter_px : float = 8.0
+## Flat decals cast no shadow, so quarter turns are free variation
+@export var random_quarter_turns : bool = true
+
+var _props_root : Node2D = null
 
 
 func build(data : MapData) -> void:
@@ -49,27 +55,46 @@ func build(data : MapData) -> void:
 
 
 func _scatter_props(data : MapData, cells : Array[Vector2i], rng : RandomNumberGenerator) -> void:
-	if props_layer == null or prop_tiles.is_empty() or prop_chance <= 0.0:
+	if prop_textures.is_empty() or prop_chance <= 0.0:
 		return
-	props_layer.clear()
 
+	var parent : Node2D = props_parent if props_parent != null else self
+	if _props_root != null and is_instance_valid(_props_root):
+		_props_root.queue_free()
+	_props_root = Node2D.new()
+	_props_root.name = "SidewalkProps"
+	parent.add_child(_props_root)
+
+	var cell_px : float = float(data.cell_size)
 	var placed : Array[Vector2i] = []
 	var min_dist_sq : int = prop_min_distance * prop_min_distance
 	var count : int = 0
 
 	for cell : Vector2i in cells:
+		# get_sidewalk_cells() also returns the building footprints, since the
+		# pavement runs under them: props must stay on visible ground only
+		if data.cell_type(cell.x, cell.y) != MapData.CellType.SIDEWALK:
+			continue
 		if rng.randf() > prop_chance:
 			continue
 		# Keep props apart: cheap linear check, the placed list stays small
 		var too_close : bool = false
 		for other : Vector2i in placed:
-			var d : Vector2i = cell - other
-			if d.x * d.x + d.y * d.y < min_dist_sq:
+			var delta : Vector2i = cell - other
+			if delta.x * delta.x + delta.y * delta.y < min_dist_sq:
 				too_close = true
 				break
 		if too_close:
 			continue
-		props_layer.set_cell(cell, prop_source_id, prop_tiles[rng.randi_range(0, prop_tiles.size() - 1)])
+
+		var sprite : Sprite2D = Sprite2D.new()
+		sprite.texture = prop_textures[rng.randi_range(0, prop_textures.size() - 1)]
+		sprite.position = (Vector2(cell) + Vector2(0.5, 0.5)) * cell_px \
+				+ Vector2(rng.randf_range(-prop_jitter_px, prop_jitter_px),
+						rng.randf_range(-prop_jitter_px, prop_jitter_px))
+		if random_quarter_turns:
+			sprite.rotation = float(rng.randi_range(0, 3)) * PI * 0.5
+		_props_root.add_child(sprite)
 		placed.append(cell)
 		count += 1
 

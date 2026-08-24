@@ -92,7 +92,7 @@ var car_dmg_mod : Modifier
 var debug_mode : bool = false
 
 func _ready() -> void:
-	if owner != null and owner.get("debug_drive_mode") == true:
+	if GameMaster.is_debug():
 		_ready_debug()
 		return
 	SignalManager.wall_collision.connect(_on_wall_collision)

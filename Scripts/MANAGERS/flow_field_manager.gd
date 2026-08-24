@@ -13,9 +13,9 @@ const NEIGHBOR_DIRECTIONS : Array[Vector2] = [
 ]
 
 @export var map_origin_tile : Vector2i = Vector2i(0, 0)
-@export var map_size_tiles : Vector2i = Vector2i(94, 63)
+@export var map_size_tiles : Vector2i = Vector2i(94, 80)
 
-@onready var target : Node2D = $"/root/World/Car"
+var target : Node2D = null
 
 var grid_w : int
 var grid_h : int
@@ -44,7 +44,13 @@ signal walls_scanned
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.game_is_over.connect(_on_game_over)
+	SignalManager.map_generated.connect(_on_map_generated)
+	target = get_tree().get_first_node_in_group("player") as Node2D
 
+
+func _on_map_generated(data : MapData) -> void:
+	map_origin_tile = Vector2i.ZERO
+	map_size_tiles = data.map_size_cells
 	grid_w = map_size_tiles.x
 	grid_h = map_size_tiles.y
 	padded_width = grid_w + 2
@@ -55,41 +61,34 @@ func _ready() -> void:
 	cost.resize(padded_count)
 	bfs_queue.resize(padded_count)
 
-	# Offsets des 8 voisins, en indices plats (ordre = NEIGHBOR_DIRECTIONS)
 	neighbor_index_offsets = PackedInt32Array([
 		1, -1, padded_width, -padded_width,
 		padded_width + 1, padded_width - 1, -padded_width + 1, -padded_width - 1
 	])
-	# Pour chaque diagonale (indices 4..7) : les 2 voisins orthogonaux à tester
-	# pour interdire le passage en coin de mur. Indices 0..3 inutilisés.
 	diagonal_ortho_a_offsets = PackedInt32Array([0, 0, 0, 0, 1, -1, 1, -1])
 	diagonal_ortho_b_offsets = PackedInt32Array([0, 0, 0, 0, padded_width, padded_width, -padded_width, -padded_width])
 
-	scan_walls.call_deferred()
+	if target == null:
+		target = get_tree().get_first_node_in_group("player") as Node2D
+	scan_walls(data)
 
-
-func scan_walls() -> void:
+func scan_walls(data : MapData) -> void:
 	blocked.fill(0)
 
-	# Bordure = mur (premières/dernières lignes et colonnes paddées)
-	for x in range(padded_width):
+	# Border = wall, so the BFS loop needs no bounds test
+	for x : int in padded_width:
 		blocked[x] = 1
 		blocked[(padded_height - 1) * padded_width + x] = 1
-	for y in range(padded_height):
+	for y : int in padded_height:
 		blocked[y * padded_width] = 1
 		blocked[y * padded_width + padded_width - 1] = 1
 
-	# Murs réels
-	for wall in get_tree().get_nodes_in_group("walls"):
-		if wall is TileMapLayer:
-			for wall_cell : Vector2i in wall.get_used_cells():
-				var local_x : int = wall_cell.x - map_origin_tile.x
-				var local_y : int = wall_cell.y - map_origin_tile.y
-				if local_x >= 0 and local_y >= 0 and local_x < grid_w and local_y < grid_h:
-					blocked[(local_y + 1) * padded_width + (local_x + 1)] = 1
+	# Real obstacles, read straight from the generated grid
+	for cell : Vector2i in data.get_blocked_cells():
+		blocked[(cell.y + 1) * padded_width + (cell.x + 1)] = 1
 
-	last_player_cell = Vector2i(0x7fffffff, 0x7fffffff)   # force un rebuild
-	emit_signal("walls_scanned")
+	last_player_cell = Vector2i(0x7fffffff, 0x7fffffff)  # force a rebuild
+	walls_scanned.emit()
 
 
 func _process(delta: float) -> void:
@@ -190,14 +189,14 @@ func is_blocked_world(world_pos : Vector2) -> bool:
 
 # ---- utilitaires ----
 
-func add_obstacles(cells : Array[Vector2i]) -> void:
-	for cell : Vector2i in cells:
-		var local_x : int = cell.x - map_origin_tile.x
-		var local_y : int = cell.y - map_origin_tile.y
-		if local_x >= 0 and local_y >= 0 and local_x < grid_w and local_y < grid_h:
-			blocked[(local_y + 1) * padded_width + (local_x + 1)] = 1
-	# invalide le cache pour forcer un rebuild au prochain _process (comme scan_walls)
-	last_player_cell = Vector2i(0x7fffffff, 0x7fffffff)
+#func add_obstacles(cells : Array[Vector2i]) -> void:
+	#for cell : Vector2i in cells:
+		#var local_x : int = cell.x - map_origin_tile.x
+		#var local_y : int = cell.y - map_origin_tile.y
+		#if local_x >= 0 and local_y >= 0 and local_x < grid_w and local_y < grid_h:
+			#blocked[(local_y + 1) * padded_width + (local_x + 1)] = 1
+	## invalide le cache pour forcer un rebuild au prochain _process (comme scan_walls)
+	#last_player_cell = Vector2i(0x7fffffff, 0x7fffffff)
 
 
 func world_to_cell(p: Vector2) -> Vector2i:

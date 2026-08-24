@@ -2,6 +2,15 @@
 extends Node2D
 class_name CableShadow
 
+
+
+@export_group("Sag randomization")
+## Pick shadow_sag at random within the range below when the scene runs.
+## Never applied in the editor, so authoring stays predictable.
+@export var randomize_sag : bool = true
+@export var shadow_sag_min : int = 20
+@export var shadow_sag_max : int = 70
+
 ## Le PixelLine2D représentant le câble visible (peut être ailleurs dans l'arbre)
 @export var cable_path: NodePath:
 	set(value):
@@ -33,8 +42,20 @@ var _cable: Line2D = null
 var _last_points: PackedVector2Array = []
 
 func _ready() -> void:
+	if randomize_sag and not Engine.is_editor_hint():
+		randomize_sag_now(randi())
 	_refresh_cable_ref()
 	queue_redraw()
+
+
+## Deterministic variant: the map generator passes a seed, so the same map
+## always yields the same cable heights
+func randomize_sag_now(rng_seed : int) -> void:
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = rng_seed
+	shadow_sag = rng.randi_range(
+			mini(shadow_sag_min, shadow_sag_max),
+			maxi(shadow_sag_min, shadow_sag_max))
 
 func _refresh_cable_ref() -> void:
 	if not is_inside_tree() or cable_path.is_empty():

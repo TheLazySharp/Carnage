@@ -24,15 +24,15 @@ extends Node2D
 ## Share of the valid candidates actually kept
 @export_range(0.0, 1.0, 0.05) var cable_chance : float = 0.75
 ## Longest span a cable may cover, in cells
-@export var max_span_cells : int = 20
+@export var max_span_cells : int = 24
 ## Minimum distance between two cables, in cells (compared on their midpoints)
-@export var min_distance_cells : int = 6
+@export var min_distance_cells : int = 12
 ## How deep the anchors bite into the roofs, in cells
 @export var anchor_inset_cells : int = 1
 
 var _placed_midpoints : Array[Vector2] = []
 var _built : int = 0
-
+var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 func build(data : MapData, building_rects : Array[Rect2i]) -> void:
 	for child : Node in get_children():
@@ -47,8 +47,7 @@ func build(data : MapData, building_rects : Array[Rect2i]) -> void:
 		print("[MapCables] no building on the map: no cable")
 		return
 
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.seed = data.seed_used ^ 0xCAB1E  # own stream
+	_rng.seed = data.seed_used ^ 0xCAB1E  # own stream
 
 	var cell : float = float(data.cell_size)
 	var min_dist_sq : float = pow(float(min_distance_cells) * cell, 2.0)
@@ -65,7 +64,7 @@ func build(data : MapData, building_rects : Array[Rect2i]) -> void:
 			var target : int = _rect_at(hit, building_rects)
 			if target == index or target == -1:
 				continue
-			if rng.randf() > cable_chance:
+			if _rng.randf() > cable_chance:
 				continue
 
 			# Anchors: corner pushed into its own roof, far end pushed into the
@@ -152,5 +151,7 @@ func _spawn_cable(start : Vector2, stop : Vector2) -> void:
 		return
 	shadow.position = Vector2.ZERO
 	shadows_ground.add_child(shadow)
+	if shadow.has_method("randomize_sag_now"):
+		shadow.call("randomize_sag_now", int(_rng.randi()))
 	# Relative NodePath, resolved by CableShadow once both are in the tree
 	shadow.set("cable_path", shadow.get_path_to(cable))

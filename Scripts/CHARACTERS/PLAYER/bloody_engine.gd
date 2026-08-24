@@ -22,7 +22,7 @@ var max_fuel : float
 
 
 func _ready() -> void:
-	if owner != null and owner.get("debug_drive_mode") == true:
+	if GameMaster.is_debug():
 		set_process(false)
 		set_physics_process(false)
 		for child : Node in get_children():
@@ -106,6 +106,8 @@ func fuel_consumption(fuel_q : int) -> void :
 
 
 func _on_fuel_timer_timeout() -> void:
+	if game_paused :
+		return
 	fuel_consumption(player.regular_fuel_leak)
 
 func _on_dash_started() -> void :

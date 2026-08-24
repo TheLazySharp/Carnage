@@ -81,12 +81,12 @@ radius = 40.0
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_2l1bg"]
 
 [node name="LandMine" type="Node2D" unique_id=218716534 groups=["explosives", "weapons"]]
+z_index = 10
 script = ExtResource("1_72jnx")
 mine_data = ExtResource("2_42osq")
 
 [node name="AnimationExplosion" type="AnimatedSprite2D" parent="." unique_id=1782781454]
 visible = false
-z_index = 1
 sprite_frames = SubResource("SpriteFrames_wib0n")
 animation = &"explosion"
 

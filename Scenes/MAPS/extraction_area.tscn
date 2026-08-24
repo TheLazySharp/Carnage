@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dui542e5go1sf"]
+
+[ext_resource type="Script" uid="uid://cbu4m6fjqywh2" path="res://Scripts/BUILDINGS/extraction_area.gd" id="1_3gv2s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwim4"]
+size = Vector2(32, 394)
+
+[node name="WarpZone" type="Area2D" unique_id=1614605946]
+script = ExtResource("1_3gv2s")
+
+[node name="Warp Shape" type="CollisionShape2D" parent="." unique_id=1804539518]
+shape = SubResource("RectangleShape2D_lwim4")
+
+[node name="ColorRect" type="ColorRect" parent="Warp Shape" unique_id=773525576]
+custom_minimum_size = Vector2(32, 394)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 0, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

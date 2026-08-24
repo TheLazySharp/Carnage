@@ -29,7 +29,7 @@ var fade_time_down : float = 0.05
 var game_over : bool = false
 
 func _ready() -> void:
-	if owner != null and owner.get("debug_drive_mode") == true:
+	if GameMaster.is_debug():
 		return
 	car_res = CarManager.selected_car
 	car_node.dashing.connect(on_dash)

@@ -300,7 +300,6 @@ alpha_curve = SubResource("CurveTexture_8l58v")
 anim_offset_max = 1.0
 
 [node name="ImpactOnEnemy" type="Node2D" unique_id=899358896]
-z_as_relative = false
 
 [node name="Impact" type="AnimationPlayer" parent="." unique_id=1581693087]
 root_node = NodePath("../ImpactParticles")

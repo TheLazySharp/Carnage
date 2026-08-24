@@ -4,7 +4,7 @@ extends Area2D
 var car : CarData
 
 func _ready() -> void:
-	if owner != null and owner.get("debug_drive_mode") == true:
+	if GameMaster.is_debug():
 		return
 	car = CarManager.selected_car
 	StatsManager.stats_updated.connect(_on_stats_updated)
