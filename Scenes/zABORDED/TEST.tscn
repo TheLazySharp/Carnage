@@ -2723,6 +2723,7 @@ tangential_accel_max = -100.0
 damping_min = 100.00001
 damping_max = 100.00001
 attractor_interaction_enabled = false
+color = Color(1, 1, 1, 0)
 sub_emitter_mode = 1
 sub_emitter_frequency = 100.0
 
@@ -4236,14 +4237,17 @@ self_modulate = Color(0.10747974, 0.10747973, 0.107479684, 1)
 self_modulate = Color(1, 1, 1, 0.050980393)
 
 [node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=489217881]
+visible = false
 
 [node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=878321301]
-self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1769539986]
+modulate = Color(0.16565654, 0.16565636, 0.16565636, 1)
+self_modulate = Color(0.45452422, 0.45452428, 0.45452416, 0.047058824)
 
-[node name="WearLine_1" type="CanvasGroup" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1683394669]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1042884232]
+visible = false
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
 [node name="RoadBrushPath2D4" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1462920717]
@@ -4409,9 +4413,9 @@ curve = SubResource("Curve2D_k66vp")
 script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p")])
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=854289561]
+[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=276604511]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1373180978]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1339340225]
 script = ExtResource("86_au78y")
 
 [node name="Arrows" type="Node2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1192627376]
@@ -4437,9 +4441,9 @@ script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_au78y")])
 metadata/_custom_type_script = "uid://cstre1l5ksgef"
 
-[node name="MarkingLine_0" type="CanvasGroup" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=305621782]
+[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1976023637]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=878275303]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1143573585]
 script = ExtResource("86_au78y")
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -4569,6 +4573,7 @@ frame_progress = 1.0
 z_index = 6
 material = SubResource("ShaderMaterial_xao7p")
 position = Vector2(2073, 1161)
+emitting = false
 amount = 4000
 texture = ExtResource("102_qbjlx")
 lifetime = 0.8200000000000001
