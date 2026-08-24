@@ -129,3 +129,24 @@ func cell_to_world(cell : Vector2i) -> Vector2:
 
 func world_to_cell(world_pos : Vector2) -> Vector2i:
 	return Vector2i((world_pos / float(cell_size)).floor())
+
+## Cells an entity may stand on: roads and pavement, never a building
+func get_free_cells() -> Array[Vector2i]:
+	var result : Array[Vector2i] = []
+	for y : int in map_size_cells.y:
+		var row : int = y * map_size_cells.x
+		for x : int in map_size_cells.x:
+			if cells[row + x] != CellType.BUILDING:
+				result.append(Vector2i(x, y))
+	return result
+
+
+## Cells blocking movement and pathfinding
+func get_blocked_cells() -> Array[Vector2i]:
+	var result : Array[Vector2i] = []
+	for y : int in map_size_cells.y:
+		var row : int = y * map_size_cells.x
+		for x : int in map_size_cells.x:
+			if cells[row + x] == CellType.BUILDING:
+				result.append(Vector2i(x, y))
+	return result

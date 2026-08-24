@@ -447,7 +447,6 @@ platform_floor_layers = 0
 platform_wall_layers = 8
 safe_margin = 0.01
 script = ExtResource("1_rsha1")
-debug_drive_mode = true
 debug_car_data = ExtResource("2_73b8b")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]

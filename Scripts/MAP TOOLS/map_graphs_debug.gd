@@ -65,18 +65,23 @@ const COLOR_BORDER : Color = Color(0.8, 0.8, 0.85)
 
 
 func _ready() -> void:
-	_setup_camera()
+	if GameMaster.is_debug():
+		_setup_camera()
 	_build_failsafe_walls()
-	generate()
+	generate.call_deferred()
 
 
 func _process(_delta : float) -> void:
+	if not GameMaster.is_debug():
+		return
 	# Follow fallback, only used when the car has no Camera2D of its own
 	if follow_car and car_camera == null and camera != null and is_instance_valid(car):
 		camera.position = car.global_position
 
 
 func _unhandled_input(event : InputEvent) -> void:
+	if not GameMaster.is_debug():
+		return
 	var key : InputEventKey = event as InputEventKey
 	if key != null and key.pressed and not key.echo:
 		if key.keycode == KEY_T:
@@ -122,6 +127,7 @@ func generate() -> void:
 	# Deferred: on the very first generation (inside our _ready) the car node
 	# may not have entered its groups yet
 	_place_car.call_deferred()
+	SignalManager.emit_signal("map_generated",data)
 
 
 func _build_road_paths() -> void:
@@ -150,14 +156,16 @@ func _find_road_paths(node : Node) -> Node2D:
 
 
 func _place_car() -> void:
-	car = get_tree().get_first_node_in_group("player_car") as Node2D
+	# Group lookup: works whether the car sits in World (game) or Lands (debug)
+	car = get_tree().get_first_node_in_group("player") as Node2D
 	if car == null:
 		return
-	# Spawn inside the entry mouth, on the main artery, facing right
+	# Entry mouth, on the main artery, facing right
 	car.global_position = Vector2(float(border_margin_cells + 2), float(data.artery_y)) * float(cell_size)
 	car.rotation = 0.0
 	car.set("velocity", Vector2.ZERO)
-	# Prefer the car's own gameplay camera (screen shake, real feel)
+	if not GameMaster.is_debug():
+		return  # in game the car's own Camera2D is already current
 	car_camera = car.get_node_or_null("Camera2D") as Camera2D
 	_update_view()
 
@@ -178,7 +186,7 @@ func _build_failsafe_walls() -> void:
 	walls_body.add_to_group("walls")
 	# Debug walls live on ALL collision layers so they match the car's
 	# collision_mask whatever the project's layer setup is
-	walls_body.collision_layer = 0xFFFFFFFF
+	walls_body.collision_layer = 0xFFFFFFFF if GameMaster.is_debug() else 4
 	add_child(walls_body)
 	var t : float = float(cell_size * 2)  # thickness
 	var map_px : Vector2 = Vector2(map_size_cells) * float(cell_size)
@@ -242,6 +250,8 @@ func _zoom_at(screen_pos : Vector2, factor : float) -> void:
 
 # ---------------- DEBUG DRAW ----------------
 func _draw() -> void:
+	if not GameMaster.is_debug():
+		return
 	if data == null:
 		return
 	var px : float = float(data.cell_size)

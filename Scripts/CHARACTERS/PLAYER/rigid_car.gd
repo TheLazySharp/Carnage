@@ -82,7 +82,7 @@ const MIN_STEER_FACTOR : float = 0.25
 const WALL_IMPACT_MIN_SPEED : float = 80.0  # min frontal speed component to emit wall_impact
 
 # ---------------- DEBUG ----------------
-@export var debug_drive_mode : bool = false  # drop the car scene in a map test scene: driving only
+#@export var debug_drive_mode : bool = false  # drop the car scene in a map test scene: driving only
 @export var debug_car_data : CarData = null  # CarData used when launching outside the normal game flow
 
 
@@ -91,8 +91,8 @@ func _input(event : InputEvent) -> void:
 		dash_manager.try_dash()
 
 func _ready() -> void:
-	add_to_group("player_car")  # used by the camera to find the car
-	if debug_drive_mode:
+	add_to_group("player")  # used by the camera to find the car
+	if GameMaster.is_debug():
 		_ready_debug()
 		return
 	player = CarManager.selected_car

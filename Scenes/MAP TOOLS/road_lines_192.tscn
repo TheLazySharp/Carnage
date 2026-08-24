@@ -34,12 +34,12 @@ script = ExtResource("1_x3680")
 lines = Array[ExtResource("2_dwwx0")]([SubResource("Resource_au78y"), SubResource("Resource_xwer6")])
 metadata/_custom_type_script = "uid://cstre1l5ksgef"
 
-[node name="MarkingLine_0" type="Node2D" parent="." unique_id=665087188]
+[node name="MarkingLine0" type="Node2D" parent="." unique_id=1342140345]
 
-[node name="FillSurface" type="Node2D" parent="MarkingLine_0" unique_id=625301411]
+[node name="FillSurface" type="Node2D" parent="MarkingLine0" unique_id=1003454943]
 script = ExtResource("3_oo7d3")
 
-[node name="MarkingLine_1" type="Node2D" parent="." unique_id=478237905]
+[node name="MarkingLine1" type="Node2D" parent="." unique_id=1403357827]
 
-[node name="FillSurface" type="Node2D" parent="MarkingLine_1" unique_id=938870278]
+[node name="FillSurface" type="Node2D" parent="MarkingLine1" unique_id=167426378]
 script = ExtResource("3_oo7d3")

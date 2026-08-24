@@ -6,6 +6,8 @@ extends Node
 ## from their folders and how many sprites their layers hold.
 
 func _unhandled_input(event : InputEvent) -> void:
+	if not GameMaster.is_debug(): 
+		return
 	var key : InputEventKey = event as InputEventKey
 	if key != null and key.pressed and not key.echo and key.keycode == KEY_D:
 		dump()

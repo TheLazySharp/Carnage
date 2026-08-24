@@ -290,7 +290,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dvd7y")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fire_cycle",
 "speed": 12.0
 }, {
@@ -316,7 +316,7 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": false,
+"loop": 0,
 "name": &"fire_end",
 "speed": 12.0
 }, {
@@ -339,7 +339,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c88fx")
 }],
-"loop": false,
+"loop": 0,
 "name": &"fire_start",
 "speed": 12.0
 }, {
@@ -392,7 +392,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tyojd")
 }],
-"loop": true,
+"loop": 1,
 "name": &"huge_fire_cycle",
 "speed": 12.0
 }, {
@@ -433,7 +433,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6pal3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"huge_fire_end",
 "speed": 12.0
 }, {
@@ -498,7 +498,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d2yq3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"huge_fire_start",
 "speed": 12.0
 }]
@@ -506,6 +506,7 @@ animations = [{
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_huv7q"]
 
 [node name="Flame" type="Area2D" unique_id=1083180534 groups=["weapons"]]
+z_index = 14
 collision_layer = 1024
 collision_mask = 2
 script = ExtResource("1_mdlt8")
@@ -515,6 +516,7 @@ flame_data = ExtResource("2_2how3")
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=746174199]
+z_index = 14
 position = Vector2(64, -32)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_wib0n")

@@ -30,12 +30,14 @@ enum GAME_MODES {
 	BUILD,
 	RELEASE,
 	GOD,
-	SANDBOX
+	SANDBOX,
+	DEBUG
 }
-
-
 
 var game_mode : GAME_MODES
 
 func _ready() -> void:
-	game_mode = GAME_MODES.DEV
+	game_mode = GAME_MODES.DEBUG
+
+func is_debug() -> bool:
+	return game_mode == GAME_MODES.DEBUG

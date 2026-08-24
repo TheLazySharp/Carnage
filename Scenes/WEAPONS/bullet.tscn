@@ -9,19 +9,16 @@ radius = 2.0
 height = 14.0
 
 [node name="Bullet" type="Area2D" unique_id=1598410154 groups=["bullets"]]
-z_as_relative = false
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_wseha")
 bullet_data = ExtResource("2_1y1lp")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1108651613]
-z_as_relative = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4v88u")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=6404617]
-z_as_relative = false
 position = Vector2(1, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_4v88u")

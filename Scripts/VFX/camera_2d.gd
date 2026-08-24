@@ -52,6 +52,7 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
 	SignalManager.end_autopilot_transition.connect(_on_exit_transition)
+	SignalManager.map_generated.connect(_on_map_generated)
 
 
 func _physics_process(delta : float) -> void:
@@ -66,14 +67,14 @@ func _physics_process(delta : float) -> void:
 	else:
 		shake_offset = shake_offset.lerp(Vector2.ZERO, 10.5 * delta)
 
-	offset = lookahead_offset + shake_offset
+	offset = _clamped_offset(lookahead_offset) + shake_offset
 	zoom_punch = lerpf(zoom_punch, 0.0, 4.0 * delta)
 	zoom = zoom.lerp(Vector2.ONE * (target_zoom + zoom_punch), zoom_speed * delta)
 	rotation = lerp_angle(rotation, deg_to_rad(target_roll), roll_speed * delta)
 
 	# ---- SUIVI VOITURE  ----
 	if !is_instance_valid(car):
-		car = get_tree().get_first_node_in_group("player_car") as CharacterBody2D
+		car = get_tree().get_first_node_in_group("player") as CharacterBody2D
 		if car == null:
 			return
 
@@ -124,6 +125,26 @@ func update_zoom(speed : float) -> void:
 func update_roll(drift_factor : float) -> void:
 	target_roll = drift_factor * roll_max_deg
 
+## offset bypasses limit_*, so the lookahead must be clamped by hand — against
+## the ALREADY limited view centre, not the raw global_position
+func _clamped_offset(desired : Vector2) -> Vector2:
+	var half_view : Vector2 = get_viewport_rect().size * 0.5 / zoom
+	var min_center : Vector2 = Vector2(float(limit_left), float(limit_top)) + half_view
+	var max_center : Vector2 = Vector2(float(limit_right), float(limit_bottom)) - half_view
+	# Map narrower than the view: centre it, no clamping possible
+	if min_center.x > max_center.x:
+		min_center.x = (min_center.x + max_center.x) * 0.5
+		max_center.x = min_center.x
+	if min_center.y > max_center.y:
+		min_center.y = (min_center.y + max_center.y) * 0.5
+		max_center.y = min_center.y
+
+	var base : Vector2 = global_position
+	base.x = clampf(base.x, min_center.x, max_center.x)
+	base.y = clampf(base.y, min_center.y, max_center.y)
+	return Vector2(
+			clampf(desired.x, min_center.x - base.x, max_center.x - base.x),
+			clampf(desired.y, min_center.y - base.y, max_center.y - base.y))
 
 # ---------------- AUTOPILOT ----------------
 func _on_autopilot_transition_start() -> void:
@@ -148,3 +169,13 @@ func _on_exit_transition() -> void:
 
 func _on_game_paused(paused : bool) -> void:
 	game_paused = paused
+
+func _on_map_generated(data : MapData) -> void:
+	var map_px : Vector2 = Vector2(data.map_size_cells) * float(data.cell_size)
+	limit_left = 0
+	limit_top = 0
+	limit_right = int(map_px.x)
+	limit_bottom = int(map_px.y)
+	limit_smoothed = true  # no hard stop when reaching an edge
+	print("[Camera] limits ", limit_left, ",", limit_top, " -> ", limit_right, ",", limit_bottom,
+			" | map ", map_px, " | view ", get_viewport_rect().size / zoom)

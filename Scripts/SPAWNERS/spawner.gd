@@ -17,10 +17,14 @@ var camera : Camera2D
 
 var map_bounds : Rect2i 
 
+## Never spawn inside the camera view. Ignored in debug, where the camera is
+## zoomed out over the whole map and would reject every candidate.
+@export var avoid_camera_view : bool = true
+
 func _ready() -> void:
 	camera = get_viewport().get_camera_2d()
-	build_grid()
-	setup_trigger()
+	# The grid comes from the generated map now, not from wall tilemaps
+	SignalManager.map_generated.connect(_on_map_generated)
 
 # ---- KIDS HOOKS OVERDRIVABLE ----
 func setup_trigger() -> void:
@@ -41,33 +45,17 @@ func get_footprint() -> Vector2i:
 func is_placement_valid(_anchor : Vector2i, _size : Vector2i, _world_center : Vector2) -> bool:
 	return true
 
-func build_grid() -> void:
+func build_grid(data : MapData) -> void:
 	free_cells.clear()
 	free_cell_set.clear()
-	var wall_cells : Dictionary = {}
-	var bounds : Rect2i
-	var bounds_set : bool = false
-
-	for wall in get_tree().get_nodes_in_group("walls"):
-		if wall is TileMapLayer:
-			var rect : Rect2i = wall.get_used_rect()
-			bounds = rect if !bounds_set else bounds.merge(rect)
-			bounds_set = true
-			for cell : Vector2i in wall.get_used_cells():
-				wall_cells[cell] = true
-
-	if !bounds_set:
-		push_warning("Spawner : aucun mur trouvé pour construire la grille")
+	if data == null:
+		push_warning("Spawner: no MapData, grid not built")
 		return
-	
-	map_bounds = bounds
-
-	for y in range(bounds.position.y, bounds.end.y):
-		for x in range(bounds.position.x, bounds.end.x):
-			var cell := Vector2i(x, y)
-			if !wall_cells.has(cell):
-				free_cells.append(cell)
-				free_cell_set[cell] = true
+	cell_size = float(data.cell_size)
+	map_bounds = Rect2i(Vector2i.ZERO, data.map_size_cells)
+	for cell : Vector2i in data.get_free_cells():
+		free_cells.append(cell)
+		free_cell_set[cell] = true
 	
 
 func spawn() -> Node:
@@ -75,22 +63,28 @@ func spawn() -> Node:
 		return null
 
 	var size : Vector2i = get_footprint()
+	var rejected_occupied : int = 0
+	var rejected_screen : int = 0
+	var rejected_rule : int = 0
 
 	for _i in range(max_spawn_attempts):
 		var anchor : Vector2i = free_cells.pick_random()
 		last_footprint_cells = get_footprint_cells(anchor, size)
-		
+
 		if !is_footprint_free(anchor, size):
+			rejected_occupied += 1
 			continue
-		
+
 		var world_center_pos : Vector2 = (Vector2(anchor) + Vector2(size) * 0.5) * cell_size
-		
-		if is_footprint_on_screen(anchor, size):
+
+		if avoid_camera_view and !GameMaster.is_debug() and is_footprint_on_screen(anchor, size):
+			rejected_screen += 1
 			continue
 
 		if !is_placement_valid(anchor, size, world_center_pos):
+			rejected_rule += 1
 			continue
-		
+
 		var instance : Node = scene_to_spawn.instantiate()
 		configure_instance(instance, world_center_pos)
 		get_spawn_parent().add_child(instance)
@@ -100,9 +94,11 @@ func spawn() -> Node:
 
 		if occupy_cells:
 			occupy_footprint(anchor, size)
-			
+
 		return instance
 
+	push_warning("[Spawner] %s: %d attempts failed (%d occupied, %d on screen, %d rule)" % [
+			name, max_spawn_attempts, rejected_occupied, rejected_screen, rejected_rule])
 	return null
 
 #func is_on_screen(world_pos : Vector2) -> bool:
@@ -151,3 +147,9 @@ func get_footprint_cells(anchor : Vector2i, size : Vector2i) -> Array[Vector2i]:
 		for dx in range(size.x):
 			cells.append(anchor + Vector2i(dx, dy))
 	return cells
+
+func _on_map_generated(data : MapData) -> void:
+	build_grid(data)
+	print("[Spawner] ", name, ": ", free_cells.size(), " free cells, scene: ",
+			"OK" if scene_to_spawn != null else "MISSING")
+	setup_trigger()

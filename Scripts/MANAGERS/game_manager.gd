@@ -6,10 +6,11 @@ var game_is_over:= false
 
 @onready var directional_light_2d: DirectionalLight2D = $"../DirectionalLight2D"
 
-@onready var player: CharacterBody2D = $"../Car"
+@onready var player: CharacterBody2D = null
 @onready var pause_manager: Control = $"../CanvasLayer/Pause"
 
 func _ready() -> void:
+	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	player.game_over.connect(_update_game_over)
 	pause_manager.quit_pause.connect(_update_ingame_pause)
