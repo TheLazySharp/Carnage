@@ -23,6 +23,7 @@ metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 [resource]
 script = ExtResource("1_exg4w")
 name = "Common"
+type = null
 spritesheet = ExtResource("4_b0njb")
 sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_tf6ne")])
 blood_particles = ExtResource("1_b0njb")
