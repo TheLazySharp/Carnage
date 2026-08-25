@@ -11,6 +11,7 @@ height = 14.0
 [node name="Bullet" type="Area2D" unique_id=1598410154 groups=["bullets"]]
 collision_layer = 4
 collision_mask = 10
+monitorable = false
 script = ExtResource("1_wseha")
 bullet_data = ExtResource("2_1y1lp")
 

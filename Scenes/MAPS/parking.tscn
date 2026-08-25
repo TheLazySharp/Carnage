@@ -374,6 +374,7 @@ script = ExtResource("48_i5dpw")
 blood_shot_scene = ExtResource("49_i5dpw")
 
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
+z_index = 10
 
 [node name="Collectables" type="Node2D" parent="." unique_id=1083103788]
 z_index = 10

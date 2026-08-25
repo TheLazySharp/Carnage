@@ -86,6 +86,7 @@ animation = &"slashing"
 [node name="SmashZone" type="Area2D" parent="." unique_id=1252214905]
 collision_layer = 1024
 collision_mask = 2
+monitorable = false
 
 [node name="SmashShape" type="CollisionShape2D" parent="SmashZone" unique_id=1020102252]
 z_index = 14

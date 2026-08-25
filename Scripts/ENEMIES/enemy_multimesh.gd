@@ -137,10 +137,6 @@ func _physics_process(delta: float) -> void:
 		return
 	if is_dead:
 		if knockback_velocity.length_squared() > 1.0:
-		
-		
-	#if is_dead:
-		#if knockback_velocity.length_squared() > 1.0:
 			velocity = knockback_velocity
 			var dead_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * delta)
 			knockback_velocity = knockback_velocity.normalized() * dead_length

@@ -12,6 +12,7 @@ height = 32.499996
 scale = Vector2(0.8, 0.8)
 collision_layer = 4
 collision_mask = 10
+monitorable = false
 script = ExtResource("1_64sch")
 bullet_data = ExtResource("2_0f2xj")
 
