@@ -38,6 +38,7 @@ var last_player_cell : Vector2i = Vector2i(0x7fffffff, 0x7fffffff)
 var rebuild_timer : float = 0.0
 var game_paused : bool = false
 var game_over : bool = false
+var field_ready : bool = false
 
 signal walls_scanned
 
@@ -71,6 +72,7 @@ func _on_map_generated(data : MapData) -> void:
 	if target == null:
 		target = get_tree().get_first_node_in_group("player") as Node2D
 	scan_walls(data)
+	field_ready = true
 
 func scan_walls(data : MapData) -> void:
 	blocked.fill(0)
@@ -92,7 +94,7 @@ func scan_walls(data : MapData) -> void:
 
 
 func _process(delta: float) -> void:
-	if game_paused or game_over:
+	if !field_ready or game_paused or game_over:
 		return
 	rebuild_timer -= delta
 	var player_cell : Vector2i = world_to_cell(target.global_position)
@@ -136,6 +138,8 @@ func rebuild_cost_field(player_cell: Vector2i) -> void:
 # ---- API publique : direction calculée à la demande (gradient du champ de coût) ----
 
 func get_flow_direction(world_pos: Vector2) -> Vector2:
+	if !field_ready:
+		return (target.global_position - world_pos).normalized() if target != null else Vector2.ZERO
 	var local_x : int = int(floor(world_pos.x / CELL)) - map_origin_tile.x
 	var local_y : int = int(floor(world_pos.y / CELL)) - map_origin_tile.y
 	if local_x < 0 or local_y < 0 or local_x >= grid_w or local_y >= grid_h:

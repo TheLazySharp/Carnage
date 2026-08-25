@@ -49,7 +49,7 @@ func _on_spawn_rate_timeout() -> void:
 		spawn_timer.stop()
 		return
 	spawn()
-	print("enemy_spawner : spawn")
+	#print("enemy_spawner : spawn")
 
 
 func _on_game_paused(game_on_pause : bool) -> void:

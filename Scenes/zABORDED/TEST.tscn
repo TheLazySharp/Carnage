@@ -84,7 +84,7 @@
 [ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="81_unwpx"]
 [ext_resource type="Script" uid="uid://35fqax0nsl4d" path="res://Scripts/MAP TOOLS/crack_network_generator.gd" id="82_41ema"]
 [ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/CrackDrawSurface.gd" id="83_q4v6q"]
-[ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/road_marking_path.gd" id="84_5dgyk"]
+[ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/map_road_marking_path.gd" id="84_5dgyk"]
 [ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="85_8uaht"]
 [ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="86_au78y"]
 [ext_resource type="PackedScene" uid="uid://cnottdkm4adhv" path="res://Scenes/VFX/smoke_particles01.tscn" id="89_5trsw"]

@@ -47,6 +47,7 @@ jobs_manager="*uid://cid3lkejoqtxp"
 ItemManager="*uid://pfnlydcuwirj"
 BuildingsManager="*uid://dhojtvnvny37"
 BloodPools="*uid://df2bxfoj3gypl"
+LoadingScreen="*uid://dqtnhe0d0udv4"
 
 [debug]
 

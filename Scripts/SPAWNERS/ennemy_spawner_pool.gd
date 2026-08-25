@@ -7,7 +7,7 @@ const ENEMY = preload("uid://c31g0smlywes2")
 var max_enemy_count : int = 200
 var enemies_pool : Array[Enemy]
 var nb_active_enemies : int = 0
-@onready var game_manager: Node = $"/root/World/game_manager"
+@onready var game_manager: Node = $"/root/World/GameManager"
 var game_paused:=false
 
 @onready var zombies_q: Label = $"../../CanvasLayer/Board/Parts/MarginContainer/HBoxContainer/Zombies/ZombiesQ"
@@ -18,7 +18,7 @@ var game_paused:=false
 func _ready() -> void:
 	randomize()
 	create_enemies_pool(max_enemy_count)
-	game_managerSignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.game_paused.connect(_on_game_paused)
 	zombies_q.text = str(nb_active_enemies)
 
 func _process(_delta: float) -> void:

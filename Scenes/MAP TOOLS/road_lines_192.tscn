@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cqddfo4uf5ux1"]
 
-[ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/road_marking_path.gd" id="1_x3680"]
+[ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/map_road_marking_path.gd" id="1_x3680"]
 [ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="2_dwwx0"]
 [ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="3_oo7d3"]
 

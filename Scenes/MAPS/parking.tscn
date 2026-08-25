@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://df565yrwfqn1v"]
 
+[ext_resource type="Script" uid="uid://mex1eo2e0s5c" path="res://Scripts/SCENES/world_root.gd" id="1_7u5t2"]
 [ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="1_qe1gh"]
 [ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/hordes_manager.gd" id="2_pneeb"]
 [ext_resource type="PackedScene" uid="uid://cw24hp3lk0hkn" path="res://Scenes/MAPS/flow_field_manager.tscn" id="2_vmxub"]
@@ -112,6 +113,7 @@ _data = {
 }
 
 [node name="World" type="Node2D" unique_id=1548430314]
+script = ExtResource("1_7u5t2")
 metadata/_edit_horizontal_guides_ = [1941.0]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=9101506]
@@ -122,7 +124,7 @@ environment = SubResource("Environment_0pcbe")
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=353420523]
 blend_mode = 2
 
-[node name="game_manager" parent="." unique_id=1855230744 instance=ExtResource("1_qe1gh")]
+[node name="GameManager" parent="." unique_id=1855230744 instance=ExtResource("1_qe1gh")]
 
 [node name="FlowFieldManager" parent="." unique_id=805599683 instance=ExtResource("2_vmxub")]
 

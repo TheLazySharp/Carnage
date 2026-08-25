@@ -5,11 +5,17 @@ var current_biome: String
 var sfx_volume: int
 var game_paused:=false
 
+
+
 @onready var level_up_sfx_player: AudioStreamPlayer = $LevelUpSfx
 @onready var items_sfx: AudioStreamPlayer = $ItemsSfx
 @onready var items_sfx2: AudioStreamPlayer = $ItemsSfx2
 @onready var items_sfx3: AudioStreamPlayer = $ItemsSfx3
 @onready var coins_sfx: AudioStreamPlayer = $CoinsSfx
+
+@onready var background_music_player: AudioStreamPlayer = $BackgroundMusicPlayer
+
+
 var sfx_players : Array[AudioStreamPlayer]
 
 var pickup_xp_sfx : AudioStreamMP3
@@ -25,6 +31,7 @@ func _ready() -> void:
 	XPManager.level_up_sfx.connect(_on_level_up)
 	SignalManager.piston_picked_up.connect(_on_gears_picked_up)
 	SignalManager.dollar_picked_up.connect(_on_dollar_picked_up)
+	SignalManager.start_background_music.connect(_on_map_async_generation)
 	pickup_xp_sfx = AudioMaster.PICK_UP_XP
 	pickup_gears_sfx = AudioMaster.PICK_UP_GEARS
 	level_up_sfx = AudioMaster.LEVEL_UP_ARCADE
@@ -56,3 +63,6 @@ func _on_game_paused(game_on_pause : bool) -> void:
 func _on_level_up() -> void : 
 	level_up_sfx_player.play()
 	#print("levelup sound")
+
+func _on_map_async_generation() -> void : 
+	background_music_player.play()

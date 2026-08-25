@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://8kyej0ari2gj" path="res://Scripts/MAP TOOLS/map_graphs_debug.gd" id="1_hogjg"]
 [ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_0wyvd"]
-[ext_resource type="Script" uid="uid://cp4mcqo6m303r" path="res://Scripts/MAP TOOLS/road_path.gd" id="2_fjwlv"]
+[ext_resource type="Script" uid="uid://cp4mcqo6m303r" path="res://Scripts/MAP TOOLS/map_road_path.gd" id="2_fjwlv"]
 [ext_resource type="Script" uid="uid://dbfdhcqb6mesf" path="res://Scripts/MAP TOOLS/debug.gd" id="2_geowy"]
 [ext_resource type="Script" uid="uid://dy5rq620g8ioq" path="res://Scripts/MAP TOOLS/map_building_placer.gd" id="2_s1sq0"]
 [ext_resource type="Texture2D" uid="uid://bx6p35jf6jn57" path="res://Assets/Props/Ground/Slice 1.tres" id="3_3app6"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://vptgqe6gpng4" path="res://Assets/Props/Ground/Slice 4.tres" id="6_mh2ly"]
 [ext_resource type="Texture2D" uid="uid://d3isube7pygku" path="res://Assets/Props/Ground/Slice 5.tres" id="7_a8u5h"]
 [ext_resource type="Texture2D" uid="uid://b7tqvwpa5bmks" path="res://Assets/Props/Ground/Slice 6.tres" id="8_d14oy"]
-[ext_resource type="Script" uid="uid://dvg11skp08qjj" path="res://Scripts/MAP TOOLS/sidewalks.gd" id="8_o6c2i"]
+[ext_resource type="Script" uid="uid://dvg11skp08qjj" path="res://Scripts/MAP TOOLS/map_sidewalks.gd" id="8_o6c2i"]
 [ext_resource type="Texture2D" uid="uid://bqv4adqys8jgt" path="res://Assets/Props/Ground/Slice 7.tres" id="9_yho2a"]
 [ext_resource type="Script" uid="uid://dsp7nhw12q3ws" path="res://Scripts/MAP TOOLS/map_road_marks.gd" id="10_geowy"]
 [ext_resource type="Texture2D" uid="uid://c41put4ikqs86" path="res://Assets/Props/Ground/Slice 8.tres" id="10_ogojh"]
@@ -47,7 +47,6 @@
 [ext_resource type="Script" uid="uid://c8kwd8sf27onm" path="res://Scripts/MAP TOOLS/map_road_lines.gd" id="33_52dps"]
 [ext_resource type="PackedScene" uid="uid://cqddfo4uf5ux1" path="res://Scenes/MAP TOOLS/road_lines_192.tscn" id="34_n6h35"]
 [ext_resource type="PackedScene" uid="uid://b7f82u1r73s67" path="res://Scenes/MAP TOOLS/road_lines_394.tscn" id="35_3b8hv"]
-[ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="48_5boc2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d6r40"]
 texture = ExtResource("2_0wyvd")
@@ -2568,5 +2567,3 @@ cable_scene = ExtResource("12_geowy")
 shadow_scene = ExtResource("13_2uc7r")
 shadows_ground = NodePath("../ShadowsGround")
 cable_chance = 0.5
-
-[node name="RigidCar" parent="." unique_id=1977967618 instance=ExtResource("48_5boc2")]

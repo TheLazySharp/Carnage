@@ -5,7 +5,7 @@ var max_enemy_count : int = 150
 var max_boss_count : int = 1
 
 @export var is_active: bool = true
-@onready var game_manager: Node = $"/root/World/game_manager"
+@onready var game_manager: Node = $"/root/World/GameManager"
 var game_paused: bool =false
 @onready var final_horde_spawn_point: Marker2D = $FinalHordeSpawnPoint
 

@@ -110,3 +110,6 @@ signal nitro_changed(current_nitro : int)
 
 @warning_ignore("unused_signal")
 signal map_generated(data : MapData)
+
+@warning_ignore("unused_signal")
+signal start_background_music

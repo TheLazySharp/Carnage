@@ -63,12 +63,14 @@ const COLOR_ENTRY : Color = Color(0.25, 0.8, 0.35, 0.8)
 const COLOR_EXIT : Color = Color(0.85, 0.25, 0.25, 0.8)
 const COLOR_BORDER : Color = Color(0.8, 0.8, 0.85)
 
+const BUILD_STEPS : int = 6
 
 func _ready() -> void:
+	add_to_group("map_generator")
 	if GameMaster.is_debug():
 		_setup_camera()
+		generate.call_deferred()  # in game, World.build_level() drives it
 	_build_failsafe_walls()
-	generate.call_deferred()
 
 
 func _process(_delta : float) -> void:
@@ -110,24 +112,42 @@ func _unhandled_input(event : InputEvent) -> void:
 
 
 func generate() -> void:
+	generate_async()
+
+
+## Yields between passes so the loading overlay keeps drawing
+func generate_async() -> void:
 	_apply_params()
+	LoadingScreen.set_step(0, BUILD_STEPS, "Drawing the district...")
 	data = generator.generate(map_seed)
-	print("[MapGraph] seed: ", data.seed_used,
-			" | nodes: ", data.nodes.size(),
-			" | edges: ", data.edges.size(),
-			" | blocks: ", data.block_rects.size())
-	_build_buildings()   # before queue_redraw: it changes the cell raster
-	_build_sidewalks()   # after the buildings: paints whatever is left
+	await get_tree().process_frame
+
+	LoadingScreen.set_step(1, BUILD_STEPS, "Adding buildings..")
+	_build_buildings()
+	await get_tree().process_frame
+
+	LoadingScreen.set_step(2, BUILD_STEPS, "Adding sidewalks")
+	_build_sidewalks()
+	await get_tree().process_frame
+
+	LoadingScreen.set_step(3, BUILD_STEPS, "Adding cables and markings")
 	_build_cables()
 	_build_road_lines()
 	_build_road_marks()
-	queue_redraw()
-	_bake_shadows()
+	await get_tree().process_frame
+
+	LoadingScreen.set_step(4, BUILD_STEPS, "Adding road wear...")
 	_build_road_paths()
-	# Deferred: on the very first generation (inside our _ready) the car node
-	# may not have entered its groups yet
+	await get_tree().process_frame
+
+	LoadingScreen.set_step(5, BUILD_STEPS, "Adding shadows...")
+	_bake_shadows()
+	await get_tree().process_frame
+
+	LoadingScreen.set_step(6, BUILD_STEPS)
+	queue_redraw()
 	_place_car.call_deferred()
-	SignalManager.emit_signal("map_generated",data)
+	SignalManager.map_generated.emit(data)
 
 
 func _build_road_paths() -> void:
