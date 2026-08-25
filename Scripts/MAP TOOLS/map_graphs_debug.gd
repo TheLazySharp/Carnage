@@ -122,15 +122,15 @@ func generate_async() -> void:
 	data = generator.generate(map_seed)
 	await get_tree().process_frame
 
-	LoadingScreen.set_step(1, BUILD_STEPS, "Adding buildings..")
+	LoadingScreen.set_step(1, BUILD_STEPS, "Adding buildings...")
 	_build_buildings()
 	await get_tree().process_frame
 
-	LoadingScreen.set_step(2, BUILD_STEPS, "Adding sidewalks")
+	LoadingScreen.set_step(2, BUILD_STEPS, "Adding sidewalks...")
 	_build_sidewalks()
 	await get_tree().process_frame
 
-	LoadingScreen.set_step(3, BUILD_STEPS, "Adding cables and markings")
+	LoadingScreen.set_step(3, BUILD_STEPS, "Adding cables and markings...")
 	_build_cables()
 	_build_road_lines()
 	_build_road_marks()

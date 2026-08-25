@@ -73,7 +73,7 @@ var ready_go_timer: float = 2.0
 
 var commands_from_menu : bool = false
 
-var default_loading_message : String = "Desiging the district"
+var default_loading_message : String = "Designing the district, please wait"
 
 ## Safety net if map_generated never fires (broken pass, scene without map)
 const OVERLAY_TIMEOUT : float = 30.0

@@ -46,6 +46,9 @@ func _on_spawn_ended() -> void :
 	can_be_collected = true
 
 func _physics_process(delta: float) -> void:
+	if !player : 
+		return
+	
 	if game_paused :
 		return
 	

@@ -80,6 +80,9 @@ const WALL_ALIGN_LERP : float = 0.3
 const WALL_ROTATION_SPEED : float = 5.0
 const MIN_STEER_FACTOR : float = 0.25
 const WALL_IMPACT_MIN_SPEED : float = 80.0  # min frontal speed component to emit wall_impact
+const WALL_GLANCE_DAMP : float = 1.0   # damp at grazing angle (no speed loss)
+
+var drift_locked : bool = false  # set on wall hit, cleared when the drift key is released
 
 # ---------------- DEBUG ----------------
 #@export var debug_drive_mode : bool = false  # drop the car scene in a map test scene: driving only
@@ -172,7 +175,10 @@ func _process_player_inputs(delta : float) -> void:
 	if throttle == 0.0:
 		throttle = -Input.get_action_strength("back")
 	var steer : float = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	drifting = Input.is_action_pressed("drift") and throttle > 0.0
+	
+	if drift_locked and !Input.is_action_pressed("drift"):
+		drift_locked = false  # key released: drifting is allowed again
+	drifting = !drift_locked and Input.is_action_pressed("drift") and throttle > 0.0
 
 	if forward_only:
 		throttle = maxf(throttle, 0.0)
@@ -228,14 +234,20 @@ func _process_player_inputs(delta : float) -> void:
 
 
 func _handle_wall_collision(collision : KinematicCollision2D, forward : Vector2, delta : float) -> void:
-	var n : Vector2 = collision.get_normal().normalized()
+	var n : Vector2 = collision.get_normal()
 
 	# Speed component going into the wall (before damping)
 	var impact_speed : float = maxf(-velocity.dot(n), 0.0)
 	if impact_speed >= WALL_IMPACT_MIN_SPEED:
 		wall_impact.emit(impact_speed)
 
-	velocity = velocity.slide(n) * WALL_BOUNCE_DAMP
+	# Angle-proportional damping: grazing hits keep their speed,
+	# head-on hits lose up to (1 - WALL_BOUNCE_DAMP)
+	var into_wall : float = 0.0
+	if velocity.length_squared() > 0.01:
+		into_wall = clampf(-velocity.normalized().dot(n), 0.0, 1.0)
+	var damp : float = lerpf(WALL_GLANCE_DAMP, WALL_BOUNCE_DAMP, into_wall)
+	velocity = velocity.slide(n) * damp
 
 	var wall_tan : Vector2 = Vector2(-n.y, n.x)
 	var is_moving_forward : bool = velocity.dot(forward) > 0.0
@@ -243,16 +255,26 @@ func _handle_wall_collision(collision : KinematicCollision2D, forward : Vector2,
 		wall_tan = -wall_tan
 
 	var new_speed : float = velocity.length()
-	velocity = velocity.normalized().lerp(wall_tan, WALL_ALIGN_LERP) * new_speed
+	if new_speed > 0.01:
+		velocity = velocity.normalized().lerp(wall_tan, WALL_ALIGN_LERP) * new_speed
 
 	var target_rotation : float = wall_tan.angle()
 	if !is_moving_forward:
 		target_rotation += PI
 	rotation = lerp_angle(rotation, target_rotation, WALL_ROTATION_SPEED * delta)
 
+	# Consume the motion lost to the impact: slide the remainder along the wall
+	# so the car keeps moving on the same frame instead of freezing
+	var remainder : Vector2 = collision.get_remainder().slide(n)
+	if remainder != Vector2.ZERO:
+		var second : KinematicCollision2D = move_and_collide(remainder)
+		if second:
+			velocity = velocity.slide(second.get_normal()) * damp
+
 	if drifting:
 		SignalManager.wall_collision.emit()
 		drifting = false
+		drift_locked = true  # drift stays dead until the key is released (see fix 2)
 		drift_manager.force_stop_skid()
 
 
@@ -352,8 +374,8 @@ func on_death() -> void:
 	game_is_over = true
 	SignalManager.game_is_over.emit(game_is_over)
 	await get_tree().create_timer(2).timeout
-	queue_free()
 	game_over.emit(game_is_over)
+	queue_free()
 
 
 func _on_taking_damages_timeout() -> void:

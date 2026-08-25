@@ -722,18 +722,18 @@ metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 modulate = Color(1, 1, 1, 0.78431374)
 position = Vector2(1.9724636, 2.0433292)
 script = ExtResource("1_cdjtc")
-building_size = Vector2i(10, 245)
-shadow_length = 5
-pixel_size = 1
+building_size = Vector2i(10, 125)
+shadow_length = 0
+pixel_size = 2
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=742358665]
 modulate = Color(1, 1, 1, 0.78431374)
-position = Vector2(16.229485, 4.616432)
+position = Vector2(22.229485, 4.616432)
 script = ExtResource("1_cdjtc")
-building_size = Vector2i(237, 10)
+building_size = Vector2i(115, 10)
 shadow_length = 0
-pixel_size = 1
+pixel_size = 2
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
@@ -744,10 +744,10 @@ position = Vector2(17.58844, 209.96158)
 texture = ExtResource("4_nfnyb")
 centered = false
 
-[node name="Edges" type="Node2D" parent="." unique_id=754243148]
+[node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
 z_index = 20
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249]
+[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
 z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAALABEAAAABAAAAAAAMABEAAAACAAAAAAAMABEAAAADAAAAAAAMABEAAAAEAAAAAAAMABEAAAAAAAEAAAALABIAAAAAAAIAAAALABIAAAAAAAMAAAALABIAAAAAAAQAAAALABIAAAAAAAcAAAALABcAAAAHAAcAAAANABcAAAAHAAAAAAANABEAAAAHAAEAAAANABIAAAAHAAIAAAANABIAAAAHAAMAAAANABIAAAAHAAQAAAANABIAAAAHAAUAAAANABIAAAAHAAYAAAANABIAAAAFAAAAAAAMABEAAAAGAAAAAAAMABEAAAAAAAUAAAALABIAAAAAAAYAAAALABIAAAABAAcAAAAMABcAAAACAAcAAAAMABcAAAADAAcAAAAMABcAAAAEAAcAAAAMABcAAAAFAAcAAAAMABcAAAAGAAcAAAAMABcAAAACAAUAAAALAA8AAAAFAAUAAAANAA8AAAADAAUAAAAMAA8AAAAEAAUAAAAMAA8AAAACAAIAAAALAAkAAAAFAAIAAAANAAkAAAAFAAMAAAAPAAwAAAAFAAQAAAAPAAwAAAADAAIAAAAMAAkAAAAEAAIAAAAMAAkAAAACAAQAAAAJAAwAAAACAAMAAAAJAAwAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

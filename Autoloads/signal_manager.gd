@@ -67,7 +67,7 @@ signal wall_collision
 signal car_level_up_upgrade()
 
 @warning_ignore("unused_signal")
-signal enemy_stats_init
+signal enemy_stats_init(which : Enemy)
 
 @warning_ignore("unused_signal")
 signal coloss_incoming

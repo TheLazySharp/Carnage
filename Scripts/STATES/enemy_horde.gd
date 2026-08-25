@@ -11,6 +11,8 @@ var game_paused :  bool = false
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	if !player:
+		return
 	move_direction = enemy.global_position.direction_to(player.global_position)
 
 func enter()-> void:
@@ -31,4 +33,6 @@ func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
 func _on_update_dir_timeout() -> void:
+	if !player :
+		return
 	move_direction = enemy.global_position.direction_to(player.global_position)

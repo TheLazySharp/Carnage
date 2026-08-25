@@ -42,6 +42,11 @@ var field_ready : bool = false
 
 signal walls_scanned
 
+# --- add to members ---
+var cost_back : PackedInt32Array      # written by the worker thread, swapped on completion
+var rebuild_task_id : int = -1
+var pending_player_cell : Vector2i
+
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.game_is_over.connect(_on_game_over)
@@ -60,6 +65,10 @@ func _on_map_generated(data : MapData) -> void:
 
 	blocked.resize(padded_count)
 	cost.resize(padded_count)
+	
+	cost_back.resize(padded_count)
+	cost.fill(UNREACHED)   # direct-seek fallback until the first rebuild lands
+	
 	bfs_queue.resize(padded_count)
 
 	neighbor_index_offsets = PackedInt32Array([
@@ -93,47 +102,59 @@ func scan_walls(data : MapData) -> void:
 	walls_scanned.emit()
 
 
-func _process(delta: float) -> void:
+# --- replace _process ---
+func _process(delta : float) -> void:
 	if !field_ready or game_paused or game_over:
 		return
+	# Swap in a finished rebuild first
+	if rebuild_task_id != -1 and WorkerThreadPool.is_task_completed(rebuild_task_id):
+		WorkerThreadPool.wait_for_task_completion(rebuild_task_id)
+		rebuild_task_id = -1
+		var tmp : PackedInt32Array = cost
+		cost = cost_back
+		cost_back = tmp
 	rebuild_timer -= delta
 	var player_cell : Vector2i = world_to_cell(target.global_position)
-	if player_cell != last_player_cell and rebuild_timer <= 0.0:
+	# Never start a rebuild while one is in flight
+	if rebuild_task_id == -1 and player_cell != last_player_cell and rebuild_timer <= 0.0:
 		last_player_cell = player_cell
 		rebuild_timer = REBUILD_MIN_INTERVAL
-		rebuild_cost_field(player_cell)
+		pending_player_cell = player_cell
+		rebuild_task_id = WorkerThreadPool.add_task(_rebuild_cost_field_task, false, "FlowField rebuild")
 
 
-func rebuild_cost_field(player_cell: Vector2i) -> void:
-	cost.fill(UNREACHED)
-
-	var start_x : int = clampi(player_cell.x - map_origin_tile.x, 0, grid_w - 1)
-	var start_y : int = clampi(player_cell.y - map_origin_tile.y, 0, grid_h - 1)
+func _rebuild_cost_field_task() -> void:
+	# Worker thread: writes ONLY cost_back. blocked and bfs_queue are never
+	# touched by the main thread while a task is in flight, so no lock needed.
+	cost_back.fill(UNREACHED)
+	var start_x : int = clampi(pending_player_cell.x - map_origin_tile.x, 0, grid_w - 1)
+	var start_y : int = clampi(pending_player_cell.y - map_origin_tile.y, 0, grid_h - 1)
 	var start_index : int = (start_y + 1) * padded_width + (start_x + 1)
-
-	cost[start_index] = 0
+	cost_back[start_index] = 0
 	bfs_queue[0] = start_index
 	var queue_head : int = 0
 	var queue_tail : int = 1
-
 	while queue_head < queue_tail:
 		var current_index : int = bfs_queue[queue_head]
 		queue_head += 1
-		var next_cost : int = cost[current_index] + 1
-
-		for k in range(8):
+		var next_cost : int = cost_back[current_index] + 1
+		for k : int in 8:
 			var neighbor_index : int = current_index + neighbor_index_offsets[k]
 			if blocked[neighbor_index] == 1:
 				continue
-			if k >= 4:   # diagonale : pas de passage en coin de mur
+			if k >= 4:   # diagonal: no corner cutting
 				if blocked[current_index + diagonal_ortho_a_offsets[k]] == 1 or blocked[current_index + diagonal_ortho_b_offsets[k]] == 1:
 					continue
-			if cost[neighbor_index] != UNREACHED:
+			if cost_back[neighbor_index] != UNREACHED:
 				continue
-			cost[neighbor_index] = next_cost
+			cost_back[neighbor_index] = next_cost
 			bfs_queue[queue_tail] = neighbor_index
 			queue_tail += 1
 
+# --- don't leave a task orphaned on scene exit ---
+func _exit_tree() -> void:
+	if rebuild_task_id != -1:
+		WorkerThreadPool.wait_for_task_completion(rebuild_task_id)
 
 # ---- API publique : direction calculée à la demande (gradient du champ de coût) ----
 
@@ -168,7 +189,8 @@ func get_flow_direction(world_pos: Vector2) -> Vector2:
 	return best_direction
 
 func escape_direction(here_index : int, world_pos : Vector2) -> Vector2:
-	# On est sur une cellule bloquée/injoignable : sortir vers le voisin praticable le moins cher.
+	if !target : 
+		return Vector2.ZERO
 	var best_cost : int = UNREACHED
 	var best_direction : Vector2 = Vector2.ZERO
 	for k in range(8):

@@ -2505,7 +2505,7 @@ z_index = 13
 script = ExtResource("4_ioxv3")
 shadow_color = Color(0, 0, 0, 0.74509805)
 
-[node name="Builder" type="Node2D" parent="." unique_id=116225984 node_paths=PackedStringArray("shadows_ground")]
+[node name="Builder" type="Node2D" parent="." unique_id=116225984 node_paths=PackedStringArray("shadows_ground") groups=["walls"]]
 script = ExtResource("2_s1sq0")
 pool = ExtResource("3_yrn80")
 shadows_ground = NodePath("../ShadowsGround")
@@ -2526,6 +2526,7 @@ street_template = ExtResource("3_fjwlv")
 turn_chance = 0.9
 
 [node name="RoadMarks" type="Node2D" parent="." unique_id=270180113]
+modulate = Color(0.5803922, 0.5803922, 0.5803922, 1)
 z_index = 2
 script = ExtResource("10_geowy")
 crosswalk_street = ExtResource("11_qup8q")
@@ -2543,6 +2544,7 @@ arrow_stop_line_cells = 2
 arrow_chance = 1.0
 
 [node name="RoadLines" type="Node2D" parent="." unique_id=809361472]
+modulate = Color(0.5803922, 0.5803922, 0.5803922, 1)
 z_index = 2
 script = ExtResource("33_52dps")
 street_template = ExtResource("34_n6h35")

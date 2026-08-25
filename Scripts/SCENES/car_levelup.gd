@@ -42,10 +42,12 @@ var focused_button : Button
 
 
 func _ready() -> void:
-	SignalManager.focused_entered.connect(_on_button_focused)
+	hide()
 	if XPManager.available_upgrades <1:
 		SceneManager.load_level(SceneManager.SCENES.HOME)
 		return
+	show()
+	SignalManager.focused_entered.connect(_on_button_focused)
 	SignalManager.car_level_up_upgrade.connect(_on_car_level_up)
 	upgrades_tag.text = str(maxi(0,XPManager.available_upgrades))
 	icon.texture = car.car_sprite

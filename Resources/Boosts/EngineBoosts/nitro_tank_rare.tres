@@ -7,7 +7,7 @@
 script = ExtResource("2_0ko6i")
 name = 22
 target_ressource = 1
-target_stats = Array[int]([19, 0])
+target_stats = Array[int]([19])
 target_stats_values = Array[float]([15.0])
 target_stats_modifier_types = Array[int]([0])
 target_weapon_types = 6

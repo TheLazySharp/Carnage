@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://buubqswhtqi80" path="res://Scripts/SCENES/loading_screen.gd" id="1_dara5"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3app6"]
+bg_color = Color(1, 0.776, 0, 1)
+
 [node name="LoadingScreen" type="CanvasLayer" unique_id=819251467]
 process_mode = 3
 layer = 128
@@ -47,3 +50,4 @@ custom_minimum_size = Vector2(150, 30)
 custom_maximum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_3app6")

@@ -161,5 +161,6 @@ func _on_game_paused(game_on_pause : bool) -> void:
 func _on_day_end(_day_end : bool) -> void : 
 	state_changed.emit(self,"chase")
 
-func _on_stats_init() -> void : 
-	enter()
+func _on_stats_init(which : Enemy) -> void : 
+	if which == enemy :
+		enter()

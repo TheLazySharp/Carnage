@@ -130,7 +130,7 @@ func init_stats() -> void:
 		var variation := randf_range(-enemy.speed_variation, enemy.speed_variation)
 		speed.add_modifier(Modifier.new(variation, Modifier.Type.FLAT, "speed variation"))
  
-	SignalManager.emit_signal("enemy_stats_init")
+	SignalManager.emit_signal("enemy_stats_init", self)
  
 func _physics_process(delta: float) -> void:
 	if game_paused:

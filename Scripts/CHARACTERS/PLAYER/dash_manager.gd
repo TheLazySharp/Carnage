@@ -15,8 +15,6 @@ const ANTICIPATION_TIME : float = 0.09      # seconds real time before propulsio
 const HITSTOP_SCALE : float = 0.08
 const HITSTOP_DURATION : float = 0.08       # seconds real time (ignore time_scale)
 const DASH_FRICTION : float = 10.0
-const DASH_SPEED_MULT : float = 1.25
-const DASH_TORQUE_MULT : float = 2.0
 const GHOST_INTERVAL : float = 0.05
 
 # ---------------- SUSTAINED BOOST (NFSU2 style) ----------------
@@ -24,12 +22,14 @@ const NITRO_TICK_TIME : float = 0.3        # seconds between two nitro units
 const NITRO_TICK_COST : int = 10             # nitro units burnt per tick
 const MIN_NITRO_TO_START : int = 10         # nitro needed to ignite. Set to max_nitro for a "full gauge only" rule
 const MIN_BOOST_TIME : float = 0.12         # floor duration so a tap still feels good
-const BOOST_ACCEL : float = 900.0           # continuous forward push while held
 const DASH_ACTION : StringName = &"dash"
 
 const MOD_DMG : String = "dmg_dash_bonus"
 const MOD_SPEED : String = "max_speed_dash_modifier"
 const MOD_TORQUE : String = "torque_dash_modifier"
+
+const MOD_CHARGE_SPEED : String = "drift_charge_boost"
+const MOD_CHARGE_TORQUE : String = "drift_charge_accel_boost"
 
 @export var ghost_scene : PackedScene
 
@@ -45,6 +45,12 @@ var nitro_timer : float = 0.0
 var buffer_timer : float = 0.0
 var original_friction : float = 0.0
 var ghost_timer : Timer
+
+@export_group("Dash tuning")
+@export var dash_kick_ratio : float = 0.35   # instant kick as a ratio of max speed (was 1.0)
+@export var dash_speed_mult : float = 1.15   # max speed cap during dash (was 1.25)
+@export var dash_torque_mult : float = 1.4   # acceleration mult during dash (was 2.0)
+@export var boost_accel : float = 450.0      # continuous forward push while held (was 900.0)
 
 
 func _ready() -> void:
@@ -98,7 +104,7 @@ func update_dash(delta : float) -> void:
 
 	# Continuous forward push. The car script clamps velocity to unscaled_speed()
 	# right after this call, so the boosted max_speed modifier is what caps it.
-	car.velocity += Vector2.RIGHT.rotated(car.rotation) * BOOST_ACCEL * delta
+	car.velocity += Vector2.RIGHT.rotated(car.rotation) * boost_accel * delta
 
 	if is_sustained:
 		nitro_timer -= delta
@@ -116,6 +122,10 @@ func update_dash(delta : float) -> void:
 
 
 func execute_dash(p_sustained : bool) -> void:
+	# A dash replaces any active mini-turbo: the two boosts never stack
+	player.max_speed.remove_modifiers_from(MOD_CHARGE_SPEED)
+	player.acceleration.remove_modifiers_from(MOD_CHARGE_TORQUE)
+	
 	buffer_timer = 0.0
 
 	if enable_anticipation:
@@ -138,10 +148,11 @@ func execute_dash(p_sustained : bool) -> void:
 	consume_nitro()
 
 	player.dmg.add_modifier(Modifier.new(player.dash_dmg_bonus.get_value(), Modifier.Type.PERCENT_MULT, MOD_DMG))
-	player.max_speed.add_modifier(Modifier.new(DASH_SPEED_MULT, Modifier.Type.PERCENT_MULT, MOD_SPEED))
-	player.acceleration.add_modifier(Modifier.new(DASH_TORQUE_MULT, Modifier.Type.PERCENT_MULT, MOD_TORQUE))
+	player.max_speed.add_modifier(Modifier.new(dash_speed_mult, Modifier.Type.PERCENT_MULT, MOD_SPEED))
+	player.acceleration.add_modifier(Modifier.new(dash_torque_mult, Modifier.Type.PERCENT_MULT, MOD_TORQUE))
 
-	car.velocity += Vector2.RIGHT.rotated(car.rotation) * player.unscaled_speed()
+	# Softer kick: a fraction of max speed instead of a full max-speed teleport
+	car.velocity += Vector2.RIGHT.rotated(car.rotation) * player.unscaled_speed() * dash_kick_ratio
 
 	original_friction = car.friction
 	car.friction = DASH_FRICTION

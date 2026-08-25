@@ -61,6 +61,9 @@ func _on_spawn_ended() -> void :
 	can_be_collected = true
 
 func _physics_process(delta: float) -> void:
+	if !player:
+		return
+	
 	if game_paused :
 		return
 	
@@ -84,7 +87,7 @@ func _physics_process(delta: float) -> void:
 		var dir : Vector2 = self.global_position.direction_to(target_pos)
 		velocity = dir.normalized() * speed
 		global_position += velocity * delta
-	
+
 	if abs(global_position - player.global_position).length() > 150 and !can_be_collected:
 		is_attracted = false
 	

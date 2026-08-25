@@ -360,7 +360,10 @@ func end_skid() -> void:
 	animation_score_to_total()
 
 	# Mini-turbo: releasing a charged drift grants a boost
-	if enable_charge_boost and charge_tier > 0 and car != null:
+	if enable_charge_boost and charge_tier > 0 and car != null and !car.dash_manager.is_dashing:
+		# Refresh instead of stacking if two drifts are released within boost_duration
+		player.max_speed.remove_modifiers_from("drift_charge_boost")
+		player.acceleration.remove_modifiers_from("drift_charge_accel_boost")
 		var boost_mod : Modifier = Modifier.new(1.0 + boost_max_speed_per_tier * charge_tier, Modifier.Type.PERCENT_MULT, "drift_charge_boost", boost_duration)
 		var torque_mod : Modifier = Modifier.new(boost_torque, Modifier.Type.PERCENT_MULT, "drift_charge_accel_boost", boost_duration)
 		player.max_speed.add_temp_modifier(boost_mod)
@@ -402,6 +405,9 @@ func force_stop_skid() -> void:
 	skidding_last_frame = false
 	was_drifting = false
 
+	# Wall hit kills the mini-turbo charge: no boost on release
+	drift_charge = 0.0
+	charge_tier = 0
 
 func get_drift_factor() -> float:
 	if car.velocity.length() < 10.0 or !(drifting or sliding):

@@ -781,10 +781,10 @@ position = Vector2(120.254456, 33.019547)
 texture = ExtResource("6_iah4i")
 centered = false
 
-[node name="Edges" type="Node2D" parent="." unique_id=1496262069]
+[node name="Edges" type="Node2D" parent="." unique_id=1496262069 groups=["walls"]]
 z_index = 20
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=2134493102]
+[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=2134493102 groups=["walls"]]
 z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAATAAkAAAAFAAAAAAAVAAkAAAAFAAUAAAAXAA0AAAAAAAUAAAARAA0AAAABAAAAAAAUAAkAAAACAAAAAAAUAAkAAAADAAAAAAAUAAkAAAAEAAAAAAAUAAkAAAAFAAEAAAAXAAwAAAAFAAIAAAAXAAwAAAAFAAMAAAAXAAwAAAAFAAQAAAAXAAwAAAABAAUAAAAUAA8AAAACAAUAAAAUAA8AAAADAAUAAAAUAA8AAAAEAAUAAAAUAA8AAAAAAAEAAAARAAwAAAAAAAIAAAARAAwAAAAAAAMAAAARAAwAAAAAAAQAAAARAAwAAAA=")
 tile_set = SubResource("TileSet_gek1x")

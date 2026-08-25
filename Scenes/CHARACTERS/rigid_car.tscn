@@ -445,7 +445,6 @@ wall_min_slide_angle = 1.3962634
 platform_on_leave = 2
 platform_floor_layers = 0
 platform_wall_layers = 8
-safe_margin = 0.01
 script = ExtResource("1_rsha1")
 debug_car_data = ExtResource("2_73b8b")
 

@@ -719,17 +719,17 @@ metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 [node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
 position = Vector2(7.9841385, 7.971615)
 script = ExtResource("1_u36pp")
-building_size = Vector2i(4, 175)
-shadow_length = 5
-pixel_size = 1
+building_size = Vector2i(4, 60)
+shadow_length = 0
+pixel_size = 3
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=742358665]
-position = Vector2(7.9841385, 7.971615)
+position = Vector2(19.984138, 5.971615)
 script = ExtResource("1_u36pp")
-building_size = Vector2i(175, 4)
-shadow_length = 5
-pixel_size = 1
+building_size = Vector2i(55, 4)
+shadow_length = 0
+pixel_size = 3
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
@@ -750,10 +750,10 @@ position = Vector2(128.97925, 37.34079)
 texture = ExtResource("5_u36pp")
 centered = false
 
-[node name="Edges" type="Node2D" parent="." unique_id=754243148]
+[node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
 z_index = 20
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249]
+[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
 z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAATAAkAAAAFAAAAAAAVAAkAAAAFAAUAAAAXAA0AAAAAAAUAAAARAA0AAAABAAAAAAAUAAkAAAACAAAAAAAUAAkAAAADAAAAAAAUAAkAAAAEAAAAAAAUAAkAAAAFAAEAAAAXAAwAAAAFAAIAAAAXAAwAAAAFAAMAAAAXAAwAAAAFAAQAAAAXAAwAAAABAAUAAAAUAA8AAAACAAUAAAAUAA8AAAADAAUAAAAUAA8AAAAEAAUAAAAUAA8AAAAAAAEAAAARAAwAAAAAAAIAAAARAAwAAAAAAAMAAAARAAwAAAAAAAQAAAARAAwAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

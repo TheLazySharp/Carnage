@@ -54,8 +54,8 @@ enum Rarities {
 @export var icon : Texture2D
 @export var text : String
 @export var rarity : Rarities
-var price : int
-var is_in_shop : bool = false
+#var price : int
+#var is_in_shop : bool = false
 
 func get_stats()-> Array[Dictionary]:
 	var stats: Array[Dictionary] = []
