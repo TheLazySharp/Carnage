@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://nf0g0co07k3s"]
+
+[ext_resource type="Texture2D" uid="uid://dlk6loqux8bdt" path="res://Assets/Textures/Roads/Markings/Misc/roadmarks_misc.png" id="1_wtors"]
+
+[resource]
+atlas = ExtResource("1_wtors")
+region = Rect2(124, 0, 62, 66)

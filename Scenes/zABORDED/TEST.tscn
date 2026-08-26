@@ -3,6 +3,7 @@
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="1_qodwh"]
 [ext_resource type="Texture2D" uid="uid://0cuev6stvoad" path="res://Assets/Items/Drops/Dollars/bills.png" id="2_mkn34"]
 [ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
+[ext_resource type="Texture2D" uid="uid://dlk6loqux8bdt" path="res://Assets/Textures/Roads/Markings/Misc/roadmarks_misc.png" id="2_qbjlx"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]
 [ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Tilesets/Roofs/roof_texture03.png" id="6_37n1q"]
@@ -2740,14 +2741,14 @@ shader_parameter/fade_start = 0.7
 
 [node name="TextureSlicer" type="Node2D" parent="." unique_id=142767713]
 script = ExtResource("77_uqknt")
-atlas_texture = ExtResource("2_mkn34")
-json_path = "res://Assets/Léonce/VFX/bills.json"
-output_dir_override = "res://Assets/Léonce/VFX/"
+atlas_texture = ExtResource("2_qbjlx")
+json_path = "res://Assets/Textures/Roads/Markings/Misc/roadmarks_misc.json"
+output_dir_override = "res://Assets/Textures/Roads/Markings/Misc/"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
 position = Vector2(2001.0001, 1130)
 scale = Vector2(1e-05, 1e-05)
-offset = Vector2(82.99, 36.805)
+offset = Vector2(82.99, -64.61)
 zoom = Vector2(3.21, 3.21)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
@@ -4242,12 +4243,10 @@ visible = false
 [node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3/MarkingLine_0" unique_id=454325535]
 script = ExtResource("86_au78y")
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1769539986]
-modulate = Color(0.16565654, 0.16565636, 0.16565636, 1)
-self_modulate = Color(0.45452422, 0.45452428, 0.45452416, 0.047058824)
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=981042737]
+self_modulate = Color(0.5137255, 0.5137255, 0.5137255, 0.047058824)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1042884232]
-visible = false
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadPath/RoadBrushPath2D3" unique_id=1914355418]
 self_modulate = Color(0.31764707, 0.31764707, 0.31764707, 0.11372549)
 
 [node name="RoadBrushPath2D4" type="Path2D" parent="Land_layers/Roads/RoadPath" unique_id=1462920717]
@@ -4413,9 +4412,9 @@ curve = SubResource("Curve2D_k66vp")
 script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_1113p")])
 
-[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=276604511]
+[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1" unique_id=1264324052]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1339340225]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadLine1/MarkingLine_0" unique_id=1218757082]
 script = ExtResource("86_au78y")
 
 [node name="Arrows" type="Node2D" parent="Land_layers/Roads/RoadMarkings" unique_id=1192627376]
@@ -4441,9 +4440,9 @@ script = ExtResource("84_5dgyk")
 lines = Array[ExtResource("85_8uaht")]([SubResource("Resource_au78y")])
 metadata/_custom_type_script = "uid://cstre1l5ksgef"
 
-[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1976023637]
+[node name="MarkingLine_0" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D" unique_id=1828145531]
 
-[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1143573585]
+[node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1680732797]
 script = ExtResource("86_au78y")
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -4507,10 +4506,12 @@ rotation = 3.1481745
 texture = ExtResource("99_8l2sf")
 
 [node name="BloodVacuumParticles" parent="." unique_id=741759721 instance=ExtResource("95_jyj36")]
-position = Vector2(2104, 1159)
+position = Vector2(2124, 1130)
 
 [node name="BloodVacuum" parent="." unique_id=1239086187 instance=ExtResource("94_1113p")]
 position = Vector2(2067, 1161)
+frame = 8
+frame_progress = 1.0
 
 [node name="ZombiesHit" type="Node2D" parent="." unique_id=76589564]
 position = Vector2(2062, 1031)
