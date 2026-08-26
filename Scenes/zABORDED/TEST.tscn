@@ -1187,6 +1187,34 @@ dash_length = 106
 gap_length = 118
 curve_sample_step = 1
 
+[sub_resource type="Curve2D" id="Curve2D_qbjlx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1136, 480, -371.0263, 0.27870774, 371.0263, -0.27870774, 1751, 485, -0.2356472, -232.3517, 0.2356472, 232.3517, 2077, 873)
+}
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_qbjlx"]
+script = ExtResource("74_5dgyk")
+texture_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 32A/"
+perpendicular_offset = -11.145
+spacing = 10.39
+coverage_ratio = 0.97
+avg_gap_length = 15.505
+fade_start_length = 10.515
+fade_end_length = 10.61
+color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+
+[sub_resource type="Resource" id="Resource_ptxeq"]
+script = ExtResource("74_5dgyk")
+texture_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH 16A/"
+perpendicular_offset = 23.525
+spacing = 2.745
+coverage_ratio = 1.0
+avg_gap_length = 15.505
+fade_start_length = 10.515
+fade_end_length = 10.61
+color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8l58v"]
 particles_animation = true
 particles_anim_h_frames = 5
@@ -2748,7 +2776,7 @@ output_dir_override = "res://Assets/Textures/Roads/Markings/Misc/"
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
 position = Vector2(2001.0001, 1130)
 scale = Vector2(1e-05, 1e-05)
-offset = Vector2(82.99, -64.61)
+offset = Vector2(-425.585, -623.845)
 zoom = Vector2(3.21, 3.21)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
@@ -2770,10 +2798,10 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_wodl8")
 
 [node name="Background" type="ColorRect" parent="Land_layers" unique_id=1339542022]
-offset_left = 191.0
-offset_top = 146.0
-offset_right = 3653.0
-offset_bottom = 2532.0
+offset_left = 236.0
+offset_top = 120.0
+offset_right = 3698.0
+offset_bottom = 2506.0
 color = Color(0.03137255, 0.03137255, 0.03137255, 1)
 
 [node name="Sidewalks" type="TileMapLayer" parent="Land_layers" unique_id=1976538112]
@@ -4444,6 +4472,71 @@ metadata/_custom_type_script = "uid://cstre1l5ksgef"
 
 [node name="FillSurface" type="Node2D" parent="Land_layers/Roads/RoadMarkings/RoadMarkingPath2D/MarkingLine_0" unique_id=1680732797]
 script = ExtResource("86_au78y")
+
+[node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
+z_index = 5
+curve = SubResource("Curve2D_qbjlx")
+script = ExtResource("80_unwpx")
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
+stamp_spacing_min = 19
+stamp_spacing_max = 33
+perpendicular_jitter_max = 1
+detail_folder = "res://Assets/Textures/Roads/RoadBrushes/RoadGrain/"
+detail_spacing = 17
+detail_spawn_chance = 0.59
+fade_start_length = 4
+fade_end_length = 17
+fade_curve_power = 4.3500000000000005
+stamp_color = Color(0.16556925, 0.17735419, 0.15967774, 0.654902)
+detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
+metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
+
+[node name="StampLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1267707344]
+modulate = Color(0.11119685, 0.11119685, 0.11119681, 1)
+self_modulate = Color(0.16556925, 0.17735419, 0.15967774, 0.654902)
+
+[node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
+self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
+
+[node name="RoadBrushPath2D2" type="Path2D" parent="Land_layers/Roads" unique_id=515224722]
+z_index = 5
+position = Vector2(77, -75)
+curve = SubResource("Curve2D_qbjlx")
+script = ExtResource("80_unwpx")
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/"
+stamp_spacing_min = 19
+stamp_spacing_max = 33
+perpendicular_jitter_max = 1
+detail_folder = "res://Assets/Textures/Roads/RoadBrushes/RoadGrain/"
+detail_spacing = 4
+details_per_step = 5
+detail_scatter_radius = 36
+detail_min_distance = 1
+detail_spawn_chance = 0.14
+detail_radial_bias = 0.2
+fade_start_length = 4
+fade_end_length = 17
+fade_curve_power = 4.3500000000000005
+wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_qbjlx"), SubResource("Resource_ptxeq")])
+stamp_color = Color(0.16556925, 0.17735419, 0.15967774, 0.654902)
+detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
+metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
+
+[node name="StampLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1543757271]
+modulate = Color(0.10980392, 0.10980392, 0.10980392, 1)
+self_modulate = Color(0.16556925, 0.17735419, 0.15967774, 0.654902)
+
+[node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=630186990]
+modulate = Color(0.27387273, 0.27387273, 0.27387273, 0.7882353)
+self_modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
+
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=492181365]
+modulate = Color(0.14406255, 0.14406255, 0.14406255, 1)
+self_modulate = Color(0.23392546, 0.23392546, 0.23392543, 1)
+
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=2139859410]
+modulate = Color(0.06879827, 0.06879828, 0.06879828, 1)
+self_modulate = Color(0.23392546, 0.23392546, 0.23392543, 1)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
 z_index = 6
