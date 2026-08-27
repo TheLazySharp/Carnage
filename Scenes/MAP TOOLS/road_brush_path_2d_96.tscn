@@ -1,13 +1,56 @@
 [gd_scene format=3 uid="uid://bbjy33v23r2cw"]
 
 [ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Scripts/MAP TOOLS/road_brush_path2d.gd" id="1_qg77e"]
+[ext_resource type="Texture2D" uid="uid://lqsqbsic2s04" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/Slice 1.tres" id="2_kqgvn"]
+[ext_resource type="Texture2D" uid="uid://dptt3pqx52n0u" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/Slice 2.tres" id="3_npho4"]
+[ext_resource type="Texture2D" uid="uid://b4omqy31f0mdh" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/Slice 3.tres" id="4_kkknp"]
+[ext_resource type="Texture2D" uid="uid://bk248di7jtkm" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/Slice 4.tres" id="5_py4uf"]
+[ext_resource type="Texture2D" uid="uid://s7oi0y27wfqs" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 1.tres" id="6_exe5w"]
+[ext_resource type="Texture2D" uid="uid://b74i4kofvssi0" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 2.tres" id="7_3mck5"]
+[ext_resource type="Texture2D" uid="uid://c8e1ogaq00eku" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 3.tres" id="8_x5gve"]
+[ext_resource type="Texture2D" uid="uid://by0ssml1i37pp" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 4.tres" id="9_nosuh"]
+[ext_resource type="Texture2D" uid="uid://dmn7rdh4tps60" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 5.tres" id="10_ktral"]
+[ext_resource type="Texture2D" uid="uid://dujxu5ivs4vs6" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 6.tres" id="11_8mfaa"]
+[ext_resource type="Texture2D" uid="uid://bgm3rfa6q8cqj" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 7.tres" id="12_han6v"]
+[ext_resource type="Texture2D" uid="uid://dk8ff73fjkh1p" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 8.tres" id="13_atm4j"]
+[ext_resource type="Texture2D" uid="uid://cfkfa5yhb2pgc" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 9.tres" id="14_jgswd"]
+[ext_resource type="Texture2D" uid="uid://cvoivq4yx6ljc" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 10.tres" id="15_siske"]
+[ext_resource type="Texture2D" uid="uid://clmk0pd2isgiu" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 11.tres" id="16_tyrm2"]
+[ext_resource type="Texture2D" uid="uid://be1tk72i8c8vm" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 12.tres" id="17_aci0i"]
+[ext_resource type="Texture2D" uid="uid://dwoadfeq454vm" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 13.tres" id="18_vir87"]
+[ext_resource type="Texture2D" uid="uid://cg5sdo6fdwv76" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 14.tres" id="19_jwfld"]
+[ext_resource type="Texture2D" uid="uid://55eh5aonh7br" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 15.tres" id="20_bwkr8"]
+[ext_resource type="Texture2D" uid="uid://c7ke3xbqh6f73" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 16.tres" id="21_yck7y"]
+[ext_resource type="Texture2D" uid="uid://byw7kk5b2pw6n" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 17.tres" id="22_go77y"]
+[ext_resource type="Texture2D" uid="uid://6pt8l3jkm47c" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 18.tres" id="23_46ir5"]
+[ext_resource type="Script" uid="uid://b40y10gh6j4su" path="res://Scripts/MAP TOOLS/RoadWearLine.gd" id="24_3mck5"]
+[ext_resource type="Texture2D" uid="uid://pj8cqv0qgiso" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 1.tres" id="25_siske"]
+[ext_resource type="Texture2D" uid="uid://chcbr6ub1do2" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 2.tres" id="26_tyrm2"]
+[ext_resource type="Texture2D" uid="uid://b01qgrjp3kgve" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 3.tres" id="27_aci0i"]
+[ext_resource type="Texture2D" uid="uid://bviyu62dqu0kl" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 4.tres" id="28_vir87"]
+[ext_resource type="Texture2D" uid="uid://djfjrmaq0r7fv" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 16A/Slice 1.tres" id="29_siske"]
+[ext_resource type="Texture2D" uid="uid://bnqqeh41e466k" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 16A/Slice 2.tres" id="30_tyrm2"]
+[ext_resource type="Texture2D" uid="uid://b4bj7o1nfnw06" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 16A/Slice 3.tres" id="31_aci0i"]
+[ext_resource type="Texture2D" uid="uid://cqdk6hp04r2so" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 16A/Slice 4.tres" id="32_vir87"]
+
+[sub_resource type="Resource" id="Resource_exe5w"]
+script = ExtResource("24_3mck5")
+textures = Array[Texture2D]([ExtResource("25_siske"), ExtResource("26_tyrm2"), ExtResource("27_aci0i"), ExtResource("28_vir87"), ExtResource("29_siske"), ExtResource("30_tyrm2"), ExtResource("31_aci0i"), ExtResource("32_vir87")])
+perpendicular_offset = 10.0
+spacing = 8.0
+coverage_ratio = 0.2
+avg_gap_length = 50.0
+metadata/_custom_type_script = "uid://b40y10gh6j4su"
 
 [node name="RoadBrushPath2D" type="Path2D" unique_id=1978061340]
 modulate = Color(0.12298488, 0.12298488, 0.12298488, 1)
 script = ExtResource("1_qg77e")
-stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A"
-perpendicular_jitter_max = 10
-stamp_color = Color(0.105882354, 0.105882354, 0.105882354, 1)
+_stamp_textures = Array[Texture2D]([ExtResource("2_kqgvn"), ExtResource("3_npho4"), ExtResource("4_kkknp"), ExtResource("5_py4uf")])
+perpendicular_jitter_min = 2
+perpendicular_jitter_max = 16
+_detail_textures = Array[Texture2D]([ExtResource("6_exe5w"), ExtResource("7_3mck5"), ExtResource("8_x5gve"), ExtResource("9_nosuh"), ExtResource("10_ktral"), ExtResource("11_8mfaa"), ExtResource("12_han6v"), ExtResource("13_atm4j"), ExtResource("14_jgswd"), ExtResource("15_siske"), ExtResource("16_tyrm2"), ExtResource("17_aci0i"), ExtResource("18_vir87"), ExtResource("19_jwfld"), ExtResource("20_bwkr8"), ExtResource("21_yck7y"), ExtResource("22_go77y"), ExtResource("23_46ir5")])
+wear_lines = Array[ExtResource("24_3mck5")]([SubResource("Resource_exe5w")])
+stamp_color = Color(0.37254903, 0.37254903, 0.37254903, 0.89411765)
 metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 
 [node name="StampLayer" type="Node2D" parent="." unique_id=1489860789]

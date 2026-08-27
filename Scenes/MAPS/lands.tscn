@@ -2523,7 +2523,9 @@ color = Color(0.03137255, 0.03137255, 0.03137255, 1)
 z_index = 1
 script = ExtResource("2_fjwlv")
 street_template = ExtResource("3_fjwlv")
-turn_chance = 0.9
+corner_radius_lanes = 1.0
+turn_chance = 0.35
+connection_overlap_px = 20.0
 
 [node name="RoadMarks" type="Node2D" parent="." unique_id=270180113]
 modulate = Color(0.5803922, 0.5803922, 0.5803922, 1)

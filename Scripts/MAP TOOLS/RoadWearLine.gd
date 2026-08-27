@@ -2,9 +2,9 @@
 extends Resource
 class_name RoadWearLine
 
-@export_dir var texture_folder: String = "":
+@export var textures : Array[Texture2D] = []:
 	set(value):
-		texture_folder = value
+		textures = value
 		emit_changed()
 
 ## Décalage perpendiculaire du centre de cette ligne par rapport à l'axe du Path2D,

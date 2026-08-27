@@ -8,7 +8,10 @@ class_name RoadBrushPath2D
 		generate_all()
 
 @export_group("Main Stamps")
-@export_dir var stamp_folder: String = ""
+#@export_dir var stamp_folder: String = ""
+@export var _stamp_textures : Array[Texture2D]
+#@export var _line_textures : Array[Texture2D]
+
 ## Spacing between two stamps, randomized per stamp within [min, max].
 @export var stamp_spacing_min: int = 2:
 	set(value):
@@ -41,7 +44,8 @@ class_name RoadBrushPath2D
 		generate_all()
 
 @export_group("Grain")
-@export_dir var detail_folder: String = ""
+#@export_dir var detail_folder: String = ""
+@export var _detail_textures : Array[Texture2D]
 @export var detail_spacing: int = 14:
 	set(value):
 		detail_spacing = max(value, 1)
@@ -101,12 +105,12 @@ class_name RoadBrushPath2D
 	set(value):
 		stamp_color = value
 		if _stamp_layer != null:
-			_stamp_layer.self_modulate = stamp_color
+			_stamp_layer.modulate = stamp_color
 @export var detail_color: Color = Color.WHITE:
 	set(value):
 		detail_color = value
 		if _detail_layer != null:
-			_detail_layer.self_modulate = detail_color
+			_detail_layer.modulate = detail_color
 
 @export var rng_seed: int = 0:
 	set(value):
@@ -117,8 +121,8 @@ class_name RoadBrushPath2D
 
 var _stamp_layer: Node2D
 var _detail_layer: Node2D
-var _stamp_textures: Array[Texture2D] = []
-var _detail_textures: Array[Texture2D] = []
+#var _stamp_textures: Array[Texture2D] = []
+#var _detail_textures: Array[Texture2D] = []
 var _curve_signal_connected: bool = false
 
 var _spatial_grid: Dictionary = {}
@@ -162,7 +166,7 @@ func _ensure_layers() -> void:
 		add_child(_stamp_layer)
 		if Engine.is_editor_hint():
 			_stamp_layer.owner = get_tree().edited_scene_root
-	_stamp_layer.self_modulate = stamp_color
+	_stamp_layer.modulate = stamp_color
 
 	_detail_layer = get_node_or_null("DetailLayer")
 	if _detail_layer == null:
@@ -171,25 +175,7 @@ func _ensure_layers() -> void:
 		add_child(_detail_layer)
 		if Engine.is_editor_hint():
 			_detail_layer.owner = get_tree().edited_scene_root
-	_detail_layer.self_modulate = detail_color
-
-
-func _load_folder(path: String) -> Array[Texture2D]:
-	var result: Array[Texture2D] = []
-	if path.is_empty() or not DirAccess.dir_exists_absolute(path):
-		return result
-	var dir := DirAccess.open(path)
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
-	while file_name != "":
-		if not dir.current_is_dir() and file_name.get_extension() == "tres":
-			var res := load(path.path_join(file_name))
-			if res is Texture2D:
-				result.append(res)
-		file_name = dir.get_next()
-	dir.list_dir_end()
-	result.sort_custom(func(a: Texture2D, b: Texture2D) -> bool: return a.resource_path < b.resource_path)
-	return result
+	_detail_layer.modulate = detail_color
 
 
 func generate_all() -> void:
@@ -202,8 +188,6 @@ func generate_all() -> void:
 	if curve == null or curve.get_point_count() < 2:
 		return
 
-	_stamp_textures = _load_folder(stamp_folder)
-	_detail_textures = _load_folder(detail_folder)
 
 	_clear_layer(_stamp_layer)
 	_clear_layer(_detail_layer)
@@ -328,8 +312,9 @@ func _generate_wear_lines() -> void:
 
 
 func _generate_single_wear_line(line: RoadWearLine, index: int) -> void:
-	var textures := _load_folder(line.texture_folder)
+	var textures : Array[Texture2D] = line.textures
 	if textures.is_empty():
+		push_warning("[WearLine %d] no texture in the resource" % index)
 		return
 
 	var layer := Node2D.new()
@@ -340,24 +325,22 @@ func _generate_single_wear_line(line: RoadWearLine, index: int) -> void:
 	layer.self_modulate = line.color
 
 	var rng := RandomNumberGenerator.new()
-	rng.seed = line.line_seed
-
+	##Mixing the path's own rng_seed
+	rng.seed = hash(str(rng_seed, ":", line.line_seed, ":", index)) 
 	var step: float = line.spacing * pixel_size
 	var avg_gap_steps: float = max((line.avg_gap_length * pixel_size) / step, 1.0)
 	var avg_active_steps: float = max(avg_gap_steps * (line.coverage_ratio / max(1.0 - line.coverage_ratio, 0.001)), 1.0)
-
 	var prob_leave_active: float = 1.0 / avg_active_steps
 	var prob_leave_gap: float = 1.0 / avg_gap_steps
-
 	var state_active: bool = rng.randf() < line.coverage_ratio
-
-	var dist: float = 0.0
+	var dist: float = rng.randf() * step
+	var spawned: int = 0
+	var rejected_fade: int = 0
 	while dist <= _path_length:
 		var jitter: float = 0.0
 		if line.spacing_jitter > 0.0:
 			jitter = rng.randf_range(-line.spacing_jitter, line.spacing_jitter) * pixel_size
 		var sample_dist: float = clamp(dist + jitter, 0.0, _path_length)
-
 		if state_active:
 			var fade: float = _compute_fade(sample_dist, line.fade_start_length, line.fade_end_length, line.fade_curve_power)
 			if rng.randf() <= fade:
@@ -366,15 +349,15 @@ func _generate_single_wear_line(line: RoadWearLine, index: int) -> void:
 				var normal: Vector2 = xform.y
 				var final_pos := _snap(pos + normal * line.perpendicular_offset * pixel_size)
 				_spawn_stamp(layer, textures, final_pos, rng, line.constrain_rotation_90, line.allow_flip)
-
+				spawned += 1
+			else:
+				rejected_fade += 1
 			if rng.randf() < prob_leave_active:
 				state_active = false
 		else:
 			if rng.randf() < prob_leave_gap:
 				state_active = true
-
 		dist += step
-
 
 func _biased_lateral(radius: float, rng: RandomNumberGenerator) -> float:
 	var t: float = rng.randf()

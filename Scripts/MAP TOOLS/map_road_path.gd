@@ -29,6 +29,7 @@ extends Node2D
 @export_range(0.0, 1.0, 0.05) var turn_chance : float = 0.7
 ## Random lateral offset applied to each lane path, in pixels.
 @export var lane_jitter_px : float = 6.0
+@export var connection_overlap_px : float = 8.0
 
 const BEZIER_CIRCLE_K : float = 0.5523  # quarter-circle bezier handle ratio
 
@@ -85,6 +86,7 @@ func _bake(size_px : Vector2i) -> void:
 	add_child(viewport)
 
 	# Let the viewport render its single frame
+	print("[MapRoadPaths] baking %d paths / %d nodes" % [sources.size(), _count_descendants(holder)])
 	await RenderingServer.frame_post_draw
 
 	var sprite : Sprite2D = Sprite2D.new()
@@ -116,10 +118,13 @@ func get_lane_polylines(data : MapData) -> Array[Dictionary]:
 		var dir : Vector2 = (b - a).normalized()
 		var perp : Vector2 = Vector2(-dir.y, dir.x)
 
-		# Leave room for the intersection box + the turn arcs at both ends
-		var margin : float = (data.artery_width_px() if artery else data.street_width_px()) * 0.5 + radius
-		var start : Vector2 = a + dir * margin
-		var stop : Vector2 = b - dir * margin
+		# Shorten with the CROSSING road's half width, exactly like the turn
+		# arcs do. Using the run's own width made streets stop short of the
+		# arcs at every street/artery junction.
+		var margin_start : float = _cross_half_width(data, run["from_node"], dir) + radius - connection_overlap_px
+		var margin_end : float = _cross_half_width(data, run["to_node"], dir) + radius - connection_overlap_px
+		var start : Vector2 = a + dir * margin_start
+		var stop : Vector2 = b - dir * margin_end
 		if start.distance_squared_to(stop) < lane_w * lane_w:
 			continue  # run too short once shortened
 
@@ -149,9 +154,8 @@ func _lane_offsets(data : MapData, artery : bool) -> PackedFloat32Array:
 # TURN ARCS
 # =================================================================
 func get_turn_arcs(data : MapData) -> Array[Dictionary]:
-	# Quarter-circle beziers joining the two closest lanes of every pair of
-	# perpendicular roads meeting at a node.
-	# { "points": [p0, p1], "handles": [out0, in1], "artery": bool }
+	# One bezier per LANE PAIR, not one per intersection. A bend curves all its
+	# lanes; an intersection draws every plausible car trajectory at turn_chance.
 	var px : float = float(data.cell_size)
 	var lane_w : float = float(data.lane_width_px)
 	var radius : float = lane_w * corner_radius_lanes
@@ -167,6 +171,7 @@ func get_turn_arcs(data : MapData) -> Array[Dictionary]:
 	var result : Array[Dictionary] = []
 	for n : int in data.nodes.size():
 		var edge_list : Array = incident[n]
+		var is_bend : bool = edge_list.size() == 2
 		var center : Vector2 = data.nodes[n] * px
 		for i : int in edge_list.size():
 			for j : int in range(i + 1, edge_list.size()):
@@ -176,48 +181,61 @@ func get_turn_arcs(data : MapData) -> Array[Dictionary]:
 				var d2 : Vector2 = _edge_dir_from(data, e2, n)
 				if absf(d1.dot(d2)) > 0.01:
 					continue  # collinear: no corner here
-				if _rng.randf() > turn_chance:
-					continue
-
 				var artery : bool = data.edge_is_artery[e1] or data.edge_is_artery[e2]
-				var pair : Array = _closest_lane_pair(data, center, d1, d2, e1, e2, radius)
-				var p0 : Vector2 = pair[0]
-				var p1 : Vector2 = pair[1]
-				# Bezier corner: both handles aim at the intersection of the
-				# two lane axes, giving a clean quarter circle
-				var corner : Vector2 = _axes_intersection(p0, d1, p1, d2)
-				result.append({
-					"points": PackedVector2Array([p0, p1]),
-					"handles": PackedVector2Array([
-						(corner - p0) * BEZIER_CIRCLE_K,
-						(corner - p1) * BEZIER_CIRCLE_K,
-					]),
-					"artery": artery,
-				})
+				for pair : Array in _lane_pairs(data, center, d1, d2, e1, e2, radius, is_bend):
+					result.append(_make_arc(pair[0], pair[1], d1, d2, artery))
 	return result
 
-
-func _closest_lane_pair(data : MapData, center : Vector2, d1 : Vector2, d2 : Vector2, e1 : int, e2 : int, radius : float) -> Array:
-	# Picks the lane of e1 and the lane of e2 whose entry points are closest:
-	# that is the inner corner, the one a turning car actually uses.
+func _lane_pairs(data : MapData, center : Vector2, d1 : Vector2, d2 : Vector2,
+		e1 : int, e2 : int, radius : float, is_bend : bool) -> Array[Array]:
+	# BEND: the road itself turns, so every lane must curve. Lane o1 maps to
+	# lane -o1, which keeps each lane on the same side of the road band.
+	# INTERSECTION: every lane-to-lane combination is a possible trajectory.
+	# Drawing them at turn_chance is what builds the wide outer turns.
 	var perp1 : Vector2 = Vector2(-d1.y, d1.x)
 	var perp2 : Vector2 = Vector2(-d2.y, d2.x)
 	var margin1 : float = data.edge_width_px(e1) * 0.5 + radius
 	var margin2 : float = data.edge_width_px(e2) * 0.5 + radius
-	var best0 : Vector2 = Vector2.ZERO
-	var best1 : Vector2 = Vector2.ZERO
-	var best_dist : float = INF
+	var offsets1 : PackedFloat32Array = _lane_offsets(data, data.edge_is_artery[e1])
+	var offsets2 : PackedFloat32Array = _lane_offsets(data, data.edge_is_artery[e2])
 
-	for o1 : float in _lane_offsets(data, data.edge_is_artery[e1]):
+	var pairs : Array[Array] = []
+	for o1 : float in offsets1:
 		var p0 : Vector2 = center + d1 * margin2 + perp1 * o1
-		for o2 : float in _lane_offsets(data, data.edge_is_artery[e2]):
-			var p1 : Vector2 = center + d2 * margin1 + perp2 * o2
-			var dist : float = p0.distance_squared_to(p1)
-			if dist < best_dist:
-				best_dist = dist
-				best0 = p0
-				best1 = p1
-	return [best0, best1]
+		if is_bend:
+			var o2 : float = _nearest_offset(offsets2, -o1)
+			pairs.append([p0, center + d2 * margin1 + perp2 * o2])
+			continue
+		for o2 : float in offsets2:
+			if _rng.randf() > turn_chance:
+				continue
+			pairs.append([p0, center + d2 * margin1 + perp2 * o2])
+	return pairs
+
+
+func _nearest_offset(offsets : PackedFloat32Array, target : float) -> float:
+	# Handles a bend between roads of different lane counts
+	var best : float = 0.0
+	var best_dist : float = INF
+	for o : float in offsets:
+		var dist : float = absf(o - target)
+		if dist < best_dist:
+			best_dist = dist
+			best = o
+	return best
+
+
+func _make_arc(p0 : Vector2, p1 : Vector2, d1 : Vector2, d2 : Vector2, artery : bool) -> Dictionary:
+	# Both handles aim at the intersection of the two lane axes: clean quarter circle
+	var corner : Vector2 = _axes_intersection(p0, d1, p1, d2)
+	return {
+		"points": PackedVector2Array([p0, p1]),
+		"handles": PackedVector2Array([
+			(corner - p0) * BEZIER_CIRCLE_K,
+			(corner - p1) * BEZIER_CIRCLE_K,
+		]),
+		"artery": artery,
+	}
 
 
 func _axes_intersection(p0 : Vector2, d1 : Vector2, p1 : Vector2, d2 : Vector2) -> Vector2:
@@ -262,6 +280,8 @@ func _straight_runs(data : MapData) -> Array[Dictionary]:
 		runs.append({
 			"from": data.nodes[start] * px,
 			"to": data.nodes[stop] * px,
+			"from_node": start,
+			"to_node": stop,
 			"artery": artery,
 		})
 	return runs
@@ -318,3 +338,28 @@ func _spawn_path(points : PackedVector2Array, artery : bool, handles : PackedVec
 		path.set("rng_seed", int(_rng.randi()))  # no-op if the template has no rng_seed
 	add_child(path)
 	_built += 1
+
+func _count_descendants(node : Node) -> int:
+	var total : int = 0
+	for child : Node in node.get_children():
+		total += 1 + _count_descendants(child)
+	return total
+
+func _cross_half_width(data : MapData, node_index : int, dir : Vector2) -> float:
+	# Half width of the WIDEST road crossing this approach: the same reference
+	# the turn arcs use for their start offset. Returns 0 at a border stub, so
+	# the lane then runs all the way to the node.
+	var widest : float = 0.0
+	for i : int in data.edges.size():
+		var edge : Vector2i = data.edges[i]
+		var other : int = -1
+		if edge.x == node_index:
+			other = edge.y
+		elif edge.y == node_index:
+			other = edge.x
+		else:
+			continue
+		var branch : Vector2 = (data.nodes[other] - data.nodes[node_index]).normalized()
+		if absf(branch.dot(dir)) < 0.5:  # perpendicular branch
+			widest = maxf(widest, data.edge_width_px(i))
+	return widest * 0.5
