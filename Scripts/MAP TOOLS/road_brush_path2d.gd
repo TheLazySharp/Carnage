@@ -322,7 +322,7 @@ func _generate_single_wear_line(line: RoadWearLine, index: int) -> void:
 	add_child(layer)
 	if Engine.is_editor_hint():
 		layer.owner = get_tree().edited_scene_root
-	layer.self_modulate = line.color
+	layer.modulate = line.color
 
 	var rng := RandomNumberGenerator.new()
 	##Mixing the path's own rng_seed
