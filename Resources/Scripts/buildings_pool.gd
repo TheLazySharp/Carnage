@@ -20,6 +20,11 @@ extends Resource
 ## mandatory; this array is just the shortlist.
 @export var district_buildings : Array[BuildingData] = []
 
+@export_group("Belt")
+## Belt pieces within this many cells of the longest fitting one also compete.
+## 0 = strict longest-first, which reads very repetitive once 16-cell pieces exist.
+@export var belt_length_tolerance : int = 4
+
 @export_group("Tuning")
 ## How much bigger buildings are favoured inside a block.
 ## 0 = pure weight, size ignored. 1 = probability proportional to the area.
@@ -67,36 +72,34 @@ func pick_filler(max_length : int, depth : int, horizontal : bool, rng : RandomN
 	return _pick_belt_piece(fillers, max_length, depth, horizontal, rng)
 
 
-## Belt corner fitting max_size
-func pick_corner(max_size : Vector2i, rng : RandomNumberGenerator) -> Dictionary:
-	var candidates : Array[Dictionary] = []
-	for data : BuildingData in corners:
-		if not _is_usable(data):
-			continue
-		if data.footprint_32.x > max_size.x or data.footprint_32.y > max_size.y:
-			continue
-		candidates.append({"data": data, "bias": 1.0})
-	return _weighted_pick(candidates, rng)
 
-
-func _pick_belt_piece(pool : Array[BuildingData], max_length : int, depth : int, horizontal : bool, rng : RandomNumberGenerator) -> Dictionary:
-	# Longest-first: the belt is paved with the widest piece that fits, so the
-	# leftovers shrink as fast as possible.
-	var candidates : Array[Dictionary] = []
-	var best_length : int = 0
+func _pick_belt_piece(pool : Array[BuildingData], max_length : int, max_depth : int, horizontal : bool, rng : RandomNumberGenerator) -> Dictionary:
+	# Deepest piece first (it is the one that fills the band), then longest
+	# within belt_length_tolerance. Allowing a shallower piece means a missing
+	# depth family degrades into a thinner building instead of a hole.
+	var fitting : Array[Dictionary] = []
+	var best_depth : int = 0
 	for data : BuildingData in pool:
 		if not _is_usable(data):
 			continue
 		var size : Vector2i = data.footprint_32
 		var piece_length : int = size.x if horizontal else size.y
 		var piece_depth : int = size.y if horizontal else size.x
-		if piece_depth != depth or piece_length > max_length:
+		if piece_depth > max_depth or piece_length > max_length:
 			continue
-		if piece_length > best_length:
-			best_length = piece_length
-			candidates.clear()
-		if piece_length == best_length:
-			candidates.append({"data": data, "bias": 1.0})
+		best_depth = maxi(best_depth, piece_depth)
+		fitting.append({"data": data, "length": piece_length, "depth": piece_depth})
+
+	var best_length : int = 0
+	for entry : Dictionary in fitting:
+		if int(entry["depth"]) == best_depth:
+			best_length = maxi(best_length, int(entry["length"]))
+
+	var threshold : int = best_length - belt_length_tolerance
+	var candidates : Array[Dictionary] = []
+	for entry : Dictionary in fitting:
+		if int(entry["depth"]) == best_depth and int(entry["length"]) >= threshold:
+			candidates.append({"data": entry["data"], "bias": 1.0})
 	return _weighted_pick(candidates, rng)
 
 
@@ -141,8 +144,6 @@ func validate() -> PackedStringArray:
 		issues.append("interiors is empty")
 	if peripherals.is_empty():
 		issues.append("peripherals is empty")
-	if corners.is_empty():
-		issues.append("corners is empty")
 	if min_belt_length(true) > 1:
 		issues.append("no 1-cell horizontal piece: some top/bottom belt gaps will stay open")
 	if min_belt_length(false) > 1:

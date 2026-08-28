@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CrackData" format=3 uid="uid://omix5hyishw"]
+
+[ext_resource type="Script" uid="uid://17mat7dxfbnv" path="res://Resources/Scripts/crack_data.gd" id="1_mtx12"]
+
+[resource]
+script = ExtResource("1_mtx12")
+name = "short"
+pixel_size = 2
+total_length = Vector2i(30, 100)
+thickness = Vector2i(1, 2)
+branch_chance = Vector2(0.03, 0.1)
+max_branch_depth = Vector2i(1, 2)
+metadata/_custom_type_script = "uid://17mat7dxfbnv"

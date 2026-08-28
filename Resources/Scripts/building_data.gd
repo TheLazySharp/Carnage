@@ -40,6 +40,9 @@ enum Kind {
 ## Relative spawn frequency among the candidates
 @export_range(0.0, 10.0, 0.1) var weight : float = 1.0
 
+## Which map corner a CORNER piece is drawn for. Ignored for the other kinds.
+## Nothing is rotated, so each of the 4 map corners needs its own asset.
+@export_enum("Top left:0", "Top right:1", "Bottom right:2", "Bottom left:3") var belt_corner : int = 0
 
 ## True when this building is the mandatory one of a district
 func is_district_specific() -> bool:

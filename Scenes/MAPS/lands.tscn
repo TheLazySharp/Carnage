@@ -31,10 +31,15 @@
 [ext_resource type="Texture2D" uid="uid://bqup6ywvoqusp" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 21.tres" id="17_qup8q"]
 [ext_resource type="Texture2D" uid="uid://dmu67fh1hpush" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 22.tres" id="18_52dps"]
 [ext_resource type="Texture2D" uid="uid://btnw7i44qxwmc" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 23.tres" id="19_0uyeu"]
+[ext_resource type="Script" uid="uid://b30guyykc2iov" path="res://Scripts/MAP TOOLS/map_road_cracks.gd" id="19_5boc2"]
 [ext_resource type="Texture2D" uid="uid://b0wmtftgl60jx" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 24.tres" id="20_n6h35"]
+[ext_resource type="PackedScene" uid="uid://d1q4fpumpt4bo" path="res://Scenes/MAP TOOLS/crack_network_generator.tscn" id="20_yho2a"]
 [ext_resource type="Texture2D" uid="uid://d12t6wmwoq261" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 37.tres" id="21_3b8hv"]
+[ext_resource type="Script" uid="uid://17mat7dxfbnv" path="res://Resources/Scripts/crack_data.gd" id="21_ogojh"]
+[ext_resource type="Resource" uid="uid://omix5hyishw" path="res://Resources/Cracks/short.tres" id="22_d14oy"]
 [ext_resource type="Texture2D" uid="uid://dprtg0w23o8iq" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 38.tres" id="22_r4k4m"]
 [ext_resource type="Texture2D" uid="uid://bk62rk4hgc4c0" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 39.tres" id="23_1n5us"]
+[ext_resource type="Resource" uid="uid://chy7csq2rwvuy" path="res://Resources/Cracks/long.tres" id="24_2nhih"]
 [ext_resource type="Texture2D" uid="uid://bmi2pb5ruu4u7" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 40.tres" id="24_4vwwa"]
 [ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 25.tres" id="25_d0oc1"]
 [ext_resource type="Texture2D" uid="uid://cn5becwt2jw7" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 26.tres" id="26_aok7f"]
@@ -2527,6 +2532,14 @@ corner_radius_lanes = 1.0
 turn_chance = 0.35
 connection_overlap_px = 20.0
 
+[node name="RoadCracks" type="Node2D" parent="." unique_id=2038815225]
+z_index = 3
+script = ExtResource("19_5boc2")
+crack_scene = ExtResource("20_yho2a")
+profiles = Array[ExtResource("21_ogojh")]([ExtResource("22_d14oy"), ExtResource("24_2nhih")])
+density_per_100_cells = 0.8
+min_distance_cells = 10
+
 [node name="RoadMarks" type="Node2D" parent="." unique_id=270180113]
 modulate = Color(0.5803922, 0.5803922, 0.5803922, 1)
 z_index = 2
@@ -2551,9 +2564,6 @@ z_index = 2
 script = ExtResource("33_52dps")
 street_template = ExtResource("34_n6h35")
 artery_template = ExtResource("35_3b8hv")
-
-[node name="RoadCracks" type="Node2D" parent="." unique_id=2038815225]
-z_index = 3
 
 [node name="TireMarks" type="Node2D" parent="." unique_id=2014868673]
 z_index = 4

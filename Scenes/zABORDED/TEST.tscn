@@ -79,11 +79,10 @@
 [ext_resource type="PackedScene" uid="uid://bln3grsge0fm2" path="res://Scenes/MAP TOOLS/tire_mark_small.tscn" id="73_au78y"]
 [ext_resource type="Script" uid="uid://b40y10gh6j4su" path="res://Scripts/MAP TOOLS/RoadWearLine.gd" id="74_5dgyk"]
 [ext_resource type="PackedScene" uid="uid://b41b6t1673wqj" path="res://Scenes/MAP TOOLS/tire_mark_big.tscn" id="74_8l58v"]
+[ext_resource type="PackedScene" uid="uid://d1q4fpumpt4bo" path="res://Scenes/MAP TOOLS/crack_network_generator.tscn" id="75_scbe7"]
 [ext_resource type="Script" uid="uid://5i2ge8d1gyrg" path="res://Assets/Léonce/Scripts/generate_atlas_textures.gd" id="77_uqknt"]
 [ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Scripts/MAP TOOLS/road_brush_path2d.gd" id="80_unwpx"]
 [ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="81_unwpx"]
-[ext_resource type="Script" uid="uid://35fqax0nsl4d" path="res://Scripts/MAP TOOLS/crack_network_generator.gd" id="82_41ema"]
-[ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/CrackDrawSurface.gd" id="83_q4v6q"]
 [ext_resource type="Texture2D" uid="uid://pj8cqv0qgiso" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 1.tres" id="87_vx4db"]
 [ext_resource type="Texture2D" uid="uid://lqsqbsic2s04" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/Slice 1.tres" id="87_xcfsb"]
 [ext_resource type="Texture2D" uid="uid://chcbr6ub1do2" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 2.tres" id="88_0os8l"]
@@ -4132,28 +4131,8 @@ position = Vector2(13, -21)
 
 [node name="RoadCracks" type="Node2D" parent="Land_layers/Roads" unique_id=2039001729]
 
-[node name="CrackNetworkGenerator" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks" unique_id=1616940104]
-visible = false
-self_modulate = Color(1, 1, 1, 0.007843138)
-z_index = 2
+[node name="CrackNetworkGenerator" parent="Land_layers/Roads/RoadCracks" unique_id=753495024 instance=ExtResource("75_scbe7")]
 position = Vector2(1470, 1074)
-script = ExtResource("82_41ema")
-start_angle_degrees = 15.0
-total_length = 341
-segment_length = 2
-max_turn_degrees = 29.5
-thickness_max = 1
-thickness_variation_step = 1.1
-branch_chance = 0.19
-branch_chance_falloff = 0.11
-branch_length_ratio = 0.1
-max_branch_depth = 1
-crack_color = Color(1, 1, 1, 0.007843138)
-rng_seed = 17
-metadata/_custom_type_script = "uid://35fqax0nsl4d"
-
-[node name="DrawSurface" type="Node2D" parent="Land_layers/Roads/RoadCracks/CrackNetworkGenerator" unique_id=1200395982]
-script = ExtResource("83_q4v6q")
 
 [node name="RoadMarkings" type="Node2D" parent="Land_layers/Roads" unique_id=1041874057]
 modulate = Color(0.6955031, 0.6955032, 0.6955029, 1)
@@ -4203,6 +4182,7 @@ metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 modulate = Color(0.16556925, 0.17735419, 0.15967774, 0.654902)
 
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
+modulate = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
 [node name="RoadBrushPath2D2" type="Path2D" parent="Land_layers/Roads" unique_id=515224722]
 z_index = 5
@@ -4231,7 +4211,7 @@ modulate = Color(0.20871013, 0.20871016, 0.20871013, 0.654902)
 
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=630186990]
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=521504137]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1621078799]
 modulate = Color(0.5200528, 0.00019310057, 0.52004904, 1)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]

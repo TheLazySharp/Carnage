@@ -1,5 +1,5 @@
 @tool
-extends CanvasGroup
+extends Node2D
 class_name CrackNetworkGenerator
 
 @export_group("Tracé principal")
@@ -74,7 +74,7 @@ class_name CrackNetworkGenerator
 @export var crack_color: Color = Color(0, 0, 0, 1):
 	set(value):
 		crack_color = value
-		self_modulate = crack_color
+		modulate = crack_color
 
 @export var rng_seed: int = 0:
 	set(value):
@@ -89,7 +89,7 @@ var _draw_surface: Node2D
 
 
 func _ready() -> void:
-	self_modulate = crack_color
+	modulate = crack_color
 	generate()
 
 
@@ -98,7 +98,7 @@ func _ensure_draw_surface() -> void:
 	if _draw_surface == null:
 		_draw_surface = Node2D.new()
 		_draw_surface.name = "DrawSurface"
-		_draw_surface.set_script(load("res://Scripts/MAP TOOLS/CrackDrawSurface.gd"))
+		_draw_surface.set_script(load("res://Scripts/MAP TOOLS/crack_draw_surface.gd"))
 		add_child(_draw_surface)
 		if Engine.is_editor_hint():
 			_draw_surface.owner = get_tree().edited_scene_root

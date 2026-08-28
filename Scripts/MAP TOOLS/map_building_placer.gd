@@ -23,11 +23,15 @@ const SIDE_LEFT : int = 3
 ## District of the current run; N_A places no district building
 @export var district_type : DistrictsData.types = DistrictsData.types.N_A
 ## Depth of the belt buildings, in cells (they all share it by design)
-@export var belt_depth_cells : int = 4
-## Cells left between two interior buildings. 0 = contiguous city block.
+## Requires border_margin >= belt_depth_cells + sidewalk_cells + street half width.
+@export var belt_depth_cells : int = 6
 @export var building_gap_cells : int = 0
 ## Turn every remaining FREE cell into SIDEWALK once placement is done
 @export var finalize_sidewalks : bool = true
+## Depth of the belt buildings, in cells (they all share it by design).
+
+
+
 
 ## Footprint cells of every placed building: feed this to the flow field
 ## (FlowFieldManager.add_obstacles) and to the horde wall grid.
@@ -35,6 +39,8 @@ var obstacle_cells : Array[Vector2i] = []
 ## Footprint of every placed building, in cells. Used by the cable pass to
 ## find anchors on opposite sides of a street.
 var building_rects : Array[Rect2i] = []
+
+
 
 var _data : MapData = null
 var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -160,67 +166,45 @@ func _place_belt() -> void:
 		print("[MapBuildingsPlacer] no peripheral building in the pool: belt skipped")
 		return
 
-	_place_belt_corners()
-	# Sides are paved between the corners; the entry / extraction mouths are
-	# skipped for free, since their cells are not FREE in the raster.
+	# No corner pass: TOP and BOTTOM are paved across the full map width, so they
+	# already close the four angles. LEFT and RIGHT then simply start after them.
 	_pave_side(SIDE_TOP)
 	_pave_side(SIDE_BOTTOM)
 	_pave_side(SIDE_LEFT)
 	_pave_side(SIDE_RIGHT)
 
 
-func _place_belt_corners() -> void:
-	if pool.corners.is_empty():
-		return
-	var w : int = _data.map_size_cells.x
-	var h : int = _data.map_size_cells.y
-	for corner : int in 4:
-		var entry : Dictionary = pool.pick_corner(Vector2i(belt_depth_cells, belt_depth_cells), _rng)
-		if entry.is_empty():
-			return
-		var data : BuildingData = entry["data"]
-		var size : Vector2i = data.footprint_32
-		var origin : Vector2i = Vector2i.ZERO
-		match corner:
-			0:  # top-left
-				origin = Vector2i.ZERO
-			1:  # top-right
-				origin = Vector2i(w - size.x, 0)
-			2:  # bottom-right
-				origin = Vector2i(w - size.x, h - size.y)
-			_:  # bottom-left
-				origin = Vector2i(0, h - size.y)
-		var rect : Rect2i = Rect2i(origin, size)
-		if _data.can_place_building(rect):
-			_place(data, rect)
-
-
 func _pave_side(side : int) -> void:
-	# Walks the side and places the longest piece that fits at each step.
-	# Anything that cannot be filled stays FREE and becomes sidewalk.
+	# The belt follows the depth actually available: full belt_depth_cells along
+	# the streets, shallower where an artery reaches the border. The side is cut
+	# into runs of constant depth, each paved with pieces of that depth.
 	var horizontal : bool = side == SIDE_TOP or side == SIDE_BOTTOM
 	var length : int = _data.map_size_cells.x if horizontal else _data.map_size_cells.y
+	_log_depth_profile(side, length)
+
 	var cursor : int = 0
 	var unpaved : int = 0
 
 	while cursor < length:
-		var free_run : int = _free_run(side, cursor, length)
-		if free_run <= 0:
-			cursor += 1
+		var depth : int = mini(_free_depth(side, cursor), belt_depth_cells)
+		if depth <= 0:
+			cursor += 1  # road mouth or already built
 			continue
+		var run : int = _depth_run(side, cursor, length, depth)
 
-		var entry : Dictionary = pool.pick_peripheral(free_run, belt_depth_cells, horizontal, _rng)
+		var entry : Dictionary = pool.pick_peripheral(run, depth, horizontal, _rng)
 		if entry.is_empty():
-			entry = pool.pick_filler(free_run, belt_depth_cells, horizontal, _rng)
+			entry = pool.pick_filler(run, depth, horizontal, _rng)
 		if entry.is_empty():
-			# Nothing fits this gap: leave it as pavement and move on
-			unpaved += free_run
-			cursor += free_run
+			print("[Belt] side %d: %d cells at %d, depth %d, no piece available" % [side, run, cursor, depth])
+			unpaved += run
+			cursor += run
 			continue
 
 		var data : BuildingData = entry["data"]
 		var piece_length : int = data.footprint_32.x if horizontal else data.footprint_32.y
-		var rect : Rect2i = _side_rect(side, cursor, piece_length, belt_depth_cells)
+		var piece_depth : int = data.footprint_32.y if horizontal else data.footprint_32.x
+		var rect : Rect2i = _side_rect(side, cursor, piece_length, piece_depth)
 		if _data.can_place_building(rect):
 			_place(data, rect)
 			cursor += piece_length
@@ -228,7 +212,33 @@ func _pave_side(side : int) -> void:
 			cursor += 1
 
 	if unpaved > 0:
-		print("[MapBuildingsPlacer] belt side %d: %d cells left unpaved (add narrower pieces to close them)" % [side, unpaved])
+		print("[MapBuildingsPlacer] belt side %d: %d cells left unpaved" % [side, unpaved])
+
+
+func _depth_run(side : int, cursor : int, length : int, depth : int) -> int:
+	# Consecutive positions offering exactly this depth: each run is homogeneous,
+	# so the belt front steps cleanly instead of drifting.
+	var run : int = 0
+	while cursor + run < length and mini(_free_depth(side, cursor + run), belt_depth_cells) == depth:
+		run += 1
+	return run
+
+
+func _log_depth_profile(side : int, length : int) -> void:
+	# Tells exactly which piece depths this map needs, before anything is placed
+	var counts : Dictionary = {}
+	for cursor : int in length:
+		var depth : int = mini(_free_depth(side, cursor), belt_depth_cells)
+		counts[depth] = int(counts.get(depth, 0)) + 1
+	print("[Belt] side %d depth profile (depth: cells): %s" % [side, str(counts)])
+
+
+func _free_depth(side : int, cursor : int) -> int:
+	# Deepest 1-cell-wide piece that would fit here, capped at belt_depth_cells
+	var depth : int = 0
+	while depth < belt_depth_cells and _data.can_place_building(_side_rect(side, cursor, 1, depth + 1)):
+		depth += 1
+	return depth
 
 
 func _free_run(side : int, cursor : int, length : int) -> int:

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cstre1l5ksgef" path="res://Scripts/MAP TOOLS/map_road_marking_path.gd" id="1_pagt5"]
 [ext_resource type="Script" uid="uid://b68t07w6s0djw" path="res://Scripts/MAP TOOLS/RoadMarkingLine.gd" id="2_v7lj5"]
-[ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/DrawSurface2d.gd" id="3_aryry"]
+[ext_resource type="Script" uid="uid://cb2m6f61ljgji" path="res://Scripts/MAP TOOLS/draw_surface_2D.gd" id="3_aryry"]
 
 [sub_resource type="Curve2D" id="Curve2D_1113p"]
 _data = {
