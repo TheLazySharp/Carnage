@@ -54,6 +54,7 @@ stamp_color = Color(0.37254903, 0.37254903, 0.37254903, 0.89411765)
 metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 
 [node name="StampLayer" type="Node2D" parent="." unique_id=1489860789]
+modulate = Color(0.37254903, 0.37254903, 0.37254903, 0.89411765)
 self_modulate = Color(0.105882354, 0.105882354, 0.105882354, 1)
 
 [node name="DetailLayer" type="Node2D" parent="." unique_id=1848839475]
