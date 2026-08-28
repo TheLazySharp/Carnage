@@ -136,8 +136,10 @@ func generate_async() -> void:
 	_build_road_marks()
 	await get_tree().process_frame
 
-	LoadingScreen.set_step(4, BUILD_STEPS, "Adding road wear...")
+	
+	LoadingScreen.set_step(4, BUILD_STEPS, "Adding road wear and cracks...")
 	_build_road_paths()
+	_build_road_cracks()
 	await get_tree().process_frame
 
 	LoadingScreen.set_step(5, BUILD_STEPS, "Adding shadows...")
@@ -414,6 +416,23 @@ func _find_cables(node : Node) -> MapCables:
 		return node as MapCables
 	for child : Node in node.get_children():
 		var found : MapCables = _find_cables(child)
+		if found != null:
+			return found
+	return null
+
+
+func _build_road_cracks() -> void:
+	var cracks : MapRoadCracks = _find_road_cracks(get_tree().root)
+	if cracks == null:
+		print("[MapGraph] no MapRoadCracks node found in the scene -> cracks skipped")
+		return
+	cracks.build(data)
+
+func _find_road_cracks(node : Node) -> MapRoadCracks:
+	if node is MapRoadCracks:
+		return node as MapRoadCracks
+	for child : Node in node.get_children():
+		var found : MapRoadCracks = _find_road_cracks(child)
 		if found != null:
 			return found
 	return null

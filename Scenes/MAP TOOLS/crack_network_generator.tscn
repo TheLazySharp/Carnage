@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d1q4fpumpt4bo"]
+
+[ext_resource type="Script" uid="uid://35fqax0nsl4d" path="res://Scripts/MAP TOOLS/crack_network_generator.gd" id="1_xecs6"]
+[ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/crack_draw_surface.gd" id="2_xpubo"]
+
+[node name="CrackNetworkGenerator" type="Node2D" unique_id=753495024]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.007843138)
+z_index = 2
+script = ExtResource("1_xecs6")
+
+[node name="DrawSurface" type="Node2D" parent="." unique_id=1122329693]
+script = ExtResource("2_xpubo")

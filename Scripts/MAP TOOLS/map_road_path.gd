@@ -1,5 +1,5 @@
-class_name MapRoadPaths
 extends Node2D
+class_name MapRoadPaths
 ## Bridge between the MapData graph and the Path2D drawing tools.
 ## One Path2D per TRAFFIC LANE, not per road:
 ##   - straight lane paths, offset laterally from the edge centerline and

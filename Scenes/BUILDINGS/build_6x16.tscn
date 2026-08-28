@@ -1,14 +1,11 @@
-[gd_scene format=4 uid="uid://ckkjfx10h1vu"]
+[gd_scene format=3 uid="uid://b4ic2y73ucxx5"]
 
-[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_u36pp"]
-[ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="3_arsad"]
-[ext_resource type="Texture2D" uid="uid://bomjdb68ne2n3" path="res://Assets/Props/Roofs/Air Conditioners/Slice 3.tres" id="3_uxgpr"]
-[ext_resource type="Texture2D" uid="uid://dxavlxx2arcaq" path="res://Assets/Props/Roofs/Air Conditioners/Slice 14.tres" id="4_ljuy4"]
-[ext_resource type="Texture2D" uid="uid://cm6471knt4xt8" path="res://Assets/Props/Roofs/Air Conditioners/Slice 13.tres" id="5_u36pp"]
-[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="7_07wo7"]
+[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_83vid"]
+[ext_resource type="Texture2D" uid="uid://by7k1xbe7ukxv" path="res://Assets/Tilesets/Roofs/roof_texture07.png" id="2_klm2i"]
+[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="6_tjd0m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp1ot"]
-texture = ExtResource("7_07wo7")
+texture = ExtResource("6_tjd0m")
 texture_region_size = Vector2i(32, 32)
 3:1/0 = 0
 3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -671,9 +668,9 @@ sources/0 = SubResource("TileSetAtlasSource_dp1ot")
 z_index = 13
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=544689494]
-script = ExtResource("1_u36pp")
-building_size = Vector2i(192, 192)
-shadow_length = 20
+script = ExtResource("1_83vid")
+building_size = Vector2i(192, 512)
+shadow_length = 26
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
@@ -683,77 +680,367 @@ z_index = 17
 [node name="NinePatchRect" type="NinePatchRect" parent="Roofs" unique_id=634436668]
 texture_filter = 1
 texture_repeat = 2
-offset_right = 190.0
-offset_bottom = 190.0
-texture = ExtResource("3_arsad")
+offset_right = 192.0
+offset_bottom = 510.0
+texture = ExtResource("2_klm2i")
 
 [node name="ShadowsRoof" type="Node2D" parent="." unique_id=1409990842]
 modulate = Color(1, 1, 1, 0.8235294)
 self_modulate = Color(1, 1, 1, 0.8235294)
 z_index = 18
 
-[node name="BuildingShadow" type="Node2D" parent="ShadowsRoof" unique_id=574340240]
-position = Vector2(37.243847, 35.874786)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(64, 120)
-shadow_length = 5
-pixel_size = 1
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
-[node name="BuildingShadow2" type="Node2D" parent="ShadowsRoof" unique_id=1815427829]
-position = Vector2(131.96935, 40.34792)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(38, 24)
-shadow_length = 5
-pixel_size = 1
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
-[node name="BuildingShadow3" type="Node2D" parent="ShadowsRoof" unique_id=2032578441]
-position = Vector2(134.01854, 90.54952)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(38, 24)
-shadow_length = 5
-pixel_size = 1
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
 [node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
-position = Vector2(7.9841385, 7.971615)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(4, 60)
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
 shadow_length = 0
-pixel_size = 3
+pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=742358665]
-position = Vector2(19.984138, 5.971615)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(55, 4)
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
 shadow_length = 0
-pixel_size = 3
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof2" type="Node2D" parent="." unique_id=42130536]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 32)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof2" unique_id=1100343842]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof2" unique_id=280934464]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof3" type="Node2D" parent="." unique_id=777544673]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 64)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof3" unique_id=2062285397]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof3" unique_id=553853329]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof4" type="Node2D" parent="." unique_id=824980363]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 96)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof4" unique_id=2075445115]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof4" unique_id=719197559]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof5" type="Node2D" parent="." unique_id=1078551112]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 128)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof5" unique_id=796748712]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof5" unique_id=1551174212]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof6" type="Node2D" parent="." unique_id=1082442526]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 160)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof6" unique_id=1637612312]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof6" unique_id=144804893]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof7" type="Node2D" parent="." unique_id=1680325711]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 192)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof7" unique_id=465751655]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof7" unique_id=661290601]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof8" type="Node2D" parent="." unique_id=467031586]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 224)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof8" unique_id=1987962354]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof8" unique_id=1664001236]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof9" type="Node2D" parent="." unique_id=1388602178]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 256)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof9" unique_id=698180616]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof9" unique_id=1632001122]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof10" type="Node2D" parent="." unique_id=2004908374]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 288)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof10" unique_id=414916712]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof10" unique_id=283057821]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof11" type="Node2D" parent="." unique_id=935940781]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 320)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof11" unique_id=69299141]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof11" unique_id=1501038466]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof12" type="Node2D" parent="." unique_id=1495111198]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 352)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof12" unique_id=1542784783]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof12" unique_id=1955145389]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof13" type="Node2D" parent="." unique_id=891625447]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 384)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof13" unique_id=596206038]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof13" unique_id=1317522862]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof14" type="Node2D" parent="." unique_id=1386466395]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 416)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof14" unique_id=865806152]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof14" unique_id=443106114]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof15" type="Node2D" parent="." unique_id=1874192933]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 448)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof15" unique_id=397939540]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof15" unique_id=1105465345]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="ShadowsRoof16" type="Node2D" parent="." unique_id=1867697442]
+modulate = Color(1, 1, 1, 0.8235294)
+self_modulate = Color(1, 1, 1, 0.8235294)
+z_index = 18
+position = Vector2(0, 480)
+
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof16" unique_id=606031326]
+position = Vector2(99.00781, 7.984375)
+script = ExtResource("1_83vid")
+building_size = Vector2i(4, 24)
+shadow_length = 0
+pixel_size = 1
+metadata/_custom_type_script = "uid://d3f3q336xjnkp"
+
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof16" unique_id=1829360920]
+position = Vector2(99, 3.9921875)
+script = ExtResource("1_83vid")
+building_size = Vector2i(93, 4)
+shadow_length = 0
+pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
 z_index = 19
-
-[node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=576857102]
-position = Vector2(35.1692, 33.96979)
-texture = ExtResource("3_uxgpr")
-centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="RoofsProps" unique_id=563147157]
-position = Vector2(131.01491, 87.55395)
-texture = ExtResource("4_ljuy4")
-centered = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="RoofsProps" unique_id=2041957098]
-position = Vector2(128.97925, 37.34079)
-texture = ExtResource("5_u36pp")
-centered = false
 
 [node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
 z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
 z_index = 20
-tile_map_data = PackedByteArray("AAAAAAAAAAATAAkAAAAFAAAAAAAVAAkAAAAFAAUAAAAXAA0AAAAAAAUAAAARAA0AAAABAAAAAAAUAAkAAAACAAAAAAAUAAkAAAADAAAAAAAUAAkAAAAEAAAAAAAUAAkAAAAFAAEAAAAXAAwAAAAFAAIAAAAXAAwAAAAFAAMAAAAXAAwAAAAFAAQAAAAXAAwAAAABAAUAAAAUAA8AAAACAAUAAAAUAA8AAAADAAUAAAAUAA8AAAAEAAUAAAAUAA8AAAAAAAEAAAARAAwAAAAAAAIAAAARAAwAAAAAAAMAAAARAAwAAAAAAAQAAAARAAwAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

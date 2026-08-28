@@ -1,14 +1,12 @@
-[gd_scene format=4 uid="uid://ckkjfx10h1vu"]
+[gd_scene format=4 uid="uid://dfnpdskw7cy40"]
 
-[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_u36pp"]
-[ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="3_arsad"]
-[ext_resource type="Texture2D" uid="uid://bomjdb68ne2n3" path="res://Assets/Props/Roofs/Air Conditioners/Slice 3.tres" id="3_uxgpr"]
-[ext_resource type="Texture2D" uid="uid://dxavlxx2arcaq" path="res://Assets/Props/Roofs/Air Conditioners/Slice 14.tres" id="4_ljuy4"]
-[ext_resource type="Texture2D" uid="uid://cm6471knt4xt8" path="res://Assets/Props/Roofs/Air Conditioners/Slice 13.tres" id="5_u36pp"]
-[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="7_07wo7"]
+[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_6o41l"]
+[ext_resource type="Texture2D" uid="uid://ginvgy6fvn8g" path="res://Assets/Tilesets/Roofs/roof_texture08.png" id="2_gmxxy"]
+[ext_resource type="Texture2D" uid="uid://c0p7laf4nce" path="res://Assets/Props/Roofs/Air Conditioners/Slice 2.tres" id="3_j5hyq"]
+[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="4_0gku0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp1ot"]
-texture = ExtResource("7_07wo7")
+texture = ExtResource("4_0gku0")
 texture_region_size = Vector2i(32, 32)
 3:1/0 = 0
 3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -671,9 +669,9 @@ sources/0 = SubResource("TileSetAtlasSource_dp1ot")
 z_index = 13
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=544689494]
-script = ExtResource("1_u36pp")
-building_size = Vector2i(192, 192)
-shadow_length = 20
+script = ExtResource("1_6o41l")
+building_size = Vector2i(512, 192)
+shadow_length = 26
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
@@ -683,9 +681,9 @@ z_index = 17
 [node name="NinePatchRect" type="NinePatchRect" parent="Roofs" unique_id=634436668]
 texture_filter = 1
 texture_repeat = 2
-offset_right = 190.0
+offset_right = 512.0
 offset_bottom = 190.0
-texture = ExtResource("3_arsad")
+texture = ExtResource("2_gmxxy")
 
 [node name="ShadowsRoof" type="Node2D" parent="." unique_id=1409990842]
 modulate = Color(1, 1, 1, 0.8235294)
@@ -693,61 +691,34 @@ self_modulate = Color(1, 1, 1, 0.8235294)
 z_index = 18
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsRoof" unique_id=574340240]
-position = Vector2(37.243847, 35.874786)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(64, 120)
+position = Vector2(34.4799, 65.68439)
+script = ExtResource("1_6o41l")
+building_size = Vector2i(119, 75)
 shadow_length = 5
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
-[node name="BuildingShadow2" type="Node2D" parent="ShadowsRoof" unique_id=1815427829]
-position = Vector2(131.96935, 40.34792)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(38, 24)
+[node name="BuildingShadow2" type="Node2D" parent="ShadowsRoof" unique_id=260263877]
+position = Vector2(329.4546, 64.4729)
+script = ExtResource("1_6o41l")
+building_size = Vector2i(119, 75)
 shadow_length = 5
 pixel_size = 1
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
-[node name="BuildingShadow3" type="Node2D" parent="ShadowsRoof" unique_id=2032578441]
-position = Vector2(134.01854, 90.54952)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(38, 24)
-shadow_length = 5
-pixel_size = 1
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
-[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
-position = Vector2(7.9841385, 7.971615)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(4, 60)
-shadow_length = 0
-pixel_size = 3
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
-[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=742358665]
-position = Vector2(19.984138, 5.971615)
-script = ExtResource("1_u36pp")
-building_size = Vector2i(55, 4)
-shadow_length = 0
-pixel_size = 3
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
 z_index = 19
 
 [node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=576857102]
-position = Vector2(35.1692, 33.96979)
-texture = ExtResource("3_uxgpr")
+position = Vector2(155, 63)
+rotation = 1.5707964
+texture = ExtResource("3_j5hyq")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="RoofsProps" unique_id=563147157]
-position = Vector2(131.01491, 87.55395)
-texture = ExtResource("4_ljuy4")
-centered = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="RoofsProps" unique_id=2041957098]
-position = Vector2(128.97925, 37.34079)
-texture = ExtResource("5_u36pp")
+[node name="Sprite2D2" type="Sprite2D" parent="RoofsProps" unique_id=403743003]
+position = Vector2(450, 62)
+rotation = 1.5707964
+texture = ExtResource("3_j5hyq")
 centered = false
 
 [node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
@@ -755,5 +726,5 @@ z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
 z_index = 20
-tile_map_data = PackedByteArray("AAAAAAAAAAATAAkAAAAFAAAAAAAVAAkAAAAFAAUAAAAXAA0AAAAAAAUAAAARAA0AAAABAAAAAAAUAAkAAAACAAAAAAAUAAkAAAADAAAAAAAUAAkAAAAEAAAAAAAUAAkAAAAFAAEAAAAXAAwAAAAFAAIAAAAXAAwAAAAFAAMAAAAXAAwAAAAFAAQAAAAXAAwAAAABAAUAAAAUAA8AAAACAAUAAAAUAA8AAAADAAUAAAAUAA8AAAAEAAUAAAAUAA8AAAAAAAEAAAARAAwAAAAAAAIAAAARAAwAAAAAAAMAAAARAAwAAAAAAAQAAAARAAwAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAATABEAAAAAAAUAAAATABcAAAAAAAEAAAARABQAAAAAAAIAAAATABIAAAAAAAMAAAARABQAAAAAAAQAAAATABIAAAABAAAAAAAUABEAAAACAAAAAAAUABEAAAADAAAAAAAUABEAAAAEAAAAAAAUABEAAAAFAAAAAAAWABMAAAAGAAAAAAAWABMAAAAHAAAAAAAWABMAAAAIAAAAAAAUABEAAAAJAAAAAAAUABEAAAAKAAAAAAAUABEAAAALAAAAAAASABMAAAAMAAAAAAASABMAAAANAAAAAAASABMAAAAOAAAAAAAUABEAAAAPAAAAAAAXABMAAAAPAAUAAAAXABUAAAAPAAQAAAAXABQAAAAPAAMAAAAXABQAAAAPAAIAAAAXABQAAAAPAAEAAAAXABQAAAABAAUAAAAUABcAAAACAAUAAAAUABcAAAADAAUAAAAUABcAAAAEAAUAAAAWABUAAAAFAAUAAAAWABUAAAAGAAUAAAAWABUAAAAHAAUAAAAUABcAAAAIAAUAAAAUABcAAAAJAAUAAAAUABcAAAAKAAUAAAAWABUAAAALAAUAAAAWABUAAAAMAAUAAAAWABUAAAANAAUAAAAWABUAAAAOAAUAAAAUABcAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

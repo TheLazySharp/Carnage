@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://vpqxhl6i7c4r"]
+
+[ext_resource type="PackedScene" uid="uid://cyr7swq23x6tb" path="res://Scenes/BUILDINGS/build_6x3.tscn" id="1_mlwab"]
+[ext_resource type="Script" uid="uid://dq1yshanauw6j" path="res://Resources/Scripts/building_data.gd" id="2_yqysf"]
+
+[resource]
+script = ExtResource("2_yqysf")
+name = "6x3"
+building_scene = ExtResource("1_mlwab")
+footprint_32 = Vector2i(6, 3)
+circle_margin = 0.0
+metadata/_custom_type_script = "uid://dq1yshanauw6j"

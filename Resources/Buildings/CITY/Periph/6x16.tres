@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://bt65k4sw1rexi"]
 
+[ext_resource type="PackedScene" uid="uid://b4ic2y73ucxx5" path="res://Scenes/BUILDINGS/build_6x16.tscn" id="1_nueeo"]
 [ext_resource type="Script" uid="uid://dq1yshanauw6j" path="res://Resources/Scripts/building_data.gd" id="2_8v01u"]
 
 [resource]
 script = ExtResource("2_8v01u")
 name = "6x16"
+building_scene = ExtResource("1_nueeo")
 footprint_32 = Vector2i(6, 16)
 circle_margin = 0.0
 metadata/_custom_type_script = "uid://dq1yshanauw6j"
