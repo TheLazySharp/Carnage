@@ -86,7 +86,7 @@
 [ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="81_unwpx"]
 [ext_resource type="Script" uid="uid://35fqax0nsl4d" path="res://Scripts/MAP TOOLS/crack_network_generator.gd" id="82_41ema"]
 [ext_resource type="PackedScene" uid="uid://b6yrcqyoo7rx6" path="res://Scenes/MAP TOOLS/road_preset_city01.tscn" id="83_3js2r"]
-[ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/CrackDrawSurface.gd" id="83_q4v6q"]
+[ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/crack_draw_surface.gd" id="83_q4v6q"]
 [ext_resource type="Texture2D" uid="uid://pj8cqv0qgiso" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 1.tres" id="87_vx4db"]
 [ext_resource type="Texture2D" uid="uid://lqsqbsic2s04" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH MAIN 96A/Slice 1.tres" id="87_xcfsb"]
 [ext_resource type="Texture2D" uid="uid://chcbr6ub1do2" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 8A/Slice 2.tres" id="88_0os8l"]
@@ -1148,7 +1148,7 @@ coverage_ratio = 0.46
 avg_gap_length = 2.07
 fade_start_length = 4.175
 fade_end_length = 33.725
-fade_curve_power = 3.9000000000000004
+fade_curve_power = 3.9
 color = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 metadata/_custom_type_script = "uid://b40y10gh6j4su"
 
@@ -2755,8 +2755,8 @@ output_dir_override = "res://Assets/Textures/Roads/Markings/Misc/"
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
 position = Vector2(61.000122, 54)
 scale = Vector2(1e-05, 1e-05)
-offset = Vector2(97.135, 113.24)
-zoom = Vector2(5.24, 5.24)
+offset = Vector2(-7.03, 18.175)
+zoom = Vector2(5.775, 5.775)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
 visible = false
@@ -4232,6 +4232,7 @@ stamp_color = Color(0, 0, 0, 1)
 
 [node name="CrackNetworkGenerator" type="CanvasGroup" parent="Land_layers/Roads/RoadCracks" unique_id=1616940104]
 visible = false
+modulate = Color(1, 1, 1, 0.007843138)
 self_modulate = Color(1, 1, 1, 0.007843138)
 z_index = 2
 position = Vector2(1470, 1074)
@@ -4293,7 +4294,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1546266646]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=796342621]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -4326,10 +4327,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1639540128]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=316535689]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=2082940583]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=249379708]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -4346,7 +4347,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=2040170433]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1906753532]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
