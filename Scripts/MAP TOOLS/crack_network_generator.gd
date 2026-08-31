@@ -117,7 +117,7 @@ func generate() -> void:
 	var start_grid := _to_grid(start_position)
 	_walk(start_grid, start_dir, total_length, 0)
 
-	print("CrackNetworkGenerator: %d segments générés" % _segments.size())
+	#print("CrackNetworkGenerator: %d segments générés" % _segments.size())
 	_draw_surface.call("set_data", _segments, pixel_size)
 
 

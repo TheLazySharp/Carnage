@@ -138,11 +138,20 @@ func _build_axes(map_extent : int, artery_count : int, guarantee_gap : int = 0, 
 	var flags : Array[bool] = []
 	flags.resize(count)
 	flags.fill(false)
+
+	# Random artery slots among the axes. The first and last axes are excluded:
+	# an artery on the outer ring turns into a street at the grid corners, which
+	# is the same mixed-width bend the removal pass now forbids.
 	var slots : Array[int] = []
 	for i : int in count:
+		if i == 0 or i == count - 1:
+			continue
 		slots.append(i)
+	if slots.is_empty():
+		for i : int in count:
+			slots.append(i)
 	_shuffle(slots)
-	for i : int in mini(artery_count, count):
+	for i : int in mini(artery_count, slots.size()):
 		flags[slots[i]] = true
 
 	# Interiors: minimum everywhere, then spread the leftover span at random
@@ -240,6 +249,8 @@ func _remove_random_edges() -> void:
 		var e : Vector2i = _data.edges[edge_idx]
 		if degrees[e.x] <= 2 or degrees[e.y] <= 2:
 			continue  # removing it would create a dead end
+		if _would_mix_road_types(e.x, removed, edge_idx) or _would_mix_road_types(e.y, removed, edge_idx):
+			continue  # an artery must never bend into a street
 		removed[edge_idx] = true
 		if _is_graph_connected(removed):
 			degrees[e.x] -= 1
@@ -258,6 +269,26 @@ func _remove_random_edges() -> void:
 	_data.edges = kept_edges
 	_data.edge_is_artery = kept_flags
 
+func _would_mix_road_types(node_idx : int, removed : Array[bool], removing : int) -> bool:
+	# True when the node would end up at degree 2 with one artery branch and one
+	# street branch. That is a bend where the road changes width mid-corner:
+	# the marking chains cannot follow through it (different types), so they stop
+	# dead at the node centre, and the arrow pass reads it as an approach.
+	var artery_seen : bool = false
+	var street_seen : bool = false
+	var kept : int = 0
+	for i : int in _data.edges.size():
+		if removed[i] or i == removing:
+			continue
+		var e : Vector2i = _data.edges[i]
+		if e.x != node_idx and e.y != node_idx:
+			continue
+		kept += 1
+		if _data.edge_is_artery[i]:
+			artery_seen = true
+		else:
+			street_seen = true
+	return kept == 2 and artery_seen and street_seen
 
 func _is_graph_connected(removed : Array[bool]) -> bool:
 	# DFS with a linear edge scan per node: O(V * E). Fine at this graph size;

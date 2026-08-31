@@ -21,7 +21,7 @@ const SIDE_LEFT : int = 3
 ## Name of the node holding the ground shadows inside a building scene
 @export var shadow_source_name : String = "ShadowsGroup"
 ## District of the current run; N_A places no district building
-@export var district_type : DistrictsData.types = DistrictsData.types.N_A
+@export var district_type : DistrictsData.types
 ## Depth of the belt buildings, in cells (they all share it by design)
 ## Requires border_margin >= belt_depth_cells + sidewalk_cells + street half width.
 @export var belt_depth_cells : int = 6
@@ -46,6 +46,8 @@ var _data : MapData = null
 var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var _placed : int = 0
 
+func _ready() -> void:
+	district_type = RoadMapManager.last_district.type
 
 func build(data : MapData) -> void:
 	for child : Node in get_children():

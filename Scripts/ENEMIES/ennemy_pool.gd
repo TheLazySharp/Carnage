@@ -97,7 +97,6 @@ func activate(spawn_position: Vector2) -> void:
 		ennemy_spawner.activated_enemies(1)
 		collision_box.set_deferred("disabled",false)
 		set_process(true)
-		set_physics_process(true)
 		navigation_agent.target_position = target.global_position
 		path_timer.start()
 		current_life = max_life
@@ -105,7 +104,6 @@ func activate(spawn_position: Vector2) -> void:
 
 func desactivate() -> void:
 	set_process(false)
-	set_physics_process(false)
 	self.is_activated = false
 	self.hide()
 	self.global_position = Vector2( -50, -50)

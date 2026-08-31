@@ -91,10 +91,10 @@ var physics_skip_steps : float = 0.032
 var accumululated_delta : float
 
 #NIGHT MODIFIERS
-var night_speed_mod := Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
-var night_dmg_mod := Modifier.new(night_damages_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_dmg_mod")
-var night_life_mod := Modifier.new(night_max_life_boost,Modifier.Type.FLAT,"day_end_enemy_life_mod")
-var enemy_freezer := Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer item", 3)
+var night_speed_mod : Modifier
+var night_dmg_mod : Modifier
+var night_life_mod : Modifier
+var enemy_freezer : Modifier
 
 
 func _ready() -> void:
@@ -117,6 +117,11 @@ func _ready() -> void:
  
 	current_life = int(max_life.get_value())
  
+	night_speed_mod = Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
+	night_dmg_mod = Modifier.new(night_damages_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_dmg_mod")
+	night_life_mod = Modifier.new(night_max_life_boost,Modifier.Type.FLAT,"day_end_enemy_life_mod")
+	enemy_freezer = Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer item", 3)
+
 	call_deferred("register_to_renderer")
  
 func init_stats() -> void:
@@ -132,7 +137,8 @@ func init_stats() -> void:
  
 	SignalManager.emit_signal("enemy_stats_init", self)
  
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
+	delta = minf(delta, 0.066)
 	if game_paused:
 		return
 	if is_dead:
@@ -294,7 +300,7 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	StatsManager.frags += 1
 	SignalManager.emit_signal("enemy_is_dead", self, self.horde)
 
-	set_physics_process(true)
+	set_process(true)
 	process_mode = Node.PROCESS_MODE_INHERIT
 
 	# 3. projection

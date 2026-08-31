@@ -20,17 +20,15 @@ func _ready() -> void:
 		current_state = initial_state
 
 func _process(delta: float) -> void:
-	if current_state and "update" in current_state :
+	if current_state and "update" in current_state:
 		current_state.update(delta)
 
-
-func _physics_process(delta: float) -> void:
 	sm_skip_timer += delta
 	if sm_skip_timer < SM_SKIP_STEPS:
 		return
-	sm_skip_timer -= SM_SKIP_STEPS
 	if current_state:
-		current_state.physics_update(SM_SKIP_STEPS)
+		current_state.physics_update(sm_skip_timer)
+	sm_skip_timer = 0.0
 
 func state_transition_to(state_name : String) -> void:
 	if current_state.name.to_lower() == state_name.to_lower():
