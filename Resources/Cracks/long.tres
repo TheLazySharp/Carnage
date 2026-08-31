@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_i2lu7")
 name = "long"
-pixel_size = 2
-total_length = Vector2i(60, 160)
+pixel_size = 1
+total_length = Vector2i(80, 200)
 thickness = Vector2i(1, 2)
 branch_chance = Vector2(0.03, 0.1)
 max_branch_depth = Vector2i(1, 2)

@@ -5,8 +5,9 @@
 [resource]
 script = ExtResource("1_mtx12")
 name = "short"
-pixel_size = 2
-total_length = Vector2i(30, 100)
+weight = 0.3
+pixel_size = 1
+total_length = Vector2i(50, 120)
 thickness = Vector2i(1, 2)
 branch_chance = Vector2(0.03, 0.1)
 max_branch_depth = Vector2i(1, 2)

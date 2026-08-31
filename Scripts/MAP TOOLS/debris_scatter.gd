@@ -2,15 +2,15 @@
 extends Node2D
 class_name DebrisScatter
 
-## Dossier contenant les .tres générés par ton script de découpe (un par slice)
-@export_dir var debris_textures_folder: String = "":
-	set(value):
-		debris_textures_folder = value
-		_load_regions_from_folder()
-		queue_redraw()
-
-## Textures chargées automatiquement depuis debris_textures_folder
 @export var debris_textures: Array[Texture2D] = []
+
+
+@export_group("Density")
+## Debris per 1000 virtual pixels of area. The count is derived from the patch
+## area, then clamped: a small patch never gets 50 items, a large one never 10.
+@export var density_per_1000: float = 60.0
+@export var item_count_min: int = 10
+@export var item_count_max: int = 50
 
 ## Taille de la zone de dispersion, en pixels virtuels (grille pixel art)
 @export var bounds_size: Vector2i = Vector2i(64, 64):
@@ -20,8 +20,6 @@ class_name DebrisScatter
 
 @export var pixel_size: int = 4
 
-## Nombre de débris à placer
-@export_range(0, 500, 1) var item_count: int = 30
 
 ## Distance minimale entre deux débris, en pixels virtuels (0 = désactivé, autorise le chevauchement)
 @export var min_distance: int = 3
@@ -31,55 +29,27 @@ class_name DebrisScatter
 
 @export var rng_seed: int = 0
 
-@export_tool_button("Recharger les .tres du dossier") var reload_folder_btn: Callable = _load_regions_from_folder
 @export_tool_button("Générer") var generate_btn: Callable = generate
 @export_tool_button("Effacer") var clear_btn: Callable = clear_debris
-
-
-func _load_regions_from_folder() -> void:
-	if debris_textures_folder.is_empty():
-		return
-	if not DirAccess.dir_exists_absolute(debris_textures_folder):
-		push_warning("DebrisScatterArea2D: dossier introuvable : %s" % debris_textures_folder)
-		return
-
-	var dir := DirAccess.open(debris_textures_folder)
-	if dir == null:
-		push_warning("DebrisScatterArea2D: impossible d'ouvrir le dossier : %s" % debris_textures_folder)
-		return
-
-	var loaded: Array[Texture2D] = []
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
-	while file_name != "":
-		if not dir.current_is_dir() and file_name.get_extension() == "tres":
-			var res_path := debris_textures_folder.path_join(file_name)
-			var res := load(res_path)
-			if res is Texture2D:
-				loaded.append(res)
-			else:
-				push_warning("DebrisScatterArea2D: %s n'est pas une Texture2D, ignoré." % file_name)
-		file_name = dir.get_next()
-	dir.list_dir_end()
-
-	# Tri alphabétique pour un ordre stable et reproductible entre deux rechargements
-	loaded.sort_custom(func(a: Texture2D, b: Texture2D) -> bool: return a.resource_path < b.resource_path)
-
-	debris_textures = loaded
-	print("DebrisScatterArea2D: %d textures chargées depuis %s" % [loaded.size(), debris_textures_folder])
 
 
 func generate() -> void:
 	if not is_inside_tree():
 		return
 	if debris_textures.is_empty():
-		push_warning("DebrisScatterArea2D: assigne debris_textures_folder et recharge, ou remplis debris_textures manuellement.")
+		push_warning("DebrisScatter: debris_textures is empty, fill it in the inspector.")
 		return
-
 	clear_debris()
-
 	var rng := RandomNumberGenerator.new()
 	rng.seed = rng_seed
+
+	# Area-driven count, with a random band so two patches of the same size do
+	# not end up with the same density.
+	var area: float = float(bounds_size.x * bounds_size.y)
+	var base: int = int(round(area / 1000.0 * density_per_1000))
+	var high: int = clampi(base, item_count_min, item_count_max)
+	var low: int = clampi(int(round(float(base) * 0.6)), item_count_min, high)
+	var item_count: int = rng.randi_range(low, high)
 
 	var placed_positions: Array[Vector2] = []
 	var max_attempts_per_item := 30

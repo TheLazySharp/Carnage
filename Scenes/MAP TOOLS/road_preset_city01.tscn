@@ -37,7 +37,7 @@ coverage_ratio = 0.46
 avg_gap_length = 2.07
 fade_start_length = 4.175
 fade_end_length = 33.725
-fade_curve_power = 3.9000000000000004
+fade_curve_power = 3.9
 color = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 metadata/_custom_type_script = "uid://b40y10gh6j4su"
 
@@ -74,7 +74,7 @@ detail_color = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 metadata/_custom_type_script = "uid://bnsu6pjykxkf1"
 
 [node name="StampLayer" type="Node2D" parent="." unique_id=801594754]
-modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
+modulate = Color(0.101960786, 0.10980392, 0.101960786, 0.50980395)
 
 [node name="DetailLayer" type="Node2D" parent="." unique_id=2104877034]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)

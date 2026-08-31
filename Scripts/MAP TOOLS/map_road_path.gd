@@ -9,6 +9,17 @@ class_name MapRoadPaths
 ##     instead of a perpendicular grid
 ## get_lane_polylines() exposes the same lanes for any other follower (Line2D...).
 
+## Hard cap on the number of turn arcs at one intersection. Bends are exempt:
+## there the arc IS the road. This is the main density knob.
+@export var max_turns_per_node : int = 6
+
+@export_group("Turn templates")
+## Optional. Leave empty to reuse the straight templates. A dedicated brush with
+## fade_start_length / fade_end_length set lets the arcs thin out at the
+## intersection centre instead of piling up.
+@export var street_turn_template : PackedScene = null
+@export var artery_turn_template : PackedScene = null
+
 @export var street_template : PackedScene = null   # Path2D-based scene (e.g. RoadBrushPath2D)
 @export var artery_template : PackedScene = null   # optional, falls back on street_template
 @export var use_map_seed : bool = true             # rng_seed = map seed + index (deterministic)
@@ -30,6 +41,14 @@ class_name MapRoadPaths
 ## Random lateral offset applied to each lane path, in pixels.
 @export var lane_jitter_px : float = 6.0
 @export var connection_overlap_px : float = 8.0
+## Lateral wander applied along a straight lane, in pixels. Turns a ruler-straight
+## band into a slow wave, which is what kills the plaid look at crossings.
+@export var lane_wander_px : float = 12.0
+## Distance between two wander control points, in pixels
+@export var lane_wander_step_px : float = 320.0
+## Share of lanes actually worn. Below 1, some lanes stay clean and the grid
+## stops reading as a printed pattern.
+@export_range(0.0, 1.0, 0.05) var lane_chance : float = 0.85
 
 const BEZIER_CIRCLE_K : float = 0.5523  # quarter-circle bezier handle ratio
 
@@ -51,9 +70,9 @@ func build(data : MapData) -> void:
 	if build_straights:
 		for lane : Dictionary in get_lane_polylines(data):
 			_spawn_path(lane["points"], lane["artery"])
-	if build_turns:
-		for arc : Dictionary in get_turn_arcs(data):
-			_spawn_path(arc["points"], arc["artery"], arc["handles"])
+		if build_turns:
+			for arc : Dictionary in get_turn_arcs(data):
+				_spawn_path(arc["points"], arc["artery"], arc["handles"], true)
 
 	print("[MapRoadPaths] built ", _built, " lane paths")
 
@@ -129,10 +148,25 @@ func get_lane_polylines(data : MapData) -> Array[Dictionary]:
 			continue  # run too short once shortened
 
 		for offset : float in _lane_offsets(data, artery):
+			if _rng.randf() > lane_chance:
+				continue
 			var jitter : float = _rng.randf_range(-lane_jitter_px, lane_jitter_px)
 			var shift : Vector2 = perp * (offset + jitter)
+
+			# Wandering polyline: the ends stay exact so the lane still meets the
+			# turn arcs, only the middle drifts.
+			var run_length : float = start.distance_to(stop)
+			var steps : int = maxi(int(run_length / lane_wander_step_px), 1)
+			var points : PackedVector2Array = PackedVector2Array()
+			for s : int in steps + 1:
+				var t : float = float(s) / float(steps)
+				var wander : float = 0.0
+				if s > 0 and s < steps:
+					wander = _rng.randf_range(-lane_wander_px, lane_wander_px)
+				points.append(start.lerp(stop, t) + shift + perp * wander)
+
 			result.append({
-				"points": PackedVector2Array([start + shift, stop + shift]),
+				"points": points,
 				"artery": artery,
 				"offset": offset,
 			})
@@ -154,8 +188,8 @@ func _lane_offsets(data : MapData, artery : bool) -> PackedFloat32Array:
 # TURN ARCS
 # =================================================================
 func get_turn_arcs(data : MapData) -> Array[Dictionary]:
-	# One bezier per LANE PAIR, not one per intersection. A bend curves all its
-	# lanes; an intersection draws every plausible car trajectory at turn_chance.
+	# One bezier per LANE PAIR, capped per node. A bend curves all its lanes;
+	# an intersection keeps at most max_turns_per_node trajectories.
 	var px : float = float(data.cell_size)
 	var lane_w : float = float(data.lane_width_px)
 	var radius : float = lane_w * corner_radius_lanes
@@ -173,6 +207,8 @@ func get_turn_arcs(data : MapData) -> Array[Dictionary]:
 		var edge_list : Array = incident[n]
 		var is_bend : bool = edge_list.size() == 2
 		var center : Vector2 = data.nodes[n] * px
+		var node_arcs : Array[Dictionary] = []
+
 		for i : int in edge_list.size():
 			for j : int in range(i + 1, edge_list.size()):
 				var e1 : int = edge_list[i]
@@ -183,15 +219,22 @@ func get_turn_arcs(data : MapData) -> Array[Dictionary]:
 					continue  # collinear: no corner here
 				var artery : bool = data.edge_is_artery[e1] or data.edge_is_artery[e2]
 				for pair : Array in _lane_pairs(data, center, d1, d2, e1, e2, radius, is_bend):
-					result.append(_make_arc(pair[0], pair[1], d1, d2, artery))
+					node_arcs.append(_make_arc(pair[0], pair[1], d1, d2, artery))
+
+		# Thin out the intersection: a random subset reads as worn trajectories,
+		# the full set reads as a repainted junction box.
+		if not is_bend and node_arcs.size() > max_turns_per_node:
+			_shuffle_arcs(node_arcs)
+			node_arcs.resize(max_turns_per_node)
+		result.append_array(node_arcs)
 	return result
 
 func _lane_pairs(data : MapData, center : Vector2, d1 : Vector2, d2 : Vector2,
 		e1 : int, e2 : int, radius : float, is_bend : bool) -> Array[Array]:
-	# BEND: the road itself turns, so every lane must curve. Lane o1 maps to
-	# lane -o1, which keeps each lane on the same side of the road band.
-	# INTERSECTION: every lane-to-lane combination is a possible trajectory.
-	# Drawing them at turn_chance is what builds the wide outer turns.
+	# Lane o1 joins lane -o1: with d1 and d2 both pointing AWAY from the node,
+	# that mapping keeps each lane on the same side of the roadway. It yields one
+	# arc per lane, from the tight inner corner to the wide outer sweep, instead
+	# of collapsing every lane onto the innermost trajectory.
 	var perp1 : Vector2 = Vector2(-d1.y, d1.x)
 	var perp2 : Vector2 = Vector2(-d2.y, d2.x)
 	var margin1 : float = data.edge_width_px(e1) * 0.5 + radius
@@ -201,17 +244,23 @@ func _lane_pairs(data : MapData, center : Vector2, d1 : Vector2, d2 : Vector2,
 
 	var pairs : Array[Array] = []
 	for o1 : float in offsets1:
-		var p0 : Vector2 = center + d1 * margin2 + perp1 * o1
-		if is_bend:
-			var o2 : float = _nearest_offset(offsets2, -o1)
-			pairs.append([p0, center + d2 * margin1 + perp2 * o2])
+		if not is_bend and _rng.randf() > turn_chance:
 			continue
-		for o2 : float in offsets2:
-			if _rng.randf() > turn_chance:
-				continue
-			pairs.append([p0, center + d2 * margin1 + perp2 * o2])
+		var o2 : float = _nearest_offset(offsets2, -o1)
+		pairs.append([
+			center + d1 * margin2 + perp1 * o1,
+			center + d2 * margin1 + perp2 * o2,
+		])
 	return pairs
 
+func _shuffle_arcs(values : Array[Dictionary]) -> void:
+	# Fisher-Yates on the seeded rng: Array.shuffle() uses the global one and
+	# would break determinism.
+	for i : int in range(values.size() - 1, 0, -1):
+		var j : int = _rng.randi_range(0, i)
+		var tmp : Dictionary = values[i]
+		values[i] = values[j]
+		values[j] = tmp
 
 func _nearest_offset(offsets : PackedFloat32Array, target : float) -> float:
 	# Handles a bend between roads of different lane counts
@@ -312,8 +361,12 @@ func _dir_sign(from_pos : Vector2, to_pos : Vector2) -> Vector2i:
 # =================================================================
 # SPAWN
 # =================================================================
-func _spawn_path(points : PackedVector2Array, artery : bool, handles : PackedVector2Array = PackedVector2Array()) -> void:
-	var template : PackedScene = artery_template if artery else street_template
+func _spawn_path(points : PackedVector2Array, artery : bool, handles : PackedVector2Array = PackedVector2Array(), is_turn : bool = false) -> void:
+	var template : PackedScene = null
+	if is_turn:
+		template = artery_turn_template if artery else street_turn_template
+	if template == null:
+		template = artery_template if artery else street_template
 	if template == null:
 		template = street_template
 	var path : Path2D = template.instantiate() as Path2D
@@ -331,6 +384,13 @@ func _spawn_path(points : PackedVector2Array, artery : bool, handles : PackedVec
 				handle_out = handles[i]
 			else:
 				handle_in = handles[i]
+		elif points.size() > 2:
+			# Catmull-Rom style tangents: keeps the wandering lane smooth
+			var previous : Vector2 = points[maxi(i - 1, 0)]
+			var following : Vector2 = points[mini(i + 1, points.size() - 1)]
+			var tangent : Vector2 = (following - previous) * 0.25
+			handle_in = -tangent
+			handle_out = tangent
 		curve.add_point(points[i], handle_in, handle_out)
 
 	path.curve = curve                      # set BEFORE add_child so the tool's _ready sees it

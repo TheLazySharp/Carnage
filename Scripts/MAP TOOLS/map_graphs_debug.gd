@@ -130,10 +130,11 @@ func generate_async() -> void:
 	_build_sidewalks()
 	await get_tree().process_frame
 
-	LoadingScreen.set_step(3, BUILD_STEPS, "Adding cables and markings...")
+	LoadingScreen.set_step(3, BUILD_STEPS, "Adding cables, markings, trashes...")
 	_build_cables()
 	_build_road_lines()
 	_build_road_marks()
+	_build_debris()
 	await get_tree().process_frame
 
 	
@@ -468,6 +469,24 @@ func _find_road_lines(node : Node) -> MapRoadLines:
 		return node as MapRoadLines
 	for child : Node in node.get_children():
 		var found : MapRoadLines = _find_road_lines(child)
+		if found != null:
+			return found
+	return null
+
+
+func _build_debris() -> void:
+	var debris : MapDebris = _find_debris(get_tree().root)
+	if debris == null:
+		print("[MapGraph] no MapDebris node found in the scene -> debris skipped")
+		return
+	debris.build(data)
+
+
+func _find_debris(node : Node) -> MapDebris:
+	if node is MapDebris:
+		return node as MapDebris
+	for child : Node in node.get_children():
+		var found : MapDebris = _find_debris(child)
 		if found != null:
 			return found
 	return null

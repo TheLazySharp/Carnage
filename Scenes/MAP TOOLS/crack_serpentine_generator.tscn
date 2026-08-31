@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c3p45wsyrksps"]
+
+[ext_resource type="Script" uid="uid://4dsvxjn84gim" path="res://Scripts/MAP TOOLS/serpentine_crack_generator.gd" id="1_ni3p7"]
+[ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/crack_draw_surface.gd" id="2_dmpna"]
+
+[node name="CrackSerpentineGenerator" type="Node2D" unique_id=753495024]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.007843138)
+z_index = 2
+script = ExtResource("1_ni3p7")
+
+[node name="DrawSurface" type="Node2D" parent="." unique_id=1122329693]
+script = ExtResource("2_dmpna")

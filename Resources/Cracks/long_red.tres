@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CrackData" format=3 uid="uid://g00vc4t1rmly"]
+
+[ext_resource type="Script" uid="uid://17mat7dxfbnv" path="res://Resources/Scripts/crack_data.gd" id="1_06sbx"]
+
+[resource]
+script = ExtResource("1_06sbx")
+name = "long_red_pulse"
+weight = 1.2
+pixel_size = 1
+total_length = Vector2i(80, 200)
+thickness = Vector2i(1, 2)
+branch_chance = Vector2(0.03, 0.1)
+max_branch_depth = Vector2i(1, 2)
+color = Color(1, 0, 0, 1)
+pulse_ratio = 1.0
+pulse_color_high = Color(5.913, 0.545, 0.268, 1)
+metadata/_custom_type_script = "uid://17mat7dxfbnv"

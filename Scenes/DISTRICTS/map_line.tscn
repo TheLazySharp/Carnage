@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1x3sw3es8h4c"]
 
-[ext_resource type="Texture2D" uid="uid://ff3gqrjh6v8c" path="res://Assets/TilesBNW/map_road.png" id="1_wbwbo"]
+[ext_resource type="Texture2D" uid="uid://sg8puwr1kr2l" path="res://Assets/VFX/white_stain_6.png" id="1_wbwbo"]
 
 [node name="MapLine" type="Line2D" unique_id=890032558]
 texture_repeat = 2

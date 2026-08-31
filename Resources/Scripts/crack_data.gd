@@ -50,3 +50,16 @@ enum Orientation {
 @export var color : Color = Color(0, 0, 0, 1)
 ## Random alpha variation, so a group of cracks does not read as one flat layer
 @export_range(0.0, 1.0, 0.05) var alpha_jitter : float = 0.0
+
+@export_group("Pulse")
+## Share of this family that pulses. A pulsing crack is NEVER baked: it stays a
+## live node with its own tween, so keep this low.
+@export_range(0.0, 1.0, 0.05) var pulse_ratio : float = 0.0
+## Dim and bright ends of the cycle. Components above 1.0 are HDR values: that
+## is what the WorldEnvironment glow pass blooms.
+@export var pulse_color_low : Color = Color(0.35, 0.02, 0.02, 1.0)
+@export var pulse_color_high : Color = Color(4.0, 0.35, 0.15, 1.0)
+## Seconds for one half-cycle (low -> high), rolled per crack
+@export var pulse_duration : Vector2 = Vector2(0.8, 1.8)
+## Random delay before the first cycle, so the cracks never breathe in sync
+@export var pulse_start_delay : Vector2 = Vector2(0.0, 2.0)

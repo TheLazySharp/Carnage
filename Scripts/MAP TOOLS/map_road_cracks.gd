@@ -24,7 +24,7 @@ var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var _placed : Array[Vector2] = []
 var _edge_cumulative : PackedFloat32Array = PackedFloat32Array()
 var _edge_total : float = 0.0
-
+var _live_holder : Node2D = null
 
 func build(data : MapData) -> void:
 	for child : Node in get_children():
@@ -40,6 +40,11 @@ func build(data : MapData) -> void:
 		return
 
 	_rng.seed = data.seed_used ^ 0xC4AC5  # own stream
+	# Pulsing cracks live here: this node is kept out of the bake so its tween
+	# can keep running.
+	_live_holder = Node2D.new()
+	_live_holder.name = "LiveCracks"
+	add_child(_live_holder)
 	_build_edge_table()
 
 	var road_cells : int = _count_road_cells()
@@ -203,12 +208,26 @@ func _spawn(profile : CrackData, position_px : Vector2, angle_degrees : float) -
 	crack.max_branch_depth = _rng.randi_range(profile.max_branch_depth.x, profile.max_branch_depth.y)
 	crack.thickness_falloff_per_depth = profile.thickness_falloff_per_depth
 
-	var color : Color = profile.color
-	color.a = clampf(color.a + _rng.randf_range(-profile.alpha_jitter, profile.alpha_jitter), 0.0, 1.0)
-	crack.crack_color = color
+	var pulsing : bool = _rng.randf() < profile.pulse_ratio
+	if pulsing:
+		crack.crack_color = profile.pulse_color_low
+	else:
+		var color : Color = profile.color
+		color.a = clampf(color.a + _rng.randf_range(-profile.alpha_jitter, profile.alpha_jitter), 0.0, 1.0)
+		crack.crack_color = color
 	crack.rng_seed = int(_rng.randi())
 
-	add_child(crack)
+	if not pulsing:
+		add_child(crack)
+		return
+
+	_live_holder.add_child(crack)
+	var pulse : CrackPulse = CrackPulse.new()
+	pulse.color_low = profile.pulse_color_low
+	pulse.color_high = profile.pulse_color_high
+	pulse.duration = _rng.randf_range(profile.pulse_duration.x, profile.pulse_duration.y)
+	pulse.start_delay = _rng.randf_range(profile.pulse_start_delay.x, profile.pulse_start_delay.y)
+	crack.add_child(pulse)
 
 
 # =================================================================
@@ -217,9 +236,15 @@ func _spawn(profile : CrackData, position_px : Vector2, angle_degrees : float) -
 func _bake(size_px : Vector2i) -> void:
 	# Same technique as MapRoadPaths: the generator emits one draw_rect per
 	# virtual pixel, which is fine once and ruinous every frame.
+	
+	
 	var holder : Node2D = Node2D.new()
 	holder.name = "BakeSource"
-	var sources : Array[Node] = get_children()
+	var sources : Array[Node] = []
+	for child : Node in get_children():
+		if child == _live_holder:
+			continue
+		sources.append(child)
 	add_child(holder)
 	for child : Node in sources:
 		remove_child(child)
@@ -246,4 +271,7 @@ func _bake(size_px : Vector2i) -> void:
 
 	if free_sources_after_bake:
 		holder.queue_free()
+		# The baked sprite was added last, so it would cover the live cracks
+	if _live_holder != null and is_instance_valid(_live_holder):
+		move_child(_live_holder, get_child_count() - 1)
 	print("[MapRoadCracks] baked cracks into a %s texture" % str(size_px))

@@ -47,7 +47,8 @@ var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var _placed : int = 0
 
 func _ready() -> void:
-	district_type = RoadMapManager.last_district.type
+	if !GameMaster.is_debug():
+		district_type = RoadMapManager.last_district.type
 
 func build(data : MapData) -> void:
 	for child : Node in get_children():
