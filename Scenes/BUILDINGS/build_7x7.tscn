@@ -667,12 +667,11 @@ sources/0 = SubResource("TileSetAtlasSource_dp1ot")
 [node name="Building" type="Node2D" unique_id=330276966 groups=["walls"]]
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=161899436]
-z_index = 13
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=544689494]
 script = ExtResource("1_w8wbx")
 building_size = Vector2i(224, 224)
-shadow_length = 28
+shadow_length = 16
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
@@ -687,11 +686,10 @@ offset_bottom = 222.0
 texture = ExtResource("1_p3k1n")
 
 [node name="ShadowsRoof" type="Node2D" parent="." unique_id=763189409]
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsRoof" unique_id=574340240]
-modulate = Color(1, 1, 1, 0.74509805)
 position = Vector2(43.670403, 161.91653)
 script = ExtResource("1_w8wbx")
 building_size = Vector2i(40, 26)
@@ -700,7 +698,6 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow2" type="Node2D" parent="ShadowsRoof" unique_id=1815427829]
-modulate = Color(1, 1, 1, 0.74509805)
 position = Vector2(136.77348, 57.858887)
 script = ExtResource("1_w8wbx")
 building_size = Vector2i(64, 64)
@@ -709,7 +706,6 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow3" type="Node2D" parent="ShadowsRoof" unique_id=2032578441]
-modulate = Color(1, 1, 1, 0.74509805)
 position = Vector2(31.20998, 58.20197)
 script = ExtResource("1_w8wbx")
 building_size = Vector2i(64, 64)
@@ -718,7 +714,6 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
-modulate = Color(1, 1, 1, 0.74509805)
 position = Vector2(12.894195, 8.432374)
 script = ExtResource("1_w8wbx")
 building_size = Vector2i(4, 200)
@@ -727,7 +722,6 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=742358665]
-modulate = Color(1, 1, 1, 0.74509805)
 position = Vector2(21.745312, 12.375831)
 script = ExtResource("1_w8wbx")
 building_size = Vector2i(63, 4)
@@ -759,6 +753,5 @@ centered = false
 z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
-z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAATAAEAAAABAAAAAAAUAAEAAAACAAAAAAAUAAEAAAADAAAAAAAUAAEAAAAEAAAAAAAUAAEAAAAAAAEAAAARAAQAAAAAAAIAAAARAAQAAAAAAAMAAAARAAQAAAAAAAQAAAARAAQAAAAAAAYAAAATAAcAAAAGAAYAAAAVAAcAAAABAAYAAAAUAAcAAAACAAYAAAAUAAcAAAADAAYAAAAUAAcAAAAEAAYAAAAUAAcAAAAFAAYAAAAUAAcAAAAGAAAAAAAVAAEAAAAFAAAAAAAUAAEAAAAGAAEAAAAXAAQAAAAGAAIAAAAXAAQAAAAGAAMAAAAXAAQAAAAGAAQAAAAXAAQAAAAGAAUAAAAXAAQAAAAAAAUAAAARAAQAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

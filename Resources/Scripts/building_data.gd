@@ -43,6 +43,10 @@ enum Kind {
 ## Which map corner a CORNER piece is drawn for. Ignored for the other kinds.
 ## Nothing is rotated, so each of the 4 map corners needs its own asset.
 @export_enum("Top left:0", "Top right:1", "Bottom right:2", "Bottom left:3") var belt_corner : int = 0
+## Visual height tier. A building receives the shadows of buildings from a
+## STRICTLY higher tier only. 0 = flat roof; raise it for the ones you drew
+## with a longer drop shadow.
+@export_range(0, 3, 1) var height_level : int = 0
 
 ## True when this building is the mandatory one of a district
 func is_district_specific() -> bool:

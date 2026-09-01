@@ -665,12 +665,11 @@ sources/0 = SubResource("TileSetAtlasSource_dp1ot")
 [node name="Building" type="Node2D" unique_id=330276966 groups=["walls"]]
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=1231709460]
-z_index = 13
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=544689494]
 script = ExtResource("1_83vid")
 building_size = Vector2i(192, 512)
-shadow_length = 26
+shadow_length = 16
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
@@ -685,8 +684,7 @@ offset_bottom = 510.0
 texture = ExtResource("2_klm2i")
 
 [node name="ShadowsRoof" type="Node2D" parent="." unique_id=1409990842]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 
 [node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
@@ -706,8 +704,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof2" type="Node2D" parent="." unique_id=42130536]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 32)
 
@@ -728,8 +725,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof3" type="Node2D" parent="." unique_id=777544673]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 64)
 
@@ -750,8 +746,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof4" type="Node2D" parent="." unique_id=824980363]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 96)
 
@@ -772,8 +767,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof5" type="Node2D" parent="." unique_id=1078551112]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 128)
 
@@ -794,8 +788,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof6" type="Node2D" parent="." unique_id=1082442526]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 160)
 
@@ -816,8 +809,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof7" type="Node2D" parent="." unique_id=1680325711]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 192)
 
@@ -838,8 +830,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof8" type="Node2D" parent="." unique_id=467031586]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 224)
 
@@ -860,8 +851,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof9" type="Node2D" parent="." unique_id=1388602178]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 256)
 
@@ -882,8 +872,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof10" type="Node2D" parent="." unique_id=2004908374]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 288)
 
@@ -904,8 +893,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof11" type="Node2D" parent="." unique_id=935940781]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 320)
 
@@ -926,8 +914,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof12" type="Node2D" parent="." unique_id=1495111198]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 352)
 
@@ -948,8 +935,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof13" type="Node2D" parent="." unique_id=891625447]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 384)
 
@@ -970,8 +956,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof14" type="Node2D" parent="." unique_id=1386466395]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 416)
 
@@ -992,8 +977,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof15" type="Node2D" parent="." unique_id=1874192933]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 448)
 
@@ -1014,8 +998,7 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="ShadowsRoof16" type="Node2D" parent="." unique_id=1867697442]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 position = Vector2(0, 480)
 
@@ -1042,6 +1025,5 @@ z_index = 19
 z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
-z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAAJABMAAAAFAAAAAAAPABMAAAABAAAAAAAOABMAAAACAAAAAAAOABMAAAADAAAAAAAOABMAAAAEAAAAAAAOABMAAAAFAA4AAAAPABQAAAAFAA0AAAAPABQAAAAFAAwAAAAPABQAAAAFAAsAAAAPABQAAAAFAAoAAAAPABQAAAAFAAkAAAAPABQAAAAFAAgAAAAPABQAAAAFAAcAAAAPABQAAAAFAAYAAAAPABQAAAAFAAUAAAAPABQAAAAFAAQAAAAPABQAAAAFAAMAAAAPABQAAAAFAAIAAAAPABQAAAAFAAEAAAAPABQAAAAFAA8AAAANABcAAAAAAA8AAAALABcAAAABAA8AAAAMABcAAAACAA8AAAAMABcAAAADAA8AAAAMABcAAAAEAA8AAAAMABcAAAAAAA4AAAAJABQAAAAAAA0AAAAJABQAAAAAAAwAAAAJABQAAAAAAAsAAAAJABQAAAAAAAoAAAAJABQAAAAAAAkAAAAJABQAAAAAAAgAAAAJABQAAAAAAAcAAAAJABQAAAAAAAYAAAAJABQAAAAAAAUAAAAJABQAAAAAAAQAAAAJABQAAAAAAAMAAAAJABQAAAAAAAIAAAAJABQAAAAAAAEAAAAJABQAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

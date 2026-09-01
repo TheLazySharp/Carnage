@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://gmjjc1vmgcds"]
 
 [ext_resource type="Script" uid="uid://ddjt1ymblxnbi" path="res://Scripts/SCENES/main_menu.gd" id="1_ovrvl"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="2_go0pc"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_b85ns"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="3_ghgot"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="3_oghu7"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_k2e8w"]
 [ext_resource type="Texture2D" uid="uid://cvucrddbvgxsw" path="res://Assets/UI/empty_32x32.png" id="4_oghu7"]
-[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="6_xmbfm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
 
@@ -37,6 +37,9 @@ offset_left = -637.0
 offset_right = 639.0
 offset_bottom = 113.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.7764706, 0, 1)
+theme_override_fonts/font = ExtResource("2_go0pc")
+theme_override_font_sizes/font_size = 54
 text = "TURBO SLAYER"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -81,7 +84,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24
-theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_fonts/font = ExtResource("2_go0pc")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "START"
@@ -93,7 +96,7 @@ script = ExtResource("4_k2e8w")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24
-theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_fonts/font = ExtResource("2_go0pc")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "GOD MODE"
@@ -105,7 +108,7 @@ script = ExtResource("4_k2e8w")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24
-theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_fonts/font = ExtResource("2_go0pc")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "SANDBOX"
@@ -116,9 +119,9 @@ script = ExtResource("4_k2e8w")
 [node name="Race" type="Button" parent="VBoxContainer" unique_id=1116588153]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_colors/font_color = Color(1, 0.7764706, 0, 1)
 theme_override_constants/h_separation = 24
-theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_fonts/font = ExtResource("2_go0pc")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "RACE"
@@ -130,7 +133,7 @@ script = ExtResource("4_k2e8w")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24
-theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_fonts/font = ExtResource("2_go0pc")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "COMMANDS"
@@ -142,7 +145,7 @@ script = ExtResource("4_k2e8w")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24
-theme_override_fonts/font = ExtResource("6_xmbfm")
+theme_override_fonts/font = ExtResource("2_go0pc")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "QUIT"

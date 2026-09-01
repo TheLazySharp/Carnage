@@ -383,21 +383,31 @@ func _find_sidewalks(node : Node) -> MapSidewalks:
 
 
 func _bake_shadows() -> void:
-	var shadows : MapShadowsGround = _find_shadows_ground(get_tree().root)
-	if shadows == null:
+	var layers : Array[MapShadowsGround] = []
+	_find_shadows_grounds(get_tree().root, layers)
+	if layers.is_empty():
 		print("[MapGraph] no MapShadowsGround node found in the scene -> shadows not baked")
 		return
-	shadows.bake(Vector2i(data.map_size_cells) * data.cell_size)
+
+	# Bottom-up: a layer only ever subtracts what is drawn ABOVE it
+	layers.sort_custom(func(a : MapShadowsGround, b : MapShadowsGround) -> bool:
+		return a.z_index < b.z_index)
+
+	for shadows : MapShadowsGround in layers:
+		await shadows.bake(Vector2i(data.map_size_cells) * data.cell_size)
+
+	for i : int in layers.size():
+		for j : int in range(i + 1, layers.size()):
+			layers[i].subtract_layer(layers[j])
+	for shadows : MapShadowsGround in layers:
+		shadows.finalize_bake()
 
 
-func _find_shadows_ground(node : Node) -> MapShadowsGround:
+func _find_shadows_grounds(node : Node, out : Array[MapShadowsGround]) -> void:
 	if node is MapShadowsGround:
-		return node as MapShadowsGround
+		out.append(node as MapShadowsGround)
 	for child : Node in node.get_children():
-		var found : MapShadowsGround = _find_shadows_ground(child)
-		if found != null:
-			return found
-	return null
+		_find_shadows_grounds(child, out)
 
 
 func _build_cables() -> void:

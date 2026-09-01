@@ -666,12 +666,11 @@ sources/0 = SubResource("TileSetAtlasSource_dp1ot")
 [node name="Building" type="Node2D" unique_id=330276966 groups=["walls"]]
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=1231709460]
-z_index = 13
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=544689494]
 script = ExtResource("1_e8p3s")
 building_size = Vector2i(96, 192)
-shadow_length = 9
+shadow_length = 8
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
@@ -686,8 +685,7 @@ offset_bottom = 192.0
 texture = ExtResource("2_r2qnj")
 
 [node name="ShadowsRoof" type="Node2D" parent="." unique_id=1409990842]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 
 [node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
@@ -721,6 +719,5 @@ texture = ExtResource("3_o25wc")
 z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
-z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAADAAkAAAACAAAAAAAFAAkAAAACAAUAAAAFAA8AAAAAAAUAAAADAA8AAAABAAUAAAAEAA8AAAABAAAAAAAEAAkAAAACAAEAAAAFAAoAAAACAAIAAAAFAAoAAAACAAMAAAAFAAoAAAACAAQAAAAFAAoAAAAAAAEAAAADAAoAAAAAAAIAAAADAAoAAAAAAAMAAAADAAoAAAAAAAQAAAADAAoAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

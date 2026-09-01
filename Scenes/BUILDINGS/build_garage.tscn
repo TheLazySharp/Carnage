@@ -698,12 +698,11 @@ unlock_timer = 10.0
 spawnable_item_res = ExtResource("2_bdyik")
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=960865488]
-z_index = 13
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=216247711]
 script = ExtResource("3_iah4i")
 building_size = Vector2i(192, 192)
-shadow_length = 20
+shadow_length = 16
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
@@ -719,8 +718,7 @@ texture = ExtResource("4_afsi6")
 metadata/_edit_use_anchors_ = true
 
 [node name="ShadowsRoof" type="Node2D" parent="." unique_id=1689089194]
-modulate = Color(1, 1, 1, 0.8235294)
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsRoof" unique_id=239513565]
@@ -785,7 +783,6 @@ centered = false
 z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=2134493102 groups=["walls"]]
-z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAATAAkAAAAFAAAAAAAVAAkAAAAFAAUAAAAXAA0AAAAAAAUAAAARAA0AAAABAAAAAAAUAAkAAAACAAAAAAAUAAkAAAADAAAAAAAUAAkAAAAEAAAAAAAUAAkAAAAFAAEAAAAXAAwAAAAFAAIAAAAXAAwAAAAFAAMAAAAXAAwAAAAFAAQAAAAXAAwAAAABAAUAAAAUAA8AAAACAAUAAAAUAA8AAAADAAUAAAAUAA8AAAAEAAUAAAAUAA8AAAAAAAEAAAARAAwAAAAAAAIAAAARAAwAAAAAAAMAAAARAAwAAAAAAAQAAAARAAwAAAA=")
 tile_set = SubResource("TileSet_gek1x")
 

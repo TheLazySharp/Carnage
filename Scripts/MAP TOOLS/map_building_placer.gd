@@ -29,9 +29,20 @@ const SIDE_LEFT : int = 3
 ## Turn every remaining FREE cell into SIDEWALK once placement is done
 @export var finalize_sidewalks : bool = true
 ## Depth of the belt buildings, in cells (they all share it by design).
-
-
-
+## Shadow layer for buildings with height_level > 0. Put this node AFTER the
+## buildings in the scene, with a higher z_index, so its shadows land on the
+## roofs of the lower ones. Empty = every shadow goes to shadows_ground.
+@export var shadows_ground_high : MapShadowsGround = null
+## z_index gap between two height tiers, relative to this node. Must exceed the
+## highest z_index used inside a building scene (Edges = 20), otherwise a tall
+## building's own layers fall back under the upper shadow layer.
+@export var height_z_step : int = 25
+## Name of the node holding the ROOF shadows inside a building scene
+@export var roof_shadow_source_name : String = "ShadowsRoof"
+## Roof shadow layers, one per height tier. Same role as shadows_ground /
+## shadows_ground_high, but for the shadows cast ON the roof by its own props.
+@export var shadows_roof : MapShadowsGround = null
+@export var shadows_roof_high : MapShadowsGround = null
 
 ## Footprint cells of every placed building: feed this to the flow field
 ## (FlowFieldManager.add_obstacles) and to the horde wall grid.
@@ -58,6 +69,11 @@ func build(data : MapData) -> void:
 	_placed = 0
 	if shadows_ground != null:
 		shadows_ground.clear_shadows()
+	if shadows_ground_high != null:
+		shadows_ground_high.clear_shadows()
+	for layer : MapShadowsGround in [shadows_ground, shadows_ground_high, shadows_roof, shadows_roof_high]:
+		if layer != null:
+			layer.clear_shadows()
 
 	if pool == null:
 		push_error("[MapBuildingsPlacer] no BuildingPool assigned")
@@ -78,21 +94,23 @@ func build(data : MapData) -> void:
 		_data.finalize_sidewalks()
 
 	print("[MapBuildingsPlacer] placed ", _placed, " buildings")
+	print("[MapBuildingsPlacer] low layer=", shadows_ground != null,
+			" high layer=", shadows_ground_high != null,
+			" | placed ", _placed, " buildings")
 
-
-func _collect_ground_shadows(instance : Node2D) -> void:
-	# Moves the building's ground shadows to the shared layer, keeping their
-	# world position. Roof shadows stay in the building: they are authored
-	# without overlap, so they need no global compositing.
-	if shadows_ground == null:
+func _collect_shadows(instance : Node2D, source_name : String, layer : MapShadowsGround) -> void:
+	# Moves one shadow group to its layer, keeping world positions. Compositing
+	# happens once per layer at bake time, so overlapping sources never
+	# accumulate their alpha.
+	if layer == null:
 		return
-	var source : Node2D = instance.get_node_or_null(shadow_source_name) as Node2D
+	var source : Node2D = instance.get_node_or_null(source_name) as Node2D
 	if source == null:
 		return
 	for shadow : Node in source.get_children():
 		var item : Node2D = shadow as Node2D
 		if item != null:
-			shadows_ground.collect(item)
+			layer.collect(item)
 
 
 ## Fails fast with an explicit message instead of a silent empty result
@@ -360,8 +378,13 @@ func _place(data : BuildingData, rect : Rect2i) -> void:
 	instance.position = Vector2(rect.position) * float(_data.cell_size)
 	if "building_data" in instance:
 		instance.set("building_data", data)
+	instance.z_index = data.height_level * height_z_step
 	add_child(instance)
-	_collect_ground_shadows(instance)
+	var high : bool = data.height_level > 0
+	_collect_shadows(instance, shadow_source_name,
+			shadows_ground_high if high and shadows_ground_high != null else shadows_ground)
+	_collect_shadows(instance, roof_shadow_source_name,
+			shadows_roof_high if high and shadows_roof_high != null else shadows_roof)
 
 	_data.mark_building(rect)
 	building_rects.append(rect)

@@ -3555,11 +3555,30 @@ z_index = 13
 script = ExtResource("4_ioxv3")
 shadow_color = Color(0, 0, 0, 0.74509805)
 
-[node name="Builder" type="Node2D" parent="." unique_id=116225984 node_paths=PackedStringArray("shadows_ground") groups=["walls"]]
+[node name="ShadowsRoofLow" type="Node2D" parent="." unique_id=946447528]
+z_index = 31
+script = ExtResource("4_ioxv3")
+shadow_color = Color(0, 0, 0, 0.74509805)
+
+[node name="Builder" type="Node2D" parent="." unique_id=116225984 node_paths=PackedStringArray("shadows_ground", "shadows_ground_high", "shadows_roof", "shadows_roof_high") groups=["walls"]]
+z_index = 13
 script = ExtResource("2_s1sq0")
 pool = ExtResource("3_yrn80")
 shadows_ground = NodePath("../ShadowsGround")
 district_type = 7
+shadows_ground_high = NodePath("../ShadowsGroundHigh")
+shadows_roof = NodePath("../ShadowsRoofLow")
+shadows_roof_high = NodePath("../ShadowsRoofHigh")
+
+[node name="ShadowsGroundHigh" type="Node2D" parent="." unique_id=636756056]
+z_index = 34
+script = ExtResource("4_ioxv3")
+shadow_color = Color(0, 0, 0, 0.74509805)
+
+[node name="ShadowsRoofHigh" type="Node2D" parent="." unique_id=282596867]
+z_index = 56
+script = ExtResource("4_ioxv3")
+shadow_color = Color(0, 0, 0, 0.74509805)
 
 [node name="debug" type="Node2D" parent="." unique_id=987333027]
 script = ExtResource("2_geowy")

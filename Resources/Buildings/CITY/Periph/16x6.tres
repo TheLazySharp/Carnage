@@ -9,4 +9,5 @@ name = "16x6"
 building_scene = ExtResource("1_qyx3g")
 footprint_32 = Vector2i(16, 6)
 circle_margin = 0.0
+height_level = 1
 metadata/_custom_type_script = "uid://dq1yshanauw6j"

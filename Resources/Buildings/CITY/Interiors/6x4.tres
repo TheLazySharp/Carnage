@@ -7,4 +7,5 @@ script = ExtResource("1_t2sw0")
 name = "6x4"
 footprint_32 = Vector2i(6, 4)
 circle_margin = 0.0
+height_level = 1
 metadata/_custom_type_script = "uid://dq1yshanauw6j"

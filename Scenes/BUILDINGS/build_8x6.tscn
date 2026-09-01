@@ -667,12 +667,11 @@ sources/0 = SubResource("TileSetAtlasSource_dp1ot")
 [node name="Building" type="Node2D" unique_id=330276966 groups=["walls"]]
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=197870437]
-z_index = 13
 
 [node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=544689494]
 script = ExtResource("1_40adb")
 building_size = Vector2i(256, 192)
-shadow_length = 22
+shadow_length = 16
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
@@ -687,11 +686,10 @@ offset_bottom = 192.0
 texture = ExtResource("2_40adb")
 
 [node name="ShadowsRoof" type="Node2D" parent="." unique_id=2067012958]
-self_modulate = Color(1, 1, 1, 0.8235294)
+modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 
 [node name="BuildingShadow2" type="Node2D" parent="ShadowsRoof" unique_id=116792912]
-modulate = Color(1, 1, 1, 0.78431374)
 position = Vector2(33.976685, 100.97642)
 script = ExtResource("1_40adb")
 building_size = Vector2i(116, 61)
@@ -700,7 +698,6 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
-modulate = Color(1, 1, 1, 0.78431374)
 position = Vector2(1.9724636, 2.0433292)
 script = ExtResource("1_40adb")
 building_size = Vector2i(10, 188)
@@ -709,7 +706,6 @@ pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=742358665]
-modulate = Color(1, 1, 1, 0.78431374)
 position = Vector2(11.980286, 1.9841652)
 script = ExtResource("1_40adb")
 building_size = Vector2i(243, 10)
@@ -734,6 +730,5 @@ texture = ExtResource("4_1ngis")
 z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
-z_index = 20
 tile_map_data = PackedByteArray("AAAAAAAAAAABABMAAAABAAAAAAAEABEAAAACAAAAAAAEABEAAAADAAAAAAAEABEAAAAEAAAAAAAEABEAAAAFAAAAAAAEABEAAAAGAAAAAAAEABEAAAAHAAAAAAAFABEAAAAHAAEAAAAHABQAAAAHAAIAAAAHABQAAAAHAAMAAAAHABQAAAAHAAQAAAAHABQAAAAHAAUAAAAHABUAAAAGAAUAAAAEABcAAAAFAAUAAAAEABcAAAAEAAUAAAAEABcAAAADAAUAAAAEABcAAAACAAUAAAAEABcAAAABAAUAAAAEABcAAAAAAAUAAAADABcAAAAAAAQAAAABABQAAAAAAAMAAAABABQAAAAAAAIAAAABABQAAAAAAAEAAAABABQAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

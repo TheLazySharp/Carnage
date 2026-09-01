@@ -13,4 +13,5 @@ footprint_32 = Vector2i(6, 6)
 value = 250
 spawnable = ExtResource("3_32578")
 circle_margin = 200.0
+height_level = 1
 metadata/_custom_type_script = "uid://dq1yshanauw6j"
