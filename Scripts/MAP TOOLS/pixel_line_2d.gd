@@ -129,6 +129,7 @@ func get_thick_line_points(a: Vector2i, b: Vector2i, thick: int) -> Array[Vector
 		return core_points
 
 	var unique_points := {}
+	@warning_ignore("integer_division")
 	var half := thick / 2
 
 	for p in core_points:

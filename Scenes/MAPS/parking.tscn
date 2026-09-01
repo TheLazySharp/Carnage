@@ -374,6 +374,8 @@ pool_size = 800
 script = ExtResource("48_i5dpw")
 blood_shot_scene = ExtResource("49_i5dpw")
 
+[node name="Explosions" type="Node2D" parent="VFX" unique_id=1856586972]
+
 [node name="Explosives" type="Node2D" parent="." unique_id=548224663]
 z_index = 10
 

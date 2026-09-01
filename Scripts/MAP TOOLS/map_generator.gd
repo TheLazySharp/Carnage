@@ -72,6 +72,7 @@ func _build_graph() -> void:
 	for r : int in rows.size():
 		if not row_is_artery[r]:
 			continue
+		@warning_ignore("integer_division")
 		var d : int = absi(rows[r] - map_size_cells.y / 2)
 		if d < best_dist:
 			best_dist = d

@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var mine_data : WeaponData
+@export var explosion_scene : PackedScene
 var damages : int
 var damages_upgrade : int
 
@@ -12,7 +13,6 @@ var targets: Array[Node2D]
 var player_trigger_count : int = 0
 
 @onready var animation_mine: AnimatedSprite2D = $AnimationMine
-@onready var animation_explosion: AnimatedSprite2D = $AnimationExplosion
 @onready var explosion_sfx: AudioStreamPlayer2D = $ExplosionSFX
 @onready var explosion_area: Area2D = $ExplosionArea
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
@@ -24,7 +24,6 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 
 	max_lvl = mine_data.max_level
-	animation_explosion.hide()
 	explosion_sfx.stream = mine_data.weapon_sfx
 	damages = int(mine_data.dmg.get_value())
 	
@@ -32,21 +31,20 @@ func _ready() -> void:
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
-	if game_paused and animation_explosion.is_playing():
-		animation_explosion.pause()
-	if !game_paused and !animation_explosion.is_playing():
-		animation_explosion.play()
 
 
 func explosion()-> void:
-	if expl_limitor == 1:
+	if expl_limitor >= 1:
 		return
 	expl_limitor = 1
-
+	
+	var new_explosion : Node2D = explosion_scene.instantiate()
+	new_explosion.global_position = self.global_position
+	get_node("/root/World/VFX/Explosions").add_child(new_explosion)
+	
+	
 	animation_mine.stop()
 	animation_mine.hide()
-	animation_explosion.show()
-	animation_explosion.play("explosion")
 	explosion_sfx.play()
 	camera_2d.screen_shake(8,0.5)
 	

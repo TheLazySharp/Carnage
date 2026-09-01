@@ -6,7 +6,7 @@ var player : CarData
 var max_backward_speed : int = 0
 var friction : float = 0.0
 var turn_speed : float = 0.0
-var velocity_floor : int = 0
+var velocity_floor : float = 0
 
 @onready var car_sprite : Sprite2D = $CarSprite
 

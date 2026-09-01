@@ -5,6 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dww6b787qn3x0" path="res://Scenes/WEAPONS/bullet.tscn" id="3_c65e2"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="4_fvhad"]
 [ext_resource type="AudioStream" uid="uid://dh1famt01su4b" path="res://Assets/Audio/SFX/Weapons/Pistol.mp3" id="5_e4v8e"]
+[ext_resource type="AudioStream" uid="uid://y80iur83x1s2" path="res://Assets/Audio/SFX/Weapons/revolver.mp3" id="6_f0j8p"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bnc6f"]
+streams_count = 2
+stream_0/stream = ExtResource("5_e4v8e")
+stream_1/stream = ExtResource("6_f0j8p")
 
 [resource]
 script = ExtResource("1_c65e2")
@@ -17,7 +23,7 @@ tar_up_stat = 2
 weapon_scene_uid = "uid://bf606njwyoo0l"
 weapon_ammo_scene = ExtResource("3_c65e2")
 weapon_ammo_res = ExtResource("2_e4v8e")
-weapon_sfx = ExtResource("5_e4v8e")
+weapon_sfx = SubResource("AudioStreamRandomizer_bnc6f")
 base_dmg = 0
 base_speed_rotation = 0
 base_fire_rate = 1.0

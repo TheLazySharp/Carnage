@@ -2,9 +2,6 @@ extends Node2D
 
 @export var effets: Array[VFXData] = []
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("dash") or event.is_action_pressed("ui_select"):
-		jouer_tous_les_effets()
 
 func jouer_tous_les_effets() -> void:
 	for effet in effets:

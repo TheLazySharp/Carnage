@@ -23,16 +23,16 @@ func _draw() -> void:
 	var L := shadow_length * pixel_size
 
 	var tl := Vector2(0, 0)
-	var tr := Vector2(w, 0)
+	var trail := Vector2(w, 0)
 	var bl := Vector2(0, h)
-	var tr_shifted := tr + Vector2(L, L)
+	var trail_shifted := trail + Vector2(L, L)
 	var bl_shifted := bl + Vector2(L, L)
 	var br_shifted := Vector2(w, h) + Vector2(L, L)
 
 	var poly := PackedVector2Array()
 	poly.append(tl)
-	poly.append(tr)
-	poly.append_array(_staircase_edge(tr, tr_shifted, pixel_size, true))
+	poly.append(trail)
+	poly.append_array(_staircase_edge(trail, trail_shifted, pixel_size, true))
 	poly.append(br_shifted)
 	poly.append(bl_shifted)
 	poly.append_array(_staircase_edge(bl_shifted, bl, pixel_size, false))

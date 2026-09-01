@@ -6,18 +6,15 @@ extends Node2D
 @export_tool_button("Play VFX", "Play")
 var bouton_play := play_all
 
+var game_paused : bool = false
+var _vitesses_originales: Dictionary = {}
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+	SignalManager.game_paused.connect(_on_game_paused)
 	play_all()
 
-
-func _input(event: InputEvent) -> void:
-	if Engine.is_editor_hint():
-		return
-	if event.is_action_pressed("dash") or event.is_action_pressed("ui_select"):
-		play_all()
 
 func play_all() -> void:
 	for effect in effects:
@@ -28,7 +25,12 @@ func play_all() -> void:
 	print("explosion 1 played")
 
 func play_with_delay(effect: VFXData) -> void:
-	await get_tree().create_timer(effect.delay).timeout
+	var t: float = 0.0
+	while t < effect.delay:
+		await get_tree().process_frame
+		if game_paused:
+			continue
+		t += get_process_delta_time()
 	play_effect(effect)
 
 func play_effect(effect: VFXData) -> void:
@@ -42,7 +44,7 @@ func play_effect(effect: VFXData) -> void:
 
 func play_animation(effect: VFXData) -> void:
 	if effect.variantes_animation.is_empty():
-		push_warning("Effet '%s' : aucune variante d'animation assignée" % effect.nom)
+		push_warning("Effet '%s' : aucune variante d'animation assignée" % effect.name)
 		return
 
 	var sprites: Array[AnimatedSprite2D] = []
@@ -51,7 +53,7 @@ func play_animation(effect: VFXData) -> void:
 		if node is AnimatedSprite2D:
 			sprites.append(node)
 		else:
-			push_warning("Effet '%s' : chemin invalide ou node pas un AnimatedSprite2D (%s)" % [effect.nom, path])
+			push_warning("Effet '%s' : chemin invalide ou node pas un AnimatedSprite2D (%s)" % [effect.name, path])
 
 	if sprites.is_empty():
 		return
@@ -86,6 +88,8 @@ func play_shader(effect: VFXData) -> void:
 	_update_shader_center(effect, mat)
 	while t < effect.shader_duree:
 		await get_tree().process_frame
+		if game_paused:
+			continue
 		t += get_process_delta_time()
 		var progress: float = clamp(t / effect.shader_duree, 0.0, 1.0)
 		mat.set_shader_parameter(effect.shader_uniform_progress, progress)
@@ -101,3 +105,24 @@ func _update_shader_center(effect: VFXData, mat: ShaderMaterial) -> void:
 	var vp_size: Vector2 = get_viewport_rect().size
 	var canvas_pos: Vector2 = get_global_transform_with_canvas().origin
 	mat.set_shader_parameter(effect.shader_uniform_center, canvas_pos / vp_size)
+
+func _vitesse_originale(n: Node) -> float:
+	if !_vitesses_originales.has(n):
+		_vitesses_originales[n] = n.speed_scale
+	return _vitesses_originales[n]
+
+func _on_game_paused(game_on_pause: bool) -> void:
+	game_paused = game_on_pause
+	for effect in effects:
+		match effect.type:
+			VFXData.Type.ANIMATION:
+				for path in effect.variantes_animation:
+					var node: Node = get_node_or_null(path)
+					if node is AnimatedSprite2D:
+						var speed: float = _vitesse_originale(node)
+						node.speed_scale = 0.0 if game_on_pause else speed
+			VFXData.Type.PARTICLES:
+				var particle: Node = get_node_or_null(effect.particles)
+				if particle != null:
+					var speed: float = _vitesse_originale(particle)
+					particle.speed_scale = 0.0 if game_on_pause else speed

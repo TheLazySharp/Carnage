@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="2_hu2li"]
 [ext_resource type="AudioStream" uid="uid://cyrjmjhgu2sdi" path="res://Assets/Audio/SFX/Weapons/Flamer.mp3" id="3_rqr78"]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pwes4"]
+streams_count = 1
+stream_0/stream = ExtResource("3_rqr78")
+
 [resource]
 script = ExtResource("1_h4agg")
 weapon_name = 9
@@ -13,7 +17,7 @@ type_1 = 5
 type_2 = 6
 tar_up_stat = 1
 weapon_scene_uid = "uid://baidslgub6j8k"
-weapon_sfx = ExtResource("3_rqr78")
+weapon_sfx = SubResource("AudioStreamRandomizer_pwes4")
 base_dmg = 2
 base_radius = 0
 base_speed_rotation = 0

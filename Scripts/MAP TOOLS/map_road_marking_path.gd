@@ -197,8 +197,8 @@ func _rasterize_dash(frame: Dictionary, seeds: Array) -> Array[Vector2i]:
 				continue
 
 			var eroded := false
-			for seed: Dictionary in seeds:
-				if cell_center.distance_to(seed["pos"]) < seed["radius"]:
+			for p_seed: Dictionary in seeds:
+				if cell_center.distance_to(p_seed["pos"]) < p_seed["radius"]:
 					eroded = true
 					break
 

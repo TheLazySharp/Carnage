@@ -38,8 +38,8 @@ func _ready() -> void:
 
 ## Fades the overlay in. Awaits until it is actually ON SCREEN, so the caller
 ## may start blocking work right after without the screen never appearing.
-func open(message : String = "", fade_override : float = -1.0) -> void:
-	set_message(message if not message.is_empty() else _random_message())
+func open(p_message : String = "", fade_override : float = -1.0) -> void:
+	set_message(p_message if !p_message.is_empty() else _random_message())
 	set_progress(-1.0)
 	if _is_open:
 		return

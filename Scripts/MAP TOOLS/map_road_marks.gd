@@ -142,7 +142,7 @@ func _mark_crosswalks(edge_index : int, degrees : PackedInt32Array) -> void:
 		_crosswalk_approaches[Vector2i(edge_index, edge.x)] = true
 
 
-func _spawn_crosswalk(position : Vector2, dir : Vector2, is_artery : bool) -> bool:
+func _spawn_crosswalk(p_position : Vector2, dir : Vector2, is_artery : bool) -> bool:
 	if not build_crosswalks:
 		return false
 	if _rng.randf() > crosswalk_chance:
@@ -154,7 +154,7 @@ func _spawn_crosswalk(position : Vector2, dir : Vector2, is_artery : bool) -> bo
 	if instance == null:
 		push_error("[MapRoadMarks] crosswalk scene root must be a Node2D")
 		return false
-	instance.position = position
+	instance.position = p_position
 	instance.rotation = dir.angle() + deg_to_rad(crosswalk_base_rotation_deg)
 	add_child(instance)
 	_crosswalks += 1
@@ -208,7 +208,7 @@ func _mark_arrows(edge_index : int, from_node : int, to_node : int, dir : Vector
 		_spawn_arrows(stop_pos - dir * back, dir, edge_index, to_node)
 
 
-func _spawn_arrows(position : Vector2, dir : Vector2, edge_index : int, to_node : int) -> void:
+func _spawn_arrows(p_position : Vector2, dir : Vector2, edge_index : int, to_node : int) -> void:
 	var right : Vector2 = Vector2(-dir.y, dir.x)
 	var turns : Dictionary = _available_turns(dir, right, edge_index, to_node)
 	var offsets : PackedFloat32Array = _outbound_lane_offsets(edge_index)
@@ -224,7 +224,7 @@ func _spawn_arrows(position : Vector2, dir : Vector2, edge_index : int, to_node 
 
 		# `position` is the stop line: the arrow tip lands there, body behind it
 		var half_length : float = float(texture.get_height()) * 0.5
-		var center : Vector2 = position + right * offsets[i] - dir * half_length
+		var center : Vector2 = p_position + right * offsets[i] - dir * half_length
 		if _overlaps_crosswalk(center, texture, dir):
 			_rejected += 1
 			continue

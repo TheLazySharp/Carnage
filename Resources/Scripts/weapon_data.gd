@@ -30,7 +30,7 @@ enum Stats_Types {
 @export var weapon_scene_uid : String
 @export var weapon_ammo_scene : PackedScene
 @export var weapon_ammo_res : WeaponData
-@export var weapon_sfx: AudioStreamMP3
+@export var weapon_sfx: AudioStreamRandomizer
 
 @export_group("BASE STATS")
 @export var base_dmg : = 5

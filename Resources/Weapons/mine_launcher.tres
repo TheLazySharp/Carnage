@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://b6sojfyjbslm1" path="res://Scenes/WEAPONS/landmine.tscn" id="3_bsrqv"]
 [ext_resource type="AudioStream" uid="uid://c1eaahubfa6id" path="res://Assets/Audio/SFX/Weapons/launcher.mp3" id="5_bsrqv"]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uifdf"]
+streams_count = 1
+stream_0/stream = ExtResource("5_bsrqv")
+
 [resource]
 script = ExtResource("1_nf6y3")
 weapon_name = 5
@@ -17,7 +21,7 @@ tar_up_stat = 6
 weapon_scene_uid = "uid://c8ohbftuu83c8"
 weapon_ammo_scene = ExtResource("3_bsrqv")
 weapon_ammo_res = ExtResource("2_8dhid")
-weapon_sfx = ExtResource("5_bsrqv")
+weapon_sfx = SubResource("AudioStreamRandomizer_uifdf")
 base_dmg = 0
 base_radius = 0
 base_speed_rotation = 0
