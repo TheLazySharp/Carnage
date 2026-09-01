@@ -8,6 +8,7 @@ modulate = Color(0, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0.007843138)
 z_index = 2
 script = ExtResource("1_xecs6")
+thickness_max = 2
 
 [node name="DrawSurface" type="Node2D" parent="." unique_id=1122329693]
 script = ExtResource("2_xpubo")

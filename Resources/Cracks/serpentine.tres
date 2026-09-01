@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CrackData" format=3 uid="uid://vf60crkvisce"]
+
+[ext_resource type="Script" uid="uid://17mat7dxfbnv" path="res://Resources/Scripts/crack_data.gd" id="1_aetjx"]
+[ext_resource type="PackedScene" uid="uid://c3p45wsyrksps" path="res://Scenes/MAP TOOLS/crack_serpentine_generator.tscn" id="1_cmo5x"]
+
+[resource]
+script = ExtResource("1_aetjx")
+name = "serpentine"
+crack_scene = ExtResource("1_cmo5x")
+pixel_size = 1
+total_length = Vector2i(200, 500)
+segment_length = Vector2i(6, 12)
+max_turn_degrees = Vector2(24, 180)
+thickness = Vector2i(1, 2)
+branch_chance = Vector2(0.2, 0.6)
+branch_chance_falloff = 0.5
+branch_length_ratio = 0.4
+orientation = 1
+color = Color(0.18359044, 0.18359047, 0.18359038, 1)
+metadata/_custom_type_script = "uid://17mat7dxfbnv"

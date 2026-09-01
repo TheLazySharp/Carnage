@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var effets: Array[VFXEntry] = []
+@export var effets: Array[VFXData] = []
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
@@ -13,20 +13,20 @@ func jouer_tous_les_effets() -> void:
 		else:
 			_jouer_effet(effet)
 
-func _jouer_avec_delay(effet: VFXEntry) -> void:
+func _jouer_avec_delay(effet: VFXData) -> void:
 	await get_tree().create_timer(effet.delay).timeout
 	_jouer_effet(effet)
 
-func _jouer_effet(effet: VFXEntry) -> void:
+func _jouer_effet(effet: VFXData) -> void:
 	match effet.type:
-		VFXEntry.Type.ANIMATION:
+		VFXData.Type.ANIMATION:
 			_jouer_animation(effet)
-		VFXEntry.Type.PARTICLES:
+		VFXData.Type.PARTICLES:
 			_jouer_particles(effet)
-		VFXEntry.Type.SHADER:
+		VFXData.Type.SHADER:
 			_jouer_shader(effet)
 
-func _jouer_animation(effet: VFXEntry) -> void:
+func _jouer_animation(effet: VFXData) -> void:
 	if effet.variantes_animation.is_empty():
 		push_warning("Effet '%s' : aucune variante d'animation assignée" % effet.nom)
 		return
@@ -51,7 +51,7 @@ func _jouer_animation(effet: VFXEntry) -> void:
 	choix.frame = 0
 	choix.play()
 
-func _jouer_particles(effet: VFXEntry) -> void:
+func _jouer_particles(effet: VFXData) -> void:
 	var node: Node = get_node_or_null(effet.particles)
 	if node == null:
 		push_warning("Effet '%s' : aucun node de particules trouvé" % effet.nom)
@@ -59,7 +59,7 @@ func _jouer_particles(effet: VFXEntry) -> void:
 	node.restart()
 	node.emitting = true
 
-func _jouer_shader(effet: VFXEntry) -> void:
+func _jouer_shader(effet: VFXData) -> void:
 	var node: Node = get_node_or_null(effet.shader_node)
 	if node == null or node.material == null:
 		push_warning("Effet '%s' : node ou material manquant" % effet.nom)

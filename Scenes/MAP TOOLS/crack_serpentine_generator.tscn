@@ -1,13 +1,782 @@
 [gd_scene format=3 uid="uid://c3p45wsyrksps"]
 
 [ext_resource type="Script" uid="uid://4dsvxjn84gim" path="res://Scripts/MAP TOOLS/serpentine_crack_generator.gd" id="1_ni3p7"]
+[ext_resource type="Script" uid="uid://bnsu6pjykxkf1" path="res://Scripts/MAP TOOLS/road_brush_path2d.gd" id="2_chycg"]
 [ext_resource type="Script" uid="uid://r12xp3nj45pc" path="res://Scripts/MAP TOOLS/crack_draw_surface.gd" id="2_dmpna"]
+[ext_resource type="Texture2D" uid="uid://d0vkwqcf3dj8q" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 1.tres" id="3_5nshh"]
+[ext_resource type="Texture2D" uid="uid://dk7d0p5pjvat3" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 2.tres" id="4_k8wxe"]
+[ext_resource type="Texture2D" uid="uid://oj0cqsidn8j1" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 3.tres" id="5_rkdmw"]
+[ext_resource type="Texture2D" uid="uid://djic527aoo0mt" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 4.tres" id="6_k0bmf"]
+[ext_resource type="Texture2D" uid="uid://c5b37b3vwryhs" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 5.tres" id="7_l1nat"]
+[ext_resource type="Texture2D" uid="uid://bagqta75iqjw5" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 6.tres" id="8_csxq0"]
+[ext_resource type="Texture2D" uid="uid://jfjswtdyil6v" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 7.tres" id="9_g8bpi"]
+[ext_resource type="Texture2D" uid="uid://mjv3mq4iw7u1" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 4A/Slice 8.tres" id="10_8yqfa"]
+[ext_resource type="Texture2D" uid="uid://s7oi0y27wfqs" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 1.tres" id="11_xr8c0"]
+[ext_resource type="Texture2D" uid="uid://b74i4kofvssi0" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 2.tres" id="12_0284c"]
+[ext_resource type="Texture2D" uid="uid://c8e1ogaq00eku" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 3.tres" id="13_qdelm"]
+[ext_resource type="Texture2D" uid="uid://by0ssml1i37pp" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 4.tres" id="14_u7n28"]
+[ext_resource type="Texture2D" uid="uid://dmn7rdh4tps60" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 5.tres" id="15_uowk6"]
+[ext_resource type="Texture2D" uid="uid://dujxu5ivs4vs6" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 6.tres" id="16_fcg8y"]
+[ext_resource type="Texture2D" uid="uid://bgm3rfa6q8cqj" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 7.tres" id="17_0kqmr"]
+[ext_resource type="Texture2D" uid="uid://dk8ff73fjkh1p" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 8.tres" id="18_oxxbh"]
+[ext_resource type="Texture2D" uid="uid://cfkfa5yhb2pgc" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 9.tres" id="19_m8dmn"]
+[ext_resource type="Texture2D" uid="uid://cvoivq4yx6ljc" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 10.tres" id="20_ibji6"]
+[ext_resource type="Texture2D" uid="uid://clmk0pd2isgiu" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 11.tres" id="21_fl2td"]
+[ext_resource type="Texture2D" uid="uid://be1tk72i8c8vm" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 12.tres" id="22_j4d6b"]
+[ext_resource type="Texture2D" uid="uid://dwoadfeq454vm" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 13.tres" id="23_k7ycc"]
+[ext_resource type="Texture2D" uid="uid://cg5sdo6fdwv76" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 14.tres" id="24_7jenb"]
+[ext_resource type="Texture2D" uid="uid://55eh5aonh7br" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 15.tres" id="25_f5tgk"]
+[ext_resource type="Texture2D" uid="uid://c7ke3xbqh6f73" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 16.tres" id="26_ktuyn"]
+[ext_resource type="Texture2D" uid="uid://byw7kk5b2pw6n" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 17.tres" id="27_h8smb"]
+[ext_resource type="Texture2D" uid="uid://6pt8l3jkm47c" path="res://Assets/Textures/Roads/RoadBrushes/RoadGrain/Slice 18.tres" id="28_xybdo"]
+
+[sub_resource type="Curve2D" id="Curve2D_chycg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.984452, -0.49852508, 0, 0, 0, 0, 15.915163, -1.5491498, 0, 0, 0, 0, 23.839588, -2.6461773, 0, 0, 0, 0, 31.636906, -4.4355464, 0, 0, 0, 0, 39.576614, -5.4158783, 0, 0, 0, 0, 47.532303, -6.2567296, 0, 0, 0, 0, 55.503605, -6.9337416, 0, 0, 0, 0, 63.40436, -8.189952, 0, 0, 0, 0, 71.293, -9.520117, 0, 0, 0, 0, 79.09706, -11.279825, 0, 0, 0, 0, 86.71664, -13.717456, 0, 0, 0, 0, 94.30705, -16.244427, 0, 0, 0, 0, 101.90024, -18.763062, 0, 0, 0, 0, 109.32898, -21.731867, 0, 0, 0, 0, 116.769165, -24.671885, 0, 0, 0, 0, 124.08692, -27.9046, 0, 0, 0, 0, 131.6292, -30.571835, 0, 0, 0, 0, 139.3498, -32.667625, 0, 0, 0, 0, 147.19714, -34.222984, 0, 0, 0, 0, 154.96036, -36.15498, 0, 0, 0, 0, 162.87343, -37.33111, 0, 0, 0, 0, 170.86488, -37.700768, 0, 0, 0, 0, 178.86472, -37.75337, 0, 0, 0, 0, 186.83723, -37.090805, 0, 0, 0, 0, 194.82922, -36.732994)
+}
+point_count = 26
+
+[sub_resource type="Curve2D" id="Curve2D_5nshh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.168208, -6.828326, 0, 0, 0, 0, 8.310762, -13.672247, 0, 0, 0, 0, 12.483675, -20.4977, 0, 0, 0, 0, 16.001497, -27.682747, 0, 0, 0, 0, 19.97376, -34.62689, 0, 0, 0, 0, 24.250568, -41.387726, 0, 0, 0, 0, 28.590656, -48.108116, 0, 0, 0, 0, 33.263992, -54.60118, 0, 0, 0, 0, 38.42635, -60.71265, 0, 0, 0, 0, 43.851025, -66.59252, 0, 0, 0, 0, 48.739662, -72.92507, 0, 0, 0, 0, 53.678658, -79.21843)
+}
+point_count = 13
+
+[sub_resource type="Curve2D" id="Curve2D_k8wxe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.929677, -1.0584104, 0, 0, 0, 0, -15.893805, -1.8151703, 0, 0, 0, 0, -23.861755, -2.5305474, 0, 0, 0, 0, -31.859493, -2.7207751, 0, 0, 0, 0, -39.85695, -2.5189412, 0, 0, 0, 0, -47.85681, -2.5661287)
+}
+point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_rkdmw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.3666477, -3.1196976, 0, 0, 0, 0, 14.95072, -5.6656456, 0, 0, 0, 0, 22.30751, -8.808517)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_k0bmf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6.1739616, -5.087455, 0, 0, 0, 0, 12.7493925, -9.644176, 0, 0, 0, 0, 18.954197, -14.693968, 0, 0, 0, 0, 25.482, -19.31866, 0, 0, 0, 0, 32.41026, -23.318567)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_l1nat"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.833611, 1.6231282, 0, 0, 0, 0, 15.724974, 2.937053, 0, 0, 0, 0, 23.669992, 3.8733666, 0, 0, 0, 0, 31.662699, 4.2149053)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_csxq0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.9516106, 0.8785722, 0, 0, 0, 0, -15.925722, 1.5216452, 0, 0, 0, 0, -23.923908, 1.691962, 0, 0, 0, 0, -31.906803, 2.214826)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_g8bpi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6.2709208, -4.9674497, 0, 0, 0, 0, 13.026096, -9.253194, 0, 0, 0, 0, 19.48894, -13.96824)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_8yqfa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.999921, 0.035509184, 0, 0, 0, 0, 15.961959, 0.8139351, 0, 0, 0, 0, 23.960838, 0.94786036, 0, 0, 0, 0, 31.922579, 1.7293243, 0, 0, 0, 0, 39.78096, 3.2279453, 0, 0, 0, 0, 47.713654, 4.263507, 0, 0, 0, 0, 55.703403, 4.668315, 0, 0, 0, 0, 63.700466, 4.8850813, 0, 0, 0, 0, 71.69738, 5.107136, 0, 0, 0, 0, 79.67049, 5.762559, 0, 0, 0, 0, 87.57634, 6.986263)
+}
+point_count = 12
+
+[sub_resource type="Curve2D" id="Curve2D_xr8c0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.465059, -2.8762662, 0, 0, 0, 0, -14.595973, -6.5025682, 0, 0, 0, 0, -22.043411, -9.424152, 0, 0, 0, 0, -29.302906, -12.785659, 0, 0, 0, 0, -36.310387, -16.64509)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_0284c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.594519, 5.71851, 0, 0, 0, 0, -10.670619, 11.901812, 0, 0, 0, 0, -15.081801, 18.575752, 0, 0, 0, 0, -18.889214, 25.611633)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_qdelm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.0471036, -7.7336516, 0, 0, 0, 0, 4.571344, -15.324976, 0, 0, 0, 0, 7.4031954, -22.806995, 0, 0, 0, 0, 10.8858595, -30.009151)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_u7n28"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.463163, -7.2115536, 0, 0, 0, 0, 6.7969217, -14.483833, 0, 0, 0, 0, 10.353932, -21.649563)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_uowk6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.6753798, -5.6382685, 0, 0, 0, 0, -11.613632, -10.998975, 0, 0, 0, 0, -17.466812, -16.452442, 0, 0, 0, 0, -22.896585, -22.327608, 0, 0, 0, 0, -28.328037, -28.201221, 0, 0, 0, 0, -33.21383, -34.535973, 0, 0, 0, 0, -38.52823, -40.5157, 0, 0, 0, 0, -43.628044, -46.679455, 0, 0, 0, 0, -48.917927, -52.68088, 0, 0, 0, 0, -53.684536, -59.10579, 0, 0, 0, 0, -58.581345, -65.43203)
+}
+point_count = 12
+
+[sub_resource type="Curve2D" id="Curve2D_fcg8y"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.736125, -2.0377374, 0, 0, 0, 0, 15.394615, -4.35021, 0, 0, 0, 0, 22.999062, -6.8346434, 0, 0, 0, 0, 30.41851, -9.826599, 0, 0, 0, 0, 38.085648, -12.110238)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_0kqmr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.87398, -1.4143705, 0, 0, 0, 0, -15.709443, -3.028534, 0, 0, 0, 0, -23.376547, -5.3122835)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_oxxbh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5.9448066, -5.3534355, 0, 0, 0, 0, 11.935999, -10.654907, 0, 0, 0, 0, 17.991253, -15.883091)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_m8dmn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5.33465, 5.9616704, 0, 0, 0, 0, 11.237286, 11.361568, 0, 0, 0, 0, 16.592472, 17.304798, 0, 0, 0, 0, 21.924984, 23.268381, 0, 0, 0, 0, 27.552542, 28.95438, 0, 0, 0, 0, 32.65566, 35.115402, 0, 0, 0, 0, 38.353474, 40.730995, 0, 0, 0, 0, 44.196453, 46.19539, 0, 0, 0, 0, 50.532852, 51.07904, 0, 0, 0, 0, 56.447495, 56.465782)
+}
+point_count = 11
+
+[sub_resource type="Curve2D" id="Curve2D_ibji6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.3770554, -7.2522755, 0, 0, 0, 0, -7.4860735, -14.116383, 0, 0, 0, 0, -12.221603, -20.564232)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_fl2td"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.9775414, -7.4252443, 0, 0, 0, 0, -6.452547, -14.6311, 0, 0, 0, 0, -9.845436, -21.875982, 0, 0, 0, 0, -13.1125965, -29.178427, 0, 0, 0, 0, -16.866016, -36.24326, 0, 0, 0, 0, -20.993385, -43.09635, 0, 0, 0, 0, -25.18224, -49.912033, 0, 0, 0, 0, -29.390572, -56.715706, 0, 0, 0, 0, -32.8654, -63.921646, 0, 0, 0, 0, -35.769352, -71.37598)
+}
+point_count = 11
+
+[sub_resource type="Curve2D" id="Curve2D_j4d6b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.42491227, 7.9887085, 0, 0, 0, 0, -0.036005765, 15.979251, 0, 0, 0, 0, 1.1522099, 23.890518, 0, 0, 0, 0, 1.9201313, 31.853577, 0, 0, 0, 0, 2.1205783, 39.851067)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_k7ycc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.0902596, 7.722099, 0, 0, 0, 0, -3.4233885, 15.610239, 0, 0, 0, 0, -4.69229, 23.508966, 0, 0, 0, 0, -6.161769, 31.372849)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_7jenb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.13206354, -7.99891, 0, 0, 0, 0, -1.0126352, -15.950299, 0, 0, 0, 0, -1.9183539, -23.898865)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_f5tgk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.69426066, 7.9698176, 0, 0, 0, 0, 0.76569957, 15.969498, 0, 0, 0, 0, 0.94157946, 23.967564)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_ktuyn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.9046014, 7.948692, 0, 0, 0, 0, -2.388677, 15.809833, 0, 0, 0, 0, -4.114452, 23.621471, 0, 0, 0, 0, -6.194673, 31.346283, 0, 0, 0, 0, -8.938154, 38.861156, 0, 0, 0, 0, -11.567141, 46.416847, 0, 0, 0, 0, -14.18086, 53.977833, 0, 0, 0, 0, -17.22642, 61.37544, 0, 0, 0, 0, -20.672606, 68.59512)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_h8smb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5514498, 7.980971, 0, 0, 0, 0, 1.4273529, 15.932875, 0, 0, 0, 0, 2.1766372, 23.897709, 0, 0, 0, 0, 2.1396182, 31.897623)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_xybdo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.0003114, 3.8724203, 0, 0, 0, 0, -14.055588, 7.6437707, 0, 0, 0, 0, -20.91972, 11.752748)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_mlbej"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.650065, -7.5483212, 0, 0, 0, 0, -4.82773, -15.246228, 0, 0, 0, 0, -7.2389407, -22.874207, 0, 0, 0, 0, -9.2723675, -30.611465, 0, 0, 0, 0, -10.709677, -38.48129, 0, 0, 0, 0, -12.035324, -46.37069, 0, 0, 0, 0, -13.531899, -54.229458, 0, 0, 0, 0, -15.176174, -62.05866, 0, 0, 0, 0, -17.103823, -69.822945)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_bj0cb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.133791, -7.91925, 0, 0, 0, 0, -2.628688, -15.778339, 0, 0, 0, 0, -4.5863624, -23.535112, 0, 0, 0, 0, -6.74927, -31.237179)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_3tkrs"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.2852874, -7.8960776, 0, 0, 0, 0, 2.0037718, -15.863749, 0, 0, 0, 0, 3.1899178, -23.775326, 0, 0, 0, 0, 3.885787, -31.745005)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_6wptk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6.3072014, -4.9213023, 0, 0, 0, 0, -12.3882885, -10.119415, 0, 0, 0, 0, -18.799675, -14.904198)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_x8bh5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6.728409, -4.3276453, 0, 0, 0, 0, -13.126884, -9.129677, 0, 0, 0, 0, -19.93761, -13.32658, 0, 0, 0, 0, -26.94136, -17.192776, 0, 0, 0, 0, -34.01435, -20.930796, 0, 0, 0, 0, -41.084713, -24.673784, 0, 0, 0, 0, -48.27777, -28.175194, 0, 0, 0, 0, -55.19726, -32.190247)
+}
+point_count = 9
+
+[sub_resource type="Curve2D" id="Curve2D_0lcvk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6.1458993, 5.1213202, 0, 0, 0, 0, 12.050191, 10.519407, 0, 0, 0, 0, 17.769194, 16.113422)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_5sger"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4.925773, 6.30371, 0, 0, 0, 0, -9.3861265, 12.944889, 0, 0, 0, 0, -13.807901, 19.611816, 0, 0, 0, 0, -18.824566, 25.843435, 0, 0, 0, 0, -24.204363, 31.764397, 0, 0, 0, 0, -29.281155, 37.94713, 0, 0, 0, 0, -33.85115, 44.51334)
+}
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_s6gaf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.5510874, 2.6421738, 0, 0, 0, 0, -14.786819, 6.054532, 0, 0, 0, 0, -22.169655, 9.135724)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_m1edr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.7948813, -7.7960505, 0, 0, 0, 0, 3.965274, -15.496012, 0, 0, 0, 0, 6.1067834, -23.204056)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_0j75i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.262425, -6.0255194, 0, 0, 0, 0, -10.903425, -11.698184, 0, 0, 0, 0, -15.97798, -17.882753, 0, 0, 0, 0, -21.568136, -23.605528, 0, 0, 0, 0, -26.705269, -29.738214, 0, 0, 0, 0, -32.19874, -35.553864)
+}
+point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_r4rt0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.9033856, -6.3211403, 0, 0, 0, 0, 10.015615, -12.474604, 0, 0, 0, 0, 15.514549, -18.285088)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_fnbk1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7.972528, 0.662414, 0, 0, 0, 0, 15.9674015, 0.9487692, 0, 0, 0, 0, 23.966602, 0.8357448, 0, 0, 0, 0, 31.952145, 1.3164804, 0, 0, 0, 0, 39.9399, 1.7589608)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_7aqt1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3.580053, -7.1542454, 0, 0, 0, 0, -6.5904408, -14.566234, 0, 0, 0, 0, -9.598743, -21.979069, 0, 0, 0, 0, -12.670015, -29.366037, 0, 0, 0, 0, -16.136444, -36.576023)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_pok6t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.2647946, -7.672725, 0, 0, 0, 0, 4.6127234, -15.320419, 0, 0, 0, 0, 6.3709507, -23.124817, 0, 0, 0, 0, 8.814724, -30.742426)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_8g8le"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -7.952963, -0.8662481, 0, 0, 0, 0, -15.920845, -1.582386, 0, 0, 0, 0, -23.899057, -2.172411)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_fyira"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.513193, 7.983523, 0, 0, 0, 0, -1.3247392, 15.942253, 0, 0, 0, 0, -2.1204467, 23.902584)
+}
+point_count = 4
 
 [node name="CrackSerpentineGenerator" type="Node2D" unique_id=753495024]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.5409905, 0.5409905, 0.5409905, 1)
 self_modulate = Color(1, 1, 1, 0.007843138)
 z_index = 2
 script = ExtResource("1_ni3p7")
+brush_script = ExtResource("2_chycg")
+total_length = 200.0
+branch_chance = 0.8
+branch_chance_falloff = 0.8200000000000001
+branch_angle_spread_degrees = 180.0
+max_branch_depth = 3
+crack_color = Color(0.5409905, 0.5409905, 0.5409905, 1)
+pixel_size = 1
+stamp_spacing_min = null
+stamp_spacing_max = null
+stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
 
 [node name="DrawSurface" type="Node2D" parent="." unique_id=1122329693]
 script = ExtResource("2_dmpna")
+
+[node name="Crack_Root" type="Path2D" parent="." unique_id=2039418902]
+curve = SubResource("Curve2D_chycg")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Root" unique_id=1381806152]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Root" unique_id=132475931]
+
+[node name="Crack_Branch_1" type="Path2D" parent="." unique_id=1998595766]
+position = Vector2(7.984452, -0.49852508)
+curve = SubResource("Curve2D_5nshh")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_1" unique_id=433839970]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_1" unique_id=1684039510]
+
+[node name="Crack_Branch_2" type="Path2D" parent="." unique_id=821345249]
+position = Vector2(12.15266, -7.3268514)
+curve = SubResource("Curve2D_k8wxe")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_2" unique_id=1547734319]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_2" unique_id=454784149]
+
+[node name="Crack_Branch_3" type="Path2D" parent="." unique_id=444797303]
+position = Vector2(4.2229834, -8.385262)
+curve = SubResource("Curve2D_rkdmw")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_3" unique_id=1261868284]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_3" unique_id=993971630]
+
+[node name="Crack_Branch_4" type="Path2D" parent="." unique_id=542677691]
+position = Vector2(20.468126, -20.996225)
+curve = SubResource("Curve2D_k0bmf")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_4" unique_id=901001127]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_4" unique_id=950386908]
+
+[node name="Crack_Branch_5" type="Path2D" parent="." unique_id=1632808721]
+position = Vector2(23.985949, -28.181273)
+curve = SubResource("Curve2D_l1nat")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_5" unique_id=1399046374]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_5" unique_id=902293038]
+
+[node name="Crack_Branch_6" type="Path2D" parent="." unique_id=1880607729]
+position = Vector2(27.958212, -35.125412)
+curve = SubResource("Curve2D_csxq0")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_6" unique_id=1296636163]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_6" unique_id=223791498]
+
+[node name="Crack_Branch_7" type="Path2D" parent="." unique_id=1501785439]
+position = Vector2(36.575108, -48.60664)
+curve = SubResource("Curve2D_g8bpi")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_7" unique_id=781164039]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_7" unique_id=1410226548]
+
+[node name="Crack_Branch_8" type="Path2D" parent="." unique_id=1029161815]
+position = Vector2(23.839588, -2.6461773)
+curve = SubResource("Curve2D_8yqfa")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_8" unique_id=1324278637]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_8" unique_id=46048088]
+
+[node name="Crack_Branch_9" type="Path2D" parent="." unique_id=168056047]
+position = Vector2(39.801548, -1.8322423)
+curve = SubResource("Curve2D_xr8c0")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_9" unique_id=137113940]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_9" unique_id=226523325]
+
+[node name="Crack_Branch_10" type="Path2D" parent="." unique_id=226907068]
+position = Vector2(47.800426, -1.6983169)
+curve = SubResource("Curve2D_0284c")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_10" unique_id=89026443]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_10" unique_id=582758035]
+
+[node name="Crack_Branch_11" type="Path2D" parent="." unique_id=282841531]
+position = Vector2(55.76217, -0.91685295)
+curve = SubResource("Curve2D_qdelm")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_11" unique_id=335845045]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_11" unique_id=1528931374]
+
+[node name="Crack_Branch_12" type="Path2D" parent="." unique_id=454991751]
+position = Vector2(71.55324, 1.6173296)
+curve = SubResource("Curve2D_u7n28")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_12" unique_id=52428769]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_12" unique_id=1887003032]
+
+[node name="Crack_Branch_13" type="Path2D" parent="." unique_id=1084937499]
+position = Vector2(31.636906, -4.4355464)
+curve = SubResource("Curve2D_uowk6")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_13" unique_id=805203505]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_13" unique_id=1645191960]
+
+[node name="Crack_Branch_14" type="Path2D" parent="." unique_id=471255766]
+position = Vector2(25.961525, -10.073814)
+curve = SubResource("Curve2D_fcg8y")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_14" unique_id=791806389]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_14" unique_id=1909419112]
+
+[node name="Crack_Branch_15" type="Path2D" parent="." unique_id=1101329879]
+position = Vector2(3.3088684, -32.63677)
+curve = SubResource("Curve2D_0kqmr")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_15" unique_id=1291679283]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_15" unique_id=1179104629]
+
+[node name="Crack_Branch_16" type="Path2D" parent="." unique_id=1611615041]
+position = Vector2(-1.5769234, -38.97152)
+curve = SubResource("Curve2D_oxxbh")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_16" unique_id=1679916256]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_16" unique_id=2049807907]
+
+[node name="Crack_Branch_17" type="Path2D" parent="." unique_id=1879651694]
+position = Vector2(39.576614, -5.4158783)
+curve = SubResource("Curve2D_m8dmn")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_17" unique_id=1626332471]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_17" unique_id=433598929]
+
+[node name="Crack_Branch_18" type="Path2D" parent="." unique_id=2096493894]
+position = Vector2(61.5016, 17.852503)
+curve = SubResource("Curve2D_ibji6")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_18" unique_id=760080326]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_18" unique_id=324043228]
+
+[node name="Crack_Branch_19" type="Path2D" parent="." unique_id=2135185814]
+position = Vector2(47.532303, -6.2567296)
+curve = SubResource("Curve2D_fl2td")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_19" unique_id=1005116372]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_19" unique_id=482490305]
+
+[node name="Crack_Branch_20" type="Path2D" parent="." unique_id=1647934113]
+position = Vector2(44.55476, -13.681974)
+curve = SubResource("Curve2D_j4d6b")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_20" unique_id=1789453952]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_20" unique_id=1855067474]
+
+[node name="Crack_Branch_21" type="Path2D" parent="." unique_id=477393663]
+position = Vector2(41.079758, -20.887829)
+curve = SubResource("Curve2D_k7ycc")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_21" unique_id=1653031165]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_21" unique_id=115508490]
+
+[node name="Crack_Branch_22" type="Path2D" parent="." unique_id=1173088002]
+position = Vector2(34.41971, -35.435158)
+curve = SubResource("Curve2D_7jenb")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_22" unique_id=234906550]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_22" unique_id=539207404]
+
+[node name="Crack_Branch_23" type="Path2D" parent="." unique_id=2147305083]
+position = Vector2(30.666286, -42.49999)
+curve = SubResource("Curve2D_f5tgk")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_23" unique_id=1818543625]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_23" unique_id=1451723660]
+
+[node name="Crack_Branch_24" type="Path2D" parent="." unique_id=545842010]
+position = Vector2(55.503605, -6.9337416)
+curve = SubResource("Curve2D_ktuyn")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_24" unique_id=1399052165]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_24" unique_id=368347864]
+
+[node name="Crack_Branch_25" type="Path2D" parent="." unique_id=2080767105]
+position = Vector2(53.11493, 8.876091)
+curve = SubResource("Curve2D_h8smb")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_25" unique_id=2085584365]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_25" unique_id=458340475]
+
+[node name="Crack_Branch_26" type="Path2D" parent="." unique_id=819009948]
+position = Vector2(49.308933, 24.41254)
+curve = SubResource("Curve2D_xybdo")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_26" unique_id=939575640]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_26" unique_id=579178003]
+
+[node name="Crack_Branch_27" type="Path2D" parent="." unique_id=896434877]
+position = Vector2(63.40436, -8.189952)
+curve = SubResource("Curve2D_mlbej")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_27" unique_id=1213926908]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_27" unique_id=1094840489]
+
+[node name="Crack_Branch_28" type="Path2D" parent="." unique_id=1038054634]
+position = Vector2(60.754295, -15.738274)
+curve = SubResource("Curve2D_bj0cb")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_28" unique_id=1750418453]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_28" unique_id=993136499]
+
+[node name="Crack_Branch_29" type="Path2D" parent="." unique_id=1839614498]
+position = Vector2(58.57663, -23.43618)
+curve = SubResource("Curve2D_3tkrs")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_29" unique_id=807237844]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_29" unique_id=52251662]
+
+[node name="Crack_Branch_30" type="Path2D" parent="." unique_id=1987245762]
+position = Vector2(56.16542, -31.06416)
+curve = SubResource("Curve2D_6wptk")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_30" unique_id=48760965]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_30" unique_id=368345365]
+
+[node name="Crack_Branch_31" type="Path2D" parent="." unique_id=840795245]
+position = Vector2(71.293, -9.520117)
+curve = SubResource("Curve2D_x8bh5")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_31" unique_id=392243184]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_31" unique_id=102290355]
+
+[node name="Crack_Branch_32" type="Path2D" parent="." unique_id=35941434]
+position = Vector2(58.166115, -18.649794)
+curve = SubResource("Curve2D_0lcvk")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_32" unique_id=1342305307]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_32" unique_id=916974185]
+
+[node name="Crack_Branch_33" type="Path2D" parent="." unique_id=544706160]
+position = Vector2(94.30705, -16.244427)
+curve = SubResource("Curve2D_5sger")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_33" unique_id=2014706527]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_33" unique_id=1765487633]
+
+[node name="Crack_Branch_34" type="Path2D" parent="." unique_id=1520061555]
+position = Vector2(89.38128, -9.940717)
+curve = SubResource("Curve2D_s6gaf")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_34" unique_id=951193741]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_34" unique_id=931901781]
+
+[node name="Crack_Branch_35" type="Path2D" parent="." unique_id=1251531080]
+position = Vector2(84.92093, -3.2995377)
+curve = SubResource("Curve2D_m1edr")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_35" unique_id=1254773989]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_35" unique_id=511157043]
+
+[node name="Crack_Branch_36" type="Path2D" parent="." unique_id=1114818205]
+position = Vector2(109.32898, -21.731867)
+curve = SubResource("Curve2D_0j75i")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_36" unique_id=552728479]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_36" unique_id=717789045]
+
+[node name="Crack_Branch_37" type="Path2D" parent="." unique_id=38389955]
+position = Vector2(104.06655, -27.757385)
+curve = SubResource("Curve2D_r4rt0")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_37" unique_id=1946851892]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_37" unique_id=1609980733]
+
+[node name="Crack_Branch_38" type="Path2D" parent="." unique_id=2249544]
+position = Vector2(116.769165, -24.671885)
+curve = SubResource("Curve2D_fnbk1")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_38" unique_id=1853722203]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_38" unique_id=991924515]
+
+[node name="Crack_Branch_39" type="Path2D" parent="." unique_id=1455252778]
+position = Vector2(124.08692, -27.9046)
+curve = SubResource("Curve2D_7aqt1")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_39" unique_id=1108769005]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_39" unique_id=1165493709]
+
+[node name="Crack_Branch_40" type="Path2D" parent="." unique_id=147003468]
+position = Vector2(139.3498, -32.667625)
+curve = SubResource("Curve2D_pok6t")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_40" unique_id=572407404]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_40" unique_id=1287268566]
+
+[node name="Crack_Branch_41" type="Path2D" parent="." unique_id=1470279419]
+position = Vector2(147.19714, -34.222984)
+curve = SubResource("Curve2D_8g8le")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_41" unique_id=1492267415]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_41" unique_id=1892200819]
+
+[node name="Crack_Branch_42" type="Path2D" parent="." unique_id=371781400]
+position = Vector2(154.96036, -36.15498)
+curve = SubResource("Curve2D_fyira")
+script = ExtResource("2_chycg")
+_stamp_textures = Array[Texture2D]([ExtResource("3_5nshh"), ExtResource("4_k8wxe"), ExtResource("5_rkdmw"), ExtResource("6_k0bmf"), ExtResource("7_l1nat"), ExtResource("8_csxq0"), ExtResource("9_g8bpi"), ExtResource("10_8yqfa")])
+_detail_textures = Array[Texture2D]([ExtResource("11_xr8c0"), ExtResource("12_0284c"), ExtResource("13_qdelm"), ExtResource("14_u7n28"), ExtResource("15_uowk6"), ExtResource("16_fcg8y"), ExtResource("17_0kqmr"), ExtResource("18_oxxbh"), ExtResource("19_m8dmn"), ExtResource("20_ibji6"), ExtResource("21_fl2td"), ExtResource("22_j4d6b"), ExtResource("23_k7ycc"), ExtResource("24_7jenb"), ExtResource("25_f5tgk"), ExtResource("26_ktuyn"), ExtResource("27_h8smb"), ExtResource("28_xybdo")])
+
+[node name="StampLayer" type="Node2D" parent="Crack_Branch_42" unique_id=1820028777]
+
+[node name="DetailLayer" type="Node2D" parent="Crack_Branch_42" unique_id=1507980269]

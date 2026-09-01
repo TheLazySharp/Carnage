@@ -18,6 +18,14 @@ enum Orientation {
 ## Relative frequency among the profiles
 @export_range(0.0, 10.0, 0.1) var weight : float = 1.0
 
+@export_group("Generator")
+## Optional per-family generator scene. Empty = the pass's own crack_scene.
+## This is what lets one profile use the serpentine generator and another the
+## network one.
+@export var crack_scene : PackedScene = null
+## Serpentine only, ignored by the network generator
+@export_range(0.0, 0.95, 0.01) var turn_smoothing : float = 0.5
+
 @export_group("Shape")
 ## Virtual pixel of the crack. Bigger = chunkier, more damaged look.
 @export var pixel_size : int = 4

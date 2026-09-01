@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://bmi2pb5ruu4u7" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 40.tres" id="24_4vwwa"]
 [ext_resource type="Resource" uid="uid://g00vc4t1rmly" path="res://Resources/Cracks/long_red.tres" id="25_b45g4"]
 [ext_resource type="Texture2D" uid="uid://d4epkehjpaey2" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 25.tres" id="25_d0oc1"]
+[ext_resource type="Resource" uid="uid://vf60crkvisce" path="res://Resources/Cracks/serpentine.tres" id="26_2nhih"]
 [ext_resource type="Texture2D" uid="uid://cn5becwt2jw7" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 26.tres" id="26_aok7f"]
 [ext_resource type="Texture2D" uid="uid://bjcard40v23dy" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 27.tres" id="27_oahep"]
 [ext_resource type="Texture2D" uid="uid://cesxods6yl2p2" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 28.tres" id="28_3app6"]
@@ -3578,15 +3579,15 @@ turn_chance = 0.35
 connection_overlap_px = 20.0
 
 [node name="RoadCracks" type="Node2D" parent="." unique_id=2038815225]
-z_index = 3
+z_index = 2
 script = ExtResource("19_5boc2")
 crack_scene = ExtResource("20_yho2a")
-profiles = Array[ExtResource("21_ogojh")]([ExtResource("22_d14oy"), ExtResource("24_2nhih"), ExtResource("25_b45g4")])
+profiles = Array[ExtResource("21_ogojh")]([ExtResource("22_d14oy"), ExtResource("24_2nhih"), ExtResource("25_b45g4"), ExtResource("26_2nhih")])
 min_distance_cells = 10
 
 [node name="RoadMarks" type="Node2D" parent="." unique_id=270180113]
 modulate = Color(0.5803922, 0.5803922, 0.5803922, 1)
-z_index = 2
+z_index = 3
 script = ExtResource("10_geowy")
 crosswalk_street = ExtResource("11_qup8q")
 crosswalk_artery = ExtResource("12_52dps")

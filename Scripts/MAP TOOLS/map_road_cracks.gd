@@ -180,42 +180,48 @@ func _pick_profile() -> CrackData:
 # SPAWN
 # =================================================================
 func _spawn(profile : CrackData, position_px : Vector2, angle_degrees : float) -> void:
-	var crack : CrackNetworkGenerator = crack_scene.instantiate() as CrackNetworkGenerator
+	var scene : PackedScene = profile.crack_scene if profile.crack_scene != null else crack_scene
+	if scene == null:
+		push_error("[MapRoadCracks] no crack scene for profile '%s'" % profile.name)
+		return
+	var crack : Node2D = scene.instantiate() as Node2D
 	if crack == null:
-		push_error("[MapRoadCracks] crack_scene root must be a CrackNetworkGenerator")
+		push_error("[MapRoadCracks] crack scene root must be a Node2D")
 		return
 
+	# set() rather than typed assignment: the two generators share most property
+	# names and each silently ignores the ones it does not declare.
 	# Configured BEFORE add_child: every setter calls generate(), which returns
-	# immediately while the node is outside the tree. _ready() then generates once.
+	# immediately outside the tree. _ready() then generates once.
 	crack.position = position_px
-	crack.start_position = Vector2.ZERO
-	crack.start_angle_degrees = angle_degrees
-	crack.pixel_size = profile.pixel_size
-	crack.total_length = _rng.randi_range(profile.total_length.x, profile.total_length.y)
-	crack.segment_length = _rng.randi_range(profile.segment_length.x, profile.segment_length.y)
-	crack.max_turn_degrees = _rng.randf_range(profile.max_turn_degrees.x, profile.max_turn_degrees.y)
+	crack.set("start_position", Vector2.ZERO)
+	crack.set("start_angle_degrees", angle_degrees)
+	crack.set("pixel_size", profile.pixel_size)
+	crack.set("total_length", _rng.randi_range(profile.total_length.x, profile.total_length.y))
+	crack.set("segment_length", _rng.randi_range(profile.segment_length.x, profile.segment_length.y))
+	crack.set("max_turn_degrees", _rng.randf_range(profile.max_turn_degrees.x, profile.max_turn_degrees.y))
+	crack.set("turn_smoothing", profile.turn_smoothing)
 
-	# thickness_max first: the two setters clamp against each other, and writing
-	# the min first against a stale max would silently lower it
-	crack.thickness_max = profile.thickness.y
-	crack.thickness_min = profile.thickness.x
-	crack.thickness_variation_step = profile.thickness_variation_step
+	# thickness_max first: the two setters clamp against each other
+	crack.set("thickness_max", profile.thickness.y)
+	crack.set("thickness_min", profile.thickness.x)
+	crack.set("thickness_variation_step", profile.thickness_variation_step)
 
-	crack.branch_chance = _rng.randf_range(profile.branch_chance.x, profile.branch_chance.y)
-	crack.branch_chance_falloff = profile.branch_chance_falloff
-	crack.branch_length_ratio = profile.branch_length_ratio
-	crack.branch_angle_spread_degrees = profile.branch_angle_spread_degrees
-	crack.max_branch_depth = _rng.randi_range(profile.max_branch_depth.x, profile.max_branch_depth.y)
-	crack.thickness_falloff_per_depth = profile.thickness_falloff_per_depth
+	crack.set("branch_chance", _rng.randf_range(profile.branch_chance.x, profile.branch_chance.y))
+	crack.set("branch_chance_falloff", profile.branch_chance_falloff)
+	crack.set("branch_length_ratio", profile.branch_length_ratio)
+	crack.set("branch_angle_spread_degrees", profile.branch_angle_spread_degrees)
+	crack.set("max_branch_depth", _rng.randi_range(profile.max_branch_depth.x, profile.max_branch_depth.y))
+	crack.set("thickness_falloff_per_depth", profile.thickness_falloff_per_depth)
 
 	var pulsing : bool = _rng.randf() < profile.pulse_ratio
 	if pulsing:
-		crack.crack_color = profile.pulse_color_low
+		crack.set("crack_color", profile.pulse_color_low)
 	else:
 		var color : Color = profile.color
 		color.a = clampf(color.a + _rng.randf_range(-profile.alpha_jitter, profile.alpha_jitter), 0.0, 1.0)
-		crack.crack_color = color
-	crack.rng_seed = int(_rng.randi())
+		crack.set("crack_color", color)
+	crack.set("rng_seed", int(_rng.randi()))
 
 	if not pulsing:
 		add_child(crack)
