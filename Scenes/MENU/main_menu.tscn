@@ -26,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.03139958, 0.018843548, 0.012564895, 1)
 
 [node name="Title" type="Label" parent="." unique_id=467110899]
 layout_mode = 1
@@ -114,6 +114,7 @@ alignment = 0
 script = ExtResource("4_k2e8w")
 
 [node name="Race" type="Button" parent="VBoxContainer" unique_id=1116588153]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24

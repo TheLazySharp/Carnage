@@ -355,6 +355,7 @@ libraries/ = SubResource("AnimationLibrary_q12la")
 script = ExtResource("6_khvou")
 
 [node name="BoostGauge" type="ProgressBar" parent="." unique_id=603205214]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

@@ -12,7 +12,14 @@ extends Label
 var base_position : Vector2
 var idle_tween : Tween = null
 
+var font : Array = FontManager.FONTS[FontManager.types.VFX_SMALL]
+
+
+
 func _ready() -> void:
+	add_theme_font_override("font",font[0])
+	add_theme_font_size_override("font_size",font[1])
+	add_theme_color_override("font_color",font[2])
 	text = "Help me !"
 	pivot_offset = size * 0.5
 	base_position = bubble_offset

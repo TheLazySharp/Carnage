@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cjses3u4dag08" path="res://Scripts/UI/garage_repair_button.gd" id="11_tirg6"]
 [ext_resource type="Texture2D" uid="uid://brs2kf8dgvstm" path="res://Assets/Items/one_dollar.png" id="12_cp46g"]
 [ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="12_yoor6"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="12_yorxl"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="14_imly0"]
 [ext_resource type="PackedScene" uid="uid://cvogwsu4e47t0" path="res://Scenes/MENU/shop.tscn" id="15_yorxl"]
 
@@ -261,7 +262,7 @@ custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../../../EntranceButtons/Back")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_atdcy")
+theme_override_fonts/font = ExtResource("12_yorxl")
 theme_override_font_sizes/font_size = 24
 text = "REPAIR :"
 horizontal_alignment = 2

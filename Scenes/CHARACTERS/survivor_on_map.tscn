@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://br4te1rr7oh2a"]
 
 [ext_resource type="Script" uid="uid://4h8hy7gu3qx6" path="res://Scripts/CHARACTERS/SURVIVORS/survivor_on_map.gd" id="1_iqotm"]
-[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="2_q83ig"]
+[ext_resource type="FontFile" uid="uid://cmmoqli2ds5yo" path="res://Fonts/Oxanium-ExtraLight.ttf" id="2_iqotm"]
 [ext_resource type="Script" uid="uid://c0jesid3lpsgv" path="res://Scripts/UI/dialogue_bubble.gd" id="3_0km1h"]
 
 [node name="SurvivorOnRoad" type="Node2D" unique_id=785524965 groups=["survivor"]]
@@ -33,7 +33,7 @@ offset_top = -31.0
 offset_right = 97.0
 offset_bottom = -8.0
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
-theme_override_fonts/font = ExtResource("2_q83ig")
+theme_override_fonts/font = ExtResource("2_iqotm")
 text = "Help me !"
 horizontal_alignment = 1
 vertical_alignment = 1

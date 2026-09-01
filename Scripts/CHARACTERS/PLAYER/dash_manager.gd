@@ -84,8 +84,8 @@ func try_timed_dash() -> void:
 func dash_available() -> bool:
 	return !is_dashing \
 		and !is_preparing \
-		and player.current_fuel >= player.dash_fuel_down \
-		and player.current_nitro >= MIN_NITRO_TO_START
+		and player.current_fuel >= player.dash_fuel_down 
+		#and player.current_nitro >= MIN_NITRO_TO_START
 
 
 ## called from car physics process
