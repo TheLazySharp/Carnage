@@ -1,0 +1,36 @@
+{ "frames": {
+   "roof_GP.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 1025, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1025, "h": 256 },
+    "sourceSize": { "w": 1025, "h": 256 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.18.3-x64",
+  "image": "glass_panels.png",
+  "format": "RGBA8888",
+  "size": { "w": 1025, "h": 256 },
+  "scale": "1",
+  "slices": [
+   { "name": "Slice 15", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 537, "y": 0, "w": 53, "h": 53 } }] },
+   { "name": "Slice 14", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 484, "y": 0, "w": 53, "h": 53 } }] },
+   { "name": "Slice 13", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 431, "y": 0, "w": 53, "h": 53 } }] },
+   { "name": "Slice 12", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 373, "y": 38, "w": 58, "h": 38 } }] },
+   { "name": "Slice 11", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 373, "y": 0, "w": 58, "h": 38 } }] },
+   { "name": "Slice 10", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 315, "y": 38, "w": 58, "h": 38 } }] },
+   { "name": "Slice 9", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 315, "y": 0, "w": 58, "h": 38 } }] },
+   { "name": "Slice 8", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 257, "y": 38, "w": 58, "h": 38 } }] },
+   { "name": "Slice 7", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 257, "y": 0, "w": 58, "h": 38 } }] },
+   { "name": "Slice 6", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 217, "y": 42, "w": 40, "h": 42 } }] },
+   { "name": "Slice 5", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 177, "y": 42, "w": 40, "h": 42 } }] },
+   { "name": "Slice 4", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 217, "y": 0, "w": 40, "h": 42 } }] },
+   { "name": "Slice 3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 177, "y": 0, "w": 40, "h": 42 } }] },
+   { "name": "Slice 2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 93, "y": 0, "w": 84, "h": 85 } }] },
+   { "name": "Slice 1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 0, "w": 93, "h": 92 } }] }
+  ]
+ }
+}

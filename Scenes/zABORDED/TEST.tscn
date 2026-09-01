@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="1_qodwh"]
 [ext_resource type="Texture2D" uid="uid://0cuev6stvoad" path="res://Assets/Items/Drops/Dollars/bills.png" id="2_mkn34"]
 [ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
-[ext_resource type="Texture2D" uid="uid://dlk6loqux8bdt" path="res://Assets/Textures/Roads/Markings/Misc/roadmarks_misc.png" id="2_qbjlx"]
+[ext_resource type="Texture2D" uid="uid://jrppx5oxp1nn" path="res://Assets/Props/Roofs/Solar Panels/solar_panels.png" id="2_rv0vo"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]
 [ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Tilesets/Roofs/roof_texture03.png" id="6_37n1q"]
@@ -1455,9 +1455,9 @@ shader_parameter/cols_1 = 1
 
 [node name="TextureSlicer" type="Node2D" parent="." unique_id=142767713]
 script = ExtResource("77_uqknt")
-atlas_texture = ExtResource("2_qbjlx")
-json_path = "res://Assets/Textures/Roads/Markings/Misc/roadmarks_misc.json"
-output_dir_override = "res://Assets/Textures/Roads/Markings/Misc/"
+atlas_texture = ExtResource("2_rv0vo")
+json_path = "res://Assets/Props/Roofs/Solar Panels/solar_panels.json"
+output_dir_override = "res://Assets/Props/Roofs/Solar Panels/"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
 position = Vector2(61.000122, 54)
@@ -2991,7 +2991,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1809154890]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=726178598]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -3024,10 +3024,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1086990725]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1293039143]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1694970984]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=2072990149]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -3044,7 +3044,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1250480449]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1598716600]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -3179,3 +3179,6 @@ texture = ExtResource("120_m3dio")
 material = SubResource("ShaderMaterial_q3f5b")
 multimesh = SubResource("MultiMesh_nhvyv")
 texture = ExtResource("119_8eqp4")
+
+[node name="Explosion1" parent="." unique_id=547738887 instance=ExtResource("126_rv0vo")]
+position = Vector2(2024, 1158)

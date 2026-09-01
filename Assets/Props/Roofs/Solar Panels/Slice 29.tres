@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cyimrgppgoqti"]
+
+[ext_resource type="Texture2D" uid="uid://jrppx5oxp1nn" path="res://Assets/Props/Roofs/Solar Panels/solar_panels.png" id="1_6ytof"]
+
+[resource]
+atlas = ExtResource("1_6ytof")
+region = Rect2(406, 108, 154, 78)

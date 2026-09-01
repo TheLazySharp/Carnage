@@ -1,0 +1,50 @@
+{ "frames": {
+   "Sprite-0001.": {
+    "frame": { "x": 0, "y": 0, "w": 1025, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1025, "h": 256 },
+    "sourceSize": { "w": 1025, "h": 256 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.18.3-x64",
+  "image": "solar_panels.png",
+  "format": "RGBA8888",
+  "size": { "w": 1025, "h": 256 },
+  "scale": "1",
+  "slices": [
+   { "name": "Slice 29", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 406, "y": 108, "w": 154, "h": 78 } }] },
+   { "name": "Slice 28", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 366, "y": 75, "w": 40, "h": 75 } }] },
+   { "name": "Slice 27", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 326, "y": 75, "w": 40, "h": 75 } }] },
+   { "name": "Slice 26", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 286, "y": 75, "w": 40, "h": 75 } }] },
+   { "name": "Slice 25", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 246, "y": 75, "w": 40, "h": 75 } }] },
+   { "name": "Slice 24", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 538, "y": 54, "w": 33, "h": 54 } }] },
+   { "name": "Slice 23", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 505, "y": 54, "w": 33, "h": 54 } }] },
+   { "name": "Slice 22", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 472, "y": 54, "w": 33, "h": 54 } }] },
+   { "name": "Slice 21", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 439, "y": 54, "w": 33, "h": 54 } }] },
+   { "name": "Slice 20", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 406, "y": 54, "w": 33, "h": 54 } }] },
+   { "name": "Slice 19", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 571, "y": 36, "w": 52, "h": 36 } }] },
+   { "name": "Slice 18", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 623, "y": 36, "w": 52, "h": 36 } }] },
+   { "name": "Slice 17", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 675, "y": 36, "w": 52, "h": 36 } }] },
+   { "name": "Slice 16", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 675, "y": 0, "w": 52, "h": 36 } }] },
+   { "name": "Slice 15", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 623, "y": 0, "w": 52, "h": 36 } }] },
+   { "name": "Slice 14", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 571, "y": 0, "w": 52, "h": 36 } }] },
+   { "name": "Slice 13", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 538, "y": 0, "w": 33, "h": 54 } }] },
+   { "name": "Slice 12", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 505, "y": 0, "w": 33, "h": 54 } }] },
+   { "name": "Slice 11", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 472, "y": 0, "w": 33, "h": 54 } }] },
+   { "name": "Slice 10", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 439, "y": 0, "w": 33, "h": 54 } }] },
+   { "name": "Slice 9", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 406, "y": 0, "w": 33, "h": 54 } }] },
+   { "name": "Slice 8", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 366, "y": 0, "w": 40, "h": 75 } }] },
+   { "name": "Slice 7", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 326, "y": 0, "w": 40, "h": 75 } }] },
+   { "name": "Slice 6", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 286, "y": 0, "w": 40, "h": 75 } }] },
+   { "name": "Slice 5", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 246, "y": 0, "w": 40, "h": 75 } }] },
+   { "name": "Slice 4", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 123, "y": 0, "w": 123, "h": 85 } }] },
+   { "name": "Slice 3", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 123, "y": 85, "w": 123, "h": 85 } }] },
+   { "name": "Slice 2", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 85, "w": 123, "h": 85 } }] },
+   { "name": "Slice 1", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 0, "w": 123, "h": 85 } }] }
+  ]
+ }
+}

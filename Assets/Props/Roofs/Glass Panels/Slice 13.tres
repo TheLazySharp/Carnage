@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://tsypbkuodwdc"]
+
+[ext_resource type="Texture2D" uid="uid://dn66fmrg2or5c" path="res://Assets/Props/Roofs/Glass Panels/glass_panels.png" id="1_adj8b"]
+
+[resource]
+atlas = ExtResource("1_adj8b")
+region = Rect2(431, 0, 53, 53)
