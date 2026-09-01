@@ -57,6 +57,7 @@
 [ext_resource type="PackedScene" uid="uid://b7f82u1r73s67" path="res://Scenes/MAP TOOLS/road_lines_394.tscn" id="35_3b8hv"]
 [ext_resource type="Script" uid="uid://i1akgdqtgvmt" path="res://Scripts/MAP TOOLS/map_debris.gd" id="51_ogojh"]
 [ext_resource type="PackedScene" uid="uid://b6f8eedhf8svb" path="res://Scenes/MAP TOOLS/debris_generator.tscn" id="52_1gwof"]
+[ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="58_o76wv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d6r40"]
 texture = ExtResource("2_0wyvd")
@@ -3631,3 +3632,5 @@ cable_scene = ExtResource("12_geowy")
 shadow_scene = ExtResource("13_2uc7r")
 shadows_ground = NodePath("../ShadowsGround")
 cable_chance = 0.5
+
+[node name="Explosion1" parent="." unique_id=761729978 instance=ExtResource("58_o76wv")]

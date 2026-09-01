@@ -16,6 +16,7 @@ enum Type { ANIMATION, PARTICLES, SHADER }
 @export var shader_node: NodePath
 @export var shader_duree: float = 0.5
 @export var shader_uniform_progress: String = "progress"
+@export var shader_uniform_center: String = ""
 
 @export_group("Global")
 @export var delay: float = 0.0
