@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://da1eyvad3nftt"]
 
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_40adb"]
-[ext_resource type="Texture2D" uid="uid://c5yjctdsewpwt" path="res://Assets/Tilesets/Roofs/roof_texture04.png" id="2_40adb"]
-[ext_resource type="Texture2D" uid="uid://bomjdb68ne2n3" path="res://Assets/Props/Roofs/Air Conditioners/Slice 3.tres" id="3_qtk8n"]
-[ext_resource type="Texture2D" uid="uid://bxnhcjxpquhdl" path="res://Assets/Props/Roofs/Air Conditioners/Slice 8.tres" id="4_1ngis"]
+[ext_resource type="Texture2D" uid="uid://d3qt2bgnq2urg" path="res://Assets/Tilesets/Roofs/roof_texture02.png" id="2_40adb"]
+[ext_resource type="Texture2D" uid="uid://tsypbkuodwdc" path="res://Assets/Props/Roofs/Glass Panels/Slice 13.tres" id="3_40adb"]
+[ext_resource type="Texture2D" uid="uid://bxoa18wjls014" path="res://Assets/Props/Roofs/Glass Panels/Slice 1.tres" id="4_qtk8n"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="5_xinre"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp1ot"]
@@ -689,14 +689,6 @@ texture = ExtResource("2_40adb")
 modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 
-[node name="BuildingShadow2" type="Node2D" parent="ShadowsRoof" unique_id=116792912]
-position = Vector2(33.976685, 100.97642)
-script = ExtResource("1_40adb")
-building_size = Vector2i(116, 61)
-shadow_length = 4
-pixel_size = 1
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
 [node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
 position = Vector2(1.9724636, 2.0433292)
 script = ExtResource("1_40adb")
@@ -717,14 +709,19 @@ metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 z_index = 19
 
 [node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=395940981]
-position = Vector2(152, 99)
+position = Vector2(224, 32)
 rotation = 1.5707964
-texture = ExtResource("3_qtk8n")
+texture = ExtResource("3_40adb")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="RoofsProps" unique_id=1243242732]
+position = Vector2(171, 107)
+texture = ExtResource("3_40adb")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="RoofsProps" unique_id=25245348]
-position = Vector2(207.66745, 48.686493)
-texture = ExtResource("4_1ngis")
+position = Vector2(80, 96)
+texture = ExtResource("4_qtk8n")
 
 [node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
 z_index = 20

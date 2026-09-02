@@ -6,14 +6,14 @@
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="4_evvto"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="5_eqfd6"]
 [ext_resource type="Texture2D" uid="uid://bn3oteja0m4nn" path="res://Assets/Characters/Cars/sedan_sport.png" id="6_kpiw7"]
-[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="7_5bi6m"]
+[ext_resource type="Texture2D" uid="uid://b3omk3jqa30al" path="res://Assets/Items/Drops/Dollars/dollar_4.png" id="7_yorxl"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="8_mwbmv"]
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="9_jy6mi"]
-[ext_resource type="Texture2D" uid="uid://cti4mltaqkgeo" path="res://Assets/UI/gas_reverse.png" id="10_v56ws"]
+[ext_resource type="Texture2D" uid="uid://d2w71xk7jn5yn" path="res://Assets/Items/shield.png" id="10_dxkjd"]
 [ext_resource type="Script" uid="uid://cjses3u4dag08" path="res://Scripts/UI/garage_repair_button.gd" id="11_tirg6"]
-[ext_resource type="Texture2D" uid="uid://brs2kf8dgvstm" path="res://Assets/Items/one_dollar.png" id="12_cp46g"]
 [ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="12_yoor6"]
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="12_yorxl"]
+[ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="13_qetox"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="14_imly0"]
 [ext_resource type="PackedScene" uid="uid://cvogwsu4e47t0" path="res://Scenes/MENU/shop.tscn" id="15_yorxl"]
 
@@ -35,7 +35,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ieomr"]
-bg_color = Color(0.43605784, 1.0889582e-06, 2.4065375e-08, 1)
+bg_color = Color(0, 0.9843137, 0.20392157, 1)
 skew = Vector2(0.5, 0)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
@@ -176,7 +176,7 @@ offset_right = -261.0
 offset_bottom = 65.0
 grow_horizontal = 0
 grow_vertical = 2
-texture = ExtResource("7_5bi6m")
+texture = ExtResource("7_yorxl")
 stretch_mode = 5
 
 [node name="FortuneQ" type="Label" parent="Entrance/Repair" unique_id=1083063700]
@@ -229,12 +229,11 @@ script = ExtResource("9_jy6mi")
 
 [node name="Sprite2D" type="TextureRect" parent="Entrance/Repair/FuelGauge" unique_id=1948100780]
 layout_mode = 0
-offset_left = -62.0
-offset_top = -0.99999803
-offset_right = -30.0
-offset_bottom = 31.000002
-scale = Vector2(1.25, 1.28125)
-texture = ExtResource("10_v56ws")
+offset_left = -83.0
+offset_top = -11.999998
+offset_right = -19.0
+offset_bottom = 52.0
+texture = ExtResource("10_dxkjd")
 
 [node name="RepairButton" type="Button" parent="Entrance" unique_id=648365047]
 layout_mode = 0
@@ -272,7 +271,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_atdcy")
+theme_override_fonts/font = ExtResource("12_yorxl")
 theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 1
@@ -281,7 +280,7 @@ vertical_alignment = 1
 [node name="Dollar" type="TextureRect" parent="Entrance/RepairButton/HBoxContainer" unique_id=2045042586]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-texture = ExtResource("12_cp46g")
+texture = ExtResource("13_qetox")
 expand_mode = 2
 
 [node name="EntranceButtons" type="VBoxContainer" parent="Entrance" unique_id=2015606175]

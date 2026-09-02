@@ -1,0 +1,1805 @@
+[gd_scene format=3 uid="uid://cs311xlcqlrt0"]
+
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="1_nn5ok"]
+[ext_resource type="Script" uid="uid://2unrirt1gcu5" path="res://Scripts/SCENES/garage.gd" id="1_w8qls"]
+[ext_resource type="Texture2D" uid="uid://bn3oteja0m4nn" path="res://Assets/Characters/Cars/sedan_sport.png" id="3_t7ggm"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_u0y0u"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="4_bewcq"]
+[ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="4_t7ggm"]
+[ext_resource type="Script" uid="uid://esvjb8g5f6s0" path="res://Scripts/UI/garage_upgrade_changes.gd" id="5_eb3v0"]
+[ext_resource type="Texture2D" uid="uid://ch2tpu8vunnsk" path="res://Assets/Items/engine.png" id="5_p2ls2"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="6_6lwu2"]
+[ext_resource type="Texture2D" uid="uid://cti4mltaqkgeo" path="res://Assets/UI/gas_reverse.png" id="6_518uu"]
+[ext_resource type="Texture2D" uid="uid://8bmhd5qrtwjb" path="res://Assets/Items/minus.png" id="7_6lwu2"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="7_61h7n"]
+[ext_resource type="Texture2D" uid="uid://b0qia31ffr14m" path="res://Assets/Items/turbo.png" id="7_eb3v0"]
+[ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="8_3qt3b"]
+[ext_resource type="Script" uid="uid://cjses3u4dag08" path="res://Scripts/UI/garage_repair_button.gd" id="8_3thmm"]
+[ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="8_6c7gw"]
+[ext_resource type="Texture2D" uid="uid://d2w71xk7jn5yn" path="res://Assets/Items/shield.png" id="8_efqn2"]
+[ext_resource type="Texture2D" uid="uid://1rjil1fyuxu" path="res://Assets/Items/carbon_fiber.png" id="9_g3154"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="10_q2l0n"]
+[ext_resource type="Texture2D" uid="uid://c32m7ll3ka4tp" path="res://Assets/Items/fuel_tank.png" id="12_efqn2"]
+[ext_resource type="Script" uid="uid://dtnows4f4j3w1" path="res://Scripts/CHARACTERS/PLAYER/stats_panel.gd" id="13_6c7gw"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="13_bewcq"]
+[ext_resource type="Script" uid="uid://dvc1e2otn4mns" path="res://Scripts/UI/car_upgrade_button.gd" id="14_61h7n"]
+[ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="15_87beh"]
+[ext_resource type="Texture2D" uid="uid://gg32ihj14fcq" path="res://Assets/Items/nitro.png" id="16_3qt3b"]
+[ext_resource type="Texture2D" uid="uid://bmgonqrvktc7g" path="res://Assets/Items/front_gear.png" id="17_obsfv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ok6yj"]
+bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ieomr"]
+bg_color = Color(0.43605784, 1.0889582e-06, 2.4065375e-08, 1)
+skew = Vector2(0.5, 0)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cyogf"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i55j1"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_518uu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3thmm"]
+
+[node name="Garage" type="Control" unique_id=308197400]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8qls")
+
+[node name="Background" type="ColorRect" parent="." unique_id=179635283]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="Background" unique_id=1824510589]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 64
+text = "THE GARAGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("3_u0y0u")
+
+[node name="Entrance" type="Control" parent="." unique_id=920180005]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Entrance" unique_id=646105061]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Repair" type="Panel" parent="Entrance" unique_id=1054053194]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 100.0
+offset_top = 24.0
+offset_right = -780.0
+offset_bottom = 344.0
+grow_horizontal = 2
+
+[node name="CarName" type="Label" parent="Entrance/Repair" unique_id=1389764269]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 17.0
+offset_bottom = 54.333332
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 32
+text = "SEDAN"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_bewcq")
+
+[node name="CarIcon" type="TextureRect" parent="Entrance/Repair" unique_id=183897566]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 88.0
+offset_top = -134.0
+offset_right = 244.0
+offset_bottom = 50.099915
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+texture = ExtResource("3_t7ggm")
+stretch_mode = 5
+
+[node name="PartsIcon" type="TextureRect" parent="Entrance/Repair" unique_id=972328547]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -3.0
+offset_right = -263.0
+offset_bottom = 29.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.40142572
+scale = Vector2(2, 2)
+texture = ExtResource("4_t7ggm")
+stretch_mode = 5
+
+[node name="PartsQ" type="Label" parent="Entrance/Repair" unique_id=1083063700]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 192.0
+offset_right = 273.0
+offset_bottom = 220.0
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "100000"
+script = ExtResource("7_61h7n")
+
+[node name="FuelGauge" type="ProgressBar" parent="Entrance/Repair" unique_id=1776447509]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 102.0
+offset_top = 90.0
+offset_right = 315.0
+offset_bottom = 127.0
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ok6yj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ieomr")
+step = 5.0
+value = 75.0
+rounded = true
+show_percentage = false
+
+[node name="LifeLabel" type="Label" parent="Entrance/Repair/FuelGauge" unique_id=151165381]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.5
+offset_top = 6.0
+offset_right = -6.5
+offset_bottom = 24.666664
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 16
+text = "1000/1000"
+script = ExtResource("8_6c7gw")
+
+[node name="Sprite2D" type="TextureRect" parent="Entrance/Repair/FuelGauge" unique_id=1948100780]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -0.99999803
+offset_right = -30.0
+offset_bottom = 31.000002
+scale = Vector2(1.25, 1.28125)
+texture = ExtResource("6_518uu")
+
+[node name="RepairButton" type="Button" parent="Entrance" unique_id=648365047]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 400.0
+offset_right = 443.0
+offset_bottom = 456.0
+focus_neighbor_right = NodePath("../UpgradeButton")
+focus_neighbor_bottom = NodePath("../EntranceButtons/Back")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_cyogf")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i55j1")
+text = "REPAIR : 1000"
+script = ExtResource("8_3thmm")
+
+[node name="Piston" type="TextureRect" parent="Entrance/RepairButton" unique_id=2045042586]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -21.0
+offset_bottom = 19.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_t7ggm")
+
+[node name="UpgradeButton" type="Button" parent="Entrance" unique_id=1083931236]
+layout_mode = 0
+offset_left = 830.0
+offset_top = 400.0
+offset_right = 1130.0
+offset_bottom = 456.0
+focus_neighbor_left = NodePath("../RepairButton")
+focus_neighbor_right = NodePath("../RepairButton")
+focus_neighbor_bottom = NodePath("../EntranceButtons/Back")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_cyogf")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i55j1")
+text = "UPGRADES"
+script = ExtResource("8_3qt3b")
+
+[node name="EntranceStatsPanel" type="Panel" parent="Entrance" unique_id=1351582300]
+layout_mode = 0
+offset_left = 754.0
+offset_top = 24.0
+offset_right = 1189.0
+offset_bottom = 344.0
+script = ExtResource("13_6c7gw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Entrance/EntranceStatsPanel" unique_id=2043760998]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.0
+offset_top = -147.0
+offset_right = 181.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stats" type="VBoxContainer" parent="Entrance/EntranceStatsPanel/HBoxContainer" unique_id=299865382]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Fuel" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=1212595735]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Fuel :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Speed" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=288928945]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Speed :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Torque" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=510219671]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Acceleration :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Dmg" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=653159690]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Damages :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Drift" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=1834573231]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Drift :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Tires" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=1547815590]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Nitro up :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="DashLenght" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=169023960]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Dash duration :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="DashDmg" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Stats" unique_id=347018515]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Dash damages boost :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Levels" type="VBoxContainer" parent="Entrance/EntranceStatsPanel/HBoxContainer" unique_id=811992700]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Fuel_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=1573500561]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Speed_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=740876475]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Torque_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=526729471]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Dmg_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=1850884807]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Drift_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=1334940740]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Tires_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=277155100]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Dash_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=6965182]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Crit_lvl" type="Label" parent="Entrance/EntranceStatsPanel/HBoxContainer/Levels" unique_id=96564160]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="EntranceButtons" type="VBoxContainer" parent="Entrance" unique_id=2015606175]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -109.0
+offset_top = -121.0
+offset_right = 109.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Confirm" type="Button" parent="Entrance/EntranceButtons" unique_id=627258193]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "CONFIRM"
+flat = true
+script = ExtResource("13_bewcq")
+
+[node name="Back" type="Button" parent="Entrance/EntranceButtons" unique_id=1381319762]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Back"
+flat = true
+script = ExtResource("13_bewcq")
+
+[node name="Upgrades" type="Control" parent="." unique_id=89782018]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Upgrades" unique_id=247897660]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Upgrades" unique_id=1882325762]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 1
+offset_top = 20.0
+offset_right = 480.0
+offset_bottom = 270.0
+theme_override_constants/separation = 10
+
+[node name="LvlPanel" type="Panel" parent="Upgrades/HBoxContainer" unique_id=2077011680]
+custom_minimum_size = Vector2(480, 120)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades/HBoxContainer/LvlPanel" unique_id=207869233]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 17.0
+offset_right = 211.0
+offset_bottom = 121.0
+theme_override_constants/separation = 10
+
+[node name="CurrentLvlTxt" type="Label" parent="Upgrades/HBoxContainer/LvlPanel/VBoxContainer" unique_id=96745647]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Level :"
+script = ExtResource("7_61h7n")
+
+[node name="AvailUpgradeTxt" type="Label" parent="Upgrades/HBoxContainer/LvlPanel/VBoxContainer" unique_id=1594937451]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Available 
+upgrades :"
+script = ExtResource("7_61h7n")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Upgrades/HBoxContainer/LvlPanel" unique_id=1843600437]
+clip_contents = true
+layout_mode = 0
+offset_left = 202.0
+offset_top = 15.0
+offset_right = 326.0
+offset_bottom = 81.0
+theme_override_constants/separation = 10
+
+[node name="CurrentLvlQ" type="Label" parent="Upgrades/HBoxContainer/LvlPanel/VBoxContainer2" unique_id=688124039]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "99"
+horizontal_alignment = 2
+script = ExtResource("7_61h7n")
+
+[node name="AvailupgradeQ" type="Label" parent="Upgrades/HBoxContainer/LvlPanel/VBoxContainer2" unique_id=600396810]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "
+10"
+horizontal_alignment = 2
+script = ExtResource("7_61h7n")
+
+[node name="GearPanel" type="Panel" parent="Upgrades/HBoxContainer" unique_id=2002797426]
+custom_minimum_size = Vector2(480, 120)
+layout_mode = 2
+
+[node name="Parts" type="TextureRect" parent="Upgrades/HBoxContainer/GearPanel" unique_id=1886032697]
+layout_mode = 1
+offset_left = -27.0
+offset_top = 14.0
+offset_right = 66.0
+offset_bottom = 105.0
+texture = ExtResource("4_t7ggm")
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades/HBoxContainer/GearPanel" unique_id=1385434572]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 16.0
+offset_right = 245.0
+offset_bottom = 120.0
+theme_override_constants/separation = 10
+
+[node name="TotalTxt" type="Label" parent="Upgrades/HBoxContainer/GearPanel/VBoxContainer" unique_id=134727135]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Total :"
+script = ExtResource("7_61h7n")
+
+[node name="Cost" type="Label" parent="Upgrades/HBoxContainer/GearPanel/VBoxContainer" unique_id=690881539]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Cost :"
+script = ExtResource("7_61h7n")
+
+[node name="RequestedTxt" type="Label" parent="Upgrades/HBoxContainer/GearPanel/VBoxContainer" unique_id=893347798]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Requested :"
+script = ExtResource("7_61h7n")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Upgrades/HBoxContainer/GearPanel" unique_id=171978501]
+clip_contents = true
+layout_mode = 0
+offset_left = 252.0
+offset_top = 16.0
+offset_right = 376.0
+offset_bottom = 120.0
+theme_override_constants/separation = 10
+
+[node name="TotalQ" type="Label" parent="Upgrades/HBoxContainer/GearPanel/VBoxContainer2" unique_id=1574440097]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "1000"
+horizontal_alignment = 2
+script = ExtResource("7_61h7n")
+
+[node name="CostQ" type="Label" parent="Upgrades/HBoxContainer/GearPanel/VBoxContainer2" unique_id=258899557]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "1000"
+horizontal_alignment = 2
+script = ExtResource("7_61h7n")
+
+[node name="RequestedQ" type="Label" parent="Upgrades/HBoxContainer/GearPanel/VBoxContainer2" unique_id=711404652]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "100000"
+horizontal_alignment = 2
+script = ExtResource("7_61h7n")
+
+[node name="UpgradePanel" type="Panel" parent="Upgrades" unique_id=1684608771]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 20.0
+offset_right = 466.0
+offset_bottom = 657.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades/UpgradePanel" unique_id=1344572833]
+layout_mode = 0
+offset_right = 403.0
+offset_bottom = 466.0
+theme_override_constants/separation = 10
+
+[node name="Engine" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1637748415]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 1
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Engine" unique_id=663922559]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Engine/Icon" unique_id=634593640]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_p2ls2")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Engine" unique_id=1684247133]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Engine/Label" unique_id=425835100]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Engine"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Engine" unique_id=652526323]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="EngineLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Engine/Lvl" unique_id=971215712]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Engine" unique_id=655244662]
+custom_minimum_size = Vector2(40, 70)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="EngineUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Engine/ButtonUp" unique_id=1167822882]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Engine" unique_id=267449006]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="EngineDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Engine/ButtonDown" unique_id=1095415010]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="Turbo" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1705877576]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 2
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo" unique_id=758097968]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo/Icon" unique_id=1860415879]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_eb3v0")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo" unique_id=1064975601]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo/Label" unique_id=244469567]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Turbo"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo" unique_id=1476857558]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="TurboLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo/Lvl" unique_id=388887177]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo" unique_id=1011890009]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="TurboUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo/ButtonUp" unique_id=927753592]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo" unique_id=536201944]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="TurboDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Turbo/ButtonDown" unique_id=204834858]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="Shield" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1611162894]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 3
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Shield" unique_id=1616385785]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Shield/Icon" unique_id=1774623307]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_efqn2")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Shield" unique_id=1463381354]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Shield/Label" unique_id=1152865008]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Shield"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Shield" unique_id=1035605429]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="ShieldLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Shield/Lvl" unique_id=1689400639]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Shield" unique_id=1784328151]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="ShieldUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Shield/ButtonUp" unique_id=1609544282]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Shield" unique_id=798196210]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="ShieldDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Shield/ButtonDown" unique_id=489127951]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="Carbon" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1331665810]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 4
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon" unique_id=1486315269]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon/Icon" unique_id=1776938507]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_g3154")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon" unique_id=818600426]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon/Label" unique_id=664284334]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Carbon"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon" unique_id=1713268231]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="CarbonLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon/Lvl" unique_id=1599987193]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon" unique_id=529630459]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="CarbonUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon/ButtonUp" unique_id=545079928]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon" unique_id=107388068]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="CarbonDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Carbon/ButtonDown" unique_id=886636373]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="Tank" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1106899698]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 5
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Tank" unique_id=2086608655]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Tank/Icon" unique_id=2072074843]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_efqn2")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Tank" unique_id=1918275445]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Tank/Label" unique_id=1756185816]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Tank"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Tank" unique_id=780532742]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="TankLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Tank/Lvl" unique_id=551705965]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Tank" unique_id=1378355834]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="TankUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Tank/ButtonUp" unique_id=697658417]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Tank" unique_id=2123164680]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="TankDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Tank/ButtonDown" unique_id=278849871]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="Wheels" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=1842377921]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 7
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels" unique_id=479376956]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels/Icon" unique_id=2120515943]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_87beh")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels" unique_id=1993510232]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels/Label" unique_id=256550991]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Wheels"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels" unique_id=179063194]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="WheelsLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels/Lvl" unique_id=1625485345]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels" unique_id=1425462454]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="WheelUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels/ButtonUp" unique_id=247260580]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels" unique_id=1557844193]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="WheelDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Wheels/ButtonDown" unique_id=1255017916]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="Dash" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=614791831]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 6
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Dash" unique_id=1268395469]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Dash/Icon" unique_id=995105889]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_3qt3b")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Dash" unique_id=196333252]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Dash/Label" unique_id=978576738]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Nitro"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Dash" unique_id=61099665]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="NitroLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Dash/Lvl" unique_id=404356194]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Dash" unique_id=1996450508]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="NitroUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Dash/ButtonUp" unique_id=667259322]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Dash" unique_id=923111031]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="NitroDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Dash/ButtonDown" unique_id=1831274185]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="Crit" type="HBoxContainer" parent="Upgrades/UpgradePanel/VBoxContainer" unique_id=471372360]
+layout_mode = 2
+theme_override_constants/separation = 40
+script = ExtResource("14_61h7n")
+car_upgrade = 8
+
+[node name="Icon" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Crit" unique_id=634436554]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_518uu")
+
+[node name="Icon" type="TextureRect" parent="Upgrades/UpgradePanel/VBoxContainer/Crit/Icon" unique_id=1860157693]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_obsfv")
+
+[node name="Label" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Crit" unique_id=1479300989]
+custom_minimum_size = Vector2(120, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="Label" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Crit/Label" unique_id=1308734265]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 117.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Bumper"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Lvl" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Crit" unique_id=1608316397]
+custom_minimum_size = Vector2(94, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="BumperLvl" type="Label" parent="Upgrades/UpgradePanel/VBoxContainer/Crit/Lvl" unique_id=2028647610]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "Lvl 99"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="ButtonUp" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Crit" unique_id=1958911552]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="BumperUp" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Crit/ButtonUp" unique_id=1361471627]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("6_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="ButtonDown" type="Panel" parent="Upgrades/UpgradePanel/VBoxContainer/Crit" unique_id=1361547713]
+custom_minimum_size = Vector2(40, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3thmm")
+
+[node name="BumperDown" type="Button" parent="Upgrades/UpgradePanel/VBoxContainer/Crit/ButtonDown" unique_id=683221438]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+icon = ExtResource("7_6lwu2")
+flat = true
+vertical_icon_alignment = 2
+
+[node name="StatPanel" type="Panel" parent="Upgrades" unique_id=2025218826]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -61.0
+offset_right = 480.0
+offset_bottom = 259.0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Upgrades/StatPanel" unique_id=1724273980]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.5
+offset_top = -131.0
+offset_right = 234.5
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="Stats" type="VBoxContainer" parent="Upgrades/StatPanel/HBoxContainer" unique_id=107981802]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Fuel" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1659640258]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Fuel :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Speed" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=719723125]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Speed :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Torque" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=309909404]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Acceleration :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Dmg" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=513861840]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Damages :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Drift" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1616517187]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Drift :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Tires" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=907062815]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Nitro up :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="DashLenght" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1809520778]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Dash duration :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="DashDmg" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Stats" unique_id=1102142521]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "Dash dmg boost :"
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Levels" type="VBoxContainer" parent="Upgrades/StatPanel/HBoxContainer" unique_id=2076940881]
+custom_minimum_size = Vector2(84, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Fuel_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=532118800]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Speed_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1946435198]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Torque_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1417232592]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Dmg_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1673827586]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Drift_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=15134241]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Tires_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=2044801274]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Dash_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=1169943872]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Crit_lvl" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Levels" unique_id=641098076]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("7_61h7n")
+
+[node name="Upgrade" type="VBoxContainer" parent="Upgrades/StatPanel/HBoxContainer" unique_id=251310388]
+custom_minimum_size = Vector2(82, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Fuel_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=574606055]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="Speed_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1427513969]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="Torque_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=542175002]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="Dmg_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1498998161]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="Drift_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=509102222]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="Tires_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1356083325]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="Dash_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=56573737]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="Crit_upgrade" type="Label" parent="Upgrades/StatPanel/HBoxContainer/Upgrade" unique_id=1353781522]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_q2l0n")
+theme_override_font_sizes/font_size = 24
+text = "100.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("5_eb3v0")
+
+[node name="UpgradeButtons" type="HBoxContainer" parent="Upgrades" unique_id=1713945435]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.5
+offset_top = -42.0
+offset_right = 130.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 32
+
+[node name="Confirm" type="Button" parent="Upgrades/UpgradeButtons" unique_id=1260248324]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_nn5ok")
+theme_override_font_sizes/font_size = 24
+text = "CONFIRM"
+flat = true
+script = ExtResource("13_bewcq")
+
+[connection signal="pressed" from="Entrance/RepairButton" to="Entrance/RepairButton" method="_on_pressed"]
+[connection signal="pressed" from="Entrance/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="Entrance/EntranceButtons/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="Entrance/EntranceButtons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Engine/ButtonUp/EngineUp" to="." method="_on_engine_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Engine/ButtonDown/EngineDown" to="." method="_on_engine_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Turbo/ButtonUp/TurboUp" to="." method="_on_turbo_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Turbo/ButtonDown/TurboDown" to="." method="_on_turbo_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Shield/ButtonUp/ShieldUp" to="." method="_on_shield_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Shield/ButtonDown/ShieldDown" to="." method="_on_shield_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Carbon/ButtonUp/CarbonUp" to="." method="_on_carbon_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Carbon/ButtonDown/CarbonDown" to="." method="_on_carbon_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Tank/ButtonUp/TankUp" to="." method="_on_tank_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Tank/ButtonDown/TankDown" to="." method="_on_tank_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Wheels/ButtonUp/WheelUp" to="." method="_on_wheel_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Wheels/ButtonDown/WheelDown" to="." method="_on_wheel_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Dash/ButtonUp/NitroUp" to="." method="_on_nitro_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Dash/ButtonDown/NitroDown" to="." method="_on_nitro_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Crit/ButtonUp/BumperUp" to="." method="_on_bumper_up_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradePanel/VBoxContainer/Crit/ButtonDown/BumperDown" to="." method="_on_bumper_down_pressed"]
+[connection signal="pressed" from="Upgrades/UpgradeButtons/Confirm" to="." method="_on_upgrades_confirm_pressed"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xe3b8madtl2f"]
 
-[ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="1_bwqgx"]
+[ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/player.tscn" id="1_bwqgx"]
 [ext_resource type="Script" uid="uid://8kyej0ari2gj" path="res://Scripts/MAP TOOLS/map_graphs_debug.gd" id="1_q32dv"]
 
 [node name="Node2D" type="Node2D" unique_id=1962075542]

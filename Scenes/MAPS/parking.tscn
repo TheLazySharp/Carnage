@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bgao02vsiwner" path="res://Scenes/MENU/new_survivor.tscn" id="60_tk2je"]
 [ext_resource type="Script" uid="uid://b53gepxrtesmg" path="res://Scripts/VFX/damage_label_pool.gd" id="68_6fcfe"]
 [ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="69_pp6a2"]
-[ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/rigid_car.tscn" id="73_o2skn"]
+[ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/player.tscn" id="73_o2skn"]
 [ext_resource type="PackedScene" uid="uid://b4wjlmxtijley" path="res://Scenes/SPAWNERS/survivors_spawner.tscn" id="73_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://ca2xs3prb7n8k" path="res://Scenes/ENNEMIES/coloss_arrival.tscn" id="73_tk2je"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="74_x2yit"]

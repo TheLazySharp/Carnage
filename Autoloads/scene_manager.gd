@@ -28,7 +28,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.GAME_OVER : "uid://c6ue1qnj30p5b",
 	SCENES.START_INTRO : "uid://dqfr2nck8fjao",
 	SCENES.END_DAY : "uid://dkpvtoel7hhai",
-	SCENES.GARAGE : "uid://cs311xlcqlrt0",
+	SCENES.GARAGE : "uid://cfitxfs1gyuep",
 	#"Tuto" : "uid://ci6t4884t7q6r",
 	#"Level01" : "uid://c6msxridefxxd",
 	#"LuckyCharms" : "uid://ch2rp03kbdyg7",
@@ -48,10 +48,11 @@ var scenes_uid: Dictionary[SCENES,String] = {
 
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
-	DistrictsData.types.GARAGE :"uid://df565yrwfqn1v",
+	DistrictsData.types.GARAGE :"uid://cfitxfs1gyuep",
 	DistrictsData.types.SURVIVOR :"uid://df565yrwfqn1v",
 	DistrictsData.types.ARENA :"uid://df565yrwfqn1v",
 	DistrictsData.types.HIGHWAY :"uid://df565yrwfqn1v",
+	DistrictsData.types.SUPERMARKET :"uid://df565yrwfqn1v",
 	DistrictsData.types.GUNSHOP :"uid://df565yrwfqn1v",
 	DistrictsData.types.CARDEALER :"uid://df565yrwfqn1v",
 	DistrictsData.types.FINAL :"uid://df565yrwfqn1v",

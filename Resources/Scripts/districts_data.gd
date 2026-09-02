@@ -14,6 +14,7 @@ enum types {
 	BANK,
 	CAR_REPAIR,
 	GUNSHOP,
+	SUPERMARKET,
 	CARDEALER,
 	FINAL
 	}

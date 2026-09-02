@@ -435,7 +435,7 @@ _data = {
 &"flash": SubResource("Animation_s25yl")
 }
 
-[node name="RigidCar" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
+[node name="Car" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
 z_index = 11
 z_as_relative = false

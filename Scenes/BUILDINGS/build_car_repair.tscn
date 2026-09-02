@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="3_iah4i"]
 [ext_resource type="Texture2D" uid="uid://c5yjctdsewpwt" path="res://Assets/Tilesets/Roofs/roof_texture04.png" id="4_afsi6"]
 [ext_resource type="Texture2D" uid="uid://bp8qbpmk1sspe" path="res://Assets/Props/Roofs/Air Conditioners/Slice 4.tres" id="5_4mjw2"]
-[ext_resource type="Texture2D" uid="uid://4oeayhyhylax" path="res://Assets/Props/Roofs/Air Conditioners/Slice 12.tres" id="6_iah4i"]
+[ext_resource type="Texture2D" uid="uid://cmx15sgqqk0kr" path="res://Assets/Items/tool.png" id="6_iah4i"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="7_ieulf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k11qg"]
@@ -692,7 +692,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="Garage" type="Node2D" unique_id=330276966 groups=["walls"]]
+[node name="CarRepair" type="Node2D" unique_id=330276966 groups=["walls"]]
 script = ExtResource("1_84rsm")
 unlock_timer = 10.0
 spawnable_item_res = ExtResource("2_bdyik")
@@ -725,14 +725,6 @@ z_index = 18
 position = Vector2(23.25006, 32.99324)
 script = ExtResource("3_iah4i")
 building_size = Vector2i(84, 56)
-shadow_length = 5
-pixel_size = 1
-metadata/_custom_type_script = "uid://d3f3q336xjnkp"
-
-[node name="BuildingShadow3" type="Node2D" parent="ShadowsRoof" unique_id=1124313608]
-position = Vector2(122.67328, 34.50314)
-script = ExtResource("3_iah4i")
-building_size = Vector2i(36, 36)
 shadow_length = 5
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
@@ -774,10 +766,10 @@ position = Vector2(20, 103)
 texture = ExtResource("5_4mjw2")
 centered = false
 
-[node name="Sprite2D3" type="Sprite2D" parent="RoofsProps" unique_id=439243957]
-position = Vector2(120.254456, 33.019547)
+[node name="Sprite2D3" type="Sprite2D" parent="RoofsProps" unique_id=1946479310]
+position = Vector2(146, 96)
+scale = Vector2(2, 2)
 texture = ExtResource("6_iah4i")
-centered = false
 
 [node name="Edges" type="Node2D" parent="." unique_id=1496262069 groups=["walls"]]
 z_index = 20

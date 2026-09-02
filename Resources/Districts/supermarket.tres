@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DistrictsData" format=3 uid="uid://cjkxulndmy8y"]
+
+[ext_resource type="Texture2D" uid="uid://dmrml5clvddsu" path="res://Assets/LuckyCharms/magic_tree_gre.png" id="1_vhbb4"]
+[ext_resource type="Script" uid="uid://csefvr5yw2th" path="res://Resources/Scripts/districts_data.gd" id="2_yhf5v"]
+
+[resource]
+script = ExtResource("2_yhf5v")
+type = 10
+icon = ExtResource("1_vhbb4")
+metadata/_custom_type_script = "uid://csefvr5yw2th"

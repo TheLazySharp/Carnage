@@ -1,12 +1,19 @@
-[gd_scene format=4 uid="uid://cyr7swq23x6tb"]
+[gd_scene format=4 uid="uid://bn06pe6xd2dyv"]
 
-[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_owdwy"]
-[ext_resource type="Texture2D" uid="uid://c5yjctdsewpwt" path="res://Assets/Tilesets/Roofs/roof_texture04.png" id="2_ql6q7"]
-[ext_resource type="Texture2D" uid="uid://dqygf5vvg3lxk" path="res://Assets/Props/Roofs/Solar Panels/Slice 22.tres" id="3_45txc"]
-[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="6_r0deq"]
+[ext_resource type="Script" uid="uid://bjek0tdmk701o" path="res://Scripts/BUILDINGS/building.gd" id="1_a0cr5"]
+[ext_resource type="Resource" uid="uid://cgudfa8adx5u1" path="res://Resources/Items/repair.tres" id="2_klxut"]
+[ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="3_4mv6h"]
+[ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="4_a0cr5"]
+[ext_resource type="Texture2D" uid="uid://owy0mnxv554j" path="res://Assets/Props/Roofs/Glass Panels/Slice 6.tres" id="5_klxut"]
+[ext_resource type="Texture2D" uid="uid://b3ftc52x7wajp" path="res://Assets/Props/Roofs/Glass Panels/Slice 3.tres" id="6_4mv6h"]
+[ext_resource type="Texture2D" uid="uid://cbqvkrw8u4i7r" path="res://Assets/Props/Roofs/Glass Panels/Slice 15.tres" id="6_sn6tt"]
+[ext_resource type="Texture2D" uid="uid://ed8c0w5luv6s" path="res://Assets/Props/Roofs/Glass Panels/Slice 14.tres" id="7_x2465"]
+[ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="7_xn0rd"]
+[ext_resource type="Texture2D" uid="uid://c8so0mhr54v8b" path="res://Assets/Items/Drops/Dollars/dollar_3.png" id="8_d3do3"]
+[ext_resource type="Texture2D" uid="uid://dmrml5clvddsu" path="res://Assets/LuckyCharms/magic_tree_gre.png" id="9_x2465"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp1ot"]
-texture = ExtResource("6_r0deq")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k11qg"]
+texture = ExtResource("7_xn0rd")
 texture_region_size = Vector2i(32, 32)
 3:1/0 = 0
 3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -657,63 +664,165 @@ texture_region_size = Vector2i(32, 32)
 21:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 21:23/0/physics_layer_0/polygon_1/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
-[sub_resource type="TileSet" id="TileSet_0gk5w"]
+[sub_resource type="TileSet" id="TileSet_gek1x"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 8
 physics_layer_0/collision_mask = 5
-sources/0 = SubResource("TileSetAtlasSource_dp1ot")
+sources/0 = SubResource("TileSetAtlasSource_k11qg")
 
-[node name="Building" type="Node2D" unique_id=330276966 groups=["walls"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dfktb"]
+radius = 191.5881
 
-[node name="ShadowsGroup" type="Node2D" parent="." unique_id=1231709460]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oghlj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.776, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
-[node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=544689494]
-script = ExtResource("1_owdwy")
-building_size = Vector2i(192, 96)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34ohe"]
+bg_color = Color(1, 0.776, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Supermarket" type="Node2D" unique_id=330276966 groups=["walls"]]
+script = ExtResource("1_a0cr5")
+unlock_timer = 10.0
+spawnable_item_res = ExtResource("2_klxut")
+
+[node name="ShadowsGroup" type="Node2D" parent="." unique_id=960865488]
+
+[node name="BuildingShadow" type="Node2D" parent="ShadowsGroup" unique_id=216247711]
+script = ExtResource("3_4mv6h")
+building_size = Vector2i(192, 192)
 shadow_length = 8
 pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
-[node name="Roofs" type="Node2D" parent="." unique_id=151827159]
+[node name="Roofs" type="Node2D" parent="." unique_id=173433480]
 z_index = 17
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Roofs" unique_id=634436668]
+[node name="NinePatchRect" type="NinePatchRect" parent="Roofs" unique_id=1827558778]
 texture_filter = 1
 texture_repeat = 2
-offset_right = 192.0
-offset_bottom = 96.0
-texture = ExtResource("2_ql6q7")
+offset_right = 190.0
+offset_bottom = 190.0
+texture = ExtResource("4_a0cr5")
+metadata/_edit_use_anchors_ = true
 
-[node name="ShadowsRoof" type="Node2D" parent="." unique_id=1409990842]
+[node name="ShadowsRoof" type="Node2D" parent="." unique_id=1689089194]
 modulate = Color(1, 1, 1, 0.74509805)
 z_index = 18
 
-[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=2141902129]
+[node name="BuildingShadow4" type="Node2D" parent="ShadowsRoof" unique_id=1087513698]
 position = Vector2(7.9841385, 7.971615)
-script = ExtResource("1_owdwy")
-building_size = Vector2i(4, 27)
+script = ExtResource("3_4mv6h")
+building_size = Vector2i(6, 177)
 shadow_length = 0
-pixel_size = 3
+pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
-[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=742358665]
-position = Vector2(19.984138, 5.971615)
-script = ExtResource("1_owdwy")
-building_size = Vector2i(55, 4)
+[node name="BuildingShadow5" type="Node2D" parent="ShadowsRoof" unique_id=1508977490]
+position = Vector2(13.976895, 7.9719286)
+script = ExtResource("3_4mv6h")
+building_size = Vector2i(175, 6)
 shadow_length = 0
-pixel_size = 3
+pixel_size = 1
 metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
-[node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
+[node name="RoofsProps" type="Node2D" parent="." unique_id=1014514707]
 z_index = 19
 
-[node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=2129352377]
-position = Vector2(155, 48)
-texture = ExtResource("3_45txc")
+[node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=547551564]
+position = Vector2(23, 23)
+texture = ExtResource("5_klxut")
+centered = false
 
-[node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
+[node name="Sprite2D4" type="Sprite2D" parent="RoofsProps" unique_id=559574928]
+position = Vector2(24, 124)
+texture = ExtResource("6_sn6tt")
+centered = false
+
+[node name="Sprite2D5" type="Sprite2D" parent="RoofsProps" unique_id=1208296381]
+position = Vector2(113, 24)
+texture = ExtResource("7_x2465")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="RoofsProps" unique_id=1275682453]
+position = Vector2(81, 136)
+scale = Vector2(2, 2)
+texture = ExtResource("8_d3do3")
+centered = false
+
+[node name="Sprite2D9" type="Sprite2D" parent="RoofsProps" unique_id=591014714]
+position = Vector2(79, 83)
+texture = ExtResource("9_x2465")
+centered = false
+
+[node name="Sprite2D6" type="Sprite2D" parent="RoofsProps" unique_id=2105686501]
+position = Vector2(125, 84)
+scale = Vector2(2, 2)
+texture = ExtResource("8_d3do3")
+centered = false
+
+[node name="Sprite2D7" type="Sprite2D" parent="RoofsProps" unique_id=1227402767]
+position = Vector2(74, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("8_d3do3")
+centered = false
+
+[node name="Sprite2D8" type="Sprite2D" parent="RoofsProps" unique_id=1877144440]
+position = Vector2(36, 81)
+scale = Vector2(2, 2)
+texture = ExtResource("8_d3do3")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="RoofsProps" unique_id=818108692]
+position = Vector2(126, 124)
+texture = ExtResource("6_4mv6h")
+centered = false
+
+[node name="Edges" type="Node2D" parent="." unique_id=1496262069 groups=["walls"]]
 z_index = 20
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
-tile_map_data = PackedByteArray("AAAAAAAAAAATAAkAAAAFAAAAAAAVAAkAAAABAAAAAAAUAAkAAAACAAAAAAAUAAkAAAADAAAAAAAUAAkAAAAEAAAAAAAUAAkAAAAFAAEAAAAXAAwAAAAAAAEAAAARAAwAAAAFAAIAAAAXAA0AAAAAAAIAAAARAA0AAAAEAAIAAAAUAA8AAAADAAIAAAAUAA8AAAACAAIAAAAUAA8AAAABAAIAAAAUAA8AAAA=")
-tile_set = SubResource("TileSet_0gk5w")
+[node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=2134493102 groups=["walls"]]
+tile_map_data = PackedByteArray("AAAAAAAAAAATAAkAAAAFAAAAAAAVAAkAAAAFAAUAAAAXAA0AAAAAAAUAAAARAA0AAAABAAAAAAAUAAkAAAACAAAAAAAUAAkAAAADAAAAAAAUAAkAAAAEAAAAAAAUAAkAAAAFAAEAAAAXAAwAAAAFAAIAAAAXAAwAAAAFAAMAAAAXAAwAAAAFAAQAAAAXAAwAAAABAAUAAAAUAA8AAAACAAUAAAAUAA8AAAADAAUAAAAUAA8AAAAEAAUAAAAUAA8AAAAAAAEAAAARAAwAAAAAAAIAAAARAAwAAAAAAAMAAAARAAwAAAAAAAQAAAARAAwAAAA=")
+tile_set = SubResource("TileSet_gek1x")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=2145962234]
+
+[node name="BuildingArea" type="Area2D" parent="." unique_id=512484242]
+visible = false
+collision_layer = 512
+
+[node name="UnlockableShape" type="CollisionShape2D" parent="BuildingArea" unique_id=1082263173]
+shape = SubResource("CircleShape2D_dfktb")
+
+[node name="UnlockBar" type="ProgressBar" parent="." unique_id=391533645]
+z_index = 10
+offset_left = 33.0
+offset_top = -63.0
+offset_right = 224.0
+offset_bottom = -52.0
+theme_override_styles/background = SubResource("StyleBoxFlat_oghlj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_34ohe")
+max_value = 20.0
+step = 0.1
+value = 10.0
+show_percentage = false
+
+[node name="SpawnCenter" type="Marker2D" parent="." unique_id=1139408044]
+
+[connection signal="body_entered" from="BuildingArea" to="." method="_on_building_area_body_entered"]
+[connection signal="body_exited" from="BuildingArea" to="." method="_on_building_area_body_exited"]

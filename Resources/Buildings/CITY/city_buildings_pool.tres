@@ -1,37 +1,42 @@
 [gd_resource type="Resource" script_class="BuildingPool" format=3 uid="uid://b0eo2cigbwq66"]
 
 [ext_resource type="Script" uid="uid://dq1yshanauw6j" path="res://Resources/Scripts/building_data.gd" id="1_sbwpu"]
-[ext_resource type="Resource" uid="uid://b0o6ksfc8imq6" path="res://Resources/Buildings/CITY/Interiors/4x4.tres" id="2_ifeus"]
-[ext_resource type="Resource" uid="uid://c5gqwsyiy73ut" path="res://Resources/Buildings/CITY/Districts/bank.tres" id="3_k4v6u"]
-[ext_resource type="Resource" uid="uid://bugfeilylsyto" path="res://Resources/Buildings/CITY/Districts/garage.tres" id="4_lnge0"]
+[ext_resource type="Resource" uid="uid://d770fpuatlfu" path="res://Resources/Buildings/CITY/Interiors/6x6_H.tres" id="2_kttdf"]
+[ext_resource type="Resource" uid="uid://c5gqwsyiy73ut" path="res://Resources/Buildings/CITY/Districts/build_bank.tres" id="3_k4v6u"]
+[ext_resource type="Resource" uid="uid://plkqwh3jp60f" path="res://Resources/Buildings/CITY/Districts/build_car_dealer.tres" id="4_triw3"]
+[ext_resource type="Resource" uid="uid://bugfeilylsyto" path="res://Resources/Buildings/CITY/Districts/build_car_repair.tres" id="5_5pxyq"]
 [ext_resource type="Resource" uid="uid://cjlv2551glydi" path="res://Resources/Buildings/CITY/Fillers/3x6.tres" id="5_k4v6u"]
+[ext_resource type="Resource" uid="uid://c8uqrf7tx2aw6" path="res://Resources/Buildings/CITY/Districts/build_gunsmith.tres" id="6_ffckw"]
 [ext_resource type="Resource" uid="uid://vpqxhl6i7c4r" path="res://Resources/Buildings/CITY/Fillers/6x3.tres" id="6_lnge0"]
 [ext_resource type="Resource" uid="uid://cnkyxaqu15d4p" path="res://Resources/Buildings/CITY/Interiors/5x4.tres" id="7_ilpql"]
-[ext_resource type="Resource" uid="uid://davp38cl7cd75" path="res://Resources/Buildings/CITY/Interiors/5x5.tres" id="8_kttdf"]
+[ext_resource type="Resource" uid="uid://hs87by3qaxun" path="res://Resources/Buildings/CITY/Fillers/4x3.tres" id="7_kttdf"]
+[ext_resource type="Resource" uid="uid://d3omw0hy75is3" path="res://Resources/Buildings/CITY/Districts/build_supermarket.tres" id="7_s75wj"]
 [ext_resource type="Resource" uid="uid://2n2xq84k6jhv" path="res://Resources/Buildings/CITY/Interiors/4x5.tres" id="8_p2rym"]
-[ext_resource type="Resource" uid="uid://8dtftnv6fj2o" path="res://Resources/Buildings/CITY/Interiors/6x4.tres" id="9_ba3t4"]
-[ext_resource type="Resource" uid="uid://cnl1fk8pwwjl6" path="res://Resources/Buildings/CITY/Interiors/4x6.tres" id="9_w25kv"]
+[ext_resource type="Resource" uid="uid://b0o6ksfc8imq6" path="res://Resources/Buildings/CITY/Interiors/4x4_H.tres" id="8_triw3"]
+[ext_resource type="Resource" uid="uid://cnl1fk8pwwjl6" path="res://Resources/Buildings/CITY/Interiors/4x6_H.tres" id="10_5pxyq"]
 [ext_resource type="Resource" uid="uid://ciljb2jwhm4iq" path="res://Resources/Buildings/CITY/Interiors/6x5.tres" id="10_triw3"]
-[ext_resource type="Resource" uid="uid://d770fpuatlfu" path="res://Resources/Buildings/CITY/Interiors/6x6.tres" id="11_5pxyq"]
-[ext_resource type="Resource" uid="uid://stypp3i31re4" path="res://Resources/Buildings/CITY/Interiors/7x4.tres" id="12_ffckw"]
+[ext_resource type="Resource" uid="uid://davp38cl7cd75" path="res://Resources/Buildings/CITY/Interiors/5x5_H.tres" id="12_ffckw"]
+[ext_resource type="Resource" uid="uid://8dtftnv6fj2o" path="res://Resources/Buildings/CITY/Interiors/6x4_H.tres" id="13_pv7b8"]
 [ext_resource type="Resource" uid="uid://bnjph5mhrwn4o" path="res://Resources/Buildings/CITY/Interiors/7x5.tres" id="13_s75wj"]
-[ext_resource type="Resource" uid="uid://0f4ll0yk6if5" path="res://Resources/Buildings/CITY/Interiors/7x7.tres" id="15_embcv"]
+[ext_resource type="Resource" uid="uid://stypp3i31re4" path="res://Resources/Buildings/CITY/Interiors/7x4_H.tres" id="15_embcv"]
 [ext_resource type="Resource" uid="uid://lm1facgrttx8" path="res://Resources/Buildings/CITY/Interiors/8x4.tres" id="16_8hxtj"]
 [ext_resource type="Resource" uid="uid://d0o5sxo8dl8ny" path="res://Resources/Buildings/CITY/Periph/7x6.tres" id="16_p2rym"]
+[ext_resource type="Resource" uid="uid://0f4ll0yk6if5" path="res://Resources/Buildings/CITY/Interiors/7x7_H.tres" id="17_8hxtj"]
 [ext_resource type="Resource" uid="uid://bpqcgnxo31kqk" path="res://Resources/Buildings/CITY/Interiors/8x5.tres" id="17_btmm8"]
 [ext_resource type="Resource" uid="uid://dw4hghyx3562a" path="res://Resources/Buildings/CITY/Interiors/8x7.tres" id="19_og1hk"]
-[ext_resource type="Resource" uid="uid://bt65k4sw1rexi" path="res://Resources/Buildings/CITY/Periph/6x16.tres" id="19_sbwpu"]
-[ext_resource type="Resource" uid="uid://dii5kwim3027a" path="res://Resources/Buildings/CITY/Periph/16x6.tres" id="20_ifeus"]
-[ext_resource type="Resource" uid="uid://bwx3gpk6hful" path="res://Resources/Buildings/CITY/Interiors/8x8.tres" id="20_w8uqe"]
 [ext_resource type="Script" uid="uid://insl0m5srxbq" path="res://Resources/Scripts/buildings_pool.gd" id="21_6c00a"]
-[ext_resource type="Resource" uid="uid://b0evc33uqvnxh" path="res://Resources/Buildings/CITY/Periph/6x8.tres" id="21_w25kv"]
-[ext_resource type="Resource" uid="uid://beyginm80dc7s" path="res://Resources/Buildings/CITY/Periph/8x6.tres" id="24_p2rym"]
+[ext_resource type="Resource" uid="uid://bwx3gpk6hful" path="res://Resources/Buildings/CITY/Interiors/8x8_H.tres" id="21_btmm8"]
+[ext_resource type="Resource" uid="uid://b0evc33uqvnxh" path="res://Resources/Buildings/CITY/Periph/6x8_H.tres" id="22_bryjh"]
+[ext_resource type="Resource" uid="uid://beyginm80dc7s" path="res://Resources/Buildings/CITY/Periph/8x6_H.tres" id="24_og1hk"]
+[ext_resource type="Resource" uid="uid://cmdymmdyvy58o" path="res://Resources/Buildings/CITY/Periph/6x12_H.tres" id="25_w8uqe"]
+[ext_resource type="Resource" uid="uid://bt65k4sw1rexi" path="res://Resources/Buildings/CITY/Periph/6x16_H.tres" id="26_6c00a"]
+[ext_resource type="Resource" uid="uid://dii5kwim3027a" path="res://Resources/Buildings/CITY/Periph/16x6_H.tres" id="27_5o5p0"]
 
 [resource]
 script = ExtResource("21_6c00a")
-interiors = Array[ExtResource("1_sbwpu")]([ExtResource("2_ifeus"), ExtResource("8_p2rym"), ExtResource("9_w25kv"), ExtResource("7_ilpql"), ExtResource("8_kttdf"), ExtResource("9_ba3t4"), ExtResource("10_triw3"), ExtResource("11_5pxyq"), ExtResource("12_ffckw"), ExtResource("13_s75wj"), ExtResource("15_embcv"), ExtResource("16_8hxtj"), ExtResource("17_btmm8"), ExtResource("19_og1hk"), ExtResource("20_w8uqe"), ExtResource("21_w25kv"), ExtResource("16_p2rym"), ExtResource("24_p2rym")])
-peripherals = Array[ExtResource("1_sbwpu")]([ExtResource("21_w25kv"), ExtResource("19_sbwpu"), ExtResource("16_p2rym"), ExtResource("24_p2rym"), ExtResource("20_ifeus"), ExtResource("9_w25kv"), ExtResource("9_ba3t4"), ExtResource("10_triw3"), ExtResource("11_5pxyq")])
-corners = Array[ExtResource("1_sbwpu")]([ExtResource("11_5pxyq")])
-fillers = Array[ExtResource("1_sbwpu")]([ExtResource("5_k4v6u"), ExtResource("6_lnge0")])
-district_buildings = Array[ExtResource("1_sbwpu")]([ExtResource("3_k4v6u"), ExtResource("4_lnge0")])
+interiors = Array[ExtResource("1_sbwpu")]([ExtResource("7_kttdf"), ExtResource("8_triw3"), ExtResource("8_p2rym"), ExtResource("10_5pxyq"), ExtResource("7_ilpql"), ExtResource("12_ffckw"), ExtResource("13_pv7b8"), ExtResource("10_triw3"), ExtResource("2_kttdf"), ExtResource("15_embcv"), ExtResource("13_s75wj"), ExtResource("17_8hxtj"), ExtResource("16_8hxtj"), ExtResource("17_btmm8"), ExtResource("19_og1hk"), ExtResource("21_btmm8"), ExtResource("22_bryjh"), ExtResource("16_p2rym"), ExtResource("24_og1hk")])
+peripherals = Array[ExtResource("1_sbwpu")]([ExtResource("22_bryjh"), ExtResource("25_w8uqe"), ExtResource("26_6c00a"), ExtResource("16_p2rym"), ExtResource("24_og1hk"), ExtResource("27_5o5p0"), ExtResource("10_5pxyq"), ExtResource("13_pv7b8"), ExtResource("2_kttdf")])
+corners = Array[ExtResource("1_sbwpu")]([ExtResource("2_kttdf")])
+fillers = Array[ExtResource("1_sbwpu")]([ExtResource("5_k4v6u"), ExtResource("6_lnge0"), ExtResource("7_kttdf")])
+district_buildings = Array[ExtResource("1_sbwpu")]([ExtResource("3_k4v6u"), ExtResource("4_triw3"), ExtResource("5_5pxyq"), ExtResource("6_ffckw"), ExtResource("7_s75wj")])
 metadata/_custom_type_script = "uid://insl0m5srxbq"

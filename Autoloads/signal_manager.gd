@@ -109,6 +109,9 @@ signal autopilot_zoom_completed
 signal nitro_changed(current_nitro : int)
 
 @warning_ignore("unused_signal")
+signal fuel_changed(current_fuel : int)
+
+@warning_ignore("unused_signal")
 signal map_generated(data : MapData)
 
 @warning_ignore("unused_signal")

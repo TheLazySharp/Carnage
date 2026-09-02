@@ -20,6 +20,7 @@ const GHOST_INTERVAL : float = 0.05
 # ---------------- SUSTAINED BOOST (NFSU2 style) ----------------
 const NITRO_TICK_TIME : float = 0.3        # seconds between two nitro units
 const NITRO_TICK_COST : int = 10             # nitro units burnt per tick
+const FUEL_TICK_COST : int = 2             # nitro units burnt per tick
 const MIN_NITRO_TO_START : int = 10         # nitro needed to ignite. Set to max_nitro for a "full gauge only" rule
 const MIN_BOOST_TIME : float = 0.12         # floor duration so a tap still feels good
 const DASH_ACTION : StringName = &"dash"
@@ -49,8 +50,8 @@ var ghost_timer : Timer
 @export_group("Dash tuning")
 @export var dash_kick_ratio : float = 0.35   # instant kick as a ratio of max speed (was 1.0)
 @export var dash_speed_mult : float = 1.15   # max speed cap during dash (was 1.25)
-@export var dash_torque_mult : float = 1.4   # acceleration mult during dash (was 2.0)
-@export var boost_accel : float = 450.0      # continuous forward push while held (was 900.0)
+@export var dash_torque_mult : float = 1.6   # acceleration mult during dash (was 2.0)
+@export var boost_accel : float = 650.0      # continuous forward push while held (was 900.0)
 
 
 func _ready() -> void:
@@ -83,8 +84,8 @@ func try_timed_dash() -> void:
 
 func dash_available() -> bool:
 	return !is_dashing \
-		and !is_preparing \
-		and player.current_fuel >= player.dash_fuel_down 
+		and !is_preparing 
+		#and player.current_fuel >= player.dash_fuel_down 
 		#and player.current_nitro >= MIN_NITRO_TO_START
 
 
@@ -110,7 +111,7 @@ func update_dash(delta : float) -> void:
 		nitro_timer -= delta
 		if nitro_timer <= 0.0:
 			nitro_timer += NITRO_TICK_TIME
-			if !consume_nitro():
+			if !consume_fuel():
 				end_dash()
 				return
 		if boost_time >= MIN_BOOST_TIME and !Input.is_action_pressed(DASH_ACTION):
@@ -145,7 +146,7 @@ func execute_dash(p_sustained : bool) -> void:
 		hitstop()
 	SignalManager.screen_shake_requested.emit(12.0, 0.4)
 
-	consume_nitro()
+	consume_fuel()
 
 	player.dmg.add_modifier(Modifier.new(player.dash_dmg_bonus.get_value(), Modifier.Type.PERCENT_MULT, MOD_DMG))
 	player.max_speed.add_modifier(Modifier.new(dash_speed_mult, Modifier.Type.PERCENT_MULT, MOD_SPEED))
@@ -179,10 +180,15 @@ func end_dash() -> void:
 	dash_ended.emit()
 
 
-func consume_nitro() -> bool:
-	player.current_nitro = maxi(player.current_nitro - NITRO_TICK_COST, 0)
-	SignalManager.nitro_changed.emit(player.current_nitro)
-	return player.current_nitro >= NITRO_TICK_COST
+#func consume_nitro() -> bool:
+	#player.current_nitro = maxi(player.current_nitro - NITRO_TICK_COST, 0)
+	#SignalManager.nitro_changed.emit(player.current_nitro)
+	#return player.current_nitro >= NITRO_TICK_COST
+	
+func consume_fuel() -> bool:
+	player.current_fuel = maxi(player.current_fuel - FUEL_TICK_COST, 0)
+	SignalManager.fuel_changed.emit(FUEL_TICK_COST)
+	return player.current_fuel >= FUEL_TICK_COST
 
 
 func hitstop() -> void:

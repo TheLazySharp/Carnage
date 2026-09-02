@@ -13,6 +13,7 @@ base_dash_dmg_bonus = 2.0
 base_nitro_up = 5
 base_drift_turn_bonus = 3.0
 base_dash_duration = 0.8
+base_max_fuel = 100
 friction = 100.0
 turn_speed = 4.0
 dash_fuel_down = 5

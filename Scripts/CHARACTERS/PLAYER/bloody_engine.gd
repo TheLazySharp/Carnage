@@ -32,6 +32,7 @@ func _ready() -> void:
 		return
 		
 	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.fuel_changed.connect(_on_fuel_changed)
 	ItemManager.gas.connect(_on_gas_tank_picked_up)
 
 	vaccum_particles = vaccum_particles_scene.instantiate()
@@ -47,7 +48,7 @@ func init_bloody_engine(p_player : CarData, p_sprite : Sprite2D, dash_manager : 
 	fuel_bar.max_value = max_fuel
 	fuel_bar.value = player.max_fuel.get_value()
 	# Fuel is only charged once, when the boost ignites
-	dash_manager.dash_started.connect(_on_dash_started)
+	#dash_manager.dash_started.connect(_on_dash_started)
 
 	var mat : ShaderMaterial = car_sprite.material as ShaderMaterial
 	if mat != null:
@@ -110,5 +111,12 @@ func _on_fuel_timer_timeout() -> void:
 		return
 	fuel_consumption(player.regular_fuel_leak)
 
-func _on_dash_started() -> void :
-	fuel_consumption(player.dash_fuel_down)
+#func _on_dash_started() -> void :
+	#fuel_consumption(player.dash_fuel_down)
+
+
+func _on_fuel_changed(fuel_tick_cost : int) -> void:
+	fuel_consumption(fuel_tick_cost)
+	
+func refresh_display() -> void:
+	fuel_bar.value = player.current_nitro

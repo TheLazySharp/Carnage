@@ -4,7 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://d3qt2bgnq2urg" path="res://Assets/Tilesets/Roofs/roof_texture02.png" id="4_ay58e"]
 [ext_resource type="Texture2D" uid="uid://dxavlxx2arcaq" path="res://Assets/Props/Roofs/Air Conditioners/Slice 14.tres" id="4_nfnyb"]
 [ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Tilesets/Roofs/roof_texture03.png" id="5_1k6io"]
+[ext_resource type="Texture2D" uid="uid://dypkpx5dyyyi2" path="res://Assets/Props/Roofs/Glass Panels/Slice 4.tres" id="5_xwhth"]
+[ext_resource type="Texture2D" uid="uid://owy0mnxv554j" path="res://Assets/Props/Roofs/Glass Panels/Slice 6.tres" id="6_ay58e"]
+[ext_resource type="Texture2D" uid="uid://c35sc8vrajcp" path="res://Assets/Props/Roofs/Glass Panels/Slice 5.tres" id="7_1k6io"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="7_tnqj7"]
+[ext_resource type="Texture2D" uid="uid://b3ftc52x7wajp" path="res://Assets/Props/Roofs/Glass Panels/Slice 3.tres" id="8_g5ecr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp1ot"]
 texture = ExtResource("7_tnqj7")
@@ -737,6 +741,26 @@ z_index = 19
 [node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=395940981]
 position = Vector2(17.58844, 209.96158)
 texture = ExtResource("4_nfnyb")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="RoofsProps" unique_id=2102955336]
+position = Vector2(79, 75)
+texture = ExtResource("5_xwhth")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="RoofsProps" unique_id=2044471227]
+position = Vector2(79, 139)
+texture = ExtResource("6_ay58e")
+centered = false
+
+[node name="Sprite2D4" type="Sprite2D" parent="RoofsProps" unique_id=1759014439]
+position = Vector2(140, 139)
+texture = ExtResource("7_1k6io")
+centered = false
+
+[node name="Sprite2D5" type="Sprite2D" parent="RoofsProps" unique_id=432624786]
+position = Vector2(140, 75)
+texture = ExtResource("8_g5ecr")
 centered = false
 
 [node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
