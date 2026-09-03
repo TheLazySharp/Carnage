@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="5_1a1jl"]
 [ext_resource type="Script" uid="uid://dimcwppccsqal" path="res://Scripts/FONTS/GUI_sold_out.gd" id="6_wocn0"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="7_u3hmk"]
-[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="8_5gudh"]
 [ext_resource type="Script" uid="uid://q1x6o5hrm08l" path="res://Scripts/UI/strike_price.gd" id="8_fknfb"]
+[ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="9_fknfb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hs08e"]
 bg_color = Color(1, 1, 1, 1)
@@ -35,13 +35,13 @@ expand_margin_bottom = 8.0
 
 [node name="Charm" type="Control" unique_id=188465822]
 custom_minimum_size = Vector2(580, 120)
-layout_direction = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 580.0
 offset_bottom = 120.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+layout_direction = 2
 script = ExtResource("1_a8uor")
 
 [node name="Confirm" type="Button" parent="." unique_id=1154624133]
@@ -285,8 +285,8 @@ vertical_alignment = 1
 script = ExtResource("7_u3hmk")
 
 [node name="TextureRect" type="TextureRect" parent="Price" unique_id=93938517]
+custom_minimum_size = Vector2(80, 20)
 layout_mode = 2
-texture = ExtResource("8_5gudh")
-stretch_mode = 3
+texture = ExtResource("9_fknfb")
 
 [connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]

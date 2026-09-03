@@ -58,6 +58,8 @@ var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var _placed : int = 0
 
 func _ready() -> void:
+	if !RoadMapManager.last_district:
+		return
 	if !GameMaster.is_debug():
 		district_type = RoadMapManager.last_district.type
 

@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://ckqlb4wi4pm2q" path="res://Scripts/SCENES/shop.gd" id="1_rrthm"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="2_rrthm"]
 [ext_resource type="PackedScene" uid="uid://dbjho30cytfku" path="res://Scenes/ITEMS/boost.tscn" id="2_u6xp3"]
-[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="5_di8xk"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_1vhtf"]
-[ext_resource type="Texture2D" uid="uid://brs2kf8dgvstm" path="res://Assets/Items/one_dollar.png" id="6_77p00"]
+[ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="6_77p00"]
 [ext_resource type="PackedScene" uid="uid://cb1yy61nlopw3" path="res://Scenes/ITEMS/charm.tscn" id="7_3aobf"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="7_3ek1y"]
+[ext_resource type="Texture2D" uid="uid://b3omk3jqa30al" path="res://Assets/Items/Drops/Dollars/dollar_4.png" id="7_3vlox"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="8_g63ow"]
 [ext_resource type="AudioStream" uid="uid://dcs41hr6yu2n" path="res://Assets/Audio/SFX/Coins/Cash_register.mp3" id="9_g63ow"]
 
@@ -139,18 +139,21 @@ offset_left = 8.0
 offset_top = 28.0
 offset_right = 228.0
 offset_bottom = 92.0
-theme_override_constants/separation = 16
+theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="Background/MoneyBag" unique_id=865149005]
+custom_minimum_size = Vector2(80, 60)
 layout_mode = 2
-texture = ExtResource("5_di8xk")
-stretch_mode = 3
+texture = ExtResource("7_3vlox")
+stretch_mode = 4
 
 [node name="FortuneTag" type="Label" parent="Background/MoneyBag" unique_id=2138128566]
-custom_minimum_size = Vector2(120, 0)
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_pejtf")
+theme_override_font_sizes/font_size = 24
 text = "10000000000"
+vertical_alignment = 1
 script = ExtResource("6_1vhtf")
 
 [node name="BoostContainer" type="GridContainer" parent="." unique_id=1285383820]

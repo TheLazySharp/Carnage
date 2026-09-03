@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://dimcwppccsqal" path="res://Scripts/FONTS/GUI_sold_out.gd" id="6_85oou"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_0268m"]
 [ext_resource type="Script" uid="uid://c54wxruegn8l" path="res://Scripts/UI/boost_upgrade_changes.gd" id="6_hs08e"]
-[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="7_85oou"]
 [ext_resource type="Script" uid="uid://q1x6o5hrm08l" path="res://Scripts/UI/strike_price.gd" id="9_otfbn"]
+[ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="10_otfbn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hs08e"]
 bg_color = Color(1, 1, 1, 1)
@@ -362,9 +362,9 @@ vertical_alignment = 1
 script = ExtResource("6_0268m")
 
 [node name="TextureRect" type="TextureRect" parent="Price" unique_id=93938517]
+custom_minimum_size = Vector2(80, 20)
 layout_mode = 2
-texture = ExtResource("7_85oou")
-stretch_mode = 3
+texture = ExtResource("10_otfbn")
 
 [connection signal="focus_entered" from="Confirm" to="." method="_on_confirm_focus_entered"]
 [connection signal="focus_exited" from="Confirm" to="." method="_on_confirm_focus_exited"]
