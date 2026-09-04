@@ -94,7 +94,12 @@ func load_level(scene : SCENES, loading_message : String = "") -> void:
 func load_district(loading_district : DistrictsData, loading_message : String = "") -> void:
 	previous_scene = SCENES.ROADMAP
 	current_scene = SCENES.RAID
-	await _change_scene(districts_scenes[loading_district.type], default_loading_message)
+	# An explicit message always wins; otherwise only a map-building district
+	# gets the loading overlay.
+	var message : String = loading_message
+	if message.is_empty() and loading_district.builds_map():
+		message = default_loading_message
+	await _change_scene(districts_scenes[loading_district.type], message)
 
 
 ## The overlay is driven by the DESTINATION, never by the caller: only a scene

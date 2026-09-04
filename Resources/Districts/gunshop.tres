@@ -7,4 +7,5 @@
 script = ExtResource("2_mtt4o")
 type = 9
 icon = ExtResource("1_46ivo")
+generates_map = true
 metadata/_custom_type_script = "uid://csefvr5yw2th"

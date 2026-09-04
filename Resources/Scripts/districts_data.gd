@@ -19,6 +19,27 @@ enum types {
 	FINAL
 	}
 
+## Districts whose scene builds a procedural map. Everything else is a light
+## Control scene (shop, garage, banque...) and must swap instantly.
+## Type-based on purpose: RoadMapManager creates every district with
+## DistrictsData.new(), so a per-resource flag never survives.
+const MAP_TYPES : Array[int] = [
+	types.ARENA,
+	types.HIGHWAY,
+	types.SURVIVOR,
+	types.BANK,
+	types.CAR_REPAIR,
+	types.GUNSHOP,
+	types.SUPERMARKET,
+	types.CARDEALER,
+	types.FINAL
+]
+
+
+func builds_map() -> bool:
+	return MAP_TYPES.has(type)
+
+
 @export var type : types
 @export var icon : Texture2D
 @export var row : int

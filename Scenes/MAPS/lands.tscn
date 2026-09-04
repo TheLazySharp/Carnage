@@ -3565,7 +3565,6 @@ z_index = 13
 script = ExtResource("2_s1sq0")
 pool = ExtResource("3_yrn80")
 shadows_ground = NodePath("../ShadowsGround")
-district_type = 7
 shadows_ground_high = NodePath("../ShadowsGroundHigh")
 shadows_roof = NodePath("../ShadowsRoofLow")
 shadows_roof_high = NodePath("../ShadowsRoofHigh")

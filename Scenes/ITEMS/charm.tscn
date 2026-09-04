@@ -157,14 +157,15 @@ vertical_alignment = 1
 script = ExtResource("5_1a1jl")
 
 [node name="Description" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1111204753]
+custom_minimum_size = Vector2(310, 64)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -113.5
 offset_top = 32.0
-offset_right = 189.5
-offset_bottom = 93.0
+offset_right = 196.5
+offset_bottom = 96.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_fknfb")
 theme_override_font_sizes/font_size = 16
@@ -227,6 +228,7 @@ grow_vertical = 2
 color = Color(0.15294118, 0.15294118, 0.15294118, 0.9647059)
 
 [node name="Text" type="Label" parent="Confirm/MarginContainer/NotEnoughCash/PanelColor" unique_id=169512475]
+custom_minimum_size = Vector2(407, 102)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
