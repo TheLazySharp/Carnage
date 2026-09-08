@@ -62,6 +62,8 @@ var _data : MapData = null
 var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 ## World rects of the placed crosswalks, tested against every arrow
 var _crosswalk_rects : Array[Rect2] = []
+## Intersection boxes, tested against every arrow
+var _node_boxes : Array[Rect2] = []
 var _crosswalks : int = 0
 var _arrows : int = 0
 var _rejected : int = 0
@@ -83,6 +85,16 @@ func build(data : MapData) -> void:
 	# Stage 1: every crosswalk, recording its footprint
 	for edge_index : int in data.edges.size():
 		_mark_crosswalks(edge_index, degrees)
+	
+	# Intersection boxes: an arrow may never land inside one, whichever
+	# approach it belongs to.
+	_node_boxes.clear()
+	var band : float = float(crosswalk_gap_cells + crosswalk_depth_cells) * float(data.cell_size)
+	for node_index : int in data.nodes.size():
+		if degrees[node_index] >= 3:
+			_node_boxes.append(_node_box(node_index, band))
+		
+		
 	# Stage 2: arrows, now able to avoid every crosswalk on the map
 	for edge_index : int in data.edges.size():
 		_mark_arrows_on_edge(edge_index, degrees)
@@ -199,7 +211,10 @@ func _mark_arrows(edge_index : int, from_node : int, to_node : int, dir : Vector
 		+ float(crosswalk_gap_cells) * px + float(crosswalk_depth_cells) * px
 	var stop_line : float = band_end + float(arrow_stop_line_cells) * px
 	var stop_pos : Vector2 = _data.nodes[to_node] * px - dir * stop_line
-	var upstream_limit : float = length - _cross_half_width(from_node, dir)
+	# The upstream intersection must be cleared with its crosswalk band too,
+	# not just its roadway, or a repeated arrow lands inside it.
+	var upstream_limit : float = length - _cross_half_width(from_node, dir) \
+		- float(crosswalk_gap_cells) * px - float(crosswalk_depth_cells) * px
 
 	for i : int in maxi(arrow_repeat, 1):
 		var back : float = float(i) * float(arrow_repeat_spacing_cells) * px
@@ -225,7 +240,7 @@ func _spawn_arrows(p_position : Vector2, dir : Vector2, edge_index : int, to_nod
 		# `position` is the stop line: the arrow tip lands there, body behind it
 		var half_length : float = float(texture.get_height()) * 0.5
 		var center : Vector2 = p_position + right * offsets[i] - dir * half_length
-		if _overlaps_crosswalk(center, texture, dir):
+		if _overlaps_crosswalk(center, texture, dir) or _overlaps_intersection(center, texture, dir):
 			_rejected += 1
 			continue
 
@@ -344,3 +359,38 @@ func _approach_marked(edge_index : int, node_index : int) -> bool:
 	if not arrows_only_with_crosswalk:
 		return true
 	return _crosswalk_approaches.has(Vector2i(edge_index, node_index))
+
+
+func _overlaps_intersection(center : Vector2, texture : Texture2D, dir : Vector2) -> bool:
+	# The arrow texture points up, so a horizontal road swaps its dimensions
+	var size : Vector2 = Vector2(float(texture.get_height()), float(texture.get_width())) \
+		if absf(dir.x) > 0.5 else Vector2(float(texture.get_width()), float(texture.get_height()))
+	var rect : Rect2 = Rect2(center - size * 0.5, size)
+	for box : Rect2 in _node_boxes:
+		if rect.intersects(box):
+			return true
+	return false
+
+
+func _node_box(node_index : int, band : float) -> Rect2:
+	# The intersection is not a square: the VERTICAL roads set its horizontal
+	# extent and the HORIZONTAL ones its vertical extent. Using the widest road
+	# on both axes would reject every arrow of the wide road itself.
+	var half_x : float = 0.0
+	var half_y : float = 0.0
+	for i : int in _data.edges.size():
+		var edge : Vector2i = _data.edges[i]
+		var other : int = -1
+		if edge.x == node_index:
+			other = edge.y
+		elif edge.y == node_index:
+			other = edge.x
+		else:
+			continue
+		var branch : Vector2 = (_data.nodes[other] - _data.nodes[node_index]).normalized()
+		if absf(branch.x) > 0.5:
+			half_y = maxf(half_y, _data.edge_width_px(i) * 0.5)
+		else:
+			half_x = maxf(half_x, _data.edge_width_px(i) * 0.5)
+	var half : Vector2 = Vector2(half_x, half_y) + Vector2.ONE * band
+	return Rect2(_data.nodes[node_index] * float(_data.cell_size) - half, half * 2.0)
