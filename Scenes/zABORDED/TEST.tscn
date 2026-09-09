@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://v03gacy7rgdm"]
 
 [ext_resource type="Shader" uid="uid://7dnm6psxus84" path="res://Shaders/greyscale.gdshader" id="1_qodwh"]
+[ext_resource type="Texture2D" uid="uid://cu4pigvyyhgcv" path="res://Assets/Tilesets/Roofs/Roof Cracks/concrete_cracks.png" id="2_3js2r"]
 [ext_resource type="Texture2D" uid="uid://0cuev6stvoad" path="res://Assets/Items/Drops/Dollars/bills.png" id="2_mkn34"]
 [ext_resource type="Texture2D" uid="uid://bmdk0gpwqxtvj" path="res://Assets/Tilesets/Sidewalks/sidewalks.png" id="2_n3gmv"]
-[ext_resource type="Texture2D" uid="uid://jrppx5oxp1nn" path="res://Assets/Props/Roofs/Solar Panels/solar_panels.png" id="2_rv0vo"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="3_r3my8"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="5_1lqbc"]
 [ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Tilesets/Roofs/roof_texture03.png" id="6_37n1q"]
@@ -130,6 +130,10 @@
 [ext_resource type="Shader" uid="uid://ct845fhrbbspj" path="res://Assets/Léonce/Scripts/multimesh_outline.gdshader" id="119_t7fm0"]
 [ext_resource type="Texture2D" uid="uid://du48awybgre3" path="res://Assets/Léonce/Enemies/zombieA_walk01TEST.png" id="120_m3dio"]
 [ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="126_rv0vo"]
+[ext_resource type="Texture2D" uid="uid://bt0kltrpfgcqr" path="res://Assets/XP/xp_orb.png" id="131_qfmaa"]
+[ext_resource type="Shader" uid="uid://cdvtcx2df4oek" path="res://Assets/Léonce/Scripts/trail_ribbon.gdshader" id="132_3js2r"]
+[ext_resource type="Script" uid="uid://nvv28hihsx1v" path="res://Assets/Léonce/Scripts/trail_ribbon.gd" id="132_u1n53"]
+[ext_resource type="Script" uid="uid://ggafjs100p4g" path="res://Assets/Léonce/Scripts/mouse_pointer.gd" id="134_3js2r"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1451,19 +1455,97 @@ shader_parameter/cols_1 = 1
 
 [sub_resource type="MultiMesh" id="MultiMesh_nhvyv"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3js2r"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay2hx"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxgdo"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_empg6"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cnaj"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2kih"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dofx7"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onpsi"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e0cr"]
+atlas = ExtResource("131_qfmaa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nhvyv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3js2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ay2hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxgdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_empg6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cnaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2kih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dofx7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onpsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7e0cr")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7ksg"]
+shader = ExtResource("132_3js2r")
+shader_parameter/hue_speed = 1.0150000482125
+shader_parameter/uv_hue_spread = 1.282000060895
+shader_parameter/saturation = 1.0
+shader_parameter/brightness = 2.0
+
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
 [node name="TextureSlicer" type="Node2D" parent="." unique_id=142767713]
 script = ExtResource("77_uqknt")
-atlas_texture = ExtResource("2_rv0vo")
-json_path = "res://Assets/Props/Roofs/Solar Panels/solar_panels.json"
-output_dir_override = "res://Assets/Props/Roofs/Solar Panels/"
+atlas_texture = ExtResource("2_3js2r")
+json_path = "res://Assets/Tilesets/Roofs/Roof Cracks/concrete_cracks.json"
+output_dir_override = "res://Assets/Tilesets/Roofs/Roof Cracks/"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
-position = Vector2(61.000122, 54)
+position = Vector2(2073, 1138)
 scale = Vector2(1e-05, 1e-05)
 offset = Vector2(-7.03, 18.175)
-zoom = Vector2(5.775, 5.775)
+zoom = Vector2(2.24, 2.24)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
 visible = false
@@ -2991,7 +3073,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=424331215]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=76152601]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -3024,10 +3106,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=583100758]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=194679987]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=82315654]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=146814560]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -3044,7 +3126,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=2108155223]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1725448873]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -3182,3 +3264,25 @@ texture = ExtResource("119_8eqp4")
 
 [node name="Explosion1" parent="." unique_id=547738887 instance=ExtResource("126_rv0vo")]
 position = Vector2(2024, 1158)
+
+[node name="XPOrb" type="AnimatedSprite2D" parent="." unique_id=2106461235]
+z_index = 8
+position = Vector2(2183, 997)
+sprite_frames = SubResource("SpriteFrames_nhvyv")
+autoplay = "default"
+frame_progress = 0.36158484
+
+[node name="TrailRibbon" type="Line2D" parent="XPOrb" unique_id=2105445926]
+z_index = 7
+material = SubResource("ShaderMaterial_r7ksg")
+width = 1.0
+sharp_limit = 1.0
+round_precision = 1
+script = ExtResource("132_u1n53")
+target = NodePath("..")
+line_width = 12.0
+shader = ExtResource("132_3js2r")
+
+[node name="MouseTarget" type="Node2D" parent="." unique_id=1480363043 node_paths=PackedStringArray("followers")]
+script = ExtResource("134_3js2r")
+followers = [NodePath("../XPOrb")]

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://b7vm4mxws7yok"]
+
+[ext_resource type="Texture2D" uid="uid://cu4pigvyyhgcv" path="res://Assets/Tilesets/Roofs/Roof Cracks/concrete_cracks.png" id="1_yn05q"]
+
+[resource]
+atlas = ExtResource("1_yn05q")
+region = Rect2(327, 184, 28, 50)
