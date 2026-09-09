@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://6gbwen3ny2al"]
 
 [ext_resource type="Script" uid="uid://bjek0tdmk701o" path="res://Scripts/BUILDINGS/building.gd" id="1_4fg0j"]
-[ext_resource type="Resource" uid="uid://cgudfa8adx5u1" path="res://Resources/Items/repair.tres" id="2_njwna"]
+[ext_resource type="Resource" uid="uid://f4j2vr3eas8" path="res://Resources/Items/Rewards/weapon_reward.tres" id="2_4fg0j"]
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="3_smjn6"]
 [ext_resource type="Texture2D" uid="uid://ginvgy6fvn8g" path="res://Assets/Tilesets/Roofs/roof_texture08.png" id="4_4fg0j"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="5_njwna"]
@@ -695,7 +695,7 @@ corner_radius_bottom_left = 4
 [node name="Gunsmith" type="Node2D" unique_id=330276966 groups=["walls"]]
 script = ExtResource("1_4fg0j")
 unlock_timer = 10.0
-spawnable_item_res = ExtResource("2_njwna")
+spawnable_item_res = ExtResource("2_4fg0j")
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=960865488]
 

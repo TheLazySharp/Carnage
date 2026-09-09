@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b3hijb553wk1k"]
+
+[ext_resource type="Script" uid="uid://ck16pcrfuhhg" path="res://Scripts/ITEMS/EFFECTS/item_reward.gd" id="1_ow41a"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="1_qs8yu"]
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="2_ow41a"]
+
+[resource]
+script = ExtResource("2_ow41a")
+name = "Charm Reward"
+icon = ExtResource("1_qs8yu")
+effect_script = ExtResource("1_ow41a")
+reward_type = 4
+metadata/_custom_type_script = "uid://ctc62ptewno8k"

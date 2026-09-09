@@ -17,7 +17,7 @@ var artery_lanes : int = 4
 var sidewalk_cells : int = 2
 
 # ---------------- DISTRICT PLOT ----------------
-## Plot reserved for the district building (bank, gunshop...), in cells.
+## Plot reserved for the district building (bank, GUNSMITH...), in cells.
 ## size == Vector2i.ZERO when no plot could be reserved.
 var district_plot : Rect2i = Rect2i()
 ## Block hosting the plot: the interior fill pass must skip it entirely,

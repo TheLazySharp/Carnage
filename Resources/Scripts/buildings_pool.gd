@@ -15,7 +15,7 @@ extends Resource
 @export var corners : Array[BuildingData] = []
 ## Narrow solid pieces used to pave the belt exactly (fence, bins, alley...)
 @export var fillers : Array[BuildingData] = []
-## District buildings (bank, gunshop, car dealer...). Exactly one is placed
+## District buildings (bank, GUNSMITH, car dealer...). Exactly one is placed
 ## when the current district type matches. district_type is what makes them
 ## mandatory; this array is just the shortlist.
 @export var district_buildings : Array[BuildingData] = []

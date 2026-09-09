@@ -1,12 +1,12 @@
 extends CharmEffect
 
 # ADD TO CHARMDATA TO CONST " ALL_CHARMS" IN SHOP_MANAGER.GD
-
-var charm_projectile_mod : Modifier = Modifier.new(1,Modifier.Type.FLAT,"add projectile from charm")
+var charm_projectile_mod : Modifier 
 var nb : int
 
 func activate(p_charm : CharmData) -> void:
 	SignalManager.weapon_stats_initiated.connect(_on_weapon_stats_initiated)
+	charm_projectile_mod = Modifier.new(p_charm.p_value,Modifier.Type.FLAT,"add projectile from charm")	
 	nb = CharmsManager.nb_projectile_added[p_charm.rarity]
 	charm_projectile_mod = Modifier.new(nb,Modifier.Type.FLAT,"add projectile from charm")
 	

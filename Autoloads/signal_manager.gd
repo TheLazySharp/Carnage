@@ -116,3 +116,6 @@ signal map_generated(data : MapData)
 
 @warning_ignore("unused_signal")
 signal start_background_music
+
+@warning_ignore("unused_signal")
+signal reward_chosen

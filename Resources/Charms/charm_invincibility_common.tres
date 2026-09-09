@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://cycv6edr3ie0h"]
+
+[ext_resource type="Script" uid="uid://ca0yb1kmhs40p" path="res://Scripts/CHARMS/charm_invincibility.gd" id="1_t854p"]
+[ext_resource type="Texture2D" uid="uid://dmrml5clvddsu" path="res://Assets/LuckyCharms/magic_tree_gre.png" id="2_fd2wv"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_bov4m"]
+
+[resource]
+script = ExtResource("3_bov4m")
+name = 11
+icon = ExtResource("2_fd2wv")
+description = "The car is invicible for 3 sec when hit by enemiesCool down : 7 sec"
+p_value = 3.0
+p_value_descr = "invincibility duration"
+effect_script = ExtResource("1_t854p")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

@@ -20,7 +20,7 @@ enum SCENES {
 	GOD_MOD_TRAINING,
 	RACE,
 	SANDBOX,
-	DROPS
+	REWARDS
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -45,7 +45,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	#SCENES.GOD_MOD_TRAINING : "uid://dyy6lm0fy0oqs"
 	SCENES.RACE : "uid://cftayor44iqic",
 	SCENES.SANDBOX : "uid://3akvde2gonk6",
-	SCENES.DROPS : "uid://jwksok5nrqco"
+	SCENES.REWARDS : "uid://jwksok5nrqco"
 }
 
 
@@ -55,7 +55,7 @@ var districts_scenes : Dictionary[DistrictsData.types,String] = {
 	DistrictsData.types.ARENA :"uid://df565yrwfqn1v",
 	DistrictsData.types.HIGHWAY :"uid://df565yrwfqn1v",
 	DistrictsData.types.SUPERMARKET :"uid://df565yrwfqn1v",
-	DistrictsData.types.GUNSHOP :"uid://df565yrwfqn1v",
+	DistrictsData.types.GUNSMITH :"uid://df565yrwfqn1v",
 	DistrictsData.types.CARDEALER :"uid://df565yrwfqn1v",
 	DistrictsData.types.FINAL :"uid://df565yrwfqn1v",
 	DistrictsData.types.BANK :"uid://df565yrwfqn1v",

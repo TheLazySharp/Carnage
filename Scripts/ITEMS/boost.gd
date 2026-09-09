@@ -67,67 +67,6 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void:
 	strike_price.visible = ShopManager.apply_discount
 
 
-#func setup(p_boost : BoostData, p_is_in_shop : bool) -> void : 
-	#boost = p_boost
-	#modifications_count = get_modifications_count()
-	#if modifications_count == 0:
-		#push_warning("BoostData '%s' has no usable modification" % boost.resource_path)
-		#hide()
-		#return
-	#price = randi_range(
-		#int(XPManager.current_level + ShopManager.price_levels[boost.rarity] * 0.75 * GameMaster.difficulty_mod),
-		#int(XPManager.current_level + ShopManager.price_levels[boost.rarity] * 1.25 * GameMaster.difficulty_mod))
-	#discounted_price = int(price * ShopManager.discount.get_value())
-	#price_tag.text = str(price)
-	#discount_tag.text = str(discounted_price)
-	#boost_name.text = InventoryManager.get_boost_name(boost)
-	#icon.texture = boost.icon
-	#card.color = boost.get_shop_color()
-	#stat_0.text = boost.get_stat_string(boost.target_stats[0])
-	#bonus_0.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[0],0)
-	#boost_rarity.text = boost.get_rarity_string(boost.rarity)
-	#boost_rarity.add_theme_color_override("font_color",boost.get_shop_color())
-	#is_in_shop = p_is_in_shop
-#
-	#match boost.target_ressource:
-		#boost.Target_Ressources.CAR:
-			#new_value_0.text = str(boost.get_car_stat(boost.target_stats[0],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + InventoryManager.get_boost_name(boost))))
-		#boost.Target_Ressources.WEAPONS:
-			#new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-		#boost.Target_Ressources.AMMOS:
-			#new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-		#
-	#
-	#sold_out.hide()
-	#if is_in_shop:
-		#price_cont.show()
-	#else : price_cont.hide()
-	#
-	#if modifications_count > 1:
-		#stat_1.text = boost.get_stat_string(boost.target_stats[1])
-		#bonus_1.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[1],1)
-		#match boost.target_ressource:
-			#boost.Target_Ressources.CAR:
-				#new_value_1.text = str(boost.get_car_stat(boost.target_stats[1],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-			#boost.Target_Ressources.WEAPONS:
-				#new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-			#boost.Target_Ressources.AMMOS:
-				#new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-	#else :
-		#stat_1.hide()
-		#bonus_1.hide()
-		#new_value_1.hide()
-#
-	#if ShopManager.apply_discount :
-		#discount_tag.show()
-		#strike_price.show()
-	#else : 
-		#discount_tag.hide()
-		#strike_price.hide()
-	#
-	#if modifications_count <= 1:
-		#arrow.hide()
-
 
 func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index : int) -> String:
 	match type:
@@ -173,6 +112,9 @@ func _on_confirm_pressed() -> void:
 		confirm.disabled = true
 	elif boost.target_ressource == BoostData.Target_Ressources.CAR:
 		SignalManager.car_level_up_upgrade.emit()
+	
+	if InventoryManager.has_reward:
+		get_as_reward()
 
 
 func not_enough_cash()-> void : 
@@ -195,36 +137,6 @@ func _on_stats_updated() -> void:
 	if boost == null:
 		return
 	refresh_modifications()
-
-#func _on_stats_updated() -> void : 
-	#stat_0.text = boost.get_stat_string(boost.target_stats[0])
-	#bonus_0.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[0],0)
-#
-	#match boost.target_ressource:
-		#boost.Target_Ressources.CAR:
-			#new_value_0.text = str(boost.get_car_stat(boost.target_stats[0],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " + InventoryManager.get_boost_name(boost))))
-		#boost.Target_Ressources.WEAPONS:
-			#new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-		#boost.Target_Ressources.AMMOS:
-			#new_value_0.text = str(boost.get_weapon_stat(boost.target_stats[0],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[0],boost.get_modifier_type(boost.target_stats_modifier_types[0]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-			#
-	#if modifications_count > 1:
-		#stat_1.text = boost.get_stat_string(boost.target_stats[1])
-		#bonus_1.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[1],1)
-		#match boost.target_ressource:
-			#boost.Target_Ressources.CAR:
-				#new_value_1.text = str(boost.get_car_stat(boost.target_stats[1],CarManager.selected_car).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-			#boost.Target_Ressources.WEAPONS:
-				#new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-			#boost.Target_Ressources.AMMOS:
-				#new_value_1.text = str(boost.get_weapon_stat(boost.target_stats[1],boost.target_weapon.weapon_ammo_res).preview_value(Modifier.new(boost.target_stats_values[1],boost.get_modifier_type(boost.target_stats_modifier_types[1]),"boost applied " +  InventoryManager.get_boost_name(boost))))
-	#else :
-		#stat_1.hide()
-		#bonus_1.hide()
-		#new_value_1.hide()
-	#
-	#if boost == null:
-		#return
 
 func _on_confirm_focus_entered() -> void:
 	SignalManager.emit_signal("focused_entered",self.get_node("Confirm"))
@@ -283,3 +195,8 @@ func refresh_modifications() -> void:
 	arrow.visible = has_second
 	if has_second:
 		refresh_modification_line(1, stat_1, bonus_1, new_value_1)
+
+
+func get_as_reward() -> void : 
+	SignalManager.emit_signal("reward_chosen")
+	print( "boost chosen : inventory has reward ", InventoryManager.has_reward)

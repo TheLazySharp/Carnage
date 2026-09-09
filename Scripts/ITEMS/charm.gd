@@ -70,17 +70,19 @@ func _on_confirm_pressed() -> void:
 		else : 
 			not_enough_cash()
 
-	else : 
-		ShopManager.boost_shopped += 1
-		self.hide()
-		if ShopManager.boost_shopped < ShopManager.available_boosts:
-			for i : int in range(0,get_parent().get_children().size()-1):
-				if get_parent().get_children()[i].visible:
-					get_parent().get_child(i).get_child(0).grab_focus()
-		
-		SignalManager.emit_signal("upgrades_ok")
-		get_parent().get_parent().queue_free()
-
+	#else : 
+		#ShopManager.boost_shopped += 1
+		#self.hide()
+		#if ShopManager.boost_shopped < ShopManager.available_boosts:
+			#for i : int in range(0,get_parent().get_children().size()-1):
+				#if get_parent().get_children()[i].visible:
+					#get_parent().get_child(i).get_child(0).grab_focus()
+		#
+		#SignalManager.emit_signal("upgrades_ok")
+		#get_parent().get_parent().queue_free()
+	
+	elif InventoryManager.has_reward:
+		get_as_reward()
 
 func not_enough_cash()-> void : 
 	not_enough_cash_rect.show()
@@ -93,3 +95,8 @@ func _on_fortune_updated() -> void :
 		price_tag.add_theme_color_override("font_color",Color.RED)
 	if discounted_price > InventoryManager.fortune:
 		discount_tag.add_theme_color_override("font_color",Color.RED)
+
+func get_as_reward() -> void : 
+	print( "charm chosen before signal : inventory has reward ", InventoryManager.has_reward)
+	SignalManager.emit_signal("reward_chosen")
+	print( "charm chosen after signal : inventory has reward ", InventoryManager.has_reward)

@@ -87,9 +87,12 @@ const AMMO_BOOSTS : Array = [
 ]
 
 const ALL_CHARMS : Array = [
-	preload("uid://cycv6edr3ie0h"), #invincibility
+	preload("uid://cycv6edr3ie0h"), #invincibility common
 	preload("uid://dkm27p4j8u1jj"), #shop discount
-	preload("uid://dig2dq8y0nvfs") #add projectil on all weapons
+	preload("uid://dig2dq8y0nvfs"), #add 1 projectile on all weapons (COMMON)
+	preload("uid://b82jil28njo77"), #add 3 projectiles (EPIC)
+	preload("uid://1jcxa8pvy8yh") #invincibility EPIC
+	
 ]
 
 enum Items_Name {
@@ -117,7 +120,6 @@ enum Items_Name {
 	Wheels,
 	Nitro_Tank
 }
-
 
 
 var all_car_boosts : Array[BoostData] = []
@@ -164,8 +166,12 @@ func pick_boost_rarity() -> BoostData.Rarities:
 			return rarity
 	return BoostData.Rarities.COMMON
   
-func pick_boost(boost_list : Array[BoostData])-> BoostData:
-	var rarity : BoostData.Rarities = pick_boost_rarity()
+func pick_boost(boost_list : Array[BoostData], p_rarity : BoostData.Rarities = BoostData.Rarities.COMMON)-> BoostData:
+	var rarity : BoostData.Rarities 
+	if p_rarity != BoostData.Rarities.COMMON:
+		rarity = p_rarity
+	else :
+		rarity = pick_boost_rarity()
 	var pool : Array[BoostData] = boost_list.filter(
 		func(boost : BoostData) -> bool:
 		return boost.rarity == rarity)
@@ -190,8 +196,13 @@ func pick_charm_rarity() -> CharmsManager.Rarities:
 			return rarity
 	return CharmsManager.Rarities.COMMON
 
-func pick_charm()-> CharmData:
-	var rarity : CharmsManager.Rarities = pick_charm_rarity()
+func pick_charm(p_rarity : CharmsManager.Rarities = CharmsManager.Rarities.COMMON)-> CharmData:
+	var rarity : CharmsManager.Rarities
+	if p_rarity != CharmsManager.Rarities.COMMON:
+		rarity = p_rarity
+	else :
+		rarity = pick_charm_rarity()
+
 	var pool : Array = all_charms.filter(
 		func(charm : CharmData) -> bool:
 		return charm.rarity == rarity)

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cl63h8nhfhfpw"]
+
+[ext_resource type="Script" uid="uid://ck16pcrfuhhg" path="res://Scripts/ITEMS/EFFECTS/item_reward.gd" id="1_astda"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="1_uug0t"]
+[ext_resource type="Script" uid="uid://ctc62ptewno8k" path="res://Resources/Scripts/item_data.gd" id="2_astda"]
+
+[resource]
+script = ExtResource("2_astda")
+name = "Ammo Reward"
+icon = ExtResource("1_uug0t")
+effect_script = ExtResource("1_astda")
+reward_type = 3
+metadata/_custom_type_script = "uid://ctc62ptewno8k"

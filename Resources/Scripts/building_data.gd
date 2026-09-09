@@ -14,7 +14,7 @@ class_name BuildingData
 ##   (belt_depth x height) serves LEFT and RIGHT.
 ##
 ## district_type is the district flag: N_A means a generic building, any other
-## value makes it the mandatory building of that district (bank, gunshop...).
+## value makes it the mandatory building of that district (bank, GUNSMITH...).
 
 enum Kind {
 	INTERIOR,    # inside a block

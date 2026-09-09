@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bn06pe6xd2dyv"]
 
 [ext_resource type="Script" uid="uid://bjek0tdmk701o" path="res://Scripts/BUILDINGS/building.gd" id="1_a0cr5"]
-[ext_resource type="Resource" uid="uid://cgudfa8adx5u1" path="res://Resources/Items/repair.tres" id="2_klxut"]
+[ext_resource type="Resource" uid="uid://b3hijb553wk1k" path="res://Resources/Items/Rewards/charm_reward.tres" id="2_x2465"]
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="3_4mv6h"]
 [ext_resource type="Texture2D" uid="uid://ckprro4fxuhly" path="res://Assets/Tilesets/Roofs/roof_texture01.png" id="4_a0cr5"]
 [ext_resource type="Texture2D" uid="uid://owy0mnxv554j" path="res://Assets/Props/Roofs/Glass Panels/Slice 6.tres" id="5_klxut"]
@@ -699,7 +699,7 @@ corner_radius_bottom_left = 4
 [node name="Supermarket" type="Node2D" unique_id=330276966 groups=["walls"]]
 script = ExtResource("1_a0cr5")
 unlock_timer = 10.0
-spawnable_item_res = ExtResource("2_klxut")
+spawnable_item_res = ExtResource("2_x2465")
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=960865488]
 

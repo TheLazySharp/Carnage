@@ -32,6 +32,9 @@ func _on_area_entered(area: Area2D) -> void:
 		var effect : ItemEffect = item.effect_script.new()
 		effect.activate()
 		ItemManager.register(item, effect)
+		if item.is_reward():
+			InventoryManager.has_reward = true
+			InventoryManager.rewards.append(item)
 		queue_free()
 
 

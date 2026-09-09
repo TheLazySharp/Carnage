@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://c0dg67w4b5xih"]
 
 [ext_resource type="Script" uid="uid://bjek0tdmk701o" path="res://Scripts/BUILDINGS/building.gd" id="1_iably"]
-[ext_resource type="Resource" uid="uid://cgudfa8adx5u1" path="res://Resources/Items/repair.tres" id="2_573vj"]
+[ext_resource type="Resource" uid="uid://mcq24u2rx68o" path="res://Resources/Items/Rewards/car_reward.tres" id="2_djg6n"]
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="3_ghbp5"]
 [ext_resource type="Texture2D" uid="uid://b3it2mau1ttft" path="res://Assets/Tilesets/Roofs/roof_texture03.png" id="4_djg6n"]
 [ext_resource type="Texture2D" uid="uid://bn3oteja0m4nn" path="res://Assets/Characters/Cars/sedan_sport.png" id="5_iably"]
@@ -694,7 +694,7 @@ corner_radius_bottom_left = 4
 [node name="CarDealer" type="Node2D" unique_id=330276966 groups=["walls"]]
 script = ExtResource("1_iably")
 unlock_timer = 10.0
-spawnable_item_res = ExtResource("2_573vj")
+spawnable_item_res = ExtResource("2_djg6n")
 
 [node name="ShadowsGroup" type="Node2D" parent="." unique_id=960865488]
 

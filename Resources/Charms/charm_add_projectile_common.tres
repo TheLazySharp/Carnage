@@ -9,5 +9,6 @@ script = ExtResource("3_gn3sl")
 name = 12
 icon = ExtResource("1_luwhx")
 description = "Add projectile to all weapons"
+p_value = 1.0
 effect_script = ExtResource("1_eur3l")
 metadata/_custom_type_script = "uid://glp77jy3lf6n"

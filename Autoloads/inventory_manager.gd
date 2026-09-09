@@ -9,7 +9,12 @@ var dollar_weights : Dictionary = {
 	DollarData.Rarities.LEGENDARY: 1
 }
 
-
+enum Rarities {
+	COMMON,
+	RARE,
+	EPIC,
+	LEGENDARY
+}
 
 const ALL_DOLLAR : Array = [
 	preload("uid://ydtnmpfplfvu"),
@@ -20,25 +25,25 @@ const ALL_DOLLAR : Array = [
 var all_dollars : Array[DollarData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var fortune : int
-var free_drop : bool = false
-var free_drops : Array[FreeDropsData] = []
+var has_reward : bool = false
+var rewards : Array[ItemData] = []
 
 
 func _ready() -> void:
 	for dollar : DollarData in ALL_DOLLAR:
 		all_dollars.append(dollar)
 	fortune = 0
-	free_drop = 0
+	has_reward = false
 	auto_parts = 0
 	rng.randomize()
-	free_drops.clear()
+	rewards.clear()
 
 
 func unload() -> void:
 	auto_parts = 0
 	fortune = 0
-	free_drops.clear()
-	free_drop = false
+	rewards.clear()
+	has_reward = false
 
 
 func pick_rarity() -> DollarData.Rarities:

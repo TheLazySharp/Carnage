@@ -13,7 +13,7 @@ enum types {
 	GARAGE,
 	BANK,
 	CAR_REPAIR,
-	GUNSHOP,
+	GUNSMITH,
 	SUPERMARKET,
 	CARDEALER,
 	FINAL
@@ -29,7 +29,7 @@ const MAP_TYPES : Array[int] = [
 	types.SURVIVOR,
 	types.BANK,
 	types.CAR_REPAIR,
-	types.GUNSHOP,
+	types.GUNSMITH,
 	types.SUPERMARKET,
 	types.CARDEALER,
 	types.FINAL

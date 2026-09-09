@@ -16,7 +16,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.EVENT : 1,
 		DistrictsData.types.BANK : 3,
 		DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.GUNSHOP : 3,
+		DistrictsData.types.GUNSMITH : 3,
 		DistrictsData.types.SUPERMARKET : 1,
 		DistrictsData.types.CARDEALER : 1,
 		DistrictsData.types.SHOP : 2,
@@ -30,7 +30,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.BANK : 1,
 		DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.SUPERMARKET : 1,
-		DistrictsData.types.GUNSHOP : 2,
+		DistrictsData.types.GUNSMITH : 2,
 		DistrictsData.types.CARDEALER : 2,
 		DistrictsData.types.SHOP : 1,
 		DistrictsData.types.GARAGE : 2,
@@ -43,7 +43,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.BANK : 1,
 		DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.SUPERMARKET : 1,
-		DistrictsData.types.GUNSHOP : 1,
+		DistrictsData.types.GUNSMITH : 1,
 		DistrictsData.types.CARDEALER : 2,
 		DistrictsData.types.SHOP : 3,
 		DistrictsData.types.GARAGE : 2,
@@ -56,7 +56,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.BANK : 3,
 		DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.SUPERMARKET : 1,
-		DistrictsData.types.GUNSHOP : 2,
+		DistrictsData.types.GUNSMITH : 2,
 		DistrictsData.types.CARDEALER : 3,
 		DistrictsData.types.SHOP : 2,
 		DistrictsData.types.GARAGE : 2,
@@ -72,7 +72,7 @@ const GARAGE_DISTRICTS_WEIGHT : float = 6.0
 const ARENA_DISTRICTS_WEIGHT : float = 15.0
 const SURVIVOR_DISTRICTS_WEIGHT : float = 8.0
 const HIGHWAY_DISTRICTS_WEIGHT : float = 4.0
-const GUNSHOP_DISTRICTS_WEIGHT : float = 2.0
+const GUNSMITH_DISTRICTS_WEIGHT : float = 2.0
 const CARDEALER_DISTRICTS_WEIGHT : float = 2.0
 const SUPERMARKET_DISTRICTS_WEIGHT : float = 2.0
 const BANK_DISTRICTS_WEIGHT : float = 2.0
@@ -83,18 +83,6 @@ var steps_reached : int = 0
 var current_map_data : Array[Array]
 var last_district : DistrictsData
 
-#var random_districts_weights : Dictionary = {
-	#DistrictsData.types.GARAGE : 0.0,
-	#DistrictsData.types.ARENA : 0.0,
-	#DistrictsData.types.SURVIVOR : 0.0,
-	#DistrictsData.types.SHOP : 0.0,
-	#DistrictsData.types.HIGHWAY : 0.0,
-	#DistrictsData.types.EVENT : 0.0,
-	#DistrictsData.types.BANK : 0.0,
-	#DistrictsData.types.CARDEALER : 0.0,
-	#DistrictsData.types.GUNSHOP : 0.0,
-	#DistrictsData.types.FINAL : 0.0
-#}
 
 signal new_step_reached(new_step : int)
 var map_data : Array[Array] #Grid is an array of steps which are array of districts
@@ -220,12 +208,12 @@ func setup_district_types() -> void :
 	#1 first district is always a parking (no mission)
 	for district : DistrictsData in map_data[0]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.ARENA
+			district.type = DistrictsData.types.SUPERMARKET
 	
 	#2 second district is always a mission (new survivor to save)
 	for district : DistrictsData in map_data[1]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.SURVIVOR
+			district.type = DistrictsData.types.GUNSMITH
 			
 	#3 last district before boss is always a garage
 	for district : DistrictsData in map_data[STEPS - 2]:
