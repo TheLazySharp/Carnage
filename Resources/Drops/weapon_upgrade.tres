@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FreeDropsData" format=3 uid="uid://ygna3facl3qv"]
+
+[ext_resource type="Script" uid="uid://cx0kejoqvycfi" path="res://Resources/Scripts/free_drops_data.gd" id="1_m6hjk"]
+
+[resource]
+script = ExtResource("1_m6hjk")
+type = 1
+metadata/_custom_type_script = "uid://cx0kejoqvycfi"

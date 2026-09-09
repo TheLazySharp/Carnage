@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ci1udv0u5wm6e" path="res://Scripts/SCENES/car_levelup.gd" id="1_1impy"]
 [ext_resource type="PackedScene" uid="uid://dbjho30cytfku" path="res://Scenes/ITEMS/boost.tscn" id="2_kkdjs"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="3_mxdxo"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="4_1yhnf"]
 [ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="5_1impy"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="5_sr04d"]
@@ -65,8 +66,8 @@ offset_left = -637.0
 offset_right = 639.0
 offset_bottom = 113.0
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 64
 text = "CAR UPGRADES"
 horizontal_alignment = 1
@@ -131,9 +132,9 @@ theme_override_constants/separation = 30
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.776, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("9_q02oa")
 theme_override_font_sizes/font_size = 48

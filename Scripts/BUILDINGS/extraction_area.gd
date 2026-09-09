@@ -41,4 +41,6 @@ func _on_body_entered(body: Node2D) -> void:
 		StatsManager.total_drift = body.get_node("DriftManager").total_drift_points
 		await get_tree().create_timer(2).timeout
 		SignalManager.emit_signal("next_day")
-		SceneManager.load_level(SceneManager.SCENES.CAR_LEVELUP)
+		if InventoryManager.free_drop:
+			SceneManager.load_level(SceneManager.SCENES.DROPS)
+		else : SceneManager.load_level(SceneManager.SCENES.CAR_LEVELUP)

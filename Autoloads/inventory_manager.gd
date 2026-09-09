@@ -10,6 +10,7 @@ var dollar_weights : Dictionary = {
 }
 
 
+
 const ALL_DOLLAR : Array = [
 	preload("uid://ydtnmpfplfvu"),
 	preload("uid://sqpp10ipav3a"),
@@ -19,19 +20,25 @@ const ALL_DOLLAR : Array = [
 var all_dollars : Array[DollarData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var fortune : int
+var free_drop : bool = false
+var free_drops : Array[FreeDropsData] = []
 
 
 func _ready() -> void:
 	for dollar : DollarData in ALL_DOLLAR:
 		all_dollars.append(dollar)
 	fortune = 0
+	free_drop = 0
 	auto_parts = 0
 	rng.randomize()
+	free_drops.clear()
 
 
 func unload() -> void:
 	auto_parts = 0
 	fortune = 0
+	free_drops.clear()
+	free_drop = false
 
 
 func pick_rarity() -> DollarData.Rarities:

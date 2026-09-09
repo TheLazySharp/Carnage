@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://jwksok5nrqco"]
+
+[ext_resource type="Script" uid="uid://bludtb6n5j6e0" path="res://Scripts/SCENES/drops.gd" id="1_2lq0a"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="1_j0dqb"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="2_xob8j"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_vd3w2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wljjq"]
+
+[node name="Drops" type="Control" unique_id=339548940]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2lq0a")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1222634454]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="." unique_id=938480525]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_fonts/font = ExtResource("1_j0dqb")
+theme_override_font_sizes/font_size = 64
+text = "WELL DESERVED !"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("2_xob8j")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1412097477]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -91.0
+offset_top = -151.0
+offset_right = 91.0
+offset_bottom = -87.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="OPEN" type="Button" parent="VBoxContainer" unique_id=389923097]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.776, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_j0dqb")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wljjq")
+text = "OPEN"
+flat = true
+icon_alignment = 1
+script = ExtResource("4_vd3w2")
+
+[node name="DropsContainer" type="GridContainer" parent="." unique_id=482210553]
+custom_minimum_size = Vector2(410, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -234.0
+offset_right = 290.0
+offset_bottom = 234.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+
+[connection signal="pressed" from="VBoxContainer/OPEN" to="." method="_on_open_pressed"]

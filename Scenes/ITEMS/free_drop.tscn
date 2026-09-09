@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b028tujr5g2t2"]
+
+[ext_resource type="Script" uid="uid://c3b08xiy23p86" path="res://Scripts/ITEMS/free_drops.gd" id="1_nf55j"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_wuf7o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_42lo8"]
+radius = 21.24913
+
+[node name="FreeDrop" type="Area2D" unique_id=463077546]
+script = ExtResource("1_nf55j")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1565688194]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("2_wuf7o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1034761365]
+position = Vector2(15.76049, 15.360619)
+shape = SubResource("CircleShape2D_42lo8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
