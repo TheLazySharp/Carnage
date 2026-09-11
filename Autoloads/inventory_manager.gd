@@ -2,18 +2,19 @@ extends Node
 
 var auto_parts : int
 
-var dollar_weights : Dictionary = {
-	DollarData.Rarities.COMMON: 500,
-	DollarData.Rarities.RARE: 100,
-	DollarData.Rarities.EPIC: 20,
-	DollarData.Rarities.LEGENDARY: 1
-}
 
 enum Rarities {
 	COMMON,
 	RARE,
 	EPIC,
 	LEGENDARY
+}
+
+var dollar_weights : Dictionary = {
+	Rarities.COMMON: 500,
+	Rarities.RARE: 100,
+	Rarities.EPIC: 20,
+	Rarities.LEGENDARY: 1
 }
 
 const ALL_DOLLAR : Array = [

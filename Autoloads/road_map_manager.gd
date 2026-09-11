@@ -208,13 +208,18 @@ func setup_district_types() -> void :
 	#1 first district is always a parking (no mission)
 	for district : DistrictsData in map_data[0]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.SUPERMARKET
+			district.type = DistrictsData.types.BANK
 	
 	#2 second district is always a mission (new survivor to save)
 	for district : DistrictsData in map_data[1]:
 		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.GUNSMITH
-			
+			district.type = DistrictsData.types.SURVIVOR
+
+	#3 TEST third district is always a mission (new survivor to save)
+	for district : DistrictsData in map_data[2]:
+		if district.next_districts.size() > 0 :
+			district.type = DistrictsData.types.SURVIVOR
+
 	#3 last district before boss is always a garage
 	for district : DistrictsData in map_data[STEPS - 2]:
 		if district.next_districts.size() > 0 :

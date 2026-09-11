@@ -62,6 +62,8 @@ func splat_blood(blood_position: Vector2, blood_rotation: float) -> void:
 	fresh_indices.append(idx)
 	
 	blood_splatters[idx].splat_blood()
+	# Shared emitters (Vfx autoload): the old particles flew along the root's local -X axis
+	Vfx.blood_impact(blood_position, -Vector2.from_angle(blood_rotation))
 	
 func harvest(harvest_position: Vector2) -> int:
 	var harvested: int = 0

@@ -77,10 +77,11 @@ func _on_unlock_timer_timeout() -> void :
 	unlockable_shape.call_deferred("set_disabled", true)
 	unlock_bar.hide()
 	
-	for i in building_data.value:
+	var collectables : Node = get_node("/root/World/Collectables")
+	for i : int in building_data.value:
 		var object : Node2D = building_data.spawnable.instantiate()
-		get_node("/root/World/Collectables").add_child(object)
-		object.building_launch_spawn(spawn_center.global_position, pick_object_landing(),spawnable_item_res)
+		collectables.add_child(object)
+		object.building_launch_spawn(spawn_center.global_position, pick_object_landing(), spawnable_item_res)
 
 func pick_object_landing() -> Vector2:
 	var r_min : float = GeoTools.circumscribed_radius(footprint, CELL_SIZE)

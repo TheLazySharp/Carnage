@@ -35,7 +35,7 @@ var velocity: Vector2 = Vector2.ZERO
 @onready var blood_impact_pool: BloodImpactPool = $/root/World/VFX/BloodImpactPool
 @onready var flow_field: FlowFieldManager = $"/root/World/FlowFieldManager"
 #@export var obstacle_probe_margin: float = 12.0 #half size of the sprite
-
+@onready var collectable_pool : CollectablePool = get_node("/root/World/Collectables")
 # MULTIMESH
 @onready var renderer: EnemiesMultiMeshRenderer = $/root/World/EnemiesMMR2D
 var mm_pool: EnemiesMultiMeshRenderer.EnemyTypePool = null # pool dédié au type de cet ennemi
@@ -62,9 +62,6 @@ var near_wall : bool = false
 @export var wall_test_distance: float = 24.0
 @export var wall_collision_mask: int = 8
 
-@export_group("DROPS SCENES")
-@export var xp_scene: PackedScene
-@export var dollar_scene: PackedScene
 
 @export_group("UI")
 @onready var damages_text_pos: Marker2D = get_node("MarkerDamages")
@@ -287,15 +284,10 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 		mm_pool.set_enemy_flash(mm_index, false)
 
 	# 2. drops
-	var xp := xp_scene.instantiate()
-	xp.xp_data = XPManager.xp_ressources[enemy.xp_type]
-	get_node("/root/World/Collectables").add_child(xp)
-	xp.launch_spawn(global_position)
 
+	collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
 	if enemy.drops_dollar:
-		var dollar := dollar_scene.instantiate()
-		get_node("/root/World/Collectables").add_child(dollar)
-		dollar.launch_spawn(global_position)
+		collectable_pool.spawn_dollar(global_position)
 
 	StatsManager.frags += 1
 	SignalManager.emit_signal("enemy_is_dead", self, self.horde)

@@ -1,24 +1,24 @@
 extends Node
 
 var item_levels : Dictionary = {
-	BoostData.Rarities.COMMON: 500,
-	BoostData.Rarities.RARE: 100,
-	BoostData.Rarities.EPIC: 20,
-	BoostData.Rarities.LEGENDARY: 1
+	InventoryManager.Rarities.COMMON: 500,
+	InventoryManager.Rarities.RARE: 100,
+	InventoryManager.Rarities.EPIC: 20,
+	InventoryManager.Rarities.LEGENDARY: 1
 }
 
 var price_levels : Dictionary = {
-	BoostData.Rarities.COMMON: 10,
-	BoostData.Rarities.RARE: 20,
-	BoostData.Rarities.EPIC: 100,
-	BoostData.Rarities.LEGENDARY: 300
+	InventoryManager.Rarities.COMMON: 10,
+	InventoryManager.Rarities.RARE: 20,
+	InventoryManager.Rarities.EPIC: 100,
+	InventoryManager.Rarities.LEGENDARY: 300
 }
 
 var item_colors : Dictionary = {
-	BoostData.Rarities.COMMON : Color.WHITE,
-	BoostData.Rarities.RARE : Color.RED,
-	BoostData.Rarities.EPIC : Color.YELLOW,
-	BoostData.Rarities.LEGENDARY : Color.PURPLE
+	InventoryManager.Rarities.COMMON : Color.WHITE,
+	InventoryManager.Rarities.RARE : Color.RED,
+	InventoryManager.Rarities.EPIC : Color.YELLOW,
+	InventoryManager.Rarities.LEGENDARY : Color.PURPLE
 }
 
 const CAR_BOOSTS : Array = [
@@ -153,22 +153,22 @@ func load_pools() -> void :
 	for charm : CharmData in ALL_CHARMS:
 		all_charms.append(charm)
 
-func pick_boost_rarity() -> BoostData.Rarities:
+func pick_boost_rarity() -> InventoryManager.Rarities:
 	var weighted_sum : int = 0
-	for rarity : BoostData.Rarities  in item_levels:
+	for rarity : InventoryManager.Rarities  in item_levels:
 		weighted_sum += item_levels[rarity]
 	
 	var shop_item_weight : int = rng.randi_range(0,weighted_sum -1)
 	
-	for rarity : BoostData.Rarities in item_levels:
+	for rarity : InventoryManager.Rarities in item_levels:
 		shop_item_weight -= item_levels[rarity]
 		if shop_item_weight < 0:
 			return rarity
-	return BoostData.Rarities.COMMON
+	return InventoryManager.Rarities.COMMON
   
-func pick_boost(boost_list : Array[BoostData], p_rarity : BoostData.Rarities = BoostData.Rarities.COMMON)-> BoostData:
-	var rarity : BoostData.Rarities 
-	if p_rarity != BoostData.Rarities.COMMON:
+func pick_boost(boost_list : Array[BoostData], p_rarity : InventoryManager.Rarities = InventoryManager.Rarities.COMMON)-> BoostData:
+	var rarity : InventoryManager.Rarities 
+	if p_rarity != InventoryManager.Rarities.COMMON:
 		rarity = p_rarity
 	else :
 		rarity = pick_boost_rarity()
@@ -183,22 +183,22 @@ func pick_boost(boost_list : Array[BoostData], p_rarity : BoostData.Rarities = B
 	return pool[rng.randi_range(0,pool.size() -1)]
 
 
-func pick_charm_rarity() -> CharmsManager.Rarities:
+func pick_charm_rarity() -> InventoryManager.Rarities:
 	var weighted_sum : int = 0
-	for rarity : CharmsManager.Rarities  in item_levels:
+	for rarity : InventoryManager.Rarities  in item_levels:
 		weighted_sum += item_levels[rarity]
 	
 	var shop_item_weight : int = rng.randi_range(0,weighted_sum -1)
 	
-	for rarity : CharmsManager.Rarities in item_levels:
+	for rarity : InventoryManager.Rarities in item_levels:
 		shop_item_weight -= item_levels[rarity]
 		if shop_item_weight < 0:
 			return rarity
-	return CharmsManager.Rarities.COMMON
+	return InventoryManager.Rarities.COMMON
 
-func pick_charm(p_rarity : CharmsManager.Rarities = CharmsManager.Rarities.COMMON)-> CharmData:
-	var rarity : CharmsManager.Rarities
-	if p_rarity != CharmsManager.Rarities.COMMON:
+func pick_charm(p_rarity : InventoryManager.Rarities = InventoryManager.Rarities.COMMON)-> CharmData:
+	var rarity : InventoryManager.Rarities
+	if p_rarity != InventoryManager.Rarities.COMMON:
 		rarity = p_rarity
 	else :
 		rarity = pick_charm_rarity()

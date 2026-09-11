@@ -14,12 +14,18 @@ func _ready() -> void:
 
 
 
-func display_damages(damages_value : int, pos : Vector2) -> void : 
+func display_damages(damages_value : int, pos : Vector2) -> void :
+	# The pool is a ring buffer now: this label may still be animating from a
+	# previous hit. Kill the old tween first, otherwise its finished callback
+	# would hide the label while it displays the new value.
+	if damage_label_tween != null and damage_label_tween.is_valid():
+		damage_label_tween.kill()
 	in_use = true
+	scale = Vector2.ONE
 	show()
 	self.text = str(damages_value)
 	global_position = pos
-	
+
 	damage_label_tween = get_tree().create_tween()
 	damage_label_tween.finished.connect(_on_tween_finished)
 	damage_label_tween.set_parallel(true)

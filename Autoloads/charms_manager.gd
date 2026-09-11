@@ -3,12 +3,12 @@ extends Node
 var active_charms: Dictionary = {}
 var holder : Array[CharmData] = []
 
-enum Rarities {
-	COMMON,
-	RARE,
-	EPIC,
-	LEGENDARY
-}
+#enum Rarities {
+	#COMMON,
+	#RARE,
+	#EPIC,
+	#LEGENDARY
+#}
 
 #var invincibility_duration : Dictionary = {
 	#Rarities.COMMON: 3,

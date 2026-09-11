@@ -31,7 +31,6 @@ func _ready() -> void:
 
 func setup(p_charm : CharmData, p_is_in_shop : bool) -> void : 
 	charm = p_charm
-	charm.price = rng.randi_range(int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod)) * price_mult
 	discounted_price = int(charm.price * ShopManager.discount.get_value())
 	price_tag.text = str(charm.price)
 	discount_tag.text = str(discounted_price)
@@ -44,6 +43,7 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	description.text = charm.description
 	sold_out.hide()
 	if charm.is_in_shop:
+		charm.price = rng.randi_range(int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod)) * price_mult
 		price_cont.show()
 	else : price_cont.hide()
 	
@@ -70,17 +70,7 @@ func _on_confirm_pressed() -> void:
 		else : 
 			not_enough_cash()
 
-	#else : 
-		#ShopManager.boost_shopped += 1
-		#self.hide()
-		#if ShopManager.boost_shopped < ShopManager.available_boosts:
-			#for i : int in range(0,get_parent().get_children().size()-1):
-				#if get_parent().get_children()[i].visible:
-					#get_parent().get_child(i).get_child(0).grab_focus()
-		#
-		#SignalManager.emit_signal("upgrades_ok")
-		#get_parent().get_parent().queue_free()
-	
+
 	elif InventoryManager.has_reward:
 		get_as_reward()
 

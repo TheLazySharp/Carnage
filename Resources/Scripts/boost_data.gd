@@ -37,12 +37,6 @@ enum Mod_Type {
 	PERCENT_MULT,
 }
 
-enum Rarities {
-	COMMON,
-	RARE,
-	EPIC,
-	LEGENDARY
-}
 
 @export var name : ShopManager.Items_Name
 @export var target_ressource : Target_Ressources
@@ -53,7 +47,7 @@ enum Rarities {
 @export var target_weapon_types : WeaponsManager.Type
 @export var icon : Texture2D
 @export var text : String
-@export var rarity : Rarities
+@export var rarity : InventoryManager.Rarities
 #var price : int
 #var is_in_shop : bool = false
 
@@ -147,12 +141,12 @@ func get_stat_string(stat : Target_Stats) -> String:
 		Target_Stats.SPEED_ROTATION: return "Speed Rotation"
 	return ""
 
-func get_rarity_string(boost_rarity : Rarities) -> String:
+func get_rarity_string(boost_rarity : InventoryManager.Rarities) -> String:
 	match boost_rarity:
-		Rarities.COMMON: return "Common"
-		Rarities.RARE: return "Rare"
-		Rarities.EPIC: return "Epic"
-		Rarities.LEGENDARY: return "Legendary"
+		InventoryManager.Rarities.COMMON: return "Common"
+		InventoryManager.Rarities.RARE: return "Rare"
+		InventoryManager.Rarities.EPIC: return "Epic"
+		InventoryManager.Rarities.LEGENDARY: return "Legendary"
 	return ""
 
 func get_car_stat(target_stat : Target_Stats, car : CarData) -> Statistic:

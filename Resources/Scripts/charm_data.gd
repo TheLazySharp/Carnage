@@ -4,7 +4,7 @@ class_name CharmData
 @export var name: ShopManager.Items_Name
 @export var icon: Texture2D
 @export var description: String
-@export var rarity: CharmsManager.Rarities
+@export var rarity: InventoryManager.Rarities
 var price: int
 var is_in_shop : bool = false
 @export var p_value : float
@@ -13,12 +13,12 @@ var is_in_shop : bool = false
 
 @export var effect_script : GDScript
 
-func get_rarity_string(boost_rarity : CharmsManager.Rarities) -> String:
+func get_rarity_string(boost_rarity : InventoryManager.Rarities) -> String:
 	match boost_rarity:
-		CharmsManager.Rarities.COMMON: return "Common"
-		CharmsManager.Rarities.RARE: return "Rare"
-		CharmsManager.Rarities.EPIC: return "Epic"
-		CharmsManager.Rarities.LEGENDARY: return "Legendary"
+		InventoryManager.Rarities.COMMON: return "Common"
+		InventoryManager.Rarities.RARE: return "Rare"
+		InventoryManager.Rarities.EPIC: return "Epic"
+		InventoryManager.Rarities.LEGENDARY: return "Legendary"
 	return ""
 	
 

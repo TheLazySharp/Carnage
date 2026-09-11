@@ -1,0 +1,219 @@
+[gd_scene format=3 uid="uid://byg5fsl2iga6u"]
+
+[ext_resource type="Script" uid="uid://c1su44ts7vd77" path="res://Scripts/VFX/vfx.gd" id="1_hhmv4"]
+[ext_resource type="Texture2D" uid="uid://b02jhom2qglcm" path="res://Assets/Léonce/VFX/impact01.png" id="2_67yuh"]
+[ext_resource type="Texture2D" uid="uid://dtvpjotilfh2b" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs01.png" id="3_2qr5u"]
+[ext_resource type="Texture2D" uid="uid://cel6m8cx3j7i0" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs02.png" id="4_lc50k"]
+[ext_resource type="Texture2D" uid="uid://chsw0t1ybofav" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs03.png" id="5_51gpa"]
+[ext_resource type="Texture2D" uid="uid://5cwvd6a6up26" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs04.png" id="6_rro42"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ga810"]
+particles_animation = true
+particles_anim_h_frames = 9
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_sifld"]
+_data = [Vector2(0.014124297, 0), 0.0, 0.0, 0, 0, Vector2(0.10451978, 1), -0.048976447, -0.048976447, 0, 0, Vector2(1, 0), -3.3218646, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8l58v"]
+curve = SubResource("Curve_sifld")
+
+[sub_resource type="Gradient" id="Gradient_h7neh"]
+offsets = PackedFloat32Array(0, 0.0030487804, 0.0121951215)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.021341464, 0.021341464, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_04oug"]
+gradient = SubResource("Gradient_h7neh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_www5e"]
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+color_initial_ramp = SubResource("GradientTexture1D_04oug")
+alpha_curve = SubResource("CurveTexture_8l58v")
+anim_offset_max = 1.0
+
+[sub_resource type="Curve" id="Curve_4a7b4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.68926555, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_siu12"]
+curve = SubResource("Curve_4a7b4")
+
+[sub_resource type="Gradient" id="Gradient_qblse"]
+offsets = PackedFloat32Array(0, 0.23780487)
+colors = PackedColorArray(1, 0, 0, 1, 0.27515873, 3.113458e-07, 9.62615e-08, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_au78y"]
+gradient = SubResource("Gradient_qblse")
+
+[sub_resource type="Curve" id="Curve_aijmh"]
+_data = [Vector2(0.49717516, 1), 0.0, 0.0, 0, 0, Vector2(0.50563973, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5dgyk"]
+curve = SubResource("Curve_aijmh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j06ms"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-6.685, 0, 0)
+emission_shape = 2
+emission_sphere_radius = 1.0
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(-200, 0, 0)
+spread = 20.107
+initial_velocity_min = 67.47
+initial_velocity_max = 371.24
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = -1.6093254e-05
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 30.609978
+gravity = Vector3(0, 0, 0)
+damping_max = 100.00001
+attractor_interaction_enabled = false
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_5dgyk")
+color_initial_ramp = SubResource("GradientTexture1D_au78y")
+alpha_curve = SubResource("CurveTexture_siu12")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.019999977
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qebsb"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_4bb32"]
+_limits = [0.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0), 0.0, 0.0, 0, 0, Vector2(0.26, 90), 0.0, 0.0, 0, 0, Vector2(0.5, 90), 0.0, 0.0, 0, 0, Vector2(0.51, 180), 0.0, 0.0, 0, 0, Vector2(0.75, 180), 0.0, 0.0, 0, 0, Vector2(0.76, 270), 0.0, 0.0, 0, 0, Vector2(1, 270), 0.0, 0.0, 0, 0]
+point_count = 8
+
+[sub_resource type="CurveTexture" id="CurveTexture_04oug"]
+curve = SubResource("Curve_4bb32")
+
+[sub_resource type="Curve" id="Curve_1av0v"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1.0071943), 0.0, 0.2961357, 0, 0, Vector2(1, 2), 3.6609724, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q4v6q"]
+curve = SubResource("Curve_1av0v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g6f0m"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+angle_curve = SubResource("CurveTexture_04oug")
+direction = Vector3(-200, 0, 0)
+spread = 24.893
+initial_velocity_min = 23.81
+initial_velocity_max = 300.16998
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 98, 0)
+color = Color(1, 0, 0, 1)
+anim_speed_min = 0.26
+anim_speed_max = 0.65
+anim_speed_curve = SubResource("CurveTexture_q4v6q")
+
+[node name="Vfx" type="Node2D" unique_id=1625214466]
+script = ExtResource("1_hhmv4")
+
+[node name="BloodImpact" type="GPUParticles2D" parent="." unique_id=335037186]
+z_index = 3
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_ga810")
+emitting = false
+amount = 128
+amount_ratio = 0.0
+texture = ExtResource("2_67yuh")
+lifetime = 0.09999999999999999
+fixed_fps = 12
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_www5e")
+
+[node name="BloodDrops" type="GPUParticles2D" parent="." unique_id=480385747]
+z_index = 2
+z_as_relative = false
+emitting = false
+amount = 2048
+amount_ratio = 0.0
+lifetime = 0.5
+interp_to_end = 0.005
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+trail_lifetime = 0.1
+trail_sections = 2
+trail_section_subdivisions = 1
+process_material = SubResource("ParticleProcessMaterial_j06ms")
+
+[node name="BloodTrails" type="GPUParticles2D" parent="." unique_id=2052177141]
+z_index = 3
+z_as_relative = false
+emitting = false
+amount = 256
+amount_ratio = 0.0
+lifetime = 0.5
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+trail_enabled = true
+trail_lifetime = 0.1
+trail_sections = 2
+trail_section_subdivisions = 1
+process_material = SubResource("ParticleProcessMaterial_j06ms")
+
+[node name="BloodBlobs1" type="GPUParticles2D" parent="." unique_id=1190045689]
+z_index = 7
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_qebsb")
+position = Vector2(-13, 0)
+emitting = false
+amount = 128
+amount_ratio = 0.0
+texture = ExtResource("3_2qr5u")
+lifetime = 0.2
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+process_material = SubResource("ParticleProcessMaterial_g6f0m")
+
+[node name="BloodBlobs2" type="GPUParticles2D" parent="." unique_id=1688242573]
+z_index = 7
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_qebsb")
+position = Vector2(-13, 0)
+emitting = false
+amount = 128
+amount_ratio = 0.0
+texture = ExtResource("4_lc50k")
+lifetime = 0.2
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+process_material = SubResource("ParticleProcessMaterial_g6f0m")
+
+[node name="BloodBlobs3" type="GPUParticles2D" parent="." unique_id=1466604803]
+z_index = 7
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_qebsb")
+position = Vector2(-13, 0)
+emitting = false
+amount = 128
+amount_ratio = 0.0
+texture = ExtResource("5_51gpa")
+lifetime = 0.2
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+process_material = SubResource("ParticleProcessMaterial_g6f0m")
+
+[node name="BloodBlobs4" type="GPUParticles2D" parent="." unique_id=1502808177]
+z_index = 7
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_qebsb")
+position = Vector2(-13, 0)
+emitting = false
+amount = 128
+amount_ratio = 0.0
+texture = ExtResource("6_rro42")
+lifetime = 0.2
+visibility_rect = Rect2(-100000, -100000, 200000, 200000)
+process_material = SubResource("ParticleProcessMaterial_g6f0m")

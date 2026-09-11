@@ -6,8 +6,8 @@ var reward : ItemData
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var boosts_rewards : Array[BoostData] = []
 var charms_rewards : Array[CharmData] = []
-var reward_rarity : BoostData.Rarities
-var box_rarity : BoostData.Rarities
+var reward_rarity : InventoryManager.Rarities
+var box_rarity : InventoryManager.Rarities
 var nb : int = 0
 
 @export var boost_scene : PackedScene
@@ -19,23 +19,23 @@ var rewards_ready : bool = false
 
 
 var rewards_rarity_weights : Dictionary = {
-	BoostData.Rarities.EPIC: 7,
-	BoostData.Rarities.LEGENDARY: 3
+	InventoryManager.Rarities.EPIC: 7,
+	InventoryManager.Rarities.LEGENDARY: 3
 }
 
 var reward_box_rarity_weights : Dictionary = {
-	BoostData.Rarities.COMMON: 500,
-	BoostData.Rarities.RARE: 100,
-	BoostData.Rarities.EPIC: 20,
-	BoostData.Rarities.LEGENDARY: 3
+	InventoryManager.Rarities.COMMON: 500,
+	InventoryManager.Rarities.RARE: 100,
+	InventoryManager.Rarities.EPIC: 20,
+	InventoryManager.Rarities.LEGENDARY: 3
 }
 
 
 var nb_rewards : Dictionary = {
-	BoostData.Rarities.COMMON: 1,
-	BoostData.Rarities.RARE: 2,
-	BoostData.Rarities.EPIC: 3,
-	BoostData.Rarities.LEGENDARY: 5
+	InventoryManager.Rarities.COMMON: 1,
+	InventoryManager.Rarities.RARE: 2,
+	InventoryManager.Rarities.EPIC: 3,
+	InventoryManager.Rarities.LEGENDARY: 5
 }
 
 func _ready() -> void:
@@ -57,31 +57,35 @@ func _on_open_pressed() -> void:
 	pick_rewards()
 	
 
-func set_reward_rarity() -> BoostData.Rarities:
+func set_reward_rarity() -> InventoryManager.Rarities:
 	var weighted_sum : int = 0
-	for rarity : BoostData.Rarities  in rewards_rarity_weights:
+	for rarity : InventoryManager.Rarities  in rewards_rarity_weights:
 		weighted_sum += rewards_rarity_weights[rarity]
 	
 	var pick_weight : int = rng.randi_range(0,weighted_sum -1)
-	for rarity : BoostData.Rarities in rewards_rarity_weights:
+	for rarity : InventoryManager.Rarities in rewards_rarity_weights:
 		pick_weight -= rewards_rarity_weights[rarity]
 		if pick_weight < 0:
+			print("reward rarity picked : ", rarity)
 			return rarity
-	return BoostData.Rarities.EPIC
+	print("no reward rarity picked, return EPIC by default")
+	return InventoryManager.Rarities.EPIC
 
 
-func set_box_rarity() -> BoostData.Rarities:
+func set_box_rarity() -> InventoryManager.Rarities:
 	var weighted_sum : int = 0
-	for rarity : BoostData.Rarities  in reward_box_rarity_weights:
+	for rarity : InventoryManager.Rarities  in reward_box_rarity_weights:
 		weighted_sum += reward_box_rarity_weights[rarity]
 	
 	var box_weight : int = rng.randi_range(0,weighted_sum -1)
 	
-	for rarity : BoostData.Rarities in reward_box_rarity_weights:
+	for rarity : InventoryManager.Rarities in reward_box_rarity_weights:
 		box_weight -= reward_box_rarity_weights[rarity]
 		if box_weight < 0:
+			print("box rarity picked : ", rarity)
 			return rarity
-	return BoostData.Rarities.COMMON
+	print("no box rarity picked, return EPIC by default")
+	return InventoryManager.Rarities.COMMON
 
 
 func pick_rewards() -> void : 
@@ -136,7 +140,7 @@ func pick_rewards() -> void :
 
 
 
-func generate_boost(proposed_rewards : Array[BoostData], pick_list : Array[BoostData], rarity : BoostData.Rarities) -> BoostData:
+func generate_boost(proposed_rewards : Array[BoostData], pick_list : Array[BoostData], rarity : InventoryManager.Rarities) -> BoostData:
 	var attempts : int = 0
 	while attempts <1000:
 		attempts += 1
@@ -154,11 +158,11 @@ func generate_boost(proposed_rewards : Array[BoostData], pick_list : Array[Boost
 	push_warning("rewards.tscn : no valid charm found after 1000 attempts")
 	return null
 	
-func generate_charm(proposed_rewards : Array[CharmData], pick_list : Array[CharmData], p_rarity : BoostData.Rarities) -> CharmData:
+func generate_charm(proposed_rewards : Array[CharmData], _pick_list : Array[CharmData], p_rarity : InventoryManager.Rarities) -> CharmData:
 	var attempts : int = 0
 	while attempts <1000:
 		attempts += 1
-		var charm : CharmData = ShopManager.pick_charm()
+		var charm : CharmData = ShopManager.pick_charm(p_rarity)
 		
 		if proposed_rewards.has(charm):
 			continue
@@ -178,8 +182,8 @@ func _on_reward_chosen() -> void :
 	charms_rewards.clear()
 	rewards_ready = false
 	InventoryManager.has_reward = false
+	InventoryManager.rewards.clear()
 	continue_button.grab_focus()
-	
 	
 
 func _on_continue_pressed() -> void:
