@@ -94,7 +94,6 @@ offset_right = 639.0
 offset_bottom = 113.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_fonts/font = ExtResource("10_q2l0n")
 theme_override_font_sizes/font_size = 64
 text = "THE GARAGE"
 horizontal_alignment = 1

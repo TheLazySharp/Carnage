@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_40adb"]
 [ext_resource type="Texture2D" uid="uid://d3qt2bgnq2urg" path="res://Assets/Tilesets/Roofs/roof_texture02.png" id="2_40adb"]
+[ext_resource type="Texture2D" uid="uid://e54b8iati3e5" path="res://Assets/Tilesets/Roofs/Roof Cracks/Slice 12.tres" id="3_1ngis"]
 [ext_resource type="Texture2D" uid="uid://tsypbkuodwdc" path="res://Assets/Props/Roofs/Glass Panels/Slice 13.tres" id="3_40adb"]
+[ext_resource type="Texture2D" uid="uid://o4ynoc6tmf64" path="res://Assets/Tilesets/Roofs/Roof Cracks/Slice 11.tres" id="4_lkbru"]
 [ext_resource type="Texture2D" uid="uid://bxoa18wjls014" path="res://Assets/Props/Roofs/Glass Panels/Slice 1.tres" id="4_qtk8n"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="5_xinre"]
 
@@ -707,6 +709,14 @@ metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
 z_index = 19
+
+[node name="Crack" type="Sprite2D" parent="RoofsProps" unique_id=1151727275]
+position = Vector2(135, 159)
+texture = ExtResource("3_1ngis")
+
+[node name="Crack2" type="Sprite2D" parent="RoofsProps" unique_id=726935538]
+position = Vector2(34, 47)
+texture = ExtResource("4_lkbru")
 
 [node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=395940981]
 position = Vector2(224, 32)

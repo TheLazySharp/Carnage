@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_7n55w"]
 [ext_resource type="Texture2D" uid="uid://ds1kmupdfxgc3" path="res://Assets/Tilesets/Roofs/roof_texture05.png" id="2_p1i1h"]
 [ext_resource type="Texture2D" uid="uid://dimu4daemgmp2" path="res://Assets/Props/Roofs/Air Conditioners/Slice 16.tres" id="3_4orgg"]
+[ext_resource type="Texture2D" uid="uid://b62rk2c50vsgx" path="res://Assets/Tilesets/Roofs/Roof Cracks/Slice 10.tres" id="3_nkq1p"]
+[ext_resource type="Texture2D" uid="uid://vi1wol3abn5m" path="res://Assets/Tilesets/Roofs/Roof Cracks/Slice 24.tres" id="4_4orgg"]
 [ext_resource type="Texture2D" uid="uid://k7ogewhnov0k" path="res://Assets/Props/Roofs/Air Conditioners/Slice 9.tres" id="4_7n55w"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="6_yehsq"]
 
@@ -715,6 +717,14 @@ metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 
 [node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
 z_index = 19
+
+[node name="Crack" type="Sprite2D" parent="RoofsProps" unique_id=55933350]
+position = Vector2(71.99216, 58.52603)
+texture = ExtResource("3_nkq1p")
+
+[node name="Crack2" type="Sprite2D" parent="RoofsProps" unique_id=1627093679]
+position = Vector2(108.98909, 100.9637)
+texture = ExtResource("4_4orgg")
 
 [node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=954186580]
 position = Vector2(36.592163, 67.37456)

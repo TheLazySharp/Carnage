@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d3f3q336xjnkp" path="res://Scripts/MAP TOOLS/building_shadow.gd" id="1_hghm7"]
 [ext_resource type="Texture2D" uid="uid://sg01gqgwa3nm" path="res://Assets/Tilesets/Roofs/roof_texture06.png" id="2_twa1f"]
+[ext_resource type="Texture2D" uid="uid://b0ja0kuwoos0r" path="res://Assets/Tilesets/Roofs/Roof Cracks/Slice 1.tres" id="3_4n6v2"]
+[ext_resource type="Texture2D" uid="uid://dw5at16176k7v" path="res://Assets/Tilesets/Roofs/Roof Cracks/Slice 32.tres" id="4_hghm7"]
 [ext_resource type="Texture2D" uid="uid://cc7q641qhv3am" path="res://Assets/Tilesets/Roof Edges/roof_edges.png" id="7_wqyxj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp1ot"]
@@ -655,6 +657,54 @@ texture_region_size = Vector2i(32, 32)
 21:23/0 = 0
 21:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 21:23/0/physics_layer_0/polygon_1/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:7/0 = 0
+7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+8:7/0 = 0
+8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+9:7/0 = 0
+9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+9:8/0 = 0
+9:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+9:9/0 = 0
+9:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+8:9/0 = 0
+8:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:9/0 = 0
+7:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:8/0 = 0
+7:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+15:7/0 = 0
+15:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+16:7/0 = 0
+16:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+17:7/0 = 0
+17:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+17:8/0 = 0
+17:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+17:9/0 = 0
+17:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+16:9/0 = 0
+16:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+15:9/0 = 0
+15:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+15:8/0 = 0
+15:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+23:7/0 = 0
+23:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+24:7/0 = 0
+24:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+25:7/0 = 0
+25:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+25:8/0 = 0
+25:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+25:9/0 = 0
+25:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+24:9/0 = 0
+24:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+23:9/0 = 0
+23:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+23:8/0 = 0
+23:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_0gk5w"]
 tile_size = Vector2i(32, 32)
@@ -708,9 +758,17 @@ metadata/_custom_type_script = "uid://d3f3q336xjnkp"
 [node name="RoofsProps" type="Node2D" parent="." unique_id=1713887104]
 z_index = 19
 
+[node name="Sprite2D" type="Sprite2D" parent="RoofsProps" unique_id=215552432]
+position = Vector2(62.20925, 63.129974)
+texture = ExtResource("3_4n6v2")
+
+[node name="Sprite2D2" type="Sprite2D" parent="RoofsProps" unique_id=497516130]
+position = Vector2(102, 91)
+texture = ExtResource("4_hghm7")
+
 [node name="Edges" type="Node2D" parent="." unique_id=754243148 groups=["walls"]]
 z_index = 20
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Edges" unique_id=1128668249 groups=["walls"]]
-tile_map_data = PackedByteArray("AAAAAAAAAAATAAEAAAABAAAAAAAUAAEAAAACAAAAAAAUAAEAAAADAAAAAAAVAAEAAAAAAAEAAAARAAQAAAAAAAIAAAARAAQAAAAAAAMAAAARAAUAAAADAAMAAAAXAAUAAAABAAMAAAAUAAcAAAACAAMAAAAUAAcAAAADAAEAAAAXAAQAAAADAAIAAAAXAAQAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAAPAAcAAAABAAAAAAAQAAcAAAACAAAAAAAMAAEAAAADAAAAAAARAAcAAAAAAAEAAAAJAAQAAAAAAAIAAAAJAAQAAAAAAAMAAAAPAAkAAAADAAMAAAARAAkAAAABAAMAAAAMAAcAAAACAAMAAAAQAAkAAAADAAEAAAAPAAQAAAADAAIAAAAPAAQAAAA=")
 tile_set = SubResource("TileSet_0gk5w")

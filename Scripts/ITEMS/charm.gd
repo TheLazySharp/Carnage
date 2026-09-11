@@ -32,8 +32,7 @@ func _ready() -> void:
 func setup(p_charm : CharmData, p_is_in_shop : bool) -> void : 
 	charm = p_charm
 	discounted_price = int(charm.price * ShopManager.discount.get_value())
-	price_tag.text = str(charm.price)
-	discount_tag.text = str(discounted_price)
+
 	charm_name.text = InventoryManager.get_charm_name(p_charm)
 	icon.texture = charm.icon
 	card.color = charm.get_shop_color()
@@ -44,6 +43,8 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	sold_out.hide()
 	if charm.is_in_shop:
 		charm.price = rng.randi_range(int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),int(XPManager.current_level + ShopManager.price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod)) * price_mult
+		price_tag.text = str(charm.price)
+		discount_tag.text = str(discounted_price)
 		price_cont.show()
 	else : price_cont.hide()
 	

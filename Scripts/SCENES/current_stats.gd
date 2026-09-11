@@ -12,7 +12,7 @@ extends Control
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	duration_stat_value.text = str(snappedf(TimeManager.active_time,0.01))
+	duration_stat_value.text = _format_hms(TimeManager.active_time)
 	#distance_stat_value.text = "TBD"
 	drift_stat_value.text = str(StatsManager.total_drift)
 	kills_stat_value.text = str(StatsManager.frags)
@@ -25,7 +25,7 @@ func _ready() -> void:
 
 func _on_game_paused(game_paused : bool) -> void : 
 	if game_paused:
-		duration_stat_value.text = str(snappedf(TimeManager.active_time,0.01))
+		duration_stat_value.text = _format_hms(TimeManager.active_time)
 		#distance_stat_value.text = "TBD"
 		drift_stat_value.text = str(StatsManager.total_drift)
 		kills_stat_value.text = str(StatsManager.frags)
@@ -35,3 +35,8 @@ func _on_game_paused(game_paused : bool) -> void :
 		car_dmg_stat_value.text = str(StatsManager.total_car_dmg)
 		car_dps.text = "( " + str(snappedf(StatsManager.total_car_dmg / TimeManager.active_time,0.01)) + " dps )"
 		
+
+func _format_hms(total_seconds: float) -> String:
+	var t: int = int(total_seconds)
+	@warning_ignore("integer_division")
+	return "%02d:%02d:%02d" % [t / 3600, (t / 60) % 60, t % 60]
