@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://8mov6qwwya8t" path="res://Assets/weapons/landmine.png" id="1_5nljr"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_f62yi"]
-[ext_resource type="Resource" uid="uid://cxd60bmbatyvi" path="res://Resources/Weapons/mine_launcher.tres" id="3_7kqus"]
+[ext_resource type="Resource" uid="uid://cxd60bmbatyvi" path="res://Resources/Weapons/Main Weapons/mine_launcher.tres" id="3_7kqus"]
 
 [resource]
 script = ExtResource("2_f62yi")

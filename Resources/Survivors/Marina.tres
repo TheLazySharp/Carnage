@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="1_hr66l"]
 [ext_resource type="Resource" uid="uid://cn741fa7g2b7f" path="res://Resources/Jobs/transporter.tres" id="2_hr66l"]
 [ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_06geg"]
-[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/bat_handler.tres" id="4_wu0nc"]
+[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/Main Weapons/bat_handler.tres" id="4_wu0nc"]
 
 [resource]
 script = ExtResource("3_06geg")

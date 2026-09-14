@@ -33,6 +33,7 @@ var drifting : bool = false
 @onready var sprite_fx : SpriteFXManager = $SpriteFX
 @onready var rear_left_burn_anim : AnimatedSprite2D = $RearLeft/RearLeftBurnAnim
 @onready var rear_right_burn_anim : AnimatedSprite2D = $RearRight/RearRightBurnAnim
+@onready var collect_zone: CollisionShape2D = $CollectZone/CollectZone
 
 # Signals
 signal burnout_ok(burnout : bool)
@@ -99,8 +100,8 @@ func _ready() -> void:
 		_ready_debug()
 		return
 	player = CarManager.selected_car
-	if TimeManager.current_day == 1:
-		player.init_stats()
+	#if TimeManager.current_day == 1:
+		#player.init_stats()
 
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
@@ -145,6 +146,10 @@ func _ready() -> void:
 	if visible:
 		engine_ignited.emit()
 		start_engine.play()
+	
+	# JOBS
+	#Hunter
+	collect_zone.shape.radius = player.collect_radius.get_value()
 
 
 func _physics_process(delta : float) -> void:

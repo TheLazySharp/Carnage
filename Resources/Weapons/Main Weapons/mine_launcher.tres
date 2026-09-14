@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cxd60bmbatyvi"]
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_nf6y3"]
-[ext_resource type="Resource" uid="uid://cve8xcjafip0" path="res://Resources/Weapons/landmine.tres" id="2_8dhid"]
+[ext_resource type="Resource" uid="uid://cve8xcjafip0" path="res://Resources/Weapons/Ammos/landmine.tres" id="2_8dhid"]
 [ext_resource type="Texture2D" uid="uid://dgnvhqoy4xb3a" path="res://Assets/weapons/mine_launcher.png" id="2_nf6y3"]
 [ext_resource type="PackedScene" uid="uid://b6sojfyjbslm1" path="res://Scenes/WEAPONS/landmine.tscn" id="3_bsrqv"]
 [ext_resource type="AudioStream" uid="uid://c1eaahubfa6id" path="res://Assets/Audio/SFX/Weapons/launcher.mp3" id="5_bsrqv"]

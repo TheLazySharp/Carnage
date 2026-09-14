@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://bgv4w4g2bvoby"]
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_evf8p"]
-[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/flame.tres" id="2_0p52j"]
+[ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/Ammos/flame.tres" id="2_0p52j"]
 [ext_resource type="PackedScene" uid="uid://baidslgub6j8k" path="res://Scenes/WEAPONS/flame.tscn" id="3_evf8p"]
 [ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="4_is0hv"]
 

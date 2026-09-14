@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cv2a4pt15kqm0"]
+
+[ext_resource type="Script" uid="uid://b5crmlsmihuck" path="res://Scripts/WEAPONS/grenade_belt.gd" id="1_vvthh"]
+[ext_resource type="Resource" uid="uid://dcaqmwjtwjml4" path="res://Resources/Weapons/Main Weapons/grenade_belt.tres" id="2_crl5p"]
+
+[node name="GrenadeBelt" type="Node2D" unique_id=1646551024]
+script = ExtResource("1_vvthh")
+grenade_belt_data = ExtResource("2_crl5p")
+
+[node name="GrenadeLaunchSFX" type="AudioStreamPlayer2D" parent="." unique_id=1011108374]
+
+[node name="CoolDown" type="Timer" parent="." unique_id=278663175]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="CoolDown" to="." method="_on_cool_down_timeout"]

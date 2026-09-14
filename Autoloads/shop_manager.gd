@@ -118,7 +118,9 @@ enum Items_Name {
 	Gas_Tank,
 	Turbo,
 	Wheels,
-	Nitro_Tank
+	Nitro_Tank,
+	Grenade,
+	Grenade_Belt
 }
 
 

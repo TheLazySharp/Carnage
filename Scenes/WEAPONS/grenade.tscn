@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bsg62y0n5jpku"]
+
+[ext_resource type="Script" uid="uid://bh7f5ci3oime1" path="res://Scripts/WEAPONS/grenade.gd" id="1_ocbu8"]
+[ext_resource type="Resource" uid="uid://bp0x5m5caby4l" path="res://Resources/Weapons/Ammos/grenade.tres" id="2_lljlb"]
+[ext_resource type="Texture2D" uid="uid://cpl58xraet1nq" path="res://Assets/weapons/grenade.png" id="3_o8lmd"]
+
+[node name="Grenade" type="Node2D" unique_id=1510335606]
+script = ExtResource("1_ocbu8")
+grenade_data = ExtResource("2_lljlb")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=273247620]
+texture = ExtResource("3_o8lmd")

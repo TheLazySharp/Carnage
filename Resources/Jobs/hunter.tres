@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://2ia3scsa62yl"]
+
+[ext_resource type="Script" uid="uid://diiuu75ecmdol" path="res://Scripts/JOBS/hunter.gd" id="1_a0spf"]
+[ext_resource type="Texture2D" uid="uid://br4u15tiucntu" path="res://Assets/weapons/bow.png" id="2_qdllp"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_kdneg"]
+
+[resource]
+script = ExtResource("3_kdneg")
+name = "Hunter"
+icon = ExtResource("2_qdllp")
+description = "Increase collect zone radius"
+effect_script = ExtResource("1_a0spf")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

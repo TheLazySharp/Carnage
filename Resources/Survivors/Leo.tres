@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bj41f61pulgl7" path="res://Assets/PNJs/leo.png" id="1_d8pbw"]
 [ext_resource type="Resource" uid="uid://cn741fa7g2b7f" path="res://Resources/Jobs/transporter.tres" id="2_7ybo1"]
 [ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="2_70obx"]
-[ext_resource type="Resource" uid="uid://bgv4w4g2bvoby" path="res://Resources/Weapons/flame_launcher.tres" id="4_70obx"]
+[ext_resource type="Resource" uid="uid://bgv4w4g2bvoby" path="res://Resources/Weapons/Main Weapons/flame_launcher.tres" id="4_70obx"]
 
 [resource]
 script = ExtResource("2_70obx")

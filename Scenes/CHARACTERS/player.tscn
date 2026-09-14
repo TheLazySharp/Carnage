@@ -542,7 +542,6 @@ offset_transform_position = Vector2(0, -0.5)
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
-visible = false
 collision_layer = 256
 collision_mask = 512
 monitoring = false

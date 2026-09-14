@@ -12,8 +12,8 @@
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="11_p4bpa"]
 [ext_resource type="Script" uid="uid://dt6l27r7qstkk" path="res://Scripts/UI/UI_container.gd" id="12_gcvgm"]
 [ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="13_k3th7"]
+[ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="14_dds1n"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="14_dlptc"]
-[ext_resource type="Texture2D" uid="uid://dt8bh8w0ux4dy" path="res://Assets/Items/five_dollar.png" id="15_cg6gh"]
 [ext_resource type="Script" uid="uid://dpkkxegm8kor1" path="res://Scripts/UI/fps.gd" id="15_jbjhr"]
 [ext_resource type="Script" uid="uid://bybeo7okpj2m1" path="res://Scripts/UI/drift_bonus.gd" id="16_b3vmo"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="16_iub3o"]
@@ -744,8 +744,7 @@ offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_cg6gh")
-stretch_mode = 3
+texture = ExtResource("14_dds1n")
 
 [node name="DollarQ" type="Label" parent="Parts/MarginContainer/HBoxContainer/Dollar" unique_id=2128675419]
 layout_mode = 1

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dwonb4jn7vwdt" path="res://Assets/weapons/bullet.png" id="1_ud3cc"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_s3pu3"]
-[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/revolver.tres" id="3_s3pu3"]
+[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/Main Weapons/revolver.tres" id="3_s3pu3"]
 
 [resource]
 script = ExtResource("2_s3pu3")

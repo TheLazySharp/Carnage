@@ -13,7 +13,7 @@ const NEIGHBOR_DIRECTIONS : Array[Vector2] = [
 ]
 
 @export var map_origin_tile : Vector2i = Vector2i(0, 0)
-@export var map_size_tiles : Vector2i = Vector2i(94, 80)
+@export var map_size_tiles : Vector2i = Vector2i(96, 80)
 
 var target : Node2D = null
 

@@ -11,6 +11,7 @@ base_acceleration = 200
 base_dmg = 1
 base_dash_dmg_bonus = 2.0
 base_nitro_up = 5
+base_collect_radius = 35.0
 base_drift_turn_bonus = 3.0
 base_dash_duration = 0.8
 base_max_fuel = 100

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://dxhcqb7igjvjw"]
+
+[ext_resource type="Texture2D" uid="uid://bgki7hqrv6ej7" path="res://Assets/PNJs/lara.png" id="1_ppy6r"]
+[ext_resource type="Resource" uid="uid://2ia3scsa62yl" path="res://Resources/Jobs/hunter.tres" id="2_ppy6r"]
+[ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_lmxus"]
+[ext_resource type="Resource" uid="uid://dcaqmwjtwjml4" path="res://Resources/Weapons/Main Weapons/grenade_belt.tres" id="4_lmxus"]
+
+[resource]
+script = ExtResource("3_lmxus")
+name = "Lara"
+age = 45
+job_ressource = ExtResource("2_ppy6r")
+bio = "Lara is a professional hunter"
+icon = ExtResource("1_ppy6r")
+weapon = ExtResource("4_lmxus")
+metadata/_custom_type_script = "uid://bpgisub1g6477"

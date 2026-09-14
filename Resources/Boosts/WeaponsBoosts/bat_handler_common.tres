@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bebfr5dvt68mc" path="res://Assets/weapons/bat_handler.png" id="1_akyji"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_gn46f"]
-[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/bat_handler.tres" id="3_akyji"]
+[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/Main Weapons/bat_handler.tres" id="3_akyji"]
 
 [resource]
 script = ExtResource("2_gn46f")

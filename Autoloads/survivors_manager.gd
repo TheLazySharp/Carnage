@@ -1,7 +1,7 @@
 extends Node
 
 var max_survivor_per_path : int = 2
-var max_survivor_on_road : int = 5 #CHANGE TO 8 WHEN CREATED
+var max_survivor_on_road : int = 6 #CHANGE TO 8 WHEN CREATED
 var next_spawned_survivor : SurvivorData = null
 var next_survivor_to_unlock : SurvivorData = null
 
@@ -11,13 +11,14 @@ var on_board_survivors : Array[SurvivorData] = [] #in the car during a game
 var on_the_road_survivors : Array[SurvivorData] = [] #selected for the current game / could be saved and onboarded / picked in known and locked survivors
 var survivors_pool : Array[SurvivorData] = [] #contains all the survivor that can be encountered in a run : known + locked
 
-
+##preload ressources array
 const ALL_SURVIVORS : Array = [
 	preload("uid://b5ctlqm42kkmh"), #JAVIER
 	preload("uid://co2hy6ybsg7b6"), #BORIS
 	preload("uid://b6nh0gs2w1hog"), #LEO
 	preload("uid://c4cxif75gn4yr"), #VIKTOR
 	preload("uid://d3q6e2ttbedxt"), #MARINA
+	#preload("uid://dxhcqb7igjvjw"), #LARA
 ]
 
 

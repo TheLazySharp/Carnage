@@ -53,7 +53,7 @@ func _on_select_pressed() -> void:
 			SceneManager.load_level(SceneManager.SCENES.GOD_MOD_TRAINING)
 		GameMaster.GAME_MODES.SANDBOX:
 			SceneManager.load_level(SceneManager.SCENES.SANDBOX)
-		
+	CarManager.emit_signal("car_selected")
 
 
 func _on_back_pressed() -> void:

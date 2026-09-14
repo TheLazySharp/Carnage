@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dl2sr8c0jfw2k" path="res://Scripts/WEAPONS/baseball_bat.gd" id="1_uojmr"]
 [ext_resource type="AudioStream" uid="uid://b4y6672sb30ve" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh1.mp3" id="2_0g6yb"]
-[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/baseballbat.tres" id="2_6btos"]
+[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/Ammos/baseballbat.tres" id="2_6btos"]
 [ext_resource type="AudioStream" uid="uid://ct31jha7cmuqv" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh2.mp3" id="3_6btos"]
 [ext_resource type="AudioStream" uid="uid://booeo1e3h42f" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh3.mp3" id="4_sji5y"]
 [ext_resource type="Texture2D" uid="uid://5didt1k4avd4" path="res://Assets/weapons/sword_slash.png" id="5_vpf4a"]

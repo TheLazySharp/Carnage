@@ -12,6 +12,8 @@ const BASEBALLBAT = preload("uid://kc8u8rovj5ox")
 const FLAME_LAUNCHER = preload("uid://bgv4w4g2bvoby")
 const FLAME = preload("uid://c5l0xm4m5tt65")
 const BAT_HANDLER = preload("uid://b6wbgylc6laab")
+const GRENADE = preload("uid://bp0x5m5caby4l")
+const GRENADE_BELT = preload("uid://dcaqmwjtwjml4")
 
 
 
@@ -61,6 +63,8 @@ func load_weapons() -> void:
 	locked_weapon(FLAME_LAUNCHER)
 	locked_weapon(MINE_LAUNCHER)
 	locked_weapon(BAT_HANDLER)
+	#locked_weapon(GRENADE_BELT)
+	#weapon_scenes.append(["name", "scene UID", preload("scene UID")])
 	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
 	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
 	weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
@@ -71,6 +75,8 @@ func load_weapons() -> void:
 	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
 	weapon_scenes.append(["baseballbat", "uid://c5g74aadec237", preload("uid://c5g74aadec237")])
 	weapon_scenes.append(["bat_handler", "uid://cv14lhvp1mlqs", preload("uid://cv14lhvp1mlqs")])
+	#weapon_scenes.append(["grenade", "uid://bsg62y0n5jpku", preload("uid://bsg62y0n5jpku")])
+	#weapon_scenes.append(["grenade_belt", "uid://cv2a4pt15kqm0", preload("uid://cv2a4pt15kqm0")])
 
 	
 func test_weapons() ->void:

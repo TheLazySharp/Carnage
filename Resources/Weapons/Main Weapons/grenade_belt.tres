@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dcaqmwjtwjml4"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_27q37"]
+[ext_resource type="Resource" uid="uid://bp0x5m5caby4l" path="res://Resources/Weapons/Ammos/grenade.tres" id="2_27q37"]
+[ext_resource type="PackedScene" uid="uid://bsg62y0n5jpku" path="res://Scenes/WEAPONS/grenade.tscn" id="3_5phjr"]
+[ext_resource type="Texture2D" uid="uid://c6dg5y574fd6i" path="res://Assets/weapons/grenade_belt.png" id="4_oyn8n"]
+[ext_resource type="AudioStream" uid="uid://c1eaahubfa6id" path="res://Assets/Audio/SFX/Weapons/launcher.mp3" id="5_ethcs"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uifdf"]
+streams_count = 1
+stream_0/stream = ExtResource("5_ethcs")
+
+[resource]
+script = ExtResource("1_27q37")
+weapon_name = 24
+weapon_icon = ExtResource("4_oyn8n")
+max_level = 35
+description = "Throw randomly a grenade"
+type_1 = 2
+type_2 = 1
+tar_up_stat = 6
+weapon_scene_uid = "uid://cv2a4pt15kqm0"
+weapon_ammo_scene = ExtResource("3_5phjr")
+weapon_ammo_res = ExtResource("2_27q37")
+weapon_sfx = SubResource("AudioStreamRandomizer_uifdf")
+base_dmg = 0
+base_radius = 0
+base_speed_rotation = 0
+base_cool_down = 3.0
+base_nb_ammo = 0
+dmg_on_resources = 0
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

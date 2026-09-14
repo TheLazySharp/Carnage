@@ -3,6 +3,9 @@ extends Node
 var cars : Array[CarData]
 var selected_car : CarData
 
+@warning_ignore("unused_signal")
+signal car_selected
+
 const VIPER_BLK = preload("uid://ol2ay5qpng31")
 const PICKUP_WHITE = preload("uid://b7vsscuy32osn")
 #const POLICE = preload("uid://n4403c5fwly0")

@@ -15,7 +15,9 @@
 [ext_resource type="Resource" uid="uid://b0o6ksfc8imq6" path="res://Resources/Buildings/CITY/Interiors/4x4_H.tres" id="8_triw3"]
 [ext_resource type="Resource" uid="uid://cnl1fk8pwwjl6" path="res://Resources/Buildings/CITY/Interiors/4x6_H.tres" id="10_5pxyq"]
 [ext_resource type="Resource" uid="uid://ciljb2jwhm4iq" path="res://Resources/Buildings/CITY/Interiors/6x5.tres" id="10_triw3"]
+[ext_resource type="Resource" uid="uid://vb2u06ybknl8" path="res://Resources/Buildings/CITY/Fillers/1x6.tres" id="11_s75wj"]
 [ext_resource type="Resource" uid="uid://davp38cl7cd75" path="res://Resources/Buildings/CITY/Interiors/5x5_H.tres" id="12_ffckw"]
+[ext_resource type="Resource" uid="uid://dmy80lnt2uiw8" path="res://Resources/Buildings/CITY/Fillers/6x1.tres" id="12_pv7b8"]
 [ext_resource type="Resource" uid="uid://8dtftnv6fj2o" path="res://Resources/Buildings/CITY/Interiors/6x4_H.tres" id="13_pv7b8"]
 [ext_resource type="Resource" uid="uid://bnjph5mhrwn4o" path="res://Resources/Buildings/CITY/Interiors/7x5.tres" id="13_s75wj"]
 [ext_resource type="Resource" uid="uid://stypp3i31re4" path="res://Resources/Buildings/CITY/Interiors/7x4_H.tres" id="15_embcv"]
@@ -35,8 +37,8 @@
 [resource]
 script = ExtResource("21_6c00a")
 interiors = Array[ExtResource("1_sbwpu")]([ExtResource("7_kttdf"), ExtResource("8_triw3"), ExtResource("8_p2rym"), ExtResource("10_5pxyq"), ExtResource("7_ilpql"), ExtResource("12_ffckw"), ExtResource("13_pv7b8"), ExtResource("10_triw3"), ExtResource("2_kttdf"), ExtResource("15_embcv"), ExtResource("13_s75wj"), ExtResource("17_8hxtj"), ExtResource("16_8hxtj"), ExtResource("17_btmm8"), ExtResource("19_og1hk"), ExtResource("21_btmm8"), ExtResource("22_bryjh"), ExtResource("16_p2rym"), ExtResource("24_og1hk")])
-peripherals = Array[ExtResource("1_sbwpu")]([ExtResource("22_bryjh"), ExtResource("25_w8uqe"), ExtResource("26_6c00a"), ExtResource("16_p2rym"), ExtResource("24_og1hk"), ExtResource("27_5o5p0"), ExtResource("10_5pxyq"), ExtResource("13_pv7b8"), ExtResource("2_kttdf")])
+peripherals = Array[ExtResource("1_sbwpu")]([ExtResource("22_bryjh"), ExtResource("25_w8uqe"), ExtResource("26_6c00a"), ExtResource("16_p2rym"), ExtResource("24_og1hk"), ExtResource("27_5o5p0"), ExtResource("10_5pxyq"), ExtResource("13_pv7b8"), ExtResource("2_kttdf"), ExtResource("11_s75wj"), ExtResource("12_pv7b8")])
 corners = Array[ExtResource("1_sbwpu")]([ExtResource("2_kttdf")])
-fillers = Array[ExtResource("1_sbwpu")]([ExtResource("5_k4v6u"), ExtResource("6_lnge0"), ExtResource("7_kttdf")])
+fillers = Array[ExtResource("1_sbwpu")]([ExtResource("5_k4v6u"), ExtResource("6_lnge0"), ExtResource("7_kttdf"), ExtResource("11_s75wj"), ExtResource("12_pv7b8")])
 district_buildings = Array[ExtResource("1_sbwpu")]([ExtResource("3_k4v6u"), ExtResource("4_triw3"), ExtResource("5_5pxyq"), ExtResource("6_ffckw"), ExtResource("7_s75wj")])
 metadata/_custom_type_script = "uid://insl0m5srxbq"

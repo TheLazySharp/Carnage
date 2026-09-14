@@ -13,10 +13,7 @@ var car : CarData
 
 
 func _ready() -> void:
-	##-----------TEST ------------
-	#CarManager.selected_car = CarManager.SEDAN
-	#CarManager.selected_car.init_stats()
-	
+
 	car = CarManager.selected_car
 	update_stats()
 	self.visibility_changed.connect(update_stats)

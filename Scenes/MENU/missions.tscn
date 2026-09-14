@@ -5,40 +5,82 @@
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_agu6a"]
 [ext_resource type="FontFile" uid="uid://qio5vvtexp32" path="res://Fonts/Aero.ttf" id="3_q67s5"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_cpiun"]
-[ext_resource type="Texture2D" uid="uid://ccdtfwkbmb5p0" path="res://Assets/XP/xp-1.png" id="5_q67s5"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_cpiun"]
-[ext_resource type="Texture2D" uid="uid://crpyeaolqv4r7" path="res://Assets/Items/few_dollars.png" id="8_agu6a"]
+[ext_resource type="Texture2D" uid="uid://bt0kltrpfgcqr" path="res://Assets/XP/xp_orb.png" id="7_agu6a"]
+[ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="8_cpiun"]
 [ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="9_cpiun"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_biv64"]
-atlas = ExtResource("5_q67s5")
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7xhg"]
+atlas = ExtResource("7_agu6a")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_24rks"]
-atlas = ExtResource("5_q67s5")
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4xt8"]
+atlas = ExtResource("7_agu6a")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_agu6a"]
-atlas = ExtResource("5_q67s5")
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lxxi"]
+atlas = ExtResource("7_agu6a")
 region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqsbc"]
+atlas = ExtResource("7_agu6a")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8u41"]
+atlas = ExtResource("7_agu6a")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kevvy"]
+atlas = ExtResource("7_agu6a")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtfsc"]
+atlas = ExtResource("7_agu6a")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgmfb"]
+atlas = ExtResource("7_agu6a")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apxxs"]
+atlas = ExtResource("7_agu6a")
+region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e7xhg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_biv64")
+"texture": SubResource("AtlasTexture_e7xhg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_24rks")
+"texture": SubResource("AtlasTexture_c4xt8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_agu6a")
+"texture": SubResource("AtlasTexture_8lxxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqsbc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8u41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kevvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtfsc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgmfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apxxs")
 }],
 "loop": 1,
 "name": &"Sphere",
-"speed": 5.0
+"speed": 12.0
 }]
 
 [node name="Missions" type="Control" unique_id=1484529619]
@@ -190,7 +232,7 @@ scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_e7xhg")
 animation = &"Sphere"
 autoplay = "Sphere"
-frame_progress = 0.40698063
+frame_progress = 0.06508816
 
 [node name="Dollar" type="TextureRect" parent="." unique_id=1349243565]
 layout_mode = 1
@@ -203,7 +245,7 @@ offset_right = -404.0
 offset_bottom = -514.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_agu6a")
+texture = ExtResource("8_cpiun")
 
 [node name="PNJ0" type="Control" parent="." unique_id=1263165673]
 custom_minimum_size = Vector2(96, 96)

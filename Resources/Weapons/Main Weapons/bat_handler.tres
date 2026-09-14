@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://b6wbgylc6laab"]
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_avvvw"]
-[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/baseballbat.tres" id="2_ap2f1"]
+[ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/Ammos/baseballbat.tres" id="2_ap2f1"]
 [ext_resource type="PackedScene" uid="uid://c5g74aadec237" path="res://Scenes/WEAPONS/baseball_bat.tscn" id="3_ddt5j"]
 [ext_resource type="Texture2D" uid="uid://bebfr5dvt68mc" path="res://Assets/weapons/bat_handler.png" id="4_ap2f1"]
 
