@@ -131,9 +131,14 @@
 [ext_resource type="Texture2D" uid="uid://du48awybgre3" path="res://Assets/Léonce/Enemies/zombieA_walk01TEST.png" id="120_m3dio"]
 [ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="126_rv0vo"]
 [ext_resource type="Texture2D" uid="uid://bt0kltrpfgcqr" path="res://Assets/XP/xp_orb.png" id="131_qfmaa"]
-[ext_resource type="Shader" uid="uid://cdvtcx2df4oek" path="res://Assets/Léonce/Scripts/trail_ribbon.gdshader" id="132_3js2r"]
-[ext_resource type="Script" uid="uid://nvv28hihsx1v" path="res://Assets/Léonce/Scripts/trail_ribbon.gd" id="132_u1n53"]
+[ext_resource type="Shader" uid="uid://bkajea3iwwy0c" path="res://Assets/Léonce/Scripts/trail_ribbon.gdshader" id="132_ay2hx"]
+[ext_resource type="Script" uid="uid://bci5d0wlf7uy3" path="res://Assets/Léonce/Scripts/trail_ribbon.gd" id="133_ay2hx"]
 [ext_resource type="Script" uid="uid://ggafjs100p4g" path="res://Assets/Léonce/Scripts/mouse_pointer.gd" id="134_3js2r"]
+[ext_resource type="Script" uid="uid://dikfsdntvl74q" path="res://Assets/Léonce/Scripts/pixel_trail.gd" id="134_ay2hx"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="136_empg6"]
+[ext_resource type="Shader" uid="uid://cxom3ns2x10nd" path="res://Assets/Léonce/Scripts/invert_text.gdshader" id="136_fxgdo"]
+[ext_resource type="Texture2D" uid="uid://b84vnvh257ouw" path="res://Assets/Léonce/Enemies/zombieA_idle.png" id="138_x2kih"]
+[ext_resource type="Texture2D" uid="uid://blecditsbx72j" path="res://Assets/Léonce/Enemies/zombieA_shadow.png" id="139_dofx7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1425,7 +1430,7 @@ animations = [{
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1xj8r"]
 shader = ExtResource("119_t7fm0")
-shader_parameter/outline_color = Color(0.3645078, 0.10638485, 0.1779179, 1)
+shader_parameter/outline_color = Color(0.3647059, 0.105882354, 0.1764706, 1)
 shader_parameter/outline_width = 1
 shader_parameter/my_total_rows = 1
 shader_parameter/my_max_cols = 16
@@ -1438,7 +1443,7 @@ shader_parameter/cols_1 = 1
 
 [sub_resource type="MultiMesh" id="MultiMesh_r7ksg"]
 instance_count = 2
-buffer = PackedFloat32Array(0, 0, 1, 0, 1, 1, 0, 1, 2026, 1230, 2021.2377, 1224.7731, 2026, 1230, 2031.2269, 1225.2377)
+buffer = PackedFloat32Array(-0.5, 25, 0.10787, 0.10787, 0.10787, 0, 0.018518519, 0.83870965, 8e-44, 8e-44, 8.3e-44, 8.1e-44, 8.1e-44, 2.8e-44, 8.3e-44, 8.3e-44)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q3f5b"]
 shader = ExtResource("119_t7fm0")
@@ -1527,11 +1532,219 @@ animations = [{
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r7ksg"]
-shader = ExtResource("132_3js2r")
-shader_parameter/hue_speed = 1.0150000482125
-shader_parameter/uv_hue_spread = 1.282000060895
-shader_parameter/saturation = 1.0
-shader_parameter/brightness = 2.0
+shader = ExtResource("132_ay2hx")
+shader_parameter/color_pool = PackedColorArray(0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1)
+shader_parameter/pool_size = 3
+shader_parameter/band_count = 9
+shader_parameter/flicker_speed = 4.5410002156975
+shader_parameter/edge_softness = 0.2570000122075
+shader_parameter/fade_steps = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nhvyv"]
+shader = ExtResource("136_fxgdo")
+shader_parameter/edge_sharpness = 0.05
+shader_parameter/opacity = 0.91200004332
+shader_parameter/contrast = 1.37600006536
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqj4u"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bac6x"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwvcj"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4p1k"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bakmh"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcuin"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_at31f"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5du53"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmxfp"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfu1r"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(72, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4te4"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(96, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ak2cw"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(96, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xj07r"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(144, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fi5a"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(120, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5vjr"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(96, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(72, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ovmt"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(48, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hksjp"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(24, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lb20u"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(0, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omked"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(264, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nkdx"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(240, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_totfe"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(216, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pk42"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(192, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrfj3"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(168, 72, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tyiq4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqj4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bac6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwvcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4p1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bakmh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcuin")
+}],
+"loop": 1,
+"name": &"idle01",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_at31f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5du53")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmxfp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfu1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4te4")
+}],
+"loop": 1,
+"name": &"idle02",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ak2cw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xj07r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fi5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5vjr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dvfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ovmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hksjp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lb20u")
+}],
+"loop": 1,
+"name": &"idle03",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omked")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nkdx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_totfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pk42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrfj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrfj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pk42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_totfe")
+}],
+"loop": 1,
+"name": &"idle04",
+"speed": 5.0
+}]
 
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
@@ -1542,10 +1755,10 @@ json_path = "res://Assets/Tilesets/Roofs/Roof Cracks/concrete_cracks.json"
 output_dir_override = "res://Assets/Tilesets/Roofs/Roof Cracks/"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
-position = Vector2(2073, 1138)
+position = Vector2(301.00012, 168)
 scale = Vector2(1e-05, 1e-05)
-offset = Vector2(-7.03, 18.175)
-zoom = Vector2(2.24, 2.24)
+offset = Vector2(13.61, 30.33)
+zoom = Vector2(2.13, 2.13)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
 visible = false
@@ -3073,7 +3286,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=76152601]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1703212803]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -3106,10 +3319,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=194679987]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=458301116]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=146814560]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1031732601]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -3126,13 +3339,14 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1725448873]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=2104522819]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
 z_index = 6
 
 [node name="Enemy" type="Sprite2D" parent="." unique_id=1038086393]
+visible = false
 z_index = 8
 position = Vector2(2219, 1124)
 texture = ExtResource("81_unwpx")
@@ -3157,16 +3371,19 @@ position = Vector2(2070, 993)
 position = Vector2(2216, 1020)
 
 [node name="Slice1" type="Sprite2D" parent="." unique_id=2084298007]
+visible = false
 z_index = 7
 position = Vector2(2209, 1117)
 texture = ExtResource("96_b62f6")
 
 [node name="Slice5" type="Sprite2D" parent="." unique_id=533781565]
+visible = false
 z_index = 6
 position = Vector2(2196, 1122)
 texture = ExtResource("97_avlko")
 
 [node name="Slice3" type="Sprite2D" parent="." unique_id=1731521128]
+visible = false
 z_index = 5
 position = Vector2(2204, 1122)
 rotation = 1.5707964
@@ -3185,8 +3402,15 @@ process_material = SubResource("ParticleProcessMaterial_tyiq4")
 
 [node name="Skyline" type="Sprite2D" parent="." unique_id=953112584]
 z_index = 10
-position = Vector2(2079, 1026)
+position = Vector2(2075, 1125)
 rotation = 3.1481745
+texture = ExtResource("99_8l2sf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skyline" unique_id=446376489]
+modulate = Color(0, 0, 0, 0.6666667)
+z_index = -1
+position = Vector2(-3.02417, -3.7000732)
+rotation = -0.0065817833
 texture = ExtResource("99_8l2sf")
 
 [node name="BloodVacuumParticles" parent="." unique_id=741759721 instance=ExtResource("95_jyj36")]
@@ -3270,7 +3494,7 @@ z_index = 8
 position = Vector2(2183, 997)
 sprite_frames = SubResource("SpriteFrames_nhvyv")
 autoplay = "default"
-frame_progress = 0.36158484
+frame_progress = 0.04095955
 
 [node name="TrailRibbon" type="Line2D" parent="XPOrb" unique_id=2105445926]
 z_index = 7
@@ -3278,11 +3502,161 @@ material = SubResource("ShaderMaterial_r7ksg")
 width = 1.0
 sharp_limit = 1.0
 round_precision = 1
-script = ExtResource("132_u1n53")
+script = ExtResource("133_ay2hx")
 target = NodePath("..")
-line_width = 12.0
-shader = ExtResource("132_3js2r")
+shader = ExtResource("132_ay2hx")
+color_pool = Array[Color]([Color(0.99999994, 0.124154724, 0.82189167, 1), Color(0, 1, 1, 1), Color(1, 0.9764706, 0, 1)])
+band_count = 13
+
+[node name="Node2D" type="Node2D" parent="XPOrb" unique_id=474628520]
+script = ExtResource("134_ay2hx")
+target = NodePath("..")
+trail_length = 80
+cell_size = 1.0
+padding_cells = 10
+max_grid_size = 256
+streak_spacing = 1.0
+core_thickness = 6.0
+edge_thickness = 6.0
+core_brightness = 0.5
+edge_brightness = 1.0
+color_pool = Array[Color]([Color(1, 1, 0, 1), Color(0, 1, 1, 1), Color(0.7411765, 0, 1, 1), Color(0, 0.9529412, 0, 1), Color(0.39215687, 0, 1, 1), Color(1, 0.28627452, 0, 1)])
+flicker_speed = 1.0
+streak_phase_step = 1.0
 
 [node name="MouseTarget" type="Node2D" parent="." unique_id=1480363043 node_paths=PackedStringArray("followers")]
 script = ExtResource("134_3js2r")
 followers = [NodePath("../XPOrb")]
+
+[node name="Label" type="Label" parent="." unique_id=421698537]
+visible = false
+z_index = 18
+offset_left = 1571.0
+offset_top = 1393.0
+offset_right = 1880.0
+offset_bottom = 1535.0
+theme_override_fonts/font = ExtResource("136_empg6")
+theme_override_font_sizes/font_size = 52
+text = "GUNSMITH"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=577868752]
+visible = false
+modulate = Color(1, 1, 1, 0.56078434)
+self_modulate = Color(1, 1, 1, 0.42352942)
+z_index = 19
+texture_filter = 1
+material = SubResource("ShaderMaterial_nhvyv")
+offset_left = 1849.0
+offset_top = 1434.0
+offset_right = 2067.0
+offset_bottom = 1480.3159
+rotation = -1.5707964
+theme_override_fonts/normal_font = ExtResource("136_empg6")
+theme_override_font_sizes/normal_font_size = 40
+text = "GUNSMITH"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=1044185741]
+visible = false
+z_index = 19
+material = SubResource("ShaderMaterial_nhvyv")
+offset_left = 2245.0
+offset_top = 1193.0
+offset_right = 2498.0
+offset_bottom = 1350.0
+theme_override_constants/line_separation = -34
+theme_override_fonts/normal_font = ExtResource("136_empg6")
+theme_override_font_sizes/normal_font_size = 50
+text = "SUPER
+"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="." unique_id=1111788829]
+visible = false
+z_index = 19
+material = SubResource("ShaderMaterial_nhvyv")
+offset_left = 2242.0
+offset_top = 1226.0
+offset_right = 2498.0
+offset_bottom = 1383.0
+theme_override_constants/line_separation = -34
+theme_override_font_sizes/normal_font_size = 64
+text = "MARKET"
+
+[node name="HordeTest" type="Node2D" parent="." unique_id=1250236779]
+z_index = 6
+position = Vector2(-222, -95)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HordeTest" unique_id=884217194]
+position = Vector2(2062, 1278)
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle01"
+frame_progress = 0.70480794
+
+[node name="Sprite2D" type="Sprite2D" parent="HordeTest/AnimatedSprite2D" unique_id=192094371]
+modulate = Color(0, 0, 0, 0.5254902)
+z_index = -1
+position = Vector2(3, 2)
+texture = ExtResource("139_dofx7")
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="HordeTest" unique_id=1487924506]
+position = Vector2(2067, 1266)
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle03"
+frame_progress = 0.354394
+
+[node name="Sprite2D" type="Sprite2D" parent="HordeTest/AnimatedSprite2D6" unique_id=399585017]
+modulate = Color(0, 0, 0, 0.5254902)
+z_index = -1
+position = Vector2(3, 2)
+texture = ExtResource("139_dofx7")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="HordeTest" unique_id=2082647825]
+position = Vector2(2046, 1270)
+rotation = -1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle02"
+frame_progress = 0.72984964
+
+[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D2" unique_id=1783622855]
+modulate = Color(0, 0, 0, 0.5254902)
+z_index = -1
+position = Vector2(-3, 0.99999994)
+texture = ExtResource("139_dofx7")
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="HordeTest" unique_id=117595701]
+position = Vector2(2035, 1273)
+rotation = -1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle03"
+frame_progress = 0.1462241
+
+[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D3" unique_id=1865528292]
+modulate = Color(0, 0, 0, 0.5254902)
+z_index = -1
+position = Vector2(-3, 0.99999994)
+texture = ExtResource("139_dofx7")
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="HordeTest" unique_id=602304176]
+position = Vector2(2052, 1275)
+rotation = -1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle02"
+frame_progress = 0.7554141
+
+[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D4" unique_id=868549242]
+modulate = Color(0, 0, 0, 0.5254902)
+z_index = -1
+position = Vector2(-4, 1.9999999)
+texture = ExtResource("139_dofx7")
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="HordeTest" unique_id=679195590]
+position = Vector2(2046, 1283)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle04"
+frame_progress = 0.6919256
+
+[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D5" unique_id=1918724832]
+modulate = Color(0, 0, 0, 0.5254902)
+z_index = -1
+position = Vector2(4, -2.0000002)
+texture = ExtResource("139_dofx7")

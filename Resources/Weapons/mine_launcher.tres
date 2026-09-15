@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://c0e311bu0s5cp"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_nf6y3"]
+[ext_resource type="Resource" uid="uid://cshbbnshjptgp" path="res://Resources/Weapons/landmine.tres" id="2_8dhid"]
+[ext_resource type="Texture2D" uid="uid://dgnvhqoy4xb3a" path="res://Assets/weapons/mine_launcher.png" id="2_nf6y3"]
+[ext_resource type="PackedScene" uid="uid://b6sojfyjbslm1" path="res://Scenes/WEAPONS/landmine.tscn" id="3_bsrqv"]
+[ext_resource type="AudioStream" uid="uid://c1eaahubfa6id" path="res://Assets/Audio/SFX/Weapons/launcher.mp3" id="5_bsrqv"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uifdf"]
+streams_count = 1
+stream_0/stream = ExtResource("5_bsrqv")
+
+[resource]
+script = ExtResource("1_nf6y3")
+weapon_name = 5
+weapon_icon = ExtResource("2_nf6y3")
+max_level = 35
+description = "Drop a landmine at the rear of the car at a regular rate"
+type_1 = 2
+tar_up_stat = 6
+weapon_scene_uid = "uid://c8ohbftuu83c8"
+weapon_ammo_scene = ExtResource("3_bsrqv")
+weapon_ammo_res = ExtResource("2_8dhid")
+weapon_sfx = SubResource("AudioStreamRandomizer_uifdf")
+base_dmg = 0
+base_radius = 0
+base_speed_rotation = 0
+base_cool_down = 5.0
+base_nb_ammo = 0
+dmg_on_resources = 0
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

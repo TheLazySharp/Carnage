@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://cigdty30btg4s"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_nojgw"]
+[ext_resource type="Resource" path="res://Resources/Weapons/mg_bullet.tres" id="2_nojgw"]
+[ext_resource type="PackedScene" uid="uid://doe8o0sd0xuas" path="res://Scenes/WEAPONS/mg_bullet.tscn" id="3_7o8d1"]
+[ext_resource type="Texture2D" uid="uid://ct3fv10tajqes" path="res://Assets/weapons/minigun.png" id="3_sioub"]
+[ext_resource type="AudioStream" uid="uid://scbkcml6ur4a" path="res://Assets/Audio/SFX/Weapons/minigun.mp3" id="5_7o8d1"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kjlau"]
+streams_count = 1
+stream_0/stream = ExtResource("5_7o8d1")
+
+[resource]
+script = ExtResource("1_nojgw")
+weapon_name = 2
+weapon_icon = ExtResource("3_sioub")
+max_level = 35
+description = "Shot bullets on sight"
+type_1 = 1
+type_2 = 4
+tar_up_stat = 3
+weapon_scene_uid = "uid://c6wus6ofti85w"
+weapon_ammo_scene = ExtResource("3_7o8d1")
+weapon_ammo_res = ExtResource("2_nojgw")
+weapon_sfx = SubResource("AudioStreamRandomizer_kjlau")
+base_dmg = 0
+base_radius = 0
+base_speed_rotation = 0
+base_fire_rate = 0.2
+base_cool_down = 2.0
+base_nb_ammo = 10
+max_projectile = 15
+dmg_on_resources = 0
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"
