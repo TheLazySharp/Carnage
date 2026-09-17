@@ -7,7 +7,14 @@ var item_levels : Dictionary = {
 	InventoryManager.Rarities.LEGENDARY: 1
 }
 
-var price_levels : Dictionary = {
+var boosts_price_levels : Dictionary = {
+	InventoryManager.Rarities.COMMON: 10,
+	InventoryManager.Rarities.RARE: 20,
+	InventoryManager.Rarities.EPIC: 100,
+	InventoryManager.Rarities.LEGENDARY: 300
+}
+
+var charms_price_levels : Dictionary = {
 	InventoryManager.Rarities.COMMON: 10,
 	InventoryManager.Rarities.RARE: 20,
 	InventoryManager.Rarities.EPIC: 100,
@@ -32,9 +39,9 @@ const CAR_BOOSTS : Array = [
 	preload("uid://y5muklkvmup"), #engine common
 	preload("uid://bowrkjeknqqru"), #engine epic
 	preload("uid://vydcpyr47y13"), #engine rare
-	preload("uid://djtfdsqw457gd"), #nitro common
-	preload("uid://d1kxt1otl2rfy"), #nitro epic
-	preload("uid://8k6vcoyxekru"), #nitro rare
+	#preload("uid://djtfdsqw457gd"), #nitro common
+	#preload("uid://d1kxt1otl2rfy"), #nitro epic
+	#preload("uid://8k6vcoyxekru"), #nitro rare
 	preload("uid://bs1v1nyhpxmer"), #shield common
 	preload("uid://cqhcq4c1upd25"), #shield epic
 	preload("uid://o6d75wr36o5d"), #shield rare
@@ -44,9 +51,9 @@ const CAR_BOOSTS : Array = [
 	preload("uid://cfu8gxkhor7a5"), #turbo common
 	preload("uid://c3gx0tkshh2qw"), #turbo epic
 	preload("uid://bd0gfid5eh63h"), #turbo rare
-	preload("uid://doj7a2p4rio26"), #wheels common
-	preload("uid://bjyo2yyblhs07"), #wheels epic
-	preload("uid://bkpcv00gc0jjf"), #wheels rare
+	#preload("uid://doj7a2p4rio26"), #wheels common
+	#preload("uid://bjyo2yyblhs07"), #wheels epic
+	#preload("uid://bkpcv00gc0jjf"), #wheels rare
 ]
 const WEAPONS_BOOSTS : Array = [
 	# --------------- WEAPONS BOOSTS -------------
@@ -65,6 +72,10 @@ const WEAPONS_BOOSTS : Array = [
 	preload("uid://cn5h4lnvg26kh"), #bat handler common
 	preload("uid://bj7i14tscgwbc"), #bat handler epic
 	preload("uid://pgpxgphkp3ip"), #bat handler rare
+	preload("uid://h744goe4ilrb"),#grenade belt common
+	preload("uid://bdhgxb1b5yj6d"), #grenade belt epic
+	preload("uid://b1by71i5nlmq1"),#grenade belt rare
+	
 ]
 
 const AMMO_BOOSTS : Array = [
@@ -77,13 +88,17 @@ const AMMO_BOOSTS : Array = [
 	preload("uid://bip4fb5it036h"), #baseballbat rare
 	preload("uid://csc4lrpt806dt"), #revolver ammo common
 	preload("uid://ctvgrdr6ul7u0"), #revolver ammo epic
- 	preload("uid://ckixj3qnt3s4v"), #revolver ammo rare
+	preload("uid://ckixj3qnt3s4v"), #revolver ammo rare
 	preload("uid://cwc2xso207336"), #minigun ammo common
 	preload("uid://cm42x2i8ysvxy"), #minigun ammo epic
 	preload("uid://db7ji7qvilci0"), #minigun ammo rare
-	preload("uid://bqcyrkmw7dgtg"), #flame
-	preload("uid://r78bgiis3pkw"), #flame
-	preload("uid://mevmn0algbg4"), #flame
+	preload("uid://bqcyrkmw7dgtg"), #flame common
+	preload("uid://r78bgiis3pkw"), #flame epic
+	preload("uid://mevmn0algbg4"), #flame rare
+	preload("uid://cj610qkhuaoyu"), #grenade common
+	preload("uid://jjwpn4drfl2f"), #grenade epic
+	preload("uid://ckf34b0eo613m"), #grenade rare
+	
 ]
 
 const ALL_CHARMS : Array = [

@@ -51,13 +51,16 @@ func explosion()-> void:
 
 	for i in range(targets.size() -1, -1, -1):
 
-		if is_instance_valid(targets[i]):				
+		if is_instance_valid(targets[i]):
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
 				targets[i].get_damages(mine_data.dmg.get_value())
 				mine_data.total_damages_dealt += int(mine_data.dmg.get_value())
 
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
 				targets[i].chain_explosion(self)
+	targets.clear()
+	expl_limitor = 0
+	self.queue_free()
 
 
 func chain_explosion(from_mine : Node2D) -> void:
@@ -90,3 +93,11 @@ func _on_trigger_area_entered(area: Area2D) -> void:
 func _on_explosion_area_entered(area: Area2D) -> void:
 	if area.is_in_group("ennemies"):
 		targets.append(area)
+
+
+func _on_explosion_area_exited(area: Area2D) -> void:
+	if area.is_in_group("ennemies") and targets.has(area):
+		for i in range(targets.size()-1,-1,-1):
+			if is_instance_valid(targets[i]):
+				if targets[i] == area : 
+					targets.remove_at(i)

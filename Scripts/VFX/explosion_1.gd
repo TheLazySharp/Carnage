@@ -22,12 +22,15 @@ func play_all() -> void:
 			play_with_delay(effect)
 		else:
 			play_effect(effect)
-	print("explosion 1 played")
 
 func play_with_delay(effect: VFXData) -> void:
 	var t: float = 0.0
 	while t < effect.delay:
+		if not is_inside_tree():
+			return
 		await get_tree().process_frame
+		if not is_inside_tree():
+			return
 		if game_paused:
 			continue
 		t += get_process_delta_time()
@@ -87,7 +90,13 @@ func play_shader(effect: VFXData) -> void:
 	mat.set_shader_parameter(effect.shader_uniform_progress, 0.0)
 	_update_shader_center(effect, mat)
 	while t < effect.shader_duree:
+		if not is_inside_tree():
+			mat.set_shader_parameter(effect.shader_uniform_progress, 0.0)
+			return
 		await get_tree().process_frame
+		if not is_inside_tree():
+			mat.set_shader_parameter(effect.shader_uniform_progress, 0.0)
+			return
 		if game_paused:
 			continue
 		t += get_process_delta_time()
@@ -101,6 +110,8 @@ func play_shader(effect: VFXData) -> void:
 
 func _update_shader_center(effect: VFXData, mat: ShaderMaterial) -> void:
 	if effect.shader_uniform_center.is_empty():
+		return
+	if not is_inside_tree():
 		return
 	var vp_size: Vector2 = get_viewport_rect().size
 	var canvas_pos: Vector2 = get_global_transform_with_canvas().origin

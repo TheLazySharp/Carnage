@@ -75,8 +75,8 @@ func load_weapons() -> void:
 	weapon_scenes.append(["landmine", "uid://b6sojfyjbslm1", preload("uid://b6sojfyjbslm1")])
 	weapon_scenes.append(["baseballbat", "uid://c5g74aadec237", preload("uid://c5g74aadec237")])
 	weapon_scenes.append(["bat_handler", "uid://cv14lhvp1mlqs", preload("uid://cv14lhvp1mlqs")])
-	#weapon_scenes.append(["grenade", "uid://bsg62y0n5jpku", preload("uid://bsg62y0n5jpku")])
-	#weapon_scenes.append(["grenade_belt", "uid://cv2a4pt15kqm0", preload("uid://cv2a4pt15kqm0")])
+	weapon_scenes.append(["grenade", "uid://bsg62y0n5jpku", preload("uid://bsg62y0n5jpku")])
+	weapon_scenes.append(["grenade_belt", "uid://cv2a4pt15kqm0", preload("uid://cv2a4pt15kqm0")])
 
 	
 func test_weapons() ->void:

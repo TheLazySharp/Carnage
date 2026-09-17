@@ -37,6 +37,10 @@ enum Mod_Type {
 	PERCENT_MULT,
 }
 
+const LOWER_IS_BETTER : Dictionary = {
+	Target_Stats.COOL_DOWN: true,
+	Target_Stats.FIRE_RATE: true,
+}
 
 @export var name : ShopManager.Items_Name
 @export var target_ressource : Target_Ressources
@@ -182,3 +186,7 @@ func get_modifier_type(mod_type : Mod_Type) -> Modifier.Type :
 		Mod_Type.PERCENT_ADD: return Modifier.Type.PERCENT_ADD
 		Mod_Type.PERCENT_MULT: return Modifier.Type.PERCENT_MULT
 	return Modifier.Type.N_A
+
+## True when lowering this stat improves it
+static func is_lower_better(stat : int) -> bool:
+	return LOWER_IS_BETTER.has(stat)

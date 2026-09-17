@@ -234,12 +234,13 @@ script = ExtResource("8_0lu01")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_1yhnf")
 theme_override_font_sizes/font_size = 24
-text = "Damages"
+text = "Car damages"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("8_0lu01")
 
 [node name="DashLenght" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=516088958]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_1yhnf")
 theme_override_font_sizes/font_size = 24
@@ -258,6 +259,7 @@ vertical_alignment = 1
 script = ExtResource("8_0lu01")
 
 [node name="NitroTank" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=1425642987]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_1yhnf")
 theme_override_font_sizes/font_size = 24
@@ -267,6 +269,7 @@ vertical_alignment = 1
 script = ExtResource("8_0lu01")
 
 [node name="NitroGain" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=862060931]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_1yhnf")
 theme_override_font_sizes/font_size = 24
@@ -413,6 +416,7 @@ value = 200.0
 show_percentage = false
 
 [node name="DashDurationBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=222275096]
+visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
@@ -457,6 +461,7 @@ value = 200.0
 show_percentage = false
 
 [node name="NitroTankBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1554916201]
+visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
@@ -479,6 +484,7 @@ value = 200.0
 show_percentage = false
 
 [node name="NitroGainBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1716134723]
+visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6wus6ofti85w"]
 
-[ext_resource type="Script" uid="uid://ct245npeeo2wy" path="res://Scripts/WEAPONS/minigun.gd" id="1_skg3x"]
+[ext_resource type="Script" uid="uid://ct245npeeo2wy" path="res://Scripts/WEAPONS/MAIN WEAPONS/minigun.gd" id="1_skg3x"]
 [ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/Main Weapons/minigun.tres" id="2_yyjxs"]
 [ext_resource type="Texture2D" uid="uid://dmso70nlspbns" path="res://Assets/VFX/muzzle_flash_cartoon2.png" id="4_gpcs8"]
 [ext_resource type="Texture2D" uid="uid://djrkatvt700l1" path="res://Assets/VFX/muzzle_flash-sheet.png" id="5_titou"]

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://bdhgxb1b5yj6d"]
+
+[ext_resource type="Texture2D" uid="uid://c6dg5y574fd6i" path="res://Assets/weapons/grenade_belt.png" id="1_6ymff"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_pl3bp"]
+[ext_resource type="Resource" uid="uid://dcaqmwjtwjml4" path="res://Resources/Weapons/Main Weapons/grenade_belt.tres" id="3_6rqn6"]
+
+[resource]
+script = ExtResource("2_pl3bp")
+name = 24
+target_ressource = 2
+target_weapon = ExtResource("3_6rqn6")
+target_stats = Array[int]([6])
+target_stats_values = Array[float]([-0.2])
+target_stats_modifier_types = Array[int]([0])
+target_weapon_types = 2
+icon = ExtResource("1_6ymff")
+rarity = 2
+metadata/_custom_type_script = "uid://71ta02ofykhp"

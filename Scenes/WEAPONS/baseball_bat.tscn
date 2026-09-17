@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c5g74aadec237"]
 
-[ext_resource type="Script" uid="uid://dl2sr8c0jfw2k" path="res://Scripts/WEAPONS/baseball_bat.gd" id="1_uojmr"]
+[ext_resource type="Script" uid="uid://dl2sr8c0jfw2k" path="res://Scripts/WEAPONS/AMMOS/baseball_bat.gd" id="1_uojmr"]
 [ext_resource type="AudioStream" uid="uid://b4y6672sb30ve" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh1.mp3" id="2_0g6yb"]
 [ext_resource type="Resource" uid="uid://kc8u8rovj5ox" path="res://Resources/Weapons/Ammos/baseballbat.tres" id="2_6btos"]
 [ext_resource type="AudioStream" uid="uid://ct31jha7cmuqv" path="res://Assets/Audio/SFX/Weapons/whoosh/whoosh2.mp3" id="3_6btos"]

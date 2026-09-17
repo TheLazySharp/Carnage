@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cv2a4pt15kqm0"]
 
-[ext_resource type="Script" uid="uid://b5crmlsmihuck" path="res://Scripts/WEAPONS/grenade_belt.gd" id="1_vvthh"]
+[ext_resource type="Script" uid="uid://b5crmlsmihuck" path="res://Scripts/WEAPONS/MAIN WEAPONS/grenade_belt.gd" id="1_vvthh"]
 [ext_resource type="Resource" uid="uid://dcaqmwjtwjml4" path="res://Resources/Weapons/Main Weapons/grenade_belt.tres" id="2_crl5p"]
 
 [node name="GrenadeBelt" type="Node2D" unique_id=1646551024]

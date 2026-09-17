@@ -21,8 +21,10 @@ class_name EnemyData
 @export var base_speed : float = 60
 @export var base_max_life : float = 10
 @export var base_dmg : float = 1
-@export var base_impact_force : float = 300 #the higher, the more enemy is ejected
-@export var base_knockback_friction : float = 800 #the higher, the more enemy projection is slowed
+##the higher, the more enemy is ejected
+@export var base_impact_force : float = 300 
+##the higher, the more enemy projection is slowed
+@export var base_knockback_friction : float = 800 
 @export var speed_variation : float = 10.0
 @export var level_life_boost : int = 5
 
