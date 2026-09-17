@@ -30,6 +30,27 @@ var car : CarData = CarManager.selected_car
 @onready var nitro_gain_bar_new: ProgressBar = $StatsPanel/HBoxContainer/Levels/NitroGainBarNew
 @onready var nitro_gain_bar: ProgressBar = $StatsPanel/HBoxContainer/Levels/NitroGainBarNew/NitroGainBar
 
+@onready var life_current: Label = $StatsPanel/HBoxContainer/Values/Life
+@onready var fuel_tank_current: Label = $StatsPanel/HBoxContainer/Values/FuelTank
+@onready var speed_current: Label = $StatsPanel/HBoxContainer/Values/Speed
+@onready var torque_current: Label = $StatsPanel/HBoxContainer/Values/Torque
+@onready var drift_current: Label = $StatsPanel/HBoxContainer/Values/Drift
+@onready var dmg_current: Label = $StatsPanel/HBoxContainer/Values/Dmg
+@onready var dash_lenght_current: Label = $StatsPanel/HBoxContainer/Values/DashLenght
+@onready var dash_dmg_current: Label = $StatsPanel/HBoxContainer/Values/DashDmg
+@onready var nitro_tank_current: Label = $StatsPanel/HBoxContainer/Values/NitroTank
+@onready var nitro_gain_current: Label = $StatsPanel/HBoxContainer/Values/NitroGain
+
+@onready var life_new: Label = $StatsPanel/HBoxContainer/NewValues/Life
+@onready var fuel_tank_new: Label = $StatsPanel/HBoxContainer/NewValues/FuelTank
+@onready var speed_new: Label = $StatsPanel/HBoxContainer/NewValues/Speed
+@onready var torque_new: Label = $StatsPanel/HBoxContainer/NewValues/Torque
+@onready var drift_new: Label = $StatsPanel/HBoxContainer/NewValues/Drift
+@onready var dmg_new: Label = $StatsPanel/HBoxContainer/NewValues/Dmg
+@onready var dash_lenght_new: Label = $StatsPanel/HBoxContainer/NewValues/DashLenght
+@onready var dash_dmg_new: Label = $StatsPanel/HBoxContainer/NewValues/DashDmg
+@onready var nitro_tank_new: Label = $StatsPanel/HBoxContainer/NewValues/NitroTank
+@onready var nitro_gain_new: Label = $StatsPanel/HBoxContainer/NewValues/NitroGain
 
 
 var final_boosts : Array[BoostData] = []
@@ -39,7 +60,6 @@ var boost_scenes : Array[Control] =  []
 var nb_boost : int = 3
 
 var focused_button : Button
-
 
 func _ready() -> void:
 	hide()
@@ -90,7 +110,6 @@ func _ready() -> void:
 	nitro_gain_bar_new.max_value = StatsManager.max_nitro_up
 	nitro_tank_bar_new.max_value = StatsManager.max_nitro_tank
 	
-
 	life_bar.value = car.max_life.get_value()
 	fuel_bar.value = car.max_fuel.get_value()
 	speed_bar.value = car.max_speed.get_value()
@@ -102,7 +121,22 @@ func _ready() -> void:
 	nitro_gain_bar.value = car.nitro_up.get_value()
 	nitro_tank_bar.value = car.max_nitro.get_value()
 	
-	reset_new_bars()
+	life_current.text = str(int(car.max_life.get_value()))
+	fuel_tank_current.text = str(int(car.max_fuel.get_value()))
+	speed_current.text = str(int(car.max_speed.get_value()))
+	torque_current.text = str(int(car.acceleration.get_value()))
+	drift_current.text = str(int(car.drift_turn_bonus.get_value()))
+	dmg_current.text = str(int(car.dmg.get_value()))
+	dash_lenght_current.text = str(int(car.dash_duration.get_value()))
+	dash_dmg_current.text = str(int(car.dash_dmg_bonus.get_value()))
+	nitro_tank_current.text = str(int(car.max_nitro.get_value()))
+	nitro_gain_current.text = str(int(car.nitro_up.get_value()))
+	
+	reset_values()
+	
+	boost_container.get_child(0).get_child(0).grab_focus()
+	append_buttons()
+	_on_button_focused(boost_container.get_child(0).get_child(0))
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("confirm"):
@@ -200,6 +234,32 @@ func get_modified_bar(boost : BoostData, target_stat_idx : int) -> ProgressBar:
 			return nitro_tank_bar_new
 	return null
 
+
+func get_modified_label(boost : BoostData, target_stat_idx : int) -> Label:
+	match boost.target_stats[target_stat_idx]:
+		boost.Target_Stats.ACCELERATION:
+			return torque_new
+		boost.Target_Stats.MAX_SPEED:
+			return speed_new
+		boost.Target_Stats.MAX_LIFE:
+			return life_new
+		boost.Target_Stats.CAR_DMG:
+			return dmg_new
+		boost.Target_Stats.MAX_FUEL:
+			return fuel_tank_new
+		boost.Target_Stats.DRIFT_TURN_BONUS:
+			return drift_new
+		boost.Target_Stats.DASH_DMG_BONUS:
+			return dash_dmg_new
+		boost.Target_Stats.DASH_DURATION:
+			return dash_lenght_new
+		boost.Target_Stats.NITRO_UP:
+			return nitro_gain_new
+		boost.Target_Stats.MAX_NITRO:
+			return nitro_tank_new
+	return null
+
+
 func get_current_bar(boost : BoostData, target_stat_idx : int) -> ProgressBar:
 	match boost.target_stats[target_stat_idx]:
 		boost.Target_Stats.ACCELERATION:
@@ -226,7 +286,7 @@ func get_current_bar(boost : BoostData, target_stat_idx : int) -> ProgressBar:
 
 
 func _on_button_focused(button : Button) -> void:
-	reset_new_bars()
+	reset_values()
 	focused_button = button
 	var current_boost_scn : Control = focused_button.get_parent()
 	var focused_boost : BoostData = current_boost_scn.boost
@@ -242,7 +302,10 @@ func _on_button_focused(button : Button) -> void:
 			
 			get_modified_bar(focused_boost,idx).value = show_modified_stats(focused_boost,idx)
 			get_current_bar(focused_boost,idx).value = focused_boost.get_car_stat(focused_boost.target_stats[idx],car).get_value()
-		
+			
+			get_modified_label(focused_boost,idx).text = "> " + str(show_modified_stats(focused_boost,idx))
+			get_modified_label(focused_boost,idx).add_theme_color_override("font_color",Color.GREEN)
+			
 		else : 
 			var stylebox_back : StyleBox = StyleBoxFlat.new()
 			set_stylebox(stylebox_back, Color.DARK_RED)
@@ -255,7 +318,10 @@ func _on_button_focused(button : Button) -> void:
 			get_current_bar(focused_boost,idx).value = show_modified_stats(focused_boost,idx)
 			get_modified_bar(focused_boost,idx).value = focused_boost.get_car_stat(focused_boost.target_stats[idx],car).get_value()
 			
-func reset_new_bars() -> void : 
+			get_modified_label(focused_boost,idx).text = "> " + str(show_modified_stats(focused_boost,idx))
+			get_modified_label(focused_boost,idx).add_theme_color_override("font_color",Color.RED)
+			
+func reset_values() -> void : 
 	life_bar_new.value = life_bar.value
 	fuel_bar_new.value = fuel_bar.value
 	speed_bar_new.value = speed_bar.value
@@ -266,6 +332,28 @@ func reset_new_bars() -> void :
 	dash_duration_bar_new.value = dash_duration_bar.value
 	nitro_gain_bar_new.value = nitro_gain_bar.value
 	nitro_tank_bar_new.value = nitro_tank_bar.value
+	
+	life_current.text = str(int(car.max_life.get_value()))
+	fuel_tank_current.text = str(int(car.max_fuel.get_value()))
+	speed_current.text = str(int(car.max_speed.get_value()))
+	torque_current.text = str(int(car.acceleration.get_value()))
+	drift_current.text = str(int(car.drift_turn_bonus.get_value()))
+	dmg_current.text = str(int(car.dmg.get_value()))
+	dash_lenght_current.text = str(int(car.dash_duration.get_value()))
+	dash_dmg_current.text = str(int(car.dash_dmg_bonus.get_value()))
+	nitro_tank_current.text = str(int(car.max_nitro.get_value()))
+	nitro_gain_current.text = str(int(car.nitro_up.get_value()))
+	
+	life_new.text = ""
+	fuel_tank_new.text = ""
+	speed_new.text = ""
+	torque_new.text = ""
+	drift_new.text = ""
+	dmg_new.text = ""
+	dash_lenght_new.text = ""
+	dash_dmg_new.text = ""
+	nitro_tank_new.text = ""
+	nitro_gain_new.text = ""
 
 
 func set_stylebox(sb : StyleBox, color : Color) -> void:

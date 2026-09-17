@@ -105,9 +105,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -532.0
+offset_left = -543.0
 offset_top = -182.0
-offset_right = 48.0
+offset_right = 37.0
 offset_bottom = 286.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -152,136 +152,143 @@ bus = &"SFX"
 
 [node name="StatsPanel" type="Panel" parent="." unique_id=1102893059]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 74.0
-offset_top = -570.0
-offset_right = 605.0
-offset_bottom = -168.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -555.0
+offset_top = -182.0
+offset_bottom = 220.0
+grow_horizontal = 0
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hwclg")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="StatsPanel" unique_id=1841999821]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -274.5
-offset_top = -160.5
-offset_right = 272.5
-offset_bottom = 109.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_right = -9.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 30
-
-[node name="Stats" type="VBoxContainer" parent="StatsPanel/HBoxContainer" unique_id=724482356]
-custom_minimum_size = Vector2(220, 0)
-layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="Life" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=1765142114]
+[node name="Stats" type="VBoxContainer" parent="StatsPanel/HBoxContainer" unique_id=724482356]
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Life" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=1765142114]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Life"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="FuelTank" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=35440440]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Fuel tank"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="Speed" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=923228833]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Speed"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="Torque" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=240636267]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Acceleration"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="Drift" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=1574556420]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Drift"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="Dmg" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=722099680]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Car damages"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="DashLenght" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=516088958]
 visible = false
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Dash duration"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="DashDmg" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=368419747]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Dash damages"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="NitroTank" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=1425642987]
 visible = false
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Nitro tank"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="NitroGain" type="Label" parent="StatsPanel/HBoxContainer/Stats" unique_id=862060931]
 visible = false
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_1yhnf")
+theme_override_fonts/font = ExtResource("3_mxdxo")
 theme_override_font_sizes/font_size = 24
 text = "Nitro gain"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="Levels" type="VBoxContainer" parent="StatsPanel/HBoxContainer" unique_id=1502966394]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme_override_constants/separation = 28
+theme_override_constants/separation = 30
 
 [node name="LifeBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1260924554]
 custom_minimum_size = Vector2(0, 20)
@@ -289,7 +296,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 300.0
 show_percentage = false
 
@@ -301,7 +308,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 200.0
 show_percentage = false
 
@@ -311,7 +318,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 300.0
 show_percentage = false
 
@@ -323,7 +330,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 200.0
 show_percentage = false
 
@@ -333,7 +340,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 300.0
 show_percentage = false
 
@@ -345,7 +352,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 200.0
 show_percentage = false
 
@@ -355,7 +362,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 300.0
 show_percentage = false
 
@@ -367,7 +374,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 200.0
 show_percentage = false
 
@@ -467,7 +474,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 300.0
 show_percentage = false
 
@@ -479,7 +486,7 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_buuk3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
 max_value = 500.0
-step = 10.0
+step = 1.0
 value = 200.0
 show_percentage = false
 
@@ -505,6 +512,214 @@ max_value = 500.0
 step = 0.1
 value = 200.0
 show_percentage = false
+
+[node name="Values" type="VBoxContainer" parent="StatsPanel/HBoxContainer" unique_id=241180931]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Life" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=1648981717]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="FuelTank" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=1057819445]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Speed" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=2127768263]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Torque" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=1578502693]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Drift" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=104347996]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Dmg" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=138267759]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="DashLenght" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=542734209]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="DashDmg" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=1554836413]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="NitroTank" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=1255252391]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="NitroGain" type="Label" parent="StatsPanel/HBoxContainer/Values" unique_id=645033394]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "200"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="NewValues" type="VBoxContainer" parent="StatsPanel/HBoxContainer" unique_id=1962583707]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Life" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=259774384]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="FuelTank" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=1351425174]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Speed" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=645846880]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Torque" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=1629672727]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Drift" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=12415823]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="Dmg" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=1175379875]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="DashLenght" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=44705225]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="DashDmg" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=398360244]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="NitroTank" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=980570313]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
+
+[node name="NitroGain" type="Label" parent="StatsPanel/HBoxContainer/NewValues" unique_id=1775543521]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 24
+text = "-> 200"
+vertical_alignment = 2
+script = ExtResource("8_0lu01")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/Ignore" to="." method="_on_ignore_pressed"]

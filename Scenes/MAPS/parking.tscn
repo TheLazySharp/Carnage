@@ -338,8 +338,8 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("74_x2yit")
-zoom_base = 1.5
-zoom_max_out = 0.8
+zoom_base = 1.2
+zoom_max_out = 0.9
 
 [node name="Lands" parent="." unique_id=369331439 instance=ExtResource("15_c3hir")]
 
@@ -423,6 +423,9 @@ position = Vector2(25.741882, 1612.8645)
 
 [node name="Marker7" parent="Spawners/ColossArrival" index="6" unique_id=148471387]
 position = Vector2(12.431885, 1852.4446)
+
+[node name="Marker8" type="Marker2D" parent="Spawners/ColossArrival" unique_id=439794048]
+position = Vector2(18, 2141)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("74_ywo5e")]
 max_enemy_count = 1000
