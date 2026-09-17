@@ -126,10 +126,10 @@
 [ext_resource type="Texture2D" uid="uid://88ih4l6ca3yq" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 3.tres" id="107_ay2hx"]
 [ext_resource type="Texture2D" uid="uid://c5hhwx0vq3le8" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 4.tres" id="108_fxgdo"]
 [ext_resource type="Script" uid="uid://dywwym7i8tdva" path="res://Assets/Léonce/Scripts/enemy_horde.gd" id="118_w0j2s"]
-[ext_resource type="Texture2D" uid="uid://b34glaf2kddgx" path="res://Assets/Léonce/Enemies/zombieB_TEST.png" id="119_8eqp4"]
 [ext_resource type="Shader" uid="uid://ct845fhrbbspj" path="res://Assets/Léonce/Scripts/multimesh_outline.gdshader" id="119_t7fm0"]
 [ext_resource type="Texture2D" uid="uid://du48awybgre3" path="res://Assets/Léonce/Enemies/zombieA_walk01TEST.png" id="120_m3dio"]
 [ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="126_rv0vo"]
+[ext_resource type="Texture2D" uid="uid://bd8u2j7ivx1f4" path="res://Assets/Léonce/Enemies/zombieA_run01.png" id="130_dofx7"]
 [ext_resource type="Texture2D" uid="uid://bt0kltrpfgcqr" path="res://Assets/XP/xp_orb.png" id="131_qfmaa"]
 [ext_resource type="Shader" uid="uid://bkajea3iwwy0c" path="res://Assets/Léonce/Scripts/trail_ribbon.gdshader" id="132_ay2hx"]
 [ext_resource type="Script" uid="uid://bci5d0wlf7uy3" path="res://Assets/Léonce/Scripts/trail_ribbon.gd" id="133_ay2hx"]
@@ -137,8 +137,9 @@
 [ext_resource type="Script" uid="uid://dikfsdntvl74q" path="res://Assets/Léonce/Scripts/pixel_trail.gd" id="134_ay2hx"]
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="136_empg6"]
 [ext_resource type="Shader" uid="uid://cxom3ns2x10nd" path="res://Assets/Léonce/Scripts/invert_text.gdshader" id="136_fxgdo"]
+[ext_resource type="Shader" uid="uid://bx8tf2uhokuys" path="res://Assets/Léonce/Scripts/outline-POC.gdshader" id="138_dofx7"]
+[ext_resource type="Script" uid="uid://cqw7hee6wwou3" path="res://Assets/Léonce/Scripts/horde_poc.gd" id="138_onpsi"]
 [ext_resource type="Texture2D" uid="uid://b84vnvh257ouw" path="res://Assets/Léonce/Enemies/zombieA_idle.png" id="138_x2kih"]
-[ext_resource type="Texture2D" uid="uid://blecditsbx72j" path="res://Assets/Léonce/Enemies/zombieA_shadow.png" id="139_dofx7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1447,18 +1448,21 @@ buffer = PackedFloat32Array(-0.5, 25, 0.10787, 0.10787, 0.10787, 0, 0.018518519,
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q3f5b"]
 shader = ExtResource("119_t7fm0")
-shader_parameter/outline_color = Color(0.4509804, 0.4509804, 0.4509804, 0.8627451)
+shader_parameter/outline_color = Color(0.3647059, 0.105882354, 0.1764706, 1)
 shader_parameter/outline_width = 1
 shader_parameter/my_total_rows = 1
-shader_parameter/my_max_cols = 4
-shader_parameter/cell_size_0 = 19.0
-shader_parameter/cell_size_1 = 24.0
+shader_parameter/my_max_cols = 16
+shader_parameter/cell_size_0 = 20.0
+shader_parameter/cell_size_1 = 20.0
 shader_parameter/rows_0 = 1
-shader_parameter/cols_0 = 4
+shader_parameter/cols_0 = 16
 shader_parameter/rows_1 = 1
 shader_parameter/cols_1 = 1
 
 [sub_resource type="MultiMesh" id="MultiMesh_nhvyv"]
+instance_count = 2
+visible_instance_count = 0
+buffer = PackedFloat32Array(25, 5, 0.96, 0.2, 0.32, 1, 25, -5, 0.96, 0.2, 0.32, 1, 35, 0, 0.96, 0.2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3js2r"]
 atlas = ExtResource("131_qfmaa")
@@ -1545,6 +1549,11 @@ shader = ExtResource("136_fxgdo")
 shader_parameter/edge_sharpness = 0.05
 shader_parameter/opacity = 0.91200004332
 shader_parameter/contrast = 1.37600006536
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cbgfx"]
+shader = ExtResource("138_dofx7")
+shader_parameter/outline_color = Color(0.3647059, 0.105882354, 0.1764706, 0)
+shader_parameter/outline_width = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqj4u"]
 atlas = ExtResource("138_x2kih")
@@ -1641,6 +1650,86 @@ region = Rect2(192, 72, 24, 24)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrfj3"]
 atlas = ExtResource("138_x2kih")
 region = Rect2(168, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smxo4"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(0, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiqah"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(24, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1ber"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(48, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bndhb"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(72, 120, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rp7bd"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34we5"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj0kx"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhs21"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(96, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsjy7"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(120, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqr2o"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(144, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wb3h"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(168, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rll6c"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(192, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvdh0"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(216, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eihv"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(240, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvsxy"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(264, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qutac"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(288, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdh3o"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(312, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pgch"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr0a0"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06g4k"]
+atlas = ExtResource("138_x2kih")
+region = Rect2(72, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tyiq4"]
 animations = [{
@@ -1744,6 +1833,87 @@ animations = [{
 "loop": 1,
 "name": &"idle04",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smxo4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiqah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1ber")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bndhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1ber")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiqah")
+}],
+"loop": 1,
+"name": &"idle05",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rp7bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34we5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj0kx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vhs21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsjy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqr2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wb3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rll6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvdh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eihv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvsxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qutac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdh3o")
+}],
+"loop": 1,
+"name": &"idle06",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_0pgch")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_xr0a0")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_06g4k")
+}],
+"loop": 1,
+"name": &"idle07",
+"speed": 5.0
 }]
 
 [node name="Node2D" type="Node2D" unique_id=283109215]
@@ -1755,10 +1925,10 @@ json_path = "res://Assets/Tilesets/Roofs/Roof Cracks/concrete_cracks.json"
 output_dir_override = "res://Assets/Tilesets/Roofs/Roof Cracks/"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
-position = Vector2(301.00012, 168)
+position = Vector2(1709.0001, 1147)
 scale = Vector2(1e-05, 1e-05)
-offset = Vector2(13.61, 30.33)
-zoom = Vector2(2.13, 2.13)
+offset = Vector2(225.155, -21.405)
+zoom = Vector2(2.86, 2.86)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
 visible = false
@@ -3286,7 +3456,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1703212803]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1649193389]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -3319,10 +3489,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=458301116]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1711216448]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1031732601]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1044738344]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -3339,7 +3509,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=2104522819]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=40375849]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -3482,9 +3652,10 @@ multimesh = SubResource("MultiMesh_r7ksg")
 texture = ExtResource("120_m3dio")
 
 [node name="MultiMeshInstance2D_Slasher" type="MultiMeshInstance2D" parent="Enemy horde" unique_id=1472799443]
+visible = false
 material = SubResource("ShaderMaterial_q3f5b")
 multimesh = SubResource("MultiMesh_nhvyv")
-texture = ExtResource("119_8eqp4")
+texture = ExtResource("130_dofx7")
 
 [node name="Explosion1" parent="." unique_id=547738887 instance=ExtResource("126_rv0vo")]
 position = Vector2(2024, 1158)
@@ -3581,82 +3752,144 @@ theme_override_constants/line_separation = -34
 theme_override_font_sizes/normal_font_size = 64
 text = "MARKET"
 
-[node name="HordeTest" type="Node2D" parent="." unique_id=1250236779]
-z_index = 6
-position = Vector2(-222, -95)
+[node name="HordePOC" type="Node2D" parent="." unique_id=829277057]
+script = ExtResource("138_onpsi")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HordeTest" unique_id=884217194]
-position = Vector2(2062, 1278)
+[node name="Display" type="Sprite2D" parent="HordePOC" unique_id=3099985]
+z_index = 10
+texture_filter = 1
+material = SubResource("ShaderMaterial_cbgfx")
+position = Vector2(1745, 1140.795)
+
+[node name="SubViewport" type="SubViewport" parent="HordePOC" unique_id=1956556113]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="Zombie1" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=884217194]
+position = Vector2(47.155, 30)
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle01"
-frame_progress = 0.70480794
+autoplay = "idle01"
+frame_progress = 0.18323964
 
-[node name="Sprite2D" type="Sprite2D" parent="HordeTest/AnimatedSprite2D" unique_id=192094371]
-modulate = Color(0, 0, 0, 0.5254902)
-z_index = -1
-position = Vector2(3, 2)
-texture = ExtResource("139_dofx7")
-
-[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="HordeTest" unique_id=1487924506]
-position = Vector2(2067, 1266)
+[node name="Zombie2" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=1487924506]
+position = Vector2(15.2, 28.635)
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle03"
-frame_progress = 0.354394
+autoplay = "idle03"
+frame_progress = 0.16169268
 
-[node name="Sprite2D" type="Sprite2D" parent="HordeTest/AnimatedSprite2D6" unique_id=399585017]
-modulate = Color(0, 0, 0, 0.5254902)
-z_index = -1
-position = Vector2(3, 2)
-texture = ExtResource("139_dofx7")
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="HordeTest" unique_id=2082647825]
-position = Vector2(2046, 1270)
-rotation = -1.5707964
+[node name="Zombie3" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=2082647825]
+position = Vector2(34, 55.36)
+rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle02"
-frame_progress = 0.72984964
+autoplay = "idle02"
+frame_progress = 0.16090745
 
-[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D2" unique_id=1783622855]
-modulate = Color(0, 0, 0, 0.5254902)
-z_index = -1
-position = Vector2(-3, 0.99999994)
-texture = ExtResource("139_dofx7")
-
-[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="HordeTest" unique_id=117595701]
-position = Vector2(2035, 1273)
+[node name="Zombie4" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=117595701]
+position = Vector2(11.14, 39.34)
 rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle03"
-frame_progress = 0.1462241
+autoplay = "idle03"
+frame_progress = 0.13948105
 
-[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D3" unique_id=1865528292]
-modulate = Color(0, 0, 0, 0.5254902)
-z_index = -1
-position = Vector2(-3, 0.99999994)
-texture = ExtResource("139_dofx7")
-
-[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="HordeTest" unique_id=602304176]
-position = Vector2(2052, 1275)
+[node name="Zombie5" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=602304176]
+position = Vector2(29.28, 16.215)
 rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle02"
-frame_progress = 0.7554141
+autoplay = "idle02"
+frame_progress = 0.434361
 
-[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D4" unique_id=868549242]
-modulate = Color(0, 0, 0, 0.5254902)
-z_index = -1
-position = Vector2(-4, 1.9999999)
-texture = ExtResource("139_dofx7")
-
-[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="HordeTest" unique_id=679195590]
-position = Vector2(2046, 1283)
+[node name="Zombie6" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=679195590]
+position = Vector2(23.975, 29.145)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle04"
-frame_progress = 0.6919256
+autoplay = "idle04"
+frame_progress = 0.53621334
 
-[node name="Sprite2D2" type="Sprite2D" parent="HordeTest/AnimatedSprite2D5" unique_id=1918724832]
-modulate = Color(0, 0, 0, 0.5254902)
-z_index = -1
-position = Vector2(4, -2.0000002)
-texture = ExtResource("139_dofx7")
+[node name="Zombie7" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=1738544182]
+position = Vector2(25.995, 24)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle05"
+autoplay = "idle05"
+frame_progress = 0.2314883
+
+[node name="Zombie8" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=43965712]
+position = Vector2(41.81, 36.855)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle01"
+autoplay = "idle01"
+frame_progress = 0.15899467
+
+[node name="Zombie9" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=202100300]
+position = Vector2(52.095, 21.46)
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle05"
+autoplay = "idle05"
+frame_progress = 0.12873672
+
+[node name="Zombie10" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=1296301725]
+position = Vector2(56.14, 33.245)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle05"
+autoplay = "idle05"
+frame_progress = 0.13720107
+
+[node name="Zombie11" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=1951541961]
+position = Vector2(118.54, 20.85)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle05"
+autoplay = "idle05"
+frame_progress = 0.13720107
+
+[node name="Zombie12" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=1882745491]
+position = Vector2(44.43, 25.24)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle05"
+autoplay = "idle05"
+
+[node name="Zombie13" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=996700737]
+position = Vector2(86.48, 44.335)
+rotation = -1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle02"
+autoplay = "idle02"
+
+[node name="Zombie14" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=1862509347]
+position = Vector2(95.725, 50.63)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle06"
+autoplay = "idle06"
+
+[node name="Zombie15" type="AnimatedSprite2D" parent="HordePOC/SubViewport" unique_id=992647369]
+position = Vector2(75.19, 46.55)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_tyiq4")
+animation = &"idle07"
+autoplay = "idle07"
+
+[node name="Node2D2" type="Node2D" parent="." unique_id=1925102838]
+
+[node name="DilateViewport" type="SubViewport" parent="Node2D2" unique_id=1090488745]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="CloseViewport" type="SubViewport" parent="Node2D2" unique_id=57442900]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(200, 200)
+render_target_update_mode = 4
