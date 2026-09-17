@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://baidslgub6j8k"]
 
-[ext_resource type="Script" uid="uid://h3t1t4ebugvh" path="res://Scripts/WEAPONS/flame.gd" id="1_mdlt8"]
+[ext_resource type="Script" uid="uid://h3t1t4ebugvh" path="res://Scripts/WEAPONS/AMMOS/flame.gd" id="1_mdlt8"]
 [ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/Ammos/flame.tres" id="2_2how3"]
 [ext_resource type="Texture2D" uid="uid://tno1wabl440u" path="res://Assets/VFX/FlamethrowerCycle1.png" id="3_hetl7"]
 [ext_resource type="Texture2D" uid="uid://bv8dvxda7o7o1" path="res://Assets/VFX/FlamethrowerFinish1.png" id="4_n02f8"]

@@ -38,15 +38,15 @@ func _on_game_paused(game_on_pause : bool) -> void:
 
 func _on_cool_down_timeout() -> void:
 	if !launcher_data.weapon_is_active: return
-	drop_mine(mine_marker.global_position)
+	drop_mine()
 
-func drop_mine(drop_pos: Vector2)-> void:
-	var car_forward : Vector2 = Vector2.RIGHT.rotated(car.rotation)
+func drop_mine()-> void:
 	for i in range(1,launcher_data.nb_projectile.get_value() + 1):
 		var landmine : Node2D = LANDMINE.instantiate()
 		get_node("/root/World/Explosives").add_child(landmine)
-		landmine.global_position = drop_pos - car_forward * i * 40
+		landmine.global_position = mine_marker.global_position
 		drop_mine_sfx.play()
+		await get_tree().create_timer(0.2).timeout
 	
 func desactivate() -> void:
 	cool_down.stop()

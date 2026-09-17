@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://bj7i14tscgwbc"]
+
+[ext_resource type="Texture2D" uid="uid://bebfr5dvt68mc" path="res://Assets/weapons/bat_handler.png" id="1_irnte"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_n5r0r"]
+[ext_resource type="Resource" uid="uid://b6wbgylc6laab" path="res://Resources/Weapons/Main Weapons/bat_handler.tres" id="3_8qidy"]
+
+[resource]
+script = ExtResource("2_n5r0r")
+name = 3
+target_ressource = 3
+target_weapon = ExtResource("3_8qidy")
+target_stats = Array[int]([2])
+target_stats_values = Array[float]([-0.2])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_irnte")
+rarity = 2
+metadata/_custom_type_script = "uid://71ta02ofykhp"

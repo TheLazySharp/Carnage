@@ -47,7 +47,8 @@ var night_impact_force_boost : float = 4
 var night_knockback_friction_boost : float = 4
 
 @export_group("PHYSICS")
-@export var chained_impacts_threshold: float = 200.0 #impact chained to neighbours impact speed higher than threshold
+@export var chained_impacts_threshold: float = 200.0 
+##impact chained to neighbours impact speed higher than threshold
 var knockback_velocity : Vector2 = Vector2.ZERO
 var losing_strenght_ratio: float = 0.6 #of impact speed is transfered to neighbours
 var night_losing_strenght_boost : float = 2

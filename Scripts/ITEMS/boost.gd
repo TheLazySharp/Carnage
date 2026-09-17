@@ -14,10 +14,10 @@ var is_in_shop : bool = false
 
 @onready var stat_0: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification0/Stat0
 @onready var bonus_0: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification0/Bonus0
-@onready var new_value_0: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification0/NewValue0
+@onready var new_value_0: StyledLabel = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification0/NewValue0
 @onready var stat_1: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/Stat1
 @onready var bonus_1: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/Bonus1
-@onready var new_value_1: Label = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/NewValue1
+@onready var new_value_1: StyledLabel = $Confirm/MarginContainer/Card/PanelColor/VBoxContainer/Modification1/NewValue1
 @onready var strike_price: Control = $Price/Tags/PriceTag/StrikePrice
 @onready var price_cont: HBoxContainer = $Price
 @onready var price_tag: Label = $Price/Tags/PriceTag
@@ -46,8 +46,8 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void:
 		return
 
 	price = randi_range(
-		int(XPManager.current_level + ShopManager.price_levels[boost.rarity] * 0.75 * GameMaster.difficulty_mod),
-		int(XPManager.current_level + ShopManager.price_levels[boost.rarity] * 1.25 * GameMaster.difficulty_mod))
+		int(XPManager.current_level + ShopManager.boosts_price_levels[boost.rarity] * 0.75 * GameMaster.difficulty_mod),
+		int(XPManager.current_level + ShopManager.boosts_price_levels[boost.rarity] * 1.25 * GameMaster.difficulty_mod))
 	discounted_price = int(price * ShopManager.discount.get_value())
 	price_tag.text = str(price)
 	discount_tag.text = str(discounted_price)
@@ -170,22 +170,35 @@ func get_target_stat(stat_index : int) -> Statistic:
 	return null
 
 
-# Fills one modification line: stat name, bonus, previewed new value
-func refresh_modification_line(stat_index : int, stat_label : Label, bonus_label : Label, value_label : Label) -> void:
+
+func refresh_modification_line(stat_index : int, stat_label : Label, bonus_label : Label, value_label : StyledLabel) -> void:
 	stat_label.text = boost.get_stat_string(boost.target_stats[stat_index])
 	bonus_label.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[stat_index], stat_index)
+
 	var target_stat : Statistic = get_target_stat(stat_index)
 	if target_stat == null:
 		value_label.text = "-"
+		value_label.reset_color()
 		return
+
 	var preview_mod := Modifier.new(
 		boost.target_stats_values[stat_index],
 		boost.get_modifier_type(boost.target_stats_modifier_types[stat_index]),
 		"boost applied " + InventoryManager.get_boost_name(boost))
-	value_label.text = str(target_stat.preview_value(preview_mod))
 
+	var current_value : float = target_stat.get_value()
+	var new_value : float = target_stat.preview_value(preview_mod)
+	value_label.text = str(new_value)
 
-# Refreshes both modification lines and their visibility
+	# XOR: a drop is a downgrade, unless lowering this stat is an improvement
+	var is_downgrade : bool = not is_equal_approx(new_value, current_value) \
+		and (new_value < current_value) != BoostData.is_lower_better(boost.target_stats[stat_index])
+	if is_downgrade:
+		value_label.set_color(Color.RED)
+	else:
+		value_label.set_color(Color.GREEN)
+		
+
 func refresh_modifications() -> void:
 	refresh_modification_line(0, stat_0, bonus_0, new_value_0)
 	var has_second : bool = modifications_count > 1

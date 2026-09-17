@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cio3uws5861ij"]
 
-[ext_resource type="Script" uid="uid://cv824hvjpjkhf" path="res://Scripts/WEAPONS/flame_launcher.gd" id="1_sutri"]
+[ext_resource type="Script" uid="uid://cv824hvjpjkhf" path="res://Scripts/WEAPONS/MAIN WEAPONS/flame_launcher.gd" id="1_sutri"]
 [ext_resource type="Resource" uid="uid://bgv4w4g2bvoby" path="res://Resources/Weapons/Main Weapons/flame_launcher.tres" id="2_iaqtt"]
 
 [node name="FlameLauncher" type="Node2D" unique_id=232219229]

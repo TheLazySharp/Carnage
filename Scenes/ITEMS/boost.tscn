@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="4_ucdma"]
 [ext_resource type="Script" uid="uid://dimcwppccsqal" path="res://Scripts/FONTS/GUI_sold_out.gd" id="6_85oou"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_0268m"]
-[ext_resource type="Script" uid="uid://c54wxruegn8l" path="res://Scripts/UI/boost_upgrade_changes.gd" id="6_hs08e"]
+[ext_resource type="Script" uid="uid://c54wxruegn8l" path="res://Scripts/FONTS/styled_label.gd" id="6_hs08e"]
 [ext_resource type="Script" uid="uid://q1x6o5hrm08l" path="res://Scripts/UI/strike_price.gd" id="9_otfbn"]
 [ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="10_otfbn"]
 

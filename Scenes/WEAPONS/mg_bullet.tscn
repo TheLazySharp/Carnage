@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://doe8o0sd0xuas"]
 
-[ext_resource type="Script" uid="uid://ciwqjh6u3c0kp" path="res://Scripts/WEAPONS/ammo_mg.gd" id="1_64sch"]
+[ext_resource type="Script" uid="uid://ciwqjh6u3c0kp" path="res://Scripts/WEAPONS/AMMOS/ammo_mg.gd" id="1_64sch"]
 [ext_resource type="Resource" uid="uid://tmw3kk1tg1re" path="res://Resources/Weapons/Ammos/mg_bullet.tres" id="2_0f2xj"]
 [ext_resource type="Texture2D" uid="uid://bg5idxjop7rm4" path="res://Assets/weapons/long_bullet_flash.png" id="3_0f2xj"]
 

@@ -1,12 +1,32 @@
 [gd_scene format=3 uid="uid://bsg62y0n5jpku"]
 
-[ext_resource type="Script" uid="uid://bh7f5ci3oime1" path="res://Scripts/WEAPONS/grenade.gd" id="1_ocbu8"]
+[ext_resource type="Script" uid="uid://bh7f5ci3oime1" path="res://Scripts/WEAPONS/AMMOS/grenade.gd" id="1_ocbu8"]
 [ext_resource type="Resource" uid="uid://bp0x5m5caby4l" path="res://Resources/Weapons/Ammos/grenade.tres" id="2_lljlb"]
+[ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="3_lljlb"]
 [ext_resource type="Texture2D" uid="uid://cpl58xraet1nq" path="res://Assets/weapons/grenade.png" id="3_o8lmd"]
 
-[node name="Grenade" type="Node2D" unique_id=1510335606]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dfktb"]
+radius = 64.0
+
+[node name="Grenade" type="Node2D" unique_id=1510335606 groups=["explosives"]]
 script = ExtResource("1_ocbu8")
 grenade_data = ExtResource("2_lljlb")
+explosion_scene = ExtResource("3_lljlb")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=273247620]
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_o8lmd")
+
+[node name="ExplosionArea" type="Area2D" parent="." unique_id=1568583541 groups=["explosives"]]
+collision_layer = 1024
+collision_mask = 1026
+
+[node name="ExplosionShape" type="CollisionShape2D" parent="ExplosionArea" unique_id=1618164039 groups=["explosives"]]
+shape = SubResource("CircleShape2D_dfktb")
+
+[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="." unique_id=1479109185]
+
+[connection signal="area_entered" from="ExplosionArea" to="." method="_on_explosion_area_entered"]
+[connection signal="area_exited" from="ExplosionArea" to="." method="_on_explosion_area_exited"]
+[connection signal="area_shape_entered" from="ExplosionArea" to="." method="_on_explosion_area_shape_entered"]
+[connection signal="finished" from="ExplosionSFX" to="." method="_on_explosion_sfx_finished"]

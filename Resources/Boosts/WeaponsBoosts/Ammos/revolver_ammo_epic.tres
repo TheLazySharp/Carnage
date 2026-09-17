@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://ctvgrdr6ul7u0"]
+
+[ext_resource type="Texture2D" uid="uid://dwonb4jn7vwdt" path="res://Assets/weapons/bullet.png" id="1_iraxi"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_gjl10"]
+[ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/Main Weapons/revolver.tres" id="3_1oi4q"]
+
+[resource]
+script = ExtResource("2_gjl10")
+name = 6
+target_ressource = 3
+target_weapon = ExtResource("3_1oi4q")
+target_stats = Array[int]([1, 0])
+target_stats_values = Array[float]([10.0])
+target_stats_modifier_types = Array[int]([0])
+icon = ExtResource("1_iraxi")
+rarity = 2
+metadata/_custom_type_script = "uid://71ta02ofykhp"
