@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_34svh")
-name = 20
+ref = 20
+name = "Turbo"
 target_ressource = 1
 target_stats = Array[int]([9])
 target_stats_values = Array[float]([15.0])

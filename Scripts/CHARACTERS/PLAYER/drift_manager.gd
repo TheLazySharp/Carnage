@@ -262,13 +262,13 @@ func create_skid_line(is_slide : bool) -> Array:
 	border.width = (slide_skid_width + 4.0) if is_slide else 10.0
 	border.default_color = Color(1, 1, 1, 0.8 * (slide_skid_alpha if is_slide else 1.0))
 	border.antialiased = true
-	border.z_index = -10
+	border.z_index = -2
 
 	var line : Line2D = Line2D.new()
 	line.width = slide_skid_width if is_slide else 6.0
 	line.default_color = Color(0, 0, 0, slide_skid_alpha if is_slide else 1.0)
 	line.antialiased = true
-	line.z_index = -9
+	line.z_index = -1
 	return [line, border]
 
 

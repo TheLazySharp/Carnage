@@ -58,6 +58,7 @@ func _on_select_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
+	
 
 
 func _on_next_button_pressed() -> void:

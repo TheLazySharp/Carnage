@@ -12,7 +12,8 @@ stream_0/stream = ExtResource("5_ethcs")
 
 [resource]
 script = ExtResource("1_27q37")
-weapon_name = 24
+weapon_ref = 24
+weapon_name = "Grenade belt"
 weapon_icon = ExtResource("4_oyn8n")
 max_level = 35
 description = "Throw randomly a grenade"

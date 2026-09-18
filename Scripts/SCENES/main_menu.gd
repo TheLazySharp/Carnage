@@ -4,13 +4,11 @@ extends Control
 @onready var quit: Button = $VBoxContainer/Quit
 @onready var skip_tuto: CheckButton = $VBoxContainer/SkipTuto
 
-var survivor_selection : String = "uid://cui5s6rmjs40o"
-var tuto_scene : String = "uid://ci6t4884t7q6r"
-var commands_scene : String = "uid://dayxnnf2ndx5c"
 @onready var training: Button = $VBoxContainer/Commands
 
 
 func _ready() -> void:
+	SceneManager.unload_game()
 	
 	#TUTO TO BE UPDATED
 	SceneManager.tuto_completed = true

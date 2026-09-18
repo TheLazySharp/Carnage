@@ -6,7 +6,8 @@
 
 [resource]
 script = ExtResource("3_vnhyu")
-name = 12
+ref = 12
+name = "Add projectile"
 icon = ExtResource("2_af6ed")
 description = "Add 3 projectile to all weapons"
 rarity = 2

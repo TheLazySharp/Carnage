@@ -12,7 +12,8 @@ stream_0/stream = ExtResource("5_7o8d1")
 
 [resource]
 script = ExtResource("1_nojgw")
-weapon_name = 2
+weapon_ref = 2
+weapon_name = "Minigun"
 weapon_icon = ExtResource("3_sioub")
 max_level = 35
 description = "Shot bullets on sight"

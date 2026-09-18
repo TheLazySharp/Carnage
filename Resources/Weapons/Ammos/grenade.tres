@@ -12,7 +12,8 @@ stream_1/stream = ExtResource("4_7sma1")
 
 [resource]
 script = ExtResource("1_mboxm")
-weapon_name = 23
+weapon_ref = 23
+weapon_name = "Grenade"
 weapon_icon = ExtResource("2_mboxm")
 max_level = 35
 type_1 = 2

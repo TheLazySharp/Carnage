@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_0iee1")
-name = 19
+ref = 19
+name = "Fuel tank"
 target_ressource = 1
 target_stats = Array[int]([18])
 target_stats_values = Array[float]([15.0])

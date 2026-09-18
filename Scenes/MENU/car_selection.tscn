@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="5_hwclg"]
 [ext_resource type="Script" uid="uid://dtnows4f4j3w1" path="res://Scripts/CHARACTERS/PLAYER/stats_panel.gd" id="6_kdb2l"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_usysd"]
+[ext_resource type="Script" uid="uid://ypc1elbwfkao" path="res://Scripts/UI/survivor_car_select.gd" id="9_buuk3"]
+[ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="10_buuk3"]
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="11_buuk3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idhpx"]
 
@@ -408,6 +411,92 @@ text = "LB"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_hwclg")
+
+[node name="PNJ0" type="Control" parent="." unique_id=1042223140]
+anchors_preset = 0
+offset_left = 140.0
+offset_top = 250.0
+offset_right = 236.0
+offset_bottom = 346.0
+script = ExtResource("9_buuk3")
+
+[node name="PNJName" type="Label" parent="PNJ0" unique_id=150997987]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 3.0
+offset_right = 48.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_alyf3")
+theme_override_font_sizes/font_size = 24
+text = "Javier"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_usysd")
+
+[node name="ColorRect" type="ColorRect" parent="PNJ0" unique_id=1340601956]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="PNJ0" unique_id=1017428598]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_buuk3")
+
+[node name="WeaponIcon" type="TextureRect" parent="." unique_id=36073953]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1140.0
+offset_top = 450.0
+offset_right = -1044.0
+offset_bottom = 546.00006
+grow_horizontal = 0
+texture = ExtResource("11_buuk3")
+
+[node name="PNJWeapon" type="Label" parent="WeaponIcon" unique_id=1955670863]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.0
+offset_top = -1.0
+offset_right = 74.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_alyf3")
+theme_override_font_sizes/font_size = 24
+text = "Revolver"
+horizontal_alignment = 1
+script = ExtResource("6_usysd")
+
+[node name="ColorRect" type="ColorRect" parent="WeaponIcon" unique_id=453009456]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="pressed" from="VBoxContainer/Select" to="CarID" method="_on_select_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="CarID" method="_on_back_pressed"]

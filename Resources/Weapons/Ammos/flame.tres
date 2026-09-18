@@ -10,7 +10,8 @@ stream_0/stream = ExtResource("3_rqr78")
 
 [resource]
 script = ExtResource("1_h4agg")
-weapon_name = 9
+weapon_ref = 9
+weapon_name = "Flame"
 weapon_icon = ExtResource("2_hu2li")
 max_level = 35
 type_1 = 5

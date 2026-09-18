@@ -7,6 +7,12 @@ const STEPS : int = 8
 const GRID_WIDTH : int = 7
 const PATHS : int = 5
 
+var starting_district_type : DistrictsData.types = DistrictsData.types.BANK
+
+const SHOP_MIN_ROW : int = 3
+const SHOP_MAX_ROW : int = STEPS - 3
+
+var start_column : int = floori(GRID_WIDTH * 0.5)
 
 const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 	GameMaster.BIOMES.CITY : {
@@ -92,20 +98,20 @@ func _ready() -> void:
 	SignalManager.next_day.connect(_on_next_day)
 
 func generate_map(_biome : GameMaster.BIOMES = GameMaster.current_biome) -> Array[Array] :
-	
 	map_data = generate_initial_grid()
-	var starting_points : Array[int] = get_random_starting_points()
-	
-	for j in starting_points:
+
+	var first_columns : Array[int] = setup_starting_connections()
+
+	for j : int in first_columns:
 		var current_j : int = j
-		for i in STEPS - 1:
+		for i : int in range(1, STEPS - 1):
 			current_j = setup_connection(i, current_j)
 
 	setup_final_district()
 	setup_random_district_weights()
 	setup_district_types()
+	enforce_shop_on_every_path()
 
-	
 	current_map_data = map_data
 	return map_data
 
@@ -133,22 +139,34 @@ func generate_initial_grid() -> Array[Array] :
 	
 	return result
 
-func get_random_starting_points() -> Array[int] :
-	var y_coordinates : Array[int]
-	var unique_starting_points : int = 0
-	
-	while unique_starting_points < 2:
-		unique_starting_points = 0
-		y_coordinates = []
-		
-		for i in PATHS:
-			var starting_point : int = randi_range(0, GRID_WIDTH -1)
-			if ! y_coordinates.has(starting_point):
-				unique_starting_points +=1
-			
-			y_coordinates.append(starting_point)
+func setup_starting_connections() -> Array[int] :
+	var root_district : DistrictsData = map_data[0][start_column] as DistrictsData
+	var candidates : Array[int] = []
 
-	return y_coordinates
+	# the root can only branch on its 3 direct neighbours (±1 column rule)
+	for offset : int in [-1, 0, 1]:
+		var candidate : int = clampi(start_column + offset, 0, GRID_WIDTH - 1)
+		if not candidates.has(candidate):
+			candidates.append(candidate)
+
+	var columns : Array[int] = []
+
+	# one path per candidate first, so the root always branches
+	for candidate : int in candidates:
+		if columns.size() >= PATHS:
+			break
+		columns.append(candidate)
+
+	# remaining paths are spread randomly over the same candidates
+	while columns.size() < PATHS:
+		columns.append(candidates[randi() % candidates.size()])
+
+	for column : int in columns:
+		var next_district : DistrictsData = map_data[1][column] as DistrictsData
+		if not root_district.next_districts.has(next_district):
+			root_district.next_districts.append(next_district)
+
+	return columns
 
 func setup_connection(i : int, j : int) -> int : 
 	var next_district : DistrictsData
@@ -159,9 +177,11 @@ func setup_connection(i : int, j : int) -> int :
 		var random_j : int = clampi(randi_range(j - 1, j + 1), 0, GRID_WIDTH - 1)
 		next_district = map_data[i + 1][random_j]
 	
-	current_district.next_districts.append(next_district)
+	# two paths can walk through the same district : avoid duplicated edges
+	if not current_district.next_districts.has(next_district):
+		current_district.next_districts.append(next_district)
 	
-	return next_district.column #or random_j
+	return next_district.column
 
 func should_cross_existing_path(i : int, j : int, district : DistrictsData) -> bool :
 	var left_neighbour : DistrictsData
@@ -205,10 +225,9 @@ func setup_random_district_weights() -> void :
 		random_districts_total_weights += weight
 
 func setup_district_types() -> void : 
-	#1 first district is always a parking (no mission)
-	for district : DistrictsData in map_data[0]:
-		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.BANK
+	#1 single starting district
+	var root_district : DistrictsData = map_data[0][start_column] as DistrictsData
+	root_district.type = starting_district_type
 	
 	#2 second district is always a mission (new survivor to save)
 	for district : DistrictsData in map_data[1]:
@@ -220,7 +239,7 @@ func setup_district_types() -> void :
 		if district.next_districts.size() > 0 :
 			district.type = DistrictsData.types.SURVIVOR
 
-	#3 last district before boss is always a garage
+	#4 last district before boss is always a garage
 	for district : DistrictsData in map_data[STEPS - 2]:
 		if district.next_districts.size() > 0 :
 			district.type = DistrictsData.types.GARAGE
@@ -247,10 +266,15 @@ func set_district_type_randomly(district_to_set : DistrictsData) -> void :
 		var garage_below_3 : bool = is_garage and district_to_set.row < 2
 		var consecutive_garage : bool = is_garage and has_garage_parent
 		var consecutive_shop : bool = is_shop and has_shop_parent
-		var garage_2_steps_before_final : bool = is_garage and district_to_set.row == STEPS - 2
+		var garage_before_garage_step : bool = is_garage and district_to_set.row == STEPS - 3
+		var shop_too_early : bool = is_shop and district_to_set.row < SHOP_MIN_ROW
 
-		if not (garage_below_3 or consecutive_garage or consecutive_shop or garage_2_steps_before_final):
+		if not (garage_below_3 or consecutive_garage or consecutive_shop or garage_before_garage_step or shop_too_early):
 			break
+
+	# hard rule : STEPS-2 is always a garage, so STEPS-3 never is
+	if type_candidate == DistrictsData.types.GARAGE and district_to_set.row == STEPS - 3:
+		type_candidate = DistrictsData.types.CAR_REPAIR
 
 	district_to_set.type = type_candidate
 
@@ -280,6 +304,105 @@ func district_has_parent_of_type(district : DistrictsData, type : DistrictsData.
 			return true
 	
 	return false
+
+# Every path from the root to the boss must contain a shop.
+# Greedy set cover : the district shared by the most uncovered paths wins.
+func enforce_shop_on_every_path() -> void :
+	var uncovered : Array[Array] = []
+
+	for path : Array in collect_all_paths():
+		if not path_has_shop(path):
+			uncovered.append(path)
+
+	var strict : bool = true
+
+	while not uncovered.is_empty():
+		var best_district : DistrictsData = null
+		var best_score : int = 0
+
+		for path : Array in uncovered:
+			for district : DistrictsData in path:
+				if not can_become_shop(district, strict):
+					continue
+
+				var score : int = 0
+				for other_path : Array in uncovered:
+					if other_path.has(district):
+						score += 1
+
+				if score > best_score:
+					best_score = score
+					best_district = district
+
+		if best_district == null:
+			# no slot left : drop the "no two shops in a row" rule and retry once
+			if strict:
+				strict = false
+				continue
+			push_warning("RoadMap : no valid shop slot for %d path(s)" % uncovered.size())
+			break
+
+		best_district.type = DistrictsData.types.SHOP
+		strict = true
+
+		var still_uncovered : Array[Array] = []
+		for path : Array in uncovered:
+			if not path.has(best_district):
+				still_uncovered.append(path)
+
+		uncovered = still_uncovered
+
+
+func can_become_shop(district : DistrictsData, strict : bool) -> bool :
+	if district.row < SHOP_MIN_ROW or district.row > SHOP_MAX_ROW:
+		return false
+
+	if district.type == DistrictsData.types.SHOP:
+		return false
+
+	if not strict:
+		return true
+
+	if district_has_parent_of_type(district, DistrictsData.types.SHOP):
+		return false
+
+	for next_district : DistrictsData in district.next_districts:
+		if next_district.type == DistrictsData.types.SHOP:
+			return false
+
+	return true
+
+
+func path_has_shop(path : Array) -> bool :
+	for district : DistrictsData in path:
+		if district.type == DistrictsData.types.SHOP:
+			return true
+
+	return false
+
+
+# Depth first walk : every root-to-leaf route of the graph
+func collect_all_paths() -> Array[Array] :
+	var result : Array[Array] = []
+	var first_path : Array[DistrictsData] = [map_data[0][start_column] as DistrictsData]
+	var stack : Array[Array] = [first_path]
+
+	while not stack.is_empty():
+		var path : Array[DistrictsData] = stack.pop_back()
+		var last_district : DistrictsData = path[path.size() - 1]
+
+		if last_district.next_districts.is_empty():
+			result.append(path)
+			continue
+
+		for next_district : DistrictsData in last_district.next_districts:
+			var new_path : Array[DistrictsData] = path.duplicate()
+			new_path.append(next_district)
+			stack.append(new_path)
+
+	return result
+
+
 
 func get_random_district_type_by_weight() -> DistrictsData.types :
 	var roulette : int = randi() % random_districts_total_weights

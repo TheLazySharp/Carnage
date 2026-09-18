@@ -6,7 +6,8 @@
 
 [resource]
 script = ExtResource("2_hbu3p")
-name = 24
+ref = 24
+name = "Grenade belt"
 target_ressource = 2
 target_weapon = ExtResource("3_hbu3p")
 target_stats = Array[int]([6])

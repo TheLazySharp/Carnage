@@ -6,7 +6,8 @@
 
 [resource]
 script = ExtResource("2_mmbxu")
-name = 5
+ref = 5
+name = "Mine launcher"
 target_ressource = 2
 target_weapon = ExtResource("3_4jxqg")
 target_stats = Array[int]([6])

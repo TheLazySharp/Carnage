@@ -4,6 +4,7 @@ var player : CarData
 
 # ---------------- CAR DATA ----------------
 var max_backward_speed : int = 0
+var backward_speed_ratio : float = 0.9
 var friction : float = 0.0
 var turn_speed : float = 0.0
 var velocity_floor : float = 0
@@ -111,7 +112,7 @@ func _ready() -> void:
 	ItemManager.repair.connect(_on_repair_picked_up)
 
 	# DRIVING
-	max_backward_speed = roundi(player.unscaled_speed() * 0.8)
+	max_backward_speed = roundi(player.unscaled_speed() * backward_speed_ratio)
 	friction = player.friction
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor
@@ -495,7 +496,7 @@ func _ready_debug() -> void:
 	player.init_stats()
 
 	# DRIVING
-	max_backward_speed = roundi(player.unscaled_speed() * 0.8)
+	max_backward_speed = roundi(player.unscaled_speed() * backward_speed_ratio)
 	friction = player.friction
 	turn_speed = player.turn_speed
 	velocity_floor = player.velocity_floor

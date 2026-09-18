@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_07ilh")
-weapon_name = 6
+weapon_ref = 1
+weapon_name = "Rev. bullet"
 weapon_icon = ExtResource("2_ytrvc")
 max_level = 10
 type_1 = 6

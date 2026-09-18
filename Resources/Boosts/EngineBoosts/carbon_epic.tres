@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_kwyhg")
-name = 15
+ref = 15
+name = "Carbon"
 target_ressource = 1
 target_stats = Array[int]([9, 11])
 target_stats_values = Array[float]([30.0, -15.0])

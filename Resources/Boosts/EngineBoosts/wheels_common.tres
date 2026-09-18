@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_s41c2")
-name = 21
+ref = 21
+name = "Wheels"
 target_ressource = 1
 target_stats = Array[int]([15])
 target_stats_values = Array[float]([5.0])

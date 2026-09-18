@@ -73,10 +73,10 @@ func pick_dollar()-> DollarData:
 	return pool[rng.randi_range(0,pool.size() -1)]
 
 func get_boost_name(boost : BoostData) -> String : 
-	return str(ShopManager.Items_Name.keys()[boost.name])
+	return str(ShopManager.CONST_REFS.keys()[boost.ref])
 
 func get_weapon_name(weapon : WeaponData) -> String : 
-	return str(ShopManager.Items_Name.keys()[weapon.weapon_name])
+	return str(ShopManager.CONST_REFS.keys()[weapon.weapon_ref])
 	
 func get_charm_name(charm : CharmData) -> String : 
-	return str(ShopManager.Items_Name.keys()[charm.name])
+	return str(ShopManager.CONST_REFS.keys()[charm.ref])

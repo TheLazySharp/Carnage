@@ -6,7 +6,8 @@
 
 [resource]
 script = ExtResource("2_bxy2m")
-name = 9
+ref = 9
+name = "Flame"
 target_ressource = 3
 target_weapon = ExtResource("3_bxy2m")
 target_stats = Array[int]([1])

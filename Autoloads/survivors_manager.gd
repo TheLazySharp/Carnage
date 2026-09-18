@@ -35,12 +35,13 @@ func _ready() -> void:
 
 	reload()
 
-func select_survivor(new_survivor : SurvivorData) -> void : 
-	if survivors_pool.has(new_survivor):
+func select_survivor(new_survivor : SurvivorData) -> void :
+	if survivors_pool.has(new_survivor) and on_board_survivors.is_empty():
 		on_board_survivors.append(new_survivor)
 		survivors_pool.erase(new_survivor)
 		load_on_road_survivors()
-		
+
+
 
 func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 	if locked_survivors.has(new_survivor):
@@ -49,12 +50,7 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 	WeaponsManager.equip_weapon(new_survivor.weapon)
 	on_the_road_survivors.erase(new_survivor)
 	on_board_survivors.append(new_survivor)
-	
 
-func unload() -> void :
-	known_survivors.clear()
-	locked_survivors.clear()
-	reload()
 
 func _on_sandbox_mode() -> void : 
 	known_survivors.clear()
@@ -91,3 +87,8 @@ func reload() -> void :
 	on_board_survivors.clear()
 	load_known_survivors()
 	load_survivors_pool()
+
+func unload() -> void :
+	known_survivors.clear()
+	locked_survivors.clear()
+	reload()

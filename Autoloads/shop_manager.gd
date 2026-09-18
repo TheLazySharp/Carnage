@@ -110,7 +110,7 @@ const ALL_CHARMS : Array = [
 	
 ]
 
-enum Items_Name {
+enum CONST_REFS {
 	N_A,
 	Revolver,
 	Minigun,

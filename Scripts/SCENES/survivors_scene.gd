@@ -6,7 +6,6 @@ var survivor_index : int = 0
 
 
 
-
 func _ready() -> void:
 	survivor_0.grab_focus()
 	SurvivorsManager.portrait_hovered.connect(_on_portrait_hovered)
@@ -15,7 +14,7 @@ func _ready() -> void:
 		if !WeaponsManager.weapons.is_empty():
 			WeaponsManager.unload()
 		jobs_manager.unload()
-		SurvivorsManager.reload()
+		SurvivorsManager.unload()
 
 	if WeaponsManager.weapons.is_empty():
 		WeaponsManager.load_weapons()
@@ -39,7 +38,6 @@ func _on_select_pressed() -> void:
 
 
 func _on_back_pressed() -> void:
-	
 	SceneManager.load_level(SceneManager.SCENES.MAIN_MENU)
 
 func _input(event: InputEvent) -> void:

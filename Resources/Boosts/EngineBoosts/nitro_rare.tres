@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("2_jdyfl")
-name = 17
+ref = 17
+name = "Nitro duration"
 target_ressource = 1
 target_stats = Array[int]([14])
 target_stats_values = Array[float]([0.4])

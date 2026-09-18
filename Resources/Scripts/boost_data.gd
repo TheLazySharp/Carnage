@@ -42,7 +42,8 @@ const LOWER_IS_BETTER : Dictionary = {
 	Target_Stats.FIRE_RATE: true,
 }
 
-@export var name : ShopManager.Items_Name
+@export var ref : ShopManager.CONST_REFS
+@export var name : String
 @export var target_ressource : Target_Ressources
 @export var target_weapon : WeaponData
 @export var target_stats : Array[Target_Stats]

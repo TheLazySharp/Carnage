@@ -2,7 +2,8 @@ class_name EnemiesMultiMeshRenderer
 extends Node2D
 
 @onready var car: Node2D = get_node_or_null("/root/World/Car")
-
+## Horde mass post-process. Null = enemies are always rendered individually.
+@export var horde_outline: HordeOutline = null
 var pools: Dictionary = {} #key = EnemyData, Value = EnemyTypePool
 var corpse_pools: Dictionary = {} #key = EnemyData, Value = CorpsePool
 var sprite_sheet_shader: Shader = null
@@ -29,17 +30,27 @@ func get_pool(enemy_data: EnemyData) -> EnemyTypePool:
 	new_pool.setup(enemy_data, sprite_sheet_shader, car)
 	new_pool.corpse_pool = new_corpse_pool
 	add_child(new_pool)
+	if horde_outline != null:
+		horde_outline.register_sprite_size(Vector2(enemy_data.frame_size) * enemy_data.scale_mod)
+		new_pool.create_mass_twin(horde_outline.pools_root)
 	pools[enemy_data] = new_pool
 	return new_pool
-
 
 func _process(delta: float) -> void:
 	render_skip_timer += delta
 	if render_skip_timer >= render_skip_steps:
 		var step: float = render_skip_timer
 		render_skip_timer = 0.0
+
+		# Horde mass membership: pass 1 counts candidates per cell, pass 2 (in update_instances) resolves
+		var outline_active: bool = horde_outline != null and horde_outline.enabled and horde_outline.begin_step()
+		var active_outline: HordeOutline = horde_outline if outline_active else null
+		if outline_active:
+			for pool: EnemyTypePool in pools.values():
+				pool.count_into_mass(horde_outline)
+
 		for pool: EnemyTypePool in pools.values():
-			pool.update_instances(step)
+			pool.update_instances(step, active_outline)
 
 	for corpse_pool: CorpsePool in corpse_pools.values():
 		corpse_pool.flush()
@@ -53,21 +64,29 @@ func create_sprite_sheet_shader() -> Shader:
 	## custom_data.x = colonne de frame (normalisée 0..1)
 	## custom_data.y = ligne d'état (normalisée 0..1)
 	## custom_data.z = largeur d'une frame normalisée
-	## custom_data.w = hauteur d'une frame normalisée
+	## custom_data.w = hauteur d'une frame normalisée ; NEGATIVE = instance inside a horde mass
+	## mass_filter : 0 = draw all (corpses / no mass), 1 = only instances outside a mass, 2 = only instances inside a mass
 
 	var shader: Shader = Shader.new()
 	shader.code = """
 
 shader_type canvas_item;
 
+uniform int mass_filter = 0;
+
 varying float flash;
 varying vec2 uv_scale;
 
 void vertex() {
     vec4 cd = INSTANCE_CUSTOM;
-    UV = cd.xy + UV * cd.zw;
+    bool in_mass = cd.w < 0.0;
+    vec2 frame_size = vec2(cd.z, abs(cd.w));
+    UV = cd.xy + UV * frame_size;
     flash = COLOR.a;
-    uv_scale = cd.zw;
+    uv_scale = frame_size;
+    if ((mass_filter == 1 && in_mass) || (mass_filter == 2 && !in_mass)) {
+        VERTEX = vec2(0.0);   // collapse the quad: nothing rasterized
+    }
 }
 
 void fragment() {
@@ -93,7 +112,6 @@ void fragment() {
 }
 """
 	return shader
-
 
 # ================================================================================
 #------------------- EnemyTypePool — MultiMeshInstance2D per enemy type
@@ -139,6 +157,9 @@ class EnemyTypePool extends MultiMeshInstance2D:
 	var instance_rows: PackedInt32Array           # ligne courante = sheet_row de l'état courant
 	var instance_scales: Array[Vector2] = []
 	var instance_last_positions: Array[Vector2] = []
+	
+	var instance_in_mass: PackedByteArray   # 1 = rendered in the horde mass viewport
+	var mass_twin: MultiMeshInstance2D = null   # shares this pool's MultiMesh, lives in HordeOutline/SourceViewport
 
 	var buffer: PackedFloat32Array
 	var buffer_is_dirty: bool = false
@@ -182,6 +203,9 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		instance_scales.resize(max_instances)
 		instance_last_positions.resize(max_instances)
 		instance_scales.fill(Vector2.ONE)
+		
+		instance_in_mass.resize(max_instances)
+		instance_in_mass.fill(0)
 
 		var quad: QuadMesh = QuadMesh.new()
 		quad.size = Vector2(data.frame_size)
@@ -257,6 +281,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		instance_rows[idx] = initial_state.sheet_row
 		instance_scales[idx] = enemy_data.scale_mod
 		instance_last_positions[idx] = Vector2.INF
+		instance_in_mass[idx] = 0
 
 		write_transform(idx, enemy.global_position, initial_rotation, false, enemy_data.scale_mod)
 		write_uv(idx, 0, initial_state.sheet_row)
@@ -273,6 +298,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		buffer_is_dirty = true
 
 		instance_enemies[instance_index] = null
+		instance_in_mass[instance_index] = 0
 		active_instance_indices.erase(instance_index)
 		free_instance_indices.push_back(instance_index)
 
@@ -321,12 +347,48 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		instance_scales[instance_index] = new_scale
 		instance_last_positions[instance_index] = Vector2.INF
 
+	## Second MultiMeshInstance2D sharing this pool's MultiMesh, rendered inside the horde mass viewport.
+	## Same buffer, same upload; the shader picks which instances each node draws.
+	func create_mass_twin(parent: Node) -> void:
+		mass_twin = MultiMeshInstance2D.new()
+		mass_twin.name = "MassTwin_" + enemy_data.name
+		mass_twin.multimesh = multimesh
+		mass_twin.texture = texture
+		var twin_material: ShaderMaterial = ShaderMaterial.new()
+		twin_material.shader = (material as ShaderMaterial).shader
+		twin_material.set_shader_parameter("mass_filter", 2)
+		mass_twin.material = twin_material
+		parent.add_child(mass_twin)
+		(material as ShaderMaterial).set_shader_parameter("mass_filter", 1)
+
+
+	## Alive and not being knocked back: a knocked enemy bursts out of the mass.
+	func is_mass_candidate(enemy: Enemy, outline: HordeOutline) -> bool:
+		if enemy.is_dead:
+			return false
+		return enemy.knockback_velocity.length_squared() < outline.knockback_exclusion_speed_squared
+
+
+	## Pass 1 of the horde mass: count candidates in the grid.
+	func count_into_mass(outline: HordeOutline) -> void:
+		for idx: int in active_instance_indices:
+			var enemy: Enemy = instance_enemies[idx]
+			if !is_instance_valid(enemy) or !is_mass_candidate(enemy, outline):
+				continue
+			outline.add_count(enemy.global_position)
+
+
+	## custom_data.w sign = mass membership (negative = drawn by the mass twin, positive = drawn in the world).
+	func write_mass_flag(idx: int) -> void:
+		var base: int = idx * FLOATS_PER_INSTANCE + OFFSET_CUSTOM
+		buffer[base + 3] = -frame_uv_height if instance_in_mass[idx] == 1 else frame_uv_height
+		buffer_is_dirty = true
 
 	# ─────────────────────────────────────────────
 	#  UPDATE — called by parent renderer
 	# ─────────────────────────────────────────────
 
-	func update_instances(step: float) -> void:
+	func update_instances(step: float, outline: HordeOutline) -> void:
 		if multimesh == null:
 			return
 
@@ -336,8 +398,17 @@ class EnemyTypePool extends MultiMeshInstance2D:
 			if !is_instance_valid(enemy):
 				continue
 
-			# ── Transform ──
 			var pos: Vector2 = enemy.global_position
+
+			# ── Horde mass membership ──
+			var in_mass: bool = false
+			if outline != null and is_mass_candidate(enemy, outline):
+				in_mass = outline.resolve(pos, instance_in_mass[idx] == 1)
+			if in_mass != (instance_in_mass[idx] == 1):
+				instance_in_mass[idx] = 1 if in_mass else 0
+				write_mass_flag(idx)
+
+			# ── Transform ──
 			var rot: float = instance_rotations[idx]
 			if !enemy.is_dead:
 				rotation_snap_step = EnemyManager.get_rotation_snap_step()
@@ -386,7 +457,6 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		if buffer_is_dirty:
 			RenderingServer.multimesh_set_buffer(multimesh.get_rid(), buffer)
 			buffer_is_dirty = false
-
 
 	## drop corpse on final position, free index.
 	func finalize_death(instance_index: int) -> void:
@@ -448,7 +518,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		buffer[base + 0] = frame_col * frame_uv_width   # u_offset
 		buffer[base + 1] = frame_row * frame_uv_height  # v_offset
 		buffer[base + 2] = frame_uv_width
-		buffer[base + 3] = frame_uv_height
+		buffer[base + 3] = -frame_uv_height if instance_in_mass[idx] == 1 else frame_uv_height   # sign = mass flag
 		buffer_is_dirty = true
 
 

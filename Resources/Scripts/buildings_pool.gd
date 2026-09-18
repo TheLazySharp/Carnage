@@ -7,22 +7,12 @@ extends Resource
 ## footprint the placement needs.
 
 @export var biome : GameMaster.BIOMES = GameMaster.BIOMES.CITY
-
 @export var interiors : Array[BuildingData] = []
-## Belt pieces. Horizontal ones (width x depth) feed the TOP / BOTTOM belts,
-## vertical ones (depth x height) feed LEFT / RIGHT.
 @export var peripherals : Array[BuildingData] = []
 @export var corners : Array[BuildingData] = []
-## Narrow solid pieces used to pave the belt exactly (fence, bins, alley...)
 @export var fillers : Array[BuildingData] = []
-## District buildings (bank, GUNSMITH, car dealer...). Exactly one is placed
-## when the current district type matches. district_type is what makes them
-## mandatory; this array is just the shortlist.
 @export var district_buildings : Array[BuildingData] = []
-
 @export_group("Belt")
-## Belt pieces within this many cells of the longest fitting one also compete.
-## 0 = strict longest-first, which reads very repetitive once 16-cell pieces exist.
 @export var belt_length_tolerance : int = 4
 
 @export_group("Tuning")
