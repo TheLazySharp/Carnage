@@ -133,7 +133,7 @@
 [ext_resource type="Script" uid="uid://dikfsdntvl74q" path="res://Assets/Léonce/Scripts/pixel_trail.gd" id="134_ay2hx"]
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="136_empg6"]
 [ext_resource type="Shader" uid="uid://cxom3ns2x10nd" path="res://Assets/Léonce/Scripts/invert_text.gdshader" id="136_fxgdo"]
-[ext_resource type="Script" uid="uid://cqw7hee6wwou3" path="res://Assets/Léonce/Scripts/horde_outline.gd" id="138_onpsi"]
+[ext_resource type="Script" uid="uid://cqw7hee6wwou3" path="res://Assets/Léonce/Scripts/Outline Shader/horde_outline.gd" id="138_onpsi"]
 [ext_resource type="Texture2D" uid="uid://b84vnvh257ouw" path="res://Assets/Léonce/Enemies/zombieA_idle.png" id="138_x2kih"]
 [ext_resource type="Shader" uid="uid://cedvvo2phx5o2" path="res://Assets/Léonce/Scripts/smooth_fill.gdshader" id="139_dofx7"]
 
@@ -3417,7 +3417,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=3816514]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1352375260]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -3450,10 +3450,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1619983691]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=567849268]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=975439611]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=520133332]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -3470,7 +3470,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1261637845]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1261177625]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
