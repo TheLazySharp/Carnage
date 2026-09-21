@@ -24,7 +24,7 @@ func _on_portrait_hovered(new_index : int) -> void :
 	survivor_name.text = SurvivorsManager.known_survivors[survivor_index].name
 	survivor_age.text = str(SurvivorsManager.known_survivors[survivor_index].age)
 	survivor_job.text = SurvivorsManager.known_survivors[survivor_index].job_ressource.name
-	survivor_weapon.text = InventoryManager.get_weapon_name(SurvivorsManager.known_survivors[survivor_index].weapon)
+	survivor_weapon.text = SurvivorsManager.known_survivors[survivor_index].weapon.weapon_name
 	survivor_job_descr.text = SurvivorsManager.known_survivors[survivor_index].job_ressource.description
 	weapon_icon.texture = SurvivorsManager.known_survivors[survivor_index].weapon.weapon_icon
 	weapon_descr.text = SurvivorsManager.known_survivors[survivor_index].weapon.description

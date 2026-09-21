@@ -2,84 +2,9 @@
 
 [ext_resource type="Script" uid="uid://h3t1t4ebugvh" path="res://Scripts/WEAPONS/AMMOS/flame.gd" id="1_mdlt8"]
 [ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/Ammos/flame.tres" id="2_2how3"]
-[ext_resource type="Texture2D" uid="uid://tno1wabl440u" path="res://Assets/VFX/FlamethrowerCycle1.png" id="3_hetl7"]
-[ext_resource type="Texture2D" uid="uid://bv8dvxda7o7o1" path="res://Assets/VFX/FlamethrowerFinish1.png" id="4_n02f8"]
-[ext_resource type="Texture2D" uid="uid://bw6sttdbp45by" path="res://Assets/VFX/FlamethrowerStart1.png" id="5_5hdxj"]
 [ext_resource type="Texture2D" uid="uid://c5g5citkurmo8" path="res://Assets/VFX/Fire_v6_idle.png" id="6_pp6ps"]
 [ext_resource type="Texture2D" uid="uid://ccryy2owc4582" path="res://Assets/VFX/Fire_v6_fade.png" id="7_pc3f8"]
 [ext_resource type="Texture2D" uid="uid://bw8ilp62cjkba" path="res://Assets/VFX/Fire_v6_coming.png" id="8_3wv6c"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vc61k"]
-atlas = ExtResource("3_hetl7")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sswqd"]
-atlas = ExtResource("3_hetl7")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_huv7q"]
-atlas = ExtResource("3_hetl7")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bruel"]
-atlas = ExtResource("3_hetl7")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4xenf"]
-atlas = ExtResource("3_hetl7")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dvd7y"]
-atlas = ExtResource("3_hetl7")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w46mu"]
-atlas = ExtResource("4_n02f8")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0j8hj"]
-atlas = ExtResource("4_n02f8")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xd1el"]
-atlas = ExtResource("4_n02f8")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6srla"]
-atlas = ExtResource("4_n02f8")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_33bqb"]
-atlas = ExtResource("4_n02f8")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fyfhs"]
-atlas = ExtResource("4_n02f8")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wib0n"]
-atlas = ExtResource("5_5hdxj")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vlra4"]
-atlas = ExtResource("5_5hdxj")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ddb6k"]
-atlas = ExtResource("5_5hdxj")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uepw5"]
-atlas = ExtResource("5_5hdxj")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tximj"]
-atlas = ExtResource("5_5hdxj")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c88fx"]
-atlas = ExtResource("5_5hdxj")
-region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8810"]
 atlas = ExtResource("6_pp6ps")
@@ -273,78 +198,6 @@ region = Rect2(192, 192, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vc61k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sswqd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_huv7q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bruel")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4xenf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dvd7y")
-}],
-"loop": 1,
-"name": &"fire_cycle",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w46mu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0j8hj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xd1el")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6srla")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_33bqb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fyfhs")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": 0,
-"name": &"fire_end",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wib0n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vlra4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ddb6k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uepw5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tximj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c88fx")
-}],
-"loop": 0,
-"name": &"fire_start",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_e8810")
 }, {
 "duration": 1.0,
@@ -435,7 +288,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"huge_fire_end",
-"speed": 12.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -500,7 +353,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"huge_fire_start",
-"speed": 12.0
+"speed": 16.0
 }]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_huv7q"]
@@ -514,6 +367,7 @@ script = ExtResource("1_mdlt8")
 flame_data = ExtResource("2_2how3")
 
 [node name="FireRate" type="Timer" parent="." unique_id=1980866952]
+wait_time = 0.8
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=746174199]
@@ -521,8 +375,9 @@ z_index = 14
 position = Vector2(64, -32)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_wib0n")
-animation = &"huge_fire_start"
-frame = 15
+animation = &"huge_fire_end"
+frame = 11
+frame_progress = 1.0
 centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=952470941 groups=["weapons"]]

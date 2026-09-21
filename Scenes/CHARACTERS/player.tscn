@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/PLAYER/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="Resource" uid="uid://dubbw5mialr30" path="res://Resources/Cars/skyline.tres" id="2_73b8b"]
 [ext_resource type="PackedScene" uid="uid://caih21wmxphk2" path="res://Scenes/VFX/ghost.tscn" id="2_nbj0p"]
+[ext_resource type="Script" uid="uid://ceckjc6ch4gch" path="res://Scripts/VFX/neons.gd" id="3_2lx7x"]
 [ext_resource type="Texture2D" uid="uid://b3rc8ngbuu013" path="res://Assets/VFX/Smoke_v8_Fade_In.png" id="3_s0c68"]
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
 [ext_resource type="Texture2D" uid="uid://cdpnf2ok8xnsx" path="res://Assets/VFX/Smoke_v8_Fade_Out.png" id="4_nbj0p"]
@@ -30,6 +31,7 @@
 [ext_resource type="Script" uid="uid://5ophynjbob84" path="res://Scripts/CHARACTERS/PLAYER/dash_manager.gd" id="26_dmmou"]
 [ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="26_nbmfc"]
 [ext_resource type="Script" uid="uid://u50nem48pd8" path="res://Scripts/CHARACTERS/PLAYER/sprite_fx_manager.gd" id="29_5bcg3"]
+[ext_resource type="Shader" uid="uid://d3cku4r77mwvd" path="res://Shaders/neon_underglow.gdshader" id="30_i8f1n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 radius = 19.0
@@ -373,8 +375,15 @@ animations = [{
 resource_local_to_scene = true
 shader = ExtResource("17_s25yl")
 shader_parameter/active = false
-shader_parameter/blood_tint = Color(0.55, 0.12, 0.12, 1)
+shader_parameter/blood_tint = Color(0.4618621, 8.001737e-07, 1.4439226e-07, 1)
 shader_parameter/blood_amount = 0.0
+shader_parameter/shade_min = 0.35
+shader_parameter/shade_max = 1.2
+shader_parameter/glow_energy = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lx7x"]
+shader = ExtResource("30_i8f1n")
+shader_parameter/falloff = 1.00000002375
 
 [sub_resource type="Animation" id="Animation_3arfo"]
 length = 0.001
@@ -449,6 +458,7 @@ script = ExtResource("1_rsha1")
 debug_car_data = ExtResource("2_73b8b")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
+visible = false
 z_as_relative = false
 position = Vector2(-21, 0)
 rotation = 1.5707964
@@ -542,6 +552,7 @@ offset_transform_position = Vector2(0, -0.5)
 color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
+visible = false
 collision_layer = 256
 collision_mask = 512
 monitoring = false
@@ -648,6 +659,7 @@ wait_time = 0.15
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=707894945]
 
 [node name="EnemiesDetectionArea" type="Area2D" parent="." unique_id=1481692765]
+visible = false
 position = Vector2(9, 0)
 collision_mask = 2
 script = ExtResource("18_qdvgx")
@@ -687,6 +699,8 @@ ghost_scene = ExtResource("2_nbj0p")
 [node name="BloodyEngine" type="Node2D" parent="." unique_id=1712951826]
 script = ExtResource("25_vd0i7")
 vaccum_particles_scene = ExtResource("26_3jhd0")
+blood_hold_time = 0.2
+neons_activated = true
 
 [node name="FuelTimer" type="Timer" parent="BloodyEngine" unique_id=1184317257]
 wait_time = 3.0
@@ -700,6 +714,43 @@ material = SubResource("ShaderMaterial_vd0i7")
 rotation = 1.5707964
 texture = ExtResource("26_nbmfc")
 offset = Vector2(0, 20)
+
+[node name="Neons" type="Node2D" parent="CarSprite" unique_id=1752156398]
+script = ExtResource("3_2lx7x")
+glow_intensity = 3.5
+beacon_intensity = 3.0
+
+[node name="NeonFront" type="ColorRect" parent="CarSprite/Neons" unique_id=2064742782]
+z_index = -1
+material = SubResource("ShaderMaterial_2lx7x")
+offset_left = -13.008392
+offset_top = -12.999999
+offset_right = 13.024155
+offset_bottom = -4.8051996
+
+[node name="NeonBack" type="ColorRect" parent="CarSprite/Neons" unique_id=1867748111]
+z_index = -1
+material = SubResource("ShaderMaterial_2lx7x")
+offset_left = -13.041344
+offset_top = 46.991367
+offset_right = 13.030403
+offset_bottom = 53.86233
+
+[node name="ColorRight" type="ColorRect" parent="CarSprite/Neons" unique_id=1538055259]
+z_index = -1
+material = SubResource("ShaderMaterial_2lx7x")
+offset_left = 9.04578
+offset_top = -2.0860825
+offset_right = 16.33239
+offset_bottom = 42.112133
+
+[node name="ColorLeft" type="ColorRect" parent="CarSprite/Neons" unique_id=74740207]
+z_index = -1
+material = SubResource("ShaderMaterial_2lx7x")
+offset_left = -15.96285
+offset_top = -2.756157
+offset_right = -8.928399
+offset_bottom = 42.112133
 
 [node name="Flash" type="AnimationPlayer" parent="CarSprite" unique_id=573113732]
 root_node = NodePath("../../VFX")

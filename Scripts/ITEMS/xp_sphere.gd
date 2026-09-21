@@ -3,6 +3,7 @@ extends Area2D
 ## spawn. Nothing is instantiated or freed during gameplay.
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var car_neons : CarNeons = get_tree().get_first_node_in_group(&"car_neons") as CarNeons
 
 #---- JUICE
 const SPAWN_SPEED_MIN : float = 120.0
@@ -101,6 +102,7 @@ func _physics_process(delta: float) -> void:
 	var distance_squared : float = to_player.length_squared()
 	if can_be_collected and distance_squared < COLLECT_DISTANCE_SQ:
 		XPManager.add_xp_in_bucket(xp_value)
+		car_neons.play(&"xp", Color.WHITE, CarNeons.Pattern.RAINBOW, 1.0, CarNeons.PRIORITY_XP, 1.5)
 		pool.release_xp(pool_index)
 		return
 	global_position += to_player.normalized() * speed * delta

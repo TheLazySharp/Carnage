@@ -20,6 +20,8 @@ var price_mult : int = 10
 @onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
 @onready var not_enough_cash_rect: ColorRect = $Confirm/MarginContainer/NotEnoughCash
 
+var shop_price : int = 0
+
 var card_color : Color
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var discounted_price : int
@@ -31,8 +33,7 @@ func _ready() -> void:
 
 func setup(p_charm : CharmData, p_is_in_shop : bool) -> void : 
 	charm = p_charm
-	discounted_price = int(charm.price * ShopManager.discount.get_value())
-
+	
 	charm_name.text = InventoryManager.get_charm_name(p_charm)
 	icon.texture = charm.icon
 	card.color = charm.get_shop_color()
@@ -42,10 +43,11 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	description.text = charm.description
 	sold_out.hide()
 	if charm.is_in_shop:
-		charm.price = rng.randi_range(
+		shop_price = rng.randi_range(
 			int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),
 			int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod))
-		price_tag.text = str(charm.price)
+		price_tag.text = str(shop_price)
+		discounted_price = int(shop_price * ShopManager.discount.get_value())
 		discount_tag.text = str(discounted_price)
 		price_cont.show()
 	else : price_cont.hide()
@@ -64,8 +66,8 @@ func _on_confirm_pressed() -> void:
 	CharmsManager.register(charm, effect)
 
 	if charm.is_in_shop:
-		if min(charm.price, discounted_price) <= InventoryManager.fortune:
-			InventoryManager.fortune -=  min(charm.price, discounted_price)
+		if min(shop_price, discounted_price) <= InventoryManager.fortune:
+			InventoryManager.fortune -=  min(shop_price, discounted_price)
 			SignalManager.emit_signal("update_fortune")
 			sold_out.show()
 			price_cont.hide()
@@ -84,7 +86,7 @@ func not_enough_cash()-> void :
 	
 	
 func _on_fortune_updated() -> void : 
-	if charm.price > InventoryManager.fortune:
+	if shop_price > InventoryManager.fortune:
 		price_tag.add_theme_color_override("font_color",Color.RED)
 	if discounted_price > InventoryManager.fortune:
 		discount_tag.add_theme_color_override("font_color",Color.RED)

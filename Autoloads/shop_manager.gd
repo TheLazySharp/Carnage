@@ -8,17 +8,17 @@ var item_levels : Dictionary = {
 }
 
 var boosts_price_levels : Dictionary = {
-	InventoryManager.Rarities.COMMON: 10,
-	InventoryManager.Rarities.RARE: 20,
+	InventoryManager.Rarities.COMMON: 40,
+	InventoryManager.Rarities.RARE: 60,
 	InventoryManager.Rarities.EPIC: 100,
-	InventoryManager.Rarities.LEGENDARY: 300
+	InventoryManager.Rarities.LEGENDARY: 200
 }
 
 var charms_price_levels : Dictionary = {
-	InventoryManager.Rarities.COMMON: 10,
-	InventoryManager.Rarities.RARE: 20,
+	InventoryManager.Rarities.COMMON: 40,
+	InventoryManager.Rarities.RARE: 60,
 	InventoryManager.Rarities.EPIC: 100,
-	InventoryManager.Rarities.LEGENDARY: 300
+	InventoryManager.Rarities.LEGENDARY: 200
 }
 
 var item_colors : Dictionary = {

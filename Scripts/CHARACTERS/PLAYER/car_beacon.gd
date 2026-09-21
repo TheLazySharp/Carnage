@@ -1,17 +1,17 @@
 extends Node2D
 
 @onready var car: CharacterBody2D = $".."
-
+@onready var car_neons : CarNeons = get_tree().get_first_node_in_group(&"car_neons") as CarNeons
 @onready var far_beeps: AudioStreamPlayer2D = $FarBeeps
 @onready var close_beeps: AudioStreamPlayer2D = $CloseBeeps
 @onready var beep_timer: Timer = $BeepTimer
 @onready var survivors_spawner: Node2D = $/root/World/Spawners/Survivors
 
-var beacon_pos : Vector2
+var beacon_pos : Vector2 = Vector2.ZERO
 var survivor_is_saved : bool = false
 var close_far_threshold : float = 800
 var beeps_steps : float = 200
-
+var beacon_activated : bool = false
 
 func _ready() -> void:
 	if GameMaster.is_debug():
@@ -21,6 +21,15 @@ func _ready() -> void:
 		SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)
 		SignalManager.game_paused.connect(_on_game_paused)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("activate_beacon") and !GameMaster.is_debug():
+		if beacon_activated:
+			stop_beacon()
+		else:
+			if !beacon_activated:
+				beacon_activated = true
+				car_neons.start_beacon(beacon_pos)
+		
 
 
 func _process(_delta: float) -> void:
@@ -55,15 +64,16 @@ func _process(_delta: float) -> void:
 
 func _on_beacon_activated(new_pos : Vector2) -> void:
 	beacon_pos = new_pos
+	activate_beacon()
+	
+	
 	
 func get_distance_from_beacon()-> float:
 	return car.global_position.distance_to(beacon_pos)
 	
 func _on_survivor_picked_up(_survivor : SurvivorData) -> void:
 	survivor_is_saved = true
-	far_beeps.stop()
-	close_beeps.stop()
-
+	stop_beacon()
 
 func _on_beep_timer_timeout() -> void:
 	if GameMaster.is_debug():
@@ -75,8 +85,11 @@ func _on_beep_timer_timeout() -> void:
 		beep_timer.stop()
 	if get_distance_from_beacon() > close_far_threshold:
 		far_beeps.play()
+		car_neons.beacon_pulse()
 	else : 
 		close_beeps.play()
+		car_neons.beacon_pulse()
+		
 	
 func _on_game_paused(game_paused : bool) -> void :
 	if game_paused:
@@ -85,4 +98,20 @@ func _on_game_paused(game_paused : bool) -> void :
 	else : 
 		close_beeps.play()
 		far_beeps.play()
+
+func activate_beacon() -> void :
+	if beacon_pos == Vector2.ZERO:
+		return
+	beacon_activated = true
+	close_beeps.play()
+	far_beeps.play()
+	car_neons.start_beacon(beacon_pos)
 	
+
+
+func stop_beacon() -> void : 
+	beacon_activated = false
+	close_beeps.stop()
+	far_beeps.stop()
+	if car_neons.is_beacon_active():
+		car_neons.stop_beacon()

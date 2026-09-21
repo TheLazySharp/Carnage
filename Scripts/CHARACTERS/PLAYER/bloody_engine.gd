@@ -13,12 +13,20 @@ var vaccum_particles : CPUParticles2D = null
 var absorb_until : float = 0.0
 var absorb_window : float = 0.18
 var tint_speed : float = 7.0
+var blood_amount : float = 0.0
+@export var blood_hold_time : float = 0.4
+var blood_hold_timer : float = 0.0
+@export var sprite_tinted : bool = false
+@export var neons_activated : bool = false
+
+signal blood_absorbed
 
 #FUEL
 @onready var fuel_bar: ProgressBar = $"/root/World/CanvasLayer/HUD/FuelGauge"
 @onready var fuel_label: Label = $"/root/World/CanvasLayer/HUD/FuelGauge/FuelLabel"
 @export var fuel_per_splat: int = 1
 var max_fuel : float
+
 
 
 func _ready() -> void:
@@ -40,7 +48,7 @@ func _ready() -> void:
 	vaccum_particles.emitting = false
 
 
-func init_bloody_engine(p_player : CarData, p_sprite : Sprite2D, dash_manager : DashManager) -> void :
+func init_bloody_engine(p_player : CarData, p_sprite : Sprite2D, _dash_manager : DashManager) -> void :
 	player = p_player
 	car_sprite = p_sprite
 	max_fuel = player.max_fuel.get_value()
@@ -61,8 +69,11 @@ func _process(delta: float) -> void:
 
 	if vaccum_particles != null:
 		vaccum_particles.emitting = absorbing
+	
+	if sprite_tinted:
+		update_blood_tint(absorbing, delta)
+		
 
-	update_blood_tint(absorbing, delta)
 
 func _physics_process(_delta: float) -> void:
 	if game_paused:
@@ -82,6 +93,8 @@ func fuel_up(added_fuel : int) -> void :
 	fuel_bar.value = player.current_fuel
 
 func bloody_vaccum() -> void :
+	if neons_activated:
+		emit_signal("blood_absorbed")
 	absorb_until = Time.get_ticks_msec() / 1000.0 + absorb_window
 
 
@@ -91,10 +104,23 @@ func update_blood_tint(absorbing : bool, delta : float) -> void:
 	var mat : ShaderMaterial = car_sprite.material as ShaderMaterial
 	if mat == null:
 		return
-	var target : float = 1.0 if absorbing else 0.0
-	var raw : Variant = mat.get_shader_parameter("blood_amount")
-	var current : float = raw if raw != null else 0.0
-	mat.set_shader_parameter("blood_amount", lerp(current, target, tint_speed * delta))
+	# Keep the target at 1.0 for a short time after each absorption,
+	# so brief or intermittent absorption still reaches full tint/glow
+	if absorbing:
+		blood_hold_timer = blood_hold_time
+	else:
+		blood_hold_timer = maxf(blood_hold_timer - delta, 0.0)
+	var target : float = 1.0 if blood_hold_timer > 0.0 else 0.0
+	# minf() prevents overshoot if tint_speed * delta > 1.0 (lag spike)
+	var new_amount : float = lerpf(blood_amount, target, minf(tint_speed * delta, 1.0))
+	# Snap near the target so the lerp actually settles and stops updating the uniform
+	if absf(new_amount - target) < 0.005:
+		new_amount = target
+	if new_amount == blood_amount:
+		return
+	blood_amount = new_amount
+	mat.set_shader_parameter("blood_amount", blood_amount)
+
 
 func _on_gas_tank_picked_up() -> void :
 	fuel_up(int(player.max_fuel.get_value() - player.current_fuel))

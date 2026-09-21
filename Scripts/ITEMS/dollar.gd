@@ -2,6 +2,7 @@ extends Area2D
 ## Pooled collectable, same pattern as the XP orb.
 
 @onready var icon: Sprite2D = $Sprite2D
+@onready var car_neons : CarNeons = get_tree().get_first_node_in_group(&"car_neons") as CarNeons
 
 #---- JUICE
 const SPAWN_SPEED_MIN : float = 200.0
@@ -129,6 +130,7 @@ func _physics_process(delta: float) -> void:
 	if can_be_collected and distance_squared < COLLECT_DISTANCE_SQ:
 		InventoryManager.fortune += value
 		SignalManager.emit_signal("dollar_picked_up")
+		car_neons.play(&"dollars", Color(0.1, 0.9, 0.2, 1.0), CarNeons.Pattern.PULSE, 0.4, CarNeons.PRIORITY_DOLLARS)
 		if pool != null:
 			pool.release_dollar(pool_index)
 		else:
