@@ -55,8 +55,18 @@ var night_losing_strenght_boost : float = 2
 var side_impact_ratio: float = 0.3
 var front_impact_ratio: float = -1.2
 var last_move_dir := Vector2.RIGHT
-
 @export var speed_variation: float = 10.0
+
+const JUICE = preload("uid://dbohpdgym7v6q")
+## Above this knockback, an undirected death (car kill) keeps the current throw
+const DEATH_KEEP_THROW_SPEED_SQ : float = 100.0
+# ---- AIR THROW (top-down fake flight: scale arc + spin, tuned in JuiceSettings) ----
+var air_duration : float = 0.0     # 0 = on the ground
+var air_time : float = 0.0
+var air_spin_total : float = 0.0   # spin angle reached at landing (rad)
+var air_scale : float = 1.0        # read by the renderer
+var air_spin_angle : float = 0.0   # read by the renderer
+
 
 @export_group("WALLS PHYSICS")
 var near_wall : bool = false
@@ -139,10 +149,12 @@ func _process(delta: float) -> void:
 	delta = minf(delta, 0.066)
 	if game_paused:
 		return
+	if air_duration > 0.0:
+		update_air(delta)
 	if is_dead:
 		if knockback_velocity.length_squared() > 1.0:
 			velocity = knockback_velocity
-			var dead_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * delta)
+			var dead_length: float = move_toward(knockback_velocity.length(), 0.0, get_knockback_decel() * delta)
 			knockback_velocity = knockback_velocity.normalized() * dead_length
 			update_move(delta)
 		else:
@@ -152,7 +164,7 @@ func _process(delta: float) -> void:
 
 	if knockback_velocity.length_squared() > 100:
 		velocity = knockback_velocity
-		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * delta)
+		var knockback_length: float = move_toward(knockback_velocity.length(), 0.0, get_knockback_decel() * delta)
 		knockback_velocity = knockback_velocity.normalized() * knockback_length
 
 	accumululated_delta += delta
@@ -186,6 +198,8 @@ func register_to_renderer() -> void:
 		mm_index = mm_pool.register_enemy(self)
  
 func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: float, player_global_pos : Vector2) -> void:
+	if air_duration > 0.0:
+		return  # flying over the ground: neighbours can't push it
 	if car_right == Vector2.ZERO:
 		knockback_velocity = car_forward.normalized() * impact_force.get_value() * player_speed_ratio
 		return
@@ -206,7 +220,7 @@ func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: fl
 	knockback_velocity = push_direction.normalized() * impact_force.get_value() * player_speed_ratio
   
 func chained_impacts() -> void:
-	if knockback_velocity.length_squared() < chained_impacts_threshold * chained_impacts_threshold:
+	if air_duration > 0.0 or knockback_velocity.length_squared() < chained_impacts_threshold * chained_impacts_threshold:
 		return
 	for i in range(horde_neighbors.size()-1,-1,-1):
 		if !is_instance_valid(horde_neighbors[i]):
@@ -216,6 +230,99 @@ func chained_impacts() -> void:
 			var transferred_ratio: float = (knockback_velocity.length() / impact_force.get_value()) * losing_strenght_ratio
 			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio, global_position)
  
+## Single entry point for a car contact: throw first, then damages.
+## Returns false when the hit is ignored (dead / paused / flying) so the car skips its slowdown.
+func hit_by_car(damages: int, car_velocity: Vector2, car_forward: Vector2, car_position: Vector2, car_speed_ratio: float) -> bool:
+	if game_paused or is_dead or air_duration > 0.0:
+		return false
+	apply_car_impact(car_velocity, car_forward, car_position, car_speed_ratio)
+	if damages > 0:
+		get_damages_from_car(damages)
+	return true
+
+
+## Frontal hit at speed -> flung over the car (fake flight).
+## Frontal hit, slow -> pushed ahead on the ground. Side hit -> flung sideways.
+## Replaces the current knockback so repeated contacts never stack.
+func apply_car_impact(car_velocity: Vector2, car_forward: Vector2, car_position: Vector2, car_speed_ratio: float) -> void:
+	if !JUICE.enemy_impact_enabled:
+		return
+	var car_speed: float = car_velocity.length()
+	# Motion axis, not facing: drift and reverse throw along the real motion
+	var hit_axis: Vector2 = car_velocity / car_speed if car_speed > 1.0 else car_forward
+	var hit_right: Vector2 = Vector2(-hit_axis.y, hit_axis.x)
+
+	var to_enemy: Vector2 = global_position - car_position
+	var distance: float = to_enemy.length()
+	var frontality: float = 1.0
+	if distance > 0.01:
+		frontality = to_enemy.dot(hit_axis) / distance
+	var side: float = signf(to_enemy.dot(hit_right))
+	if side == 0.0:
+		side = 1.0 if randf() > 0.5 else -1.0
+
+	var direction: Vector2
+	var throw_speed: float
+	if frontality >= cos(deg_to_rad(JUICE.frontal_cone_deg)):
+		if JUICE.air_throw_enabled and car_speed_ratio >= JUICE.air_min_speed_ratio:
+			launch_over_car(car_velocity, car_speed_ratio)
+			return
+		var deflect: float = deg_to_rad(randf_range(JUICE.frontal_deflect_min_deg, JUICE.frontal_deflect_max_deg))
+		direction = hit_axis.rotated(deflect * side)
+		throw_speed = car_speed * JUICE.frontal_speed_transfer
+	else:
+		direction = (hit_right * side + hit_axis * JUICE.side_forward_carry).normalized()
+		throw_speed = car_speed * JUICE.side_speed_transfer
+
+	throw_speed *= impact_force.get_value() / JUICE.impact_force_reference
+	knockback_velocity = direction * maxf(throw_speed, JUICE.min_throw_speed)
+
+## The enemy keeps only a share of the car velocity: the car passes under it
+## and it lands behind. Flight is faked by the renderer (scale arc + spin).
+func launch_over_car(car_velocity: Vector2, car_speed_ratio: float) -> void:
+	var spread: float = deg_to_rad(randf_range(-JUICE.air_spread_deg, JUICE.air_spread_deg))
+	knockback_velocity = (car_velocity * JUICE.air_forward_carry).rotated(spread)
+	var speed_t: float = clampf(inverse_lerp(JUICE.air_min_speed_ratio, 1.0, car_speed_ratio), 0.0, 1.0)
+	air_duration = lerpf(JUICE.air_duration_min, JUICE.air_duration_max, speed_t)
+	air_time = 0.0
+	var spin_sign: float = 1.0 if randf() > 0.5 else -1.0
+	air_spin_total = randf_range(JUICE.air_spin_turns_min, JUICE.air_spin_turns_max) * TAU * spin_sign
+	air_spin_angle = 0.0
+	air_scale = 1.0
+
+
+## Scale follows a 0 -> 1 -> 0 arc, spin progresses linearly
+func update_air(delta: float) -> void:
+	air_time += delta
+	var progress: float = air_time / air_duration
+	if progress >= 1.0:
+		land()
+		return
+	air_scale = 1.0 + 4.0 * progress * (1.0 - progress) * JUICE.air_scale_peak
+	air_spin_angle = air_spin_total * progress
+
+
+func land() -> void:
+	air_duration = 0.0
+	air_time = 0.0
+	air_scale = 1.0
+	knockback_velocity *= JUICE.air_landing_speed_keep
+	if is_dead:
+		air_spin_angle = air_spin_total   # corpse keeps its landing angle
+	else:
+		air_spin_angle = 0.0              # alive: renderer faces the car again
+	#blow_up(global_position, -knockback_velocity.normalized())
+	
+	
+
+
+## Knockback deceleration, reduced while flying
+func get_knockback_decel() -> float:
+	var decel: float = knockback_friction.get_value()
+	if air_duration > 0.0:
+		decel *= JUICE.air_friction_ratio
+	return decel
+
 func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
 	if game_paused or is_dead:
 		return
@@ -297,13 +404,18 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	process_mode = Node.PROCESS_MODE_INHERIT
 
 	# 3. projection
-	var push_direction: Vector2 = death_direction if death_direction != Vector2.ZERO else -last_move_dir
-	var push_force: float = death_force if death_force > 0.0 else impact_force.get_value() * 0.5
-	knockback_velocity = Vector2.ZERO
-	apply_knockback(push_direction, push_force)
+	# Directed death (weapon): replaces the knockback.
+	# Undirected death (car kill): keeps the throw set by hit_by_car() the same frame.
+	var keeps_throw: bool = death_direction == Vector2.ZERO \
+			and knockback_velocity.length_squared() > DEATH_KEEP_THROW_SPEED_SQ
+	if !keeps_throw:
+		var push_direction: Vector2 = death_direction if death_direction != Vector2.ZERO else -last_move_dir
+		var push_force: float = death_force if death_force > 0.0 else impact_force.get_value() * 0.5
+		knockback_velocity = Vector2.ZERO
+		apply_knockback(push_direction, push_force)
 
 	# 4. blood vfx
-	blow_up(global_position, - push_direction)
+	blow_up(global_position, -knockback_velocity.normalized())
 
 	# 5. dead sprites :
 	set_animation_state("dead")

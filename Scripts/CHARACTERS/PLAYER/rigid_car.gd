@@ -76,15 +76,17 @@ var autopilot_state : AutopilotState = AutopilotState.NONE
 var autopilot_speed : float = 0.0
 var autopilot_exit_accel : float = 800.0
 
-# ---------------- CONSTANTS (former magic numbers) ----------------
+# ---------------- CONSTANTS ----------------
 const WALL_BOUNCE_DAMP : float = 0.9
 const WALL_ALIGN_LERP : float = 0.3
 const WALL_ROTATION_SPEED : float = 5.0
 const MIN_STEER_FACTOR : float = 0.25
 const WALL_IMPACT_MIN_SPEED : float = 80.0  # min frontal speed component to emit wall_impact
 const WALL_GLANCE_DAMP : float = 1.0   # damp at grazing angle (no speed loss)
-
 var drift_locked : bool = false  # set on wall hit, cleared when the drift key is released
+const JUICE = preload("uid://dbohpdgym7v6q")
+var enemy_hit_frame : int = -1            # physics frame of the current slowdown budget
+var enemy_hit_loss_budget : float = 0.0   # speed share still losable this frame
 
 # ---------------- DEBUG ----------------
 #@export var debug_drive_mode : bool = false  # drop the car scene in a map test scene: driving only
@@ -389,10 +391,35 @@ func _on_taking_damages_timeout() -> void:
 
 
 func _on_hitbox_area_entered(area : Area2D) -> void:
-	if !game_paused and velocity.length() >= velocity_floor:
-		if area.is_in_group("ennemies") and "get_damages_from_car" in area:
-			area.get_damages_from_car(roundi(player.dmg.get_value()))
-			StatsManager.total_car_dmg += roundi(player.dmg.get_value())
+	if game_paused or !area.is_in_group("ennemies"):
+		return
+	var hit_enemy : Enemy = area as Enemy
+	if hit_enemy == null:
+		return
+	# Below velocity_floor: no damages, but the enemy is still bumped
+	var damages : int = 0
+	if velocity.length() >= velocity_floor:
+		damages = roundi(player.dmg.get_value())
+		StatsManager.total_car_dmg += damages
+	var forward : Vector2 = Vector2.RIGHT.rotated(rotation)
+	var speed_ratio : float = velocity.length() / player.unscaled_speed()
+	if hit_enemy.hit_by_car(damages, velocity, forward, global_position, speed_ratio):
+		_apply_enemy_hit_slowdown()
+
+## Each hit costs a bit of speed, capped per physics frame:
+## ploughing into 15 zombies at once costs the same as 3
+func _apply_enemy_hit_slowdown() -> void:
+	if !JUICE.car_slowdown_enabled:
+		return
+	var frame : int = Engine.get_physics_frames()
+	if frame != enemy_hit_frame:
+		enemy_hit_frame = frame
+		enemy_hit_loss_budget = JUICE.car_max_speed_loss_per_frame
+	var loss : float = minf(JUICE.car_speed_loss_per_hit, enemy_hit_loss_budget)
+	if loss <= 0.0:
+		return
+	enemy_hit_loss_budget -= loss
+	velocity *= 1.0 - loss
 
 
 # ---------------- GAME STATE ----------------

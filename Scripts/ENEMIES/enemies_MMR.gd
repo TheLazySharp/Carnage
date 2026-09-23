@@ -157,6 +157,8 @@ class EnemyTypePool extends MultiMeshInstance2D:
 	var instance_rows: PackedInt32Array           # ligne courante = sheet_row de l'état courant
 	var instance_scales: Array[Vector2] = []
 	var instance_last_positions: Array[Vector2] = []
+	var instance_air_scales: PackedFloat32Array   # last drawn fake-flight scale (1 = ground)
+	var instance_air_spins: PackedFloat32Array    # last drawn flight spin (rad)
 	
 	var instance_in_mass: PackedByteArray   # 1 = rendered in the horde mass viewport
 	var mass_twin: MultiMeshInstance2D = null   # shares this pool's MultiMesh, lives in HordeOutline/SourceViewport
@@ -206,6 +208,11 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		
 		instance_in_mass.resize(max_instances)
 		instance_in_mass.fill(0)
+
+		instance_air_scales.resize(max_instances)
+		instance_air_scales.fill(1.0)
+		instance_air_spins.resize(max_instances)
+		instance_air_spins.fill(0.0)
 
 		var quad: QuadMesh = QuadMesh.new()
 		quad.size = Vector2(data.frame_size)
@@ -282,6 +289,8 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		instance_scales[idx] = enemy_data.scale_mod
 		instance_last_positions[idx] = Vector2.INF
 		instance_in_mass[idx] = 0
+		instance_air_scales[idx] = 1.0
+		instance_air_spins[idx] = 0.0
 
 		write_transform(idx, enemy.global_position, initial_rotation, false, enemy_data.scale_mod)
 		write_uv(idx, 0, initial_state.sheet_row)
@@ -364,7 +373,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 
 	## Alive and not being knocked back: a knocked enemy bursts out of the mass.
 	func is_mass_candidate(enemy: Enemy, outline: HordeOutline) -> bool:
-		if enemy.is_dead:
+		if enemy.is_dead or enemy.air_duration > 0.0:
 			return false
 		return enemy.knockback_velocity.length_squared() < outline.knockback_exclusion_speed_squared
 
@@ -420,10 +429,16 @@ class EnemyTypePool extends MultiMeshInstance2D:
 					rot = angle_to_car(pos)
 				elif enemy.velocity.length_squared() > 0.01:
 					rot = direction_to_rotation(enemy.velocity.angle())
-			if pos != instance_last_positions[idx] or rot != instance_rotations[idx]:
+			# Fake flight (JuiceSettings air throw): scale arc + spin on top of the base transform
+			var air_scale: float = enemy.air_scale
+			var air_spin: float = enemy.air_spin_angle
+			if pos != instance_last_positions[idx] or rot != instance_rotations[idx] \
+					or air_scale != instance_air_scales[idx] or air_spin != instance_air_spins[idx]:
 				instance_last_positions[idx] = pos
 				instance_rotations[idx] = rot
-				write_transform(idx, pos, rot, false, instance_scales[idx])
+				instance_air_scales[idx] = air_scale
+				instance_air_spins[idx] = air_spin
+				write_transform(idx, pos, rot + air_spin, false, instance_scales[idx] * air_scale)
 
 			# ── Animation ──
 			var sprite_state: EnemySpriteState = instance_states[idx]
@@ -446,7 +461,10 @@ class EnemyTypePool extends MultiMeshInstance2D:
 				instance_frames[idx] = next_frame
 				write_uv(idx, next_frame, instance_rows[idx])
 
-			if sprite_state.is_death_state and instance_frames[idx] >= last_frame:
+			# Corpse drops once the death anim is over AND the body landed and stopped sliding
+			if sprite_state.is_death_state and instance_frames[idx] >= last_frame \
+					and enemy.air_duration <= 0.0 \
+					and enemy.knockback_velocity.length_squared() <= 1.0:
 				finished_deaths.append(idx)
 
 		# ── Transferts living -> corpses (out of loop)
@@ -469,7 +487,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		if corpse_pool != null:
 			corpse_pool.add_corpse(
 				final_position,
-				instance_rotations[instance_index],
+				instance_rotations[instance_index] + instance_air_spins[instance_index],
 				instance_scales[instance_index],
 				instance_frames[instance_index],
 				instance_rows[instance_index]

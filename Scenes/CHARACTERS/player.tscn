@@ -20,7 +20,6 @@
 [ext_resource type="AudioStream" uid="uid://btw3ucq0agu40" path="res://Assets/Audio/SFX/Car/car crash.mp3" id="13_in73v"]
 [ext_resource type="Script" uid="uid://b1scnpur1dpt5" path="res://Scripts/CHARACTERS/PLAYER/engine_audio_manager.gd" id="14_iish4"]
 [ext_resource type="Shader" uid="uid://d1quj0fpa74xf" path="res://Shaders/flash.gdshader" id="17_s25yl"]
-[ext_resource type="Script" uid="uid://cxh3wfsxbjuvm" path="res://Scripts/CHARACTERS/PLAYER/enemies_detection_area.gd" id="18_qdvgx"]
 [ext_resource type="Script" uid="uid://cgiigywajssx1" path="res://Scripts/CHARACTERS/PLAYER/car_beacon.gd" id="21_3arfo"]
 [ext_resource type="AudioStream" uid="uid://dxkrhhd1y7ehy" path="res://Assets/Audio/SFX/Car/Beeps/beep_far.mp3" id="22_s25yl"]
 [ext_resource type="AudioStream" uid="uid://bj3qouo8llu14" path="res://Assets/Audio/SFX/Car/Beeps/beep_close.mp3" id="23_vd0i7"]
@@ -658,18 +657,6 @@ wait_time = 0.15
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=707894945]
 
-[node name="EnemiesDetectionArea" type="Area2D" parent="." unique_id=1481692765]
-visible = false
-position = Vector2(9, 0)
-collision_mask = 2
-script = ExtResource("18_qdvgx")
-
-[node name="EnemiesDetectionShape" type="CollisionShape2D" parent="EnemiesDetectionArea" unique_id=385055825]
-position = Vector2(-30, 0)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_ly7qr")
-debug_color = Color(0.94509804, 0, 0, 0.41960785)
-
 [node name="Beacon" type="Node2D" parent="." unique_id=1728405434]
 script = ExtResource("21_3arfo")
 
@@ -764,6 +751,5 @@ ghost_scene = ExtResource("2_nbj0p")
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="finished" from="Audio/StartEngine" to="." method="_on_start_engine_finished"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
-[connection signal="area_entered" from="EnemiesDetectionArea" to="EnemiesDetectionArea" method="_on_area_entered"]
 [connection signal="timeout" from="Beacon/BeepTimer" to="Beacon" method="_on_beep_timer_timeout"]
 [connection signal="timeout" from="BloodyEngine/FuelTimer" to="BloodyEngine" method="_on_fuel_timer_timeout"]

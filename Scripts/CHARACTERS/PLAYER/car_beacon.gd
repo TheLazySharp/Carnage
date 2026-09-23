@@ -5,7 +5,7 @@ extends Node2D
 @onready var far_beeps: AudioStreamPlayer2D = $FarBeeps
 @onready var close_beeps: AudioStreamPlayer2D = $CloseBeeps
 @onready var beep_timer: Timer = $BeepTimer
-@onready var survivors_spawner: Node2D = $/root/World/Spawners/Survivors
+@onready var survivors_spawner: Node2D
 
 var beacon_pos : Vector2 = Vector2.ZERO
 var survivor_is_saved : bool = false
@@ -16,6 +16,7 @@ var beacon_activated : bool = false
 func _ready() -> void:
 	if GameMaster.is_debug():
 		return
+	survivors_spawner = $/root/World/Spawners/Survivors
 	if survivors_spawner:
 		survivors_spawner.beacon_activated.connect(_on_beacon_activated)
 		SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)

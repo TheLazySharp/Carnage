@@ -16,6 +16,12 @@ const PRIORITY_BEACON : int = 100
 const CHANNEL_BLOOD : StringName = &"blood"
 const CHANNEL_BEACON : StringName = &"beacon"
 
+# Debug: above everything so the tested effect is always visible
+const PRIORITY_DEBUG : int = 1000
+const DEBUG_NEON_NAMES : Array[StringName] = [&"blood", &"dollars", &"xp", &"beacon", &"low_health",&"idle"]
+const DEBUG_DOLLARS_COLOR : Color = Color(0.1, 0.9, 0.2, 1.0)
+const DEBUG_XP_PERIOD : float = 1.5
+
 
 class NeonEffect:
 	var channel : StringName
@@ -27,7 +33,7 @@ class NeonEffect:
 	var expire_at : float
 
 
-@onready var bloody_engine : BloodyEngine = $/root/World/Car/BloodyEngine
+@onready var bloody_engine : BloodyEngine
 
 # Brightness multiplier for all neons. Too high and the WorldEnvironment glow bleeds over the car = MAX 3.5
 @export_range(0.0, 10.0, 0.05) var glow_intensity : float = 3.0:
@@ -62,6 +68,17 @@ class NeonEffect:
 # Beacon neon brightness between two flashes
 @export_range(0.0, 1.0) var beacon_min : float = 0.15
 
+
+@export_group("Debug")
+# Simulated beep interval for the debug beacon
+@export var debug_beacon_interval : float = 0.5
+
+# Starts on idle so the first press shows blood
+var _debug_index : int = DEBUG_NEON_NAMES.size() - 1
+var _debug_channel : StringName = &""
+var _debug_beacon_active : bool = false
+
+
 var _neons : Array[ColorRect] = []
 # Direction of each neon from the body center, in local space (used by the beacon)
 var _neon_directions : Array[Vector2] = []
@@ -83,6 +100,11 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	if GameMaster.is_debug():
+		bloody_engine = $/root/Lands/Car/BloodyEngine
+	else : 
+		bloody_engine = $/root/World/Car/BloodyEngine
+	
 	show_behind_parent = true
 	modulate = Color(glow_intensity, glow_intensity, glow_intensity, 1.0)
 	for child : Node in get_children():
@@ -96,6 +118,7 @@ func _ready() -> void:
 	_current_colors.fill(_get_idle_color())
 	_from_colors = _current_colors.duplicate()
 	bloody_engine.blood_absorbed.connect(_on_blood_absorbed)
+	
 	_wake()
 
 
@@ -156,9 +179,14 @@ func is_beacon_active() -> bool:
 
 func _process(delta : float) -> void:
 	_time += delta
+	if _debug_beacon_active:
+		_beacon_target = get_global_mouse_position()
+		if _time - _beacon_last_pulse >= debug_beacon_interval:
+			beacon_pulse()
 	var top_effect : NeonEffect = _update_effects()
 	var top_channel : StringName = top_effect.channel if top_effect != null else &""
 	if top_channel != _displayed_channel:
+		# Displayed effect changed: cross-fade from the colors currently shown
 		_displayed_channel = top_channel
 		_start_transition()
 	if _transition_progress < 1.0:
@@ -263,6 +291,46 @@ func _wake() -> void:
 	show()
 	set_process(true)
 
-
 func _on_blood_absorbed() -> void:
 	play(CHANNEL_BLOOD, blood_color, Pattern.PULSE, blood_hold_time, PRIORITY_BLOOD)
+
+
+#--------------------- DEBUG ---------------------
+
+func _unhandled_input(event : InputEvent) -> void:
+	if not GameMaster.is_debug():
+		return
+	var key_event : InputEventKey = event as InputEventKey
+	if key_event == null or not key_event.pressed or key_event.echo:
+		return
+	if key_event.keycode == KEY_N:
+		_debug_next_neon()
+		get_viewport().set_input_as_handled()
+
+
+func _debug_next_neon() -> void:
+	# Each debug effect uses its own channel so switching triggers the in-game cross-fade
+	if _debug_channel != &"":
+		stop(_debug_channel)
+	_debug_beacon_active = false
+	_debug_index = (_debug_index + 1) % DEBUG_NEON_NAMES.size()
+	var neon_name : StringName = DEBUG_NEON_NAMES[_debug_index]
+	_debug_channel = StringName("debug_" + String(neon_name))
+	match neon_name:
+		&"blood":
+			play(_debug_channel, blood_color, Pattern.PULSE, HOLD_UNTIL_STOP, PRIORITY_DEBUG)
+		&"dollars":
+			play(_debug_channel, DEBUG_DOLLARS_COLOR, Pattern.PULSE, HOLD_UNTIL_STOP, PRIORITY_DEBUG)
+		&"xp":
+			play(_debug_channel, Color.WHITE, Pattern.RAINBOW, HOLD_UNTIL_STOP, PRIORITY_DEBUG, DEBUG_XP_PERIOD)
+		&"beacon":
+			_debug_beacon_active = true
+			_beacon_target = get_global_mouse_position()
+			play(_debug_channel, beacon_color, Pattern.BEACON, HOLD_UNTIL_STOP, PRIORITY_DEBUG)
+		&"low_health":
+			play(_debug_channel, Color.RED, Pattern.BLINK, HOLD_UNTIL_STOP, PRIORITY_DEBUG)
+			
+		_:
+			# Idle: nothing to play, the neons fade back to idle
+			_debug_channel = &""
+	print("[Neons debug] ", neon_name)

@@ -6,7 +6,7 @@ var game_paused : bool = false
 @onready var car: CharacterBody2D = $".."
 var car_sprite : Sprite2D = null
 
-@onready var blood_impact_pool: BloodImpactPool = $/root/World/VFX/BloodImpactPool
+@onready var blood_impact_pool: BloodImpactPool
 #VFX
 @export var vaccum_particles_scene : PackedScene
 var vaccum_particles : CPUParticles2D = null
@@ -22,8 +22,8 @@ var blood_hold_timer : float = 0.0
 signal blood_absorbed
 
 #FUEL
-@onready var fuel_bar: ProgressBar = $"/root/World/CanvasLayer/HUD/FuelGauge"
-@onready var fuel_label: Label = $"/root/World/CanvasLayer/HUD/FuelGauge/FuelLabel"
+@onready var fuel_bar: ProgressBar
+@onready var fuel_label: Label
 @export var fuel_per_splat: int = 1
 var max_fuel : float
 
@@ -38,7 +38,11 @@ func _ready() -> void:
 			if timer != null:
 				timer.stop()
 		return
-		
+	blood_impact_pool= $/root/World/VFX/BloodImpactPool
+	fuel_bar = $"/root/World/CanvasLayer/HUD/FuelGauge"
+	fuel_label = $"/root/World/CanvasLayer/HUD/FuelGauge/FuelLabel"
+	
+	
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.fuel_changed.connect(_on_fuel_changed)
 	ItemManager.gas.connect(_on_gas_tank_picked_up)

@@ -93,6 +93,7 @@ alignment = 0
 script = ExtResource("4_k2e8w")
 
 [node name="GodMode" type="Button" parent="VBoxContainer" unique_id=1806008062]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24
@@ -105,6 +106,7 @@ alignment = 0
 script = ExtResource("4_k2e8w")
 
 [node name="Sandbox" type="Button" parent="VBoxContainer" unique_id=1348200445]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_constants/h_separation = 24
