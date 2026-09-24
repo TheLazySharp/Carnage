@@ -125,6 +125,8 @@
 [ext_resource type="Texture2D" uid="uid://dsva0sntb8c47" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 2.tres" id="106_3js2r"]
 [ext_resource type="Texture2D" uid="uid://88ih4l6ca3yq" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 3.tres" id="107_ay2hx"]
 [ext_resource type="Texture2D" uid="uid://c5hhwx0vq3le8" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 4.tres" id="108_fxgdo"]
+[ext_resource type="Script" uid="uid://dpw3cr3q7anp5" path="res://Assets/Léonce/Scripts/car_controller.gd" id="121_0cnaj"]
+[ext_resource type="Script" uid="uid://bmfjj6iuv0a4l" path="res://Assets/Léonce/Scripts/afterimage_spawner.gd" id="121_empg6"]
 [ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="126_rv0vo"]
 [ext_resource type="Texture2D" uid="uid://bt0kltrpfgcqr" path="res://Assets/XP/xp_orb.png" id="131_qfmaa"]
 [ext_resource type="Shader" uid="uid://bkajea3iwwy0c" path="res://Assets/Léonce/Scripts/trail_ribbon.gdshader" id="132_ay2hx"]
@@ -1232,6 +1234,10 @@ damping_min = 68.109
 damping_max = 68.109
 anim_offset_max = 1.0
 
+[sub_resource type="Gradient" id="Gradient_27q37"]
+offsets = PackedFloat32Array(0, 0.31460676, 0.997191, 1)
+colors = PackedColorArray(6.545782e-06, 0.7452105, 0.9293724, 1, 0.29803923, 0.50980395, 1, 1, 0.8745098, 0.25882354, 0.20392157, 1, 1, 1, 1, 1)
+
 [sub_resource type="Resource" id="Resource_r7ksg"]
 script = ExtResource("101_uhr7h")
 type = 1
@@ -1516,7 +1522,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../HordePOC/SourceViewport/Zombie17:position")
+tracks/0/path = NodePath("../HordeAnimation/SourceViewport/Zombie17:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1528,7 +1534,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../HordePOC/SourceViewport/Zombie17:rotation")
+tracks/1/path = NodePath("../HordeAnimation/SourceViewport/Zombie17:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1545,7 +1551,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../HordePOC/SourceViewport/Zombie17:position")
+tracks/0/path = NodePath("../HordeAnimation/SourceViewport/Zombie17:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
@@ -1557,7 +1563,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../HordePOC/SourceViewport/Zombie17:rotation")
+tracks/1/path = NodePath("../HordeAnimation/SourceViewport/Zombie17:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2482,7 +2488,7 @@ output_dir_override = "res://Assets/Tilesets/Roofs/Roof Cracks/"
 position = Vector2(1808.17, 1150.545)
 scale = Vector2(1e-05, 1e-05)
 offset = Vector2(37.24, 32.7)
-zoom = Vector2(3.47, 3.47)
+zoom = Vector2(1.575, 1.575)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
 visible = false
@@ -4010,7 +4016,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1603994300]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=673279502]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -4043,10 +4049,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=920716582]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=327162573]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1645476200]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=620542976]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -4063,7 +4069,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=869121756]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1792094158]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -4126,9 +4132,10 @@ process_material = SubResource("ParticleProcessMaterial_tyiq4")
 
 [node name="Skyline" type="Sprite2D" parent="." unique_id=953112584]
 z_index = 10
-position = Vector2(2075, 1125)
+position = Vector2(1951.325, 1135.055)
 rotation = 3.1481745
 texture = ExtResource("99_8l2sf")
+script = ExtResource("121_0cnaj")
 
 [node name="Sprite2D" type="Sprite2D" parent="Skyline" unique_id=446376489]
 modulate = Color(0, 0, 0, 0.6666667)
@@ -4136,6 +4143,14 @@ z_index = -1
 position = Vector2(-3.02417, -3.7000732)
 rotation = -0.0065817833
 texture = ExtResource("99_8l2sf")
+
+[node name="Afterimage" type="Node2D" parent="Skyline" unique_id=547547359 node_paths=PackedStringArray("car_sprite")]
+script = ExtResource("121_empg6")
+car_sprite = NodePath("..")
+spawn_interval = 0.08
+afterimage_lifetime = 0.4
+tint_gradient = SubResource("Gradient_27q37")
+tint_strength = 0.4
 
 [node name="BloodVacuumParticles" parent="." unique_id=741759721 instance=ExtResource("95_jyj36")]
 position = Vector2(2124, 1130)
@@ -4289,44 +4304,46 @@ theme_override_constants/line_separation = -34
 theme_override_font_sizes/normal_font_size = 64
 text = "MARKET"
 
-[node name="Zombie17" type="Node2D" parent="." unique_id=1021496349]
+[node name="HordePOC" type="Node2D" parent="." unique_id=1346592041]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Zombie17" unique_id=1248017909]
+[node name="Zombie17" type="Node2D" parent="HordePOC" unique_id=1021496349]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HordePOC/Zombie17" unique_id=1248017909]
 libraries/ = SubResource("AnimationLibrary_0cnaj")
 autoplay = &"walk_idle02"
 
-[node name="Zombie16" type="Node2D" parent="." unique_id=248518868]
+[node name="Zombie16" type="Node2D" parent="HordePOC" unique_id=248518868]
 position = Vector2(1678, 1103)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Zombie16" unique_id=1893337151]
-root_node = NodePath("../../HordePOC/SourceViewport")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HordePOC/Zombie16" unique_id=1893337151]
+root_node = NodePath("../../HordeAnimation/SourceViewport")
 libraries/ = SubResource("AnimationLibrary_l2qv3")
 autoplay = &"idle_walk01"
 
-[node name="HordePOC" type="Node2D" parent="." unique_id=829277057]
+[node name="HordeAnimation" type="Node2D" parent="HordePOC" unique_id=829277057]
 script = ExtResource("138_onpsi")
 flood_steps = 100
 outline_color = Color(0.3647059, 0.105882354, 0.1764706, 1)
 
-[node name="Display" type="Sprite2D" parent="HordePOC" unique_id=3099985]
+[node name="Display" type="Sprite2D" parent="HordePOC/HordeAnimation" unique_id=3099985]
 z_index = 10
 texture_filter = 1
 material = SubResource("ShaderMaterial_cbgfx")
 position = Vector2(1769.59, 1122.605)
 
-[node name="SourceViewport" type="SubViewport" parent="HordePOC" unique_id=1956556113]
+[node name="SourceViewport" type="SubViewport" parent="HordePOC/HordeAnimation" unique_id=1956556113]
 transparent_bg = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(200, 200)
 render_target_update_mode = 4
 
-[node name="Zombie1" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=884217194]
+[node name="Zombie1" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=884217194]
 position = Vector2(107.855, 40.185)
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle01"
 autoplay = "idle01"
 
-[node name="Zombie2" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=1487924506]
+[node name="Zombie2" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=1487924506]
 position = Vector2(36.72, 49.805)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4334,7 +4351,7 @@ animation = &"idle03"
 autoplay = "idle03"
 frame_progress = 0.16169268
 
-[node name="Zombie3" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=2082647825]
+[node name="Zombie3" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=2082647825]
 position = Vector2(19.435, 55.86)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4342,7 +4359,7 @@ animation = &"idle02"
 autoplay = "idle02"
 frame_progress = 0.16090745
 
-[node name="Zombie4" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=117595701]
+[node name="Zombie4" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=117595701]
 position = Vector2(107.08, 82.495)
 rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4350,7 +4367,7 @@ animation = &"idle03"
 autoplay = "idle03"
 frame_progress = 0.13948105
 
-[node name="Zombie5" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=602304176]
+[node name="Zombie5" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=602304176]
 position = Vector2(80.905, 34.185)
 rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4358,7 +4375,7 @@ animation = &"idle02"
 autoplay = "idle02"
 frame_progress = 0.434361
 
-[node name="Zombie6" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=679195590]
+[node name="Zombie6" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=679195590]
 position = Vector2(87.635, 44.395)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4366,14 +4383,14 @@ animation = &"idle04"
 autoplay = "idle04"
 frame_progress = 0.9972601
 
-[node name="Zombie18" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=618350886]
+[node name="Zombie18" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=618350886]
 position = Vector2(41.45, 75.8)
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle04"
 autoplay = "idle04"
 frame_progress = 0.42495748
 
-[node name="Zombie7" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=1738544182]
+[node name="Zombie7" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=1738544182]
 position = Vector2(124.295, 51.94)
 rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4381,7 +4398,7 @@ animation = &"idle05"
 autoplay = "idle05"
 frame_progress = 0.2314883
 
-[node name="Zombie8" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=43965712]
+[node name="Zombie8" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=43965712]
 position = Vector2(72.49, 46.65)
 rotation = 3.1415927
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4389,14 +4406,14 @@ animation = &"idle01"
 autoplay = "idle01"
 frame_progress = 0.15899467
 
-[node name="Zombie9" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=202100300]
+[node name="Zombie9" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=202100300]
 position = Vector2(97.53, 25.855)
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle03"
 autoplay = "idle03"
 frame_progress = 0.86922914
 
-[node name="Zombie10" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=1296301725]
+[node name="Zombie10" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=1296301725]
 position = Vector2(55.99, 33.375)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4404,7 +4421,7 @@ animation = &"idle05"
 autoplay = "idle05"
 frame_progress = 0.13720107
 
-[node name="Zombie11" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=1951541961]
+[node name="Zombie11" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=1951541961]
 position = Vector2(124.915, 36.13)
 rotation = 3.1415927
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4412,35 +4429,35 @@ animation = &"idle05"
 autoplay = "idle05"
 frame_progress = 0.13720107
 
-[node name="Zombie12" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=1882745491]
+[node name="Zombie12" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=1882745491]
 position = Vector2(30.875, 85.415)
 rotation = 3.1415927
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle05"
 autoplay = "idle05"
 
-[node name="Zombie13" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=996700737]
+[node name="Zombie13" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=996700737]
 position = Vector2(112.875, 62.195)
 rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle02"
 autoplay = "idle02"
 
-[node name="Zombie14" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=1862509347]
+[node name="Zombie14" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=1862509347]
 position = Vector2(94.22, 72.915)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle06"
 autoplay = "idle06"
 
-[node name="Zombie15" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=992647369]
+[node name="Zombie15" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=992647369]
 position = Vector2(76.04, 76.6)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_tyiq4")
 animation = &"idle07"
 autoplay = "idle07"
 
-[node name="Zombie16" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=611743688]
+[node name="Zombie16" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=611743688]
 z_index = 6
 position = Vector2(0, 61.255)
 sprite_frames = SubResource("SpriteFrames_tyiq4")
@@ -4448,7 +4465,7 @@ animation = &"walk_idle01"
 autoplay = "walk_idle01"
 frame_progress = 0.42928672
 
-[node name="Zombie17" type="AnimatedSprite2D" parent="HordePOC/SourceViewport" unique_id=659988217]
+[node name="Zombie17" type="AnimatedSprite2D" parent="HordePOC/HordeAnimation/SourceViewport" unique_id=659988217]
 z_index = 6
 position = Vector2(75.19, 61.255)
 rotation = 1.5707964
