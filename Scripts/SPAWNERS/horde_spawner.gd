@@ -34,7 +34,7 @@ var current_leader : Enemy = null
 func _ready() -> void:
 	super()  # camera + map_generated -> build_grid() -> setup_trigger()
 	SignalManager.game_paused.connect(_on_game_paused)
-	max_enemy_count = 50 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 20
+	#max_enemy_count = 50 if GameMaster.game_mode == GameMaster.GAME_MODES.GOD else 20
 
 	scene_to_spawn = ENEMY
 	footprint = Vector2i.ONE
@@ -72,8 +72,7 @@ func setup_trigger() -> void:
 	for center : Vector2 in _horde_centers:
 		_spawn_horde(center)
 
-	print("[HordeSpawner] ", _horde_centers.size(), " hordes of ",
-			max_enemy_count, " enemies")
+	#print("[HordeSpawner] ", _horde_centers.size(), " hordes of ",max_enemy_count, " enemies")
 
 
 func is_placement_valid(_anchor : Vector2i, _size : Vector2i, world_center : Vector2) -> bool:

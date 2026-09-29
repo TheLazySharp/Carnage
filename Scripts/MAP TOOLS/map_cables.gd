@@ -108,7 +108,7 @@ func build(data : MapData, building_rects : Array[Rect2i]) -> void:
 			var fan_index : int = _rect_at(fan_hit, building_rects)
 			_spawn_cable(start, _anchor(fan_hit, dir, 1.0, building_rects[fan_index], cell, rng))
 
-	print("[MapCables] built ", _built, " cables")
+	#print("[MapCables] built ", _built, " cables")
 
 
 func _corner_rays(rect : Rect2i) -> Array[Array]:

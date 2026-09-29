@@ -32,6 +32,14 @@ class_name SpriteFXManager
 @export var ghost_interval : float = 0.06
 @export var ghost_tint : Color = Color(1.0, 1.0, 1.0, 0.45)
 
+# ---- ENEMY HIT KICK (sprite only, tuned in JuiceSettings) ----
+const JUICE = preload("uid://dbohpdgym7v6q")
+var base_position : Vector2 = Vector2.ZERO
+var kick_offset : Vector2 = Vector2.ZERO      # car local space
+var kick_offset_vel : Vector2 = Vector2.ZERO
+var kick_yaw : float = 0.0
+var kick_yaw_vel : float = 0.0
+
 var car : CharacterBody2D
 var sprite : Sprite2D
 var base_scale : Vector2 = Vector2.ONE
@@ -58,6 +66,7 @@ func init_fx(p_car : CharacterBody2D, p_sprite : Sprite2D, dash_manager : DashMa
 	sprite = p_sprite
 	base_scale = sprite.scale
 	base_rotation = sprite.rotation
+	base_position = sprite.position
 	last_car_rotation = car.rotation
 
 	dash_manager.dash_anticipating.connect(_on_dash_anticipating)
@@ -111,10 +120,14 @@ func _physics_process(delta : float) -> void:
 		target_lean = steer * deg_to_rad(lean_max_deg) * speed_factor
 	lean = lerp_angle(lean, target_lean, lean_speed * delta)
 
+	# ---- ENEMY HIT KICK: damped springs back to rest ----
+	update_kick(delta)
+
 	# ---- APPLY (tween pulses take priority over scale) ----
 	if pulse_tween == null or !pulse_tween.is_running():
 		sprite.scale = Vector2(base_scale.x * (1.0 + stretch), base_scale.y * (1.0 - stretch * 0.5))
-	sprite.rotation = base_rotation + lean + chassis
+	sprite.rotation = base_rotation + lean + chassis + kick_yaw
+	sprite.position = base_position + kick_offset
 
 
 func _on_dash_anticipating() -> void:
@@ -147,3 +160,34 @@ func _pulse(target_mult : Vector2, duration : float) -> void:
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	pulse_tween.tween_property(sprite, "scale", base_scale, duration * 0.65) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+## Enemy hit: instant sprite snap away from the enemy + yaw, springs bring it back.
+## Sprite only: driving physics untouched.
+func car_hit_kick(enemy_position : Vector2, car_speed_ratio : float) -> void:
+	if !JUICE.car_kick_enabled or car == null:
+		return
+	var local_dir : Vector2 = (enemy_position - car.global_position).rotated(-car.global_rotation)
+	if local_dir.length_squared() < 0.0001:
+		return
+	local_dir = local_dir.normalized()
+	var intensity : float = clampf(car_speed_ratio, JUICE.car_kick_min_intensity, 1.0)
+
+	# Recoil: snap away from the enemy (frontal hit = backward)
+	kick_offset -= local_dir * JUICE.car_kick_offset_px * intensity
+	kick_offset = kick_offset.limit_length(JUICE.car_kick_max_offset_px)
+
+	# Yaw: contact ahead of the centre pushes the nose away, behind pushes the tail away
+	var yaw_sign : float = -signf(local_dir.y) * (1.0 if local_dir.x >= 0.0 else -1.0)
+	var yaw_amount : float = absf(local_dir.y) * deg_to_rad(JUICE.car_kick_yaw_deg) * intensity
+	var max_yaw : float = deg_to_rad(JUICE.car_kick_max_yaw_deg)
+	kick_yaw = clampf(kick_yaw + yaw_sign * yaw_amount, -max_yaw, max_yaw)
+
+
+## Damped springs (semi-implicit Euler) pulling offset and yaw back to zero
+func update_kick(delta : float) -> void:
+	var stiffness_k : float = JUICE.car_kick_stiffness
+	var damping_c : float = JUICE.car_kick_damping
+	kick_offset_vel += (-stiffness_k * kick_offset - damping_c * kick_offset_vel) * delta
+	kick_offset += kick_offset_vel * delta
+	kick_yaw_vel += (-stiffness_k * kick_yaw - damping_c * kick_yaw_vel) * delta
+	kick_yaw += kick_yaw_vel * delta

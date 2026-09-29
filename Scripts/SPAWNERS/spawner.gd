@@ -150,6 +150,5 @@ func get_footprint_cells(anchor : Vector2i, size : Vector2i) -> Array[Vector2i]:
 
 func _on_map_generated(data : MapData) -> void:
 	build_grid(data)
-	print("[Spawner] ", name, ": ", free_cells.size(), " free cells, scene: ",
-			"OK" if scene_to_spawn != null else "MISSING")
+	#print("[Spawner] ", name, ": ", free_cells.size(), " free cells, scene: ","OK" if scene_to_spawn != null else "MISSING")
 	setup_trigger()

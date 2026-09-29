@@ -59,7 +59,7 @@ func build(data : MapData) -> void:
 		_placed.append(anchor)
 		built += 1
 
-	print("[MapDebris] built ", built, " debris patches over ", anchors.size(), " candidate cells")
+	#print("[MapDebris] built ", built, " debris patches over ", anchors.size(), " candidate cells")
 
 
 # =================================================================

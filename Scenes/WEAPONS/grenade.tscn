@@ -24,7 +24,8 @@ collision_mask = 1026
 [node name="ExplosionShape" type="CollisionShape2D" parent="ExplosionArea" unique_id=1618164039 groups=["explosives"]]
 shape = SubResource("CircleShape2D_dfktb")
 
-[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="." unique_id=1479109185]
+[node name="ExplosionSFX" type="AudioStreamPlayer" parent="." unique_id=1699463355]
+bus = &"Weapons"
 
 [connection signal="area_entered" from="ExplosionArea" to="." method="_on_explosion_area_entered"]
 [connection signal="area_exited" from="ExplosionArea" to="." method="_on_explosion_area_exited"]

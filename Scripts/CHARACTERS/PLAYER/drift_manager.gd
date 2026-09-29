@@ -1,10 +1,10 @@
 extends Node2D
 
-@onready var skid_parent : Node2D = get_node("/root/World/SkidMarks")
+@onready var skid_parent : Node2D
 
-@onready var drift_label : Label = $"../../CanvasLayer/HUD/DRIFT"
-@onready var total_label : Label = $"../../CanvasLayer/HUD/TotalDrift"
-@onready var drift_multi_label : Label = $"../../CanvasLayer/HUD/DriftMulti"
+@onready var drift_label : Label
+@onready var total_label : Label
+@onready var drift_multi_label : Label
 
 # ---------------- AUTO SLIDE ----------------
 @export var enable_auto_slide : bool = true
@@ -95,6 +95,10 @@ func _ready() -> void:
 	if GameMaster.is_debug():
 		_ready_debug()
 		return
+	drift_label = $"../../CanvasLayer/HUD/DRIFT"
+	total_label = $"../../CanvasLayer/HUD/TotalDrift"
+	drift_multi_label = $"../../CanvasLayer/HUD/DriftMulti"
+	skid_parent = get_node("/root/World/SkidMarks")
 	SignalManager.wall_collision.connect(_on_wall_collision)
 	SignalManager.game_paused.connect(_on_game_paused)
 	drift_sfx_base_volume = drift_sfx.volume_db

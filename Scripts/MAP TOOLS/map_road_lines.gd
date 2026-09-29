@@ -51,7 +51,7 @@ func build(data : MapData) -> void:
 		var chain : Array[int] = _build_chain(edge_index, used)
 		_spawn_chain(chain, data.edge_is_artery[edge_index], edge_index)
 
-	print("[MapRoadLines] built ", _built, " marking chains")
+	#print("[MapRoadLines] built ", _built, " marking chains")
 
 
 func _node_degrees() -> PackedInt32Array:

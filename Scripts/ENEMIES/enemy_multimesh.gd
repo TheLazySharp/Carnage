@@ -66,6 +66,7 @@ var air_time : float = 0.0
 var air_spin_total : float = 0.0   # spin angle reached at landing (rad)
 var air_scale : float = 1.0        # read by the renderer
 var air_spin_angle : float = 0.0   # read by the renderer
+var hit_pause_left : float = 0.0   # car hit-pause: frozen in white flash, then thrown
 
 
 @export_group("WALLS PHYSICS")
@@ -149,6 +150,9 @@ func _process(delta: float) -> void:
 	delta = minf(delta, 0.066)
 	if game_paused:
 		return
+	if hit_pause_left > 0.0:
+		hit_pause_left -= delta
+		return  # frozen: no move, no flight, no accumulated delta (no catch-up jump)
 	if air_duration > 0.0:
 		update_air(delta)
 	if is_dead:
@@ -230,12 +234,15 @@ func chained_impacts() -> void:
 			var transferred_ratio: float = (knockback_velocity.length() / impact_force.get_value()) * losing_strenght_ratio
 			horde_neighbors[i].get_impact(push_dir, Vector2.ZERO, transferred_ratio, global_position)
  
-## Single entry point for a car contact: throw first, then damages.
-## Returns false when the hit is ignored (dead / paused / flying) so the car skips its slowdown.
+## Single entry point for a car contact: throw first, then hit-pause, then damages.
+## Returns false when the hit is ignored (dead / paused / flying) so the car skips its feedback.
 func hit_by_car(damages: int, car_velocity: Vector2, car_forward: Vector2, car_position: Vector2, car_speed_ratio: float) -> bool:
 	if game_paused or is_dead or air_duration > 0.0:
 		return false
 	apply_car_impact(car_velocity, car_forward, car_position, car_speed_ratio)
+	if JUICE.victim_pause_enabled:
+		hit_pause_left = JUICE.victim_pause_duration
+		flash_damage()  # also on non-lethal bumps below velocity_floor
 	if damages > 0:
 		get_damages_from_car(damages)
 	return true
@@ -333,14 +340,14 @@ func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_
 	apply_knockback(hit_direction, knockback_force)   # impact non létal
 	if current_life <= 0:
 		current_life = 0
-		call_deferred("on_death", hit_direction, knockback_force * 2.0)
+		call_deferred("on_death", hit_direction, knockback_force)
 		return
 	
 	var shot_rotation: float = hit_direction.angle() if hit_direction != Vector2.ZERO else last_move_dir.angle()
 	blood_shot_pool.shoot_blood(global_position, shot_rotation)
 
  
-func get_damages_from_car(damages: int) -> void:
+func get_damages_from_car(damages: int,hit_direction: Vector2 = Vector2.ZERO) -> void:
 	if not game_paused:
 		damage_timer.start()
 		current_life -= damages
@@ -351,6 +358,10 @@ func get_damages_from_car(damages: int) -> void:
 			call_deferred("on_death")
 			#call_deferred("fuel_up")
  
+	var hit_rotation: float = hit_direction.angle() if hit_direction != Vector2.ZERO else last_move_dir.angle()
+	blood_shot_pool.shoot_blood(global_position, hit_rotation)
+
+
 func flash_damage() -> void:
 	if mm_pool == null or mm_index < 0:
 		return
@@ -385,11 +396,13 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	#cut interractions
 	collision_box.set_deferred("disabled", true)
 	damage_timer_on_player.stop()
-	damage_flash_timer.stop()
 	if state_machine != null:
 		state_machine.process_mode = Node.PROCESS_MODE_DISABLED
-	if mm_pool != null and mm_index >= 0:
-		mm_pool.set_enemy_flash(mm_index, false)
+	# Car hit-pause: keep the white flash, DamageFlashTimer ends it
+	if hit_pause_left <= 0.0:
+		damage_flash_timer.stop()
+		if mm_pool != null and mm_index >= 0:
+			mm_pool.set_enemy_flash(mm_index, false)
 
 	# 2. drops
 
@@ -406,8 +419,7 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	# 3. projection
 	# Directed death (weapon): replaces the knockback.
 	# Undirected death (car kill): keeps the throw set by hit_by_car() the same frame.
-	var keeps_throw: bool = death_direction == Vector2.ZERO \
-			and knockback_velocity.length_squared() > DEATH_KEEP_THROW_SPEED_SQ
+	var keeps_throw: bool = death_direction == Vector2.ZERO and knockback_velocity.length_squared() > DEATH_KEEP_THROW_SPEED_SQ
 	if !keeps_throw:
 		var push_direction: Vector2 = death_direction if death_direction != Vector2.ZERO else -last_move_dir
 		var push_force: float = death_force if death_force > 0.0 else impact_force.get_value() * 0.5

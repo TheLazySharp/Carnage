@@ -99,8 +99,7 @@ func build(data : MapData) -> void:
 	for edge_index : int in data.edges.size():
 		_mark_arrows_on_edge(edge_index, degrees)
 
-	print("[MapRoadMarks] ", _crosswalks, " crosswalks, ", _arrows, " arrows (",
-			_rejected, " dropped for overlapping a crossing)")
+	#print("[MapRoadMarks] ", _crosswalks, " crosswalks, ", _arrows, " arrows (",_rejected, " dropped for overlapping a crossing)")
 
 
 func _node_degrees() -> PackedInt32Array:

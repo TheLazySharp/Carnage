@@ -48,7 +48,10 @@ func _on_select_pressed() -> void:
 		GameMaster.GAME_MODES.BUILD:
 			SceneManager.load_level(SceneManager.SCENES.START_INTRO)
 		GameMaster.GAME_MODES.DEV:
-			SceneManager.load_level(SceneManager.SCENES.ROADMAP)
+			if SceneManager.race_mode:
+				SceneManager.load_level(SceneManager.SCENES.RACE)
+			else: 
+				SceneManager.load_level(SceneManager.SCENES.ROADMAP)
 		GameMaster.GAME_MODES.GOD:
 			SceneManager.load_level(SceneManager.SCENES.GOD_MOD_TRAINING)
 		GameMaster.GAME_MODES.SANDBOX:

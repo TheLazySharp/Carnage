@@ -4,4 +4,8 @@
 
 [resource]
 script = ExtResource("1_u0xap")
+victim_pause_enabled = false
+hit_stop_enabled = false
+car_kick_offset_px = 6.0
+car_kick_damping = 12.0
 metadata/_custom_type_script = "uid://w4iwh640l66l"

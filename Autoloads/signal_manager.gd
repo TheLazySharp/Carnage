@@ -119,3 +119,25 @@ signal start_background_music
 
 @warning_ignore("unused_signal")
 signal reward_chosen
+
+@warning_ignore("unused_signal")
+signal beacon_initiated(beacon_pos : Vector2)
+
+@warning_ignore("unused_signal")
+signal beacon_stop
+
+@warning_ignore("unused_signal")
+signal beacon_start
+
+@warning_ignore("unused_signal")
+signal mission_completed
+
+# ---- RACE (oval districts) ----
+@warning_ignore("unused_signal")
+signal race_started
+@warning_ignore("unused_signal")
+signal lap_completed(lap_count : int)
+@warning_ignore("unused_signal")
+signal lap_rejected
+@warning_ignore("unused_signal")
+signal wrong_way_changed(is_wrong_way : bool)

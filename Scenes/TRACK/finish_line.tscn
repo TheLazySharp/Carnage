@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bvchg7uhhmlwd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dfktb"]
+size = Vector2(32, 384)
+
+[node name="FinishLine" type="Area2D" unique_id=1121196550]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=663053309]
+shape = SubResource("RectangleShape2D_dfktb")

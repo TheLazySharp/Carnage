@@ -95,10 +95,8 @@ func build(data : MapData) -> void:
 	if finalize_sidewalks:
 		_data.finalize_sidewalks()
 
-	print("[MapBuildingsPlacer] placed ", _placed, " buildings")
-	print("[MapBuildingsPlacer] low layer=", shadows_ground != null,
-			" high layer=", shadows_ground_high != null,
-			" | placed ", _placed, " buildings")
+	#print("[MapBuildingsPlacer] placed ", _placed, " buildings")
+	#print("[MapBuildingsPlacer] low layer=", shadows_ground != null," high layer=", shadows_ground_high != null," | placed ", _placed, " buildings")
 
 func _collect_shadows(instance : Node2D, source_name : String, layer : MapShadowsGround) -> void:
 	# Moves one shadow group to its layer, keeping world positions. Compositing
@@ -126,11 +124,11 @@ func _check_setup() -> bool:
 			push_error("[MapBuildingsPlacer] MapData has no %s(): the BUILDINGS / SIDEWALKS block is missing from map_data.gd" % method)
 			return false
 
-	print("[MapBuildingsPlacer] pool '%s': %d interiors, %d peripherals, %d corners, %d fillers, %d district | blocks: %d | district plot: %s (block %d)" % [
-		GameMaster.BIOMES.keys()[pool.biome],
-		pool.interiors.size(), pool.peripherals.size(), pool.corners.size(),
-		pool.fillers.size(), pool.district_buildings.size(),
-		_data.block_rects.size(), str(_data.district_plot.size), _data.district_block_id])
+	#print("[MapBuildingsPlacer] pool '%s': %d interiors, %d peripherals, %d corners, %d fillers, %d district | blocks: %d | district plot: %s (block %d)" % [
+		#GameMaster.BIOMES.keys()[pool.biome],
+		#pool.interiors.size(), pool.peripherals.size(), pool.corners.size(),
+		#pool.fillers.size(), pool.district_buildings.size(),
+		#_data.block_rects.size(), str(_data.district_plot.size), _data.district_block_id])
 
 	var usable : int = 0
 	for candidate : BuildingData in pool.interiors:
@@ -168,6 +166,8 @@ func _place_district_building() -> void:
 	if not _interaction_circle_fits(rect, data.circle_margin):
 		push_warning("[MapBuildingsPlacer] '%s' interaction circle does not fit the map" % data.name)
 	_place(data, rect)
+	SignalManager.emit_signal("beacon_initiated", _data.cell_to_world(origin))
+
 
 
 ## The building's interaction circle must stay inside the map, or the player
@@ -253,7 +253,7 @@ func _log_depth_profile(side : int, length : int) -> void:
 	for cursor : int in length:
 		var depth : int = mini(_free_depth(side, cursor), belt_depth_cells)
 		counts[depth] = int(counts.get(depth, 0)) + 1
-	print("[Belt] side %d depth profile (depth: cells): %s" % [side, str(counts)])
+	#print("[Belt] side %d depth profile (depth: cells): %s" % [side, str(counts)])
 
 
 func _free_depth(side : int, cursor : int) -> int:

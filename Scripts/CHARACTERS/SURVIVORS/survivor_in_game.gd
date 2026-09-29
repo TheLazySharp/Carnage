@@ -6,12 +6,10 @@ var survivor : SurvivorData
 
 @onready var pick_up: Button = $/root/World/CanvasLayer/NewSurvivor/YesNo/PickUp
 
-
 var game_on_pause : bool = false
 
 func _ready() -> void:
 	SurvivorsManager.in_game_survivor_queuefree.connect(_queue_free)
-
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

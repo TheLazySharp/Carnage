@@ -74,7 +74,7 @@ func build(data : MapData) -> void:
 			for arc : Dictionary in get_turn_arcs(data):
 				_spawn_path(arc["points"], arc["artery"], arc["handles"], true)
 
-	print("[MapRoadPaths] built ", _built, " lane paths")
+	#print("[MapRoadPaths] built ", _built, " lane paths")
 
 	if bake_to_texture:
 		_bake(Vector2i(data.map_size_cells) * data.cell_size)
@@ -105,7 +105,7 @@ func _bake(size_px : Vector2i) -> void:
 	add_child(viewport)
 
 	# Let the viewport render its single frame
-	print("[MapRoadPaths] baking %d paths / %d nodes" % [sources.size(), _count_descendants(holder)])
+	#print("[MapRoadPaths] baking %d paths / %d nodes" % [sources.size(), _count_descendants(holder)])
 	await RenderingServer.frame_post_draw
 
 	var sprite : Sprite2D = Sprite2D.new()
@@ -117,7 +117,7 @@ func _bake(size_px : Vector2i) -> void:
 
 	if free_sources_after_bake:
 		holder.queue_free()  # the render target keeps the baked image
-	print("[MapRoadPaths] baked roads into a %s texture" % str(size_px))
+	#print("[MapRoadPaths] baked roads into a %s texture" % str(size_px))
 
 
 # =================================================================

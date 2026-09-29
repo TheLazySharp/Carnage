@@ -23,6 +23,7 @@ func _ready() -> void:
 
 
 func _on_start_pressed() -> void:
+	SceneManager.race_mode = false
 	TempStatManager.clear_all_modifiers()
 	if !SceneManager.commands_displayed:
 		SceneManager.load_level(SceneManager.SCENES.COMMANDS)
@@ -35,7 +36,7 @@ func _on_start_pressed() -> void:
 	else:
 		#SceneManager.unload_game()
 		SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
-		SignalManager.emit_signal("game_paused",false)
+		#SignalManager.emit_signal("game_paused",false)
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
@@ -70,10 +71,9 @@ func _on_commands_pressed() -> void:
 
 
 func _on_race_pressed() -> void:
-	CarManager.selected_car = CarManager.cars[0]
-	CarManager.selected_car.init_stats()
+	SceneManager.race_mode =  true
+	SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
 
-	SceneManager.load_level(SceneManager.SCENES.RACE)
 
 
 func _on_sandbox_pressed() -> void:

@@ -27,8 +27,9 @@ class_name JuiceSettings
 @export var air_throw_enabled : bool = true
 ## Car speed / max speed needed for a frontal hit to send the enemy over the car
 @export_range(0.0, 1.0) var air_min_speed_ratio : float = 0.5
-## Share of the car velocity kept by the enemy (< 1: the car passes under it, it lands behind)
-@export_range(0.0, 1.0) var air_forward_carry : float = 0.3
+## Share of the car velocity given to the flying enemy, in world space.
+## Negative = thrown backward (reads as a real hit), 0 = hop in place, > 0 = carried forward
+@export_range(-1.5, 1.0) var air_forward_carry : float = -0.2
 ## Random spread of the flight direction (deg)
 @export var air_spread_deg : float = 15.0
 ## Flight time (s) at air_min_speed_ratio / at full speed
@@ -43,6 +44,40 @@ class_name JuiceSettings
 @export_range(0.0, 1.0) var air_friction_ratio : float = 0.0
 ## Speed share kept when touching the ground (slide after landing)
 @export_range(0.0, 1.0) var air_landing_speed_keep : float = 0.5
+
+@export_group("HIT PAUSE (victim only)")
+## The hit enemy freezes in white flash before being thrown. Local: the rest of the game runs
+@export var victim_pause_enabled : bool = true
+@export var victim_pause_duration : float = 0.05
+
+@export_group("HIT STOP (global)")
+## Whole game freeze, only on a strong hit after a calm moment (never inside a horde)
+@export var hit_stop_enabled : bool = true
+## Real seconds (not affected by the time scale)
+@export var hit_stop_duration : float = 0.045
+@export_range(0.0, 1.0) var hit_stop_time_scale : float = 0.05
+## Car speed / max speed needed to trigger it
+@export_range(0.0, 1.0) var hit_stop_min_speed_ratio : float = 0.6
+## Seconds without any car hit required before: first hit of a horde yes, the next ones no
+@export var hit_stop_isolation_time : float = 0.5
+@export var hit_stop_cooldown : float = 1.0
+
+@export_group("CAR KICK (sprite only)")
+## Enemy hit: the car sprite snaps away from the enemy and yaws, then springs back.
+## Driving physics untouched.
+@export var car_kick_enabled : bool = true
+## Recoil (px, car local space) at full speed
+@export var car_kick_offset_px : float = 4.0
+## Yaw (deg) at full speed for a pure side contact
+@export var car_kick_yaw_deg : float = 4.0
+## Intensity floor so that a slow bump still reads (intensity = car speed ratio)
+@export_range(0.0, 1.0) var car_kick_min_intensity : float = 0.4
+## Caps when several hits stack (horde)
+@export var car_kick_max_offset_px : float = 7.0
+@export var car_kick_max_yaw_deg : float = 7.0
+## Return spring: higher stiffness = faster return, lower damping = more wobble
+@export var car_kick_stiffness : float = 500.0
+@export var car_kick_damping : float = 20.0
 
 @export_group("CAR SLOWDOWN")
 @export var car_slowdown_enabled : bool = true

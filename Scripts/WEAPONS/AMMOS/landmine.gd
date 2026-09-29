@@ -13,7 +13,7 @@ var targets: Array[Node2D]
 var player_trigger_count : int = 0
 
 @onready var animation_mine: AnimatedSprite2D = $AnimationMine
-@onready var explosion_sfx: AudioStreamPlayer2D = $ExplosionSFX
+@onready var explosion_sfx: AudioStreamPlayer = $ExplosionSFX
 @onready var explosion_area: Area2D = $ExplosionArea
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 
@@ -101,3 +101,7 @@ func _on_explosion_area_exited(area: Area2D) -> void:
 			if is_instance_valid(targets[i]):
 				if targets[i] == area : 
 					targets.remove_at(i)
+
+
+func _on_explosion_sfx_finished() -> void:
+	pass # Replace with function body.

@@ -334,7 +334,9 @@ func _generate_single_wear_line(line: RoadWearLine, index: int) -> void:
 	var prob_leave_gap: float = 1.0 / avg_gap_steps
 	var state_active: bool = rng.randf() < line.coverage_ratio
 	var dist: float = rng.randf() * step
+	@warning_ignore("unused_variable")
 	var spawned: int = 0
+	@warning_ignore("unused_variable")
 	var rejected_fade: int = 0
 	while dist <= _path_length:
 		var jitter: float = 0.0

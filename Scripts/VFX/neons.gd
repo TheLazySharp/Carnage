@@ -101,7 +101,10 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	if GameMaster.is_debug():
-		bloody_engine = $/root/Lands/Car/BloodyEngine
+
+		bloody_engine = $/root/Track/Car/BloodyEngine
+		#else :
+			#bloody_engine = $/root/Lands/Car/BloodyEngine
 	else : 
 		bloody_engine = $/root/World/Car/BloodyEngine
 	

@@ -2,9 +2,6 @@ extends Node
 
 
 @onready var time_label: Label = $"../CanvasLayer/HUD/TimeUI/Time"
-#@onready var day_label: Label = $TimeUI/Day
-
-#@onready var barriere: Node2D = $"../Land_layers/Barriere"
 
 @onready var world_environment: WorldEnvironment = $"../WorldEnvironment"
 @onready var directional_light_2d: DirectionalLight2D = $"../DirectionalLight2D"
@@ -41,16 +38,12 @@ func _ready() -> void:
 	TimeManager.current_day +=1
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.map_generated.connect(_on_map_generated)
-	#day_label.text = "DAY "+str(TimeManager.current_day)
-	#enemies_spawner_base_rate = enemies_spawner_timer.wait_time
-	
-	#TEST
-	#enemies_spawner_timer.wait_time = 0.3
+
 
 
 func _process(delta: float) -> void:
-	#enemies_spawner_timer.wait_time = 0.3 + enemies_spawner_base_rate * (time_remaining/TimeManager.day_lenght)
 	if game_paused or timer_stopped: return
+
 	
 	if time_remaining <= 0:
 		time_remaining = 0
@@ -59,8 +52,9 @@ func _process(delta: float) -> void:
 	elif game_start: 
 		time_remaining -=delta
 		time_label.text = mmss_timer(time_remaining)
-		#var value : float = time_remaining / TimeManager.day_lenght + 0.3 #to improve
-		#directional_light_2d.color = gradient_light.gradient.sample(value)
+		
+	if SceneManager.race_mode:
+		return
 
 	if time_remaining <= TimeManager.day_lenght * critical_time and !game_paused:
 		time_animation_player.play("time_warning")

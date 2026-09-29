@@ -88,6 +88,12 @@ const JUICE = preload("uid://dbohpdgym7v6q")
 var enemy_hit_frame : int = -1            # physics frame of the current slowdown budget
 var enemy_hit_loss_budget : float = 0.0   # speed share still losable this frame
 
+# ---------------- MOB DAMAGES ----------------
+const MOB_DMG_SPEED_RATIO : float = 0.35     # below this share of max speed, mobs can hurt the car
+const REAL_SPEED_SMOOTHING : float = 10.0    # higher = reacts faster to speed changes
+var real_speed : float = 0.0                 # smoothed actual displacement speed (px/s)
+var last_position : Vector2 = Vector2.ZERO
+
 # ---------------- DEBUG ----------------
 #@export var debug_drive_mode : bool = false  # drop the car scene in a map test scene: driving only
 @export var debug_car_data : CarData = null  # CarData used when launching outside the normal game flow
@@ -99,6 +105,7 @@ func _input(event : InputEvent) -> void:
 
 func _ready() -> void:
 	add_to_group("player")  # used by the camera to find the car
+	last_position = global_position  # avoids a speed spike on the first frame
 	if GameMaster.is_debug():
 		_ready_debug()
 		return
@@ -168,6 +175,11 @@ func _physics_process(delta : float) -> void:
 			_process_autopilot_drive(delta)
 		AutopilotState.EXIT:
 			_process_autopilot_exit(delta)
+
+	# Actual speed from real displacement (walls and horde slowdown included), smoothed
+	var frame_speed : float = global_position.distance_to(last_position) / delta
+	last_position = global_position
+	real_speed = lerpf(real_speed, frame_speed, minf(REAL_SPEED_SMOOTHING * delta, 1.0))
 
 
 func _process_player_inputs(delta : float) -> void:
@@ -328,7 +340,8 @@ func _on_exit_transition() -> void:
 func get_damages_from_mob(damages_on_player : int) -> void:
 	if player.invincible or game_paused or game_is_over:
 		return
-	if velocity.length() >= velocity_floor:
+	# Mobs only hurt the car once it has been slowed down enough (stuck in a horde, against a wall...)
+	if real_speed >= player.unscaled_speed() * MOB_DMG_SPEED_RATIO:
 		return
 
 	is_taking_damages = true
@@ -405,6 +418,8 @@ func _on_hitbox_area_entered(area : Area2D) -> void:
 	var speed_ratio : float = velocity.length() / player.unscaled_speed()
 	if hit_enemy.hit_by_car(damages, velocity, forward, global_position, speed_ratio):
 		_apply_enemy_hit_slowdown()
+		sprite_fx.car_hit_kick(hit_enemy.global_position, speed_ratio)
+		JuiceManager.on_car_hit(speed_ratio)
 
 ## Each hit costs a bit of speed, capped per physics frame:
 ## ploughing into 15 zombies at once costs the same as 3

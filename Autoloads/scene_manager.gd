@@ -43,7 +43,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.GOD_MOD_TRAINING : "uid://df565yrwfqn1v",
 	SCENES.RAID : "uid://df565yrwfqn1v",
 	#SCENES.GOD_MOD_TRAINING : "uid://dyy6lm0fy0oqs"
-	SCENES.RACE : "uid://cftayor44iqic",
+	SCENES.RACE : "uid://dtuhf5ckvagmh",
 	SCENES.SANDBOX : "uid://3akvde2gonk6",
 	SCENES.REWARDS : "uid://jwksok5nrqco"
 }
@@ -67,6 +67,8 @@ var districts_scenes : Dictionary[DistrictsData.types,String] = {
 var current_scene : SCENES = SCENES.MAIN_MENU
 var previous_scene : SCENES 
 
+var race_mode : bool = false
+
 
 #TEST = true
 var tuto_completed: bool = false
@@ -77,6 +79,12 @@ var ready_go_timer: float = 2.0
 var commands_from_menu : bool = false
 
 var default_loading_message : String = "Designing the district, please wait"
+
+## Destinations that generate their map on load, with their overlay message.
+## Any scene missing here loads without overlay (menus, shops...).
+var map_scene_messages : Dictionary[SCENES, String] = {
+	SCENES.RACE : "Building the track, please wait",
+}
 
 ## Safety net if map_generated never fires (broken pass, scene without map)
 const OVERLAY_TIMEOUT : float = 30.0
@@ -90,7 +98,12 @@ func load_level(scene : SCENES, loading_message : String = "") -> void:
 	previous_scene = current_scene
 	current_scene = scene
 	print("previous scene : ", SCENES.keys()[previous_scene], " / current scene : ", SCENES.keys()[current_scene])
-	await _change_scene(scenes_uid[scene], "")
+	# Same rule as load_district: an explicit message always wins, otherwise
+	# only a map-building destination gets the overlay
+	var message : String = loading_message
+	if message.is_empty() and map_scene_messages.has(scene):
+		message = map_scene_messages[scene]
+	await _change_scene(scenes_uid[scene], message)
 
 
 func load_district(loading_district : DistrictsData, loading_message : String = "") -> void:

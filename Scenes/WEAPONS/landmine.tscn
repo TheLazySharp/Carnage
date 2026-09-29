@@ -32,8 +32,6 @@ radius = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wbsw3"]
 
-[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_2l1bg"]
-
 [node name="LandMine" type="Node2D" unique_id=218716534 groups=["explosives", "weapons"]]
 z_index = 10
 script = ExtResource("1_72jnx")
@@ -60,11 +58,11 @@ collision_mask = 2
 [node name="TriggerShape" type="CollisionShape2D" parent="TriggerArea" unique_id=889583598]
 shape = SubResource("CircleShape2D_wbsw3")
 
-[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="." unique_id=225179461]
-stream = SubResource("AudioStreamMP3_2l1bg")
+[node name="ExplosionSFX" type="AudioStreamPlayer" parent="." unique_id=1214251887]
 bus = &"Weapons"
 
 [connection signal="area_entered" from="ExplosionArea" to="." method="_on_explosion_area_entered"]
 [connection signal="area_exited" from="ExplosionArea" to="." method="_on_explosion_area_exited"]
 [connection signal="area_shape_entered" from="ExplosionArea" to="." method="_on_explosion_area_shape_entered"]
 [connection signal="area_entered" from="TriggerArea" to="." method="_on_trigger_area_entered"]
+[connection signal="finished" from="ExplosionSFX" to="." method="_on_explosion_sfx_finished"]

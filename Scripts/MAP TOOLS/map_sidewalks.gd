@@ -9,6 +9,8 @@ extends Node2D
 @export var terrain_set : int = 0
 ## Available sidewalk styles inside that terrain set. One is drawn per map.
 @export var terrains : Array[int] = [0]
+## Terrain used for the pit floor, from the same terrain set. -1 disables it.
+@export var pit_terrain : int = -1
 
 # ---------------- PROPS ----------------
 @export_group("Props")
@@ -45,19 +47,17 @@ func build(data : MapData) -> void:
 		push_warning("[MapSidewalks] no sidewalk cell: did the placer run finalize_sidewalks()?")
 		return
 
-	# One style per CONTIGUOUS sidewalk region, not per block: cell_block_id is
-	# only set on the buildable interior, so grouping by it splits every island
-	# into a band and a core, and each half gets painted with its own border.
-	# A flood fill matches what the eye reads as one pavement.
+	# One terrain per island: the flood fill isolates each contiguous region so
+	# two neighbouring blocks never share a style by accident
 	var regions : Array[Array] = _flood_regions(cells)
 	for region : Array in regions:
 		var group : Array[Vector2i] = []
 		group.assign(region)
 		var terrain : int = terrains[rng.randi_range(0, terrains.size() - 1)]
 		layer.set_cells_terrain_connect(group, terrain_set, terrain, false)
-
 	print("[MapSidewalks] painted ", cells.size(), " cells over ", regions.size(), " regions")
 
+	_paint_pit(data)
 	_scatter_props(data, cells, rng)
 
 func _flood_regions(cells : Array[Vector2i]) -> Array[Array]:
@@ -89,7 +89,16 @@ func _flood_regions(cells : Array[Vector2i]) -> Array[Array]:
 		regions.append(region)
 	return regions
 	
-	
+func _paint_pit(data : MapData) -> void:
+	if pit_terrain < 0:
+		return
+	var pit_cells : Array[Vector2i] = data.get_pit_cells()
+	if pit_cells.is_empty():
+		return
+	# Painted AFTER the ground so the autotiler resolves the joint between the
+	# pit floor and the surrounding terrain in the same layer
+	layer.set_cells_terrain_connect(pit_cells, terrain_set, pit_terrain, false)
+	print("[MapSidewalks] pit floor: ", pit_cells.size(), " cells, terrain ", pit_terrain)
 
 func _scatter_props(data : MapData, cells : Array[Vector2i], rng : RandomNumberGenerator) -> void:
 	if prop_textures.is_empty() or prop_chance <= 0.0:
@@ -146,7 +155,7 @@ func _scatter_props(data : MapData, cells : Array[Vector2i], rng : RandomNumberG
 		placed.append(cell)
 		count += 1
 
-	print("[MapSidewalks] scattered ", count, " props (", rejected, " rejected for overflowing)")
+	#print("[MapSidewalks] scattered ", count, " props (", rejected, " rejected for overflowing)")
 	
 	
 func _footprint_is_pavement(data : MapData, cell : Vector2i, margin : int) -> bool:

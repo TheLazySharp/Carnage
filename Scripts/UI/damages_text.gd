@@ -2,7 +2,7 @@ class_name Damage_label
 extends Label
 
 var damage_label_tween : Tween
-var font_vfx : Array = FontManager.FONTS[FontManager.types.VFX]
+var font_vfx : Array = FontManager.FONTS[FontManager.types.VFX_SMALL]
 
 var in_use: bool = false
 

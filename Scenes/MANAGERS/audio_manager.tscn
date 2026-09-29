@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://bbsq7ymxlm20s"]
 
 [ext_resource type="Script" uid="uid://dsjsr8uao4uhg" path="res://Scripts/MANAGERS/audio_manager.gd" id="1_flqku"]
-[ext_resource type="AudioStream" uid="uid://c5wxra52oyxbb" path="res://Assets/Audio/Song/mx_turbo_slayer_test_03.mp3" id="2_flqku"]
+[ext_resource type="AudioStream" uid="uid://cq0m0h276wms" path="res://Assets/Audio/Song/Music_City_V2_Loop.mp3" id="2_hnt1v"]
 [ext_resource type="AudioStream" uid="uid://bipt7o4e4wmwu" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_1.mp3" id="3_h4ams"]
+[ext_resource type="AudioStream" uid="uid://cryg5eqj6tc74" path="res://Assets/Audio/Song/Music_Desert_3.mp3" id="3_v35k5"]
 [ext_resource type="AudioStream" uid="uid://cccc8w73e5n8n" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_2.mp3" id="4_v35k5"]
 [ext_resource type="AudioStream" uid="uid://dmljyagbi5tx7" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_3.mp3" id="5_cghkq"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_416yl"]
+streams_count = 2
+stream_0/stream = ExtResource("2_hnt1v")
+stream_1/stream = ExtResource("3_v35k5")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uvxr1"]
 streams_count = 3
@@ -16,7 +22,7 @@ stream_2/stream = ExtResource("5_cghkq")
 script = ExtResource("1_flqku")
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1935494431]
-stream = ExtResource("2_flqku")
+stream = SubResource("AudioStreamRandomizer_416yl")
 bus = &"Music"
 
 [node name="ItemsSfx" type="AudioStreamPlayer" parent="." unique_id=710638166]

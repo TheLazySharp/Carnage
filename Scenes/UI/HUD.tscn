@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="16_iub3o"]
 [ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="17_dds1n"]
 [ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="17_eedsi"]
+[ext_resource type="Script" uid="uid://ci1ix74bfku5g" path="res://Scripts/TRACK/track_HUD.gd" id="20_cn5rm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0a5o"]
 bg_color = Color(0.32544088, 0.3254409, 0.32544088, 1)
@@ -1018,5 +1019,31 @@ script = ExtResource("17_dds1n")
 
 [node name="TimeAnimationPlayer" type="AnimationPlayer" parent="TimeUI/Time" unique_id=1286407918]
 libraries/ = SubResource("AnimationLibrary_cn5rm")
+
+[node name="Track" type="Control" parent="." unique_id=1031778619]
+anchors_preset = 0
+offset_left = 583.5
+offset_right = 623.5
+offset_bottom = 40.0
+script = ExtResource("20_cn5rm")
+
+[node name="Laps" type="Label" parent="Track" unique_id=924883954]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.5
+offset_top = 63.0
+offset_right = 173.5
+offset_bottom = 133.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("14_dlptc")
+theme_override_font_sizes/font_size = 56
+text = "LAP 00"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("17_dds1n")
 
 [connection signal="timeout" from="BoostGauge/BoostTimer" to="BoostGauge" method="_on_boost_timer_timeout"]

@@ -28,7 +28,7 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var fortune : int
 var has_reward : bool = false
 var rewards : Array[ItemData] = []
-
+var beacon_target : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	for dollar : DollarData in ALL_DOLLAR:

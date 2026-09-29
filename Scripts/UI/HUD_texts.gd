@@ -1,22 +1,21 @@
 extends Control
 
 @onready var ready_go: Label = $ReadyGo
-@onready var horde: Label = $Horde
-@onready var danger_arrows: Control = $DangerArrows
+@onready var horde: Label = null
+@onready var danger_arrows: Control = null
 
 @onready var car: CharacterBody2D = $"/root/World/Car"
 
 
 func _ready() -> void:
+	if !SceneManager.race_mode:
+		horde = $Horde
+		danger_arrows = $DangerArrows
 	car.start_time.connect(_on_start_time)
 	car.engine_ignited.connect(_on_car_ready)
 	SignalManager.coloss_incoming.connect(_on_coloss_incoming)
 	SignalManager.day_time_end.connect(_on_day_timer_end)
 
-	
-	
-	
-	
 	self.show()
 	for i in self.get_children(false).size():
 		get_child(i,false).hide()
@@ -39,6 +38,8 @@ func _on_coloss_incoming() -> void :
 	horde.text = " DANGER INCOMING !! "
 
 func _on_day_timer_end(timer_stop : bool) -> void : 
+	if SceneManager.race_mode:
+		return
 	if timer_stop:
 		horde.hide()
 		danger_arrows.hide()

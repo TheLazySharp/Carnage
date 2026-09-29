@@ -7,7 +7,7 @@ const STEPS : int = 8
 const GRID_WIDTH : int = 7
 const PATHS : int = 5
 
-var starting_district_type : DistrictsData.types = DistrictsData.types.BANK
+var starting_district_type : DistrictsData.types = DistrictsData.types.ARENA
 
 const SHOP_MIN_ROW : int = 3
 const SHOP_MAX_ROW : int = STEPS - 3

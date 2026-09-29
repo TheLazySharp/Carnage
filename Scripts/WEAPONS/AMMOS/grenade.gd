@@ -41,7 +41,7 @@ var expl_limitor : int = 0
 var targets: Array[Node2D]
 
 @onready var flow_field: FlowFieldManager = $/root/World/FlowFieldManager
-@onready var explosion_sfx: AudioStreamPlayer2D = $ExplosionSFX
+@onready var explosion_sfx: AudioStreamPlayer = $ExplosionSFX
 @onready var explosion_shape: CollisionShape2D = $ExplosionArea/ExplosionShape
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 

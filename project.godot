@@ -50,6 +50,7 @@ BloodPools="*uid://df2bxfoj3gypl"
 LoadingScreen="*uid://dqtnhe0d0udv4"
 DebugStats="*uid://b01peri2oq5a5"
 Vfx="*uid://byg5fsl2iga6u"
+JuiceManager="*uid://c4h83ccslty4g"
 
 [debug]
 

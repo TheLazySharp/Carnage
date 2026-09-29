@@ -46,7 +46,6 @@ func _on_pick_up_pressed() -> void:
 	effect.activate()
 	jobs_manager.register(job, effect)
 	
-	SurvivorsManager.emit_signal("in_game_survivor_queuefree")
 	self.hide()
 	SignalManager.emit_signal("game_paused",game_on_pause)
 	

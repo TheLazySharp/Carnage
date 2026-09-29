@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ccarv624txvb1"]
 
-[ext_resource type="Texture2D" uid="uid://dtvpjotilfh2b" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs01.png" id="1_oldrh"]
+[ext_resource type="Texture2D" uid="uid://5cwvd6a6up26" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs04.png" id="1_oldrh"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tyiq4"]
 particles_animation = true
@@ -11,19 +11,21 @@ particles_anim_loop = false
 [node name="BloodShotParticles" type="CPUParticles2D" unique_id=1559911212]
 material = SubResource("CanvasItemMaterial_tyiq4")
 emitting = false
+amount = 16
 texture = ExtResource("1_oldrh")
-lifetime = 0.2
+lifetime = 0.8
 one_shot = true
-explosiveness = 0.7
+speed_scale = 2.0
+explosiveness = 0.8
 fixed_fps = 30
 draw_order = 1
 direction = Vector2(60, 0)
 spread = 25.799
-gravity = Vector2(0, 98)
+gravity = Vector2(0, 0)
 initial_velocity_max = 136.67
 damping_max = 4.1670003
 angle_min = 1.0728835e-05
 angle_max = 1.0728835e-05
-color = Color(0.84882003, 0, 0.053934768, 1)
+color = Color(0.92941177, 0, 0, 1)
 anim_speed_min = 1.01
 anim_speed_max = 1.01

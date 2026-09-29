@@ -35,6 +35,10 @@ func _ready() -> void:
 	damages = int(bullet_data.dmg.get_value())
 	ray_params.collision_mask = wall_mask
 	ray_params.collide_with_areas = false
+	# A pooled bullet waits with processing OFF: until now every idle bullet
+	# still ran its raycast each frame. fire() / activate() switch it back on.
+	if not is_active:
+		set_process(false)
 
 
 func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:

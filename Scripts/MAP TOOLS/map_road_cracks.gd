@@ -68,7 +68,7 @@ func build(data : MapData) -> void:
 		_placed.append(position_px)
 		built += 1
 
-	print("[MapRoadCracks] built ", built, " cracks over ", road_cells, " road cells")
+	#print("[MapRoadCracks] built ", built, " cracks over ", road_cells, " road cells")
 
 	if bake_to_texture:
 		_bake(Vector2i(_data.map_size_cells) * _data.cell_size)
@@ -280,4 +280,4 @@ func _bake(size_px : Vector2i) -> void:
 		# The baked sprite was added last, so it would cover the live cracks
 	if _live_holder != null and is_instance_valid(_live_holder):
 		move_child(_live_holder, get_child_count() - 1)
-	print("[MapRoadCracks] baked cracks into a %s texture" % str(size_px))
+	#print("[MapRoadCracks] baked cracks into a %s texture" % str(size_px))

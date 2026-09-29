@@ -63,7 +63,7 @@ func bake(size_px : Vector2i) -> void:
 	# render targets alive is what starves the GPU. An ImageTexture costs the
 	# same VRAM as the pixels alone, with no attached framebuffer.
 	_image = viewport.get_texture().get_image()
-	var used : Rect2i = _image.get_used_rect()
+	#var used : Rect2i = _image.get_used_rect()
 	viewport.queue_free()
 
 	_baked = Sprite2D.new()
@@ -75,8 +75,7 @@ func bake(size_px : Vector2i) -> void:
 	add_child(_baked)
 
 	holder.queue_free()
-	print("[MapShadowsGround] '", name, "' baked ", sources.size(),
-			" sources | used rect = ", used)
+	#print("[MapShadowsGround] '", name, "' baked ", sources.size()," sources | used rect = ", used)
 
 
 ## Clears from this layer every pixel already covered by `other`. Two baked

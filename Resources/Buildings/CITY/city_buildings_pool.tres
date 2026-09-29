@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://hs87by3qaxun" path="res://Resources/Buildings/CITY/Fillers/4x3.tres" id="7_kttdf"]
 [ext_resource type="Resource" uid="uid://d3omw0hy75is3" path="res://Resources/Buildings/CITY/Districts/build_supermarket.tres" id="7_s75wj"]
 [ext_resource type="Resource" uid="uid://2n2xq84k6jhv" path="res://Resources/Buildings/CITY/Interiors/4x5.tres" id="8_p2rym"]
+[ext_resource type="Resource" uid="uid://bccso1kmdp6ij" path="res://Resources/Buildings/CITY/Districts/build_survivor.tres" id="8_pv7b8"]
 [ext_resource type="Resource" uid="uid://b0o6ksfc8imq6" path="res://Resources/Buildings/CITY/Interiors/4x4_H.tres" id="8_triw3"]
 [ext_resource type="Resource" uid="uid://cnl1fk8pwwjl6" path="res://Resources/Buildings/CITY/Interiors/4x6_H.tres" id="10_5pxyq"]
 [ext_resource type="Resource" uid="uid://ciljb2jwhm4iq" path="res://Resources/Buildings/CITY/Interiors/6x5.tres" id="10_triw3"]
@@ -40,5 +41,5 @@ interiors = Array[ExtResource("1_sbwpu")]([ExtResource("7_kttdf"), ExtResource("
 peripherals = Array[ExtResource("1_sbwpu")]([ExtResource("22_bryjh"), ExtResource("25_w8uqe"), ExtResource("26_6c00a"), ExtResource("16_p2rym"), ExtResource("24_og1hk"), ExtResource("27_5o5p0"), ExtResource("10_5pxyq"), ExtResource("13_pv7b8"), ExtResource("2_kttdf"), ExtResource("11_s75wj"), ExtResource("12_pv7b8")])
 corners = Array[ExtResource("1_sbwpu")]([ExtResource("2_kttdf")])
 fillers = Array[ExtResource("1_sbwpu")]([ExtResource("5_k4v6u"), ExtResource("6_lnge0"), ExtResource("7_kttdf"), ExtResource("11_s75wj"), ExtResource("12_pv7b8")])
-district_buildings = Array[ExtResource("1_sbwpu")]([ExtResource("3_k4v6u"), ExtResource("4_triw3"), ExtResource("5_5pxyq"), ExtResource("6_ffckw"), ExtResource("7_s75wj")])
+district_buildings = Array[ExtResource("1_sbwpu")]([ExtResource("3_k4v6u"), ExtResource("4_triw3"), ExtResource("5_5pxyq"), ExtResource("6_ffckw"), ExtResource("7_s75wj"), ExtResource("8_pv7b8")])
 metadata/_custom_type_script = "uid://insl0m5srxbq"

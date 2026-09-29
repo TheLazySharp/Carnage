@@ -17,6 +17,7 @@ base_dash_duration = 0.8
 base_max_fuel = 100
 friction = 100.0
 turn_speed = 4.0
+velocity_floor = 10.0
 dash_fuel_down = 5
 max_drift_damping = 0.0
 min_drift_speed = 120.0

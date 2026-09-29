@@ -151,6 +151,7 @@ func generate_async() -> void:
 	queue_redraw()
 	_place_car.call_deferred()
 	SignalManager.map_generated.emit(data)
+	SignalManager.emit_signal("beacon_start")
 
 
 func _build_road_paths() -> void:
@@ -163,7 +164,7 @@ func _build_road_paths() -> void:
 	if not road_paths.has_method("build"):
 		push_error("[MapGraph] node '%s' has no build() method: is map_road_paths.gd attached to it?" % road_paths.name)
 		return
-	print("[MapGraph] road paths node: ", road_paths.get_path())
+	#print("[MapGraph] road paths node: ", road_paths.get_path())
 	road_paths.call("build", data)
 
 

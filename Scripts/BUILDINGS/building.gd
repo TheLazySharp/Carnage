@@ -17,6 +17,7 @@ var margin : float
 @onready var building_area: Area2D = $BuildingArea
 @onready var unlock_bar: ProgressBar = $UnlockBar
 @onready var spawn_center: Marker2D = $SpawnCenter
+@onready var new_survivor: Control = $/root/World/CanvasLayer/NewSurvivor
 
 var game_paused : bool = false
 
@@ -64,6 +65,7 @@ func _on_building_area_body_entered(body: Node2D) -> void:
 	if !body.is_in_group("player"):
 		return
 	player_in_area = true
+	SignalManager.emit_signal("beacon_stop")
 
 
 func _on_building_area_body_exited(body: Node2D) -> void:
@@ -76,12 +78,12 @@ func _on_unlock_timer_timeout() -> void :
 	clear_circle()
 	unlockable_shape.call_deferred("set_disabled", true)
 	unlock_bar.hide()
+	SignalManager.emit_signal("mission_completed")
 	
-	var collectables : Node = get_node("/root/World/Collectables")
-	for i : int in building_data.value:
-		var object : Node2D = building_data.spawnable.instantiate()
-		collectables.add_child(object)
-		object.building_launch_spawn(spawn_center.global_position, pick_object_landing(), spawnable_item_res)
+	if building_data.district_type!= DistrictsData.types.SURVIVOR:
+		spawn_collectables()
+	else : 
+		spawn_survivors()
 
 func pick_object_landing() -> Vector2:
 	var r_min : float = GeoTools.circumscribed_radius(footprint, CELL_SIZE)
@@ -92,3 +94,21 @@ func pick_object_landing() -> Vector2:
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+
+
+func spawn_collectables() -> void : 
+	var collectables : Node = get_node("/root/World/Collectables")
+	for i : int in building_data.value:
+		var object : Node2D = building_data.spawnable.instantiate()
+		collectables.add_child(object)
+		object.building_launch_spawn(spawn_center.global_position, pick_object_landing(), spawnable_item_res)
+		
+		
+func spawn_survivors() -> void :
+	if SurvivorsManager.next_spawned_survivor and RoadMapManager.last_district.type == DistrictsData.types.SURVIVOR and GameMaster.game_mode != GameMaster.GAME_MODES.GOD :
+		SignalManager.emit_signal("beacon_stop")
+		var survivor : SurvivorData = SurvivorsManager.next_spawned_survivor
+		SignalManager.emit_signal("game_paused",true)
+		SurvivorsManager.emit_signal("picked_up_survivor",survivor)
+		new_survivor.show()
+		
