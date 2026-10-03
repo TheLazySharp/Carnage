@@ -50,8 +50,8 @@ func smash() -> void :
 
 func _on_smash_zone_area_entered(area: Area2D) -> void:
 	if "get_damages" in area and area.is_in_group("ennemies"):
-# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
-		area.get_damages(bat_data.dmg.get_value(), -area.velocity, knockback_force)
+	# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0, death_type: EnemyManager.Death_Types = DEFAULT) -> void:
+		area.get_damages(bat_data.dmg.get_value(), -area.velocity, knockback_force, bat_data.death_type)
 		bat_data.total_damages_dealt += int(bat_data.dmg.get_value())
 
 func _on_animation_finished() -> void:

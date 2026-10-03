@@ -3510,16 +3510,16 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_di60j")
 }, {
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_6t2g1")
 }, {
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_nhgml")
 }, {
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vk7b0")
 }, {
 "duration": 1.0,
@@ -3531,10 +3531,10 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1p6og")
 }, {
-"duration": 0.8,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_xhlw7")
 }, {
-"duration": 0.8,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_i5fsu")
 }, {
 "duration": 1.0,
@@ -5476,7 +5476,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=94396689]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=375669937]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -5509,10 +5509,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1395610885]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=604067214]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=549428195]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1045631386]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -5529,7 +5529,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=259504573]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1560473794]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -5976,7 +5976,7 @@ autoplay = &"Shot03"
 z_index = 6
 position = Vector2(1709, 1168)
 sprite_frames = SubResource("SpriteFrames_gd1db")
-animation = &"knocked01"
+animation = &"sliced03"
 frame = 4
 
 [node name="Knocked02" type="AnimationPlayer" parent="EnemyAnimations" unique_id=762549617]
@@ -6027,7 +6027,7 @@ position = Vector2(1531, 1351)
 sprite_frames = SubResource("SpriteFrames_gd1db")
 animation = &"shot02"
 autoplay = "sliced03"
-frame_progress = 0.07115695
+frame_progress = 0.16417901
 
 [node name="Shot03" type="AnimationPlayer" parent="EnemyAnimations" unique_id=632603777]
 libraries/ = SubResource("AnimationLibrary_2tfgd")
@@ -6036,7 +6036,7 @@ autoplay = &"Shot03"
 [node name="CPUParticles2D" type="CPUParticles2D" parent="EnemyAnimations/Shot03" unique_id=1977882743]
 position = Vector2(1464, 1454)
 emitting = false
-lifetime = 0.09999999999999999
+lifetime = 0.1
 one_shot = true
 
 [node name="Shot03" type="AnimatedSprite2D" parent="EnemyAnimations/Shot03" unique_id=1085424579]
@@ -6053,7 +6053,7 @@ autoplay = &"Shot03"
 [node name="CPUParticles2D" type="CPUParticles2D" parent="EnemyAnimations/Shot04" unique_id=1127675964]
 position = Vector2(1464, 1454)
 emitting = false
-lifetime = 0.09999999999999999
+lifetime = 0.1
 one_shot = true
 
 [node name="Shot04" type="AnimatedSprite2D" parent="EnemyAnimations/Shot04" unique_id=323088100]

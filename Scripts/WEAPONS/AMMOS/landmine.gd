@@ -8,7 +8,7 @@ var damages_upgrade : int
 var current_lvl : int
 var max_lvl : int
 var expl_limitor : int = 0
-
+var knockback_force : float = 400.0
 var targets: Array[Node2D]
 var player_trigger_count : int = 0
 
@@ -51,7 +51,9 @@ func explosion()-> void:
 	for i in range(targets.size() -1, -1, -1):
 		if is_instance_valid(targets[i]):
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
-				targets[i].get_damages(mine_data.dmg.get_value())
+				# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0, death_type: EnemyManager.Death_Types = DEFAULT) -> void:
+				var push_direction : Vector2 = targets[i].global_position - global_position   # outward from the blast center
+				targets[i].get_damages(mine_data.dmg.get_value(), push_direction, knockback_force, mine_data.death_type)
 				mine_data.total_damages_dealt += int(mine_data.dmg.get_value())
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
 				targets[i].chain_explosion(self)

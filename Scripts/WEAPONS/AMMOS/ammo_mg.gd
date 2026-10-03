@@ -103,8 +103,8 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if is_active:
 		if "get_damages" in area and area.is_in_group("ennemies") and is_active:
-	# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
-			area.get_damages(bullet_data.dmg.get_value(), velocity, knockback_force)
+	# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0, death_type: EnemyManager.Death_Types = DEFAULT) -> void:
+			area.get_damages(bullet_data.dmg.get_value(), velocity, knockback_force, bullet_data.death_type)
 			bullet_data.total_damages_dealt += int(bullet_data.dmg.get_value())
 			desactivate()
 		if area.is_in_group("walls"):

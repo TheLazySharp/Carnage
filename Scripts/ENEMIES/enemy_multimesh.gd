@@ -60,6 +60,11 @@ var last_move_dir := Vector2.RIGHT
 const JUICE = preload("uid://dbohpdgym7v6q")
 ## Above this knockback, an undirected death (car kill) keeps the current throw
 const DEATH_KEEP_THROW_SPEED_SQ : float = 100.0
+
+## Death animation state names (fallback when the enemy has no matching EnemySpriteState)
+const DEFAULT_DEATH_STATE: String = "dead"
+const CAR_DEATH_STATE: String = "dead_car"
+
 # ---- AIR THROW (top-down fake flight: scale arc + spin, tuned in JuiceSettings) ----
 var air_duration : float = 0.0     # 0 = on the ground
 var air_time : float = 0.0
@@ -330,7 +335,7 @@ func get_knockback_decel() -> float:
 		decel *= JUICE.air_friction_ratio
 	return decel
 
-func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
+func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0, death_type: EnemyManager.DEATH_TYPES = EnemyManager.DEATH_TYPES.DEFAULT) -> void:
 	if game_paused or is_dead:
 		return
 	damage_timer.start()
@@ -341,7 +346,7 @@ func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_
 	apply_knockback(hit_direction, knockback_force)   # impact non létal
 	if current_life <= 0:
 		current_life = 0
-		call_deferred("on_death", hit_direction, knockback_force)
+		call_deferred("on_death", hit_direction, knockback_force, death_type)
 		return
 	
 	var shot_rotation: float = hit_direction.angle() if hit_direction != Vector2.ZERO else last_move_dir.angle()
@@ -357,7 +362,7 @@ func get_damages_from_car(damages: int,hit_direction: Vector2 = Vector2.ZERO) ->
 		display_damages(damages)
 		if current_life <= 0:
 			current_life = 0
-			call_deferred("on_death")
+			call_deferred("on_death", Vector2.ZERO, 0.0, EnemyManager.DEATH_TYPES.CAR)
 			#call_deferred("fuel_up")
  
 	var hit_rotation: float = hit_direction.angle() if hit_direction != Vector2.ZERO else last_move_dir.angle()
@@ -390,7 +395,7 @@ func _on_game_paused(game_on_pause: bool) -> void:
 	#bloody_engine.bloody_vaccum()
 	#bloody_engine.fuel_up(1)
  
-func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0) -> void:
+func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0, death_type: EnemyManager.DEATH_TYPES = EnemyManager.DEATH_TYPES.DEFAULT) -> void:
 	if is_dead:
 		return
 	is_dead = true
@@ -433,7 +438,11 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 	blow_up(global_position, -knockback_velocity.normalized())
 
 	# 5. dead sprites :
-	set_animation_state("dead")
+	# Missing death state would never finish the death: fall back to the default one
+	var death_state: String = EnemyManager.get_death_state_name(death_type)
+	if mm_pool != null and !mm_pool.has_state(death_state):
+		death_state = EnemyManager.get_death_state_name(EnemyManager.DEATH_TYPES.DEFAULT)
+	set_animation_state(death_state)
 	if mm_pool == null or mm_index < 0:
 		on_death_finished()
 

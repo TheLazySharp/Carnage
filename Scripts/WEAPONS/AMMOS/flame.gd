@@ -68,7 +68,7 @@ func burn_enemies() -> void:
 		burn_rate.start()
 		for i in targets.size():
 			if enemies_can_burn:
-				targets[i].get_damages(flame_data.dmg.get_value())
+				targets[i].get_damages(flame_data.dmg.get_value(), Vector2.ZERO, 0.0, flame_data.death_type)
 				flame_data.total_damages_dealt += int(flame_data.dmg.get_value())
 		burning = false
 

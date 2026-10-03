@@ -42,6 +42,9 @@ enum Type {
 @export var weapon_ammo_scene : PackedScene
 @export var weapon_ammo_res : WeaponData
 @export var weapon_sfx: AudioStreamRandomizer
+## Death animation played when this weapon lands the killing blow.
+## Falls back to DEFAULT if the enemy has no death state of this type.
+@export var death_type : EnemyManager.DEATH_TYPES = EnemyManager.DEATH_TYPES.DEFAULT
 
 @export_group("BASE STATS")
 @export var base_dmg : = 5

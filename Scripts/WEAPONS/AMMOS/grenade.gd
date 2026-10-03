@@ -34,6 +34,7 @@ var can_launch : bool = false
 var game_paused : bool = false
 
 var damages : int
+var knockback_force : float = 400.0
 var current_lvl : int
 var max_lvl : int
 var expl_limitor : int = 0
@@ -156,7 +157,8 @@ func explosion()-> void:
 
 		if is_instance_valid(targets[i]):
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
-				targets[i].get_damages(grenade_data.dmg.get_value())
+				var push_direction : Vector2 = targets[i].global_position - global_position   # outward from the blast center
+				targets[i].get_damages(grenade_data.dmg.get_value(), push_direction, knockback_force, grenade_data.death_type)
 				grenade_data.total_damages_dealt += int(grenade_data.dmg.get_value())
 
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:

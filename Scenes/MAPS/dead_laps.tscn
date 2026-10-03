@@ -112,7 +112,7 @@ visible = false
 [node name="HordeOutline" type="Node2D" parent="." unique_id=200299998]
 z_index = 10
 script = ExtResource("14_w45y0")
-min_cluster_count = 3
+min_cluster_count = 1
 final_shader = ExtResource("15_n3rty")
 hole_shader = ExtResource("16_vh147")
 outline_color = Color(0.3647059, 0.105882354, 0.1764706, 1)

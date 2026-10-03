@@ -6,9 +6,9 @@ class_name EnemyData
 
 
 @export_group("VISUALS")
-@export var spritesheet : Texture2D
+#@export var spritesheet : Texture2D
 @export var frame_size : Vector2i = Vector2i(20, 20)
-## Un EnemySpriteState par ligne de la spritesheet (state_name, sheet_row, frame_count, fps, loop).
+## One EnemySpriteState per state atlas (state_name, spritesheet, frame_count, fps, loop).
 @export var sprite_states : Array[EnemySpriteState] = []
 @export var scale_mod : Vector2 = Vector2.ONE
 @export var sprite_angle_offset : float = 0.0 #if sprite do not face right

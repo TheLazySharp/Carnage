@@ -24,9 +24,34 @@ enum Rotation_Mode {
 	CARDINAL_8
 }
 
+
 var rotation_mode : Rotation_Mode = Rotation_Mode.CARDINAL_4
 var life_progression_step : int = 10
 var max_life_mod : Modifier
+
+## Lethal damage types: each one maps to a death animation state ("dead" for DEFAULT, "dead_<name>" otherwise).
+## Only add new values at the END: exported enums are saved as ints in .tres files.
+enum DEATH_TYPES {
+	DEFAULT,
+	CAR,
+	KNOCKED,
+	SLICE,
+	EXPLOSION,
+	SHOT
+}
+
+var death_state_names: PackedStringArray = build_death_state_names() # index = Death_Types
+
+
+func build_death_state_names() -> PackedStringArray:
+	var names: PackedStringArray = []
+	for key: String in DEATH_TYPES.keys():
+		names.append("dead" if key == "DEFAULT" else "dead_" + key.to_lower())
+	return names
+
+
+func get_death_state_name(death_type: DEATH_TYPES) -> String:
+	return death_state_names[death_type]
 
 func _ready() -> void:
 	RoadMapManager.new_step_reached.connect(_on_next_day)

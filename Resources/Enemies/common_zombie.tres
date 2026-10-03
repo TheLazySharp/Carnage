@@ -4,28 +4,73 @@
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_exg4w"]
 [ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_b0njb"]
 [ext_resource type="Texture2D" uid="uid://bdcssex2kn767" path="res://Assets/Léonce/Enemies/SIZE TEST/zombieA_run01C.png" id="4_b0njb"]
+[ext_resource type="Texture2D" uid="uid://dk8yjdsidugdi" path="res://Assets/Léonce/Enemies/zombie01_death_exploded.png" id="5_oxrgu"]
+[ext_resource type="Texture2D" uid="uid://cc1kmoolfudut" path="res://Assets/Léonce/Enemies/zombie01_death_knocked.png" id="6_dhoyf"]
+[ext_resource type="Texture2D" uid="uid://deqdd7uxcnhb5" path="res://Assets/Léonce/Enemies/zombie01_death_shot.png" id="7_lpamg"]
+[ext_resource type="Texture2D" uid="uid://dmuvi1ee80nb7" path="res://Assets/Léonce/Enemies/zombie01_death_sliced.png" id="8_oxrgu"]
+[ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="9_dhoyf"]
 
 [sub_resource type="Resource" id="Resource_b0njb"]
 script = ExtResource("3_b0njb")
-frame_count = 16
+frame_size = Vector2i(50, 30)
 fps = 20.0
+spritesheet = ExtResource("4_b0njb")
 metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
-[sub_resource type="Resource" id="Resource_tf6ne"]
+[sub_resource type="Resource" id="Resource_epe8t"]
 script = ExtResource("3_b0njb")
-state_name = "dead"
-sheet_row = 1
-frame_count = 3
+state_name = "death_exploded"
+death_type = 4
+frame_size = Vector2i(100, 100)
 loop = false
 is_death_state = true
+spritesheet = ExtResource("5_oxrgu")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_aj7fl"]
+script = ExtResource("3_b0njb")
+state_name = "death_knocked"
+death_type = 2
+frame_size = Vector2i(100, 100)
+loop = false
+is_death_state = true
+spritesheet = ExtResource("6_dhoyf")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_63ifu"]
+script = ExtResource("3_b0njb")
+state_name = "death_shot"
+death_type = 5
+frame_size = Vector2i(100, 100)
+loop = false
+is_death_state = true
+spritesheet = ExtResource("7_lpamg")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_57ln3"]
+script = ExtResource("3_b0njb")
+state_name = "death_sliced"
+death_type = 3
+frame_size = Vector2i(100, 100)
+loop = false
+is_death_state = true
+spritesheet = ExtResource("8_oxrgu")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_i7xsr"]
+script = ExtResource("3_b0njb")
+state_name = "dead"
+frame_size = Vector2i(30, 40)
+loop = false
+is_death_state = true
+spritesheet = ExtResource("9_dhoyf")
 metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
 [resource]
 script = ExtResource("1_exg4w")
 name = "Common"
-spritesheet = ExtResource("4_b0njb")
 frame_size = Vector2i(50, 30)
-sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_tf6ne")])
+sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_epe8t"), SubResource("Resource_aj7fl"), SubResource("Resource_63ifu"), SubResource("Resource_57ln3"), SubResource("Resource_i7xsr")])
 blood_particles = ExtResource("1_b0njb")
 base_speed = 40.0
 base_impact_force = 200.0
