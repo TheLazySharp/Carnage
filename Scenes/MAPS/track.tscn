@@ -4897,11 +4897,13 @@ terrain_set_0/terrain_3/name = "paved"
 terrain_set_0/terrain_3/color = Color(1, 0, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_b45g4")
 
-[node name="Track" type="Node2D" unique_id=369331439 node_paths=PackedStringArray("sidewalks", "road_paths", "road_lines")]
+[node name="Track" type="Node2D" unique_id=369331439 node_paths=PackedStringArray("sidewalks", "road_paths", "road_lines", "finish_line")]
 script = ExtResource("1_ce6oy")
 sidewalks = NodePath("Sidewalks")
 road_paths = NodePath("RoadPath")
 road_lines = NodePath("RoadLines")
+finish_line = NodePath("FinishLine")
+show_raster = true
 
 [node name="Sidewalks" type="Node2D" parent="." unique_id=1264171077 node_paths=PackedStringArray("layer", "props_parent")]
 z_index = 5

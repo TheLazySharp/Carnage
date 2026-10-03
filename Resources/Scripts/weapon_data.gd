@@ -16,6 +16,16 @@ enum Stats_Types {
 }
 
 
+enum Type {
+	SHORT_RANGE,
+	LONG_RANGE,
+	EXPLOSIVE,
+	SINGLE_SHOT,
+	BURST_SHOT,
+	ELEMENTAL,
+	N_A
+}
+
 @export_group("GLOBAL INFO")
 @export var weapon_ref : ShopManager.CONST_REFS
 @export var weapon_name : String
@@ -23,8 +33,8 @@ enum Stats_Types {
 @export var weapon_is_active := true
 @export var max_level : int
 @export var description : String
-@export var type_1 : WeaponsManager.Type
-@export var type_2 : WeaponsManager.Type
+@export var type_1 : Type
+@export var type_2 : Type
 @export var tar_up_stat : Stats_Types
 
 @export_group("UID AND SCENES")

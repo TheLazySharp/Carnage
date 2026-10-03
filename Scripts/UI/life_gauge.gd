@@ -1,6 +1,6 @@
 extends ProgressBar
 
-@onready var life_label : Label = $LifeLabel
+@onready var life_label : Label = $CarBloodLabel
 @onready var car_neons : CarNeons = get_tree().get_first_node_in_group(&"car_neons") as CarNeons
 
 var neons_call_threshold : float = 0.15

@@ -8,3 +8,6 @@ class_name SurvivorData
 @export var icon : Texture2D
 @export var weapon : WeaponData
 @export var is_on_board : bool = false
+@export var max_life : int = 100
+
+var current_life : int

@@ -25,16 +25,6 @@ var weapon : WeaponData
 var player_current_level: int
 var game_over : bool = false
 
-enum Type {
-	SHORT_RANGE,
-	LONG_RANGE,
-	EXPLOSIVE,
-	SINGLE_SHOT,
-	BURST_SHOT,
-	ELEMENTAL,
-	N_A
-}
-
 var short_range_weapons : Array[WeaponData] = []
 var long_range_weapons : Array[WeaponData] = []
 var explosive_weapons : Array[WeaponData] = []
@@ -43,13 +33,13 @@ var burst_shot_weapons : Array[WeaponData] = []
 var elemental_weapons : Array[WeaponData] = []
 
 var WEAPONS_TYPES : Dictionary = {
-	Type.SHORT_RANGE : short_range_weapons,
-	Type.LONG_RANGE : long_range_weapons,
-	Type.EXPLOSIVE : explosive_weapons,
-	Type.SINGLE_SHOT : single_shot_weapons,
-	Type.BURST_SHOT : burst_shot_weapons,
-	Type.ELEMENTAL : elemental_weapons,
-	Type.N_A : [null]
+	WeaponData.Type.SHORT_RANGE : short_range_weapons,
+	WeaponData.Type.LONG_RANGE : long_range_weapons,
+	WeaponData.Type.EXPLOSIVE : explosive_weapons,
+	WeaponData.Type.SINGLE_SHOT : single_shot_weapons,
+	WeaponData.Type.BURST_SHOT : burst_shot_weapons,
+	WeaponData.Type.ELEMENTAL : elemental_weapons,
+	WeaponData.Type.N_A : [null]
 }
 
 func _ready() -> void:
@@ -63,8 +53,8 @@ func load_weapons() -> void:
 	locked_weapon(FLAME_LAUNCHER)
 	locked_weapon(MINE_LAUNCHER)
 	locked_weapon(BAT_HANDLER)
-	#locked_weapon(GRENADE_BELT)
-	#weapon_scenes.append(["name", "scene UID", preload("scene UID")])
+	locked_weapon(GRENADE_BELT)
+	#  weapon_scenes.append(["name", "scene UID", preload("scene UID")])
 	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
 	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
 	weapon_scenes.append(["minigun_bullet", "uid://doe8o0sd0xuas", preload("uid://doe8o0sd0xuas")])
@@ -187,10 +177,10 @@ func _on_game_over(game_is_over : bool) -> void :
 	game_over = game_is_over
 	
 func add_weapon_type_to_array(new_weapon : WeaponData) -> void : 
-	var type1 : Type = new_weapon.type_1
-	var type2 : Type = new_weapon.type_2
+	var type1 : WeaponData.Type = new_weapon.type_1
+	var type2 : WeaponData.Type = new_weapon.type_2
 	
-	for type : Type in WEAPONS_TYPES:
+	for type : WeaponData.Type in WEAPONS_TYPES:
 		if type1 == type or type2 == type:
 			WEAPONS_TYPES[type].append(new_weapon)
 

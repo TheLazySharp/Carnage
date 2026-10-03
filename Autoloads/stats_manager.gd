@@ -4,6 +4,7 @@ var frags: int
 var current_life : int
 var total_drift : int
 var total_car_dmg : int
+var total_distance : int
 @warning_ignore("unused_signal")
 signal stats_updated
 
@@ -26,6 +27,8 @@ func _ready() -> void:
 	frags = 0
 	total_drift = 0
 	total_car_dmg = 0
+	total_distance = 0
+	SignalManager.distance_traveled.connect(_on_distance_traveled)
 
 
 func unload() -> void:
@@ -33,4 +36,8 @@ func unload() -> void:
 	current_life = 0
 	total_drift = 0
 	total_car_dmg = 0
-	
+	total_distance = 0
+
+
+func _on_distance_traveled(distance_meters: int) -> void:
+	total_distance += distance_meters

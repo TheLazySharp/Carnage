@@ -20,7 +20,8 @@ enum SCENES {
 	GOD_MOD_TRAINING,
 	RACE,
 	SANDBOX,
-	REWARDS
+	REWARDS,
+	DEAD_LAPS_WIN
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -45,7 +46,8 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	#SCENES.GOD_MOD_TRAINING : "uid://dyy6lm0fy0oqs"
 	SCENES.RACE : "uid://dtuhf5ckvagmh",
 	SCENES.SANDBOX : "uid://3akvde2gonk6",
-	SCENES.REWARDS : "uid://jwksok5nrqco"
+	SCENES.REWARDS : "uid://jwksok5nrqco",
+	SCENES.DEAD_LAPS_WIN : "uid://yqd1m8allrb7"
 }
 
 
@@ -187,3 +189,4 @@ func unload_game() -> void:
 	ShopManager.unload()
 	BuildingsManager.unload()
 	jobs_manager.unload()
+	#DeadLapsManager.unload()

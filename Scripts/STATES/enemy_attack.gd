@@ -17,7 +17,7 @@ func exit() -> void:
 	pass
 
 func update(_delta : float) -> void:
-	if !game_paused:
+	if !game_paused and target:
 		if enemy.global_position.distance_to(target.global_position) < 5:
 			move_direction = target.global_position - enemy.global_position
 		else:

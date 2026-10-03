@@ -63,6 +63,9 @@ var ring_forward : PackedVector2Array    # per padded cell: lap travel direction
 var ring_return : PackedVector2Array     # per padded cell: pull toward the track, ZERO on it
 var player_progress : float = 0.0
 
+var ring_pit : PackedByteArray           # per padded cell: 1 = pit lane
+var player_in_pit : bool = false
+
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.game_is_over.connect(_on_game_over)
@@ -129,6 +132,9 @@ func _process(delta : float) -> void:
 		# No BFS on a ring: the car's position along the lap is all it takes
 		if target != null:
 			player_progress = ring_data.track_progress_at(target.global_position)
+			var cell : Vector2i = world_to_cell(target.global_position)
+			player_in_pit = cell.x >= 0 and cell.y >= 0 and cell.x < grid_w and cell.y < grid_h \
+					and ring_pit[(cell.y + 1) * padded_width + (cell.x + 1)] == 1
 		return
 	# Swap in a finished rebuild first
 	if rebuild_task_id != -1 and WorkerThreadPool.is_task_completed(rebuild_task_id):
@@ -247,9 +253,11 @@ func _build_ring_field(data : MapData) -> void:
 	ring_progress.resize(padded_count)
 	ring_forward.resize(padded_count)
 	ring_return.resize(padded_count)
+	ring_pit.resize(padded_count)
 	ring_progress.fill(0.0)
 	ring_forward.fill(Vector2.ZERO)
 	ring_return.fill(Vector2.ZERO)
+	ring_pit.fill(0)
 	var half_track : float = float(data.track_width_px) * 0.5
 	for y : int in grid_h:
 		for x : int in grid_w:
@@ -261,21 +269,26 @@ func _build_ring_field(data : MapData) -> void:
 			if absf(lateral) > half_track:
 				# Off the racing surface (infield, pit, outfield): back toward the centreline
 				ring_return[index] = -data.track_outward_at(center) * signf(lateral)
+			if data.cell_type(x, y) == MapData.CellType.PIT:
+				ring_pit[index] = 1
 
 
 func _ring_direction(here_index : int, world_pos : Vector2) -> Vector2:
 	if target == null:
 		return Vector2.ZERO
+	var back_on_track : Vector2 = ring_return[here_index]
 	var to_target : Vector2 = target.global_position - world_pos
-	# Close to the car: leave the ring and go for it
 	if to_target.length_squared() < ring_direct_radius_px * ring_direct_radius_px:
-		return to_target.normalized()
+		if not player_in_pit:
+			return to_target.normalized()  # close to the car: go for it
+		# The car sits in the pit lane, which the hordes never enter: wait on
+		# the track (ZERO there) or get out of the pit if knocked into it
+		return back_on_track
 	# Along the lap, toward the car by the shorter side. The lateral position
 	# is kept, so hordes stay spread over the whole width instead of hugging
 	# the inside edge like a shortest path does.
 	var ahead : float = fposmod(player_progress - ring_progress[here_index], ring_lap_px)
 	var along : Vector2 = ring_forward[here_index] if ahead < ring_lap_px * 0.5 else -ring_forward[here_index]
-	var back_on_track : Vector2 = ring_return[here_index]
 	if back_on_track == Vector2.ZERO:
 		return along
 	return (along + back_on_track * ring_return_weight).normalized()

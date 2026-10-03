@@ -47,7 +47,6 @@ horizontal_alignment = 2
 script = ExtResource("2_5ttc1")
 
 [node name="Distance" type="HBoxContainer" parent="EndGameStats" unique_id=148278018]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 8
 
@@ -199,9 +198,9 @@ script = ExtResource("2_5ttc1")
 [node name="WeaponsStats" type="VBoxContainer" parent="." unique_id=666227612]
 layout_mode = 0
 offset_left = 37.0
-offset_top = 290.0
+offset_top = 329.0
 offset_right = 594.0
-offset_bottom = 536.0
+offset_bottom = 575.0
 theme_override_constants/separation = 16
 
 [node name="Car" type="HBoxContainer" parent="WeaponsStats" unique_id=2063129895]

@@ -83,4 +83,4 @@ sprite_frames = SubResource("SpriteFrames_r7ksg")
 animation = &"BloodVacuum"
 script = ExtResource("2_8bwcq")
 fresh_color = Color(0.92941177, 0, 0, 1)
-rotten_color = Color(0.5058824, 0, 0.05882353, 1)
+rotten_color = Color(0.26096472, 1.2529036e-06, 0.0155694075, 1)

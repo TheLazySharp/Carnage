@@ -20,8 +20,11 @@ var purple : Color = Color(0.686, 0.067, 0.435)
 var dark_yellow : Color = Color(1.0, 0.776, 0.0)
 var UX_outline : int = 8
 var UX_color : Color = Color.BLACK
+var fresh_blood : Color = Color(0.929, 0.0, 0.0)
+var rotten_blood : Color = Color(0.263, 0.0, 0.016)
 
-var background_color : Color = 080503
+
+var background_color : Color = Color("080503")
 
 var FONTS : Dictionary = {
 	types.TITLE:[OXANIUM,72,dark_yellow],
@@ -32,10 +35,10 @@ var FONTS : Dictionary = {
 	types.MENU_PRESSED:[OXANIUM,48,dark_yellow],
 	types.MENU_HOVER:[OXANIUM,48,dark_yellow],
 	
-	types.BUTTON:[OXANIUM,24,Color.BLACK],
-	types.BUTTON_FOCUS:[OXANIUM,24,Color.BLACK],
-	types.BUTTON_PRESSED:[OXANIUM,24,Color.BLACK],
-	types.BUTTON_HOVER:[OXANIUM,24,Color.BLACK],
+	types.BUTTON:[OXANIUM,24,Color.WHITE],
+	types.BUTTON_FOCUS:[OXANIUM,24,dark_yellow],
+	types.BUTTON_PRESSED:[OXANIUM,24,Color.WHITE],
+	types.BUTTON_HOVER:[OXANIUM,24,dark_yellow],
 	
 	types.TEXT_TITLE:[OXANIUM,40,Color.WHITE],
 	types.TEXT_TITLE_LOW:[OXANIUM,32,Color.WHITE],
@@ -43,7 +46,7 @@ var FONTS : Dictionary = {
 	
 	types.UX:[OXANIUM,54,Color.WHITE],
 	types.UX_M:[OXANIUM,48,Color.WHITE],
-	types.UX_S:[OXANIUM,32,Color.WHITE],
+	types.UX_S:[OXANIUM,20,Color.WHITE],
 	types.UX_XS:[OXANIUM,16,Color.WHITE],
 	
 	types.VFX:[OXANIUM,32,dark_yellow],

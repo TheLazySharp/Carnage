@@ -1,0 +1,233 @@
+[gd_scene format=3 uid="uid://cs2bcjelpohax"]
+
+[ext_resource type="Script" uid="uid://sq8qly3ulm1l" path="res://Scripts/SCENES/pit_stop.gd" id="1_hrcb1"]
+[ext_resource type="PackedScene" uid="uid://ceejixgnmvcbd" path="res://Scenes/ITEMS/boost_pit.tscn" id="2_hrcb1"]
+[ext_resource type="PackedScene" uid="uid://bffr4ys3v5voy" path="res://Scenes/ITEMS/weapon.tscn" id="3_hrcb1"]
+[ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="4_10s0i"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="5_kjeu0"]
+[ext_resource type="Texture2D" uid="uid://hnexr8g6micy" path="res://Assets/Items/Drops/Dollars/blood.png" id="6_rui8y"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="8_s6kv4"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="9_2abxu"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="10_atdk0"]
+[ext_resource type="AudioStream" uid="uid://dcs41hr6yu2n" path="res://Assets/Audio/SFX/Coins/Cash_register.mp3" id="11_fqd3s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vlox"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cv1fx"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3aobf"]
+
+[node name="PitStop" type="Control" unique_id=2121295686]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hrcb1")
+boost_scene = ExtResource("2_hrcb1")
+weapon_scene = ExtResource("3_hrcb1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=693917777]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8627451)
+
+[node name="Title" type="Label" parent="Background" unique_id=93887270]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -637.0
+offset_right = 639.0
+offset_bottom = 113.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("4_10s0i")
+theme_override_font_sizes/font_size = 64
+text = "PIT STOP"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("5_kjeu0")
+
+[node name="Reroll" type="Button" parent="Background" unique_id=1494321787]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -329.0
+offset_top = 32.0
+offset_right = -11.0
+offset_bottom = 88.0
+grow_horizontal = 0
+focus_neighbor_right = NodePath("../Buttons/Shop")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_10s0i")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_3vlox")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cv1fx")
+text = "
+"
+alignment = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/Reroll" unique_id=281131194]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -1.0
+offset_right = 318.0
+offset_bottom = 56.0
+theme_override_constants/separation = 16
+
+[node name="Reroll" type="Label" parent="Background/Reroll/HBoxContainer" unique_id=1074617478]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../EntranceButtons/Back")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_10s0i")
+theme_override_font_sizes/font_size = 24
+text = " REROLL : "
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Cost" type="Label" parent="Background/Reroll/HBoxContainer" unique_id=496569736]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_10s0i")
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Blood" type="TextureRect" parent="Background/Reroll/HBoxContainer" unique_id=899513498]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("6_rui8y")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="MoneyBag" type="HBoxContainer" parent="Background" unique_id=234640292]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 28.0
+offset_right = 228.0
+offset_bottom = 92.0
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Background/MoneyBag" unique_id=865149005]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+texture = ExtResource("6_rui8y")
+stretch_mode = 4
+
+[node name="FortuneTag" type="Label" parent="Background/MoneyBag" unique_id=2138128566]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_10s0i")
+theme_override_font_sizes/font_size = 24
+text = "10000000000"
+vertical_alignment = 1
+script = ExtResource("8_s6kv4")
+
+[node name="BoostContainer" type="GridContainer" parent="." unique_id=1285383820]
+custom_minimum_size = Vector2(410, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -617.5
+offset_top = -268.5
+offset_right = 617.5
+offset_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="WeaponContainer" type="GridContainer" parent="." unique_id=398397695]
+custom_minimum_size = Vector2(410, 120)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -617.5
+offset_top = 136.5
+offset_right = 617.5
+offset_bottom = 256.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1176608004]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.5
+offset_top = -64.0
+offset_right = 90.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Back" type="Button" parent="VBoxContainer" unique_id=1115489960]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_2abxu")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3aobf")
+text = "BACK"
+flat = true
+icon_alignment = 1
+script = ExtResource("10_atdk0")
+
+[node name="Sfx" type="Node" parent="." unique_id=1821439348]
+
+[node name="CashRegister" type="AudioStreamPlayer" parent="Sfx" unique_id=762702990]
+stream = ExtResource("11_fqd3s")
+bus = &"SFX"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Background/Reroll" to="." method="_on_reroll_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]

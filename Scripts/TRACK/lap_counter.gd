@@ -30,6 +30,19 @@ var needs_init : bool = false
 var game_paused : bool = false
 var game_over : bool = false
 
+@export_group("Pit lane")
+## Margin beyond the pit lane width before the car counts as out of it, in px
+@export var pit_tolerance_px : float = 32.0
+
+var pit_curve : Curve2D = null
+var pit_zone : Rect2 = Rect2()        # coarse box around the whole lane, px
+var pit_half_width : float = 0.0
+var pit_entry_offset : float = 0.0    # start of the pit straight: crossed forward = entered
+var pit_exit_offset : float = 0.0     # end of the pit straight: crossed forward = exited
+var in_pit : bool = false
+var last_pit_offset : float = -1.0    # -1 = car not on the pit lane last frame
+var pit_lap : int = -1                # laps_completed when the pit was last used, -1 = never
+var pit_stops : int = 0
 
 func _ready() -> void:
 	SignalManager.map_generated.connect(_on_map_generated)
@@ -45,6 +58,7 @@ func _on_map_generated(map_data : MapData) -> void:
 	data = map_data
 	lap_px = 4.0 * data.track_half_straight_px + TAU * data.track_radius_px
 	target = get_tree().get_first_node_in_group("player") as Node2D
+	_setup_pit(map_data)
 	# The car is put on the grid by a DEFERRED call: sample its position on
 	# the next physics frame, not now
 	needs_init = true
@@ -63,7 +77,14 @@ func _physics_process(delta : float) -> void:
 		laps_completed = 0
 		started = false
 		_set_wrong_way(false)
+		if in_pit:
+			_leave_pit(false)  # regenerated while in the pit: close it cleanly
+		last_pit_offset = -1.0
+		pit_lap = -1
 		return
+
+	# Before the teleport guard below: a rejected frame must not skip the pit
+	_update_pit(pos)
 
 	# Signed move along the lap, corrected where the offset wraps (the line)
 	var step : float = offset - last_offset
@@ -85,6 +106,69 @@ func _physics_process(delta : float) -> void:
 	if crossed_forward:
 		_on_line_crossed()
 
+func _setup_pit(map_data : MapData) -> void:
+	pit_curve = map_data.pit_curve
+	in_pit = false
+	if pit_curve == null or pit_curve.get_point_count() < 4:
+		pit_curve = null
+		return
+	pit_half_width = float(map_data.pit_width_px) * 0.5 + pit_tolerance_px
+	# The pit straight runs between curve points 1 and 2 (see TrackGenerator):
+	# its two ends are the entry and exit lines
+	pit_entry_offset = pit_curve.get_closest_offset(pit_curve.get_point_position(1))
+	pit_exit_offset = pit_curve.get_closest_offset(pit_curve.get_point_position(2))
+	# Coarse box around the whole lane: the curve query only runs near the pit
+	var baked : PackedVector2Array = pit_curve.get_baked_points()
+	pit_zone = Rect2(baked[0], Vector2.ZERO)
+	for point : Vector2 in baked:
+		pit_zone = pit_zone.expand(point)
+	pit_zone = pit_zone.grow(pit_half_width)
+
+
+func _update_pit(pos : Vector2) -> void:
+	if pit_curve == null:
+		return
+	var on_lane : bool = false
+	var pit_offset : float = -1.0
+	if pit_zone.has_point(pos):
+		pit_offset = pit_curve.get_closest_offset(pos)
+		on_lane = pos.distance_to(pit_curve.sample_baked(pit_offset)) <= pit_half_width
+	if not on_lane:
+		# Left the lane sideways (cut across the grass), or never was on it
+		if in_pit:
+			_leave_pit(false)
+		last_pit_offset = -1.0
+		return
+	# The first frame on the lane only records the offset: jumping onto the
+	# lane mid-way can never count as an entry
+	if last_pit_offset >= 0.0:
+		var crossed_entry : bool = last_pit_offset < pit_entry_offset and pit_offset >= pit_entry_offset
+		if not in_pit and crossed_entry:
+			if pit_lap == laps_completed or pit_stops == DeadLapsManager.max_pit_stops:
+				if pit_lap == laps_completed :
+					print("[LapCounter] pit refused: already used this lap")
+				if pit_stops == DeadLapsManager.max_pit_stops :
+					print("[LapCounter] pit refused: max pit stops reached")
+			else:
+				# Entry line crossed forward. Coming from the exit side never
+				# lands here: the reverse path triggers nothing at all
+				in_pit = true
+				pit_lap = laps_completed
+				print("[LapCounter] pit entered")
+				SignalManager.emit_signal("pit_entered")
+		elif in_pit and last_pit_offset < pit_exit_offset and pit_offset >= pit_exit_offset and pit_stops < DeadLapsManager.max_pit_stops:
+			_leave_pit(true)
+		elif in_pit and last_pit_offset >= pit_entry_offset and pit_offset < pit_entry_offset or pit_stops >= DeadLapsManager.max_pit_stops:
+			_leave_pit(false)  # turned back and drove out through the entry
+	last_pit_offset = pit_offset
+
+
+func _leave_pit(completed : bool) -> void:
+	in_pit = false
+	print("[LapCounter] pit exited (completed: ", completed, ")")
+	if pit_stops < DeadLapsManager.max_pit_stops and completed:
+		pit_stops += 1
+	SignalManager.emit_signal("pit_exited",completed)
 
 ## Share of the current lap legitimately driven, 0..1, for the HUD
 func get_lap_ratio() -> float:
@@ -95,16 +179,15 @@ func get_lap_ratio() -> float:
 
 func _on_line_crossed() -> void:
 	if not started:
-		# Leaving the grid: the race starts, nothing to bank yet
 		started = true
 		lap_distance = 0.0
 		print("[LapCounter] race started")
-		SignalManager.race_started.emit()
+		SignalManager.emit_signal("race_started")
 		return
 	if lap_distance >= lap_px * min_valid_lap_ratio:
 		laps_completed += 1
 		print("[LapCounter] lap ", laps_completed)
-		SignalManager.lap_completed.emit(laps_completed)
+		SignalManager.emit_signal("lap_completed",laps_completed)
 	elif lap_distance > lap_px * 0.25:
 		# A real attempt, but cut: report it. A jiggle on the line stays silent.
 		print("[LapCounter] lap rejected (", int(lap_distance / lap_px * 100.0), "% driven on track)")

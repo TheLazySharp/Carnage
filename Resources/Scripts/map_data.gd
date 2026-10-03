@@ -51,8 +51,11 @@ var track_curve : Curve2D = null
 var track_width_px : int = 0
 ## Lap length in pixels, cached from the baked curve
 var lap_length_px : float = 0.0
-## Pit strip inside the infield, in cells
+## Bounding box of the PIT cells, in cells (scanned by get_pit_cells)
 var pit_rect : Rect2i = Rect2i()
+## Pit lane centreline (open curve, entry -> exit) and its width in pixels
+var pit_curve : Curve2D = null
+var pit_width_px : int = 0
 
 # Stadium geometry, set by TrackGenerator. Every lane, marking or wear line
 # of the ring is an exact parallel of the centreline: see track_offset_curve().

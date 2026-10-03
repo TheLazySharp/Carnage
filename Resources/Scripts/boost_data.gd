@@ -49,7 +49,7 @@ const LOWER_IS_BETTER : Dictionary = {
 @export var target_stats : Array[Target_Stats]
 @export var target_stats_values : Array[float]
 @export var target_stats_modifier_types : Array[Mod_Type]
-@export var target_weapon_types : WeaponsManager.Type
+@export var target_weapon_types : WeaponData.Type
 @export var icon : Texture2D
 @export var text : String
 @export var rarity : InventoryManager.Rarities
@@ -71,7 +71,7 @@ func get_stats()-> Array[Dictionary]:
 		
 		Target_Ressources.WEAPONS:
 			if !target_weapon:
-				if target_weapon_types != WeaponsManager.Type.N_A:
+				if target_weapon_types != WeaponData.Type.N_A:
 					for weapon : WeaponData in WeaponsManager.WEAPONS_TYPES[target_weapon_types].size():
 						for i in target_stats.size():
 							var stat : Statistic = get_weapon_stat(target_stats[i],weapon)
@@ -94,7 +94,7 @@ func get_stats()-> Array[Dictionary]:
 		
 		Target_Ressources.AMMOS:
 			if !target_weapon:
-				if target_weapon_types != WeaponsManager.Type.N_A:
+				if target_weapon_types != WeaponData.Type.N_A:
 					for weapon : WeaponData in WeaponsManager.WEAPONS_TYPES[target_weapon_types].size():
 						for i in target_stats.size():
 							var stat : Statistic = get_weapon_stat(target_stats[i],weapon.weapon_ammo_res)

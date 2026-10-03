@@ -77,6 +77,7 @@ func close() -> void:
 	await tween.finished
 	root.visible = false
 	closed.emit()
+	SignalManager.emit_signal("loading_screen_closed")
 
 
 func set_message(text : String) -> void:

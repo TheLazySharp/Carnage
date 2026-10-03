@@ -97,7 +97,7 @@ signal district_survivor(survivor : SurvivorData)
 signal focused_entered(button : Button)
 
 @warning_ignore("unused_signal")
-signal player_life_changed(current_life : int, max_life : int)
+signal car_blood_changed(current_life : int)
 
 @warning_ignore("unused_signal")
 signal screen_shake_requested(intensity : float, duration : float)
@@ -109,7 +109,10 @@ signal autopilot_zoom_completed
 signal nitro_changed(current_nitro : int)
 
 @warning_ignore("unused_signal")
-signal fuel_changed(current_fuel : int)
+signal blood_consummed(blood_q : int)
+
+@warning_ignore("unused_signal")
+signal survivor_blood_consummed(blood_q : int)
 
 @warning_ignore("unused_signal")
 signal map_generated(data : MapData)
@@ -141,3 +144,43 @@ signal lap_completed(lap_count : int)
 signal lap_rejected
 @warning_ignore("unused_signal")
 signal wrong_way_changed(is_wrong_way : bool)
+@warning_ignore("unused_signal")
+signal pit_entered
+@warning_ignore("unused_signal")
+signal pit_exited(completed : bool)
+@warning_ignore("unused_signal")
+signal pit_choice
+@warning_ignore("unused_signal")
+signal set_new_race
+
+
+
+# ---- UI -----
+@warning_ignore("unused_signal")
+signal text_window_closed(message_key: StringName)
+@warning_ignore("unused_signal")
+signal loading_screen_closed
+
+# ---- DEAD LAPS -----
+@warning_ignore("unused_signal")
+signal new_frag
+@warning_ignore("unused_signal")
+signal new_race_implants_set
+@warning_ignore("unused_signal")
+signal weapon_damages(damages : int)
+@warning_ignore("unused_signal")
+signal car_damages(damages : int)
+@warning_ignore("unused_signal")
+signal drift_ended_points(points : int)
+@warning_ignore("unused_signal")
+signal blood_payment(blood : int)
+@warning_ignore("unused_signal")
+signal speed_reached
+@warning_ignore("unused_signal")
+signal car_blood_absorbed(blood : int)
+@warning_ignore("unused_signal")
+signal car_blood_loss(blood : int)
+@warning_ignore("unused_signal")
+signal distance_traveled(distance_meters: int)
+@warning_ignore("unused_signal")
+signal implant_unplugged

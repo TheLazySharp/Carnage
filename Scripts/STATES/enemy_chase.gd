@@ -2,7 +2,7 @@ extends State
 class_name EnemyChase
 
 @onready var enemy: Enemy = $"../.."
-@onready var target: Node2D = $"/root/World/Car"
+#@onready var target: Node2D = $"/root/World/Car"
 @onready var flow_field: FlowFieldManager = $"/root/World/FlowFieldManager"
 
 var chase_speed_boost: float = 1.6

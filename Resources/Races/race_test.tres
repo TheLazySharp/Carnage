@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="RaceData" format=3 uid="uid://da6uqagea2gfk"]
+
+[ext_resource type="Script" uid="uid://ml2isl6ot3ys" path="res://Resources/Scripts/implants_data.gd" id="1_myskd"]
+[ext_resource type="Script" uid="uid://r8cmuob27oca" path="res://Resources/Scripts/race_data.gd" id="2_e6t3u"]
+
+[sub_resource type="Resource" id="Resource_14a8w"]
+script = ExtResource("1_myskd")
+type = 5
+target_min = 4
+target_max = 8
+metadata/_custom_type_script = "uid://ml2isl6ot3ys"
+
+[sub_resource type="Resource" id="Resource_mwydq"]
+script = ExtResource("1_myskd")
+target_min = 300
+target_max = 800
+metadata/_custom_type_script = "uid://ml2isl6ot3ys"
+
+[sub_resource type="Resource" id="Resource_myskd"]
+script = ExtResource("1_myskd")
+type = 1
+target_min = 500
+target_max = 2000
+metadata/_custom_type_script = "uid://ml2isl6ot3ys"
+
+[resource]
+script = ExtResource("2_e6t3u")
+implants = Array[ExtResource("1_myskd")]([SubResource("Resource_14a8w"), SubResource("Resource_mwydq"), SubResource("Resource_myskd")])
+metadata/_custom_type_script = "uid://r8cmuob27oca"

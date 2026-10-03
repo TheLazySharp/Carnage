@@ -8,8 +8,9 @@ extends Node2D
 @export var cell_size : int = 32
 @export var lane_width_px : int = 96
 @export var track_lanes : int = 4
-@export var pit_size_cells : Vector2i = Vector2i(16, 6)
-@export var pit_inset_cells : int = 3
+@export var pit_lanes : int = 2
+@export var pit_gap_cells : int = 2
+@export var pit_ramp_angle_deg : float = 50.0
 @export var border_margin_h_cells : int = 2
 @export var border_margin_v_cells : int = 8
 
@@ -79,8 +80,9 @@ func generate_async() -> void:
 	generator.track_lanes = track_lanes
 	generator.border_margin_h_cells = border_margin_h_cells
 	generator.border_margin_v_cells = border_margin_v_cells
-	generator.pit_size_cells = pit_size_cells
-	generator.pit_inset_cells = pit_inset_cells
+	generator.pit_lanes = pit_lanes
+	generator.pit_gap_cells = pit_gap_cells
+	generator.pit_ramp_angle_deg = pit_ramp_angle_deg
 
 	LoadingScreen.set_step(0, TRACK_BUILD_STEPS, "Drawing the track...")
 	data = generator.generate(map_seed)
@@ -214,10 +216,9 @@ func _draw() -> void:
 		draw_line(tip, tip - dir * 32.0 + normal * 20.0, red, 3.0)
 		draw_line(tip, tip - dir * 32.0 - normal * 20.0, red, 3.0)
 
-		# Pit outline
-		if data.pit_rect.size != Vector2i.ZERO:
-			draw_rect(Rect2(Vector2(data.pit_rect.position) * px, Vector2(data.pit_rect.size) * px),
-					Color(0.3, 0.9, 0.4), false, 2.0)
+		# Pit lane centreline
+		if data.pit_curve != null:
+			draw_polyline(data.pit_curve.get_baked_points(), Color(0.3, 0.9, 0.4), 2.0)
 
 	# Map border
 	draw_rect(Rect2(Vector2.ZERO, map_px), Color(0.8, 0.8, 0.85), false, 4.0)

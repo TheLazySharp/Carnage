@@ -1,0 +1,20 @@
+ID;english;french
+CAR_VOICE_WELCOME_0;"Welcome passenger !
+You are trapped with me until one of us runs out of blood.
+We are bound to each other with the 3 implants in your arms.
+If you want to survive, make sure to kill enemies on the track so I can drink their blood on the next lap.
+";"Bienvenue passager ! 
+Tu es désormais pris au piège dans mon habitacle jusqu'à ce que l'un de nous deux se vide de son sang.
+Nous sommes liés l'un à l'autre par les 3 implants dans tes bras. 
+Si tu veux survivre, assures toi de tuer les ennemies sur le circuit pour que je puisses boire leur sang au tour sui"
+CAR_VOICE_WELCOME_1;If I run out of blood, I will use yours to keep going. So be carefull.;Lorsque je n'en aurai plus, je me servirai du tien pour continuer à rouler. Alors soit prudent 
+CAR_VOICE_WELCOME_2;Being hit by enemies will cost ME blood;Etre blessée par les ennemies ME coûtera du san
+CAR_VOICE_WELCOME_3;Start a new lap will cost ME blood and the toll price keep increasing.;Commencer un nouveau tour de circuit ME coûtera du sang et le prix du péage ne fait qu'augmente
+CAR_VOICE_WELCOME_4;Using my engine boost by pressing B will cost YOU blood.;Utiliser mon boost en pressant B TE côutera du sang
+CAR_VOICE_WELCOME_5;Make a pit stop to get weapons or upgrades will cost YOU blood.;Faire un arrêt aux stands pour obtenir des armes ou des upgrades TE coûtera du san
+CAR_VOICE_WELCOME_6;"Their might be some ways for you to escape this race, but do not count on me to tell you how !
+Now drive !";"Il existe probablement un moyen pour toi de t'enfuire, mais ne compte pas sur moi pour t'aider !
+Prends le volant !"
+BUTTON_OK;OK;OK
+BUTTON_WTF;Wait what ?!;Putain! Quoi?
+BUTTON_CONTINUE;Continue;Continuer

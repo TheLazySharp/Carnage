@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="26_nbmfc"]
 [ext_resource type="Script" uid="uid://u50nem48pd8" path="res://Scripts/CHARACTERS/PLAYER/sprite_fx_manager.gd" id="29_5bcg3"]
 [ext_resource type="Shader" uid="uid://d3cku4r77mwvd" path="res://Shaders/neon_underglow.gdshader" id="30_i8f1n"]
+[ext_resource type="Script" uid="uid://gxipkapx4o1t" path="res://Scripts/CHARACTERS/PLAYER/distance_tracker.gd" id="32_i8f1n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 radius = 19.0
@@ -746,6 +747,9 @@ libraries/ = SubResource("AnimationLibrary_vd0i7")
 [node name="SpriteFX" type="Node2D" parent="." unique_id=124961842]
 script = ExtResource("29_5bcg3")
 ghost_scene = ExtResource("2_nbj0p")
+
+[node name="DistanceTracker" type="Node2D" parent="." unique_id=967735705]
+script = ExtResource("32_i8f1n")
 
 [connection signal="timeout" from="TakingDamages" to="." method="_on_taking_damages_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

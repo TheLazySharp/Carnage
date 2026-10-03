@@ -20,7 +20,7 @@ const GHOST_INTERVAL : float = 0.05
 # ---------------- SUSTAINED BOOST (NFSU2 style) ----------------
 const NITRO_TICK_TIME : float = 0.3        # seconds between two nitro units
 const NITRO_TICK_COST : int = 10             # nitro units burnt per tick
-const FUEL_TICK_COST : int = 2             # nitro units burnt per tick
+const BLOOD_TICK_COST : int = 2             # nitro units burnt per tick
 const MIN_NITRO_TO_START : int = 10         # nitro needed to ignite. Set to max_nitro for a "full gauge only" rule
 const MIN_BOOST_TIME : float = 0.12         # floor duration so a tap still feels good
 const DASH_ACTION : StringName = &"dash"
@@ -35,7 +35,8 @@ const MOD_CHARGE_TORQUE : String = "drift_charge_accel_boost"
 @export var ghost_scene : PackedScene
 
 var car : CharacterBody2D
-var player : CarData
+var car_res : CarData
+var player : SurvivorData
 
 var is_dashing : bool = false
 var is_preparing : bool = false
@@ -61,9 +62,10 @@ func _ready() -> void:
 	add_child(ghost_timer)
 
 
-func init_dash(p_car : CharacterBody2D, data : CarData) -> void:
+func init_dash(p_car : CharacterBody2D, data : CarData, survivor : SurvivorData) -> void:
 	car = p_car
-	player = data
+	car_res = data
+	player = survivor
 
 
 ## Called on input press : the boost is held until the key is released
@@ -85,8 +87,8 @@ func try_timed_dash() -> void:
 func dash_available() -> bool:
 	return !is_dashing \
 		and !is_preparing 
-		#and player.current_fuel >= player.dash_fuel_down 
-		#and player.current_nitro >= MIN_NITRO_TO_START
+		#and car_res.current_fuel >= car_res.dash_fuel_down 
+		#and car_res.current_nitro >= MIN_NITRO_TO_START
 
 
 ## called from car physics process
@@ -111,7 +113,7 @@ func update_dash(delta : float) -> void:
 		nitro_timer -= delta
 		if nitro_timer <= 0.0:
 			nitro_timer += NITRO_TICK_TIME
-			if !consume_fuel():
+			if !consume_survivor_blood():
 				end_dash()
 				return
 		if boost_time >= MIN_BOOST_TIME and !Input.is_action_pressed(DASH_ACTION):
@@ -124,8 +126,8 @@ func update_dash(delta : float) -> void:
 
 func execute_dash(p_sustained : bool) -> void:
 	# A dash replaces any active mini-turbo: the two boosts never stack
-	player.max_speed.remove_modifiers_from(MOD_CHARGE_SPEED)
-	player.acceleration.remove_modifiers_from(MOD_CHARGE_TORQUE)
+	car_res.max_speed.remove_modifiers_from(MOD_CHARGE_SPEED)
+	car_res.acceleration.remove_modifiers_from(MOD_CHARGE_TORQUE)
 	
 	buffer_timer = 0.0
 
@@ -146,18 +148,18 @@ func execute_dash(p_sustained : bool) -> void:
 		hitstop()
 	SignalManager.screen_shake_requested.emit(12.0, 0.4)
 
-	consume_fuel()
+	consume_survivor_blood()
 
-	player.dmg.add_modifier(Modifier.new(player.dash_dmg_bonus.get_value(), Modifier.Type.PERCENT_MULT, MOD_DMG))
-	player.max_speed.add_modifier(Modifier.new(dash_speed_mult, Modifier.Type.PERCENT_MULT, MOD_SPEED))
-	player.acceleration.add_modifier(Modifier.new(dash_torque_mult, Modifier.Type.PERCENT_MULT, MOD_TORQUE))
+	car_res.dmg.add_modifier(Modifier.new(car_res.dash_dmg_bonus.get_value(), Modifier.Type.PERCENT_MULT, MOD_DMG))
+	car_res.max_speed.add_modifier(Modifier.new(dash_speed_mult, Modifier.Type.PERCENT_MULT, MOD_SPEED))
+	car_res.acceleration.add_modifier(Modifier.new(dash_torque_mult, Modifier.Type.PERCENT_MULT, MOD_TORQUE))
 
 	# Softer kick: a fraction of max speed instead of a full max-speed teleport
-	car.velocity += Vector2.RIGHT.rotated(car.rotation) * player.unscaled_speed() * dash_kick_ratio
+	car.velocity += Vector2.RIGHT.rotated(car.rotation) * car_res.unscaled_speed() * dash_kick_ratio
 
 	original_friction = car.friction
 	car.friction = DASH_FRICTION
-	dash_timer = player.dash_duration.get_value()
+	dash_timer = car_res.dash_duration.get_value()
 	is_dashing = true
 	if enable_ghost:
 		ghost_timer.start()
@@ -171,24 +173,19 @@ func end_dash() -> void:
 	dash_timer = 0.0
 	boost_time = 0.0
 
-	player.dmg.remove_modifiers_from(MOD_DMG)
-	player.max_speed.remove_modifiers_from(MOD_SPEED)
-	player.acceleration.remove_modifiers_from(MOD_TORQUE)
+	car_res.dmg.remove_modifiers_from(MOD_DMG)
+	car_res.max_speed.remove_modifiers_from(MOD_SPEED)
+	car_res.acceleration.remove_modifiers_from(MOD_TORQUE)
 
 	car.friction = original_friction
 	ghost_timer.stop()
 	dash_ended.emit()
 
 
-#func consume_nitro() -> bool:
-	#player.current_nitro = maxi(player.current_nitro - NITRO_TICK_COST, 0)
-	#SignalManager.nitro_changed.emit(player.current_nitro)
-	#return player.current_nitro >= NITRO_TICK_COST
-	
-func consume_fuel() -> bool:
-	player.current_fuel = maxi(player.current_fuel - FUEL_TICK_COST, 0)
-	SignalManager.fuel_changed.emit(FUEL_TICK_COST)
-	return player.current_fuel >= FUEL_TICK_COST
+func consume_survivor_blood() -> bool:
+	var player_life : int = maxi(player.current_life - BLOOD_TICK_COST, 0)
+	SignalManager.emit_signal("survivor_blood_consummed",BLOOD_TICK_COST)
+	return player_life >= BLOOD_TICK_COST
 
 
 func hitstop() -> void:

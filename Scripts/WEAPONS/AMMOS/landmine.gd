@@ -16,6 +16,7 @@ var player_trigger_count : int = 0
 @onready var explosion_sfx: AudioStreamPlayer = $ExplosionSFX
 @onready var explosion_area: Area2D = $ExplosionArea
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
+@onready var trigger_area: Area2D = $TriggerArea
 
 var game_paused:=false
 
@@ -25,8 +26,8 @@ func _ready() -> void:
 
 	max_lvl = mine_data.max_level
 	explosion_sfx.stream = mine_data.weapon_sfx
-	damages = int(mine_data.dmg.get_value())
 	
+	damages = int(mine_data.dmg.get_value())
 
 
 func _on_game_paused(game_on_pause : bool) -> void:
@@ -42,25 +43,28 @@ func explosion()-> void:
 	new_explosion.global_position = self.global_position
 	get_node("/root/World/VFX/Explosions").add_child(new_explosion)
 	
-	
 	animation_mine.stop()
 	animation_mine.hide()
-	explosion_sfx.play()
 	camera_2d.screen_shake(8,0.5)
 	
 
 	for i in range(targets.size() -1, -1, -1):
-
 		if is_instance_valid(targets[i]):
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
 				targets[i].get_damages(mine_data.dmg.get_value())
 				mine_data.total_damages_dealt += int(mine_data.dmg.get_value())
-
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
 				targets[i].chain_explosion(self)
 	targets.clear()
-	expl_limitor = 0
-	self.queue_free()
+	trigger_area.set_deferred("monitoring", false)
+	trigger_area.set_deferred("monitorable", false)
+	explosion_area.set_deferred("monitoring", false)
+	explosion_area.set_deferred("monitorable", false)
+
+	if explosion_sfx.stream == null:
+		queue_free()
+		return
+	explosion_sfx.play()
 
 
 func chain_explosion(from_mine : Node2D) -> void:
@@ -104,4 +108,4 @@ func _on_explosion_area_exited(area: Area2D) -> void:
 
 
 func _on_explosion_sfx_finished() -> void:
-	pass # Replace with function body.
+	queue_free()

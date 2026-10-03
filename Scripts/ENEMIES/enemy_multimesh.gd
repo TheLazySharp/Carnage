@@ -91,7 +91,7 @@ var day_is_ended: bool = false
 var game_paused := false
 var game_over := false
 
-@onready var bloody_engine: BloodyEngine = $/root/World/Car/BloodyEngine
+#@onready var bloody_engine: BloodyEngine = $/root/World/Car/BloodyEngine
 @onready var blood_shot_pool: BloodShotPool = $/root/World/VFX/BloodShotPool
 
 #PERFS STAGGER
@@ -335,6 +335,7 @@ func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_
 		return
 	damage_timer.start()
 	current_life -= damages
+	SignalManager.emit_signal("weapon_damages", damages)
 	flash_damage()
 	display_damages(damages)
 	apply_knockback(hit_direction, knockback_force)   # impact non létal
@@ -351,6 +352,7 @@ func get_damages_from_car(damages: int,hit_direction: Vector2 = Vector2.ZERO) ->
 	if not game_paused:
 		damage_timer.start()
 		current_life -= damages
+		SignalManager.emit_signal("car_damages", damages)
 		flash_damage()
 		display_damages(damages)
 		if current_life <= 0:
@@ -406,11 +408,12 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0)
 
 	# 2. drops
 
-	collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
-	if enemy.drops_dollar:
-		collectable_pool.spawn_dollar(global_position)
+	#collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
+	#if enemy.drops_dollar:
+		#collectable_pool.spawn_dollar(global_position)
 
 	StatsManager.frags += 1
+	SignalManager.emit_signal("new_frag")
 	SignalManager.emit_signal("enemy_is_dead", self, self.horde)
 
 	set_process(true)

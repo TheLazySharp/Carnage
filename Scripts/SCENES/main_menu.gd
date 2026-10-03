@@ -3,17 +3,17 @@ extends Control
 @onready var start: Button = $VBoxContainer/Start
 @onready var quit: Button = $VBoxContainer/Quit
 @onready var skip_tuto: CheckButton = $VBoxContainer/SkipTuto
-
+@onready var race: Button = $VBoxContainer/Race
 @onready var training: Button = $VBoxContainer/Commands
 
 
 func _ready() -> void:
-	SceneManager.unload_game()
+	#SceneManager.unload_game()
 	
 	#TUTO TO BE UPDATED
 	SceneManager.tuto_completed = true
 	
-	start.grab_focus()
+	race.grab_focus()
 	if !SceneManager.tuto_completed:
 		training.hide()
 		skip_tuto.show()
@@ -72,6 +72,7 @@ func _on_commands_pressed() -> void:
 
 func _on_race_pressed() -> void:
 	SceneManager.race_mode =  true
+	SignalManager.emit_signal("set_new_race")
 	SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
 
 

@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dui542e5go1sf" path="res://Scenes/MAPS/extraction_area.tscn" id="5_crs76"]
 [ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="5_hmsud"]
 [ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="7_pow3l"]
+[ext_resource type="PackedScene" uid="uid://b0veydhfq15p5" path="res://Scenes/UI/blood_hud.tscn" id="8_bbpgf"]
 [ext_resource type="PackedScene" uid="uid://y0gpp1mfd5sx" path="res://Scenes/MAPS/lands.tscn" id="15_c3hir"]
 [ext_resource type="Script" uid="uid://c7sdgrppogbwa" path="res://Scripts/ENEMIES/horde_outliner.gd" id="16_mggjl"]
 [ext_resource type="Shader" uid="uid://bb440f6jgtoel" path="res://Shaders/mass_holes.gdshader" id="17_w5ff8"]
@@ -15,7 +16,6 @@
 [ext_resource type="Script" uid="uid://b7t5qqvxkabj3" path="res://Scripts/ITEMS/collectables_pool.gd" id="24_c3hir"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="25_w7bus"]
 [ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="26_mggjl"]
-[ext_resource type="PackedScene" uid="uid://dljrk8342ak5s" path="res://Scenes/UI/HUD.tscn" id="36_7taos"]
 [ext_resource type="Script" uid="uid://cwjmyhyvmlkqc" path="res://Scripts/VFX/blood_impact_pool.gd" id="47_pyd7o"]
 [ext_resource type="Script" uid="uid://deh0gmmbray7" path="res://Scripts/VFX/blood_shot_pool.gd" id="48_i5dpw"]
 [ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/blood_enemy_death.tscn" id="48_quewe"]
@@ -146,7 +146,7 @@ script = ExtResource("5_hmsud")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
 
-[node name="HUD" parent="CanvasLayer" unique_id=1655855182 instance=ExtResource("36_7taos")]
+[node name="HUD" parent="CanvasLayer" unique_id=1655855182 instance=ExtResource("8_bbpgf")]
 
 [node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
 layout_mode = 3

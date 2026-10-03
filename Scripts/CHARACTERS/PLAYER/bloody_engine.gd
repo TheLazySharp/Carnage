@@ -1,7 +1,8 @@
 extends Node2D
 class_name BloodyEngine
 
-var player : CarData
+var car_res : CarData
+var player : SurvivorData
 var game_paused : bool = false
 @onready var car: CharacterBody2D = $".."
 var car_sprite : Sprite2D = null
@@ -22,10 +23,17 @@ var blood_hold_timer : float = 0.0
 signal blood_absorbed
 
 #FUEL
-@onready var fuel_bar: ProgressBar
-@onready var fuel_label: Label
+#@onready var blood_bar: ProgressBar
+#@onready var fuel_label: Label
+
+@onready var blood_bar: ProgressBar
+@onready var blood_label: Label
+@onready var survivor_blood_bar: ProgressBar
+@onready var survivor_blood_label: Label
+
+
 @export var fuel_per_splat: int = 1
-var max_fuel : float
+var max_life : float
 
 
 
@@ -33,42 +41,55 @@ func _ready() -> void:
 	if GameMaster.is_debug():
 		set_process(false)
 		set_physics_process(false)
+		return
+	if GameMaster.is_debug() or SceneManager.race_mode:
 		for child : Node in get_children():
 			var timer : Timer = child as Timer
 			if timer != null:
 				timer.stop()
-		return
-	blood_impact_pool= $/root/World/VFX/BloodImpactPool
-	fuel_bar = $"/root/World/CanvasLayer/HUD/FuelGauge"
-	fuel_label = $"/root/World/CanvasLayer/HUD/FuelGauge/FuelLabel"
-	
-	
-	SignalManager.game_paused.connect(_on_game_paused)
-	SignalManager.fuel_changed.connect(_on_fuel_changed)
-	ItemManager.gas.connect(_on_gas_tank_picked_up)
 
+	blood_impact_pool= $/root/World/VFX/BloodImpactPool
+	#fuel_bar = $"/root/World/CanvasLayer/HUD/FuelGauge"
+	#fuel_label = $"/root/World/CanvasLayer/HUD/FuelGauge/FuelLabel"
+	blood_bar = $"/root/World/CanvasLayer/HUD/CarBlood"
+	blood_label = $"/root/World/CanvasLayer/HUD/CarBlood/CarBloodLabel"
+	survivor_blood_bar = $"/root/World/CanvasLayer/HUD/SurvivorBlood"
+	survivor_blood_label = $"/root/World/CanvasLayer/HUD/SurvivorBlood/SurvivorBloodLabel"
+
+	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.blood_consummed.connect(_on_car_blood_consummed)
+	ItemManager.gas.connect(_on_gas_tank_picked_up)
+	SignalManager.car_blood_changed.connect(_on_car_blood_changed)
+	SignalManager.survivor_blood_consummed.connect(_on_survivor_blood_consummed)
+	
 	vaccum_particles = vaccum_particles_scene.instantiate()
 	add_child(vaccum_particles)
 	vaccum_particles.emitting = false
 
+	
 
-func init_bloody_engine(p_player : CarData, p_sprite : Sprite2D, _dash_manager : DashManager) -> void :
-	player = p_player
+func init_bloody_engine(p_car_res : CarData, p_sprite : Sprite2D, _dash_manager : DashManager) -> void :
+	car_res = p_car_res
 	car_sprite = p_sprite
-	max_fuel = player.max_fuel.get_value()
-	player.current_fuel = int(max_fuel)
-	fuel_bar.max_value = max_fuel
-	fuel_bar.value = player.max_fuel.get_value()
-	# Fuel is only charged once, when the boost ignites
-	#dash_manager.dash_started.connect(_on_dash_started)
+	max_life = car_res.max_life.get_value()
+	car_res.current_life = int(max_life)
+	
+	_on_car_blood_changed(0)
+	
+	player = SurvivorsManager.on_board_survivors[0]
+	init_survivor(player)
 
 	var mat : ShaderMaterial = car_sprite.material as ShaderMaterial
 	if mat != null:
 		mat.set_shader_parameter("blood_amount", 0.0)
 
-func _process(delta: float) -> void:
-	fuel_label.text = str(player.current_fuel) + "/" + str(int(player.max_fuel.get_value()))
+func init_survivor(survivor : SurvivorData) -> void : 
+	survivor.current_life = survivor.max_life
+	survivor_blood_bar.max_value = survivor.max_life
+	survivor_blood_bar.value = survivor.current_life
+	survivor_blood_label.text = str(survivor.current_life) + "/" + str(survivor.max_life)
 
+func _process(delta: float) -> void:
 	var absorbing : bool = (not game_paused) and (Time.get_ticks_msec() / 1000.0 < absorb_until)
 
 	if vaccum_particles != null:
@@ -76,7 +97,6 @@ func _process(delta: float) -> void:
 	
 	if sprite_tinted:
 		update_blood_tint(absorbing, delta)
-		
 
 
 func _physics_process(_delta: float) -> void:
@@ -84,17 +104,17 @@ func _physics_process(_delta: float) -> void:
 		return
 	var harvested: int = blood_impact_pool.harvest(car.global_position)
 	if harvested > 0:
-		fuel_up(harvested * fuel_per_splat)
+		blood_up(harvested * fuel_per_splat)
 		bloody_vaccum()
 
 func _on_game_paused(game_on_pause :bool) -> void:
 	game_paused = game_on_pause
 
-func fuel_up(added_fuel : int) -> void :
-	player.current_fuel += added_fuel
-	if player.current_fuel > player.max_fuel.get_value() :
-		player.current_fuel = int(player.max_fuel.get_value())
-	fuel_bar.value = player.current_fuel
+func blood_up(added_blood : int) -> void :
+	car_res.current_life += added_blood
+	SignalManager.emit_signal("car_blood_absorbed",added_blood)
+	_on_car_blood_changed(added_blood)
+
 
 func bloody_vaccum() -> void :
 	if neons_activated:
@@ -127,26 +147,64 @@ func update_blood_tint(absorbing : bool, delta : float) -> void:
 
 
 func _on_gas_tank_picked_up() -> void :
-	fuel_up(int(player.max_fuel.get_value() - player.current_fuel))
+	blood_up(int(car_res.max_life.get_value() - car_res.current_life))
 
-func fuel_consumption(fuel_q : int) -> void :
-	player.current_fuel -= fuel_q
-	if player.current_fuel <= 0:
-		player.current_fuel = 0
-	fuel_bar.value = player.current_fuel
+func blood_consumption(blood_q : int) -> void :
+	_on_car_blood_changed(-blood_q)
 
 
 func _on_fuel_timer_timeout() -> void:
 	if game_paused :
 		return
-	fuel_consumption(player.regular_fuel_leak)
+	blood_consumption(car_res.regular_fuel_leak)
 
 #func _on_dash_started() -> void :
-	#fuel_consumption(player.dash_fuel_down)
+	#fuel_consumption(car_res.dash_fuel_down)
 
 
-func _on_fuel_changed(fuel_tick_cost : int) -> void:
-	fuel_consumption(fuel_tick_cost)
+func _on_car_blood_consummed(blood_cost : int) -> void:
+	blood_consumption(blood_cost)
+	
+func _on_survivor_blood_consummed(blood_q : int) -> void:
+	_on_survivor_blood_changed(- blood_q, int(survivor_blood_bar.max_value))
 	
 func refresh_display() -> void:
-	fuel_bar.value = player.current_nitro
+	blood_bar.value = car_res.current_nitro
+
+func _on_car_blood_changed(p_life_change : int) -> void:
+	if p_life_change >= 0:
+		car_res.current_life += p_life_change
+		if car_res.current_life > car_res.max_life.get_value():
+			var trasnfered_blood : int = car_res.current_life - int(car_res.max_life.get_value())
+			car_res.current_life = int(car_res.max_life.get_value())
+			_on_survivor_blood_changed(trasnfered_blood, player.max_life)
+	
+	else :
+		var blood_excedent : int = absi(p_life_change) - car_res.current_life
+		if blood_excedent > 0 :
+			car_res.current_life += p_life_change
+			if car_res.current_life < 0:
+				car_res.current_life = 0
+			_on_survivor_blood_changed(- blood_excedent, player.max_life)
+	
+		else : 
+			car_res.current_life += p_life_change
+			#if car_res.current_life < 0:
+				#car_res.current_life = 0
+
+	blood_bar.max_value = int(car_res.max_life.get_value())
+	blood_bar.value = car_res.current_life
+	blood_label.text = str(car_res.current_life) + "/" + str(int(car_res.max_life.get_value()))
+
+func _on_survivor_blood_changed(life_change : int, p_max_life : int) -> void:
+	player.current_life += life_change
+	if player.current_life > player.max_life:
+		player.current_life = player.max_life
+	
+	if player.current_life <= 0 :
+		player.current_life = 0
+		car.on_death()
+	
+	survivor_blood_bar.max_value = p_max_life
+	survivor_blood_bar.value = player.current_life
+	survivor_blood_label.text = str(player.current_life) + "/" + str(p_max_life)

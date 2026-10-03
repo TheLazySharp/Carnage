@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://kypeuvq5nbv1"]
+
+[ext_resource type="Script" uid="uid://b77ne6hl8exq3" path="res://Scripts/UI/TEXTS/key_label.gd" id="1_6sx1i"]
+[ext_resource type="Script" uid="uid://b1jlibpkvei1t" path="res://Scripts/UI/TEXTS/text_windowed.gd" id="1_m3chu"]
+[ext_resource type="Script" uid="uid://bcpj34v5d3g5k" path="res://Scripts/UI/TEXTS/key_button.gd" id="2_6sx1i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3chu"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="TextWindowed" type="Control" unique_id=1675751297]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m3chu")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1631365053]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WindowBkg" type="Panel" parent="CenterContainer" unique_id=287243628]
+custom_minimum_size = Vector2(800, 300)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m3chu")
+
+[node name="Label" type="Label" parent="CenterContainer/WindowBkg" unique_id=1050667158]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("1_6sx1i")
+font_type = 16
+
+[node name="Button" type="Button" parent="CenterContainer/WindowBkg" unique_id=123590031]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+grow_horizontal = 2
+grow_vertical = 0
+flat = true
+script = ExtResource("2_6sx1i")

@@ -132,7 +132,7 @@ func _ready() -> void:
 	burnout_manager.rev_changed.connect(func(is_revving : bool) -> void: revving.emit(is_revving))
 	burnout_manager.burnout_ended.connect(func() -> void: burnout_ok.emit(false))
 	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
-	dash_manager.init_dash(self, player)
+	dash_manager.init_dash(self, player,SurvivorsManager.on_board_survivors[0])
 	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_timed_dash())
 	dash_manager.dash_started.connect(func() -> void: dashing.emit())
 	dash_manager.dash_ended.connect(func() -> void: dash_end.emit())
@@ -151,7 +151,7 @@ func _ready() -> void:
 	# LIFE
 	if TimeManager.current_day == 1:
 		player.current_life = int(player.max_life.get_value())
-	emit_life_changed()
+	#emit_life_changed()
 
 	if visible:
 		engine_ignited.emit()
@@ -345,37 +345,32 @@ func get_damages_from_mob(damages_on_player : int) -> void:
 		return
 
 	is_taking_damages = true
-	player.current_life = maxi(player.current_life - damages_on_player, 0)
+	#player.current_life = maxi(player.current_life - damages_on_player, 0)
 	sparkles.emitting = true
 	damages_sfx()
 	flash.play("flash")
 	taking_damages.start()
-	emit_life_changed()
-
-	if player.current_life <= 0:
-		on_death()
+	emit_life_changed(- damages_on_player)
+	SignalManager.emit_signal("car_blood_loss", damages_on_player)
 
 
 func get_damages(damages_on_player : int) -> void:
 	if player.invincible or game_paused or game_is_over:
 		return
 
-	player.current_life = maxi(player.current_life - damages_on_player, 0)
+	#player.current_life = maxi(player.current_life - damages_on_player, 0)
 	sparkles.emitting = true
 	flash.play("flash")
-	emit_life_changed()
-
-	if player.current_life <= 0:
-		on_death()
+	emit_life_changed(- damages_on_player)
+	SignalManager.emit_signal("car_blood_loss", damages_on_player)
 
 
-func emit_life_changed() -> void:
-	SignalManager.player_life_changed.emit(player.current_life, int(player.max_life.get_value()))
+func emit_life_changed(life_change : int) -> void:
+	SignalManager.emit_signal("car_blood_changed",life_change)
 
 
 func _on_repair_picked_up(repair_amount : int) -> void:
-	player.current_life = mini(player.current_life + repair_amount, int(player.max_life.get_value()))
-	emit_life_changed()
+	emit_life_changed(repair_amount)
 
 
 func on_death() -> void:
@@ -547,7 +542,7 @@ func _ready_debug() -> void:
 	drift_manager.init_drift(self, player, rear_left, rear_right)
 	burnout_manager.init_burnout(player, rear_left_burn_anim, rear_right_burn_anim)
 	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
-	dash_manager.init_dash(self, player)
+	dash_manager.init_dash(self, player,null)
 	sprite_fx.init_fx(self, car_sprite, dash_manager)
 
 

@@ -13,7 +13,7 @@ extends Control
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	duration_stat_value.text = _format_hms(TimeManager.active_time)
-	#distance_stat_value.text = "TBD"
+	distance_stat_value.text = str("%.1f km" % (StatsManager.total_distance / 1000.0))
 	drift_stat_value.text = str(StatsManager.total_drift)
 	kills_stat_value.text = str(StatsManager.frags)
 	#dollar_stat_value.text = "TBD"
@@ -26,7 +26,7 @@ func _ready() -> void:
 func _on_game_paused(game_paused : bool) -> void : 
 	if game_paused:
 		duration_stat_value.text = _format_hms(TimeManager.active_time)
-		#distance_stat_value.text = "TBD"
+		distance_stat_value.text = str("%.1f km" % (StatsManager.total_distance / 1000.0))
 		drift_stat_value.text = str(StatsManager.total_drift)
 		kills_stat_value.text = str(StatsManager.frags)
 		#dollar_stat_value.text = "TBD"

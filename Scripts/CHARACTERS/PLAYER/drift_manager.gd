@@ -361,6 +361,7 @@ func fade_trail(trail : Line2D) -> void:
 func end_skid() -> void:
 	total_drift_points += drift_bonus
 	StatsManager.total_drift += drift_bonus
+	SignalManager.emit_signal("drift_ended_points",drift_bonus)
 	animation_score_to_total()
 
 	# Mini-turbo: releasing a charged drift grants a boost
@@ -447,7 +448,6 @@ func get_drift_bonus_points() -> int:
 	else:
 		drift_bonus = 0
 	return drift_bonus
-
 
 func animation_score_to_total() -> void:
 	if debug_mode:
