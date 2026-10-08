@@ -61,7 +61,7 @@ var districts_scenes : Dictionary[DistrictsData.types,String] = {
 	DistrictsData.types.CARDEALER :"uid://df565yrwfqn1v",
 	DistrictsData.types.FINAL :"uid://df565yrwfqn1v",
 	DistrictsData.types.BANK :"uid://df565yrwfqn1v",
-	DistrictsData.types.CAR_REPAIR :"uid://df565yrwfqn1v",
+	#DistrictsData.types.CAR_REPAIR :"uid://df565yrwfqn1v",
 	DistrictsData.types.EVENT :"uid://df565yrwfqn1v",
 	DistrictsData.types.SHOP :"uid://cvogwsu4e47t0"
 }
@@ -189,4 +189,4 @@ func unload_game() -> void:
 	ShopManager.unload()
 	BuildingsManager.unload()
 	jobs_manager.unload()
-	#DeadLapsManager.unload()
+	BloodBars.unload()

@@ -140,7 +140,37 @@ func _rasterize_cells() -> void:
 				_data.cells[y * w + x] = MapData.CellType.ARTERY
 
 	_build_pit_lane()
+	_find_barriers()
 
+func _find_barriers() -> void:
+	# A barrier is a ground cell touching the racing surface OR the pit lane
+	# (8-neighbourhood, so the walls have no diagonal leak). That walls both
+	# track edges and both sides of the pit lane (track side and infield side),
+	# and leaves the two ramps open: track and pit cells are never barriers.
+	var w : int = map_size_cells.x
+	var h : int = map_size_cells.y
+	_data.barrier_cells.clear()
+	for y : int in h:
+		for x : int in w:
+			if _data.cells[y * w + x] != MapData.CellType.SIDEWALK:
+				continue
+			var touches_drivable : bool = false
+			for dy : int in range(-1, 2):
+				var ny : int = y + dy
+				if ny < 0 or ny >= h:
+					continue
+				for dx : int in range(-1, 2):
+					var nx : int = x + dx
+					if nx < 0 or nx >= w:
+						continue
+					var neighbour : int = _data.cells[ny * w + nx]
+					if neighbour == MapData.CellType.ARTERY or neighbour == MapData.CellType.PIT:
+						touches_drivable = true
+						break
+				if touches_drivable:
+					break
+			if touches_drivable:
+				_data.barrier_cells.append(Vector2i(x, y))
 
 func _build_pit_lane() -> void:
 	# Pit lane along the BOTTOM straight, on the infield side: opposite the

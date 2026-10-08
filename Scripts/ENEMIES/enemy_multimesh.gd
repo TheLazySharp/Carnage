@@ -72,6 +72,9 @@ var air_spin_total : float = 0.0   # spin angle reached at landing (rad)
 var air_scale : float = 1.0        # read by the renderer
 var air_spin_angle : float = 0.0   # read by the renderer
 var hit_pause_left : float = 0.0   # car hit-pause: frozen in white flash, then thrown
+const AIR_STATE: String = "air"
+var playing_air_animation : bool = false              # true while the air throw animation owns the sprite
+var requested_animation_state : String = "walk"       # last state asked (state machine / death), applied on landing
 
 
 @export_group("WALLS PHYSICS")
@@ -301,6 +304,10 @@ func launch_over_car(car_velocity: Vector2, car_speed_ratio: float) -> void:
 	air_spin_total = randf_range(JUICE.air_spin_turns_min, JUICE.air_spin_turns_max) * TAU * spin_sign
 	air_spin_angle = 0.0
 	air_scale = 1.0
+	# Dedicated thrown animation, only if this enemy type has one
+	if mm_pool != null and mm_index >= 0 and mm_pool.has_state(AIR_STATE):
+		playing_air_animation = true
+		mm_pool.set_enemy_state(mm_index, AIR_STATE)
 
 
 ## Scale follows a 0 -> 1 -> 0 arc, spin progresses linearly
@@ -323,6 +330,11 @@ func land() -> void:
 		air_spin_angle = air_spin_total   # corpse keeps its landing angle
 	else:
 		air_spin_angle = 0.0              # alive: renderer faces the car again
+	if playing_air_animation:
+		playing_air_animation = false
+		# Back to the state asked during the flight (car death anim if killed in the air)
+		if mm_pool != null and mm_index >= 0:
+			mm_pool.set_enemy_state(mm_index, requested_animation_state.to_lower())
 	#blow_up(global_position, -knockback_velocity.normalized())
 	
 	
@@ -481,6 +493,9 @@ func blow_up(blood_position: Vector2, blood_direction : Vector2)-> void:
 
  
 func set_animation_state(state_name: String) -> void:
+	requested_animation_state = state_name
+	if playing_air_animation:
+		return   # flying: the air animation keeps playing, this state is applied on landing
 	if mm_pool and mm_index >= 0:
 		mm_pool.set_enemy_state(mm_index, state_name.to_lower())
   

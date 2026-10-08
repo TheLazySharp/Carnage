@@ -3,10 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="1_ppqqq"]
 [ext_resource type="Script" uid="uid://cgs6g466ko5c0" path="res://Resources/Scripts/car_data.gd" id="2_slxi1"]
 [ext_resource type="AudioStream" uid="uid://fck7cw0ivdco" path="res://Assets/Audio/SFX/Car/car-engine-ignite.mp3" id="3_f42j2"]
+[ext_resource type="PackedScene" uid="uid://qhx1lqc41ly0" path="res://Scenes/WEAPONS/Ultimates/flame_torrent.tscn" id="4_slxi1"]
 
 [resource]
 script = ExtResource("2_slxi1")
 car_name = "Skyline"
+seats = 4
+base_maneuvers = Array[int]([0, 7, 1, 4])
+ultimate_scene = ExtResource("4_slxi1")
 base_acceleration = 200
 base_dmg = 1
 base_dash_dmg_bonus = 2.0

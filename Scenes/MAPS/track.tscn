@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://btnx3eftcdghh" path="res://Assets/Props/Ground/Slice 9.tres" id="11_n7p6x"]
 [ext_resource type="Texture2D" uid="uid://bx535xbu8t87a" path="res://Assets/Tilesets/Sidewalks/sidewalksb.png" id="12_4a466"]
 [ext_resource type="Script" uid="uid://chxer3sfmxauq" path="res://Scripts/MAP TOOLS/map_shadows_ground.gd" id="13_3fhhd"]
+[ext_resource type="Texture2D" uid="uid://b05ennc57wbof" path="res://Assets/Tilesets/barb_wireH.png" id="13_23vvs"]
 [ext_resource type="Script" uid="uid://dy5rq620g8ioq" path="res://Scripts/MAP TOOLS/map_building_placer.gd" id="14_kvf0c"]
 [ext_resource type="Resource" uid="uid://b0eo2cigbwq66" path="res://Resources/Buildings/CITY/city_buildings_pool.tres" id="15_frm40"]
 [ext_resource type="Script" uid="uid://ctrrog1kueori" path="res://Scripts/MAP TOOLS/track_road_path.gd" id="16_ce6oy"]
@@ -27,6 +28,7 @@
 [ext_resource type="Script" uid="uid://d35y1k1vt7bq1" path="res://Scripts/MAP TOOLS/track_road_lines.gd" id="25_otnht"]
 [ext_resource type="Resource" uid="uid://vf60crkvisce" path="res://Resources/Cracks/serpentine.tres" id="25_qhujh"]
 [ext_resource type="PackedScene" uid="uid://bvchg7uhhmlwd" path="res://Scenes/TRACK/finish_line.tscn" id="31_ql7ro"]
+[ext_resource type="PackedScene" uid="uid://dwxnyse8e5jbo" path="res://Scenes/TRACK/pit_shop_label.tscn" id="32_pyreq"]
 [ext_resource type="PackedScene" uid="uid://cqddfo4uf5ux1" path="res://Scenes/MAP TOOLS/road_lines_192.tscn" id="50_2p62l"]
 [ext_resource type="PackedScene" uid="uid://b7f82u1r73s67" path="res://Scenes/MAP TOOLS/road_lines_394.tscn" id="51_d0lwd"]
 [ext_resource type="Script" uid="uid://i1akgdqtgvmt" path="res://Scripts/MAP TOOLS/map_debris.gd" id="52_jgq24"]
@@ -4897,13 +4899,27 @@ terrain_set_0/terrain_3/name = "paved"
 terrain_set_0/terrain_3/color = Color(1, 0, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_b45g4")
 
-[node name="Track" type="Node2D" unique_id=369331439 node_paths=PackedStringArray("sidewalks", "road_paths", "road_lines", "finish_line")]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u4ll4"]
+texture = ExtResource("13_23vvs")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_42lo8"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 5
+sources/0 = SubResource("TileSetAtlasSource_u4ll4")
+
+[node name="Track" type="Node2D" unique_id=369331439 node_paths=PackedStringArray("sidewalks", "road_paths", "road_lines", "finish_line", "pit_label", "barrier_layer")]
 script = ExtResource("1_ce6oy")
 sidewalks = NodePath("Sidewalks")
 road_paths = NodePath("RoadPath")
 road_lines = NodePath("RoadLines")
 finish_line = NodePath("FinishLine")
+pit_label = NodePath("PitShop")
 show_raster = true
+barrier_layer = NodePath("Sidewalks/Barriere")
 
 [node name="Sidewalks" type="Node2D" parent="." unique_id=1264171077 node_paths=PackedStringArray("layer", "props_parent")]
 z_index = 5
@@ -4917,6 +4933,9 @@ prop_min_distance = 8
 
 [node name="Pavements" type="TileMapLayer" parent="Sidewalks" unique_id=854564778]
 tile_set = SubResource("TileSet_higrc")
+
+[node name="Barriere" type="TileMapLayer" parent="Sidewalks" unique_id=1085414475 groups=["walls"]]
+tile_set = SubResource("TileSet_42lo8")
 
 [node name="Props" type="Node2D" parent="Sidewalks" unique_id=1537686339]
 
@@ -4984,3 +5003,5 @@ zone_length_cells = Vector2i(10, 30)
 zone_depth_cells = 1
 
 [node name="FinishLine" parent="." unique_id=1121196550 instance=ExtResource("31_ql7ro")]
+
+[node name="PitShop" parent="." unique_id=942808927 instance=ExtResource("32_pyreq")]

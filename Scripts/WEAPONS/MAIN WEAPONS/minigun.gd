@@ -33,10 +33,23 @@ var game_paused: bool = false
 
 var angle_step : float = 10
 
+# ---- MANEUVER-DRIVEN FIRE -----
+@export var auto_fire: bool = false   # legacy auto-targeting bursts (off: fire on maneuvers only)
+@export var sfx_min_interval: float = 0.08  # one shot sound at most every N seconds (no buzz)
+@export var sfx_polyphony: int = 4          # overlapping shot sounds before the oldest is cut
+
+var combo_multiplier: float = 1.0
+var salvo: ManeuverSalvo = ManeuverSalvo.new()
+var sfx_cooldown: float = 0.0
+
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	
+	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
+	SignalManager.combo_changed.connect(_on_combo_changed)
+
 	shot_sfx.stream = minigun_data.weapon_sfx
+	# Several shot sounds can overlap instead of cutting each other
+	shot_sfx.max_polyphony = sfx_polyphony
 	create_bullet_pool(max_bullet_count)
 	muzzle_flash.hide()
 
@@ -56,9 +69,19 @@ func _process(_delta: float) -> void:
 	if !minigun_data.weapon_is_active:
 		desactivate()
 
-func _physics_process(_delta: float) -> void:
-	#global_position = Vector2(get_parent().global_position.x, get_parent().global_position.y - offset_Y)
-	pass
+func _physics_process(delta: float) -> void:
+	if game_paused:
+		return
+	sfx_cooldown -= delta
+	var due: int = salvo.advance(delta)
+	if due == 0:
+		return
+	for i: int in due:
+		_fire_salvo_bullet(salvo.next_angle())
+	# One sound per volley, not per bullet
+	if sfx_cooldown <= 0.0:
+		shot_sfx.play()
+		sfx_cooldown = sfx_min_interval
 
 func fire_bullet(p_target_pos : Vector2)-> void :
 	var dir : Vector2 = fire_point.global_position.direction_to(p_target_pos)
@@ -140,7 +163,7 @@ func _on_range_area_exited(area: Area2D) -> void:
 	enemies_in_range.erase(area)
 
 func try_start_burst() -> void:
-	if is_firing or !minigun_data.weapon_is_active or game_paused:
+	if !auto_fire or is_firing or !minigun_data.weapon_is_active or game_paused:
 		return
 	current_target = get_valid_target()
 	if current_target == null:
@@ -156,3 +179,20 @@ func get_valid_target() -> Area2D:
 	if enemies_in_range.is_empty():
 		return null
 	return enemies_in_range[0]
+
+func _on_combo_changed(multiplier: float, _combo_count: int) -> void:
+	combo_multiplier = multiplier
+
+
+func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: float, drift_level: int, is_amplified: bool, attack_angle: float) -> void:
+	if !minigun_data.weapon_is_active or game_paused or LoadoutManager.get_weapon(maneuver_type) != minigun_data:
+		return
+	salvo.start(minigun_data, maneuver_type, intensity, drift_level, is_amplified, attack_angle, combo_multiplier)
+
+
+func _fire_salvo_bullet(angle: float) -> void:
+	var bullet: AmmoMG = get_bullet_from_pool()
+	bullet.fire(fire_point.global_position, Vector2.RIGHT.rotated(angle), angle, salvo.damage_multiplier)
+	muzzle_flash.rotation = angle + deg_to_rad(90)
+	muzzle_flash.show()
+	muzzle_flash.play("fire")

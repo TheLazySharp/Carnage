@@ -1,17 +1,10 @@
 extends Control
 
-@onready var car_sprite: Sprite2D = $CarBlood/CarSprite
-@onready var survivor_sprite: Sprite2D = $SurvivorBlood/SurvivorSprite
-
 
 @onready var car_neons : CarNeons = get_tree().get_first_node_in_group(&"car_neons") as CarNeons
 var neons_call_threshold : float = 0.15
 
 
-
-func _ready() -> void:
-	car_sprite.texture = CarManager.selected_car.car_sprite
-	survivor_sprite.texture = SurvivorsManager.on_board_survivors[0].icon
 
 
 func _on_car_blood_changed(current_life : int, max_life : int) -> void:

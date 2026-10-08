@@ -7,6 +7,9 @@
 [resource]
 script = ExtResource("2_sbo6d")
 car_name = "Sporster"
+seats = 2
+base_maneuvers = Array[int]([7, 0])
+maneuvers_per_weapon = 4
 base_max_speed = 700
 base_max_life = 180
 base_dmg = 3

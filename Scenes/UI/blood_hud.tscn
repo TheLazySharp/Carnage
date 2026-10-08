@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://b0veydhfq15p5"]
 
 [ext_resource type="Script" uid="uid://cq1pthas2l5yi" path="res://Scripts/UI/blood_hud.gd" id="1_5wt7w"]
-[ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="4_p8bil"]
-[ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="5_7yomn"]
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="5_hl7kj"]
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="9_sr6w0"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="10_yb0tx"]
@@ -20,57 +18,36 @@
 [ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="19_60eq6"]
 [ext_resource type="Script" uid="uid://ci1ix74bfku5g" path="res://Scripts/TRACK/track_HUD.gd" id="20_8bphb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3vmo"]
-bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dds1n"]
-bg_color = Color(0.47479695, 1.1130236e-06, 3.6098064e-07, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axeuq"]
-bg_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cojt"]
-bg_color = Color(0.64288586, 0, 0, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nt7v7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osy7x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3smgn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oghlj"]
+bg_color = Color(0.011990776, 0.033049192, 0.008309989, 1)
+skew = Vector2(0.5, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.7764706, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42lo8"]
+bg_color = Color(0.9943078, 0.08685986, 5.7756904e-07, 1)
+skew = Vector2(0.5, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="Animation" id="Animation_yq1aw"]
 length = 0.001
@@ -211,87 +188,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5wt7w")
-
-[node name="CarBlood" type="ProgressBar" parent="." unique_id=2141337451]
-layout_mode = 1
-offset_left = 92.0
-offset_top = 10.0
-offset_right = 441.0
-offset_bottom = 47.0
-theme_override_styles/background = SubResource("StyleBoxFlat_b3vmo")
-theme_override_styles/fill = SubResource("StyleBoxFlat_dds1n")
-step = 5.0
-value = 75.0
-rounded = true
-show_percentage = false
-
-[node name="CarBloodLabel" type="Label" parent="CarBlood" unique_id=1193735100]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = 6.0
-offset_right = 104.0
-offset_bottom = 29.0
-grow_vertical = 0
-text = "1000/1000"
-script = ExtResource("5_hl7kj")
-
-[node name="CarSprite" type="Sprite2D" parent="CarBlood" unique_id=1905488316]
-position = Vector2(-46.999996, 19)
-rotation = 1.5707964
-texture = ExtResource("4_p8bil")
-
-[node name="SurvivorBlood" type="ProgressBar" parent="." unique_id=442848166]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 78.0
-offset_top = -316.0
-offset_right = 296.0
-offset_bottom = -281.0
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_axeuq")
-theme_override_styles/fill = SubResource("StyleBoxFlat_1cojt")
-step = 5.0
-value = 75.0
-rounded = true
-show_percentage = false
-
-[node name="SurvivorBloodLabel" type="Label" parent="SurvivorBlood" unique_id=1466827681]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -147.0
-offset_top = 6.0
-offset_right = -43.0
-offset_bottom = 29.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "1000/1000"
-horizontal_alignment = 2
-script = ExtResource("5_hl7kj")
-
-[node name="SurvivorSprite" type="Sprite2D" parent="SurvivorBlood" unique_id=1381068487]
-position = Vector2(-41.000008, 21.000015)
-scale = Vector2(1.25, 1.28125)
-texture = ExtResource("5_7yomn")
-
-[node name="ColorRect" type="ColorRect" parent="SurvivorBlood/SurvivorSprite" unique_id=2058130214]
-show_behind_parent = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Gear" type="Control" parent="." unique_id=563957042]
 layout_mode = 1
@@ -723,31 +619,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_vqpl2")
 
-[node name="FPS" type="Label" parent="." unique_id=576823062]
+[node name="Combos" type="Control" parent="." unique_id=821568671]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -74.0
-offset_right = 320.0
-grow_vertical = 0
-size_flags_horizontal = 8
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("13_asqhk")
-theme_override_font_sizes/font_size = 56
-text = "FPS : 60"
-vertical_alignment = 1
-script = ExtResource("17_beu0v")
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="DRIFT" type="Label" parent="." unique_id=159879408]
-visible = false
-layout_mode = 0
-offset_left = 2.0
-offset_top = 109.0
-offset_right = 317.0
-offset_bottom = 183.0
+[node name="ComboMulti" type="Label" parent="Combos" unique_id=159879408]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -135.0
+offset_bottom = -61.0
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 0.7764706, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -758,39 +649,14 @@ horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("18_ax7ct")
 
-[node name="DriftMulti" type="Label" parent="." unique_id=1116792609]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -253.0
-offset_top = 259.0
-offset_right = 1.0
-offset_bottom = 333.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 8
-theme_override_colors/font_color = Color(1, 0.776, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("13_asqhk")
-theme_override_font_sizes/font_size = 56
-text = "+ 1.2"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("18_ax7ct")
-
-[node name="TotalDrift" type="Label" parent="." unique_id=1913339974]
-visible = false
+[node name="CountCombo" type="Label" parent="Combos" unique_id=1913339974]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -424.0
-offset_top = 596.0
-offset_bottom = 670.0
+offset_top = 357.0
+offset_bottom = 431.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
@@ -801,6 +667,50 @@ text = "0 pts"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("18_ax7ct")
+
+[node name="ComboGauge" type="ProgressBar" parent="Combos" unique_id=1756161005]
+layout_mode = 0
+offset_left = 1001.0
+offset_top = 447.0
+offset_right = 1269.0
+offset_bottom = 466.0
+theme_override_styles/background = SubResource("StyleBoxFlat_oghlj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+
+[node name="UltimateGauge" type="ProgressBar" parent="Combos" unique_id=2144426514]
+layout_mode = 0
+offset_left = 791.0
+offset_top = 725.0
+offset_right = 933.02106
+offset_bottom = 766.9159
+theme_override_styles/background = SubResource("StyleBoxFlat_oghlj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_42lo8")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+
+[node name="FPS" type="Label" parent="." unique_id=576823062]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_bottom = 74.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("13_asqhk")
+theme_override_font_sizes/font_size = 56
+text = "FPS : 60"
+vertical_alignment = 1
+script = ExtResource("17_beu0v")
 
 [node name="TimeUI" type="Control" parent="." unique_id=492987781]
 layout_mode = 1
@@ -834,6 +744,7 @@ script = ExtResource("19_60eq6")
 libraries/ = SubResource("AnimationLibrary_cn5rm")
 
 [node name="Track" type="Control" parent="." unique_id=1031778619]
+visible = false
 anchors_preset = 0
 offset_left = 583.5
 offset_right = 623.5
@@ -897,6 +808,7 @@ vertical_alignment = 1
 script = ExtResource("17_5wt7w")
 
 [node name="Implants" type="VBoxContainer" parent="." unique_id=1073191812]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 4

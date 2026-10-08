@@ -26,6 +26,7 @@ const ALL_DOLLAR : Array = [
 var all_dollars : Array[DollarData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var fortune : int
+var blood_tank_q : int
 var has_reward : bool = false
 var rewards : Array[ItemData] = []
 var beacon_target : Vector2 = Vector2.ZERO
@@ -34,15 +35,21 @@ func _ready() -> void:
 	for dollar : DollarData in ALL_DOLLAR:
 		all_dollars.append(dollar)
 	fortune = 0
+	blood_tank_q = 0
+	
 	has_reward = false
 	auto_parts = 0
 	rng.randomize()
 	rewards.clear()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("test"):
+		blood_tank_q +=1000
 
 func unload() -> void:
 	auto_parts = 0
 	fortune = 0
+	blood_tank_q = 0
 	rewards.clear()
 	has_reward = false
 

@@ -11,6 +11,7 @@ var expl_limitor : int = 0
 var knockback_force : float = 400.0
 var targets: Array[Node2D]
 var player_trigger_count : int = 0
+var damage_multiplier : float = 1.0  # set by the launcher (combo)
 
 @onready var animation_mine: AnimatedSprite2D = $AnimationMine
 @onready var explosion_sfx: AudioStreamPlayer = $ExplosionSFX
@@ -47,14 +48,14 @@ func explosion()-> void:
 	animation_mine.hide()
 	camera_2d.screen_shake(8,0.5)
 	
-
+	var dealt : int = roundi(mine_data.dmg.get_value() * damage_multiplier)
 	for i in range(targets.size() -1, -1, -1):
 		if is_instance_valid(targets[i]):
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
 				# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0, death_type: EnemyManager.Death_Types = DEFAULT) -> void:
 				var push_direction : Vector2 = targets[i].global_position - global_position   # outward from the blast center
-				targets[i].get_damages(mine_data.dmg.get_value(), push_direction, knockback_force, mine_data.death_type)
-				mine_data.total_damages_dealt += int(mine_data.dmg.get_value())
+				targets[i].get_damages(dealt, push_direction, knockback_force, mine_data.death_type)
+				mine_data.total_damages_dealt += dealt
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
 				targets[i].chain_explosion(self)
 	targets.clear()

@@ -4,6 +4,7 @@ class_name BurnoutManager
 signal rev_changed(is_revving : bool)
 signal burnout_launched
 signal burnout_ended
+signal burnout_charged  # the rev just became launchable
 
 @export var enable_input_buffer : bool = true
 
@@ -57,8 +58,11 @@ func process_burnout(delta : float, throttle : float, speed : float) -> float:
 				throttle = 0.0
 
 		RevState.CHARGING:
+			var was_charged : bool = rev_charge >= REV_MIN_CHARGE
 			rev_charge += delta
 			throttle = 0.0
+			if !was_charged and rev_charge >= REV_MIN_CHARGE:
+				burnout_charged.emit()
 
 			if !accel_held:
 				release_grace += delta

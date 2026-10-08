@@ -40,6 +40,11 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
 
 
 func _on_pick_up_pressed() -> void:
+	# Double press guard: the weapon and the job are granted once
+	if survivor == null or SurvivorsManager.on_board_survivors.has(survivor):
+		self.hide()
+		SignalManager.emit_signal("game_paused",game_on_pause)
+		return
 	SurvivorsManager._on_survivor_picked_up(survivor)
 	var job : JobData = survivor.job_ressource
 	var effect : JobEffect = job.effect_script.new()
@@ -48,8 +53,6 @@ func _on_pick_up_pressed() -> void:
 	
 	self.hide()
 	SignalManager.emit_signal("game_paused",game_on_pause)
-	
-
 
 func _on_leave_pressed() -> void:
 	self.hide()

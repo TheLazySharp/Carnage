@@ -58,7 +58,24 @@ enum Type {
 @export var base_nb_projectile: int = 1
 @export var base_speed : float
 
-
+@export_group("MANEUVERS")
+## Preferred maneuvers: tried first when the weapon is placed automatically (until the build screen exists)
+@export var assigned_maneuvers : Array[ManeuverManager.Type] = []
+## Stat that sets the base projectile count of a maneuver salvo
+@export var salvo_base_stat : Stats_Types = Stats_Types.NB_AMMO
+## Bullets fired in each direction of a salvo (stream). N_A = one bullet per direction, sweeping the arc
+@export var stream_stat : Stats_Types = Stats_Types.N_A
+## Extra projectiles per drift level
+@export var drift_level_bonus : float = 0.5
+## Projectile count multiplier when the maneuver is dashed
+@export var amplified_multiplier : float = 2.5
+## How much the maneuver arc raises the count: 0 = the shape only spreads the projectiles,
+## 1 = one base count per quarter circle covered
+@export_range(0.0, 1.0) var arc_scaling : float = 0.0
+## Share of the combo multiplier applied to the projectile count (1 = full combo)
+@export var combo_projectile_share : float = 1.0
+## Share of the combo multiplier applied to the damage (0.25: a x5 combo deals x2 damage)
+@export var combo_damage_share : float = 0.25
 
 @export_group("OTHERS")
 @export var dmg_on_resources := 1
@@ -130,6 +147,30 @@ func speed_formula(_level_preview : int) -> float :
 func nb_projectile_formula(level_preview : int) -> float : 
 	var stat_bonus : int = current_level if tar_up_stat == Stats_Types.NB_PROJECTILE else 0
 	return roundi(base_nb_projectile + (stat_bonus + level_preview))
+
+## Projectile count for a maneuver salvo: base stat raised by the combo (main ramp),
+## the maneuver arc and power, the driving quality, the drift level and the dash
+func get_salvo_count(maneuver_type : ManeuverManager.Type, intensity : float, drift_level : int, is_amplified : bool, combo_multiplier : float) -> int :
+	var quarters : float = maxf(ManeuverManager.get_pattern(maneuver_type).y / (PI * 0.5), 1.0)
+	var count : float = get_weapon_stat(salvo_base_stat).get_value() * (1.0 + (quarters - 1.0) * arc_scaling)
+	count *= ManeuverManager.get_power(maneuver_type)
+	count *= 0.5 + 0.5 * intensity
+	count *= 1.0 + drift_level * drift_level_bonus
+	count *= 1.0 + (combo_multiplier - 1.0) * combo_projectile_share
+	if is_amplified:
+		count *= amplified_multiplier
+	# Rounded up (minus a float margin): every bonus adds at least one projectile, even on a small base
+	return maxi(ceili(count - 0.001), 1)
+
+
+## Damage multiplier from the combo: a share only, the combo mostly raises the projectile count
+func get_combo_damage_multiplier(combo_multiplier : float) -> float :
+	return 1.0 + (combo_multiplier - 1.0) * combo_damage_share
+
+func get_shots_per_direction() -> int :
+	if stream_stat == Stats_Types.N_A:
+		return 1
+	return maxi(roundi(get_weapon_stat(stream_stat).get_value()), 1)
 
 func init_stats() -> void : 
 	dmg = Statistic.new(dmg_formula(0))

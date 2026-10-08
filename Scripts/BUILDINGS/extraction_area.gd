@@ -38,7 +38,6 @@ func _on_map_generated(data : MapData) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		#animation_player.play("closing")
-		StatsManager.total_drift = body.get_node("DriftManager").total_drift_points
 		await get_tree().create_timer(2).timeout
 		SignalManager.emit_signal("next_day")
 		if InventoryManager.has_reward:

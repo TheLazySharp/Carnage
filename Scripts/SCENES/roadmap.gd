@@ -5,6 +5,7 @@ const SCROLL_SPEED : int = 15
 const MAP_LINE = preload("uid://c1x3sw3es8h4c")
 const DISTRICT = preload("uid://dy7ucna56qsok") #map_district scene
 @onready var available_seats: Label = $MapBackground/AvailableSeats
+@export var loadout_panel : LoadoutPanel
 
 
 
@@ -31,9 +32,17 @@ func _ready() -> void:
 		last_district = null
 	generate_new_map()
 	unlock_step(RoadMapManager.steps_reached)
-	#print("selected map districts : ",RoadMapManager.selected_districts.size())
-	
 
+	# Run start (no district played yet): the loadout is (re)built from the chosen car and the starting survivor
+	if RoadMapManager.last_district == null:
+		LoadoutManager.start_run(CarManager.selected_car)
+		for survivor : SurvivorData in SurvivorsManager.on_board_survivors:
+			LoadoutManager.add_pending_weapon(survivor.weapon)
+	# Weapons to place (run start, survivor saved during the last raid): the panel opens by itself
+	if !LoadoutManager.pending_weapons.is_empty():
+		loadout_panel.open()
+	if BloodBars.visible:
+		BloodBars.hide()
 
 func generate_new_map() -> void : 
 	if RoadMapManager.current_map_data.is_empty():
@@ -41,7 +50,10 @@ func generate_new_map() -> void :
 		map_data = RoadMapManager.generate_map()
 	else :
 		map_data = RoadMapManager.current_map_data
+	# Survivors placed (or brought back within reach) before the districts are drawn
+	RoadMapManager.refresh_survivors()
 	create_map()
+
 
 func unlock_step(step : int = RoadMapManager.steps_reached) -> void : 
 	if step == 0 :
@@ -91,6 +103,12 @@ func spawn_district(district : DistrictsData) -> void :
 		new_map_district.show_selected()
 
 func _input(event: InputEvent) -> void:
+	# Manual opening: open() builds the rows, show() alone would display an empty panel
+	if event.is_action_pressed("loadout") and !loadout_panel.visible:
+		loadout_panel.open()
+		get_viewport().set_input_as_handled()
+		return
+
 	if event.is_action_pressed("scroll_up"):
 		visuals.position.x -= SCROLL_SPEED
 	elif event.is_action_pressed("scroll_down"):

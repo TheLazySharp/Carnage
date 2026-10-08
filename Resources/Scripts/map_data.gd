@@ -56,6 +56,9 @@ var pit_rect : Rect2i = Rect2i()
 ## Pit lane centreline (open curve, entry -> exit) and its width in pixels
 var pit_curve : Curve2D = null
 var pit_width_px : int = 0
+## Cells of the track barriers: both track edges, and between the pit lane
+## and the track. They stay SIDEWALK underneath: the ground is painted below.
+var barrier_cells : Array[Vector2i] = []
 
 # Stadium geometry, set by TrackGenerator. Every lane, marking or wear line
 # of the ring is an exact parallel of the centreline: see track_offset_curve().

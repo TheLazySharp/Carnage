@@ -10,7 +10,9 @@ var enemies_can_burn: bool = false
 var is_firing: bool = false
 var burning: bool = true
 var targets: Array[Node2D]
-
+var auto_fire: bool = false          # set by the launcher: legacy fire-on-contact mode
+var damage_multiplier: float = 1.0   # set on ignite (combo)
+var fire_time_left: float = 0.0      # maneuver mode: remaining burn time
 
 @onready var player: Sprite2D =  $"/root/World/Car/CarSprite"
 @onready var flame_sfx: AudioStreamPlayer2D = $FlameSfx
@@ -30,10 +32,16 @@ func _ready() -> void:
 	flame_sfx.stream = flame_data.weapon_sfx
 	damages = int(flame_data.dmg.get_value())
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 
 	if !flame_data.weapon_is_active:
 		desactivate()
+
+	# Maneuver mode: burns for a set time, whatever is in the area
+	if fire_time_left > 0.0 and !game_paused:
+		fire_time_left -= delta
+		if fire_time_left <= 0.0:
+			extinguish()
 
 	if is_firing:
 
@@ -61,21 +69,45 @@ func throw_fire() -> void:
 		enemies_can_burn = true
 		sprite.play("huge_fire_cycle")
 
+## Maneuver mode: burn for `duration` seconds
+func ignite(duration: float, p_damage_multiplier: float) -> void:
+	if !flame_data.weapon_is_active:
+		return
+	damage_multiplier = p_damage_multiplier
+	# Generous: a new ignition extends the current one instead of cutting it
+	fire_time_left = maxf(fire_time_left, duration)
+	# Not burning, or already dying out: (re)start the jet
+	if !is_firing or sprite.animation == "huge_fire_end":
+		throw_fire()
+
+
+func extinguish() -> void:
+	enemies_can_burn = false
+	sprite.play("huge_fire_end")
+	await get_tree().create_timer(0.5).timeout
+	# Re-ignited during the end animation: keep burning
+	if fire_time_left > 0.0:
+		return
+	flame_sfx.stop()
+	is_firing = false
 
 func burn_enemies() -> void:
 	if !targets.is_empty() and burning:
 		burning = false
 		burn_rate.start()
-		for i in targets.size():
-			if enemies_can_burn:
-				targets[i].get_damages(flame_data.dmg.get_value(), Vector2.ZERO, 0.0, flame_data.death_type)
-				flame_data.total_damages_dealt += int(flame_data.dmg.get_value())
-		burning = false
+		if !enemies_can_burn:
+			return
+		var dealt: int = roundi(flame_data.dmg.get_value() * damage_multiplier)
+		for target: Node2D in targets:
+			if is_instance_valid(target):
+				target.get_damages(dealt, Vector2.ZERO, 0.0, flame_data.death_type)
+				flame_data.total_damages_dealt += dealt
 
 func _on_area_entered(area: Area2D) -> void:
 		if area.is_in_group("ennemies") and "get_damages" in area.get_parent():
 			targets.append(area.get_parent())
-			if targets.size() <= 1:
+			# Legacy auto mode: fire when the first enemy comes in
+			if auto_fire and targets.size() <= 1:
 				throw_fire()
 		else : return
 
@@ -83,7 +115,8 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_area_exited(area: Area2D) -> void:
 	if area.is_in_group("ennemies") and "get_damages" in area.get_parent():
 		targets.erase(area.get_parent())
-		if targets.is_empty():
+		# Legacy auto mode: stop when the area is empty
+		if auto_fire and targets.is_empty():
 			enemies_can_burn = false
 			await get_tree().create_timer(0.5).timeout
 			sprite.play("huge_fire_end")

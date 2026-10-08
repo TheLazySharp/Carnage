@@ -29,9 +29,12 @@
 [ext_resource type="PackedScene" uid="uid://c7xodcdtwfaaw" path="res://Scenes/VFX/blood_vaccum.tscn" id="26_3jhd0"]
 [ext_resource type="Script" uid="uid://5ophynjbob84" path="res://Scripts/CHARACTERS/PLAYER/dash_manager.gd" id="26_dmmou"]
 [ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="26_nbmfc"]
+[ext_resource type="Script" uid="uid://brywaa2bd6uys" path="res://Scripts/CHARACTERS/PLAYER/maneuver_manager.gd" id="27_sifl5"]
+[ext_resource type="Script" uid="uid://dmijtv1xxo7h" path="res://Scripts/CHARACTERS/PLAYER/ultimate_manager.gd" id="29_1ihg5"]
 [ext_resource type="Script" uid="uid://u50nem48pd8" path="res://Scripts/CHARACTERS/PLAYER/sprite_fx_manager.gd" id="29_5bcg3"]
 [ext_resource type="Shader" uid="uid://d3cku4r77mwvd" path="res://Shaders/neon_underglow.gdshader" id="30_i8f1n"]
 [ext_resource type="Script" uid="uid://gxipkapx4o1t" path="res://Scripts/CHARACTERS/PLAYER/distance_tracker.gd" id="32_i8f1n"]
+[ext_resource type="Script" uid="uid://dve7euf78wc0h" path="res://Scripts/CHARACTERS/PLAYER/combo_manager.gd" id="34_mm77v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 radius = 19.0
@@ -690,12 +693,27 @@ vaccum_particles_scene = ExtResource("26_3jhd0")
 blood_hold_time = 0.2
 neons_activated = true
 
-[node name="FuelTimer" type="Timer" parent="BloodyEngine" unique_id=1184317257]
-wait_time = 3.0
-autostart = true
-
 [node name="BurnoutManager" type="Node2D" parent="." unique_id=479621051]
 script = ExtResource("25_nbmfc")
+
+[node name="ManeuverManager" type="Node2D" parent="." unique_id=490171926]
+script = ExtResource("27_sifl5")
+brake_action = &"back"
+short_drift_max_duration = 0.6
+short_drift_min_speed = 120.0
+reverse_min_speed = 50.0
+reverse_turn_window = 1.5
+spin_360_max_duration = 2.2
+donut_max_duration = 2.2
+loop_max_age = 10.0
+
+[node name="ComboManager" type="Node2D" parent="." unique_id=1653631433]
+script = ExtResource("34_mm77v")
+decay_per_second = 0.1
+break_on_wall_hit = false
+
+[node name="UltimateManager" type="Node2D" parent="." unique_id=1767501934]
+script = ExtResource("29_1ihg5")
 
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
 material = SubResource("ShaderMaterial_vd0i7")
@@ -756,4 +774,3 @@ script = ExtResource("32_i8f1n")
 [connection signal="finished" from="Audio/StartEngine" to="." method="_on_start_engine_finished"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="Beacon/BeepTimer" to="Beacon" method="_on_beep_timer_timeout"]
-[connection signal="timeout" from="BloodyEngine/FuelTimer" to="BloodyEngine" method="_on_fuel_timer_timeout"]

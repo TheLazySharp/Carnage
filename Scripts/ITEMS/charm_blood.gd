@@ -1,0 +1,106 @@
+extends Control
+
+
+var charm : CharmData
+var player : SurvivorData
+
+@onready var card: ColorRect = $Confirm/MarginContainer/Card
+@onready var charm_name: Label = $Confirm/MarginContainer/Card/PanelColor/Name
+@onready var icon: TextureRect = $Confirm/MarginContainer/Card/PanelColor/IconBkg/Icon
+@onready var charm_rarity: Label = $Confirm/MarginContainer/Card/PanelColor/Rarity
+
+@onready var confirm: Button = $Confirm
+@onready var description: Label = $Confirm/MarginContainer/Card/PanelColor/Description
+
+var price_mult : int = 10
+@onready var price_cont: HBoxContainer = $Price
+@onready var price_tag: Label = $Price/PriceTags/PriceTag
+@onready var discount_tag: Label = $Price/PriceTags/DiscountTag
+@onready var strike_price: Control = $Price/PriceTags/PriceTag/StrikePrice
+
+
+@onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
+@onready var not_enough_cash_rect: ColorRect = $Confirm/MarginContainer/NotEnoughCash
+
+var shop_price : int = 0
+
+var card_color : Color
+var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+var discounted_price : int
+
+func _ready() -> void:
+	player = SurvivorsManager.on_board_survivors[0]
+	SignalManager.update_fortune.connect(_on_fortune_updated)
+	rng.randomize()
+
+
+func setup(p_charm : CharmData, p_is_in_shop : bool) -> void : 
+	charm = p_charm
+	
+	charm_name.text = InventoryManager.get_charm_name(p_charm)
+	icon.texture = charm.icon
+	card.color = charm.get_shop_color()
+	charm_rarity.text = charm.get_rarity_string(charm.rarity)
+	charm_rarity.add_theme_color_override("font_color",charm.get_shop_color())
+	charm.is_in_shop = p_is_in_shop
+	description.text = charm.description
+	sold_out.hide()
+	
+	if charm.is_in_shop:
+		shop_price = rng.randi_range(
+			int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),
+			int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod))
+		price_tag.text = str(shop_price)
+		discounted_price = int(shop_price * ShopManager.discount.get_value())
+		discount_tag.text = str(discounted_price)
+		price_cont.show()
+		
+	else : price_cont.hide()
+	
+	if ShopManager.apply_discount :
+		discount_tag.show()
+		strike_price.show()
+	else : 
+		discount_tag.hide()
+		strike_price.hide()
+		
+
+func _on_confirm_pressed() -> void:
+	var final_price : int = mini(shop_price, discounted_price)
+
+	if charm.is_in_shop:
+		if final_price > InventoryManager.blood_tank_q:
+			not_enough_cash()
+			return
+
+		if final_price <= InventoryManager.blood_tank_q:
+			InventoryManager.blood_tank_q -=  final_price
+			SignalManager.emit_signal("update_fortune")
+			
+			var effect : CharmEffect = charm.effect_script.new()
+			effect.activate(charm)
+			CharmsManager.register(charm, effect)
+			
+			sold_out.show()
+			price_cont.hide()
+			confirm.disabled = true
+
+	elif InventoryManager.has_reward:
+		get_as_reward()
+
+func not_enough_cash()-> void : 
+	not_enough_cash_rect.show()
+	await get_tree().create_timer(1).timeout
+	not_enough_cash_rect.hide()
+	
+	
+func _on_fortune_updated() -> void : 
+	if shop_price > InventoryManager.blood_tank_q:
+		price_tag.add_theme_color_override("font_color",Color.RED)
+	if discounted_price > InventoryManager.blood_tank_q:
+		discount_tag.add_theme_color_override("font_color",Color.RED)
+
+func get_as_reward() -> void : 
+	print( "charm chosen before signal : inventory has reward ", InventoryManager.has_reward)
+	SignalManager.emit_signal("reward_chosen")
+	print( "charm chosen after signal : inventory has reward ", InventoryManager.has_reward)

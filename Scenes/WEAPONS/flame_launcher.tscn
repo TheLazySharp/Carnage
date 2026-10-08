@@ -6,3 +6,5 @@
 [node name="FlameLauncher" type="Node2D" unique_id=232219229]
 script = ExtResource("1_sutri")
 flamer_data = ExtResource("2_iaqtt")
+arc_radius = 40.0
+ring_center_offset = Vector2(-24, 0)

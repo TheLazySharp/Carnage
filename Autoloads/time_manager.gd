@@ -4,7 +4,7 @@ var current_day: int = 0
 var total_day: int = 3
 var current_night: int
 var total_night:int = 3
-var day_lenght: int
+var day_lenght: float
 
 var active_time : float
 var tracking_time : bool = false

@@ -13,7 +13,7 @@ func _ready() -> void:
 	#TUTO TO BE UPDATED
 	SceneManager.tuto_completed = true
 	
-	race.grab_focus()
+	start.grab_focus()
 	if !SceneManager.tuto_completed:
 		training.hide()
 		skip_tuto.show()

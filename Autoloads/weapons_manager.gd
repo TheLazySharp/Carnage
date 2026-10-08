@@ -48,6 +48,8 @@ func _ready() -> void:
 
 
 func load_weapons() -> void:
+	weapon_scenes.clear()
+	unequipped_weapons.clear()
 	locked_weapon(REVOLVER)
 	locked_weapon(MINIGUN)
 	locked_weapon(FLAME_LAUNCHER)
@@ -90,11 +92,12 @@ func copy_weapons() -> Array :
 	return weapons
 
 func equip_weapon(new_weapon: WeaponData) -> void:
-	for i in weapon_scenes.size():
-		if weapon_scenes[i][1] == new_weapon.weapon_scene_uid:
-			var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
+	if weapons.has(new_weapon):
+		return
+	for scene : Array in weapon_scenes:
+		if scene[1] == new_weapon.weapon_scene_uid:
 			init_weapon(new_weapon)
-			get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
+			get_node("/root/World/Car/Weapons").add_child(scene[2].instantiate())
 			break
 
 func equip_ammo() -> void:
@@ -105,6 +108,8 @@ func equip_ammo() -> void:
 				init_ammo(weapon_to_reload.weapon_ammo_res)
 
 func init_weapon(new_weapon: WeaponData) -> void:
+	if weapons.has(new_weapon):
+		return
 	new_weapon.is_equiped = true
 	new_weapon.weapon_is_active = true
 	weapons.append(new_weapon)
@@ -156,14 +161,12 @@ func unload() -> void:
 
 
 func instantiate_weapons() -> void:
-	print("start inst weap")
-	for i in weapon_scenes.size():
-		var scene : Array =  weapon_scenes[i]
-		for j in weapons.size():
-			if scene[1] == weapons[j].weapon_scene_uid:
-				var new_weapon_scene : Node2D = weapon_scenes[i][2].instantiate()
-				get_node("/root/World/Car/Weapons").add_child(new_weapon_scene)
-				print(new_weapon_scene.name," inst")
+	var weapons_node : Node = get_node("/root/World/Car/Weapons")
+	for equipped : WeaponData in weapons:
+		for scene : Array in weapon_scenes:
+			if scene[1] == equipped.weapon_scene_uid:
+				weapons_node.add_child(scene[2].instantiate())
+				break
 				
 
 
