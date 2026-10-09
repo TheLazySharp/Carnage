@@ -11,6 +11,7 @@ var menu_scene : String= "uid://gmjjc1vmgcds"
 
 
 func _ready() -> void:
+	BloodBars.hide()
 	menu.grab_focus()
 
 

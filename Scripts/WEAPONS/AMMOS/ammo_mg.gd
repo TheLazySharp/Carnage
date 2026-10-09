@@ -11,7 +11,7 @@ var current_lvl : int
 var max_lvl : int
 var knockback_force : int = 250
 var max_range_squared: float
-
+var damage_multiplier: float = 1.0  # set per shot (combo)
 var velocity : Vector2
 var start_position : Vector2
 
@@ -41,10 +41,11 @@ func _ready() -> void:
 		set_process(false)
 
 
-func fire(from_position: Vector2, direction: Vector2, angle: float) -> void:
+func fire(from_position: Vector2, direction: Vector2, angle: float, p_damage_multiplier: float = 1.0) -> void:
 	global_position = from_position
 	start_position = from_position
 	velocity = direction.normalized() * bullet_data.speed.get_value()
+	damage_multiplier = p_damage_multiplier
 	self.show()
 	is_active = true
 	set_process(true)
@@ -104,8 +105,9 @@ func _on_area_entered(area: Area2D) -> void:
 	if is_active:
 		if "get_damages" in area and area.is_in_group("ennemies") and is_active:
 	# reminder : func get_damages(damages: int, hit_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0, death_type: EnemyManager.Death_Types = DEFAULT) -> void:
-			area.get_damages(bullet_data.dmg.get_value(), velocity, knockback_force, bullet_data.death_type)
-			bullet_data.total_damages_dealt += int(bullet_data.dmg.get_value())
+			var dealt: int = roundi(bullet_data.dmg.get_value() * damage_multiplier)
+			area.get_damages(dealt, velocity, knockback_force, bullet_data.death_type)
+			bullet_data.total_damages_dealt += dealt
 			desactivate()
 		if area.is_in_group("walls"):
 			desactivate()

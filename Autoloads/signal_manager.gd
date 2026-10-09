@@ -147,7 +147,11 @@ signal wrong_way_changed(is_wrong_way : bool)
 @warning_ignore("unused_signal")
 signal pit_entered
 @warning_ignore("unused_signal")
-signal pit_exited(completed : bool)
+## Emitted when the stand is activated (shop opened) during a pit visit
+signal pit_stop_used
+## stop_done = the stand was used during this visit, whatever the way out
+@warning_ignore("unused_signal")
+signal pit_exited(stop_done : bool)
 @warning_ignore("unused_signal")
 signal pit_choice
 @warning_ignore("unused_signal")
@@ -184,3 +188,12 @@ signal car_blood_loss(blood : int)
 signal distance_traveled(distance_meters: int)
 @warning_ignore("unused_signal")
 signal implant_unplugged
+
+
+# --- MANEUVER ----
+@warning_ignore("unused_signal")
+signal maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: float, drift_level: int, is_amplified: bool, attack_angle: float)
+@warning_ignore("unused_signal")
+signal combo_changed(multiplier: float, combo_count: int)
+@warning_ignore("unused_signal")
+signal maneuver_locked(maneuver_type: ManeuverManager.Type)

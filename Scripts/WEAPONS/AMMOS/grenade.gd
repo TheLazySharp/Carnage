@@ -16,6 +16,9 @@ signal grenade_landed(world_position : Vector2)
 @export_group("LANDING")
 @export var landing_rad_clearance : float = 14.0 #radius clear of buildings
 @export var landing_attempts : int = 8
+## Random deviation around a directed throw (degrees), widened on each blocked landing attempt
+@export var direction_jitter_degrees : float = 10.0
+
 
 @export_group("FLIGHT FX")
 @export var spin_turns : float = 2.0
@@ -38,6 +41,8 @@ var knockback_force : float = 400.0
 var current_lvl : int
 var max_lvl : int
 var expl_limitor : int = 0
+var throw_angle : float = NAN        # set by the launcher for a directed throw, NAN = random direction
+var damage_multiplier : float = 1.0  # set by the launcher (combo)
 
 var targets: Array[Node2D]
 
@@ -66,9 +71,12 @@ func _ready() -> void:
 
 
 ## Called by the launcher. from_pos is the car global_position.
-func launch_grenade(from_pos : Vector2) -> void:
+## p_throw_angle: world direction of a directed throw (NAN = random direction)
+func launch_grenade(from_pos : Vector2, p_throw_angle : float = NAN, p_damage_multiplier : float = 1.0) -> void:
 	start_pos = from_pos
 	global_position = from_pos
+	throw_angle = p_throw_angle
+	damage_multiplier = p_damage_multiplier
 
 	spin_amount = spin_turns * TAU * (1.0 if randf() < 0.5 else -1.0)
 	flight_duration = maxf(0.05, duration + randf_range(-duration_random, duration_random))
@@ -92,11 +100,11 @@ func pick_landing_position(from_pos : Vector2) -> Vector2:
 
 	# No grid yet : throw blind
 	if flow_field == null or not flow_field.field_ready:
-		var blind_angle : float = randf() * TAU
+		var blind_angle : float = pick_throw_angle(0)
 		return from_pos + Vector2(cos(blind_angle), sin(blind_angle)) * base_distance
 
 	for attempt : int in landing_attempts:
-		var angle : float = randf() * TAU
+		var angle : float = pick_throw_angle(attempt)
 		var distance : float = maxf(landing_rad_clearance, base_distance * (1.0 - 0.1 * float(attempt)))
 		var candidate : Vector2 = from_pos + Vector2(cos(angle), sin(angle)) * distance
 		if is_landing_clear(candidate):
@@ -105,6 +113,13 @@ func pick_landing_position(from_pos : Vector2) -> Vector2:
 	# Built up all around: drop it at the launcher's feet, a drivable cell by
 	# definition.
 	return from_pos
+
+
+func pick_throw_angle(attempt : int) -> float:
+	if is_nan(throw_angle):
+		return randf() * TAU
+	# Directed throw: small jitter, widening with each blocked attempt
+	return throw_angle + deg_to_rad(randf_range(-direction_jitter_degrees, direction_jitter_degrees)) * float(1 + attempt)
 
 
 ## Center cell plus four cardinal probes at landing_rad_clearance: five array reads,
@@ -153,13 +168,14 @@ func explosion()-> void:
 	explosion_sfx.play()
 	camera_2d.screen_shake(8,0.5)
 	
+	var dealt : int = roundi(grenade_data.dmg.get_value() * damage_multiplier)
 	for i in range(targets.size() -1, -1, -1):
 
 		if is_instance_valid(targets[i]):
 			if targets[i].is_in_group("ennemies") and "get_damages" in targets[i]:
 				var push_direction : Vector2 = targets[i].global_position - global_position   # outward from the blast center
-				targets[i].get_damages(grenade_data.dmg.get_value(), push_direction, knockback_force, grenade_data.death_type)
-				grenade_data.total_damages_dealt += int(grenade_data.dmg.get_value())
+				targets[i].get_damages(dealt, push_direction, knockback_force, grenade_data.death_type)
+				grenade_data.total_damages_dealt += dealt
 
 			elif targets[i].is_in_group("explosives") and "chain_explosion" in targets[i]:
 				targets[i].chain_explosion(self)

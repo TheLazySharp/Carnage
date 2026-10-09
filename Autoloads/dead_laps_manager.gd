@@ -11,6 +11,9 @@ var toll_blood_cost : int = 10
 var total_laps : int = 7
 var max_pit_stops : int = 3
 var toll_ratio : int = 10
+var race_lenght : float = 60
+var lap_time_bonus : float = 10
+
 
 signal toll_blood_cost_updated(new_toll_blood_cost : int)
 @warning_ignore("unused_signal")

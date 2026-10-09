@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cs2bcjelpohax"]
 
 [ext_resource type="Script" uid="uid://sq8qly3ulm1l" path="res://Scripts/SCENES/pit_stop.gd" id="1_hrcb1"]
-[ext_resource type="PackedScene" uid="uid://ceejixgnmvcbd" path="res://Scenes/ITEMS/boost_pit.tscn" id="2_hrcb1"]
+[ext_resource type="PackedScene" uid="uid://ceejixgnmvcbd" path="res://Scenes/ITEMS/boost_blood.tscn" id="2_hrcb1"]
 [ext_resource type="PackedScene" uid="uid://bffr4ys3v5voy" path="res://Scenes/ITEMS/weapon.tscn" id="3_hrcb1"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="4_10s0i"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="5_kjeu0"]

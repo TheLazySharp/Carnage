@@ -3,7 +3,13 @@ class_name CarData
 
 @export var car_name : String
 @export var seats : int = 5
-
+@export_group("MANEUVERS")
+## Maneuvers the car owns at the start of a run (the others are bought at the shop)
+@export var base_maneuvers : Array[ManeuverManager.Type] = []
+## How many maneuvers one weapon can be placed on
+@export var maneuvers_per_weapon : int = 2
+## Car ultimate, triggered by closing a loop (scene with a trigger(polygon, damage_multiplier) method)
+@export var ultimate_scene : PackedScene
 
 @export_group("MAIN STATS")
 @export var base_acceleration := 300

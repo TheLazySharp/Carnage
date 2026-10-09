@@ -189,3 +189,4 @@ func _on_pit_entered() -> void :
 	fortune_tag.text = str(player.current_life)
 	reroll()
 	self.show()
+	SignalManager.emit_signal("pit_stop_used")

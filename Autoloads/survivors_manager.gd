@@ -1,15 +1,5 @@
 extends Node
-
-var max_survivor_per_path : int = 2
-var max_survivor_on_road : int = 6 #CHANGE TO 8 WHEN CREATED
-var next_spawned_survivor : SurvivorData = null
-var next_survivor_to_unlock : SurvivorData = null
-
-var locked_survivors : Array[SurvivorData] = [] #not available survivor
-var known_survivors : Array[SurvivorData] = [] #available to start a game with
-var on_board_survivors : Array[SurvivorData] = [] #in the car during a game
-var on_the_road_survivors : Array[SurvivorData] = [] #selected for the current game / could be saved and onboarded / picked in known and locked survivors
-var survivors_pool : Array[SurvivorData] = [] #contains all the survivor that can be encountered in a run : known + locked
+## Survivors: meta unlocks (known / locked) and the current run (frozen pool, on board)
 
 ##preload ressources array
 const ALL_SURVIVORS : Array = [
@@ -18,9 +8,18 @@ const ALL_SURVIVORS : Array = [
 	preload("uid://co2hy6ybsg7b6"), #BORIS
 	preload("uid://b6nh0gs2w1hog"), #LEO
 	preload("uid://c4cxif75gn4yr"), #VIKTOR
-	preload("uid://d3q6e2ttbedxt"), #MARINA
+	#preload("uid://d3q6e2ttbedxt"), #MARINA
 ]
 
+# ---- META (kept between runs) ----
+var locked_survivors : Array[SurvivorData] = []    # not available at the start of the game: unlocked by saving them on the road
+var known_survivors : Array[SurvivorData] = []     # available to start a run with (all survivors minus the locked ones)
+var next_survivor_to_unlock : SurvivorData = null  # locked survivor added to the run pool, unlocked when saved
+
+# ---- RUN (reset at each new run) ----
+var run_pool : Array[SurvivorData] = []            # frozen at run start: survivors that can be met on the road
+var on_board_survivors : Array[SurvivorData] = []  # in the car ([0] = driver)
+var next_spawned_survivor : SurvivorData = null    # survivor of the district selected on the roadmap
 
 @warning_ignore("unused_signal")
 signal portrait_hovered(id : int)
@@ -29,66 +28,67 @@ signal picked_up_survivor(new_survivor : SurvivorData)
 @warning_ignore("unused_signal")
 signal in_game_survivor_queuefree
 
-func _ready() -> void:
-	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
-	SignalManager.district_survivor.connect(_on_district_selected)
 
+func _ready() -> void:
+	SignalManager.district_survivor.connect(_on_district_selected)
 	reload()
 
-func select_survivor(new_survivor : SurvivorData) -> void :
-	if survivors_pool.has(new_survivor) and on_board_survivors.is_empty():
-		on_board_survivors.append(new_survivor)
-		survivors_pool.erase(new_survivor)
-		load_on_road_survivors()
 
-
-
-func _on_survivor_picked_up(new_survivor : SurvivorData) -> void :
-	if locked_survivors.has(new_survivor):
-		known_survivors.append(new_survivor)
-		locked_survivors.erase(new_survivor)
-	WeaponsManager.equip_weapon(new_survivor.weapon)
-	on_the_road_survivors.erase(new_survivor)
-	on_board_survivors.append(new_survivor)
-
-
-func _on_sandbox_mode() -> void : 
-	known_survivors.clear()
-	locked_survivors.clear()
-	on_the_road_survivors.clear()
-	load_known_survivors()
-	print("sandbox mode survivor")
-
-
-func load_on_road_survivors() -> void:
-	if survivors_pool.is_empty():
-		push_warning("unknown survivor is empty")
+## Starting survivor chosen: the run pool is frozen here (shuffled once)
+func select_survivor(new_survivor : SurvivorData) -> void:
+	if !on_board_survivors.is_empty() or !known_survivors.has(new_survivor):
 		return
-	survivors_pool.shuffle()
-	for i in mini(max_survivor_on_road, survivors_pool.size()):
-		on_the_road_survivors.append(survivors_pool[i])
+	on_board_survivors.append(new_survivor)
+	run_pool.clear()
+	for survivor : SurvivorData in known_survivors:
+		if survivor != new_survivor:
+			run_pool.append(survivor)
+	if next_survivor_to_unlock != null and !run_pool.has(next_survivor_to_unlock):
+		run_pool.append(next_survivor_to_unlock)
+	run_pool.shuffle()
+
+
+## No survivor on the map once the car is full, or when nobody is left to meet
+func can_offer_survivor() -> bool:
+	return !run_pool.is_empty() and on_board_survivors.size() < CarManager.selected_car.seats
+
+
+func _on_survivor_picked_up(new_survivor : SurvivorData) -> void:
+	# Double trigger guard: the weapon must never be equipped twice
+	if new_survivor == null or on_board_survivors.has(new_survivor):
+		return
+	# Saving a locked survivor unlocks it for the next runs
+	if locked_survivors.has(new_survivor):
+		locked_survivors.erase(new_survivor)
+		known_survivors.append(new_survivor)
+		if next_survivor_to_unlock == new_survivor:
+			next_survivor_to_unlock = null
+	run_pool.erase(new_survivor)
+	on_board_survivors.append(new_survivor)
+	WeaponsManager.equip_weapon(new_survivor.weapon)
+	# Placed on maneuvers at the end of the raid, never during it
+	LoadoutManager.add_pending_weapon(new_survivor.weapon)
+
 
 func _on_district_selected(next_survivor : SurvivorData) -> void:
 	next_spawned_survivor = next_survivor
-	
-func load_known_survivors() -> void : 
-	for known_survivor : SurvivorData in ALL_SURVIVORS:
-		known_survivors.append(known_survivor)
 
-func load_survivors_pool() -> void : 
-	for survivor : SurvivorData in known_survivors:
-		survivors_pool.append(survivor)
-	if next_survivor_to_unlock:
-		survivors_pool.append(next_survivor_to_unlock)
 
-func reload() -> void : 
-	survivors_pool.clear()
-	on_the_road_survivors.clear()
-	on_board_survivors.clear()
-	load_known_survivors()
-	load_survivors_pool()
-
-func unload() -> void :
+## Known = every survivor that is not locked (all of them while locked_survivors is empty)
+func refresh_known_survivors() -> void:
 	known_survivors.clear()
-	locked_survivors.clear()
+	for survivor : SurvivorData in ALL_SURVIVORS:
+		if !locked_survivors.has(survivor):
+			known_survivors.append(survivor)
+
+
+## Resets the run only: the meta lists (locked, next to unlock) are kept
+func reload() -> void:
+	run_pool.clear()
+	on_board_survivors.clear()
+	next_spawned_survivor = null
+	refresh_known_survivors()
+
+
+func unload() -> void:
 	reload()

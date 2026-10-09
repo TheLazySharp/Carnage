@@ -2,7 +2,6 @@ extends Node2D
 
 const BULLET = preload("uid://dww6b787qn3x0")
 
-
 @export var revolver_data: WeaponData
 
 @onready var fire_rate: Timer = $FireRate
@@ -13,7 +12,14 @@ var fire_rate_upgrade : float
 @onready var shot_sfx: AudioStreamPlayer2D = $ShotSFX
 @onready var muzzle_flash: AnimatedSprite2D = $MuzzleFlash
 
+# ---- MANEUVER-DRIVEN FIRE -----
+@export var auto_fire: bool = false   # legacy auto-targeting (off: fire on maneuvers only)
+@export var sfx_min_interval: float = 0.1   # one shot sound at most every N seconds
+@export var sfx_polyphony: int = 4          # overlapping shot sounds before the oldest is cut
 
+var combo_multiplier: float = 1.0
+var salvo: ManeuverSalvo = ManeuverSalvo.new()
+var sfx_cooldown: float = 0.0
 var game_paused:=false
 
 var nb_ammo: int
@@ -29,8 +35,12 @@ var targets: Array[Node2D]
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
+	SignalManager.combo_changed.connect(_on_combo_changed)
 
 	shot_sfx.stream = revolver_data.weapon_sfx
+	# Several shot sounds can overlap instead of cutting each other
+	shot_sfx.max_polyphony = sfx_polyphony
 	fire_rate.wait_time = revolver_data.base_fire_rate
 	max_lvl = revolver_data.max_level
 	#_on_stats_updated()
@@ -41,19 +51,29 @@ func _ready() -> void:
 	fire_rate.wait_time = revolver_data.fire_rate.get_value()
 	fire_range.shape.radius = revolver_data.radius.get_value()
 	revolver_data.fire_rate.stat_adjusted.connect(_on_fire_rate_modified)
-	
-	
 
 
 func _process(_delta: float) -> void:
-	if !game_paused:
+	if !game_paused and auto_fire:
 		shoot_from_pool()
 	
 	if !revolver_data.weapon_is_active:
 		desactivate()
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	global_position = get_parent().global_position
+	if game_paused:
+		return
+	sfx_cooldown -= delta
+	var due: int = salvo.advance(delta)
+	if due == 0:
+		return
+	for i: int in due:
+		_fire_salvo_bullet(salvo.next_angle())
+	# One sound per volley, not per bullet
+	if sfx_cooldown <= 0.0:
+		shot_sfx.play()
+		sfx_cooldown = sfx_min_interval
 
 func shoot_from_pool()-> void :
 	if !can_shoot or !revolver_data.weapon_is_active: return
@@ -145,3 +165,20 @@ func desactivate() -> void :
 	
 func _on_fire_rate_modified(new_value: float) -> void : 
 	fire_rate.wait_time = new_value
+
+
+func _on_combo_changed(multiplier: float, _combo_count: int) -> void:
+	combo_multiplier = multiplier
+
+
+func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: float, drift_level: int, is_amplified: bool, attack_angle: float) -> void:
+	if !revolver_data.weapon_is_active or game_paused or LoadoutManager.get_weapon(maneuver_type) != revolver_data:
+		return
+	salvo.start(revolver_data, maneuver_type, intensity, drift_level, is_amplified, attack_angle, combo_multiplier)
+
+
+func _fire_salvo_bullet(angle: float) -> void:
+	var bullet: AmmoREV = get_bullet_from_pool()
+	bullet.fire(fire_point.global_position, Vector2.RIGHT.rotated(angle), angle, salvo.damage_multiplier)
+	muzzle_flash.show()
+	muzzle_flash.play("fire")

@@ -43,11 +43,13 @@ var in_pit : bool = false
 var last_pit_offset : float = -1.0    # -1 = car not on the pit lane last frame
 var pit_lap : int = -1                # laps_completed when the pit was last used, -1 = never
 var pit_stops : int = 0
+var pit_stop_done : bool = false      # stand used (shop opened) during the current visit
 
 func _ready() -> void:
 	SignalManager.map_generated.connect(_on_map_generated)
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.game_is_over.connect(_on_game_over)
+	SignalManager.pit_stop_used.connect(_on_pit_stop_used)
 	set_physics_process(false)
 
 
@@ -154,6 +156,7 @@ func _update_pit(pos : Vector2) -> void:
 				# lands here: the reverse path triggers nothing at all
 				in_pit = true
 				pit_lap = laps_completed
+				pit_stop_done = false
 				print("[LapCounter] pit entered")
 				SignalManager.emit_signal("pit_entered")
 		elif in_pit and last_pit_offset < pit_exit_offset and pit_offset >= pit_exit_offset and pit_stops < DeadLapsManager.max_pit_stops:
@@ -163,12 +166,12 @@ func _update_pit(pos : Vector2) -> void:
 	last_pit_offset = pit_offset
 
 
-func _leave_pit(completed : bool) -> void:
+func _leave_pit(via_exit_line : bool) -> void:
 	in_pit = false
-	print("[LapCounter] pit exited (completed: ", completed, ")")
-	if pit_stops < DeadLapsManager.max_pit_stops and completed:
-		pit_stops += 1
-	SignalManager.emit_signal("pit_exited",completed)
+	# The stop counts once it has been used (shop opened), whatever the way
+	# out: exit line, reversing through the entry, or across the grass
+	print("[LapCounter] pit exited (via exit line: ", via_exit_line, ", stop done: ", pit_stop_done, ")")
+	SignalManager.pit_exited.emit(pit_stop_done)
 
 ## Share of the current lap legitimately driven, 0..1, for the HUD
 func get_lap_ratio() -> float:
@@ -229,3 +232,7 @@ func _on_game_paused(game_on_pause : bool) -> void:
 
 func _on_game_over(game_is_over : bool) -> void:
 	game_over = game_is_over
+
+func _on_pit_stop_used() -> void:
+	if in_pit:
+		pit_stop_done = true

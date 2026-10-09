@@ -12,7 +12,7 @@ enum types {
 	SHOP,
 	GARAGE,
 	BANK,
-	CAR_REPAIR,
+	#CAR_REPAIR,
 	GUNSMITH,
 	SUPERMARKET,
 	CARDEALER,
@@ -28,7 +28,7 @@ const MAP_TYPES : Array[int] = [
 	types.HIGHWAY,
 	types.SURVIVOR,
 	types.BANK,
-	types.CAR_REPAIR,
+	#types.CAR_REPAIR,
 	types.GUNSMITH,
 	types.SUPERMARKET,
 	types.CARDEALER,
@@ -47,6 +47,7 @@ func builds_map() -> bool:
 @export var position : Vector2
 @export var next_districts : Array[DistrictsData]
 @export var selected : bool = false
+var survivor : SurvivorData = null  # survivor waiting on this district (survivor districts only)
 
 func _to_string() -> String:
 	return "%s (%s)" % [column, types.keys()[type][0]] #return first letter of the enum key

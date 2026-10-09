@@ -22,6 +22,11 @@ extends Node2D
 @export var finish_line : Area2D = null
 ## Thickness along the travel direction, in px
 @export var finish_line_thickness_px : float = 32.0
+## Label (or any Node2D / Control) marking the pit entrance, placed every build
+@export var pit_label : CanvasItem = null
+## Where on the entry ramp the label sits: 0 = where the lane leaves the track,
+## 1 = the entry line
+@export_range(0.0, 1.0, 0.05) var pit_label_ramp_ratio : float = 0.5
 
 
 @export_group("Debug draw")
@@ -40,6 +45,14 @@ extends Node2D
 ## Lateral slot on the grid, in px (< 0 = infield side).
 ## -144 = inside lane: the pole position on a real oval
 @export var car_grid_lateral_px : float = -144.0
+
+@export_group("Barriers")
+## TileMapLayer of the barriers: put it in the "walls" group and give the
+## barrier tile its collision polygon in the TileSet
+@export var barrier_layer : TileMapLayer = null
+@export var barrier_source_id : int = 0
+@export var barrier_atlas_coords : Vector2i = Vector2i.ZERO
+
 
 # ---------------- DEBUG CAMERA ----------------
 @export var zoom_min : float = 0.1
@@ -91,6 +104,7 @@ func generate_async() -> void:
 	LoadingScreen.set_step(1, TRACK_BUILD_STEPS, "Laying the infield...")
 	if sidewalks != null:
 		sidewalks.build(data)
+	_paint_barriers()
 	await get_tree().process_frame
 
 	LoadingScreen.set_step(2, TRACK_BUILD_STEPS, "Laying the asphalt...")
@@ -101,6 +115,7 @@ func generate_async() -> void:
 	if road_lines != null:
 		await road_lines.build(data)  # waits for the bake: no pop-in after the overlay
 	_place_finish_line()
+	_place_pit_label()
 	await get_tree().process_frame
 
 	LoadingScreen.set_step(TRACK_BUILD_STEPS, TRACK_BUILD_STEPS)
@@ -275,3 +290,30 @@ func _place_finish_line() -> void:
 		return
 	# Thin along the travel direction, spans the whole track across it
 	(shape.shape as RectangleShape2D).size = Vector2(finish_line_thickness_px, float(data.track_width_px))
+
+func _place_pit_label() -> void:
+	if pit_label == null or data == null or data.pit_curve == null:
+		return
+	# On the entry ramp, between the branch point (offset 0) and the entry line
+	# (start of the pit straight = curve point 1)
+	var entry_line : float = data.pit_curve.get_closest_offset(data.pit_curve.get_point_position(1))
+	var spot : Vector2 = data.pit_curve.sample_baked(entry_line * pit_label_ramp_ratio)
+	var control : Control = pit_label as Control
+	if control != null:
+		# A Control is placed by its top-left corner: centre it on the spot
+		control.global_position = spot - control.size * 0.5
+	else:
+		(pit_label as Node2D).global_position = spot
+
+func _paint_barriers() -> void:
+	if barrier_layer == null or data == null:
+		return
+	barrier_layer.clear()
+	for cell : Vector2i in data.barrier_cells:
+		barrier_layer.set_cell(cell, barrier_source_id, barrier_atlas_coords)
+	print("[TrackDebug] barriers: ", data.barrier_cells.size(), " cells")
+	# The horde wall grid is built at startup, before the map exists: rebuild
+	# it now so the hordes see the barriers like any other wall
+	var horde_manager : HordeManager = get_tree().root.get_node_or_null("World/HordesManager") as HordeManager
+	if horde_manager != null:
+		horde_manager.build_wall_grid()

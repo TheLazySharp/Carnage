@@ -21,7 +21,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 1,
 		DistrictsData.types.BANK : 3,
-		DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.GUNSMITH : 3,
 		DistrictsData.types.SUPERMARKET : 1,
 		DistrictsData.types.CARDEALER : 1,
@@ -34,7 +34,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 2,
 		DistrictsData.types.BANK : 1,
-		DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.SUPERMARKET : 1,
 		DistrictsData.types.GUNSMITH : 2,
 		DistrictsData.types.CARDEALER : 2,
@@ -47,7 +47,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 4,
 		DistrictsData.types.BANK : 1,
-		DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.SUPERMARKET : 1,
 		DistrictsData.types.GUNSMITH : 1,
 		DistrictsData.types.CARDEALER : 2,
@@ -60,7 +60,7 @@ const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 		DistrictsData.types.SURVIVOR : 2,
 		DistrictsData.types.EVENT : 1,
 		DistrictsData.types.BANK : 3,
-		DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.CAR_REPAIR : 2,
 		DistrictsData.types.SUPERMARKET : 1,
 		DistrictsData.types.GUNSMITH : 2,
 		DistrictsData.types.CARDEALER : 3,
@@ -272,9 +272,9 @@ func set_district_type_randomly(district_to_set : DistrictsData) -> void :
 		if not (garage_below_3 or consecutive_garage or consecutive_shop or garage_before_garage_step or shop_too_early):
 			break
 
-	# hard rule : STEPS-2 is always a garage, so STEPS-3 never is
-	if type_candidate == DistrictsData.types.GARAGE and district_to_set.row == STEPS - 3:
-		type_candidate = DistrictsData.types.CAR_REPAIR
+	## hard rule : STEPS-2 is always a garage, so STEPS-3 never is
+	#if type_candidate == DistrictsData.types.GARAGE and district_to_set.row == STEPS - 3:
+		#type_candidate = DistrictsData.types.CAR_REPAIR
 
 	district_to_set.type = type_candidate
 
@@ -389,13 +389,13 @@ func collect_all_paths() -> Array[Array] :
 
 	while not stack.is_empty():
 		var path : Array[DistrictsData] = stack.pop_back()
-		var last_district : DistrictsData = path[path.size() - 1]
+		var p_last_district : DistrictsData = path[path.size() - 1]
 
-		if last_district.next_districts.is_empty():
+		if p_last_district.next_districts.is_empty():
 			result.append(path)
 			continue
 
-		for next_district : DistrictsData in last_district.next_districts:
+		for next_district : DistrictsData in p_last_district.next_districts:
 			var new_path : Array[DistrictsData] = path.duplicate()
 			new_path.append(next_district)
 			stack.append(new_path)
@@ -419,7 +419,101 @@ func _on_next_day()-> void :
 	steps_reached += 1
 	emit_signal("new_step_reached",steps_reached)
 	
+## Districts the player can still reach from where he stands, nearest steps first
+func get_reachable_districts() -> Array[DistrictsData]:
+	var queue : Array[DistrictsData] = []
+	if last_district == null:
+		queue.append(map_data[0][start_column] as DistrictsData)
+	else:
+		queue.append_array(last_district.next_districts)
+	var reachable : Array[DistrictsData] = []
+	while !queue.is_empty():
+		var district : DistrictsData = queue.pop_front()
+		if reachable.has(district):
+			continue
+		reachable.append(district)
+		queue.append_array(district.next_districts)
+	reachable.sort_custom(func(a : DistrictsData, b : DistrictsData) -> bool: return a.row < b.row)
+	return reachable
+
+
+## Called each time the roadmap opens: survivors ahead stay put (the player can plan),
+## survivors left behind come back within reach, saved survivors are removed
+func refresh_survivors() -> void:
+	var slots : Array[DistrictsData] = []
+	for district : DistrictsData in get_reachable_districts():
+		if district.type == DistrictsData.types.SURVIVOR:
+			slots.append(district)
+
+	# 1. Free the survivors left behind (passed step, other branch) and the saved ones
+	for step : Array in map_data:
+		for district : DistrictsData in step:
+			if district.survivor == null:
+				continue
+			if !slots.has(district) or SurvivorsManager.on_board_survivors.has(district.survivor):
+				district.survivor = null
+
+	# 2. How many times each survivor of the pool is still ahead
+	var occurrences : Dictionary[SurvivorData, int] = {}
+	for survivor : SurvivorData in SurvivorsManager.run_pool:
+		occurrences[survivor] = 0
+	for district : DistrictsData in slots:
+		if district.survivor != null and occurrences.has(district.survivor):
+			occurrences[district.survivor] += 1
+
+	# 3. A survivor met nowhere ahead (missed) comes back:
+	# on an empty slot first, else over the farthest duplicate
+	for survivor : SurvivorData in SurvivorsManager.run_pool:
+		if occurrences[survivor] > 0:
+			continue
+		var target : DistrictsData = _get_first_empty_slot(slots)
+		if target == null:
+			target = _get_farthest_duplicate(slots, occurrences)
+		if target == null:
+			continue
+		if target.survivor != null:
+			occurrences[target.survivor] -= 1
+		target.survivor = survivor
+		occurrences[survivor] = 1
+
+	# 4. Remaining empty slots: the rarest survivor first (one survivor can sit on several branches)
+	for district : DistrictsData in slots:
+		if district.survivor != null:
+			continue
+		var rarest : SurvivorData = _get_rarest_survivor(occurrences)
+		if rarest == null:
+			break
+		district.survivor = rarest
+		occurrences[rarest] += 1
+
+
+func _get_first_empty_slot(slots : Array[DistrictsData]) -> DistrictsData:
+	for district : DistrictsData in slots:
+		if district.survivor == null:
+			return district
+	return null
+
+
+## Farthest district whose survivor is also shown on another reachable district
+func _get_farthest_duplicate(slots : Array[DistrictsData], occurrences : Dictionary[SurvivorData, int]) -> DistrictsData:
+	for i : int in range(slots.size() - 1, -1, -1):
+		var survivor : SurvivorData = slots[i].survivor
+		if survivor != null and occurrences.get(survivor, 0) > 1:
+			return slots[i]
+	return null
+
+
+func _get_rarest_survivor(occurrences : Dictionary[SurvivorData, int]) -> SurvivorData:
+	var rarest : SurvivorData = null
+	for survivor : SurvivorData in occurrences:
+		if rarest == null or occurrences[survivor] < occurrences[rarest]:
+			rarest = survivor
+	return rarest
+	
+	
 func unload()-> void : 
 	steps_reached = 0
 	map_data.clear()
 	current_map_data.clear()
+	last_district = null
+	selected_districts.clear()

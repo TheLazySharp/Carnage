@@ -28,5 +28,7 @@ weapon_sfx = SubResource("AudioStreamRandomizer_bnc6f")
 base_dmg = 0
 base_speed_rotation = 0
 base_fire_rate = 1.0
+assigned_maneuvers = Array[int]([0, 1, 2, 4, 5, 6, 7])
+salvo_base_stat = 9
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

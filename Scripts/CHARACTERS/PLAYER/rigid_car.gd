@@ -5,6 +5,8 @@ var player : CarData
 # ---------------- CAR DATA ----------------
 var max_backward_speed : int = 0
 var backward_speed_ratio : float = 0.9
+@export var brake_multiplier : float = 3.0  # input opposing the motion brakes this much harder (arcade)
+@export var drift_min_steer_factor : float = 0.4  # rotation floor while drifting: fast spins even at low speed
 var friction : float = 0.0
 var turn_speed : float = 0.0
 var velocity_floor : float = 0
@@ -131,9 +133,9 @@ func _ready() -> void:
 	burnout_manager.init_burnout(player, rear_left_burn_anim, rear_right_burn_anim)
 	burnout_manager.rev_changed.connect(func(is_revving : bool) -> void: revving.emit(is_revving))
 	burnout_manager.burnout_ended.connect(func() -> void: burnout_ok.emit(false))
-	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
-	dash_manager.init_dash(self, player,SurvivorsManager.on_board_survivors[0])
+	#burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
 	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_timed_dash())
+	dash_manager.init_dash(self, player,SurvivorsManager.on_board_survivors[0])
 	dash_manager.dash_started.connect(func() -> void: dashing.emit())
 	dash_manager.dash_ended.connect(func() -> void: dash_end.emit())
 	sprite_fx.init_fx(self, car_sprite, dash_manager)
@@ -151,7 +153,6 @@ func _ready() -> void:
 	# LIFE
 	if TimeManager.current_day == 1:
 		player.current_life = int(player.max_life.get_value())
-	#emit_life_changed()
 
 	if visible:
 		engine_ignited.emit()
@@ -212,7 +213,12 @@ func _process_player_inputs(delta : float) -> void:
 
 	# ----------------- ACCELERATION -----------------
 	if throttle != 0.0:
-		velocity += forward * throttle * player.acceleration.get_value() * delta
+		var accel_force : float = player.acceleration.get_value()
+		# Braking: the input opposes the current motion -> much stronger force.
+		# Not while drifting: a spin moves backward for a moment and must keep its momentum
+		if !drifting and throttle * velocity.dot(forward) < 0.0:
+			accel_force *= brake_multiplier
+		velocity += forward * throttle * accel_force * delta
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
@@ -222,7 +228,8 @@ func _process_player_inputs(delta : float) -> void:
 
 	# ----------------- ROTATION -----------------
 	var speed : float = velocity.dot(forward)
-	var steer_factor : float = clamp(abs(speed) / player.unscaled_speed(), MIN_STEER_FACTOR, 1.0)
+	var min_steer : float = drift_min_steer_factor if drifting else MIN_STEER_FACTOR
+	var steer_factor : float = clampf(absf(speed) / player.unscaled_speed(), min_steer, 1.0)
 
 	if drifting:
 		steer *= player.drift_turn_bonus.get_value()
@@ -541,7 +548,7 @@ func _ready_debug() -> void:
 	# COMPONENTS
 	drift_manager.init_drift(self, player, rear_left, rear_right)
 	burnout_manager.init_burnout(player, rear_left_burn_anim, rear_right_burn_anim)
-	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
+	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_timed_dash())
 	dash_manager.init_dash(self, player,null)
 	sprite_fx.init_fx(self, car_sprite, dash_manager)
 

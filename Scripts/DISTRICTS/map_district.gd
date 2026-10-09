@@ -26,7 +26,7 @@ const ICONS :  Dictionary = { #texture,scale
 	DistrictsData.types.SHOP: [preload("uid://cgu3vyrlppi4b"), Vector2.ONE],
 	DistrictsData.types.HIGHWAY: [preload("uid://b0qia31ffr14m"), Vector2.ONE],
 	DistrictsData.types.BANK: [preload("uid://dygow32gk88wn"), Vector2.ONE],
-	DistrictsData.types.CAR_REPAIR: [preload("uid://cmx15sgqqk0kr"), Vector2.ONE],
+	#DistrictsData.types.CAR_REPAIR: [preload("uid://cmx15sgqqk0kr"), Vector2.ONE],
 	DistrictsData.types.SUPERMARKET: [preload("uid://dmrml5clvddsu"), Vector2.ONE],
 	DistrictsData.types.GUNSMITH: [preload("uid://bx0g56iujhr01"), Vector2.ONE],
 	DistrictsData.types.CARDEALER: [preload("uid://bn3oteja0m4nn"), Vector2.ONE],
@@ -70,13 +70,14 @@ func set_district(new_data : DistrictsData) -> void :
 	icon.texture = ICONS[district.type][0]
 	#icon.scale = ICONS[district.type][1]
 	
-	if district.type == DistrictsData.types.SURVIVOR and !RoadMapManager.selected_districts.has(district) :
+	# Survivor placed by the RoadMapManager, hidden once the car is full
+	if district.type == DistrictsData.types.SURVIVOR and district.survivor != null and SurvivorsManager.can_offer_survivor():
 		map_survivor = survivor_node.instantiate()
 		survivors.add_child(map_survivor)
 		map_survivor.global_position = survivor_pos.global_position
-		map_survivor.survivor = SurvivorsManager.on_the_road_survivors[min(survivors.get_child_count()-1,SurvivorsManager.on_the_road_survivors.size()-1)]
-		map_survivor.survivor_icon.texture = map_survivor.survivor.icon
-		map_survivor.weapon_icon.texture = map_survivor.survivor.weapon.weapon_icon
+		map_survivor.survivor = district.survivor
+		map_survivor.survivor_icon.texture = district.survivor.icon
+		map_survivor.weapon_icon.texture = district.survivor.weapon.weapon_icon
 
 	if RoadMapManager.selected_districts.has(district):
 		pin.show()
@@ -85,12 +86,11 @@ func show_selected() -> void :
 	line_2d_back.modulate = Color.DIM_GRAY
 	line_2d_front.modulate = Color.DIM_GRAY 
 
-#func on_map_district_selected() -> void :
-	#emit_signal("selected",district)
-
 func _on_button_pressed() -> void:
 	#print("button pressed on disctrict : ",district, " / row : ",district.row)
 	SceneManager.load_district(district)
 	SignalManager.emit_signal("selected_district",district)
 	if district.type == DistrictsData.types.SURVIVOR:
-		SignalManager.emit_signal("district_survivor",map_survivor.survivor)
+		# No survivor here (car full, pool empty): null, so nothing spawns in the raid
+		var survivor : SurvivorData = map_survivor.survivor if map_survivor != null else null
+		SignalManager.emit_signal("district_survivor", survivor)

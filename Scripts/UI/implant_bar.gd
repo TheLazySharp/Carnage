@@ -21,6 +21,9 @@ var car_blood_absorbed : int = 0
 var car_blood_loss : int = 0
 
 func _ready() -> void:
+	if !SceneManager.race_mode :
+		self.hide()
+		return
 	SignalManager.new_race_implants_set.connect(_set_implant_bar)
 	hide()
 

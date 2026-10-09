@@ -34,10 +34,11 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	garage_arrow = player.get_node_or_null("TutoArrow/GarageArrow")
 	player.start_time.connect(_on_game_start)
-	time_remaining = TimeManager.day_lenght
+	time_remaining = DeadLapsManager.race_lenght if SceneManager.race_mode else TimeManager.day_lenght
 	TimeManager.current_day +=1
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.map_generated.connect(_on_map_generated)
+	SignalManager.lap_completed.connect(_on_lap_completed)
 
 
 
@@ -47,7 +48,9 @@ func _process(delta: float) -> void:
 	
 	if time_remaining <= 0:
 		time_remaining = 0
-		on_day_end()
+		if SceneManager.race_mode : 
+			SignalManager.emit_signal("game_is_over", true)
+		else : on_day_end()
 	
 	elif game_start: 
 		time_remaining -=delta
@@ -96,3 +99,6 @@ func _on_map_generated(data : MapData) -> void:
 	extraction_position = data.nodes[data.exit_node_idx] * float(data.cell_size)
 	extraction_position.x -= float(data.cell_size * 3)
 	has_extraction = true
+
+func _on_lap_completed(_lap : int) -> void : 
+	time_remaining += DeadLapsManager.lap_time_bonus

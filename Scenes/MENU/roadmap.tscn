@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://e0kd3buipuat" path="res://Scripts/SCENES/roadmap.gd" id="1_ddeal"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="3_jdbi3"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_tslxm"]
+[ext_resource type="Script" uid="uid://d0jm4markjpcj" path="res://Scripts/SCENES/loadout_panel.gd" id="4_tslxm"]
 
-[node name="Roadmap" type="Node2D" unique_id=546212488]
+[node name="Roadmap" type="Node2D" unique_id=546212488 node_paths=PackedStringArray("loadout_panel")]
 script = ExtResource("1_ddeal")
+loadout_panel = NodePath("CanvasLayer/LoadoutPanel")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=178234721]
 position = Vector2(640, 400)
@@ -67,5 +69,76 @@ unique_name_in_owner = true
 offset_left = 25.0
 offset_top = 27.0
 offset_right = 135.0
-offset_bottom = 75.0
+offset_bottom = 57.0
 text = "Seats : 0 / 4"
+
+[node name="LoadoutButton" type="Label" parent="MapBackground" unique_id=2144203438]
+offset_left = 25.0
+offset_top = 61.0
+offset_right = 157.0
+offset_bottom = 91.0
+text = "Loadout : Press Y"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=62487139]
+
+[node name="LoadoutPanel" type="Control" parent="CanvasLayer" unique_id=11107605 node_paths=PackedStringArray("rows_container", "counters_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_tslxm")
+rows_container = NodePath("PanelContainer/VBoxContainer/Rows")
+counters_label = NodePath("PanelContainer/VBoxContainer/Counters")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/LoadoutPanel" unique_id=363288213]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.25
+offset_top = -240.5
+offset_right = 294.25
+offset_bottom = 240.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/LoadoutPanel/PanelContainer" unique_id=991828421]
+layout_mode = 2
+color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadoutPanel/PanelContainer" unique_id=270739814]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="CanvasLayer/LoadoutPanel/PanelContainer/VBoxContainer" unique_id=36985647]
+layout_mode = 2
+text = "LOADOUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rows" type="VBoxContainer" parent="CanvasLayer/LoadoutPanel/PanelContainer/VBoxContainer" unique_id=955804228]
+layout_mode = 2
+
+[node name="Counters" type="Label" parent="CanvasLayer/LoadoutPanel/PanelContainer/VBoxContainer" unique_id=2107451359]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tips" type="Label" parent="CanvasLayer/LoadoutPanel/PanelContainer/VBoxContainer" unique_id=1152680047]
+layout_mode = 2
+text = "Up/Down : Maneuver | Left/Right : Weapons"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tips2" type="Label" parent="CanvasLayer/LoadoutPanel/PanelContainer/VBoxContainer" unique_id=1694285052]
+layout_mode = 2
+text = "Confirm : press A"
+horizontal_alignment = 1
+vertical_alignment = 1

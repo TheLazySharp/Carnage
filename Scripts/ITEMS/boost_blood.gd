@@ -33,7 +33,7 @@ var card_color : Color
 
 
 func _ready() -> void:
-	SignalManager.pit_choice.connect(_on_pit_choice)
+	SignalManager.update_fortune.connect(_on_fortune_updated)
 	SignalManager.stats_updated.connect((_on_stats_updated))
 	player = SurvivorsManager.on_board_survivors[0]
 
@@ -92,8 +92,9 @@ func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index :
 func _on_confirm_pressed() -> void:
 	var is_purchase : bool = is_in_shop and boost.target_ressource != BoostData.Target_Ressources.CAR
 	var final_price : int = mini(price, discounted_price)
+	
 	# Check the wallet BEFORE applying anything
-	if is_purchase and final_price > player.current_life:
+	if is_purchase and final_price > InventoryManager.blood_tank_q:
 		not_enough_cash()
 		return
 
@@ -105,10 +106,9 @@ func _on_confirm_pressed() -> void:
 	CarManager.selected_car.current_life += new_max_life - base_max_life
 	SignalManager.stats_updated.emit()   # emitted once, not inside the loop
 
-	if is_purchase and final_price <= player.current_life:
-		SignalManager.emit_signal("survivor_blood_consummed",final_price)
-		SignalManager.emit_signal("blood_payment",final_price)
-		SignalManager.emit_signal("pit_choice")
+	if is_purchase and final_price <= InventoryManager.blood_tank_q:
+		InventoryManager.blood_tank_q -= final_price
+		SignalManager.emit_signal("update_fortune")
 		sold_out.show()
 		price_cont.hide()
 		confirm.disabled = true
@@ -119,11 +119,12 @@ func not_enough_cash()-> void :
 	await get_tree().create_timer(1).timeout
 	not_enough_cash_rect.hide()
 
-func _on_pit_choice() -> void : 
-	if price > player.current_life:
+
+func _on_fortune_updated() -> void : 
+	if price > InventoryManager.blood_tank_q:
 		price_tag.add_theme_color_override("font_color",Color.RED)
 
-	if discounted_price > player.current_life:
+	if discounted_price > InventoryManager.blood_tank_q:
 		discount_tag.add_theme_color_override("font_color",Color.RED)
 	
 	if boost == null:

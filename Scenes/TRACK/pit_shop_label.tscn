@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dwxnyse8e5jbo"]
+
+[ext_resource type="Script" uid="uid://bd250t2w2xvnr" path="res://Scripts/FONTS/GUI_UX_M.gd" id="1_4hxr5"]
+
+[node name="PitShop" type="Node2D" unique_id=942808927]
+z_index = 10
+
+[node name="Label" type="Label" parent="." unique_id=1024317394]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "PIT SHOP"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_4hxr5")

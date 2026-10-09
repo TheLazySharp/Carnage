@@ -64,7 +64,7 @@ var focused_button : Button
 func _ready() -> void:
 	hide()
 	if XPManager.available_upgrades <1:
-		SceneManager.load_level(SceneManager.SCENES.HOME)
+		SceneManager.load_level(SceneManager.SCENES.SHOP)
 		return
 	show()
 	SignalManager.focused_entered.connect(_on_button_focused)
@@ -164,7 +164,7 @@ func _on_car_level_up() -> void:
 		final_boosts.clear()
 		reroll()
 	else :
-		SceneManager.load_level(SceneManager.SCENES.HOME)
+		SceneManager.load_level(SceneManager.SCENES.SHOP)
 
 func _on_visibility_changed() -> void:
 	if self.visible : 
@@ -198,7 +198,7 @@ func _on_ignore_pressed() -> void:
 		reroll()
 	else : 
 		final_boosts.clear()
-		SceneManager.load_level(SceneManager.SCENES.HOME)
+		SceneManager.load_level(SceneManager.SCENES.SHOP)
 
 func append_buttons() -> void :
 	if boost_container.get_child_count() > 0:
