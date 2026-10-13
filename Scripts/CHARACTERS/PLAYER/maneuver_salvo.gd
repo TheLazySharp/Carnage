@@ -14,7 +14,7 @@ var center_angle: float = 0.0
 var interval: float = 0.0
 var timer: float = 0.0
 var damage_multiplier: float = 1.0
-
+var spread_half: float = 0.0  # radians, streams only: random deviation around each direction
 
 ## Returns false when the maneuver has no projectile pattern (zone maneuvers)
 func start(data: WeaponData, maneuver_type: ManeuverManager.Type, intensity: float, drift_level: int, is_amplified: bool, attack_angle: float, combo_multiplier: float) -> bool:
@@ -25,12 +25,18 @@ func start(data: WeaponData, maneuver_type: ManeuverManager.Type, intensity: flo
 	center_angle = attack_angle
 	directions = data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier)
 	var shots_per_direction: int = data.get_shots_per_direction()
-	# Sweep: one direction per tick. Streams: every direction at each tick
-	shots_per_tick = 1 if shots_per_direction == 1 else directions
-	var ticks: int = directions if shots_per_direction == 1 else shots_per_direction
 	total = directions * shots_per_direction
 	shots_left = total
-	interval = pattern.z / ticks
+	if shots_per_direction == 1:
+		# Sweep: one direction per tick, spread over the maneuver duration
+		shots_per_tick = 1
+		interval = pattern.z / directions
+		spread_half = 0.0
+	else:
+		# Streams: every direction at each tick, at the weapon fire rate, inside a cone
+		shots_per_tick = directions
+		interval = data.get_stream_interval()
+		spread_half = deg_to_rad(data.stream_spread_degrees) * 0.5
 	timer = 0.0
 	damage_multiplier = data.get_combo_damage_multiplier(combo_multiplier)
 	return true
@@ -53,4 +59,7 @@ func next_angle() -> float:
 	# In sweep mode the index never exceeds directions; in stream mode it cycles at each tick
 	var direction_index: int = (total - shots_left) % directions
 	shots_left -= 1
-	return ManeuverManager.get_spread_angle(direction_index, directions, arc, center_angle)
+	var angle: float = ManeuverManager.get_spread_angle(direction_index, directions, arc, center_angle)
+	if spread_half > 0.0:
+		angle += randf_range(-spread_half, spread_half)
+	return angle

@@ -6,13 +6,20 @@ var car : CarData = null
 var owned_maneuvers : Array[ManeuverManager.Type] = []
 var weapon_by_maneuver : Dictionary[ManeuverManager.Type, WeaponData] = {}
 var pending_weapons : Array[WeaponData] = []
-
+# Power of each maneuver for this run (base from ManeuverManager.get_power, modified by level-ups and charms)
+var maneuver_power : Dictionary[ManeuverManager.Type, Statistic] = {}
+# A maneuver bought at the shop: the loadout panel opens on the roadmap to place a weapon on it
+var has_new_maneuver : bool = false
 
 func start_run(p_car : CarData) -> void:
 	car = p_car
 	owned_maneuvers = p_car.base_maneuvers.duplicate()
 	weapon_by_maneuver.clear()
+	has_new_maneuver = false
 	pending_weapons.clear()
+	maneuver_power.clear()
+	for maneuver_type : ManeuverManager.Type in ManeuverManager.Type.values():
+		maneuver_power[maneuver_type] = Statistic.new(ManeuverManager.get_power(maneuver_type))
 
 
 func owns(maneuver_type : ManeuverManager.Type) -> bool:
@@ -23,11 +30,17 @@ func owns(maneuver_type : ManeuverManager.Type) -> bool:
 func unlock(maneuver_type : ManeuverManager.Type) -> void:
 	if !owned_maneuvers.has(maneuver_type):
 		owned_maneuvers.append(maneuver_type)
+		has_new_maneuver = true
 
 
 func get_weapon(maneuver_type : ManeuverManager.Type) -> WeaponData:
 	return weapon_by_maneuver.get(maneuver_type, null)
 
+## Falls back on the base power when no run is started (map test scenes)
+func get_maneuver_power(maneuver_type : ManeuverManager.Type) -> float:
+	if maneuver_power.has(maneuver_type):
+		return maneuver_power[maneuver_type].get_value()
+	return ManeuverManager.get_power(maneuver_type)
 
 func count_assignments(weapon : WeaponData) -> int:
 	var count : int = 0
@@ -51,6 +64,10 @@ func assign(maneuver_type : ManeuverManager.Type, weapon : WeaponData) -> bool:
 func unassign(maneuver_type : ManeuverManager.Type) -> void:
 	weapon_by_maneuver.erase(maneuver_type)
 
+## Tutorial only: one weapon on every owned maneuver, ignoring the per-weapon limit
+func assign_everywhere(weapon : WeaponData) -> void:
+	for maneuver_type : ManeuverManager.Type in owned_maneuvers:
+		weapon_by_maneuver[maneuver_type] = weapon
 
 func add_pending_weapon(weapon : WeaponData) -> void:
 	if weapon != null and !pending_weapons.has(weapon):

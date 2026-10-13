@@ -35,6 +35,7 @@ enum GAME_MODES {
 }
 
 var game_mode : GAME_MODES
+var tutorial_active : bool = false
 
 func _ready() -> void:
 	game_mode = GAME_MODES.DEV

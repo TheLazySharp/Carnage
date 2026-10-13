@@ -2,6 +2,7 @@ extends Node
 class_name ManeuverManager
 
 enum Type { SHORT_DRIFT, DRIFT_U_TURN, DONUT, LOOP, REVERSE_U_TURN, BURNOUT, HORN, SPIN_360 }
+
 # Display names, in the order of Type
 const MANEUVER_NAMES: PackedStringArray = [
 	"QUICK DRIFT", "DRIFT U-TURN", "DONUT", "LOOP",
@@ -191,11 +192,7 @@ func _start_drift_session(speed: float, heading: float, forward_speed: float) ->
 	drift_level = 0
 	donut_turn_count = 0
 	_reset_donut()
-	trail_points.clear()
-	trail_times.clear()
-	trail_start = 0
-	trail_points.append(_get_trail_position())
-	trail_times.append(0.0)
+	_reset_trail(_get_trail_position())
 	# Reverse turned into a drift (throttle pressed while reversing):
 	# arm the reverse U-turn from this heading, whatever the reverse duration.
 	# This drift can only end as a reverse U-turn (no release maneuver).
@@ -272,18 +269,16 @@ func _update_loop() -> void:
 	var oldest_time: float = drift_duration - loop_max_age
 	while trail_start < last_index and trail_times[trail_start] < oldest_time:
 		trail_start += 1
-	# Test the new segment against older ones, oldest first (biggest loop first).
+	# Newest segment first: the first crossing found is the smallest loop (the last turn drawn).
 	# The last segment shares a point with the new one, so it is skipped.
 	var segment_start: Vector2 = trail_points[last_index]
-	for index: int in range(trail_start, last_index - 1):
+	for index: int in range(last_index - 2, trail_start - 1, -1):
 		var crossing: Variant = Geometry2D.segment_intersects_segment(
 				segment_start, car_position, trail_points[index], trail_points[index + 1])
 		if crossing == null:
 			continue
-		if _try_close_loop(index, crossing, car_position):
-			return
-		# Newer crossings would make even smaller loops
-		break
+		_close_loop(index, crossing, car_position)
+		return
 	trail_points.append(car_position)
 	trail_times.append(drift_duration)
 
@@ -291,28 +286,30 @@ func _update_loop() -> void:
 func _get_trail_position() -> Vector2:
 	return (rear_left.global_position + rear_right.global_position) * 0.5
 	
-func _try_close_loop(crossed_index: int, crossing: Vector2, car_position: Vector2) -> bool:
+func _close_loop(crossed_index: int, crossing: Vector2, car_position: Vector2) -> void:
 	var last_index: int = trail_points.size() - 1
 	# Loop path: crossing -> points after the crossed segment -> back to crossing
 	var perimeter: float = crossing.distance_to(trail_points[crossed_index + 1]) \
 			+ trail_points[last_index].distance_to(crossing)
 	for point_index: int in range(crossed_index + 1, last_index):
 		perimeter += trail_points[point_index].distance_to(trail_points[point_index + 1])
-	# DEBUG: a crossing was found, check its size
-	if perimeter < loop_min_perimeter:
-		return false
-	loop_polygon = trail_points.slice(crossed_index + 1, last_index + 1)
-	loop_polygon.append(crossing)
-	drift_session_consumed = true
-	# 1.0 for the biggest loop the max age allows at reference speed
-	_emit_maneuver(Type.LOOP, perimeter / (reference_speed * loop_max_age))
-	# Start a fresh trail so the same loop cannot close twice
+	if perimeter >= loop_min_perimeter:
+		loop_polygon = trail_points.slice(crossed_index + 1, last_index + 1)
+		loop_polygon.append(crossing)
+		drift_session_consumed = true
+		# 1.0 for the biggest loop the max age allows at reference speed
+		_emit_maneuver(Type.LOOP, perimeter / (reference_speed * loop_max_age))
+	# Loop or too small (a donut turn): the trail restarts here either way,
+	# so successive donut turns can never add up into a big fake loop
+	_reset_trail(car_position)
+
+
+func _reset_trail(start_position: Vector2) -> void:
 	trail_points.clear()
 	trail_times.clear()
 	trail_start = 0
-	trail_points.append(car_position)
+	trail_points.append(start_position)
 	trail_times.append(drift_duration)
-	return true
 
 
 # --- Reverse U-turn ---

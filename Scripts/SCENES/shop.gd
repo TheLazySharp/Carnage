@@ -4,9 +4,11 @@ var player : SurvivorData
 
 @onready var boost_container: GridContainer = $BoostContainer
 @onready var charm_container: GridContainer = $CharmContainer
+@onready var maneuver_container : GridContainer = $ManeuverContainer
 
 @export var boost_scene : PackedScene
 @export var charm_scene : PackedScene
+@export var maneuver_scene : PackedScene
 @onready var cash_register: AudioStreamPlayer = $Sfx/CashRegister
 @onready var back: Button = $VBoxContainer/Back
 @onready var shop: Control = $"."
@@ -19,6 +21,7 @@ var player : SurvivorData
 var nb_ammo : int = 2
 var nb_weapon : int = 2
 var nb_charm : int = 3
+var nb_maneuver : int = 2
 
 var font_button : Array = FontManager.FONTS[FontManager.types.BUTTON]
 var font_button_focus : Array = FontManager.FONTS[FontManager.types.BUTTON_FOCUS]
@@ -49,7 +52,8 @@ func _ready() -> void:
 	update_reroll_button()
 	
 	repair_button.grab_focus()
-		
+	
+	BloodBars.show()
 
 
 
@@ -129,17 +133,23 @@ func reroll() -> void :
 		#boost_card.setup(boost,true)
 
 
-	for i : int in nb_charm:
-		var charm : CharmData = pick_charm(proposed_charms)
-		proposed_charms.append(charm)
-		
-		var charm_card := charm_scene.instantiate()
-		charm_container.add_child(charm_card)
-		charm_card.setup(charm,true)
-		
-	proposed_boosts.clear()
-	proposed_charms.clear()
+	#for i : int in nb_charm:
+		#var charm : CharmData = pick_charm(proposed_charms)
+		#proposed_charms.append(charm)
+		#
+		#var charm_card := charm_scene.instantiate()
+		#charm_container.add_child(charm_card)
+		#charm_card.setup(charm,true)
+		#
+	#proposed_boosts.clear()
+	#proposed_charms.clear()
 	
+	# Maneuvers not owned yet (fewer cards when almost everything is owned)
+	for maneuver : ManeuverData in ShopManager.pick_maneuvers(nb_maneuver):
+		var maneuver_card : Control = maneuver_scene.instantiate()
+		maneuver_container.add_child(maneuver_card)
+		maneuver_card.setup(maneuver)
+
 	items_ready = true
 
 func _on_reroll_pressed() -> void:
@@ -150,6 +160,9 @@ func _on_reroll_pressed() -> void:
 		
 	for i in range(charm_container.get_child_count() -1,-1,-1) :
 		charm_container.get_child(i).queue_free()
+
+	for i in range(maneuver_container.get_child_count() -1,-1,-1) :
+		maneuver_container.get_child(i).queue_free()
 	
 	reroll()
 	

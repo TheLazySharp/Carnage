@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FlockingProfile" format=3 uid="uid://d2fdiyhigp46n"]
+
+[ext_resource type="Script" uid="uid://dcf4sxuh0o0gk" path="res://Resources/Scripts/flocking_profile.gd" id="1_3xjvt"]
+
+[resource]
+script = ExtResource("1_3xjvt")
+cohesion_weight = 0.4
+cohesion_dead_zone = 6.0
+alignment_weight = 0.1
+separation_radius = 26.0
+separation_weight = 1.0
+rest_threshold = 0.15
+metadata/_custom_type_script = "uid://dcf4sxuh0o0gk"

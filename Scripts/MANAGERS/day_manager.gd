@@ -31,6 +31,9 @@ var has_extraction : bool = false
 #signal day_ended(timer_stopped: bool)
 
 func _ready() -> void:
+	if GameMaster.tutorial_active:
+		time_label.hide()
+		time_animation_player.stop()
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	garage_arrow = player.get_node_or_null("TutoArrow/GarageArrow")
 	player.start_time.connect(_on_game_start)
@@ -43,8 +46,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if GameMaster.tutorial_active:
+		return
 	if game_paused or timer_stopped: return
-
 	
 	if time_remaining <= 0:
 		time_remaining = 0

@@ -38,8 +38,8 @@ func _ready() -> void:
 		LoadoutManager.start_run(CarManager.selected_car)
 		for survivor : SurvivorData in SurvivorsManager.on_board_survivors:
 			LoadoutManager.add_pending_weapon(survivor.weapon)
-	# Weapons to place (run start, survivor saved during the last raid): the panel opens by itself
-	if !LoadoutManager.pending_weapons.is_empty():
+	# Weapons to place (run start, survivor saved) or a maneuver bought at the shop: the panel opens by itself
+	if !LoadoutManager.pending_weapons.is_empty() or LoadoutManager.has_new_maneuver:
 		loadout_panel.open()
 	if BloodBars.visible:
 		BloodBars.hide()

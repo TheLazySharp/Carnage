@@ -27,7 +27,7 @@ var max_life : float
 
 var blood_tank_q : int = 0
 var combo_multiplier : float = 1.0
-
+var can_die : bool = true
 
 func _ready() -> void:
 	if GameMaster.is_debug():
@@ -193,12 +193,17 @@ func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 		return
 	var new_life : int = player.current_life + p_life_change
 	if new_life > player.max_life:
+		# Overflow goes to the shop blood tank
 		InventoryManager.blood_tank_q += new_life - player.max_life
 		player.current_life = player.max_life
 		BloodBars.update_blood_tank()
 	elif new_life <= 0:
-		player.current_life = 0
-		is_dead = true
+		if can_die:
+			player.current_life = 0
+			is_dead = true
+		else:
+			# Tutorial: the driver never dies
+			player.current_life = 1
 	else:
 		player.current_life = new_life
 	BloodBars.update_survivor_blood()

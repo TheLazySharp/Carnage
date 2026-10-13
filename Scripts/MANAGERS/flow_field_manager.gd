@@ -220,6 +220,47 @@ func get_flow_direction(world_pos: Vector2) -> Vector2:
 		return (target.global_position - world_pos).normalized()
 	return best_direction
 
+func get_flow_direction_smooth(world_pos: Vector2) -> Vector2:
+	if !field_ready or ring_mode:
+		return get_flow_direction(world_pos)
+	var sample_x: float = world_pos.x / CELL - 0.5 - float(map_origin_tile.x)
+	var sample_y: float = world_pos.y / CELL - 0.5 - float(map_origin_tile.y)
+	var cell_x: int = int(floor(sample_x))
+	var cell_y: int = int(floor(sample_y))
+	if cell_x < 0 or cell_y < 0 or cell_x >= grid_w - 1 or cell_y >= grid_h - 1:
+		return get_flow_direction(world_pos)
+	var weight_x: float = sample_x - float(cell_x)
+	var weight_y: float = sample_y - float(cell_y)
+	var top_left: int = (cell_y + 1) * padded_width + (cell_x + 1)
+	var blended: Vector2 = cell_flow_direction(top_left) * ((1.0 - weight_x) * (1.0 - weight_y)) \
+		+ cell_flow_direction(top_left + 1) * (weight_x * (1.0 - weight_y)) \
+		+ cell_flow_direction(top_left + padded_width) * ((1.0 - weight_x) * weight_y) \
+		+ cell_flow_direction(top_left + padded_width + 1) * (weight_x * weight_y)
+	if blended.length_squared() < 0.0001:
+		return get_flow_direction(world_pos)   # target cell, walls, unreached: exact fallback
+	return blended.normalized()
+
+
+func cell_flow_direction(here_index: int) -> Vector2:
+	if blocked[here_index] == 1:
+		return Vector2.ZERO
+	var lowest_cost: int = cost[here_index]
+	if lowest_cost == UNREACHED:
+		return Vector2.ZERO
+	var best_direction: Vector2 = Vector2.ZERO
+	for k: int in 8:
+		var neighbor_index: int = here_index + neighbor_index_offsets[k]
+		if blocked[neighbor_index] == 1:
+			continue
+		if k >= 4:
+			if blocked[here_index + diagonal_ortho_a_offsets[k]] == 1 or blocked[here_index + diagonal_ortho_b_offsets[k]] == 1:
+				continue
+		var neighbor_cost: int = cost[neighbor_index]
+		if neighbor_cost < lowest_cost:
+			lowest_cost = neighbor_cost
+			best_direction = NEIGHBOR_DIRECTIONS[k]
+	return best_direction
+
 func escape_direction(here_index : int, world_pos : Vector2) -> Vector2:
 	if !target : 
 		return Vector2.ZERO

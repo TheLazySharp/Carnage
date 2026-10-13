@@ -12,13 +12,14 @@ var game_is_over:= false
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	player.game_over.connect(_update_game_over)
 	pause_manager.quit_pause.connect(_update_ingame_pause)
 	SignalManager.game_paused.connect(_leveling_pause)
-	ShopManager.load_pools()
-	ItemManager.load_pools()
-	BuildingsManager.load_pools()
-	TimeManager.load_time()
+	#BuildingsManager.load_pools()
+	if !GameMaster.tutorial_active:
+		player.game_over.connect(_update_game_over)
+		TimeManager.load_time()
+		ItemManager.load_pools()
+		ShopManager.load_pools()
 	
 func _process(_delta: float) -> void:
 	process_inputs()

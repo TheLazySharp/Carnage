@@ -28,6 +28,12 @@ class_name EnemyData
 @export var speed_variation : float = 10.0
 @export var level_life_boost : int = 5
 
+@export_group("FLOCKING")
+## Gregarious behaviour while chasing. Null = default of the chase state.
+@export var chase_flocking : FlockingProfile
+## Gregarious behaviour while idle (troupers around their leader). Null = default of the idle state.
+@export var idle_flocking : FlockingProfile
+
 @export_group("NIGHT")
 @export var base_night_speed_bonus : float = 1 # +100% = modifier percent_mult
 @export var base_night_dmg_bonus : float = 1 # +100% = modifier percent_mult

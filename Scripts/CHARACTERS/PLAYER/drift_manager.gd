@@ -132,9 +132,6 @@ func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker
 	player.dmg.remove_modifiers_from("drift manager bonus")
 
 
-
-
-
 func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vector2, p_lateral_velocity : Vector2, p_forward : Vector2, p_velocity : Vector2) -> Vector2:
 	drifting = input_drifting
 
@@ -202,7 +199,8 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	# ----------------- DRIFT CHARGE (mini-turbo) -----------------
 	if enable_drift_charge and drifting:
 		drift_charge += delta
-		var tier : int = clampi(int(drift_charge / charge_tier_time), 0, charge_colors.size() - 1)
+		# Drift charge speed is a car statistic (level-ups, charms)
+		var tier : int = clampi(int(drift_charge * player.drift_charge_speed.get_value() / charge_tier_time), 0, charge_colors.size() - 1)
 		if tier != charge_tier:
 			charge_tier = tier
 			apply_charge_tier()

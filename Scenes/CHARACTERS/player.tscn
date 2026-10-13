@@ -706,10 +706,10 @@ reverse_turn_window = 1.5
 spin_360_max_duration = 2.2
 donut_max_duration = 2.2
 loop_max_age = 10.0
+loop_min_perimeter = 500.0
 
 [node name="ComboManager" type="Node2D" parent="." unique_id=1653631433]
 script = ExtResource("34_mm77v")
-decay_per_second = 0.1
 break_on_wall_hit = false
 
 [node name="UltimateManager" type="Node2D" parent="." unique_id=1767501934]

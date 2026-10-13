@@ -2,6 +2,9 @@ extends Node
 
 var states : Dictionary = {}
 var current_state : State
+var current_state_key : StringName = &""
+## Horde mass threshold of the current state, cached on transition (read every render step by the renderer)
+var current_mass_cluster_count : int = -1
 @export var initial_state : State
 
 # FLOKING STAGGER
@@ -18,6 +21,8 @@ func _ready() -> void:
 	if initial_state:
 		initial_state.enter()
 		current_state = initial_state
+		current_state_key = StringName(initial_state.name.to_lower())
+		current_mass_cluster_count = initial_state.mass_cluster_count
 
 func _process(delta: float) -> void:
 	if current_state and "update" in current_state:
@@ -47,6 +52,8 @@ func _on_child_state_change(state : State, new_state_name : String) -> void:
 		current_state.exit()
 	new_state.enter()
 	current_state = new_state
+	current_state_key = StringName(new_state.name.to_lower())
+	current_mass_cluster_count = new_state.mass_cluster_count
 
 func get_current_state_name() -> String:
 	return current_state.name

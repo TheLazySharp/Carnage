@@ -17,7 +17,7 @@ var fire_time_left: float = 0.0      # maneuver mode: remaining burn time
 @onready var player: Sprite2D =  $"/root/World/Car/CarSprite"
 @onready var flame_sfx: AudioStreamPlayer2D = $FlameSfx
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var jet: GPUParticles2D = $Flamethrower
 @onready var collision_pol: CollisionPolygon2D = $CollisionPolygon2D
 
 @onready var burn_rate: Timer = $BurnRate
@@ -31,6 +31,8 @@ func _ready() -> void:
 	max_lvl = flame_data.max_level
 	flame_sfx.stream = flame_data.weapon_sfx
 	damages = int(flame_data.dmg.get_value())
+	# GPUParticles2D emits by default: pooled flames must stay off until ignited
+	jet.emitting = false
 
 func _process(delta: float) -> void:
 
@@ -44,48 +46,37 @@ func _process(delta: float) -> void:
 			extinguish()
 
 	if is_firing:
-
-		sprite.show()
 		burn_enemies()
-	
-	if !is_firing:
-		sprite.hide()
 	
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
-	if game_paused and sprite.is_playing():
-		sprite.pause()
-	if !game_paused and !sprite.is_playing():
-		sprite.play()
+	jet.speed_scale = 0.0 if game_paused else 1.0
 
 func throw_fire() -> void:
-	if !flame_data.weapon_is_active: return
-	if flame_data.weapon_is_active:
-		is_firing = true
-		flame_sfx.play()
-		sprite.play("huge_fire_start")
-		await get_tree().create_timer(0.2).timeout
-		await get_tree().create_timer(0.3).timeout
-		enemies_can_burn = true
-		sprite.play("huge_fire_cycle")
+	if !flame_data.weapon_is_active:
+		return
+	is_firing = true
+	jet.emitting = true
+	flame_sfx.play()
+	await get_tree().create_timer(0.5).timeout
+	if !jet.emitting:
+		return
+	enemies_can_burn = true
 
 ## Maneuver mode: burn for `duration` seconds
 func ignite(duration: float, p_damage_multiplier: float) -> void:
 	if !flame_data.weapon_is_active:
 		return
 	damage_multiplier = p_damage_multiplier
-	# Generous: a new ignition extends the current one instead of cutting it
 	fire_time_left = maxf(fire_time_left, duration)
-	# Not burning, or already dying out: (re)start the jet
-	if !is_firing or sprite.animation == "huge_fire_end":
+	if !is_firing or !jet.emitting:
 		throw_fire()
 
 
 func extinguish() -> void:
 	enemies_can_burn = false
-	sprite.play("huge_fire_end")
+	jet.emitting = false
 	await get_tree().create_timer(0.5).timeout
-	# Re-ignited during the end animation: keep burning
 	if fire_time_left > 0.0:
 		return
 	flame_sfx.stop()
@@ -119,7 +110,7 @@ func _on_area_exited(area: Area2D) -> void:
 		if auto_fire and targets.is_empty():
 			enemies_can_burn = false
 			await get_tree().create_timer(0.5).timeout
-			sprite.play("huge_fire_end")
+			jet.emitting = false
 			await get_tree().create_timer(0.5).timeout
 			flame_sfx.stop()
 			is_firing = false
@@ -130,7 +121,7 @@ func _on_burn_rate_timeout() -> void:
 	burning = true
 
 func desactivate() -> void:
-	sprite.stop()
+	jet.emitting = false
 	hide()
 	is_firing = false
 	burning = false

@@ -5,7 +5,7 @@ enum types {
 	MENU,MENU_FOCUS,MENU_PRESSED,MENU_HOVER,
 	BUTTON,BUTTON_FOCUS,BUTTON_PRESSED,BUTTON_HOVER,
 	TEXT,TEXT_TITLE,TEXT_TITLE_LOW,
-	UX,UX_M,UX_S,UX_XS,
+	UX,UX_M,UX_S,UX_XS,UX_S_YELLOW,UX_M_YELLOW,
 	VFX, VFX_SMALL,
 	SOLD_OUT
 }
@@ -46,12 +46,13 @@ var FONTS : Dictionary = {
 	
 	types.UX:[OXANIUM,54,Color.WHITE],
 	types.UX_M:[OXANIUM,48,Color.WHITE],
+	types.UX_M_YELLOW:[OXANIUM,48,dark_yellow],
 	types.UX_S:[OXANIUM,20,Color.WHITE],
+	types.UX_S_YELLOW:[OXANIUM,20,dark_yellow],
 	types.UX_XS:[OXANIUM,16,Color.WHITE],
 	
 	types.VFX:[OXANIUM,32,dark_yellow],
 	types.VFX_SMALL:[OXANIUM,16,dark_yellow],
 	
 	types.SOLD_OUT:[OXANIUM,38,Color.RED],
-	
 }

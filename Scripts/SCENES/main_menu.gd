@@ -2,7 +2,6 @@ extends Control
 
 @onready var start: Button = $VBoxContainer/Start
 @onready var quit: Button = $VBoxContainer/Quit
-@onready var skip_tuto: CheckButton = $VBoxContainer/SkipTuto
 @onready var race: Button = $VBoxContainer/Race
 @onready var training: Button = $VBoxContainer/Commands
 
@@ -16,10 +15,8 @@ func _ready() -> void:
 	start.grab_focus()
 	if !SceneManager.tuto_completed:
 		training.hide()
-		skip_tuto.show()
 	else: 
 		training.show()
-		skip_tuto.hide()
 
 
 func _on_start_pressed() -> void:
@@ -75,8 +72,10 @@ func _on_race_pressed() -> void:
 	SignalManager.emit_signal("set_new_race")
 	SceneManager.load_level(SceneManager.SCENES.SURVIVORS)
 
-
-
 func _on_sandbox_pressed() -> void:
 	lunch_sandbox()
 	SignalManager.emit_signal("sandbox_mode")
+
+
+func _on_tutorial_pressed() -> void:
+	TutorialManager.launch(load("res://Resources/Cars/skyline.tres") as CarData)

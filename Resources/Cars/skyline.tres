@@ -11,6 +11,7 @@ car_name = "Skyline"
 seats = 4
 base_maneuvers = Array[int]([0, 7, 1, 4])
 ultimate_scene = ExtResource("4_slxi1")
+base_combo_window = 8.0
 base_acceleration = 200
 base_dmg = 1
 base_dash_dmg_bonus = 2.0

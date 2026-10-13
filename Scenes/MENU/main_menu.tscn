@@ -3,10 +3,7 @@
 [ext_resource type="Script" uid="uid://ddjt1ymblxnbi" path="res://Scripts/SCENES/main_menu.gd" id="1_ovrvl"]
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="2_go0pc"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_b85ns"]
-[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="3_ghgot"]
-[ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="3_oghu7"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_k2e8w"]
-[ext_resource type="Texture2D" uid="uid://cvucrddbvgxsw" path="res://Assets/UI/empty_32x32.png" id="4_oghu7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovrvl"]
 
@@ -62,24 +59,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="SkipTuto" type="CheckButton" parent="VBoxContainer" unique_id=772633111]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/icon_max_width = 0
-theme_override_fonts/font = ExtResource("3_ghgot")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
-theme_override_constants/check_v_offset = -9
-theme_override_icons/checked = ExtResource("3_oghu7")
-theme_override_icons/unchecked = ExtResource("4_oghu7")
-text = "SKIP TRAINING "
-flat = true
-alignment = 1
-
 [node name="Start" type="Button" parent="VBoxContainer" unique_id=731618581]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
@@ -92,7 +71,20 @@ flat = true
 alignment = 0
 script = ExtResource("4_k2e8w")
 
+[node name="Tutorial" type="Button" parent="VBoxContainer" unique_id=1180599905]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.776, 0, 1)
+theme_override_constants/h_separation = 24
+theme_override_fonts/font = ExtResource("2_go0pc")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
+text = "TUTORIAL"
+flat = true
+alignment = 0
+script = ExtResource("4_k2e8w")
+
 [node name="Race" type="Button" parent="VBoxContainer" unique_id=1116588153]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.7764706, 0, 1)
 theme_override_constants/h_separation = 24
@@ -154,8 +146,8 @@ flat = true
 alignment = 0
 script = ExtResource("4_k2e8w")
 
-[connection signal="pressed" from="VBoxContainer/SkipTuto" to="." method="_on_skip_tuto_pressed"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="VBoxContainer/Race" to="." method="_on_race_pressed"]
 [connection signal="pressed" from="VBoxContainer/GodMode" to="." method="_on_god_mode_pressed"]
 [connection signal="pressed" from="VBoxContainer/Sandbox" to="." method="_on_sandbox_pressed"]

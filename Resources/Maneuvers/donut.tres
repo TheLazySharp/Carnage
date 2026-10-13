@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ManeuverData" format=3 uid="uid://b8dwx3opcyu68"]
+
+[ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_23gxa"]
+[ext_resource type="Script" uid="uid://l3cskju6tgc2" path="res://Resources/Scripts/maneuver_data.gd" id="2_fm2my"]
+
+[resource]
+script = ExtResource("2_fm2my")
+maneuver_type = 2
+icon = ExtResource("1_23gxa")
+name_key = "MANEUVER_DONUT"
+description_key = "MANEUVER_DONUT_DESC"
+metadata/_custom_type_script = "uid://l3cskju6tgc2"

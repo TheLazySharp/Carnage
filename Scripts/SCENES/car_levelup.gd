@@ -67,6 +67,7 @@ func _ready() -> void:
 		SceneManager.load_level(SceneManager.SCENES.SHOP)
 		return
 	show()
+	BloodBars.hide()
 	SignalManager.focused_entered.connect(_on_button_focused)
 	SignalManager.car_level_up_upgrade.connect(_on_car_level_up)
 	upgrades_tag.text = str(maxi(0,XPManager.available_upgrades))

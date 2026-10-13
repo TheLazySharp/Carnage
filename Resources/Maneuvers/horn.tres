@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ManeuverData" format=3 uid="uid://d37q3bjdh6vpc"]
+
+[ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_miete"]
+[ext_resource type="Script" uid="uid://l3cskju6tgc2" path="res://Resources/Scripts/maneuver_data.gd" id="2_2bbmg"]
+
+[resource]
+script = ExtResource("2_2bbmg")
+maneuver_type = 6
+icon = ExtResource("1_miete")
+name_key = "MANEUVER_HORN"
+description_key = "MANEUVER_HORN_DESC"
+base_price = 300
+metadata/_custom_type_script = "uid://l3cskju6tgc2"

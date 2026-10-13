@@ -26,6 +26,8 @@ var is_leader: bool = false
 var horde: Array
 var horde_neighbors: Array
 var velocity: Vector2 = Vector2.ZERO
+## Sprite facing forced by the current state (ZERO = the renderer follows the velocity)
+var facing_direction: Vector2 = Vector2.ZERO
 @onready var state_machine: Node = $StateMachine
 @onready var player: Node2D = null
 
@@ -113,6 +115,11 @@ var night_dmg_mod : Modifier
 var night_life_mod : Modifier
 var enemy_freezer : Modifier
 
+# FREEZE
+const FREEZE_DURATION: float = 3.0
+var is_frozen: bool = false          # read by the renderer / state machine to lock facing
+var freeze_time_left: float = 0.0
+
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
@@ -137,7 +144,7 @@ func _ready() -> void:
 	night_speed_mod = Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
 	night_dmg_mod = Modifier.new(night_damages_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_dmg_mod")
 	night_life_mod = Modifier.new(night_max_life_boost,Modifier.Type.FLAT,"day_end_enemy_life_mod")
-	enemy_freezer = Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer item", 3)
+	enemy_freezer = Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer item", FREEZE_DURATION)
 
 	call_deferred("register_to_renderer")
  
@@ -158,6 +165,10 @@ func _process(delta: float) -> void:
 	delta = minf(delta, 0.066)
 	if game_paused:
 		return
+	if is_frozen:
+		freeze_time_left -= delta
+		if freeze_time_left <= 0.0:
+			is_frozen = false
 	if hit_pause_left > 0.0:
 		hit_pause_left -= delta
 		return  # frozen: no move, no flight, no accumulated delta (no catch-up jump)
@@ -499,6 +510,16 @@ func set_animation_state(state_name: String) -> void:
 	if mm_pool and mm_index >= 0:
 		mm_pool.set_enemy_state(mm_index, state_name.to_lower())
   
+## Plays state_name if this enemy type has it, fallback_name otherwise.
+## Returns false while the enemy is not registered in the renderer yet (the caller retries later).
+func play_animation(state_name: String, fallback_name: String = "walk") -> bool:
+	if mm_pool == null or mm_index < 0:
+		return false
+	var chosen: String = state_name if mm_pool.has_state(state_name) else fallback_name
+	if chosen != requested_animation_state:
+		set_animation_state(chosen)
+	return true
+
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
@@ -520,6 +541,8 @@ func _on_damage_flash_timer_timeout() -> void:
  
 func _on_freeze() -> void :
 	speed.add_temp_modifier(enemy_freezer)
+	is_frozen = true
+	freeze_time_left = FREEZE_DURATION
  
 func get_enemy_stat(stat: EnemyData.Enemy_Stats) -> Statistic:
 	match stat:

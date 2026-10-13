@@ -65,6 +65,8 @@ enum Type {
 @export var salvo_base_stat : Stats_Types = Stats_Types.NB_AMMO
 ## Bullets fired in each direction of a salvo (stream). N_A = one bullet per direction, sweeping the arc
 @export var stream_stat : Stats_Types = Stats_Types.N_A
+## Random spread (degrees) around each stream direction: a cone instead of a line
+@export var stream_spread_degrees : float = 0.0
 ## Extra projectiles per drift level
 @export var drift_level_bonus : float = 0.5
 ## Projectile count multiplier when the maneuver is dashed
@@ -153,7 +155,7 @@ func nb_projectile_formula(level_preview : int) -> float :
 func get_salvo_count(maneuver_type : ManeuverManager.Type, intensity : float, drift_level : int, is_amplified : bool, combo_multiplier : float) -> int :
 	var quarters : float = maxf(ManeuverManager.get_pattern(maneuver_type).y / (PI * 0.5), 1.0)
 	var count : float = get_weapon_stat(salvo_base_stat).get_value() * (1.0 + (quarters - 1.0) * arc_scaling)
-	count *= ManeuverManager.get_power(maneuver_type)
+	count *= LoadoutManager.get_maneuver_power(maneuver_type)
 	count *= 0.5 + 0.5 * intensity
 	count *= 1.0 + drift_level * drift_level_bonus
 	count *= 1.0 + (combo_multiplier - 1.0) * combo_projectile_share
@@ -252,3 +254,6 @@ func get_active_duration() -> float:
 		total += TimeManager.active_time - i
 	return total
 	
+## Time between two shots of a stream: the weapon fire rate keeps bullets and sounds apart
+func get_stream_interval() -> float :
+	return maxf(fire_rate.get_value(), 0.01)

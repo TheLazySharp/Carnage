@@ -71,6 +71,7 @@ initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=1940536822]
 script = ExtResource("10_57ln3")
+mass_cluster_count = 12
 metadata/_custom_type_script = "uid://bfe53jrbcnaeb"
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=1105129892]

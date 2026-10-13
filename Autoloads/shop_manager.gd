@@ -109,6 +109,17 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://1jcxa8pvy8yh", #invincibility EPIC
 ]
 
+const ALL_MANEUVERS_UIDS : Array[String] = [
+	"uid://b4o7xjo8isqj0", #burnout
+	"uid://b8dwx3opcyu68", #donut
+	"uid://bie426kp6jx7a", #reverse 180
+	"uid://d37q3bjdh6vpc", #horn
+	"uid://boboqx2yj8bl7", #short drift
+	"uid://cht1vuqnvh1ny", #spin 360
+	"uid://h5gvivokva2o", #U turn
+
+]
+
 
 enum CONST_REFS {
 	N_A,
@@ -143,6 +154,7 @@ var all_car_boosts : Array[BoostData] = []
 var all_weapon_boosts : Array[BoostData] = []
 var all_ammo_boosts : Array[BoostData] = []
 var all_charms : Array[CharmData] = []
+var all_maneuvers : Array[ManeuverData] = []
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var available_boosts : int = 1
 var boost_shopped : int = 0
@@ -169,6 +181,9 @@ func load_pools() -> void :
 		
 	for uid : String in ALL_CHARMS_UIDS:
 		all_charms.append(load(uid) as CharmData)
+
+	for uid : String in ALL_MANEUVERS_UIDS:
+		all_maneuvers.append(load(uid) as ManeuverData)
 
 func pick_boost_rarity() -> InventoryManager.Rarities:
 	var weighted_sum : int = 0
@@ -230,6 +245,15 @@ func pick_charm(p_rarity : InventoryManager.Rarities = InventoryManager.Rarities
 	
 	return pool[rng.randi_range(0,pool.size() -1)]
 
+## Maneuvers the player does not own yet, in random order
+func pick_maneuvers(count : int) -> Array[ManeuverData]:
+	var pool : Array[ManeuverData] = []
+	for data : ManeuverData in all_maneuvers:
+		if !LoadoutManager.owns(data.maneuver_type):
+			pool.append(data)
+	pool.shuffle()
+	return pool.slice(0, count)
+
 func pick_weapon()-> WeaponData:
 	var pool : Array = WeaponsManager.unequipped_weapons
 	if pool.is_empty():
@@ -248,3 +272,4 @@ func unload() -> void :
 	all_weapon_boosts.clear()
 	all_ammo_boosts.clear()
 	all_charms.clear()
+	all_maneuvers.clear()

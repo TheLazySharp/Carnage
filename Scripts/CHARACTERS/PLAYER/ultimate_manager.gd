@@ -3,7 +3,6 @@ class_name UltimateManager
 ## Car ultimate: charged over time (faster with the combo), triggered by closing a loop.
 ## The attack itself is the car's ultimate_scene, acting inside the loop drawn on the ground
 
-@export var base_recharge_time: float = 20.0    # seconds to recharge at combo x1
 @export var combo_recharge_share: float = 1.0   # share of the combo multiplier applied to the recharge speed
 @export var combo_damage_share: float = 0.25    # share of the combo multiplier applied to the damage
 @export var start_charged: bool = true          # generous: every raid starts with the ultimate ready
@@ -34,11 +33,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if game_paused or charge >= 1.0:
 		return
-	# The combo speeds up the recharge
-	var recharge_speed: float = 1.0 + (combo_multiplier - 1.0) * combo_recharge_share
-	charge = minf(charge + delta * recharge_speed / base_recharge_time, 1.0)
+	var car_data: CarData = car.player
+	# Car statistic (level-ups, charms) x combo acceleration
+	var recharge_speed: float = car_data.ultimate_recharge_speed.get_value() * (1.0 + (combo_multiplier - 1.0) * combo_recharge_share)
+	charge = minf(charge + delta * recharge_speed / car_data.base_ultimate_recharge_time, 1.0)
 	_update_gauge()
-
 
 func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: float, _drift_level: int, _is_amplified: bool, _attack_angle: float) -> void:
 	if maneuver_type != ManeuverManager.Type.LOOP or charge < 1.0:

@@ -2,6 +2,7 @@ extends Label
 
 
 const LOCKED_COLOR: Color = Color(0.55, 0.55, 0.55)
+var font_UX_S_Y : Array = FontManager.FONTS[FontManager.types.UX_S_YELLOW]
 
 @export var display_time: float = 0.8
 @export var fade_time: float = 0.25
@@ -13,7 +14,10 @@ func _ready() -> void:
 	modulate.a = 0.0
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.maneuver_locked.connect(_on_maneuver_locked)
-
+	add_theme_font_override("font",font_UX_S_Y[0])
+	add_theme_font_size_override("font_size",font_UX_S_Y[1])
+	add_theme_color_override("font_color",font_UX_S_Y[2])
+	
 
 func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: float, drift_level: int, is_amplified: bool, _attack_angle: float) -> void:
 	# Intensity shown as a percentage to help tuning the thresholds

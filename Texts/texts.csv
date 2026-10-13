@@ -18,3 +18,58 @@ Prends le volant !"
 BUTTON_OK;OK;OK
 BUTTON_WTF;Wait what ?!;Putain! Quoi?
 BUTTON_CONTINUE;Continue;Continuer
+TUTO_STEP_DONE;Step done !;�tape r�ussie !
+TUTO_COMPLETE;Tutorial completed !;Tutoriel termin�
+TUTO_SHORT_DRIFT;Short drift !;Drift court
+TUTO_SHORT_DRIFT_HINT;Press R2 to accelerate and L2 to DRIFT while turning then release L2;En accélérant, tourne et appuie brièvement sur DRIFT, puis rel�
+TUTO_DRIFT_U_TURN;U-turn while drifting;Demi-tour en drift
+TUTO_DRIFT_U_TURN_HINT;When DRIFTING, make a U-turn (180° turn), then release DRIFT (L2;Tiens DRIFT en tournant jusqu’à faire demi-tour, puis rel�
+TUTO_360;360 spin;360
+TUTO_360_HINT;When DRIFTING, make full spin, then release DRIFT (L2);Tiens DRIFT et fais un tour complet, puis relâch
+TUTO_DONUT;Donut;Donut
+TUTO_DONUT_HINT;while moving, hold DRIFT (LT) and make at least TWO 360 spin;Tiens DRIFT et tourne sans t’arrêter : deux tours d’af
+TUTO_BURNOUT;Burnout;Burnout
+TUTO_BURNOUT_HINT;While the car is stationnary, press and hold DRIFT (L2) & ACCELERATE (R2) without moving the car. Tire smoke should appear. Then release DRIFT (L2) ;� larr�t, tiens ACC�L�RER et DRIFT sans tourner, puis rel�che DRIFT
+TUTO_REVERSE;Reverse 180;Reverse 180
+TUTO_REVERSE_HINT;Hold DRIFT (L2) to go backward then ACCELERATE (R2) while turning at 180;Recule avec DRIFT, puis accélère en tournant pour faire volte-fa
+TUTO_LOOP;Loop;Boucle
+TUTO_LOOP_HINT;While drifting, try to draw a closed shape with the skid marks;En drift, recoupe ta propre trace pour fermer une boucle
+TUTO_FIGHT;Fight to survive !;Au combat
+TUTO_FIGHT_HINT;Every maneuver fires, wipe this hords out !;Chaque manœuvre tire : élimine la hor
+TUTO_DASH;Dash;Le dash
+TUTO_DASH_HINT;Hold B to DASH while ending a maneuver : its amplified but cost your driver's blood;Tiens DASH en finissant une manœuvre : elle est amplifiée, mais coûte du s
+TUTO_COMBO;The Combo gauge;Le combo
+TUTO_COMBO_HINT;Complete maneuvers one after the other : X factor will increase your firepower;Enchaîne des manœuvres différentes : le multiplicateur fait grimper ta puissance de 
+TUTO_SKIP;Press start to skip;Pause : passer le tutoriel
+TUTO_QUIT_CONFIRM;Quit tutorial?;Quitter le tutoriel ?
+TUTO_YES;YES;Oui
+TUTO_NO;NO;Non
+TUTO_INTRO_MANEUVERS;Drive with skills to survive !;Conduire, c’est combatt
+TUTO_INTRO_MANEUVERS_BODY;You don't shoot here: you drive. Drifts, U-turns, donuts, burnouts... Every maneuver fires your survivors' weapons, and its shape decides the shape of the attack. The better you drive, the harder you hit. Chain different maneuvers to raise your combo and your firepower.;Ici, tu ne tires pas : tu conduis. Drifts, demi-tours, donuts, burnouts… Chaque manœuvre déclenche les armes de tes survivants, et sa forme décide de la forme de l’attaque. Mieux tu conduis, plus tu frappes fort. Enchaîne des manœuvres différentes pour faire grimper ton combo et ta puissan
+TUTO_INTRO_BLOOD;The Bloody Engine;Le Bloody Engine
+TUTO_INTRO_BLOOD_BODY;Your car runs on blood: it's your life. Drive over zombie blood to refuel. When the engine runs dry, it drains the driver's blood, and the dash burns it too. The surplus fills canisters, your currency at the shop. If both the car and the driver run dry, it's over.;Ta voiture carbure au sang : c’est ta vie. Roule sur le sang des zombies pour faire le plein. Quand le moteur est à sec, il puise dans le sang du pilote, et le dash brûle aussi le sien. Le surplus remplit des bidons, ta monnaie au shop. Si la voiture et le pilote sont vidés, c’es
+TUTO_INTRO_NEXT;Next;Suivant
+TUTO_INTRO_START;Let's Go !;C’est parti
+TUTO_PHASE2_COMBO;Chain them up;Enchaîne les figure
+TUTO_PHASE2_COMBO_BODY;You know the moves. Now chain them: every different maneuver raises the combo gauge, and the higher the combo, the more projectiles your weapons fire. Repeating the same move only keeps the chain alive.;Tu connais les figures. Maintenant, enchaîne-les : chaque manœuvre différente fait monter la jauge de combo, et plus le combo est haut, plus tes armes tirent de projectiles. Répéter la même figure ne fait que maintenir la c
+TUTO_PHASE2_DASH;The dash;Le dash
+TUTO_PHASE2_DASH_BODY;Hold DASH as you finish a maneuver: it gets amplified, fires far more, and boosts your combo even further. But the dash burns the driver’s blood: use it wisel;Tiens DASH au moment où tu finis une manœuvre : elle est amplifiée, tire bien plus, et fait encore plus grimper le combo. Mais le dash brûle le sang du pilote : dose
+TUTO_PHASE2_ZOMBIES;They’re he;Ils arrivent
+TUTO_PHASE2_ZOMBIES_BODY;The zombies have arrived. Your weapon now fires on every maneuver: go wipe them out with everything you’ve just learned. Press Start at any time to quit the tutoria;Les zombies sont là. Ton arme tire désormais sur chaque manœuvre : va les éliminer avec tout ce que tu viens d’apprendre. Appuie sur Start à tout moment pour quitter le tu
+TUTO_FREE_PLAY;Zombies!;Zombies !
+TUTO_FREE_PLAY_HINT;Chain, dash, close a loop: anything goes;Enchaîne, dashe, ferme une boucle : tout est permi
+TUTO_KILLS;Kills:;Kills :
+MANEUVER_SHORT_DRIFT;Quick drift;Drift court
+MANEUVER_SHORT_DRIFT_DESC;Press DRIFT (R2) while turning: a sweep on the outer side;Un coup de DRIFT en virage : un balayage sur le côté extéri
+MANEUVER_DRIFT_U_TURN;Drift U-turn;Demi-tour en drift
+MANEUVER_DRIFT_U_TURN_DESC;Turn around while drifting: hits everything you leave behind;Fais demi-tour en drift : frappe tout ce que tu laisses derrière to
+MANEUVER_360;360;360
+MANEUVER_360_DESC;A 360 spin, then release: hits all around the car;Un tour complet puis relâche : frappe tout autour de la voitur
+MANEUVER_DONUT;Donut;Donut
+MANEUVER_DONUT_DESC;Keep spinning for at least 2 turn: a burst all around at every turn;Tourne sans t’arrêter : une salve tout autour à chaque 
+MANEUVER_BURNOUT;Burnout;Burnout
+MANEUVER_BURNOUT_DESC;Presse L2 + R2 while stopped: hits behind the car;Fais rugir le moteur à l’arrêt : frappe derrière la vo
+MANEUVER_REVERSE;Reverse 180;Reverse 180
+MANEUVER_REVERSE_DESC;180 drift turn while going backward: a powerful blast on what you flee;Recule puis fais volte-face : une puissante attaque sur ce que tu fuis
+MANEUVER_HORN;Horn;Klaxon
+MANEUVER_HORN_DESC;Press HORN (X): a quick blast in front of the car;Appuie sur KLAXON : une attaque rapide devant la voiture

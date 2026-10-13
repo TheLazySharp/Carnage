@@ -332,19 +332,21 @@ visible = false
 
 [node name="ManeuverLabel" type="Label" parent="CanvasLayer" unique_id=229804214]
 z_index = 10
-offset_left = 1051.0
-offset_top = 120.256165
-offset_right = 1243.4863
-offset_bottom = 166.25616
+offset_left = 530.0
+offset_top = 197.25616
+offset_right = 1277.0
+offset_bottom = 243.25616
+horizontal_alignment = 2
+vertical_alignment = 1
 script = ExtResource("15_w5ff8")
 
 [node name="HordeOutline" type="Node2D" parent="." unique_id=200299998]
 z_index = 10
 script = ExtResource("16_mggjl")
-min_cluster_count = 3
+min_cluster_count = 4
 final_shader = ExtResource("18_32lpc")
 hole_shader = ExtResource("17_w5ff8")
-outline_color = Color(0.3647059, 0.105882354, 0.1764706, 1)
+hole_max_size = 16
 
 [node name="SourceViewport" type="SubViewport" parent="HordeOutline" unique_id=901076741]
 
@@ -425,8 +427,8 @@ z_index = 10
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
 position = Vector2(1646.9214, 226.07727)
-nb_horde = 8
-max_enemy_count = 40
+nb_horde = 12
+max_enemy_count = 30
 horde_radius_px = 64.0
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("73_tk2je")]
@@ -456,6 +458,8 @@ position = Vector2(12.431885, 1852.4446)
 position = Vector2(18, 2141)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("74_ywo5e")]
+is_active = false
+is_infinite = false
 max_enemy_count = 1000
 auto_spawn = true
 spawn_rate = 0.1

@@ -36,6 +36,8 @@ extends Node2D
 @export var outline_outside: bool = false: set = set_outline_outside
 ## Transparent pockets enclosed by sprites within this many pixels in all 8 directions are filled. 0 = off.
 @export_range(0, 32) var hole_max_size: int = 12: set = set_hole_max_size
+## Rays (out of 16) allowed to escape for a pocket to still be filled. 1 = pockets with a narrow channel are filled.
+@export_range(0, 4) var hole_max_escapes: int = 1: set = set_hole_max_escapes
 ## Sprite pixels close to this color stay visible inside the mass (the eyes).
 @export var eye_color: Color = Color(1.0, 0.0, 0.0, 1.0): set = set_eye_color
 @export_range(0.0, 1.0, 0.01) var eye_tolerance: float = 0.3: set = set_eye_tolerance
@@ -118,6 +120,7 @@ func build_hole_pass() -> void:
 	hole_material = ShaderMaterial.new()
 	hole_material.shader = hole_shader
 	hole_material.set_shader_parameter("hole_max_size", hole_max_size)
+	hole_material.set_shader_parameter("hole_max_escapes", hole_max_escapes)
 
 	var quad: Sprite2D = Sprite2D.new()
 	quad.centered = false
@@ -193,8 +196,12 @@ func add_count(world_position: Vector2) -> void:
 	counts[cell_y * grid_width + cell_x] += 1
 
 
-## Pass 2: true if the enemy belongs to a mass (>= min_cluster_count enemies in its 3x3 cells, with hysteresis).
-func resolve(world_position: Vector2, was_member: bool) -> bool:
+## Pass 2: true if the enemy belongs to a mass. state_cluster_count comes from the enemy's current state:
+## -1 = min_cluster_count, 0 = never joins. Hysteresis keeps members in place (anti flicker).
+func resolve(world_position: Vector2, was_member: bool, state_cluster_count: int = -1) -> bool:
+	var cluster_count: int = min_cluster_count if state_cluster_count < 0 else state_cluster_count
+	if cluster_count == 0:
+		return false
 	var cell_x: int = int((world_position.x - grid_origin.x) * inverse_cell_size)
 	var cell_y: int = int((world_position.y - grid_origin.y) * inverse_cell_size)
 	if cell_x < 1 or cell_y < 1 or cell_x >= grid_width - 1 or cell_y >= grid_height - 1:
@@ -207,7 +214,7 @@ func resolve(world_position: Vector2, was_member: bool) -> bool:
 		+ counts[index - 1] + counts[index] + counts[index + 1]
 		+ counts[down - 1] + counts[down] + counts[down + 1]
 	)
-	var required: int = min_cluster_count - hysteresis if was_member else min_cluster_count
+	var required: int = cluster_count - hysteresis if was_member else cluster_count
 	return neighborhood_count >= required
 
 
@@ -277,3 +284,8 @@ func set_hole_max_size(value: int) -> void:
 	hole_max_size = value
 	if hole_material != null:
 		hole_material.set_shader_parameter("hole_max_size", value)
+
+func set_hole_max_escapes(value: int) -> void:
+	hole_max_escapes = value
+	if hole_material != null:
+		hole_material.set_shader_parameter("hole_max_escapes", value)

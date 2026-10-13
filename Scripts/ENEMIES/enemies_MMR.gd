@@ -77,6 +77,7 @@ func create_sprite_sheet_shader() -> Shader:
 shader_type canvas_item;
 
 uniform int mass_filter = 0;
+uniform float mass_outline_threshold = 0.5;   // inside a mass, non-flashing pixels this bright are painted black
 uniform sampler2DArray atlas_array : filter_nearest, repeat_disable;
 uniform vec2 layer_frame_uv_sizes[__MAX_LAYERS__];
 
@@ -114,6 +115,10 @@ void fragment() {
         }
     } else {
         if (col.a < 0.01) discard;
+        // Inside a horde mass the sprite's own white outline is absorbed: the mass outline is drawn by HordeOutline
+        if (mass_filter == 2 && min(col.r, min(col.g, col.b)) >= mass_outline_threshold) {
+            col.rgb = vec3(0.0);
+        }
         COLOR = vec4(col.rgb, col.a);
     }
 }
@@ -136,7 +141,9 @@ class EnemyTypePool extends MultiMeshInstance2D:
 	const OFFSET_TRANSFORM: int = 0
 	const OFFSET_COLOR: int = 8
 	const OFFSET_CUSTOM: int = 12
-
+	## Below this speed (px/s, squared) the sprite keeps its facing: small pack corrections do not spin it
+	const ROTATION_MIN_SPEED_SQUARED: float = 25.0 * 25.0
+	
 	var enemy_data: EnemyData = null
 	var car: Node2D = null
 	var sprite_angle_offset_radians: float = 0.0
@@ -511,6 +518,7 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		if multimesh == null:
 			return
 
+		rotation_snap_step = EnemyManager.get_rotation_snap_step()   # same for every instance: once per step
 		for k: int in range(active_instance_indices.size() - 1, -1, -1):
 			var idx: int = active_instance_indices[k]
 			var enemy: Enemy = instance_enemies[idx]
@@ -522,22 +530,22 @@ class EnemyTypePool extends MultiMeshInstance2D:
 			# ── Horde mass membership ──
 			var in_mass: bool = false
 			if outline != null and is_mass_candidate(enemy, outline):
-				in_mass = outline.resolve(pos, instance_in_mass[idx] == 1)
+				var state_cluster_count: int = enemy.state_machine.current_mass_cluster_count if enemy.state_machine != null else -1
+				in_mass = outline.resolve(pos, instance_in_mass[idx] == 1, state_cluster_count)
 			if in_mass != (instance_in_mass[idx] == 1):
 				instance_in_mass[idx] = 1 if in_mass else 0
 				write_mass_flag(idx)
 
 			# ── Transform ──
 			var rot: float = instance_rotations[idx]
-			if !enemy.is_dead:
-				rotation_snap_step = EnemyManager.get_rotation_snap_step()
-				var state_name: String = ""
-				var state_machine: Node = enemy.state_machine
-				if state_machine != null and state_machine.current_state != null:
-					state_name = String(state_machine.current_state.name).to_lower()
-				if state_name == "chase" or state_name == "attack":
+			# Frozen enemies keep their last facing (no car tracking, no flow field turn)
+			if !enemy.is_dead and !enemy.is_frozen:
+				var state_key: StringName = enemy.state_machine.current_state_key if enemy.state_machine != null else &""
+				if state_key == &"chase" or state_key == &"attack":
 					rot = angle_to_car(pos)
-				elif enemy.velocity.length_squared() > 0.01:
+				elif enemy.facing_direction != Vector2.ZERO:
+					rot = direction_to_rotation(enemy.facing_direction.angle())
+				elif enemy.velocity.length_squared() > ROTATION_MIN_SPEED_SQUARED:
 					rot = direction_to_rotation(enemy.velocity.angle())
 			# Fake flight (JuiceSettings air throw): scale arc + spin on top of the base transform
 			var air_scale: float = enemy.air_scale
@@ -553,6 +561,9 @@ class EnemyTypePool extends MultiMeshInstance2D:
 			# ── Animation ──
 			var sprite_state: EnemySpriteState = instance_states[idx]
 			if sprite_state == null:
+				continue
+			# Frozen: animation paused on its current frame (death anim still plays so the corpse can drop)
+			if enemy.is_frozen and !enemy.is_dead:
 				continue
 			instance_timers[idx] += step
 			var frame_duration: float = 1.0 / sprite_state.fps

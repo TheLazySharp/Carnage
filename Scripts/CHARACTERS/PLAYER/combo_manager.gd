@@ -1,18 +1,22 @@
 extends Node
 class_name ComboManager
+## Combo multiplier. Its window, step, decay and max are car statistics (CarData),
+## so level-ups and charms can modify them
 
-@export var combo_window: float = 4.0            # seconds to chain the next maneuver
-@export var combo_step: float = 0.25             # base multiplier gain per new different maneuver
-@export var streak_acceleration: float = 0.5     # each chained maneuver raises the next gain by this share
-@export var decay_per_second: float = 0.25       # multiplier lost per second once the window is over
-@export var combo_max_multiplier: float = 7.0
-@export var break_on_wall_hit: bool = true       # a wall hit ends the window (the chain is lost)
+@export var streak_acceleration: float = 0.5        # each chained maneuver raises the next gain by this share
 @export var amplified_gain_multiplier: float = 2.0  # gain multiplier for a maneuver completed while dashing
+@export var break_on_wall_hit: bool = true          # a wall hit ends the window (the chain is lost)
+@export_range(0.0, 0.5) var window_shrink_per_streak: float = 0.1  # each chained maneuver shortens the next window by this share
+@export var min_window: float = 2.0                                # the window never gets shorter than this (seconds)
+@export var decay_height_scaling: float = 0.0                      # 0 = constant decay; 0.5 = decays 3x faster at x5 than at x1
+
+@onready var car: CharacterBody2D = $".."
 
 var combo_multiplier: float = 1.0
 var streak: int = 0                              # distinct maneuvers chained in the current window
 var last_maneuver: int = -1                      # -1 = no chain running
 var window_left: float = 0.0
+var window_duration: float = 1.0                 # window length at its last refresh (gauge ratio)
 var game_paused: bool = false
 
 # HUD (absent in map test scenes)
@@ -48,10 +52,13 @@ func _physics_process(delta: float) -> void:
 		if window_left <= 0.0:
 			_break_chain()
 		elif combo_gauge != null:
-			combo_gauge.value = window_left / combo_window
+			combo_gauge.value = window_left / window_duration
 		return
 	# Window over: the multiplier slowly decays back to x1
-	combo_multiplier = maxf(combo_multiplier - decay_per_second * delta, 1.0)
+	var car_data: CarData = car.player
+	# Higher combos fall faster when decay_height_scaling > 0
+	var decay_rate: float = car_data.combo_decay.get_value() * (1.0 + (combo_multiplier - 1.0) * decay_height_scaling)
+	combo_multiplier = maxf(combo_multiplier - decay_rate * delta, 1.0)
 	SignalManager.combo_changed.emit(combo_multiplier, streak)
 	if combo_multiplier <= 1.0:
 		set_physics_process(false)
@@ -62,17 +69,17 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: flo
 	# The loop (car ultimate) benefits from the combo but does not feed it
 	if maneuver_type == ManeuverManager.Type.LOOP:
 		return
-	# A different maneuver raises the multiplier (faster as the chain grows).
-	# An amplified (dashed) maneuver always counts as new, even when repeated, and multiplies the gain.
-	# A plain repeat only refreshes the window
+	var car_data: CarData = car.player
 	if maneuver_type != last_maneuver or is_amplified:
 		streak += 1
-		var gain: float = combo_step * (1.0 + (streak - 1) * streak_acceleration)
+		var gain: float = car_data.combo_step.get_value() * (1.0 + (streak - 1) * streak_acceleration)
 		if is_amplified:
 			gain *= amplified_gain_multiplier
-		combo_multiplier = minf(combo_multiplier + gain, combo_max_multiplier)
+		combo_multiplier = minf(combo_multiplier + gain, car_data.combo_max.get_value())
 		last_maneuver = maneuver_type
-	window_left = combo_window
+	# The longer the chain, the shorter the window: the top of the combo is hard to hold
+	window_duration = maxf(car_data.combo_window.get_value() * pow(1.0 - window_shrink_per_streak, maxi(streak - 1, 0)), min_window)
+	window_left = window_duration
 	set_physics_process(true)
 	_update_hud()
 	SignalManager.combo_changed.emit(combo_multiplier, streak)
@@ -108,4 +115,4 @@ func _update_hud() -> void:
 	if combo_gauge != null:
 		var window_open: bool = window_left > 0.0
 		combo_gauge.visible = window_open
-		combo_gauge.value = window_left / combo_window if window_open else 0.0
+		combo_gauge.value = window_left / window_duration if window_open else 0.0

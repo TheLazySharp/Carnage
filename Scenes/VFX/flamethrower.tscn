@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://eu51ghbhqnnm"]
+
+[ext_resource type="Shader" uid="uid://d2v5ildfkb1mu" path="res://Shaders/flamelauncher_CanvasItemMat.gdshader" id="1_7d0nq"]
+[ext_resource type="Texture2D" uid="uid://c50278mhx407" path="res://Assets/Léonce/VFX/flamethrower.png" id="1_lyjpx"]
+[ext_resource type="Shader" uid="uid://bqvci60nvwo03" path="res://Shaders/flamelauncher_ProcMat.gdshader" id="3_sv46s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bac6x"]
+shader = ExtResource("1_7d0nq")
+shader_parameter/h_frames = 11.000000475
+shader_parameter/v_frames = 4.000000142499999
+
+[sub_resource type="Curve" id="Curve_ptxeq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.35882354, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.015037656), -4.962404, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xwer6"]
+curve = SubResource("Curve_ptxeq")
+
+[sub_resource type="Gradient" id="Gradient_x2kih"]
+offsets = PackedFloat32Array(0, 0.21019109, 0.2834395, 0.41719747, 0.48089173, 0.72611463, 0.86624205)
+colors = PackedColorArray(0.77387965, 0, 0.008562365, 1, 0.99369985, 0.155768, 3.85046e-07, 1, 1, 0.4666667, 0, 1, 1.0486132, 0.5182585, 0, 1, 1.353256, 0.8860621, 0, 1, 1.353256, 0.8549158, 0.41886815, 1, 0.068, 0.07493334, 0.1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x2kih"]
+gradient = SubResource("Gradient_x2kih")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwvcj"]
+shader = ExtResource("3_sv46s")
+shader_parameter/direction = Vector3(0, 0, 0)
+shader_parameter/spread = 8.0
+shader_parameter/flatness = 0.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 290.0
+shader_parameter/initial_linear_velocity_max = 300.0
+shader_parameter/directional_velocity_min = 0.0
+shader_parameter/directional_velocity_max = 0.0
+shader_parameter/angular_velocity_min = 0.0
+shader_parameter/angular_velocity_max = 0.0
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/radial_velocity_min = 0.0
+shader_parameter/radial_velocity_max = 0.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_min = 0.0
+shader_parameter/radial_accel_max = 0.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_min = 350.0
+shader_parameter/damping_max = 400.0
+shader_parameter/initial_angle_min = 0.0
+shader_parameter/initial_angle_max = 0.0
+shader_parameter/scale_min = 1.0
+shader_parameter/scale_max = 1.0
+shader_parameter/hue_variation_min = 0.03
+shader_parameter/hue_variation_max = -0.05
+shader_parameter/anim_speed_min = 0.9
+shader_parameter/anim_speed_max = 1.0
+shader_parameter/anim_offset_min = 0.0
+shader_parameter/anim_offset_max = 0.0
+shader_parameter/lifetime_randomness = 0.03
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/velocity_pivot = Vector3(0, 0, 0)
+shader_parameter/color_value = Color(1, 1, 0.84313726, 1)
+shader_parameter/gravity = Vector3(0, 0, 0)
+shader_parameter/alpha_curve = SubResource("CurveTexture_xwer6")
+shader_parameter/color_ramp = SubResource("GradientTexture2D_x2kih")
+shader_parameter/turbulence_noise_strength = 300.0
+shader_parameter/turbulence_noise_scale = 150.0
+shader_parameter/turbulence_influence_min = 0.0
+shader_parameter/turbulence_influence_max = 0.04
+shader_parameter/turbulence_initial_displacement_min = 0.0
+shader_parameter/turbulence_initial_displacement_max = 0.05
+shader_parameter/turbulence_noise_speed_random = 0.01
+shader_parameter/turbulence_noise_speed = Vector3(1, 1, 1)
+shader_parameter/h_frames = 11.000000475
+shader_parameter/v_frames = 4.000000142499999
+
+[node name="Flamethrower" type="GPUParticles2D" unique_id=335828530]
+z_index = 10
+material = SubResource("ShaderMaterial_bac6x")
+amount = 300
+texture = ExtResource("1_lyjpx")
+lifetime = 0.6
+preprocess = 0.04
+randomness = 0.02
+fixed_fps = 60
+process_material = SubResource("ShaderMaterial_dwvcj")

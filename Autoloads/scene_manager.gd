@@ -1,7 +1,5 @@
 extends Node
 
-
-
 enum SCENES {
 	MAIN_MENU,
 	CAR_SELECTION,
@@ -21,7 +19,8 @@ enum SCENES {
 	RACE,
 	SANDBOX,
 	REWARDS,
-	DEAD_LAPS_WIN
+	DEAD_LAPS_WIN,
+	TUTORIAL
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -47,9 +46,9 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.RACE : "uid://dtuhf5ckvagmh",
 	SCENES.SANDBOX : "uid://3akvde2gonk6",
 	SCENES.REWARDS : "uid://jwksok5nrqco",
-	SCENES.DEAD_LAPS_WIN : "uid://yqd1m8allrb7"
+	SCENES.DEAD_LAPS_WIN : "uid://yqd1m8allrb7",
+	SCENES.TUTORIAL : "uid://cq2s06r5jphru"
 }
-
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
 	DistrictsData.types.GARAGE :"uid://cfitxfs1gyuep",
@@ -71,7 +70,6 @@ var previous_scene : SCENES
 
 var race_mode : bool = false
 
-
 #TEST = true
 var tuto_completed: bool = false
 var commands_displayed : bool = false
@@ -86,6 +84,7 @@ var default_loading_message : String = "Designing the district, please wait"
 ## Any scene missing here loads without overlay (menus, shops...).
 var map_scene_messages : Dictionary[SCENES, String] = {
 	SCENES.RACE : "Building the track, please wait",
+	SCENES.TUTORIAL : "Building the training ground, please wait",
 }
 
 ## Safety net if map_generated never fires (broken pass, scene without map)
@@ -190,3 +189,4 @@ func unload_game() -> void:
 	BuildingsManager.unload()
 	jobs_manager.unload()
 	BloodBars.unload()
+	GameMaster.tutorial_active = false

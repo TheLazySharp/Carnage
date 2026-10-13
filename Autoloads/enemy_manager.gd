@@ -25,7 +25,7 @@ enum Rotation_Mode {
 }
 
 
-var rotation_mode : Rotation_Mode = Rotation_Mode.CARDINAL_4
+var rotation_mode : Rotation_Mode = Rotation_Mode.CARDINAL_8
 var life_progression_step : int = 10
 var max_life_mod : Modifier
 

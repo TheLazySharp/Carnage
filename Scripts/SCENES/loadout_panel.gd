@@ -24,6 +24,7 @@ func _ready() -> void:
 func open() -> void:
 	# New weapons are pre-placed: validating without touching anything is never a loss
 	LoadoutManager.auto_assign_pending()
+	LoadoutManager.has_new_maneuver = false
 	weapons.clear()
 	for survivor: SurvivorData in SurvivorsManager.on_board_survivors:
 		if survivor.weapon != null and !weapons.has(survivor.weapon):

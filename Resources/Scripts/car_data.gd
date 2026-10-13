@@ -11,6 +11,16 @@ class_name CarData
 ## Car ultimate, triggered by closing a loop (scene with a trigger(polygon, damage_multiplier) method)
 @export var ultimate_scene : PackedScene
 
+## Base time (seconds) to recharge the ultimate at combo x1
+@export var base_ultimate_recharge_time : float = 20.0
+
+@export_group("COMBO")
+@export var base_combo_window : float = 4.0   # seconds to chain the next maneuver
+@export var base_combo_step : float = 0.25     # multiplier gained per new maneuver
+@export var base_combo_decay : float = 0.2    # multiplier lost per second once the window is over
+@export var base_combo_max : float = 5.0
+
+
 @export_group("MAIN STATS")
 @export var base_acceleration := 300
 @export var base_max_speed := 250
@@ -80,7 +90,13 @@ enum Car_Stats {
 	COLLECT_RADIUS,
 	DRIFT_TURN_BONUS,
 	MAX_FUEL,
-	MAX_NITRO
+	MAX_NITRO,
+	COMBO_WINDOW,
+	COMBO_STEP,
+	COMBO_DECAY,
+	COMBO_MAX,
+	ULTIMATE_RECHARGE_SPEED,
+	DRIFT_CHARGE_SPEED
 }
 
 enum Car_Upgrades {
@@ -107,6 +123,14 @@ var collect_radius : Statistic
 var drift_turn_bonus : Statistic
 var max_fuel : Statistic
 var max_nitro : Statistic
+
+var combo_window : Statistic
+var combo_step : Statistic
+var combo_decay : Statistic              # lower is better
+var combo_max : Statistic
+var ultimate_recharge_speed : Statistic  # multiplier on the recharge speed
+var drift_charge_speed : Statistic       # multiplier on the drift charge speed
+
 
 var stat_modifiers : Array[Modifier] = []
 @warning_ignore("unused_signal")
@@ -140,6 +164,12 @@ func init_stats() -> void:
 	max_fuel = Statistic.new(base_max_fuel)
 	max_nitro = Statistic.new(base_max_nitro)
 
+	combo_window = Statistic.new(base_combo_window)
+	combo_step = Statistic.new(base_combo_step)
+	combo_decay = Statistic.new(base_combo_decay)
+	combo_max = Statistic.new(base_combo_max)
+	ultimate_recharge_speed = Statistic.new(1.0)
+	drift_charge_speed = Statistic.new(1.0)
 
 func get_car_stat(stat : Car_Stats) -> Statistic:
 	match stat:
@@ -154,6 +184,12 @@ func get_car_stat(stat : Car_Stats) -> Statistic:
 		Car_Stats.DRIFT_TURN_BONUS: return drift_turn_bonus
 		Car_Stats.MAX_FUEL: return max_fuel
 		Car_Stats.MAX_NITRO: return max_nitro
+		Car_Stats.COMBO_WINDOW: return combo_window
+		Car_Stats.COMBO_STEP: return combo_step
+		Car_Stats.COMBO_DECAY: return combo_decay
+		Car_Stats.COMBO_MAX: return combo_max
+		Car_Stats.ULTIMATE_RECHARGE_SPEED: return ultimate_recharge_speed
+		Car_Stats.DRIFT_CHARGE_SPEED: return drift_charge_speed
 	return null
 	
 func unscaled_speed()-> float:

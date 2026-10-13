@@ -4,8 +4,14 @@ extends Control
 @onready var car_neons : CarNeons = get_tree().get_first_node_in_group(&"car_neons") as CarNeons
 var neons_call_threshold : float = 0.15
 
+@onready var time_ui: Control = $TimeUI
+@onready var fps: Label = $FPS
 
 
+func _ready() -> void:
+	if GameMaster.tutorial_active:
+		time_ui.hide()
+		fps.hide()
 
 func _on_car_blood_changed(current_life : int, max_life : int) -> void:
 	if current_life < max_life * neons_call_threshold:

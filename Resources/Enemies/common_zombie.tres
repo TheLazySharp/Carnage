@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/blood_enemy_death.tscn" id="1_b0njb"]
 [ext_resource type="Script" uid="uid://o5x50j5uyp7f" path="res://Resources/Scripts/enemy_data.gd" id="1_exg4w"]
+[ext_resource type="Resource" uid="uid://djnlhv486cgrd" path="res://Resources/Flockings/common_chase.tres" id="2_b1lue"]
 [ext_resource type="Script" uid="uid://p0eu2f0bwtoq" path="res://Resources/Scripts/enemy_sprite_state.gd" id="3_b0njb"]
+[ext_resource type="Resource" uid="uid://d2fdiyhigp46n" path="res://Resources/Flockings/common_idle.tres" id="3_wxsbi"]
 [ext_resource type="Texture2D" uid="uid://bdcssex2kn767" path="res://Assets/Léonce/Enemies/SIZE TEST/zombieA_run01C.png" id="4_b0njb"]
 [ext_resource type="Texture2D" uid="uid://dk8yjdsidugdi" path="res://Assets/Léonce/Enemies/zombie01_death_exploded.png" id="5_oxrgu"]
 [ext_resource type="Texture2D" uid="uid://cc1kmoolfudut" path="res://Assets/Léonce/Enemies/zombie01_death_knocked.png" id="6_dhoyf"]
@@ -10,11 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://dmuvi1ee80nb7" path="res://Assets/Léonce/Enemies/zombie01_death_sliced.png" id="8_oxrgu"]
 [ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="9_dhoyf"]
 [ext_resource type="Texture2D" uid="uid://s4c4hvswv47w" path="res://Assets/Léonce/Enemies/zombie01_air_flight.png" id="10_lpamg"]
+[ext_resource type="Texture2D" uid="uid://dtr4ubdhjy0cc" path="res://Assets/Léonce/Enemies/zombieA_idleC_outline.png" id="13_wxsbi"]
 
 [sub_resource type="Resource" id="Resource_b0njb"]
 script = ExtResource("3_b0njb")
 frame_size = Vector2i(50, 30)
-fps = 20.0
+fps = 8.0
 spritesheet = ExtResource("4_b0njb")
 metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
@@ -76,12 +79,29 @@ fps = 30.0
 spritesheet = ExtResource("10_lpamg")
 metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
+[sub_resource type="Resource" id="Resource_b1lue"]
+script = ExtResource("3_b0njb")
+state_name = "idle"
+frame_size = Vector2i(40, 40)
+spritesheet = ExtResource("13_wxsbi")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_fwbet"]
+script = ExtResource("3_b0njb")
+state_name = "run"
+frame_size = Vector2i(50, 30)
+fps = 16.0
+spritesheet = ExtResource("4_b0njb")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
 [resource]
 script = ExtResource("1_exg4w")
 name = "Common"
 frame_size = Vector2i(50, 30)
-sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_epe8t"), SubResource("Resource_aj7fl"), SubResource("Resource_63ifu"), SubResource("Resource_57ln3"), SubResource("Resource_i7xsr"), SubResource("Resource_27q37")])
+sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_epe8t"), SubResource("Resource_aj7fl"), SubResource("Resource_63ifu"), SubResource("Resource_57ln3"), SubResource("Resource_i7xsr"), SubResource("Resource_27q37"), SubResource("Resource_b1lue"), SubResource("Resource_fwbet")])
 blood_particles = ExtResource("1_b0njb")
 base_speed = 40.0
 base_impact_force = 200.0
+chase_flocking = ExtResource("2_b1lue")
+idle_flocking = ExtResource("3_wxsbi")
 metadata/_custom_type_script = "uid://o5x50j5uyp7f"
