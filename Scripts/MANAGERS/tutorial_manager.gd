@@ -33,6 +33,7 @@ class_name TutorialManager
 @export var page_title: Label
 @export var page_body: Label
 @export var page_next_button: Button
+@export var page_input_delay: float = 0.6  # the next button ignores input this long after a page shows
 
 var step_index: int = 0
 var progress: int = 0
@@ -44,6 +45,8 @@ var page_open: bool = false
 var page_keys: PackedStringArray = []
 var page_index: int = 0
 var page_done: Callable          # called when the last page is closed
+var map_ready: bool = false
+var intro_pending: bool = false  # intro waits for the map: it would open behind the loading screen
 
 var free_play: bool = false
 var frags_at_start: int = 0
@@ -53,6 +56,7 @@ var shown_kills: int = -1
 func _ready() -> void:
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.map_generated.connect(_on_map_generated)
 	skip_label.text = tr("TUTO_SKIP")
 	yes_button.text = tr("TUTO_YES")
 	no_button.text = tr("TUTO_NO")
@@ -84,9 +88,21 @@ func _begin() -> void:
 	if steps.is_empty():
 		push_warning("[Tutorial] no step configured")
 		return
-	# The game principles first, then the first step
-	_open_pages(intro_page_keys, _start_step.bind(0))
+	# The game principles first, then the first step, once the map is built and visible
+	if map_ready:
+		_open_intro()
+	else:
+		intro_pending = true
 
+func _on_map_generated(_data: MapData) -> void:
+	map_ready = true
+	if intro_pending:
+		intro_pending = false
+		_open_intro()
+
+
+func _open_intro() -> void:
+	_open_pages(intro_page_keys, _start_step.bind(0))
 
 func _setup_car() -> void:
 	var car: Node = get_tree().get_first_node_in_group("player")
@@ -206,13 +222,19 @@ func _open_pages(keys: PackedStringArray, on_done: Callable) -> void:
 	page_popup.show()
 	page_next_button.grab_focus()
 
-
 func _show_page() -> void:
 	var key: String = page_keys[page_index]
 	page_title.text = tr(key)
 	page_body.text = tr(key + "_BODY")
 	var is_last_page: bool = page_index == page_keys.size() - 1
 	page_next_button.text = tr("TUTO_INTRO_START") if is_last_page else tr("TUTO_INTRO_NEXT")
+	# Short lock: a press already in progress (loading screen, drift on Space, double tap) cannot skip the page
+	page_next_button.disabled = true
+	get_tree().create_timer(page_input_delay).timeout.connect(_unlock_page_button)
+
+
+func _unlock_page_button() -> void:
+	page_next_button.disabled = false
 
 
 func _on_page_next_pressed() -> void:
@@ -249,6 +271,10 @@ func _show_quit_popup() -> void:
 	quit_popup.show()
 	no_button.grab_focus()  # safest default: staying
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause") and quit_popup.visible:
+		quit_popup.hide()
+		
 
 func _on_quit_yes_pressed() -> void:
 	quit_popup.hide()
@@ -265,6 +291,7 @@ func _leave() -> void:
 	if leaving:
 		return
 	leaving = true
-	# unload_game() also resets GameMaster.tutorial_active
+	if CarManager.selected_car != null:
+		CarManager.selected_car.invincible = false
 	SceneManager.unload_game()
 	SceneManager.load_level(SceneManager.SCENES.MAIN_MENU)

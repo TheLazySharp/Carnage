@@ -1,0 +1,228 @@
+[gd_scene format=3 uid="uid://dmdrlave0p5qf"]
+
+[ext_resource type="Script" uid="uid://du1co0e2sfqfx" path="res://Scripts/UI/survivor_resume.gd" id="1_4foyw"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_2fafl"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_717d1"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="4_u2mik"]
+[ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="5_4qkln"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="6_amobn"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="6_lm1l7"]
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="7_niu2u"]
+
+[node name="SurvivorResume" type="Control" unique_id=928422093]
+custom_minimum_size = Vector2(460, 800)
+custom_maximum_size = Vector2(460, 800)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 818.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4foyw")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1462285036]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SurvivorName" type="Label" parent="." unique_id=558661273]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.093
+offset_top = 6.0
+offset_bottom = 6.2666626
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_2fafl")
+theme_override_font_sizes/font_size = 64
+text = "NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("3_717d1")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1969034571]
+custom_minimum_size = Vector2(64, 72)
+layout_mode = 0
+offset_top = 112.0
+offset_right = 416.0
+offset_bottom = 696.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="SurvivorBio" type="Control" parent="." unique_id=191287700]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="ColorRect" parent="SurvivorBio" unique_id=1091188301]
+layout_mode = 1
+offset_right = 96.0
+offset_bottom = 96.0
+
+[node name="Icon" type="TextureRect" parent="SurvivorBio/Portrait" unique_id=928066349]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_4qkln")
+
+[node name="PNJAge" type="Label" parent="SurvivorBio" unique_id=1295382432]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 36.0
+offset_right = 449.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("6_amobn")
+theme_override_font_sizes/font_size = 18
+text = "42 years old"
+script = ExtResource("4_u2mik")
+
+[node name="PNJJobName" type="Label" parent="SurvivorBio" unique_id=141178791]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 69.0
+offset_right = 449.0
+offset_bottom = 96.0
+theme_override_fonts/font = ExtResource("6_amobn")
+theme_override_font_sizes/font_size = 18
+text = "Mechanic"
+script = ExtResource("4_u2mik")
+
+[node name="PNJJobDescr" type="Label" parent="SurvivorBio" unique_id=2143974609]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -239.0
+offset_bottom = -140.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_amobn")
+theme_override_font_sizes/font_size = 18
+text = "Mechanic"
+script = ExtResource("4_u2mik")
+
+[node name="PNJBio" type="Label" parent="SurvivorBio" unique_id=859623601]
+custom_minimum_size = Vector2(450, 200)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.5
+offset_top = -302.0
+offset_bottom = -102.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_amobn")
+theme_override_font_sizes/font_size = 18
+text = "Javier spent his days repairing vehicles. One day, he saw unknown models coming from a remote MINE. Some were designed for an ISOLATED SITE far from civilization. Their technology surpassed anything he knew. Now he salvages parts to survive. He is certain everything started there."
+autowrap_mode = 2
+script = ExtResource("4_u2mik")
+
+[node name="Weapon" type="Control" parent="." unique_id=1494563974]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -106.0
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Weapon" unique_id=2103438739]
+show_behind_parent = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -71.0
+offset_right = 96.0
+offset_bottom = 25.0
+grow_vertical = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="Weapon/ColorRect" unique_id=1846400863]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -48.0
+offset_right = 96.0
+offset_bottom = 48.0
+grow_vertical = 2
+texture = ExtResource("7_niu2u")
+
+[node name="WeaponDescr" type="Label" parent="Weapon" unique_id=1769072388]
+custom_minimum_size = Vector2(340, 70)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -121.0
+offset_top = -114.0
+offset_right = 227.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_amobn")
+theme_override_font_sizes/font_size = 18
+text = "Shot a bullet on the closest enemy"
+autowrap_mode = 2
+script = ExtResource("4_u2mik")
+
+[node name="PNJWeapon" type="Label" parent="Weapon" unique_id=1854806665]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 106.0
+offset_top = -68.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_amobn")
+theme_override_font_sizes/font_size = 18
+text = "Revolver"
+vertical_alignment = 1
+script = ExtResource("6_lm1l7")
+
+[node name="Label" type="Label" parent="." unique_id=1598352041]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+offset_right = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_amobn")
+theme_override_font_sizes/font_size = 18
+text = "Hide : R1"
+horizontal_alignment = 2
+vertical_alignment = 1

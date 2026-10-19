@@ -6,6 +6,7 @@ const MAP_LINE = preload("uid://c1x3sw3es8h4c")
 const DISTRICT = preload("uid://dy7ucna56qsok") #map_district scene
 @onready var available_seats: Label = $MapBackground/AvailableSeats
 @export var loadout_panel : LoadoutPanel
+@onready var survivor_resume: SurvivorResume = $MapBackground/SurvivorResume
 
 
 
@@ -13,7 +14,7 @@ const DISTRICT = preload("uid://dy7ucna56qsok") #map_district scene
 @onready var visuals: Node2D = $MapBackground/ControlMap/Visuals
 @onready var lines: Node2D = %Lines
 @onready var districts: Node2D = %Districts
-#@onready var map_generator: PathGenerator = $MapGenerator
+
 
 var map_data : Array[Array]
 
@@ -109,6 +110,15 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 
+	# One shared survivor summary: handled here once, not by every map district
+	if event.is_action_pressed("hide_panel"):
+		var focused_district : MapDistrict = _get_focused_district()
+		# Only when the focused district actually holds a survivor
+		if focused_district != null and focused_district.map_survivor != null:
+			survivor_resume.toggle()
+		get_viewport().set_input_as_handled()
+		return
+
 	if event.is_action_pressed("scroll_up"):
 		visuals.position.x -= SCROLL_SPEED
 	elif event.is_action_pressed("scroll_down"):
@@ -121,8 +131,7 @@ func _input(event: InputEvent) -> void:
 			SceneManager.load_level(SceneManager.SCENES.CAR_SELECTION)
 		else :
 			SceneManager.load_level(SceneManager.SCENES.HOME)
-			
-
+		
 func _on_map_district_selected(district : DistrictsData)-> void : 
 	for map_district : MapDistrict in districts.get_children():
 		if map_district.district.row == district.row : 
@@ -142,3 +151,11 @@ func connect_lines(district : DistrictsData) -> void :
 		new_map_line.add_point(district.position)
 		new_map_line.add_point(next.position)
 		lines.add_child(new_map_line)
+
+
+## The map district whose button has the focus (each MapDistrict holds its Button as a direct child)
+func _get_focused_district() -> MapDistrict:
+	var focus_owner : Control = get_viewport().gui_get_focus_owner()
+	if focus_owner == null:
+		return null
+	return focus_owner.get_parent() as MapDistrict

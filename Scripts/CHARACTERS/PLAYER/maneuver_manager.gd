@@ -335,8 +335,8 @@ func _emit_maneuver(maneuver_type: Type, intensity: float) -> void:
 	# World-space attack direction: car heading + the pattern offset
 	var direction_offset: float = get_pattern(maneuver_type).x
 	if maneuver_type == Type.SHORT_DRIFT:
-		# Outer side of the turn: rotation > 0 = clockwise = right turn -> left side
-		direction_offset = -PI * 0.5 if drift_rotation > 0.0 else PI * 0.5
+		# Inner side of the turn, toward the horde being dodged: rotation > 0 = clockwise = right turn -> right side
+		direction_offset = PI * 0.5 if drift_rotation > 0.0 else -PI * 0.5
 	var attack_angle: float = car.global_rotation + direction_offset
 	# Amplified if the dash is active when the maneuver completes
 	SignalManager.maneuver_performed.emit(maneuver_type, clampf(intensity, 0.0, 1.0), level, dash_manager.is_dashing, attack_angle)
@@ -347,7 +347,7 @@ func _emit_maneuver(maneuver_type: Type, intensity: float) -> void:
 static func get_pattern(maneuver_type: Type) -> Vector3:
 	match maneuver_type:
 		Type.SHORT_DRIFT:
-			return Vector3(0.0, deg_to_rad(100.0), 0.25)  # direction resolved on emit (outer side)
+			return Vector3(0.0, deg_to_rad(100.0), 0.25)  # direction resolved on emit (inner side)
 		Type.DRIFT_U_TURN, Type.REVERSE_U_TURN:
 			# Both U-turns hit what the car just turned its back on
 			return Vector3(PI, PI, 0.3)

@@ -5,9 +5,12 @@
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="2_alyf3"]
 [ext_resource type="Texture2D" uid="uid://bqlx6iu4ihme6" path="res://Assets/UI/arrow.png" id="3_2xls2"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="3_kdb2l"]
+[ext_resource type="Texture2D" uid="uid://dv0dbia1l7x8h" path="res://Assets/UI/woodbox.png" id="5_767qu"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="5_hwclg"]
 [ext_resource type="Script" uid="uid://dtnows4f4j3w1" path="res://Scripts/CHARACTERS/PLAYER/stats_panel.gd" id="6_kdb2l"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_usysd"]
+[ext_resource type="Texture2D" uid="uid://doylken6y8od2" path="res://Assets/Characters/Cars/skyline.png" id="7_a5x3x"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="8_k7rdh"]
 [ext_resource type="Script" uid="uid://ypc1elbwfkao" path="res://Scripts/UI/survivor_car_select.gd" id="9_buuk3"]
 [ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="10_buuk3"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="11_buuk3"]
@@ -132,6 +135,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g4ctw")
 script = ExtResource("2_2xls2")
+locked_icon = ExtResource("5_767qu")
 
 [node name="Name" type="Label" parent="CarID" unique_id=1608257321]
 layout_mode = 1
@@ -150,22 +154,63 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_hwclg")
 
-[node name="Icon" type="TextureRect" parent="CarID" unique_id=1644663637]
+[node name="Car" type="Control" parent="CarID" unique_id=935261769]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 102.5
-offset_top = -286.5
-offset_right = 307.69995
-offset_bottom = -81.30005
+offset_left = -100.0
+offset_top = -290.0
+offset_right = 100.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="CarID/Car" unique_id=1644663637]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 1.5707964
+pivot_offset = Vector2(100, 100)
+texture = ExtResource("7_a5x3x")
 expand_mode = 4
 stretch_mode = 5
+
+[node name="LockedRect" type="ColorRect" parent="CarID/Car" unique_id=865674568]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 43.5
+offset_bottom = -45.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14901961, 0.14901961, 0.14901961, 0.8745098)
+
+[node name="Label" type="Label" parent="CarID/Car/LockedRect" unique_id=171491567]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -26.541666
+offset_right = 100.0
+offset_bottom = 26.541666
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_k7rdh")
+theme_override_font_sizes/font_size = 52
+text = "LOCKED"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="StatsPanel" type="Panel" parent="CarID" unique_id=1102893059]
 layout_mode = 1

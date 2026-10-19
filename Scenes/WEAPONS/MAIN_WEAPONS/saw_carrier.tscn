@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d0scglw5kyu05"]
+
+[ext_resource type="Script" uid="uid://bb0ogkeq6ekou" path="res://Scripts/WEAPONS/MAIN WEAPONS/saw_carrier.gd" id="1_qc6h5"]
+[ext_resource type="Resource" uid="uid://d3713cb4urg63" path="res://Resources/Weapons/Main Weapons/saw_carrier.tres" id="2_mrr6u"]
+
+[node name="SawCarrier" type="Node2D" unique_id=1646551024]
+script = ExtResource("1_qc6h5")
+carrier_data = ExtResource("2_mrr6u")
+
+[node name="SawLaunchSFX" type="AudioStreamPlayer2D" parent="." unique_id=1011108374]

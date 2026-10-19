@@ -267,6 +267,9 @@ func _handle_wall_collision(collision : KinematicCollision2D, forward : Vector2,
 	var impact_speed : float = maxf(-velocity.dot(n), 0.0)
 	if impact_speed >= WALL_IMPACT_MIN_SPEED:
 		wall_impact.emit(impact_speed)
+		# Thump proportional to the impact
+		var impact_ratio : float = clampf(impact_speed / player.unscaled_speed(), 0.0, 1.0)
+		Haptics.pulse(0.3 * impact_ratio, 0.8 * impact_ratio, 0.15)
 
 	# Angle-proportional damping: grazing hits keep their speed,
 	# head-on hits lose up to (1 - WALL_BOUNCE_DAMP)
@@ -478,7 +481,7 @@ func play_drivin_smokes() -> void:
 
 
 func update_skid_smokes() -> void:
-	var skid_smoke : bool = enable_skid_smoke and (drifting or drift_manager.is_sliding())
+	var skid_smoke : bool = enable_skid_smoke and (drifting or drift_manager.is_sliding() or drift_manager.is_recovering())
 	if skid_smoke:
 		drivin_smoke_r_2.emitting = true
 		drivin_smoke_l_2.emitting = true

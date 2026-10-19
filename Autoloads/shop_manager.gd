@@ -108,7 +108,6 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://b82jil28njo77", #add 3 projectiles (EPIC)
 	"uid://1jcxa8pvy8yh", #invincibility EPIC
 ]
-
 const ALL_MANEUVERS_UIDS : Array[String] = [
 	"uid://b4o7xjo8isqj0", #burnout
 	"uid://b8dwx3opcyu68", #donut
@@ -117,7 +116,6 @@ const ALL_MANEUVERS_UIDS : Array[String] = [
 	"uid://boboqx2yj8bl7", #short drift
 	"uid://cht1vuqnvh1ny", #spin 360
 	"uid://h5gvivokva2o", #U turn
-
 ]
 
 
@@ -146,7 +144,9 @@ enum CONST_REFS {
 	Wheels,
 	Nitro_Tank,
 	Grenade,
-	Grenade_Belt
+	Grenade_Belt,
+	Saw,
+	Saw_carrier
 }
 
 

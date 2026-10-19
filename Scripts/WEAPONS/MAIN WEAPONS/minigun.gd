@@ -183,12 +183,10 @@ func get_valid_target() -> Area2D:
 func _on_combo_changed(multiplier: float, _combo_count: int) -> void:
 	combo_multiplier = multiplier
 
-
 func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: float, drift_level: int, is_amplified: bool, attack_angle: float) -> void:
 	if !minigun_data.weapon_is_active or game_paused or LoadoutManager.get_weapon(maneuver_type) != minigun_data:
 		return
 	salvo.start(minigun_data, maneuver_type, intensity, drift_level, is_amplified, attack_angle, combo_multiplier)
-
 
 func _fire_salvo_bullet(angle: float) -> void:
 	var bullet: AmmoMG = get_bullet_from_pool()

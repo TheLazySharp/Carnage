@@ -39,7 +39,7 @@ func _ready() -> void:
 	scene_to_spawn = ENEMY
 	footprint = Vector2i.ONE
 	occupy_cells = false        # stacking allowed: the flock spawns compact,
-							   # IDLE wandering spreads it out afterwards
+
 	avoid_camera_view = false  # min_distance_from_entry_px already handles it
 	max_spawn_attempts = 30   # the pool is narrowed to the disc, so hits are cheap
 

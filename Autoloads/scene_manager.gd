@@ -20,7 +20,8 @@ enum SCENES {
 	SANDBOX,
 	REWARDS,
 	DEAD_LAPS_WIN,
-	TUTORIAL
+	TUTORIAL,
+	SANDBOX_NEW
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -47,21 +48,22 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.SANDBOX : "uid://3akvde2gonk6",
 	SCENES.REWARDS : "uid://jwksok5nrqco",
 	SCENES.DEAD_LAPS_WIN : "uid://yqd1m8allrb7",
-	SCENES.TUTORIAL : "uid://cq2s06r5jphru"
+	SCENES.TUTORIAL : "uid://cq2s06r5jphru",
+	SCENES.SANDBOX_NEW : "uid://doy16umvky4m1",
 }
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
-	DistrictsData.types.GARAGE :"uid://cfitxfs1gyuep",
+	#DistrictsData.types.GARAGE :"uid://cfitxfs1gyuep",
 	DistrictsData.types.SURVIVOR :"uid://df565yrwfqn1v",
 	DistrictsData.types.ARENA :"uid://df565yrwfqn1v",
-	DistrictsData.types.HIGHWAY :"uid://df565yrwfqn1v",
+	#DistrictsData.types.HIGHWAY :"uid://df565yrwfqn1v",
 	DistrictsData.types.SUPERMARKET :"uid://df565yrwfqn1v",
 	DistrictsData.types.GUNSMITH :"uid://df565yrwfqn1v",
 	DistrictsData.types.CARDEALER :"uid://df565yrwfqn1v",
 	DistrictsData.types.FINAL :"uid://df565yrwfqn1v",
-	DistrictsData.types.BANK :"uid://df565yrwfqn1v",
+	#DistrictsData.types.BANK :"uid://df565yrwfqn1v",
 	#DistrictsData.types.CAR_REPAIR :"uid://df565yrwfqn1v",
-	DistrictsData.types.EVENT :"uid://df565yrwfqn1v",
+	#DistrictsData.types.EVENT :"uid://df565yrwfqn1v",
 	DistrictsData.types.SHOP :"uid://cvogwsu4e47t0"
 }
 

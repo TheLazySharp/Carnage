@@ -22,8 +22,6 @@ func _ready() -> void:
 	hide() 
 
 
-func _process(_delta: float) -> void:
-	pass
 
 func _on_survivor_picked_up(new_survivor : SurvivorData) -> void : 
 	survivor = new_survivor

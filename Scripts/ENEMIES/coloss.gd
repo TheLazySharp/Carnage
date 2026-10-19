@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var dmg : int = 50
+var dmg : int = 500
 
 
 func _on_damage_area_area_entered(area: Area2D) -> void:

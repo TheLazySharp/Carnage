@@ -16,6 +16,9 @@ var game_paused : bool = false
 
 
 func setup_trigger() -> void:
+	if GameMaster.tutorial_active:
+		is_active = false
+		return
 	if !is_active:
 		return
 	SignalManager.game_paused.connect(_on_game_paused)

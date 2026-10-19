@@ -3,24 +3,42 @@ extends Control
 @onready var resume: Button = $VBoxContainer/Resume
 @onready var commands: Button = $VBoxContainer/Commands
 @onready var quit_to_menu: Button = $"VBoxContainer/QuitToMenu"
+@onready var loadout_panel: LoadoutPanel = $LoadoutPanel
 
-var game_on_pause:= false
+var game_paused : bool = false
 
-signal quit_pause(game_on_pause: bool)
+signal quit_pause(game_paused: bool)
 
 func _ready() -> void:
 	self.hide()
 	resume.grab_focus()
 	
-func _process(_delta: float) -> void:
-	pass
-
-	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		if !game_paused:
+			game_paused = true
+			SignalManager.emit_signal("game_paused", game_paused)
+			if !GameMaster.tutorial_active:
+				self.show()
+				loadout_panel.open(true)
+				resume.grab_focus()
+				
+			else : 
+				self.hide()
+				
+		else : 
+			game_paused = false
+			SignalManager.emit_signal("game_paused", game_paused)
+			self.hide()
+			loadout_panel.close()
+			
+			
 
 func _on_resume_pressed() -> void:
-	game_on_pause = true
-	emit_signal("quit_pause", game_on_pause)
-
+	game_paused = false
+	SignalManager.emit_signal("game_paused", game_paused)
+	self.hide()
+	loadout_panel.close()
 
 func _on_commands_pressed() -> void:
 	pass

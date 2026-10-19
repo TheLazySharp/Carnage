@@ -1,20 +1,33 @@
 extends Node
 ## Survivors: meta unlocks (known / locked) and the current run (frozen pool, on board)
 
+const BORIS = preload("uid://co2hy6ybsg7b6")
+const JAVIER = preload("uid://b5ctlqm42kkmh")
+const LARA = preload("uid://dxhcqb7igjvjw")
+const LEO = preload("uid://b6nh0gs2w1hog")
+#const MARINA = preload("uid://d3q6e2ttbedxt")
+const VIKTOR = preload("uid://c4cxif75gn4yr")
+const PETER = preload("uid://dmkjdk1jmfb4v")
+
+
+
 ##preload ressources array
 const ALL_SURVIVORS : Array = [
-	preload("uid://dxhcqb7igjvjw"), #LARA
-	preload("uid://b5ctlqm42kkmh"), #JAVIER
-	preload("uid://co2hy6ybsg7b6"), #BORIS
-	preload("uid://b6nh0gs2w1hog"), #LEO
-	preload("uid://c4cxif75gn4yr"), #VIKTOR
-	#preload("uid://d3q6e2ttbedxt"), #MARINA
+	VIKTOR,
+	BORIS,
+	JAVIER,
+	LARA,
+	LEO,
+	PETER,
+	#MARINA,
 ]
 
 # ---- META (kept between runs) ----
 var locked_survivors : Array[SurvivorData] = []    # not available at the start of the game: unlocked by saving them on the road
 var known_survivors : Array[SurvivorData] = []     # available to start a run with (all survivors minus the locked ones)
 var next_survivor_to_unlock : SurvivorData = null  # locked survivor added to the run pool, unlocked when saved
+var administration_done : bool = false
+
 
 # ---- RUN (reset at each new run) ----
 var run_pool : Array[SurvivorData] = []            # frozen at run start: survivors that can be met on the road
@@ -31,6 +44,9 @@ signal in_game_survivor_queuefree
 
 func _ready() -> void:
 	SignalManager.district_survivor.connect(_on_district_selected)
+	if !administration_done:
+		administration_done = true
+		survivor_admninistration()
 	reload()
 
 
@@ -40,13 +56,26 @@ func select_survivor(new_survivor : SurvivorData) -> void:
 		return
 	on_board_survivors.append(new_survivor)
 	run_pool.clear()
-	for survivor : SurvivorData in known_survivors:
-		if survivor != new_survivor:
-			run_pool.append(survivor)
+	
+	if !known_survivors.is_empty():
+		for survivor : SurvivorData in known_survivors:
+			if survivor != new_survivor:
+				run_pool.append(survivor)
+	if !locked_survivors.is_empty():
+		for survivor : SurvivorData in locked_survivors:
+			if survivor != new_survivor:
+				run_pool.append(survivor)
 	if next_survivor_to_unlock != null and !run_pool.has(next_survivor_to_unlock):
 		run_pool.append(next_survivor_to_unlock)
 	run_pool.shuffle()
 
+func survivor_admninistration() -> void : 
+	known_survivors.append(PETER)
+	locked_survivors.append(BORIS)
+	locked_survivors.append(LARA)
+	locked_survivors.append(JAVIER)
+	locked_survivors.append(LEO)
+	locked_survivors.append(VIKTOR)
 
 ## No survivor on the map once the car is full, or when nobody is left to meet
 func can_offer_survivor() -> bool:
@@ -85,9 +114,12 @@ func refresh_known_survivors() -> void:
 ## Resets the run only: the meta lists (locked, next to unlock) are kept
 func reload() -> void:
 	run_pool.clear()
+	#known_survivors.clear()
+	#locked_survivors.clear()
 	on_board_survivors.clear()
 	next_spawned_survivor = null
-	refresh_known_survivors()
+	#refresh_known_survivors()
+	#survivor_admninistration()
 
 
 func unload() -> void:

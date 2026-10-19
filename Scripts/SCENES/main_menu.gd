@@ -7,7 +7,7 @@ extends Control
 
 
 func _ready() -> void:
-	#SceneManager.unload_game()
+	LoadoutManager.unload()
 	
 	#TUTO TO BE UPDATED
 	SceneManager.tuto_completed = true

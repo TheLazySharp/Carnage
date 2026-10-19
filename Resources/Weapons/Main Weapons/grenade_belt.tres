@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_27q37"]
 [ext_resource type="Resource" uid="uid://bp0x5m5caby4l" path="res://Resources/Weapons/Ammos/grenade.tres" id="2_27q37"]
-[ext_resource type="PackedScene" uid="uid://bsg62y0n5jpku" path="res://Scenes/WEAPONS/grenade.tscn" id="3_5phjr"]
+[ext_resource type="PackedScene" uid="uid://bsg62y0n5jpku" path="res://Scenes/WEAPONS/AMMOS/grenade.tscn" id="3_5phjr"]
 [ext_resource type="Texture2D" uid="uid://c6dg5y574fd6i" path="res://Assets/weapons/grenade_belt.png" id="4_oyn8n"]
 [ext_resource type="AudioStream" uid="uid://c1eaahubfa6id" path="res://Assets/Audio/SFX/Weapons/launcher.mp3" id="5_ethcs"]
 

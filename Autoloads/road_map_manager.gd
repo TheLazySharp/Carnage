@@ -1,11 +1,11 @@
 extends Node
 
-const Y_DIST : int = 88
+const Y_DIST : int = 128
 const X_DIST : int = 128
 const DIST_RANDOMNESS : int = 24
 const STEPS : int = 8
-const GRID_WIDTH : int = 7
-const PATHS : int = 5
+const GRID_WIDTH : int = 5
+const PATHS : int = 4
 
 var starting_district_type : DistrictsData.types = DistrictsData.types.ARENA
 
@@ -14,60 +14,117 @@ const SHOP_MAX_ROW : int = STEPS - 3
 
 var start_column : int = floori(GRID_WIDTH * 0.5)
 
+
 const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
 	GameMaster.BIOMES.CITY : {
 		DistrictsData.types.ARENA : 3,
-		DistrictsData.types.HIGHWAY : 1,
+		#DistrictsData.types.HIGHWAY : 1,
 		DistrictsData.types.SURVIVOR : 2,
-		DistrictsData.types.EVENT : 1,
-		DistrictsData.types.BANK : 3,
+		#DistrictsData.types.EVENT : 1,
+		#DistrictsData.types.BANK : 3,
 		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.GUNSMITH : 3,
-		DistrictsData.types.SUPERMARKET : 1,
-		DistrictsData.types.CARDEALER : 1,
-		DistrictsData.types.SHOP : 2,
-		DistrictsData.types.GARAGE : 2,
+		DistrictsData.types.GUNSMITH : 0,
+		DistrictsData.types.SUPERMARKET : 0,
+		DistrictsData.types.CARDEALER : 0,
+		DistrictsData.types.SHOP : 0,
+		#DistrictsData.types.GARAGE : 2,
 	},
 	GameMaster.BIOMES.COUNTRYSIDE : {
 		DistrictsData.types.ARENA : 2,
-		DistrictsData.types.HIGHWAY : 4,
+		#DistrictsData.types.HIGHWAY : 4,
 		DistrictsData.types.SURVIVOR : 2,
-		DistrictsData.types.EVENT : 2,
-		DistrictsData.types.BANK : 1,
+		#DistrictsData.types.EVENT : 2,
+		#DistrictsData.types.BANK : 1,
 		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.SUPERMARKET : 1,
-		DistrictsData.types.GUNSMITH : 2,
-		DistrictsData.types.CARDEALER : 2,
-		DistrictsData.types.SHOP : 1,
-		DistrictsData.types.GARAGE : 2,
+		DistrictsData.types.GUNSMITH : 0,
+		DistrictsData.types.SUPERMARKET : 0,
+		DistrictsData.types.CARDEALER : 0,
+		DistrictsData.types.SHOP : 0,
+		#DistrictsData.types.GARAGE : 2,
 	},
 	GameMaster.BIOMES.DESERT : {
 		DistrictsData.types.ARENA : 1,
-		DistrictsData.types.HIGHWAY : 2,
+		#DistrictsData.types.HIGHWAY : 2,
 		DistrictsData.types.SURVIVOR : 2,
-		DistrictsData.types.EVENT : 4,
-		DistrictsData.types.BANK : 1,
+		#DistrictsData.types.EVENT : 4,
+		#DistrictsData.types.BANK : 1,
 		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.SUPERMARKET : 1,
-		DistrictsData.types.GUNSMITH : 1,
-		DistrictsData.types.CARDEALER : 2,
-		DistrictsData.types.SHOP : 3,
-		DistrictsData.types.GARAGE : 2,
+		DistrictsData.types.GUNSMITH : 0,
+		DistrictsData.types.SUPERMARKET : 0,
+		DistrictsData.types.CARDEALER : 0,
+		DistrictsData.types.SHOP : 0,
+		#DistrictsData.types.GARAGE : 2,
 	},
 	GameMaster.BIOMES.HARBOR : {
 		DistrictsData.types.ARENA : 2,
-		DistrictsData.types.HIGHWAY : 1,
+		#DistrictsData.types.HIGHWAY : 1,
 		DistrictsData.types.SURVIVOR : 2,
-		DistrictsData.types.EVENT : 1,
-		DistrictsData.types.BANK : 3,
+		#DistrictsData.types.EVENT : 1,
+		#DistrictsData.types.BANK : 3,
 		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.SUPERMARKET : 1,
-		DistrictsData.types.GUNSMITH : 2,
-		DistrictsData.types.CARDEALER : 3,
-		DistrictsData.types.SHOP : 2,
-		DistrictsData.types.GARAGE : 2,
+		DistrictsData.types.GUNSMITH : 0,
+		DistrictsData.types.SUPERMARKET : 0,
+		DistrictsData.types.CARDEALER : 0,
+		DistrictsData.types.SHOP : 0,
+		#DistrictsData.types.GARAGE : 2,
 	},
 }
+
+
+#const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
+	#GameMaster.BIOMES.CITY : {
+		#DistrictsData.types.ARENA : 3,
+		##DistrictsData.types.HIGHWAY : 1,
+		#DistrictsData.types.SURVIVOR : 2,
+		##DistrictsData.types.EVENT : 1,
+		##DistrictsData.types.BANK : 3,
+		##DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.GUNSMITH : 3,
+		#DistrictsData.types.SUPERMARKET : 1,
+		#DistrictsData.types.CARDEALER : 1,
+		#DistrictsData.types.SHOP : 2,
+		##DistrictsData.types.GARAGE : 2,
+	#},
+	#GameMaster.BIOMES.COUNTRYSIDE : {
+		#DistrictsData.types.ARENA : 2,
+		##DistrictsData.types.HIGHWAY : 4,
+		#DistrictsData.types.SURVIVOR : 2,
+		##DistrictsData.types.EVENT : 2,
+		##DistrictsData.types.BANK : 1,
+		##DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.SUPERMARKET : 1,
+		#DistrictsData.types.GUNSMITH : 2,
+		#DistrictsData.types.CARDEALER : 2,
+		#DistrictsData.types.SHOP : 1,
+		##DistrictsData.types.GARAGE : 2,
+	#},
+	#GameMaster.BIOMES.DESERT : {
+		#DistrictsData.types.ARENA : 1,
+		##DistrictsData.types.HIGHWAY : 2,
+		#DistrictsData.types.SURVIVOR : 2,
+		##DistrictsData.types.EVENT : 4,
+		##DistrictsData.types.BANK : 1,
+		##DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.SUPERMARKET : 1,
+		#DistrictsData.types.GUNSMITH : 1,
+		#DistrictsData.types.CARDEALER : 2,
+		#DistrictsData.types.SHOP : 3,
+		##DistrictsData.types.GARAGE : 2,
+	#},
+	#GameMaster.BIOMES.HARBOR : {
+		#DistrictsData.types.ARENA : 2,
+		##DistrictsData.types.HIGHWAY : 1,
+		#DistrictsData.types.SURVIVOR : 2,
+		##DistrictsData.types.EVENT : 1,
+		##DistrictsData.types.BANK : 3,
+		##DistrictsData.types.CAR_REPAIR : 2,
+		#DistrictsData.types.SUPERMARKET : 1,
+		#DistrictsData.types.GUNSMITH : 2,
+		#DistrictsData.types.CARDEALER : 3,
+		#DistrictsData.types.SHOP : 2,
+		##DistrictsData.types.GARAGE : 2,
+	#},
+#}
 
 var random_districts_weights : Dictionary = {}
 var random_districts_total_weights : int = 0
@@ -82,7 +139,7 @@ const GUNSMITH_DISTRICTS_WEIGHT : float = 2.0
 const CARDEALER_DISTRICTS_WEIGHT : float = 2.0
 const SUPERMARKET_DISTRICTS_WEIGHT : float = 2.0
 const BANK_DISTRICTS_WEIGHT : float = 2.0
-const CAR_REPAIR_DISTRICTS_WEIGHT : float = 2.0
+#const CAR_REPAIR_DISTRICTS_WEIGHT : float = 2.0
 const EVENT_DISTRICTS_WEIGHT : float = 3.0
 
 var steps_reached : int = 0
@@ -239,10 +296,10 @@ func setup_district_types() -> void :
 		if district.next_districts.size() > 0 :
 			district.type = DistrictsData.types.SURVIVOR
 
-	#4 last district before boss is always a garage
-	for district : DistrictsData in map_data[STEPS - 2]:
-		if district.next_districts.size() > 0 :
-			district.type = DistrictsData.types.GARAGE
+	##4 last district before boss is always a garage
+	#for district : DistrictsData in map_data[STEPS - 2]:
+		#if district.next_districts.size() > 0 :
+			#district.type = DistrictsData.types.GARAGE
 			
 	# rest of the districts
 	for current_step : Array in map_data:
@@ -258,18 +315,19 @@ func set_district_type_randomly(district_to_set : DistrictsData) -> void :
 	for attempt in MAX_ATTEMPTS:
 		type_candidate = get_random_district_type_by_weight()
 
-		var is_garage : bool = type_candidate == DistrictsData.types.GARAGE
+		#var is_garage : bool = type_candidate == DistrictsData.types.GARAGE
 		var is_shop : bool = type_candidate == DistrictsData.types.SHOP
-		var has_garage_parent : bool = district_has_parent_of_type(district_to_set, DistrictsData.types.GARAGE)
+		#var has_garage_parent : bool = district_has_parent_of_type(district_to_set, DistrictsData.types.GARAGE)
 		var has_shop_parent : bool = district_has_parent_of_type(district_to_set, DistrictsData.types.SHOP)
 
-		var garage_below_3 : bool = is_garage and district_to_set.row < 2
-		var consecutive_garage : bool = is_garage and has_garage_parent
+		#var garage_below_3 : bool = is_garage and district_to_set.row < 2
+		#var consecutive_garage : bool = is_garage and has_garage_parent
 		var consecutive_shop : bool = is_shop and has_shop_parent
-		var garage_before_garage_step : bool = is_garage and district_to_set.row == STEPS - 3
+		#var garage_before_garage_step : bool = is_garage and district_to_set.row == STEPS - 3
 		var shop_too_early : bool = is_shop and district_to_set.row < SHOP_MIN_ROW
 
-		if not (garage_below_3 or consecutive_garage or consecutive_shop or garage_before_garage_step or shop_too_early):
+		#if not (garage_below_3 or consecutive_garage or consecutive_shop or garage_before_garage_step or shop_too_early):
+		if not (consecutive_shop  or shop_too_early):
 			break
 
 	## hard rule : STEPS-2 is always a garage, so STEPS-3 never is

@@ -52,7 +52,11 @@ class_name CarData
 @export var min_drift_speed := 150.0
 @export var snap_grip := 0.75
 @export var snap_speed := 8.0
-var drifting : bool = false
+@export var charge_colors : Array[Color] = [
+	Color(1.766, 2.17, 3.0, 0.902),   # tier 0 
+	Color(0.437, 1.123, 3.0, 0.902),  # tier 1
+	Color(0.157, 1.167, 4.395, 0.902),   # tier 2
+]
 
 @export_group("SKIDS")
 @export var skid_spacing := 8.0
@@ -66,6 +70,7 @@ var drifting : bool = false
 @export var car_sprite: Texture2D
 #@export var car_explosion: SpriteFrames
 
+var drifting : bool = false
 
 var engine_lvl: int = 0
 var turbo_lvl: int = 0
@@ -142,7 +147,12 @@ var current_nitro : int
 
 var invincible : bool = false
 
+var is_unlocked : bool = false
+
 func init_stats() -> void:
+	if CarManager.unlocked_cars.has(self):
+		is_unlocked = true
+	
 	engine_lvl = 0
 	turbo_lvl = 0
 	shield_lvl = 0
@@ -151,6 +161,8 @@ func init_stats() -> void:
 	nitro_lvl = 0
 	wheels_lvl = 0
 	bumper_lvl = 0
+	
+	invincible = false
 	
 	acceleration = Statistic.new(base_acceleration)
 	max_speed = Statistic.new(base_max_speed)

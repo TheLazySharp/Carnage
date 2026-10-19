@@ -57,6 +57,14 @@ title_key = "TUTO_LOOP"
 hint_key = "TUTO_LOOP_HINT"
 metadata/_custom_type_script = "uid://cc4q10pweyl5h"
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ihg5"]
+bg_color = Color(0.099985994, 0.09998601, 0.099985965, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9384497, 0.9384497, 0.9384497, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3227t"]
 bg_color = Color(0.08468992, 0.08468994, 0.08468988, 1)
 
@@ -89,7 +97,7 @@ is_active = false
 nb_horde = 3
 max_enemy_count = 20
 
-[node name="SpawnerAuto" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="2" unique_id=210156015]
+[node name="ColossArrival" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="1" unique_id=129810557]
 is_active = false
 
 [node name="ItemSpawner" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="3" unique_id=951681507]
@@ -149,6 +157,7 @@ offset_top = -322.0
 offset_bottom = -222.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ihg5")
 text = "TUTO_FIGHT"
 horizontal_alignment = 1
 vertical_alignment = 1

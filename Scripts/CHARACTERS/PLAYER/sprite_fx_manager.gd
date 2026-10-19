@@ -6,6 +6,7 @@ class_name SpriteFXManager
 @export var enable_lean : bool = true
 @export var enable_dash_anticipation_fx : bool = true
 @export var enable_chassis_inertia : bool = true
+@export var enable_drift_exaggeration : bool = true
 
 @export_group("Squash & Stretch")
 @export var accel_stretch : float = 0.06        # stretch at full acceleration
@@ -25,6 +26,13 @@ class_name SpriteFXManager
 @export var stiffness : float = 400.0     # spring stiffness (higher = faster return)
 @export var spring_damping : float = 10.0 # damping (lower = oscillates longer)
 @export var max_offset_deg : float = 14.0 # max chassis travel
+
+@export_group("Drift exaggeration")
+@export var drift_angle_exaggeration : float = 0.3  # extra sprite angle, share of the slip angle (0.3: a 40 deg slip looks like 52)
+@export var drift_max_extra_deg : float = 20.0      # cap of the extra angle
+@export var drift_speed_reference : float = 150.0   # below this speed the effect fades out (spinning in place)
+@export var drift_yaw_stiffness : float = 150.0     # spring toward the target angle (higher = faster)
+@export var drift_yaw_damping : float = 20.0        # ~2 x sqrt(stiffness) = no bounce; lower = slight overshoot
 
 @export_group("Skid ghosts (arcade afterimage trail)")
 @export var enable_skid_ghosts : bool = true
@@ -56,6 +64,10 @@ var last_car_rotation : float = 0.0
 var last_ang_vel : float = 0.0
 var spring_offset : float = 0.0
 var spring_vel : float = 0.0
+
+# ---- DRIFT EXAGGERATION ----
+var drift_yaw : float = 0.0
+var drift_yaw_vel : float = 0.0
 
 # ---- SKID GHOSTS ----
 var ghost_cooldown : float = 0.0
@@ -102,13 +114,27 @@ func _physics_process(delta : float) -> void:
 		chassis = spring_offset
 	last_car_rotation = car.rotation
 
+	# ---- DRIFT EXAGGERATION: the sprite swings further than the physics slip, then settles with weight ----
+	var drift_target : float = 0.0
+	if enable_drift_exaggeration and (car.drifting or car.drift_manager.is_recovering()) and speed > 1.0:
+		var forward : Vector2 = Vector2.RIGHT.rotated(car.rotation)
+		# Not in reverse: the slip angle is meaningless there
+		if forward.dot(car.velocity) > 0.0:
+			var slip : float = forward.angle_to(car.velocity)  # > 0: the car moves clockwise from where it points
+			var speed_factor : float = clampf(speed / drift_speed_reference, 0.0, 1.0)
+			var max_extra : float = deg_to_rad(drift_max_extra_deg)
+			drift_target = clampf(-slip * drift_angle_exaggeration * speed_factor, -max_extra, max_extra)
+	# Damped spring toward the target: no snap when the drift starts or ends
+	drift_yaw_vel += (drift_yaw_stiffness * (drift_target - drift_yaw) - drift_yaw_damping * drift_yaw_vel) * delta
+	drift_yaw += drift_yaw_vel * delta
+
 	# ---- SKID GHOSTS: afterimage trail while drifting or sliding ----
 	if enable_skid_ghosts and ghost_scene != null and car.get_drift_factor() != 0.0:
 		ghost_cooldown -= delta
 		if ghost_cooldown <= 0.0:
 			ghost_cooldown = ghost_interval
 			var ghost : Node2D = ghost_scene.instantiate()
-			ghost.set_property(car.position, car.scale, car.rotation)
+			ghost.set_property(car.position, car.scale, car.rotation + drift_yaw)
 			ghost.modulate = ghost_tint
 			get_tree().current_scene.add_child(ghost)
 
@@ -126,7 +152,7 @@ func _physics_process(delta : float) -> void:
 	# ---- APPLY (tween pulses take priority over scale) ----
 	if pulse_tween == null or !pulse_tween.is_running():
 		sprite.scale = Vector2(base_scale.x * (1.0 + stretch), base_scale.y * (1.0 - stretch * 0.5))
-	sprite.rotation = base_rotation + lean + chassis + kick_yaw
+	sprite.rotation = base_rotation + lean + chassis + kick_yaw + drift_yaw
 	sprite.position = base_position + kick_offset
 
 

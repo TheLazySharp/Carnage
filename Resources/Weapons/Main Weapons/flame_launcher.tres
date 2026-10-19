@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_evf8p"]
 [ext_resource type="Resource" uid="uid://c5l0xm4m5tt65" path="res://Resources/Weapons/Ammos/flame.tres" id="2_0p52j"]
-[ext_resource type="PackedScene" uid="uid://baidslgub6j8k" path="res://Scenes/WEAPONS/flame.tscn" id="3_evf8p"]
+[ext_resource type="PackedScene" uid="uid://baidslgub6j8k" path="res://Scenes/WEAPONS/AMMOS/flame.tscn" id="3_evf8p"]
 [ext_resource type="Texture2D" uid="uid://hi7u0rqjoil8" path="res://Assets/weapons/Flamer.png" id="4_is0hv"]
 
 [resource]
@@ -23,12 +23,11 @@ base_radius = 0
 base_speed_rotation = 0
 base_nb_ammo = 0
 max_projectile = 12
-base_nb_projectile = 3
 assigned_maneuvers = Array[int]([7, 2, 6, 1, 4, 0])
 salvo_base_stat = 9
 drift_level_bonus = 0.25
 amplified_multiplier = 2.0
 combo_projectile_share = 0.25
-combo_damage_share = 0.5
+combo_damage_share = 0.8
 dmg_on_resources = 0
 metadata/_custom_type_script = "uid://b4w306m6nlsvc"

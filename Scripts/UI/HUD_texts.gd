@@ -8,6 +8,8 @@ extends Control
 
 
 func _ready() -> void:
+	if GameMaster.tutorial_active :
+		return
 	if !SceneManager.race_mode:
 		horde = $Horde
 		danger_arrows = $DangerArrows

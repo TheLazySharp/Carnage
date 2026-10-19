@@ -20,14 +20,14 @@ BUTTON_WTF;Wait what ?!;Putain! Quoi?
 BUTTON_CONTINUE;Continue;Continuer
 TUTO_STEP_DONE;Step done !;�tape r�ussie !
 TUTO_COMPLETE;Tutorial completed !;Tutoriel termin�
-TUTO_SHORT_DRIFT;Short drift !;Drift court
-TUTO_SHORT_DRIFT_HINT;Press R2 to accelerate and L2 to DRIFT while turning then release L2;En accélérant, tourne et appuie brièvement sur DRIFT, puis rel�
-TUTO_DRIFT_U_TURN;U-turn while drifting;Demi-tour en drift
+TUTO_SHORT_DRIFT;Short drift;Drift court
+TUTO_SHORT_DRIFT_HINT;When accelerating (R2), drift (L2) while making a short turn;En accélérant, tourne et appuie brièvement sur DRIFT, puis rel�
+TUTO_DRIFT_U_TURN;U-turn;Demi-tour en drift
 TUTO_DRIFT_U_TURN_HINT;When DRIFTING, make a U-turn (180° turn), then release DRIFT (L2;Tiens DRIFT en tournant jusqu’à faire demi-tour, puis rel�
 TUTO_360;360 spin;360
 TUTO_360_HINT;When DRIFTING, make full spin, then release DRIFT (L2);Tiens DRIFT et fais un tour complet, puis relâch
 TUTO_DONUT;Donut;Donut
-TUTO_DONUT_HINT;while moving, hold DRIFT (LT) and make at least TWO 360 spin;Tiens DRIFT et tourne sans t’arrêter : deux tours d’af
+TUTO_DONUT_HINT;Hold DRIFT (L2) and make at least TWO 360 spin;Tiens DRIFT et tourne sans t’arrêter : deux tours d’af
 TUTO_BURNOUT;Burnout;Burnout
 TUTO_BURNOUT_HINT;While the car is stationnary, press and hold DRIFT (L2) & ACCELERATE (R2) without moving the car. Tire smoke should appear. Then release DRIFT (L2) ;� larr�t, tiens ACC�L�RER et DRIFT sans tourner, puis rel�che DRIFT
 TUTO_REVERSE;Reverse 180;Reverse 180
@@ -60,7 +60,7 @@ TUTO_FREE_PLAY;Zombies!;Zombies !
 TUTO_FREE_PLAY_HINT;Chain, dash, close a loop: anything goes;Enchaîne, dashe, ferme une boucle : tout est permi
 TUTO_KILLS;Kills:;Kills :
 MANEUVER_SHORT_DRIFT;Quick drift;Drift court
-MANEUVER_SHORT_DRIFT_DESC;Press DRIFT (R2) while turning: a sweep on the outer side;Un coup de DRIFT en virage : un balayage sur le côté extéri
+MANEUVER_SHORT_DRIFT_DESC;Tap DRIFT while turning: a sweep on the inner side of the turn;Un coup de DRIFT en virage : un balayage à l’intérieur de la co
 MANEUVER_DRIFT_U_TURN;Drift U-turn;Demi-tour en drift
 MANEUVER_DRIFT_U_TURN_DESC;Turn around while drifting: hits everything you leave behind;Fais demi-tour en drift : frappe tout ce que tu laisses derrière to
 MANEUVER_360;360;360
@@ -73,3 +73,6 @@ MANEUVER_REVERSE;Reverse 180;Reverse 180
 MANEUVER_REVERSE_DESC;180 drift turn while going backward: a powerful blast on what you flee;Recule puis fais volte-face : une puissante attaque sur ce que tu fuis
 MANEUVER_HORN;Horn;Klaxon
 MANEUVER_HORN_DESC;Press HORN (X): a quick blast in front of the car;Appuie sur KLAXON : une attaque rapide devant la voiture
+LOADOUT_HINT_EDIT;Up/Down: maneuver | Left/Right: weapon;Haut/Bas : manœuvre | Gauche/Droite : arm
+LOADOUT_HINT_CONFIRM;A: close;A : fermer
+LOADOUT_HINT_READ_ONLY;Current loadout;Répartition actuell

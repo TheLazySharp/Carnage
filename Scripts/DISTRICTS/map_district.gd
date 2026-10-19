@@ -3,13 +3,15 @@ class_name MapDistrict
 
 
 @export var survivor_node : PackedScene
-@onready var survivor_pos: Marker2D = $SurvivorPos
 @onready var survivors: Node = $/root/Roadmap/MapBackground/ControlMap/Visuals/Survivors
+@onready var survivor_resume: SurvivorResume = $/root/Roadmap/MapBackground/SurvivorResume
+@onready var survivor_bio_label: Label = $/root/Roadmap/MapBackground/SurvivorButton
+
 var map_survivor : MapSurvivor
 
 @onready var icon: TextureRect = $Visuals/Icon
 @onready var line_2d_back: Line2D = $Visuals/Line2DBack
-@onready var line_2d_front: Line2D = $Visuals/Line2DFront
+@onready var line_2d_front: Line2D = $Visuals/Line2DBack/Line2DFront
 
 var available: bool = false : set = set_available
 var district : DistrictsData : set = set_district
@@ -20,17 +22,17 @@ var district : DistrictsData : set = set_district
 const ICONS :  Dictionary = { #texture,scale
 	DistrictsData.types.N_A: [null, Vector2.ONE],
 	DistrictsData.types.ARENA: [preload("uid://bebfr5dvt68mc"), Vector2.ONE],
-	DistrictsData.types.SURVIVOR: [preload("uid://ers5f6abq1k"), Vector2.ONE],
-	DistrictsData.types.GARAGE: [preload("uid://cti4mltaqkgeo"), Vector2(1.25,1.25)],
+	#DistrictsData.types.GARAGE: [preload("uid://cti4mltaqkgeo"), Vector2(1.25,1.25)],
 	DistrictsData.types.FINAL: [preload("uid://hi7u0rqjoil8"), Vector2(2,2)],
 	DistrictsData.types.SHOP: [preload("uid://cgu3vyrlppi4b"), Vector2.ONE],
-	DistrictsData.types.HIGHWAY: [preload("uid://b0qia31ffr14m"), Vector2.ONE],
-	DistrictsData.types.BANK: [preload("uid://dygow32gk88wn"), Vector2.ONE],
-	#DistrictsData.types.CAR_REPAIR: [preload("uid://cmx15sgqqk0kr"), Vector2.ONE],
+	#DistrictsData.types.HIGHWAY: [preload("uid://b0qia31ffr14m"), Vector2.ONE],
+	#DistrictsData.types.BANK: [preload("uid://dygow32gk88wn"), Vector2.ONE],
 	DistrictsData.types.SUPERMARKET: [preload("uid://dmrml5clvddsu"), Vector2.ONE],
 	DistrictsData.types.GUNSMITH: [preload("uid://bx0g56iujhr01"), Vector2.ONE],
 	DistrictsData.types.CARDEALER: [preload("uid://bn3oteja0m4nn"), Vector2.ONE],
-	DistrictsData.types.EVENT: [preload("uid://dv0dbia1l7x8h"), Vector2.ONE]
+	#DistrictsData.types.EVENT: [preload("uid://dv0dbia1l7x8h"), Vector2.ONE],
+	DistrictsData.types.SURVIVOR: [preload("uid://ers5f6abq1k"), Vector2.ONE],
+	#DistrictsData.types.CAR_REPAIR: [preload("uid://cmx15sgqqk0kr"), Vector2.ONE],
 }
 
 func _ready() -> void:
@@ -56,9 +58,11 @@ func set_available(new_value : bool) -> void :
 	if available:
 		line_2d_back.show()
 		line_2d_front.show()
+		line_2d_back.scale = Vector2(2,2)
+		line_2d_back.default_color = Color(2.367, 0.0, 0.0, 1.0)
 		button.show()
 		button.grab_focus()
-		animation_player.play("disctrict_available")
+		#animation_player.play("disctrict_available")
 	elif !district.selected:
 		pass #UI Ex : modulate a
 	if !available:
@@ -67,17 +71,19 @@ func set_available(new_value : bool) -> void :
 func set_district(new_data : DistrictsData) -> void : 
 	district = new_data
 	position = district.position
-	icon.texture = ICONS[district.type][0]
-	#icon.scale = ICONS[district.type][1]
 	
 	# Survivor placed by the RoadMapManager, hidden once the car is full
 	if district.type == DistrictsData.types.SURVIVOR and district.survivor != null and SurvivorsManager.can_offer_survivor():
 		map_survivor = survivor_node.instantiate()
 		survivors.add_child(map_survivor)
-		map_survivor.global_position = survivor_pos.global_position
+		map_survivor.position = position
 		map_survivor.survivor = district.survivor
-		map_survivor.survivor_icon.texture = district.survivor.icon
-		map_survivor.weapon_icon.texture = district.survivor.weapon.weapon_icon
+		icon.texture = district.survivor.icon
+	elif ICONS.has(district.type):
+		icon.texture = ICONS[district.type][0]
+	else:
+		push_warning("[MapDistrict] no icon for district type %s" % DistrictsData.types.keys()[district.type])
+		icon.texture = null
 
 	if RoadMapManager.selected_districts.has(district):
 		pin.show()
@@ -94,3 +100,24 @@ func _on_button_pressed() -> void:
 		# No survivor here (car full, pool empty): null, so nothing spawns in the raid
 		var survivor : SurvivorData = map_survivor.survivor if map_survivor != null else null
 		SignalManager.emit_signal("district_survivor", survivor)
+
+
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("hide_panel") and district.type == DistrictsData.types.SURVIVOR:
+		#if !survivor_resume.visible:
+			#survivor_resume.show()
+		#else :
+			#survivor_resume.hide()
+
+func _on_button_focus_entered() -> void:
+	animation_player.play("disctrict_available")
+	var survivor : SurvivorData = map_survivor.survivor if map_survivor != null else null
+	if district.type == DistrictsData.types.SURVIVOR and survivor != null:
+		survivor_bio_label.show()
+	survivor_resume.display(survivor)
+
+
+func _on_button_focus_exited() -> void:
+	if animation_player.is_playing():
+		animation_player.stop()
+		line_2d_back.default_color = Color(2.367, 0.0, 0.0, 1.0)

@@ -5,6 +5,7 @@ extends Node2D
 ## graph overlay and the extracted blocks. Wheel = zoom, drag = pan.
 
 # ---------------- GENERATION PARAMETERS (mirrored into MapGenerator) ----------------
+@export_group("MAP GENERATION")
 @export var map_seed : int = 0                          # 0 = new random seed each generation (logged in console)
 @export var map_size_cells : Vector2i = Vector2i(96, 80)
 @export var cell_size : int = 32
@@ -20,18 +21,21 @@ extends Node2D
 @export var sidewalk_cells : int = 2
 @export var zone_size_cells : Vector2i = Vector2i(2, 4) # entry / extraction openings (display only for now)
 
+# ---------------- FAST TEST MAP ----------------
+@export_group("TEST")
+## Roads only: no buildings, sidewalks, props, cracks or shadows. Generation is
+## near-instant, the roads are drawn as flat cells by _draw()
+@export var fast_test_map : bool = false
+## In fast test mode, also paint the roads with the real brush (slower bake)
+@export var fast_test_road_brush : bool = false
+
 # ---------------- DEBUG DRAW ----------------
+@export_group("DEBUG")
 @export var show_cell_grid : bool = true
 @export var show_graph : bool = true                    # edges + nodes overlay
 @export var show_blocks : bool = true                   # per-block tint + bounding rects
 @export var show_raster : bool = true                   # colored cell fill (turn off when a renderer is plugged)
 @export var show_background : bool = true               # dark fill over the map area (turn off to see your own background)
-
-# ---------------- RENDER PASSES ----------------
-# MapRoadPaths node, rebuilt on each generation. Leave empty: it is looked up
-# automatically anywhere in the scene (place it AFTER this node in the tree
-# so its content draws above the debug background).
-@export var road_paths : Node2D = null
 
 # ---------------- DEBUG DRIVE ----------------
 # Drop the RigidCar scene (debug_drive_mode ON) anywhere in the test scene:
@@ -47,11 +51,28 @@ extends Node2D
 var camera : Camera2D = null
 var dragging : bool = false
 
+# ---------------- RENDER PASSES ----------------
+@export_group("PASSES")
+# MapRoadPaths node, rebuilt on each generation. Leave empty: it is looked up
+# automatically anywhere in the scene (place it AFTER this node in the tree
+# so its content draws above the debug background).
+@export var road_paths : Node2D = null
+
+@export_group("BORDERS")
+# ---------------- BORDER BARRIERS ----------------
+## TileMapLayer sealing the map border (entry, extraction, belt gaps): put it in
+## the "walls" group and give the barrier tile its collision polygon in the TileSet
+@export var barrier_layer : TileMapLayer = null
+@export var barrier_source_id : int = 0
+@export var barrier_atlas_coords : Vector2i = Vector2i.ZERO
+
+
 var generator : MapGenerator = MapGenerator.new()
 var data : MapData = null
 var walls_body : StaticBody2D = null
 var car : Node2D = null
 var car_camera : Camera2D = null
+var _exit_open : bool = false
 
 const COLOR_BG : Color = Color(0.09, 0.09, 0.11)
 const COLOR_STREET : Color = Color(0.32, 0.33, 0.38)
@@ -65,8 +86,11 @@ const COLOR_BORDER : Color = Color(0.8, 0.8, 0.85)
 
 const BUILD_STEPS : int = 6
 
+
+
 func _ready() -> void:
 	add_to_group("map_generator")
+	SignalManager.day_time_end.connect(_on_day_time_end)
 	if GameMaster.is_debug():
 		_setup_camera()
 		generate.call_deferred()  # in game, World.build_level() drives it
@@ -114,16 +138,19 @@ func _unhandled_input(event : InputEvent) -> void:
 func generate() -> void:
 	generate_async()
 
-
 ## Yields between passes so the loading overlay keeps drawing
 func generate_async() -> void:
 	_apply_params()
+	if fast_test_map:
+		await _generate_fast_test()
+		return
 	LoadingScreen.set_step(0, BUILD_STEPS, "Drawing the district...")
 	data = generator.generate(map_seed)
 	await get_tree().process_frame
 
 	LoadingScreen.set_step(1, BUILD_STEPS, "Adding buildings...")
 	_build_buildings()
+	_seal_map_border()
 	await get_tree().process_frame
 
 	LoadingScreen.set_step(2, BUILD_STEPS, "Adding sidewalks...")
@@ -274,7 +301,8 @@ func _zoom_at(screen_pos : Vector2, factor : float) -> void:
 
 # ---------------- DEBUG DRAW ----------------
 func _draw() -> void:
-	if not GameMaster.is_debug():
+	# The fast test map has no renderer: its flat cell drawing IS the map
+	if not GameMaster.is_debug() and not fast_test_map:
 		return
 	if data == null:
 		return
@@ -501,3 +529,93 @@ func _find_debris(node : Node) -> MapDebris:
 		if found != null:
 			return found
 	return null
+
+# ---------------- BORDER BARRIERS ----------------
+func _seal_map_border() -> void:
+	# Every cell of the outermost ring that is not a building gets a barrier:
+	# the entry and extraction mouths, plus any gap left in the belt. The cells
+	# become BUILDING so every gameplay pass sees an obstacle there (no spawn,
+	# flow field blocked). Runs AFTER the buildings and BEFORE the sidewalks:
+	# the ground is still painted under the barrier, like under a building.
+	_exit_open = false  # every new map starts with its exit closed
+	var w : int = data.map_size_cells.x
+	var h : int = data.map_size_cells.y
+	var sealed : Array[Vector2i] = []
+	for x : int in w:
+		_seal_cell(Vector2i(x, 0), sealed)
+		_seal_cell(Vector2i(x, h - 1), sealed)
+	for y : int in range(1, h - 1):
+		_seal_cell(Vector2i(0, y), sealed)
+		_seal_cell(Vector2i(w - 1, y), sealed)
+
+	if barrier_layer != null:
+		barrier_layer.clear()
+		for cell : Vector2i in sealed:
+			barrier_layer.set_cell(cell, barrier_source_id, barrier_atlas_coords)
+	print("[MapGraph] border sealed: ", sealed.size(), " cells")
+
+	# The horde wall grid is built at startup, before the map exists: rebuild
+	# it so the hordes see the barriers like any other wall
+	var horde_manager : HordeManager = get_tree().root.get_node_or_null("World/HordesManager") as HordeManager
+	if horde_manager != null:
+		horde_manager.build_wall_grid()
+
+
+func _seal_cell(cell : Vector2i, sealed : Array[Vector2i]) -> void:
+	var index : int = data.cell_index(cell.x, cell.y)
+	if data.cells[index] == MapData.CellType.BUILDING:
+		return
+	data.cells[index] = MapData.CellType.BUILDING
+	sealed.append(cell)
+
+func _on_day_time_end(_day_end : bool) -> void:
+	# Same trigger as the hordes switching to chase: the warp zone shows up
+	open_exit()
+
+
+## Removes the barrier across the extraction mouth (right border, around the
+## exit node). The cells stay BUILDING in the map data: the hordes keep
+## treating the mouth as off-limits, only the car can drive out to the warp zone.
+func open_exit() -> void:
+	if _exit_open or barrier_layer == null or data == null or data.exit_node_idx < 0:
+		return
+	var x : int = data.map_size_cells.x - 1
+	var last_row : int = data.map_size_cells.y - 1
+	var exit_y : int = clampi(int(round(data.nodes[data.exit_node_idx].y)), 0, last_row)
+	if barrier_layer.get_cell_source_id(Vector2i(x, exit_y)) == -1:
+		push_warning("[MapGraph] no barrier on the exit row %d" % exit_y)
+		return
+	_exit_open = true
+
+	# The mouth is the run of barrier tiles around the exit row: any other gap
+	# sealed on the right border stays closed
+	var top : int = exit_y
+	while top > 0 and barrier_layer.get_cell_source_id(Vector2i(x, top - 1)) != -1:
+		top -= 1
+	var bottom : int = exit_y
+	while bottom < last_row and barrier_layer.get_cell_source_id(Vector2i(x, bottom + 1)) != -1:
+		bottom += 1
+	for y : int in range(top, bottom + 1):
+		barrier_layer.erase_cell(Vector2i(x, y))
+
+	# Rebuild the horde wall grid: the erased tiles must no longer count as walls
+	var horde_manager : HordeManager = get_tree().root.get_node_or_null("World/HordesManager") as HordeManager
+	if horde_manager != null:
+		horde_manager.build_wall_grid()
+		
+
+## Roads only, for a quick test environment: the car drives, the hordes spawn
+## and chase, nothing else is built
+func _generate_fast_test() -> void:
+	LoadingScreen.set_step(0, 1, "Drawing the roads...")
+	data = generator.generate(map_seed)
+	_seal_map_border()
+	if fast_test_road_brush:
+		_build_road_paths()
+	await get_tree().process_frame
+
+	LoadingScreen.set_step(1, 1)
+	queue_redraw()
+	_place_car.call_deferred()
+	SignalManager.map_generated.emit(data)
+	SignalManager.emit_signal("beacon_start")

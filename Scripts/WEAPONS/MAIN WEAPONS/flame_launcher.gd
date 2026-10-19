@@ -47,7 +47,6 @@ func spawn_flame(car_rotation : float, p_nb_projectile : int = int(flamer_data.n
 func _on_nb_projectile_changed(_final_value : float) -> void : 
 	spawn_flame(car.rotation)
 
-
 func _on_combo_changed(multiplier : float, _combo_count : int) -> void:
 	combo_multiplier = multiplier
 

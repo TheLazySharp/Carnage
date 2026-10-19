@@ -1,13 +1,15 @@
 extends Node
 
-var cars : Array[CarData]
+var unlocked_cars : Array[CarData] = []
+var locked_cars : Array[CarData] = []
+var all_cars : Array[CarData] = []
 var selected_car : CarData
 
 @warning_ignore("unused_signal")
 signal car_selected
 
-const VIPER_BLK = preload("uid://ol2ay5qpng31")
-const PICKUP_WHITE = preload("uid://b7vsscuy32osn")
+const SPORT = preload("uid://ol2ay5qpng31")
+const PICKUP = preload("uid://b7vsscuy32osn")
 #const POLICE = preload("uid://n4403c5fwly0")
 #const TAXI = preload("uid://qitk5u1sisvn")
 const SEDAN = preload("uid://dubbw5mialr30")
@@ -15,10 +17,16 @@ const SEDAN = preload("uid://dubbw5mialr30")
 
 
 func _ready() -> void:
-	cars.append(SEDAN)
-	cars.append(PICKUP_WHITE)
-	cars.append(VIPER_BLK)
-	#cars.append(POLICE)
-	#cars.append(TAXI)
+	cars_administration()
+
+func cars_administration() -> void : 
+	unlocked_cars.append(SEDAN)
+	locked_cars.append(SPORT)
+	locked_cars.append(PICKUP)
 	
-	#selected_car = cars[0]
+	if !unlocked_cars.is_empty():
+		for i in unlocked_cars.size():
+			all_cars.append(unlocked_cars[i])
+	if !locked_cars.is_empty():
+		for i in locked_cars.size():
+			all_cars.append(locked_cars[i])

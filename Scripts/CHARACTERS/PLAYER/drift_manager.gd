@@ -23,22 +23,39 @@ extends Node2D
 # Seconds before the loop max age during which drift skid points fade out
 @export var skid_fade_time : float = 1.0
 
+@export_group("Drift release")
+## Lateral grip right after releasing a drift (0.11 = previous behaviour). Lower = the car keeps sliding
+@export var release_grip : float = 0.11
+## How fast the normal grip comes back, per second (4 = previous behaviour). Lower = longer slide
+@export var grip_recovery_speed : float = 4.0
+## Grip comeback speed right after a drift only (4 = same as normal driving). Lower = the car slides longer out of a drift
+@export var exit_recovery_speed : float = 4.0
+## How long after a drift release exit_recovery_speed is used (seconds)
+@export var exit_recovery_duration : float = 0.5
+## Skids, smoke and squeal go on while the grip is under this share of the normal grip...
+@export var recovery_end_ratio : float = 0.7
+## ...and while the car still slides sideways faster than this (px/s)
+@export var recovery_min_lateral_speed : float = 40.0
+
+
 # ---------------- DRIFT CHARGE (Mario Kart style mini-turbo) ----------------
 # Holding a drift charges tiers: rear trails change color and get thicker.
 # Releasing a charged drift grants a speed boost.
 @export_group("Drift charge")
 @export var enable_drift_charge : bool = true
 @export var charge_tier_time : float = 0.9   # seconds of drifting per tier
-@export var charge_colors : Array[Color] = [
-	Color(3.0, 0.1, 0.1, 0.9),   # tier 0 : red (base)
-	Color(3.0, 2.2, 0.2, 0.95),  # tier 1 : gold
-	Color(0.3, 1.6, 3.0, 1.0),   # tier 2 : electric blue
-]
+var charge_colors : Array[Color] = []
 @export var enable_charge_boost : bool = true
 @export var boost_per_tier : float = 70.0            # velocity kick per tier on release (currently unused)
 @export var boost_max_speed_per_tier : float = 0.1   # +10% temporary max speed per tier
 @export var boost_torque : float = 2.0               # temporary acceleration multiplier on release
 @export var boost_duration : float = 0.6
+
+@export_group("Haptics")
+@export var drift_rumble_weak : float = 0.35    # light motor at full slip angle
+@export var drift_rumble_strong : float = 0.25  # heavy motor at full slip angle (rises with the angle squared)
+@export var tier_rumble : float = 0.4           # pulse on each drift tier, +50% per tier
+@export var grip_catch_rumble : float = 0.4     # pulse when the tires grip again after a drift
 
 var drift_charge : float = 0.0
 var charge_tier : int = 0
@@ -53,6 +70,9 @@ var sliding : bool = false
 var was_drifting : bool = false
 var skidding_last_frame : bool = false
 var skid_is_slide : bool = false
+var recovering : bool = false  # after a drift, the tires fight to grip again
+var exit_time_left : float = 0.0  # > 0 right after a drift release
+var was_recovering : bool = false
 
 var current_grip : float = 0.0
 var drift_grip : float = 0.0
@@ -115,7 +135,7 @@ func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker
 	player = data
 	rear_left = p_rear_left
 	rear_right = p_rear_right
-
+	charge_colors = data.charge_colors
 	drift_grip = player.drift_grip
 	normal_grip = player.normal_grip
 	max_drift_damping = player.max_drift_damping
@@ -168,20 +188,38 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 				damping *= slide_damping_mult
 			forward_velocity *= (1.0 - damping * delta) * forward_damp
 
+	# Drift exit window: the grip comes back at its own speed, normal driving keeps grip_recovery_speed
+	if was_drifting and !drifting:
+		exit_time_left = exit_recovery_duration
+	elif drifting or sliding:
+		exit_time_left = 0.0
+	else:
+		exit_time_left = maxf(exit_time_left - delta, 0.0)
+
 	# ----------------- GRIP -----------------
 	if drifting:
 		current_grip = drift_grip
 	elif sliding:
 		current_grip = lerp(current_grip, slide_grip, slide_grip_lerp * delta)
 	elif was_drifting:
-		current_grip = lerp(current_grip, snap_grip, snap_speed * delta)
+		# Drift just released: the grip restarts from release_grip, the car keeps sliding a little
+		current_grip = release_grip
+	elif exit_time_left > 0.0:
+		current_grip = lerp(current_grip, normal_grip, exit_recovery_speed * delta)
 	else:
-		current_grip = lerp(current_grip, normal_grip, 4.0 * delta)
-
+		current_grip = lerp(current_grip, normal_grip, grip_recovery_speed * delta)
+	
 	lateral_velocity = lateral_velocity.lerp(Vector2.ZERO, current_grip)
-
+	
 	# ----------------- SKIDS -----------------
-	var skidding : bool = drifting or sliding
+	# Drift released: the mini-turbo fires now, even if the skid goes on while the tires grip again
+	if was_drifting and !drifting:
+		apply_charge_boost()
+	# Tires fighting for grip after a drift: skids, smoke and squeal go on until the grip is back
+	recovering = !drifting and !sliding and skidding_last_frame and !skid_is_slide \
+			and current_grip < normal_grip * recovery_end_ratio \
+			and lateral_velocity.length() > recovery_min_lateral_speed
+	var skidding : bool = drifting or sliding or recovering
 
 	if skidding and !skidding_last_frame:
 		start_skid(sliding)
@@ -192,6 +230,13 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	elif skidding:
 		skid_time += delta
 		update_skid_points()
+
+	# The squeal fades out as the grip comes back
+	if recovering:
+		var recovery_left : float = 1.0 - current_grip / (normal_grip * recovery_end_ratio)
+		drift_sfx.volume_db = drift_sfx_base_volume + linear_to_db(maxf(recovery_left, 0.05))
+	elif drifting:
+		drift_sfx.volume_db = drift_sfx_base_volume
 
 	if !skidding and skidding_last_frame:
 		end_skid()
@@ -208,7 +253,23 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 		drift_charge = 0.0
 		charge_tier = 0
 
+	# Haptics: the tires working (stronger with the slip angle), fading while they look for grip,
+	# then a thump when they bite again
+	if drifting:
+		var slip_ratio : float = 1.0  # spinning almost in place: full slip
+		if p_velocity.length() > 10.0:
+			slip_ratio = clampf(absf(p_velocity.angle_to(p_forward)) / (PI * 0.5), 0.0, 1.0)
+		Haptics.set_continuous(slip_ratio * drift_rumble_weak, slip_ratio * slip_ratio * drift_rumble_strong)
+	elif recovering:
+		var recovery_left : float = exit_time_left / exit_recovery_duration
+		Haptics.set_continuous(recovery_left * drift_rumble_weak, 0.0)
+	elif was_drifting or was_recovering:
+		Haptics.set_continuous(0.0, 0.0)
+		Haptics.pulse(0.0, grip_catch_rumble, 0.1)
+	was_recovering = recovering
+
 	was_drifting = drifting
+	
 	skidding_last_frame = skidding
 	player.drifting = drifting
 
@@ -221,6 +282,8 @@ func apply_charge_tier() -> void:
 		if trail != null:
 			trail.default_color = charge_colors[charge_tier]
 			trail.width = 2.0 + charge_tier * 1.5
+	# A pulse per tier, stronger each time
+	Haptics.pulse(tier_rumble * 0.5, tier_rumble * (1.0 + 0.5 * (charge_tier - 1)), 0.12)
 
 
 func start_skid(is_slide : bool) -> void:
@@ -406,15 +469,6 @@ func fade_trail(trail : Line2D) -> void:
 
 
 func end_skid() -> void:
-	# Mini-turbo: releasing a charged drift grants a boost
-	if enable_charge_boost and charge_tier > 0 and car != null and !car.dash_manager.is_dashing:
-		# Refresh instead of stacking if two drifts are released within boost_duration
-		player.max_speed.remove_modifiers_from("drift_charge_boost")
-		player.acceleration.remove_modifiers_from("drift_charge_accel_boost")
-		var boost_mod : Modifier = Modifier.new(1.0 + boost_max_speed_per_tier * charge_tier, Modifier.Type.PERCENT_MULT, "drift_charge_boost", boost_duration)
-		var torque_mod : Modifier = Modifier.new(boost_torque, Modifier.Type.PERCENT_MULT, "drift_charge_accel_boost", boost_duration)
-		player.max_speed.add_temp_modifier(boost_mod)
-		player.acceleration.add_temp_modifier(torque_mod)
 	drift_charge = 0.0
 	charge_tier = 0
 
@@ -430,6 +484,20 @@ func end_skid() -> void:
 	left_trail = null
 	right_trail = null
 
+func apply_charge_boost() -> void:
+	# Mini-turbo: releasing a charged drift grants a boost
+	if enable_charge_boost and charge_tier > 0 and car != null and !car.dash_manager.is_dashing:
+		# Refresh instead of stacking if two drifts are released within boost_duration
+		player.max_speed.remove_modifiers_from("drift_charge_boost")
+		player.acceleration.remove_modifiers_from("drift_charge_accel_boost")
+		var boost_mod : Modifier = Modifier.new(1.0 + boost_max_speed_per_tier * charge_tier, Modifier.Type.PERCENT_MULT, "drift_charge_boost", boost_duration)
+		var torque_mod : Modifier = Modifier.new(boost_torque, Modifier.Type.PERCENT_MULT, "drift_charge_accel_boost", boost_duration)
+		player.max_speed.add_temp_modifier(boost_mod)
+		player.acceleration.add_temp_modifier(torque_mod)
+
+
+func is_recovering() -> bool:
+	return recovering
 
 func force_stop_skid() -> void:
 	if left_line != null:
@@ -451,6 +519,9 @@ func force_stop_skid() -> void:
 	sliding = false
 	skidding_last_frame = false
 	was_drifting = false
+	exit_time_left = 0.0  # a wall kills the drift: no exit slide
+	was_recovering = false
+	Haptics.set_continuous(0.0, 0.0)
 
 	# Wall hit kills the mini-turbo charge: no boost on release
 	drift_charge = 0.0
@@ -463,27 +534,24 @@ func get_drift_factor() -> float:
 	var angle : float = forward.angle_to(car.velocity.normalized())
 	return clamp(angle / deg_to_rad(20.0), -1.0, 1.0)
 
-
 func is_drifting() -> bool:
 	return drifting
-
 
 func is_sliding() -> bool:
 	return sliding
 
-
 func get_slide_turn_bonus() -> float:
 	return slide_turn_bonus
-
 
 func get_steer_input() -> float:
 	return Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 
-
-
-
 func _on_game_paused(pause : bool) -> void:
 	game_paused = pause
+
+func _exit_tree() -> void:
+	# Scene change in the middle of a drift: never leave the controller rumbling
+	Haptics.set_continuous(0.0, 0.0)
 
 func _ready_debug() -> void:
 	# Map test scene: /root/World doesn't exist.

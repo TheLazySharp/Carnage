@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://c1jhyfdpse5ja" path="res://Scenes/MAP TOOLS/pedestrian_394.tscn" id="12_52dps"]
 [ext_resource type="PackedScene" uid="uid://clmjgo8xetb4i" path="res://Scenes/MAP TOOLS/cable.tscn" id="12_geowy"]
 [ext_resource type="Texture2D" uid="uid://cg471e8w7q13g" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 30.tres" id="12_lq7x2"]
+[ext_resource type="Texture2D" uid="uid://ctqu2twg26kjf" path="res://Assets/Items/barriere_tile.png" id="13_2nhih"]
 [ext_resource type="PackedScene" uid="uid://cuap810rfbio4" path="res://Scenes/MAP TOOLS/cable_shadow.tscn" id="13_2uc7r"]
 [ext_resource type="Texture2D" uid="uid://51xetji5xqni" path="res://Assets/Textures/Roads/Markings/Arrows/Slice 31.tres" id="13_qup8q"]
 [ext_resource type="Texture2D" uid="uid://bx535xbu8t87a" path="res://Assets/Tilesets/Sidewalks/sidewalksb.png" id="13_yho2a"]
@@ -4922,13 +4923,27 @@ terrain_set_0/terrain_3/name = "paved"
 terrain_set_0/terrain_3/color = Color(1, 0, 0, 1)
 sources/0 = SubResource("TileSetAtlasSource_b45g4")
 
-[node name="Lands" type="Node2D" unique_id=369331439]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o76wv"]
+texture = ExtResource("13_2nhih")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_dfktb"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 7
+sources/0 = SubResource("TileSetAtlasSource_o76wv")
+
+[node name="Lands" type="Node2D" unique_id=369331439 node_paths=PackedStringArray("road_paths", "barrier_layer")]
 script = ExtResource("1_hogjg")
 show_cell_grid = false
 show_graph = false
 show_blocks = false
 show_raster = false
 show_background = false
+road_paths = NodePath("RoadPath")
+barrier_layer = NodePath("Barriers")
 
 [node name="Sidewalks" type="Node2D" parent="." unique_id=1264171077 node_paths=PackedStringArray("layer", "props_parent")]
 z_index = 5
@@ -4943,6 +4958,10 @@ prop_min_distance = 8
 tile_set = SubResource("TileSet_higrc")
 
 [node name="Props" type="Node2D" parent="Sidewalks" unique_id=1537686339]
+
+[node name="Barriers" type="TileMapLayer" parent="." unique_id=1241384335]
+z_index = 6
+tile_set = SubResource("TileSet_dfktb")
 
 [node name="ShadowsGround" type="Node2D" parent="." unique_id=666509004]
 z_index = 13

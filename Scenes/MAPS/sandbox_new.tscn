@@ -1,0 +1,476 @@
+[gd_scene format=3 uid="uid://doy16umvky4m1"]
+
+[ext_resource type="Script" uid="uid://mex1eo2e0s5c" path="res://Scripts/SCENES/world_root.gd" id="1_64hcd"]
+[ext_resource type="PackedScene" uid="uid://qfgy5vub100s" path="res://Scenes/MANAGERS/game_manager.tscn" id="2_lfp2s"]
+[ext_resource type="PackedScene" uid="uid://cw24hp3lk0hkn" path="res://Scenes/MAPS/flow_field_manager.tscn" id="3_j48q4"]
+[ext_resource type="Script" uid="uid://cc58wbj1e4u1d" path="res://Scripts/MANAGERS/hordes_manager.gd" id="4_qubrp"]
+[ext_resource type="PackedScene" uid="uid://bbsq7ymxlm20s" path="res://Scenes/MANAGERS/audio_manager.tscn" id="5_ca60m"]
+[ext_resource type="PackedScene" uid="uid://dui542e5go1sf" path="res://Scenes/MAPS/extraction_area.tscn" id="6_0oddp"]
+[ext_resource type="Script" uid="uid://bjxhai0r23s1h" path="res://Scripts/MANAGERS/day_manager.gd" id="7_ccuge"]
+[ext_resource type="PackedScene" uid="uid://b0veydhfq15p5" path="res://Scenes/UI/blood_hud.tscn" id="8_mg0ki"]
+[ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="9_3t2os"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="10_u72my"]
+[ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="11_3wqlt"]
+[ext_resource type="Texture2D" uid="uid://cigoc373iff72" path="res://Assets/UI/white_arrow.png" id="12_pykf2"]
+[ext_resource type="PackedScene" uid="uid://cmi5s38sxx8n1" path="res://Scenes/MENU/pause.tscn" id="13_ftfrf"]
+[ext_resource type="PackedScene" uid="uid://bgao02vsiwner" path="res://Scenes/MENU/new_survivor.tscn" id="14_bfspl"]
+[ext_resource type="Script" uid="uid://u6ax1pacfg6e" path="res://Scripts/UI/maneuver_label.gd" id="15_wc532"]
+[ext_resource type="Script" uid="uid://c7sdgrppogbwa" path="res://Scripts/ENEMIES/horde_outliner.gd" id="16_wcpwm"]
+[ext_resource type="Shader" uid="uid://bnhputjhskyuh" path="res://Shaders/outliner.gdshader" id="17_nl3gy"]
+[ext_resource type="Shader" uid="uid://bb440f6jgtoel" path="res://Shaders/mass_holes.gdshader" id="18_6qrbt"]
+[ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="19_w70id"]
+[ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/player.tscn" id="20_t654a"]
+[ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="21_tj0a7"]
+[ext_resource type="PackedScene" uid="uid://y0gpp1mfd5sx" path="res://Scenes/MAPS/lands.tscn" id="22_nilsc"]
+[ext_resource type="Script" uid="uid://b53gepxrtesmg" path="res://Scripts/VFX/damage_label_pool.gd" id="23_hu2wj"]
+[ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="24_tuibr"]
+[ext_resource type="Script" uid="uid://cwjmyhyvmlkqc" path="res://Scripts/VFX/blood_impact_pool.gd" id="25_7yg05"]
+[ext_resource type="PackedScene" uid="uid://csipc7vvea0td" path="res://Scenes/VFX/blood_enemy_death.tscn" id="26_li2yr"]
+[ext_resource type="Script" uid="uid://deh0gmmbray7" path="res://Scripts/VFX/blood_shot_pool.gd" id="27_ravr4"]
+[ext_resource type="PackedScene" uid="uid://ccarv624txvb1" path="res://Scenes/VFX/bloodshot_particles.tscn" id="28_d4etk"]
+[ext_resource type="Script" uid="uid://b7t5qqvxkabj3" path="res://Scripts/ITEMS/collectables_pool.gd" id="29_xtg73"]
+[ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="30_1ilwt"]
+[ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="31_p4ndq"]
+[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="32_i6nq4"]
+[ext_resource type="PackedScene" uid="uid://ca2xs3prb7n8k" path="res://Scenes/ENNEMIES/coloss_arrival.tscn" id="33_4pd6f"]
+[ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="34_4v516"]
+[ext_resource type="PackedScene" uid="uid://drma1if8gpubc" path="res://Scenes/SPAWNERS/item_spawner.tscn" id="35_ptf30"]
+
+[sub_resource type="Environment" id="Environment_0pcbe"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.1
+glow_blend_mode = 0
+glow_hdr_threshold = 0.91
+
+[sub_resource type="Animation" id="Animation_vmxub"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7k2wc"]
+resource_name = "blink_red"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.24980022, 0.5),
+"transitions": PackedFloat32Array(1.0283695, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eauiy"]
+_data = {
+&"RESET": SubResource("Animation_vmxub"),
+&"blink_red": SubResource("Animation_7k2wc")
+}
+
+[sub_resource type="Animation" id="Animation_yxjhj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qe1gh"]
+resource_name = "blinking_red"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pneeb"]
+_data = {
+&"RESET": SubResource("Animation_yxjhj"),
+&"blinking_red": SubResource("Animation_qe1gh")
+}
+
+[node name="World" type="Node2D" unique_id=1548430314]
+script = ExtResource("1_64hcd")
+metadata/_edit_horizontal_guides_ = [1941.0]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=9101506]
+environment = SubResource("Environment_0pcbe")
+
+[node name="DayAndNightCycle" type="CanvasModulate" parent="." unique_id=757246020]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=353420523]
+blend_mode = 2
+
+[node name="GameManager" parent="." unique_id=1855230744 instance=ExtResource("2_lfp2s")]
+
+[node name="FlowFieldManager" parent="." unique_id=805599683 instance=ExtResource("3_j48q4")]
+
+[node name="HordesManager" type="Node2D" parent="." unique_id=996312644]
+script = ExtResource("4_qubrp")
+
+[node name="AudioManager" parent="." unique_id=121741402 instance=ExtResource("5_ca60m")]
+
+[node name="WarpZone" parent="." unique_id=1614605946 instance=ExtResource("6_0oddp")]
+
+[node name="DayManager" type="Node" parent="." unique_id=862331373]
+script = ExtResource("7_ccuge")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
+
+[node name="HUD" parent="CanvasLayer" unique_id=1655855182 instance=ExtResource("8_mg0ki")]
+
+[node name="Texts" type="Control" parent="CanvasLayer" unique_id=1463412287]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_3t2os")
+
+[node name="ReadyGo" type="Label" parent="CanvasLayer/Texts" unique_id=871415139]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -32.666687
+offset_right = 155.0
+offset_bottom = 32.666687
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_u72my")
+theme_override_font_sizes/font_size = 56
+text = "READY ?"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("11_3wqlt")
+
+[node name="Horde" type="Label" parent="CanvasLayer/Texts" unique_id=1343880551]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.5
+offset_top = -253.0
+offset_right = 316.5
+offset_bottom = -183.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("10_u72my")
+theme_override_font_sizes/font_size = 42
+text = "DANGER INCOMING !!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("11_3wqlt")
+
+[node name="HordeTextAnimation" type="AnimationPlayer" parent="CanvasLayer/Texts/Horde" unique_id=2108227205]
+libraries/ = SubResource("AnimationLibrary_eauiy")
+autoplay = &"blink_red"
+
+[node name="DangerArrows" type="Control" parent="CanvasLayer/Texts" unique_id=1038873053]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Arrow" type="TextureRect" parent="CanvasLayer/Texts/DangerArrows" unique_id=1353864361]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -320.0
+offset_right = 40.0
+offset_bottom = -280.0
+grow_vertical = 2
+texture = ExtResource("12_pykf2")
+flip_h = true
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="CanvasLayer/Texts/DangerArrows/Arrow" unique_id=766534012]
+libraries/ = SubResource("AnimationLibrary_pneeb")
+autoplay = &"blinking_red"
+
+[node name="Arrow2" type="TextureRect" parent="CanvasLayer/Texts/DangerArrows" unique_id=1715310607]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -220.0
+offset_right = 40.0
+offset_bottom = -180.0
+grow_vertical = 2
+texture = ExtResource("12_pykf2")
+flip_h = true
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="CanvasLayer/Texts/DangerArrows/Arrow2" unique_id=1414689337]
+libraries/ = SubResource("AnimationLibrary_pneeb")
+autoplay = &"blinking_red"
+
+[node name="Arrow3" type="TextureRect" parent="CanvasLayer/Texts/DangerArrows" unique_id=1651286616]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -120.0
+offset_right = 40.0
+offset_bottom = -80.0
+grow_vertical = 2
+texture = ExtResource("12_pykf2")
+flip_h = true
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="CanvasLayer/Texts/DangerArrows/Arrow3" unique_id=282870347]
+libraries/ = SubResource("AnimationLibrary_pneeb")
+autoplay = &"blinking_red"
+
+[node name="Arrow4" type="TextureRect" parent="CanvasLayer/Texts/DangerArrows" unique_id=1462236662]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture = ExtResource("12_pykf2")
+flip_h = true
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="CanvasLayer/Texts/DangerArrows/Arrow4" unique_id=163258038]
+libraries/ = SubResource("AnimationLibrary_pneeb")
+autoplay = &"blinking_red"
+
+[node name="Arrow5" type="TextureRect" parent="CanvasLayer/Texts/DangerArrows" unique_id=1577086031]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 80.0
+offset_right = 40.0
+offset_bottom = 120.0
+grow_vertical = 2
+texture = ExtResource("12_pykf2")
+flip_h = true
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="CanvasLayer/Texts/DangerArrows/Arrow5" unique_id=1352894658]
+libraries/ = SubResource("AnimationLibrary_pneeb")
+autoplay = &"blinking_red"
+
+[node name="Arrow6" type="TextureRect" parent="CanvasLayer/Texts/DangerArrows" unique_id=1659627968]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 180.0
+offset_right = 40.0
+offset_bottom = 220.0
+grow_vertical = 2
+texture = ExtResource("12_pykf2")
+flip_h = true
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="CanvasLayer/Texts/DangerArrows/Arrow6" unique_id=408320216]
+libraries/ = SubResource("AnimationLibrary_pneeb")
+autoplay = &"blinking_red"
+
+[node name="Arrow7" type="TextureRect" parent="CanvasLayer/Texts/DangerArrows" unique_id=1623057706]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 280.0
+offset_right = 40.0
+offset_bottom = 320.0
+grow_vertical = 2
+texture = ExtResource("12_pykf2")
+flip_h = true
+
+[node name="ArrowAnim" type="AnimationPlayer" parent="CanvasLayer/Texts/DangerArrows/Arrow7" unique_id=2133836688]
+libraries/ = SubResource("AnimationLibrary_pneeb")
+autoplay = &"blinking_red"
+
+[node name="Pause" parent="CanvasLayer" unique_id=739595383 instance=ExtResource("13_ftfrf")]
+visible = false
+
+[node name="NewSurvivor" parent="CanvasLayer" unique_id=928422093 instance=ExtResource("14_bfspl")]
+
+[node name="ManeuverLabel" type="Label" parent="CanvasLayer" unique_id=229804214]
+z_index = 10
+offset_left = 530.0
+offset_top = 197.25616
+offset_right = 1277.0
+offset_bottom = 243.25616
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("15_wc532")
+
+[node name="HordeOutline" type="Node2D" parent="." unique_id=200299998]
+z_index = 10
+script = ExtResource("16_wcpwm")
+min_cluster_count = 4
+final_shader = ExtResource("17_nl3gy")
+hole_shader = ExtResource("18_6qrbt")
+hole_max_size = 16
+
+[node name="SourceViewport" type="SubViewport" parent="HordeOutline" unique_id=901076741]
+
+[node name="PoolsRoot" type="Node2D" parent="HordeOutline/SourceViewport" unique_id=1501440913]
+
+[node name="Display" type="Sprite2D" parent="HordeOutline" unique_id=1868983832]
+
+[node name="EnemiesMMR2D" type="Node2D" parent="." unique_id=1063083092 node_paths=PackedStringArray("horde_outline")]
+z_index = 10
+script = ExtResource("19_w70id")
+horde_outline = NodePath("../HordeOutline")
+
+[node name="Car" parent="." unique_id=2034565894 instance=ExtResource("20_t654a")]
+position = Vector2(259, 996)
+
+[node name="Camera2D" type="Camera2D" parent="Car" unique_id=131930234]
+z_index = 1
+zoom = Vector2(1.5, 1.5)
+process_callback = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("21_tj0a7")
+zoom_base = 1.5
+zoom_max_out = 0.9
+
+[node name="Lands" parent="." unique_id=369331439 instance=ExtResource("22_nilsc")]
+fast_test_map = true
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1932136132]
+z_index = 20
+z_as_relative = false
+
+[node name="Horde" type="Node2D" parent="." unique_id=992034029]
+z_index = 20
+z_as_relative = false
+
+[node name="Bullets" type="Node2D" parent="." unique_id=1946491604]
+z_index = 14
+
+[node name="SkidMarks" type="Node2D" parent="." unique_id=180617962]
+z_index = 10
+z_as_relative = false
+
+[node name="Blood" type="Node2D" parent="." unique_id=2127842897]
+z_index = 8
+
+[node name="VFX" type="Node2D" parent="." unique_id=1933595906]
+z_index = 8
+
+[node name="DamageLabelPool" type="Node2D" parent="VFX" unique_id=280784807]
+z_index = 8
+script = ExtResource("23_hu2wj")
+label_scene = ExtResource("24_tuibr")
+
+[node name="BloodImpactPool" type="Node2D" parent="VFX" unique_id=468181774]
+script = ExtResource("25_7yg05")
+blood_scene = ExtResource("26_li2yr")
+pool_size = 800
+
+[node name="BloodShotPool" type="Node2D" parent="VFX" unique_id=138263947]
+script = ExtResource("27_ravr4")
+blood_shot_scene = ExtResource("28_d4etk")
+
+[node name="Explosions" type="Node2D" parent="VFX" unique_id=1856586972]
+
+[node name="Explosives" type="Node2D" parent="." unique_id=548224663]
+z_index = 10
+
+[node name="Collectables" type="Node2D" parent="." unique_id=1083103788]
+z_index = 9
+script = ExtResource("29_xtg73")
+xp_scene = ExtResource("30_1ilwt")
+dollar_scene = ExtResource("31_p4ndq")
+dollar_pool_size = 400
+
+[node name="Spawners" type="Node2D" parent="." unique_id=556355831]
+z_index = 10
+
+[node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("32_i6nq4")]
+position = Vector2(1646.9214, 226.07727)
+nb_horde = 12
+max_enemy_count = 30
+horde_radius_px = 64.0
+
+[node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("33_4pd6f")]
+is_active = true
+
+[node name="Marker1" parent="Spawners/ColossArrival" index="0" unique_id=624590813]
+position = Vector2(20.901855, 172.28784)
+
+[node name="Marker2" parent="Spawners/ColossArrival" index="1" unique_id=1709648179]
+position = Vector2(11.486572, 429.639)
+
+[node name="Marker3" parent="Spawners/ColossArrival" index="2" unique_id=987365903]
+position = Vector2(17.763428, 799.97363)
+
+[node name="Marker4" parent="Spawners/ColossArrival" index="3" unique_id=2117146510]
+position = Vector2(42.87085, 1047.9097)
+
+[node name="Marker5" parent="Spawners/ColossArrival" index="4" unique_id=2004767111]
+position = Vector2(17.763428, 1352.3373)
+
+[node name="Marker6" parent="Spawners/ColossArrival" index="5" unique_id=1020189212]
+position = Vector2(25.741882, 1612.8645)
+
+[node name="Marker7" parent="Spawners/ColossArrival" index="6" unique_id=148471387]
+position = Vector2(12.431885, 1852.4446)
+
+[node name="Marker8" type="Marker2D" parent="Spawners/ColossArrival" unique_id=439794048]
+position = Vector2(18, 2141)
+
+[node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("34_4v516")]
+is_infinite = false
+max_enemy_count = 400
+auto_spawn = true
+spawn_rate = 0.4
+
+[node name="SpawnRate" parent="Spawners/SpawnerAuto" index="0" unique_id=2090149341]
+wait_time = 0.2
+autostart = true
+
+[node name="ItemSpawner" parent="Spawners" unique_id=951681507 instance=ExtResource("35_ptf30")]
+z_index = 10
+
+[editable path="Spawners/ColossArrival"]
+[editable path="Spawners/SpawnerAuto"]

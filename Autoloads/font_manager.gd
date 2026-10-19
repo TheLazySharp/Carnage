@@ -42,7 +42,7 @@ var FONTS : Dictionary = {
 	
 	types.TEXT_TITLE:[OXANIUM,40,Color.WHITE],
 	types.TEXT_TITLE_LOW:[OXANIUM,32,Color.WHITE],
-	types.TEXT:[OXANIUM,24,Color.WHITE],
+	types.TEXT:[OXANIUM,18,Color.WHITE],
 	
 	types.UX:[OXANIUM,54,Color.WHITE],
 	types.UX_M:[OXANIUM,48,Color.WHITE],

@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bunq80hdti7b0"]
+
+[ext_resource type="Script" uid="uid://d0jm4markjpcj" path="res://Scripts/SCENES/loadout_panel.gd" id="1_blb7g"]
+
+[node name="LoadoutPanel" type="Control" unique_id=250150395 node_paths=PackedStringArray("rows_container", "counters_label", "hint_label", "hint_label2")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_blb7g")
+rows_container = NodePath("PanelContainer/VBoxContainer/Rows")
+counters_label = NodePath("PanelContainer/VBoxContainer/Counters")
+hint_label = NodePath("PanelContainer/VBoxContainer/Tips")
+hint_label2 = NodePath("PanelContainer/VBoxContainer/Tips2")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=469199150]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -217.625
+offset_top = -180.25
+offset_right = 217.625
+offset_bottom = 180.25
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer" unique_id=752084350]
+layout_mode = 2
+color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=955977969]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1760400704]
+layout_mode = 2
+text = "LOADOUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rows" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=366509042]
+layout_mode = 2
+
+[node name="Counters" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1725886301]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tips" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1384071999]
+layout_mode = 2
+text = "Up/Down : Maneuver | Left/Right : Weapons"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tips2" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1941520829]
+layout_mode = 2
+text = "Confirm : press A"
+horizontal_alignment = 1
+vertical_alignment = 1

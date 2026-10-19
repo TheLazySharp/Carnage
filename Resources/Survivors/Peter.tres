@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://dmkjdk1jmfb4v"]
+
+[ext_resource type="Texture2D" uid="uid://bgmf7br44u1wn" path="res://Assets/PNJs/peter.png" id="1_8f8kp"]
+[ext_resource type="Resource" uid="uid://c42ih6nh75qbl" path="res://Resources/Jobs/engineer.tres" id="2_b25b1"]
+[ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_e7shl"]
+[ext_resource type="Resource" uid="uid://d3713cb4urg63" path="res://Resources/Weapons/Main Weapons/saw_carrier.tres" id="4_b25b1"]
+
+[resource]
+script = ExtResource("3_e7shl")
+name = "Peter"
+age = 38
+job_ressource = ExtResource("2_b25b1")
+bio = "Peter is a world class driver"
+icon = ExtResource("1_8f8kp")
+weapon = ExtResource("4_b25b1")
+metadata/_custom_type_script = "uid://bpgisub1g6477"

@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://d3713cb4urg63"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_4e15k"]
+[ext_resource type="Resource" uid="uid://bla2di7wvuhnn" path="res://Resources/Weapons/Ammos/saw.tres" id="2_rwvnu"]
+[ext_resource type="PackedScene" uid="uid://dmpgkp1cor6kw" path="res://Scenes/WEAPONS/AMMOS/saw.tscn" id="3_v3rsq"]
+[ext_resource type="Texture2D" uid="uid://bruc8j13cgqpb" path="res://Assets/weapons/saws_carrier.png" id="4_orh3p"]
+[ext_resource type="AudioStream" uid="uid://bawy3nrrngww" path="res://Assets/Audio/SFX/Weapons/saw/saw_1.mp3" id="5_fftuc"]
+[ext_resource type="AudioStream" uid="uid://cdpmyig7w087r" path="res://Assets/Audio/SFX/Weapons/saw/saw_2.mp3" id="6_ovyvm"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uifdf"]
+streams_count = 2
+stream_0/stream = ExtResource("5_fftuc")
+stream_1/stream = ExtResource("6_ovyvm")
+
+[resource]
+script = ExtResource("1_4e15k")
+weapon_ref = 26
+weapon_name = "Saw carrier"
+weapon_icon = ExtResource("4_orh3p")
+max_level = 35
+description = "Throw circular saw"
+type_2 = 3
+tar_up_stat = 6
+weapon_scene_uid = "uid://d0scglw5kyu05"
+weapon_ammo_scene = ExtResource("3_v3rsq")
+weapon_ammo_res = ExtResource("2_rwvnu")
+weapon_sfx = SubResource("AudioStreamRandomizer_uifdf")
+death_type = 3
+base_dmg = 0
+base_radius = 0
+base_speed_rotation = 0
+base_cool_down = 5.0
+base_nb_ammo = 0
+assigned_maneuvers = Array[int]([0, 1, 2, 7, 4, 5, 6])
+salvo_base_stat = 9
+drift_level_bonus = 0.25
+amplified_multiplier = 2.0
+combo_projectile_share = 0.3
+combo_damage_share = 0.2
+dmg_on_resources = 0
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

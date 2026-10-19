@@ -11,6 +11,11 @@ var maneuver_power : Dictionary[ManeuverManager.Type, Statistic] = {}
 # A maneuver bought at the shop: the loadout panel opens on the roadmap to place a weapon on it
 var has_new_maneuver : bool = false
 
+var sandbox_active : bool = false
+
+func _ready() -> void:
+	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
+
 func start_run(p_car : CarData) -> void:
 	car = p_car
 	owned_maneuvers = p_car.base_maneuvers.duplicate()
@@ -20,6 +25,13 @@ func start_run(p_car : CarData) -> void:
 	maneuver_power.clear()
 	for maneuver_type : ManeuverManager.Type in ManeuverManager.Type.values():
 		maneuver_power[maneuver_type] = Statistic.new(ManeuverManager.get_power(maneuver_type))
+	if is_test_mode():
+		for maneuver_type : ManeuverManager.Type in ManeuverManager.Type.values():
+			unlock(maneuver_type)
+		has_new_maneuver = false
+
+func is_test_mode() -> bool:
+	return sandbox_active
 
 
 func owns(maneuver_type : ManeuverManager.Type) -> bool:
@@ -74,9 +86,14 @@ func add_pending_weapon(weapon : WeaponData) -> void:
 		pending_weapons.append(weapon)
 
 
-## Temporary, until the build screen exists: places the pending weapons on free owned maneuvers,
-## their preferred maneuvers first
+## Places the pending weapons on free owned maneuvers, their preferred maneuvers first
 func auto_assign_pending() -> void:
+	# Test mode: each new weapon goes on every maneuver (the newest one wins)
+	if is_test_mode():
+		for weapon : WeaponData in pending_weapons:
+			assign_everywhere(weapon)
+		pending_weapons.clear()
+		return
 	for weapon : WeaponData in pending_weapons:
 		var candidates : Array[ManeuverManager.Type] = weapon.assigned_maneuvers.duplicate()
 		candidates.append_array(owned_maneuvers)
@@ -86,3 +103,9 @@ func auto_assign_pending() -> void:
 			if owned_maneuvers.has(maneuver_type) and !weapon_by_maneuver.has(maneuver_type):
 				weapon_by_maneuver[maneuver_type] = weapon
 	pending_weapons.clear()
+
+func _on_sandbox_mode() -> void : 
+	sandbox_active = true
+	
+func unload() -> void : 
+	sandbox_active = false
