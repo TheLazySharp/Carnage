@@ -1,6 +1,6 @@
 extends Label
 
-var font_UX : Array = FontManager.FONTS[FontManager.types.UX]
+var font_UX : Array = FontManager.FONTS[FontManager.types.TEXT_24]
 
 func _ready() -> void:
 	if GameMaster.game_mode ==  GameMaster.GAME_MODES.BUILD or GameMaster.game_mode ==  GameMaster.GAME_MODES.RELEASE:

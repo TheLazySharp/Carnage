@@ -5,16 +5,15 @@
 [ext_resource type="Script" uid="uid://bxpjp0lssuhx4" path="res://Scripts/UI/gear_icon.gd" id="9_sr6w0"]
 [ext_resource type="Script" uid="uid://b45m4m8v3ioko" path="res://Scripts/UI/gear_label_Lvl.gd" id="10_yb0tx"]
 [ext_resource type="Script" uid="uid://dt6l27r7qstkk" path="res://Scripts/UI/UI_container.gd" id="11_rmo23"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="12_p8bil"]
 [ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="12_vm1f2"]
+[ext_resource type="Script" uid="uid://b8h66qxr0x7ee" path="res://Scripts/FONTS/GUI_HUD_YELLOW.gd" id="12_wt1lx"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="13_asqhk"]
 [ext_resource type="Texture2D" uid="uid://blogtn2cs18sc" path="res://Assets/Items/Drops/Dollars/dollar_2.png" id="14_vkku2"]
 [ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="15_6ikql"]
 [ext_resource type="Script" uid="uid://dnsiegvdcg1l" path="res://Scripts/UI/lucky_charms_icon.gd" id="16_vqpl2"]
 [ext_resource type="Script" uid="uid://d0xkstuknua8f" path="res://Scripts/FONTS/GUI_UX_blood.gd" id="17_5wt7w"]
 [ext_resource type="Script" uid="uid://dpkkxegm8kor1" path="res://Scripts/UI/fps.gd" id="17_beu0v"]
-[ext_resource type="Script" uid="uid://bybeo7okpj2m1" path="res://Scripts/UI/drift_bonus.gd" id="18_ax7ct"]
-[ext_resource type="Script" uid="uid://bncs7k1aeeuof" path="res://Scripts/UI/implants.gd" id="18_p8bil"]
-[ext_resource type="Script" uid="uid://dctnw2xv6bcgr" path="res://Scripts/UI/implant_bar.gd" id="19_7yomn"]
 [ext_resource type="Script" uid="uid://bc35l506ncu6y" path="res://Scripts/FONTS/GUI_UX.gd" id="19_60eq6"]
 [ext_resource type="Script" uid="uid://ci1ix74bfku5g" path="res://Scripts/TRACK/track_HUD.gd" id="20_8bphb"]
 
@@ -31,11 +30,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1, 0.7764706, 0, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_color = Color(0.6790145, 2.8637796e-06, 2.8878452e-07, 1)
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
@@ -44,10 +39,7 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wt7w"]
 bg_color = Color(0.99607843, 0.96862745, 0, 1)
 skew = Vector2(0.5, 0)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_detail = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42lo8"]
 bg_color = Color(0.9943078, 0.08685986, 5.7756904e-07, 1)
@@ -637,53 +629,50 @@ grow_vertical = 2
 
 [node name="ComboMulti" type="Label" parent="Combos" unique_id=159879408]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -319.0
-offset_top = -135.0
-offset_right = -4.0
-offset_bottom = -61.0
+offset_left = -209.0
+offset_top = 85.0
+offset_right = -19.0
+offset_bottom = 159.0
 grow_horizontal = 0
-grow_vertical = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 0.7764706, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("13_asqhk")
-theme_override_font_sizes/font_size = 56
-text = "999999"
+theme_override_fonts/font = ExtResource("12_p8bil")
+theme_override_font_sizes/font_size = 40
+text = "x 10.0"
 horizontal_alignment = 2
 vertical_alignment = 1
-script = ExtResource("18_ax7ct")
+script = ExtResource("12_wt1lx")
 
 [node name="CountCombo" type="Label" parent="Combos" unique_id=1913339974]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -428.0
-offset_top = 357.0
-offset_right = -4.0
-offset_bottom = 431.0
+offset_left = -307.0
+offset_top = 53.0
+offset_right = -21.0
+offset_bottom = 104.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 0.776, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("13_asqhk")
-theme_override_font_sizes/font_size = 56
-text = "0 pts"
+theme_override_fonts/font = ExtResource("12_p8bil")
+theme_override_font_sizes/font_size = 40
+text = "10 COMBO"
 horizontal_alignment = 2
 vertical_alignment = 1
-script = ExtResource("18_ax7ct")
+script = ExtResource("12_wt1lx")
 
 [node name="ComboGauge" type="ProgressBar" parent="Combos" unique_id=1756161005]
 layout_mode = 0
-offset_left = 1000.0
-offset_top = 447.0
-offset_right = 1268.0
-offset_bottom = 466.0
+offset_left = 984.0
+offset_top = 16.0
+offset_right = 1252.0
+offset_bottom = 45.0
 theme_override_styles/background = SubResource("StyleBoxFlat_oghlj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5wt7w")
 max_value = 1.0
@@ -706,18 +695,16 @@ show_percentage = false
 
 [node name="FPS" type="Label" parent="." unique_id=576823062]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -320.0
-offset_bottom = 74.0
-grow_horizontal = 0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -74.0
+offset_right = 114.0
+grow_vertical = 0
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("13_asqhk")
-theme_override_font_sizes/font_size = 56
+theme_override_fonts/font = ExtResource("12_p8bil")
+theme_override_font_sizes/font_size = 24
 text = "FPS : 60"
 vertical_alignment = 1
 script = ExtResource("17_beu0v")
@@ -831,7 +818,6 @@ offset_bottom = 422.2505
 grow_vertical = 2
 rotation = -1.5707964
 theme_override_constants/separation = 20
-script = ExtResource("18_p8bil")
 
 [node name="ImplantBar0" type="ProgressBar" parent="Implants" unique_id=2007758634]
 custom_minimum_size = Vector2(0, 20)
@@ -840,7 +826,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_7yomn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1gqwe")
 value = 50.0
 show_percentage = false
-script = ExtResource("19_7yomn")
 
 [node name="ImplantBar1" type="ProgressBar" parent="Implants" unique_id=1866285109]
 custom_minimum_size = Vector2(0, 20)
@@ -849,7 +834,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_1yewq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_0got2")
 value = 70.0
 show_percentage = false
-script = ExtResource("19_7yomn")
 
 [node name="ImplantBar2" type="ProgressBar" parent="Implants" unique_id=830889202]
 custom_minimum_size = Vector2(0, 20)
@@ -858,4 +842,3 @@ theme_override_styles/background = SubResource("StyleBoxFlat_p8uxf")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fat0c")
 value = 20.0
 show_percentage = false
-script = ExtResource("19_7yomn")

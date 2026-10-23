@@ -153,3 +153,68 @@ func _warm_up() -> void:
 	_blood_trails.emit_particle(far, Vector2.ZERO, Color.WHITE, Color.BLACK, EMIT_POS_VEL)
 	for emitter : GPUParticles2D in _blood_blobs:
 		emitter.emit_particle(far, Vector2.ZERO, Color.WHITE, Color.BLACK, EMIT_POS_VEL)
+
+# ---------------- PARTICLE SCENES (graphic artist's scenes, any emitter layout) ----------------
+
+## One-shot effect: instanced in the level, every emitter restarted, freed once the particles are gone
+func spawn_one_shot(scene : PackedScene, world_pos : Vector2, angle : float = 0.0) -> void:
+	if scene == null:
+		return
+	if _has_view and not _view_rect.has_point(world_pos):
+		return
+	var fx : Node2D = scene.instantiate() as Node2D
+	if fx == null:
+		return
+	get_tree().current_scene.add_child(fx)
+	fx.global_position = world_pos
+	fx.global_rotation = angle
+	var lifetime : float = _set_emitting(fx, true)
+	# Game time, like the particles: the hit stop slows both. x2: last particles emitted late in a non explosive burst
+	get_tree().create_timer(lifetime * 2.0).timeout.connect(fx.queue_free)
+
+
+## Looping effect following a node (e.g. a trail). Returns it for release_loop()
+func attach_loop(scene : PackedScene, parent : Node2D) -> Node2D:
+	if scene == null or parent == null:
+		return null
+	var fx : Node2D = scene.instantiate() as Node2D
+	if fx == null:
+		return null
+	parent.add_child(fx)
+	_set_emitting(fx, true)
+	return fx
+
+
+## Stops a looping effect: detached from its parent (which may be freed soon), freed once its particles are gone
+func release_loop(fx : Node2D) -> void:
+	if !is_instance_valid(fx):
+		return
+	var lifetime : float = _set_emitting(fx, false)
+	fx.reparent(get_tree().current_scene)  # keeps its global transform
+	get_tree().create_timer(lifetime).timeout.connect(fx.queue_free)
+
+
+## Starts or stops every emitter in the scene. Returns the longest particle lifetime (s)
+func _set_emitting(root : Node, on : bool) -> float:
+	var emitters : Array[Node] = root.find_children("*", "GPUParticles2D", true, false)
+	emitters.append_array(root.find_children("*", "CPUParticles2D", true, false))
+	if root is GPUParticles2D or root is CPUParticles2D:
+		emitters.append(root)
+	var longest : float = 0.0
+	for node : Node in emitters:
+		var gpu : GPUParticles2D = node as GPUParticles2D
+		if gpu != null:
+			if on:
+				gpu.restart()
+			else:
+				gpu.emitting = false
+			longest = maxf(longest, gpu.lifetime / maxf(gpu.speed_scale, 0.01))
+			continue
+		var cpu : CPUParticles2D = node as CPUParticles2D
+		if cpu != null:
+			if on:
+				cpu.restart()
+			else:
+				cpu.emitting = false
+			longest = maxf(longest, cpu.lifetime / maxf(cpu.speed_scale, 0.01))
+	return longest

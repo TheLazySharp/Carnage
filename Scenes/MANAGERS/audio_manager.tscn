@@ -6,6 +6,11 @@
 [ext_resource type="AudioStream" uid="uid://cryg5eqj6tc74" path="res://Assets/Audio/Song/Music_Desert_3.mp3" id="3_v35k5"]
 [ext_resource type="AudioStream" uid="uid://cccc8w73e5n8n" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_2.mp3" id="4_v35k5"]
 [ext_resource type="AudioStream" uid="uid://dmljyagbi5tx7" path="res://Assets/Audio/SFX/Coins/Coin_pick_up_3.mp3" id="5_cghkq"]
+[ext_resource type="AudioStream" uid="uid://b0ufihejp6khq" path="res://Assets/Audio/SFX/Punches/splat_1.mp3" id="7_uk3u2"]
+[ext_resource type="AudioStream" uid="uid://vjmm8xdmemh3" path="res://Assets/Audio/SFX/Punches/splat_2.mp3" id="8_0lwwy"]
+[ext_resource type="AudioStream" uid="uid://dmpwpkmcwrq4d" path="res://Assets/Audio/SFX/Punches/splat_3.mp3" id="9_wihcf"]
+[ext_resource type="AudioStream" uid="uid://cjyaet7fm488o" path="res://Assets/Audio/SFX/Punches/splat_chained_1.mp3" id="10_8lmgg"]
+[ext_resource type="AudioStream" uid="uid://bmltwtid1wtb0" path="res://Assets/Audio/SFX/Punches/splat_chained_2.mp3" id="11_ni7hh"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_416yl"]
 streams_count = 2
@@ -17,6 +22,17 @@ streams_count = 3
 stream_0/stream = ExtResource("3_h4ams")
 stream_1/stream = ExtResource("4_v35k5")
 stream_2/stream = ExtResource("5_cghkq")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dfktb"]
+streams_count = 3
+stream_0/stream = ExtResource("7_uk3u2")
+stream_1/stream = ExtResource("8_0lwwy")
+stream_2/stream = ExtResource("9_wihcf")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_42lo8"]
+streams_count = 2
+stream_0/stream = ExtResource("10_8lmgg")
+stream_1/stream = ExtResource("11_ni7hh")
 
 [node name="AudioManager" type="Node" unique_id=121741402]
 script = ExtResource("1_flqku")
@@ -39,4 +55,20 @@ bus = &"SFX"
 
 [node name="CoinsSfx" type="AudioStreamPlayer" parent="." unique_id=1332624269]
 stream = SubResource("AudioStreamRandomizer_uvxr1")
+bus = &"SFX"
+
+[node name="WallSplatSfx" type="AudioStreamPlayer2D" parent="." unique_id=1666487841]
+stream = SubResource("AudioStreamRandomizer_dfktb")
+volume_db = 3.0
+max_distance = 3000.0
+attenuation = 0.1961461
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="ChainedSplatSfx" type="AudioStreamPlayer2D" parent="." unique_id=406697738]
+stream = SubResource("AudioStreamRandomizer_42lo8")
+volume_db = 3.0
+max_distance = 3000.0
+attenuation = 0.20306318
+max_polyphony = 4
 bus = &"SFX"

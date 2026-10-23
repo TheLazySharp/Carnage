@@ -332,11 +332,12 @@ visible = false
 
 [node name="ManeuverLabel" type="Label" parent="CanvasLayer" unique_id=229804214]
 z_index = 10
-offset_left = 530.0
+offset_left = 959.0
 offset_top = 197.25616
-offset_right = 1277.0
-offset_bottom = 243.25616
-horizontal_alignment = 2
+offset_right = 1279.0
+offset_bottom = 247.25616
+text = "Quick Drfit"
+horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("15_wc532")
 
@@ -360,6 +361,7 @@ script = ExtResource("19_w70id")
 horde_outline = NodePath("../HordeOutline")
 
 [node name="Car" parent="." unique_id=2034565894 instance=ExtResource("20_t654a")]
+z_index = 11
 position = Vector2(259, 996)
 
 [node name="Camera2D" type="Camera2D" parent="Car" unique_id=131930234]
@@ -408,6 +410,7 @@ blood_scene = ExtResource("26_li2yr")
 pool_size = 800
 
 [node name="BloodShotPool" type="Node2D" parent="VFX" unique_id=138263947]
+z_index = 15
 script = ExtResource("27_ravr4")
 blood_shot_scene = ExtResource("28_d4etk")
 
@@ -433,7 +436,6 @@ max_enemy_count = 30
 horde_radius_px = 64.0
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("33_4pd6f")]
-is_active = true
 
 [node name="Marker1" parent="Spawners/ColossArrival" index="0" unique_id=624590813]
 position = Vector2(20.901855, 172.28784)

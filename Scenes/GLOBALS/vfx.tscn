@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://byg5fsl2iga6u"]
 
-[ext_resource type="Script" uid="uid://c1su44ts7vd77" path="res://Scripts/VFX/vfx.gd" id="1_hhmv4"]
+[ext_resource type="Script" uid="uid://c1su44ts7vd77" path="res://Autoloads/vfx.gd" id="1_hhmv4"]
 [ext_resource type="Texture2D" uid="uid://b02jhom2qglcm" path="res://Assets/Léonce/VFX/impact01.png" id="2_67yuh"]
 [ext_resource type="Texture2D" uid="uid://dtvpjotilfh2b" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs01.png" id="3_2qr5u"]
 [ext_resource type="Texture2D" uid="uid://cel6m8cx3j7i0" path="res://Assets/Léonce/VFX/Blood/Particles/blood_blobs02.png" id="4_lc50k"]

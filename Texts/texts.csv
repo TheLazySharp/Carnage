@@ -76,3 +76,7 @@ MANEUVER_HORN_DESC;Press HORN (X): a quick blast in front of the car;Appuie sur 
 LOADOUT_HINT_EDIT;Up/Down: maneuver | Left/Right: weapon;Haut/Bas : manœuvre | Gauche/Droite : arm
 LOADOUT_HINT_CONFIRM;A: close;A : fermer
 LOADOUT_HINT_READ_ONLY;Current loadout;Répartition actuell
+TUTO_COLOSS;Danger incoming !;Les colosses arrivent
+TUTO_COLOSS_BODY;At the end of every raid, colossal zombies raze everything in their path. Don’t wait for them: follow the arrow to the extraction zone to leave the distric;� la fin de chaque raid, des zombies colossaux rasent tout sur leur passage. Ne les attends pas : suis la fl�che jusqu� la zone dextraction pour quitter le quartier.
+TUTO_EXTRACT;Get out!;Barre toi de là 
+TUTO_EXTRACT_HINT;Follow the arrow to the extraction zone;Suis la flèche jusqu’à la zone d’extr

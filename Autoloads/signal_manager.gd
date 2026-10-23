@@ -157,6 +157,16 @@ signal pit_choice
 @warning_ignore("unused_signal")
 signal set_new_race
 
+@warning_ignore("unused_signal")
+signal exit_arrow_target(target : Vector2)
+
+@warning_ignore("unused_signal")
+signal end_raid_requested   # ends the raid now: colossi, extraction, exit arrow (tutorial ending)
+@warning_ignore("unused_signal")
+signal extraction_reached   # the car went through the open extraction zone
+
+@warning_ignore("unused_signal")
+signal perfect_drift_hit(hit_position : Vector2)
 
 
 # ---- UI -----
@@ -164,6 +174,10 @@ signal set_new_race
 signal text_window_closed(message_key: StringName)
 @warning_ignore("unused_signal")
 signal loading_screen_closed
+
+
+
+
 
 # ---- DEAD LAPS -----
 @warning_ignore("unused_signal")
@@ -197,3 +211,6 @@ signal maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: float,
 signal combo_changed(multiplier: float, combo_count: int)
 @warning_ignore("unused_signal")
 signal maneuver_locked(maneuver_type: ManeuverManager.Type)
+## Emitted by the ComboManager once a maneuver is rated (read by the maneuver label)
+@warning_ignore("unused_signal")
+signal maneuver_rated(maneuver_type : ManeuverManager.Type, drift_level : int, is_amplified : bool, perfect_hit : bool)

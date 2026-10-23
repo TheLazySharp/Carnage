@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b0qia31ffr14m" path="res://Assets/Items/turbo.png" id="5_nn6yw"]
 [ext_resource type="Script" uid="uid://c54wxruegn8l" path="res://Scripts/FONTS/styled_label.gd" id="6_gis1l"]
 [ext_resource type="Script" uid="uid://dimcwppccsqal" path="res://Scripts/FONTS/GUI_sold_out.gd" id="7_end45"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="8_hetub"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="8_hetub"]
 [ext_resource type="Script" uid="uid://q1x6o5hrm08l" path="res://Scripts/UI/strike_price.gd" id="9_kqxox"]
 [ext_resource type="Texture2D" uid="uid://hnexr8g6micy" path="res://Assets/Items/Drops/Dollars/blood.png" id="10_peuym"]
 

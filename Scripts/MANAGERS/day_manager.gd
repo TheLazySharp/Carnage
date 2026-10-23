@@ -42,7 +42,7 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.map_generated.connect(_on_map_generated)
 	SignalManager.lap_completed.connect(_on_lap_completed)
-
+	SignalManager.end_raid_requested.connect(_on_end_raid_requested)
 
 
 func _process(delta: float) -> void:
@@ -87,10 +87,8 @@ func _on_game_paused(game_on_pause : bool ) -> void:
 func on_day_end() -> void:
 	timer_stopped = true
 	SignalManager.emit_signal("day_time_end", timer_stopped)
-	garage_arrow.play("moving")
-	garage_arrow.show()
 	if has_extraction:
-		SignalManager.emit_signal("tuto_arrow_dir", extraction_position)
+		SignalManager.exit_arrow_target.emit(extraction_position)
 
 
 func _on_game_start(game_has_started : bool) -> void:
@@ -106,3 +104,10 @@ func _on_map_generated(data : MapData) -> void:
 
 func _on_lap_completed(_lap : int) -> void : 
 	time_remaining += DeadLapsManager.lap_time_bonus
+
+## Forced raid end (tutorial): same sequence as the end of the timer
+func _on_end_raid_requested() -> void:
+	if timer_stopped:
+		return
+	SignalManager.coloss_incoming.emit()
+	on_day_end()

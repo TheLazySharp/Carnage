@@ -44,6 +44,7 @@ signal in_game_survivor_queuefree
 
 func _ready() -> void:
 	SignalManager.district_survivor.connect(_on_district_selected)
+	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
 	if !administration_done:
 		administration_done = true
 		survivor_admninistration()
@@ -76,6 +77,7 @@ func survivor_admninistration() -> void :
 	locked_survivors.append(JAVIER)
 	locked_survivors.append(LEO)
 	locked_survivors.append(VIKTOR)
+	
 
 ## No survivor on the map once the car is full, or when nobody is left to meet
 func can_offer_survivor() -> bool:
@@ -124,3 +126,8 @@ func reload() -> void:
 
 func unload() -> void:
 	reload()
+
+func _on_sandbox_mode() -> void :
+	for i in locked_survivors.size():
+		if !known_survivors.has(locked_survivors[i]):
+			known_survivors.append(locked_survivors[i])

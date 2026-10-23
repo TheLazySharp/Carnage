@@ -19,6 +19,7 @@ func _ready() -> void:
 		training.show()
 
 
+
 func _on_start_pressed() -> void:
 	SceneManager.race_mode = false
 	TempStatManager.clear_all_modifiers()

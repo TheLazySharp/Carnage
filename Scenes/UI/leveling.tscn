@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="10_fw72e"]
 [ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="11_qrg5i"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="12_05kyw"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="13_5ddme"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="13_5ddme"]
 [ext_resource type="Script" uid="uid://b1o0peai48kvj" path="res://Scripts/LEVELUP/level_up_stats.gd" id="14_aorrq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]

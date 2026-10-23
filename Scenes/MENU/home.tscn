@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="5_eqfd6"]
 [ext_resource type="Texture2D" uid="uid://bn3oteja0m4nn" path="res://Assets/Characters/Cars/sedan_sport.png" id="6_kpiw7"]
 [ext_resource type="Texture2D" uid="uid://b3omk3jqa30al" path="res://Assets/Items/Drops/Dollars/dollar_4.png" id="7_yorxl"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="8_mwbmv"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="8_mwbmv"]
 [ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="9_jy6mi"]
 [ext_resource type="Texture2D" uid="uid://d2w71xk7jn5yn" path="res://Assets/Items/shield.png" id="10_dxkjd"]
 [ext_resource type="Script" uid="uid://cjses3u4dag08" path="res://Scripts/UI/garage_repair_button.gd" id="11_tirg6"]

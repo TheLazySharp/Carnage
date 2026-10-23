@@ -22,11 +22,21 @@ var velocity_floor : float = 0
 @onready var death_sfx : AudioStreamPlayer = $Audio/DeathSfx
 @onready var engine_sfx_player : Node = $Audio/Engine
 var dmg_players : Array[AudioStreamPlayer] = []
+@onready var drift_hit_sfx : AudioStreamPlayer = $Audio/DriftHitSfx
+var last_drift_hit_sfx_time : float = -1000.0
+const DRIFT_HIT_SFX_MIN_INTERVAL : float = 0.08  # several enemies in one swipe: one sound, not a buzz
+@onready var car_hit_sfx : AudioStreamPlayer = $Audio/CarHitSfx
+@onready var air_throw_sfx : AudioStreamPlayer = $Audio/AirThrowSfx
+var last_car_hit_sfx_time : float = -1000.0
+var last_air_throw_sfx_time : float = -1000.0
+var last_car_hit_shake_time : float = -1000.0
 
 # ---------------- SKID ----------------
-@onready var rear_left : Marker2D = $RearLeft
-@onready var rear_right : Marker2D = $RearRight
+@export var rear_left : Marker2D
+@export var rear_right : Marker2D
 var drifting : bool = false
+var braking : bool = false
+var angular_speed : float = 0.0  #read by the perfect drift hit
 
 # ---------------- COMPONENTS ----------------
 @onready var drift_manager : Node2D = $DriftManager
@@ -34,8 +44,8 @@ var drifting : bool = false
 @onready var burnout_manager : BurnoutManager = $BurnoutManager
 @onready var dash_manager : DashManager = $DashManager
 @onready var sprite_fx : SpriteFXManager = $SpriteFX
-@onready var rear_left_burn_anim : AnimatedSprite2D = $RearLeft/RearLeftBurnAnim
-@onready var rear_right_burn_anim : AnimatedSprite2D = $RearRight/RearRightBurnAnim
+@export var rear_left_burn_anim : AnimatedSprite2D
+@export var rear_right_burn_anim : AnimatedSprite2D
 @onready var collect_zone: CollisionShape2D = $CollectZone/CollectZone
 
 # Signals
@@ -62,11 +72,9 @@ var forward_only : bool = false
 # ---------------- VFX ----------------
 @onready var car_explosion : AnimatedSprite2D = $VFX/CarExplosion
 @onready var sparkles : CPUParticles2D = $VFX/Sparkles
-@onready var drivin_smoke_r_2 : CPUParticles2D = $RearRight/DrivinSmokeR2
-@onready var drivin_smoke_l_2 : CPUParticles2D = $RearLeft/DrivinSmokeL2
+@export var drivin_smoke_r_2 : CPUParticles2D
+@export var drivin_smoke_l_2 : CPUParticles2D
 @onready var flash : AnimationPlayer = $CarSprite/Flash
-@export var enable_skid_smoke : bool = true
-var skid_smoke_active : bool = false
 
 # ---------------- INVINCIBILITY ----------------
 var invincibility_tween : Tween = null
@@ -85,8 +93,8 @@ const WALL_ROTATION_SPEED : float = 5.0
 const MIN_STEER_FACTOR : float = 0.25
 const WALL_IMPACT_MIN_SPEED : float = 80.0  # min frontal speed component to emit wall_impact
 const WALL_GLANCE_DAMP : float = 1.0   # damp at grazing angle (no speed loss)
-var drift_locked : bool = false  # set on wall hit, cleared when the drift key is released
 const JUICE = preload("uid://dbohpdgym7v6q")
+var drift_locked : bool = false  # set on wall hit, cleared when the drift key is released
 var enemy_hit_frame : int = -1            # physics frame of the current slowdown budget
 var enemy_hit_loss_budget : float = 0.0   # speed share still losable this frame
 
@@ -185,7 +193,6 @@ func _physics_process(delta : float) -> void:
 
 func _process_player_inputs(delta : float) -> void:
 	engine_sfx_player.update_engine_sfx(velocity.length(), burnout_manager.is_revving())
-	update_skid_smokes()
 	dash_manager.update_dash(delta)
 
 	var forward : Vector2 = Vector2.RIGHT.rotated(rotation)
@@ -212,11 +219,12 @@ func _process_player_inputs(delta : float) -> void:
 	throttle = burnout_manager.process_burnout(delta, throttle, velocity.length())
 
 	# ----------------- ACCELERATION -----------------
+	braking = throttle * velocity.dot(forward) < 0.0
 	if throttle != 0.0:
 		var accel_force : float = player.acceleration.get_value()
 		# Braking: the input opposes the current motion -> much stronger force.
 		# Not while drifting: a spin moves backward for a moment and must keep its momentum
-		if !drifting and throttle * velocity.dot(forward) < 0.0:
+		if !drifting and braking:
 			accel_force *= brake_multiplier
 		velocity += forward * throttle * accel_force * delta
 	else:
@@ -238,7 +246,8 @@ func _process_player_inputs(delta : float) -> void:
 		# extra rotation + low grip -> the rear steps out and the car takes an angle
 		steer *= drift_manager.get_slide_turn_bonus()
 
-	rotation += steer * turn_speed * steer_factor * delta
+	angular_speed = steer * turn_speed * steer_factor
+	rotation += angular_speed * delta
 
 	var forward_velocity : Vector2 = forward * velocity.dot(forward)
 	var lateral_velocity : Vector2 = lateral * velocity.dot(lateral)
@@ -335,6 +344,7 @@ func _process_autopilot_exit(delta : float) -> void:
 func _on_autopilot_transition_start() -> void:
 	autopilot_state = AutopilotState.ZOOM
 	autopilot_speed = velocity.length()
+	braking = false
 
 func _on_zoom_complete() -> void:
 	autopilot_state = AutopilotState.DRIVE
@@ -414,6 +424,10 @@ func _on_hitbox_area_entered(area : Area2D) -> void:
 	var hit_enemy : Enemy = area as Enemy
 	if hit_enemy == null:
 		return
+	# Tail swipe while drifting: the enemy becomes a projectile, the car keeps its speed
+	if _is_perfect_drift_hit(hit_enemy):
+		_perfect_drift_hit(hit_enemy)
+		return
 	# Below velocity_floor: no damages, but the enemy is still bumped
 	var damages : int = 0
 	if velocity.length() >= velocity_floor:
@@ -425,6 +439,8 @@ func _on_hitbox_area_entered(area : Area2D) -> void:
 		_apply_enemy_hit_slowdown()
 		sprite_fx.car_hit_kick(hit_enemy.global_position, speed_ratio)
 		JuiceManager.on_car_hit(speed_ratio)
+		# hit_by_car() just decided the throw: in the air = flung over the car
+		_car_hit_feedback(hit_enemy.air_duration > 0.0, speed_ratio)
 
 ## Each hit costs a bit of speed, capped per physics frame:
 ## ploughing into 15 zombies at once costs the same as 3
@@ -440,6 +456,63 @@ func _apply_enemy_hit_slowdown() -> void:
 		return
 	enemy_hit_loss_budget -= loss
 	velocity *= 1.0 - loss
+
+## Sound + shake of a standard car hit, rate limited: a horde gives a rhythm, not a buzz
+func _car_hit_feedback(thrown_in_air : bool, speed_ratio : float) -> void:
+	var now : float = Time.get_ticks_msec() / 1000.0
+	if thrown_in_air:
+		if now - last_air_throw_sfx_time >= JUICE.car_hit_sfx_min_interval:
+			last_air_throw_sfx_time = now
+			air_throw_sfx.play()
+	elif now - last_car_hit_sfx_time >= JUICE.car_hit_sfx_min_interval:
+		last_car_hit_sfx_time = now
+		car_hit_sfx.play()
+	# One shared shake limiter, the air throw shakes harder
+	if now - last_car_hit_shake_time < JUICE.car_hit_shake_min_interval:
+		return
+	last_car_hit_shake_time = now
+	if thrown_in_air:
+		SignalManager.screen_shake_requested.emit(JUICE.air_throw_shake, JUICE.air_throw_shake_time)
+	else:
+		SignalManager.screen_shake_requested.emit(JUICE.car_hit_shake * clampf(speed_ratio, 0.3, 1.0), JUICE.car_hit_shake_time)
+
+
+## Rear of the car + drifting (or catching grip) + fast enough + spinning fast
+func _is_perfect_drift_hit(hit_enemy : Enemy) -> bool:
+	if !JUICE.drift_hit_enabled:
+		return false
+	if !drifting and !drift_manager.is_recovering():
+		return false
+	if velocity.length() < player.unscaled_speed() * JUICE.drift_hit_min_speed_ratio:
+		return false
+	if absf(angular_speed) < deg_to_rad(JUICE.drift_hit_min_spin_deg):
+		return false
+	var forward : Vector2 = Vector2.RIGHT.rotated(rotation)
+	return (hit_enemy.global_position - global_position).dot(forward) < 0.0
+
+
+func _perfect_drift_hit(hit_enemy : Enemy) -> void:
+	# Speed of the car body at the contact point: car velocity + rotation (the tail swipe)
+	var offset : Vector2 = hit_enemy.global_position - global_position
+	var tail_velocity : Vector2 = velocity + Vector2(-offset.y, offset.x) * angular_speed
+	var direction : Vector2 = tail_velocity if tail_velocity.length_squared() > 1.0 else offset
+	var damages : int = roundi(player.dmg.get_value() * JUICE.drift_hit_damage_multiplier)
+	if !hit_enemy.launch_drift_hit(direction, damages):
+		return
+	sprite_fx.car_hit_kick(hit_enemy.global_position, 1.0)
+	JuiceManager.hit_stop(JUICE.drift_hit_stop_duration)
+	SignalManager.screen_shake_requested.emit(JUICE.drift_hit_launch_shake, 0.25)
+	Haptics.pulse(0.4, 1.0, 0.15)
+	_play_drift_hit_sfx()
+	SignalManager.perfect_drift_hit.emit(hit_enemy.global_position)
+
+## Real time: the hit stop slows the game clock, not the sound
+func _play_drift_hit_sfx() -> void:
+	var now : float = Time.get_ticks_msec() / 1000.0
+	if now - last_drift_hit_sfx_time < DRIFT_HIT_SFX_MIN_INTERVAL:
+		return
+	last_drift_hit_sfx_time = now
+	drift_hit_sfx.play()
 
 
 # ---------------- GAME STATE ----------------
@@ -478,17 +551,6 @@ func play_drivin_smokes() -> void:
 		return
 	drivin_smoke_r_2.emitting = true
 	drivin_smoke_l_2.emitting = true
-
-
-func update_skid_smokes() -> void:
-	var skid_smoke : bool = enable_skid_smoke and (drifting or drift_manager.is_sliding() or drift_manager.is_recovering())
-	if skid_smoke:
-		drivin_smoke_r_2.emitting = true
-		drivin_smoke_l_2.emitting = true
-	elif skid_smoke_active:
-		drivin_smoke_r_2.emitting = false
-		drivin_smoke_l_2.emitting = false
-	skid_smoke_active = skid_smoke
 
 
 func get_drift_factor() -> float:

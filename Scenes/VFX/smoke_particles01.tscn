@@ -9,37 +9,33 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_higrc"]
-colors = PackedColorArray(0.16206557, 0.1620656, 0.16206557, 1, 0, 0, 0, 1)
+colors = PackedColorArray(0.89411765, 0.89411765, 0.89411765, 0.7058824, 0.7882353, 0.7882353, 0.7882353, 0.09411765)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_tyiq4"]
-gradient = SubResource("Gradient_higrc")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r7ksg"]
-particle_flag_disable_z = true
-direction = Vector3(0, -100.705, 0)
-spread = 20.126
-initial_velocity_min = 29.59
-initial_velocity_max = 103.54
-gravity = Vector3(0, 0, 0)
-linear_accel_min = 45.929996
-linear_accel_max = 54.439995
-damping_max = 10.3550005
-color_ramp = SubResource("GradientTexture1D_tyiq4")
-anim_speed_min = 1.0
-anim_speed_max = 1.0
-turbulence_enabled = true
-turbulence_noise_strength = 0.88
-turbulence_noise_scale = 5.048
-turbulence_noise_speed_random = 0.1
-
-[node name="SmokeParticles01" type="GPUParticles2D" unique_id=1661156667]
+[node name="SmokeParticles01" type="CPUParticles2D" unique_id=18006183]
 material = SubResource("CanvasItemMaterial_nhvyv")
 emitting = false
-amount = 30
+amount = 100
 texture = ExtResource("1_0dl4j")
-lifetime = 0.53
 one_shot = true
 preprocess = 0.5
 explosiveness = 0.05
 randomness = 0.15
-process_material = SubResource("ParticleProcessMaterial_r7ksg")
+fixed_fps = 30
+draw_order = 1
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector2(-1, 0)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 40.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+linear_accel_min = 45.929996
+linear_accel_max = 54.439995
+damping_min = 25.0
+damping_max = 40.0
+angle_max = 318.3
+color_ramp = SubResource("Gradient_higrc")
+anim_speed_min = 1.0
+anim_speed_max = 1.0

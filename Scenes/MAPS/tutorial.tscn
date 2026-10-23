@@ -73,9 +73,6 @@ bg_color = Color(0.12591082, 0.12591085, 0.12591076, 1)
 
 [node name="World" unique_id=1548430314 instance=ExtResource("1_w5ys6")]
 
-[node name="WarpZone" parent="." index="7" unique_id=1614605946]
-process_mode = 4
-
 [node name="Texts" parent="CanvasLayer" parent_id_path=PackedInt32Array(1746516377) index="1" unique_id=1463412287]
 visible = false
 
@@ -96,9 +93,6 @@ process_mode = 4
 is_active = false
 nb_horde = 3
 max_enemy_count = 20
-
-[node name="ColossArrival" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="1" unique_id=129810557]
-is_active = false
 
 [node name="ItemSpawner" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="3" unique_id=951681507]
 is_active = false
@@ -136,8 +130,8 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -260.0
-offset_right = 640.0
+offset_left = -328.5
+offset_right = 328.5
 offset_bottom = 65.0
 grow_horizontal = 2
 text = "TUTORIAL"
@@ -146,17 +140,16 @@ vertical_alignment = 1
 script = ExtResource("5_cdeii")
 
 [node name="Hint" type="Label" parent="TutorialManager/CanvasLayer/TutorialHUD" index="1" unique_id=1377356910]
-custom_minimum_size = Vector2(900, 100)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 380.0
-offset_top = -322.0
-offset_bottom = -222.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -328.5
+offset_top = 82.0
+offset_right = 328.5
+offset_bottom = 182.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_1ihg5")
 text = "TUTO_FIGHT"
 horizontal_alignment = 1
@@ -166,12 +159,17 @@ script = ExtResource("6_cdeii")
 
 [node name="Counter" type="Label" parent="TutorialManager/CanvasLayer/TutorialHUD" index="2" unique_id=2131047976]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 380.0
-offset_top = 190.0
-offset_bottom = 240.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -209.0
+offset_right = 38.0
+offset_bottom = -159.0
 grow_horizontal = 2
+grow_vertical = 2
 text = "COUNTER"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -228,6 +226,7 @@ layout_mode = 2
 text = "NO"
 
 [node name="IntroPopup" type="PanelContainer" parent="TutorialManager/CanvasLayer" index="2" unique_id=2081745260]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

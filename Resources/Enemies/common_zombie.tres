@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b5oikrvvw56ii" path="res://Assets/Léonce/Enemies/zombieA_death01.png" id="9_dhoyf"]
 [ext_resource type="Texture2D" uid="uid://s4c4hvswv47w" path="res://Assets/Léonce/Enemies/zombie01_air_flight.png" id="10_lpamg"]
 [ext_resource type="Texture2D" uid="uid://dtr4ubdhjy0cc" path="res://Assets/Léonce/Enemies/zombieA_idleC_outline.png" id="13_wxsbi"]
+[ext_resource type="Texture2D" uid="uid://ctpido53ise" path="res://Assets/Léonce/Enemies/zombie01_perfect_drift_hit.png" id="14_fwbet"]
 
 [sub_resource type="Resource" id="Resource_b0njb"]
 script = ExtResource("3_b0njb")
@@ -94,14 +95,35 @@ fps = 16.0
 spritesheet = ExtResource("4_b0njb")
 metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
 
+[sub_resource type="Resource" id="Resource_ocsld"]
+script = ExtResource("3_b0njb")
+state_name = "thrown"
+frame_size = Vector2i(100, 100)
+fps = 30.0
+loop = false
+spritesheet = ExtResource("14_fwbet")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
+[sub_resource type="Resource" id="Resource_5mroa"]
+script = ExtResource("3_b0njb")
+state_name = "dead_splat"
+death_type = 6
+frame_size = Vector2i(100, 100)
+fps = 20.0
+loop = false
+is_death_state = true
+spritesheet = ExtResource("5_oxrgu")
+metadata/_custom_type_script = "uid://p0eu2f0bwtoq"
+
 [resource]
 script = ExtResource("1_exg4w")
 name = "Common"
 frame_size = Vector2i(50, 30)
-sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_epe8t"), SubResource("Resource_aj7fl"), SubResource("Resource_63ifu"), SubResource("Resource_57ln3"), SubResource("Resource_i7xsr"), SubResource("Resource_27q37"), SubResource("Resource_b1lue"), SubResource("Resource_fwbet")])
+sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), SubResource("Resource_epe8t"), SubResource("Resource_aj7fl"), SubResource("Resource_63ifu"), SubResource("Resource_57ln3"), SubResource("Resource_i7xsr"), SubResource("Resource_27q37"), SubResource("Resource_b1lue"), SubResource("Resource_fwbet"), SubResource("Resource_ocsld"), SubResource("Resource_5mroa")])
 blood_particles = ExtResource("1_b0njb")
 base_speed = 40.0
 base_impact_force = 200.0
 chase_flocking = ExtResource("2_b1lue")
 idle_flocking = ExtResource("3_wxsbi")
+drops_dollar = false
 metadata/_custom_type_script = "uid://o5x50j5uyp7f"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cgriivvndco52" path="res://Scripts/SCENES/current_stats.gd" id="1_5ttc1"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="1_lbu7d"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="2_5ttc1"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="2_5ttc1"]
 [ext_resource type="Script" uid="uid://bf3eesyda5860" path="res://Scripts/UI/end_game_weapon_stat.gd" id="3_aayud"]
 
 [node name="Stats" type="Control" unique_id=1352227625]

@@ -78,6 +78,16 @@ const AIR_STATE: String = "air"
 var playing_air_animation : bool = false              # true while the air throw animation owns the sprite
 var requested_animation_state : String = "walk"       # last state asked (state machine / death), applied on landing
 
+const DRIFT_HIT_STATE: String = "thrown"  # non looping: holds its last frame until the burst
+## What made a drift hit projectile burst (picks its sound)
+enum BurstCause { WALL, ENEMY, OUT_OF_STEAM }
+
+# ---- PERFECT DRIFT HIT (tuned in JuiceSettings) ----
+var drift_projectile : bool = false
+var drift_hit_damages : int = 0
+var drift_query : PhysicsShapeQueryParameters2D = null  # created on the first launch only
+var drift_burst_shape : CircleShape2D = null
+var drift_trail_fx : Node2D = null
 
 @export_group("WALLS PHYSICS")
 var near_wall : bool = false
@@ -172,6 +182,9 @@ func _process(delta: float) -> void:
 	if hit_pause_left > 0.0:
 		hit_pause_left -= delta
 		return  # frozen: no move, no flight, no accumulated delta (no catch-up jump)
+	if drift_projectile:
+		update_drift_projectile(delta)
+		return
 	if air_duration > 0.0:
 		update_air(delta)
 	if is_dead:
@@ -221,8 +234,8 @@ func register_to_renderer() -> void:
 		mm_index = mm_pool.register_enemy(self)
  
 func get_impact(car_forward: Vector2, car_right: Vector2, player_speed_ratio: float, player_global_pos : Vector2) -> void:
-	if air_duration > 0.0:
-		return  # flying over the ground: neighbours can't push it
+	if air_duration > 0.0 or drift_projectile:
+		return  # flying over the ground / thrown by a drift hit: neighbours can't push it
 	if car_right == Vector2.ZERO:
 		knockback_velocity = car_forward.normalized() * impact_force.get_value() * player_speed_ratio
 		return
@@ -256,7 +269,7 @@ func chained_impacts() -> void:
 ## Single entry point for a car contact: throw first, then hit-pause, then damages.
 ## Returns false when the hit is ignored (dead / paused / flying) so the car skips its feedback.
 func hit_by_car(damages: int, car_velocity: Vector2, car_forward: Vector2, car_position: Vector2, car_speed_ratio: float) -> bool:
-	if game_paused or is_dead or air_duration > 0.0:
+	if game_paused or is_dead or air_duration > 0.0 or drift_projectile:
 		return false
 	apply_car_impact(car_velocity, car_forward, car_position, car_speed_ratio)
 	if JUICE.victim_pause_enabled:
@@ -422,7 +435,10 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0,
 	if is_dead:
 		return
 	is_dead = true
-
+	drift_projectile = false
+	if drift_trail_fx != null:
+		Vfx.release_loop(drift_trail_fx)
+		drift_trail_fx = null
 	#cut interractions
 	collision_box.set_deferred("disabled", true)
 	damage_timer_on_player.stop()
@@ -435,7 +451,7 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0,
 			mm_pool.set_enemy_flash(mm_index, false)
 
 	# 2. drops
-
+	#XP
 	#collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
 	#if enemy.drops_dollar:
 		#collectable_pool.spawn_dollar(global_position)
@@ -557,3 +573,120 @@ func apply_knockback(direction: Vector2, force: float) -> void:
 	if direction == Vector2.ZERO or force <= 0.0:
 		return
 	knockback_velocity += direction.normalized() * force
+
+## Perfect drift hit: thrown by the car's tail, the enemy flies until it meets an enemy or a wall.
+## Returns false when the hit is ignored (the car then skips its feedback)
+func launch_drift_hit(direction: Vector2, damages: int) -> bool:
+	if game_paused or is_dead or drift_projectile or air_duration > 0.0:
+		return false
+	drift_projectile = true
+	drift_hit_damages = damages
+	knockback_velocity = direction.normalized() * JUICE.drift_hit_throw_speed
+	velocity = knockback_velocity
+	# It always dies at the end of the flight: the AI is no longer needed
+	# It always dies at the end of the flight: the AI is no longer needed
+	if state_machine != null:
+		state_machine.process_mode = Node.PROCESS_MODE_DISABLED
+	# Straight flight: the facing is set once (read by the renderer)
+	facing_direction = -knockback_velocity if JUICE.drift_hit_face_backward else knockback_velocity
+	if mm_pool != null and mm_pool.has_state(DRIFT_HIT_STATE):
+		set_animation_state(DRIFT_HIT_STATE)
+	if JUICE.drift_hit_impact_vfx_enabled:
+		_shoot_drift_hit_blood()
+	if JUICE.drift_hit_trail_enabled and drift_trail_fx:
+		drift_trail_fx = Vfx.attach_loop(JUICE.drift_hit_trail_vfx, self)
+	flash_damage()
+	if JUICE.victim_pause_enabled:
+		hit_pause_left = JUICE.victim_pause_duration  # frozen in white, then launched
+	if drift_query == null:
+		drift_query = PhysicsShapeQueryParameters2D.new()
+		drift_query.collide_with_areas = true
+		drift_query.collide_with_bodies = false
+		drift_query.collision_mask = collision_layer  # enemies share the same layer
+		drift_query.exclude = [get_rid()]
+		drift_burst_shape = CircleShape2D.new()
+	return true
+
+## Impact: a fan of blood shots along the throw direction
+func _shoot_drift_hit_blood() -> void:
+	var count : int = maxi(JUICE.drift_hit_blood_shots, 1)
+	var base_angle : float = knockback_velocity.angle()
+	var spread : float = deg_to_rad(JUICE.drift_hit_blood_spread_deg)
+	for i : int in count:
+		# Evenly spread across the fan; a single shot goes straight along the throw
+		var ratio : float = 0.5 if count == 1 else float(i) / float(count - 1)
+		blood_shot_pool.shoot_blood(global_position, base_angle + lerpf(-spread * 0.5, spread * 0.5, ratio))
+
+func update_drift_projectile(delta: float) -> void:
+	var move: Vector2 = knockback_velocity * delta
+	# Wall ahead: burst against it
+	if flow_field.is_blocked_world(global_position + move):
+		burst_drift_projectile(BurstCause.WALL)
+		return
+	global_position += move
+	velocity = knockback_velocity
+	last_move_dir = knockback_velocity.normalized()
+	var flight_speed: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * JUICE.drift_hit_friction_ratio * delta)
+	knockback_velocity = last_move_dir * flight_speed
+	# Out of steam: bursts on its own
+	if flight_speed < JUICE.drift_hit_end_speed:
+		burst_drift_projectile(BurstCause.OUT_OF_STEAM)
+		return
+	# First living enemy touched: burst
+	drift_query.shape = collision_box.shape
+	drift_query.transform = Transform2D(0.0, global_position)
+	for result: Dictionary in get_world_2d().direct_space_state.intersect_shape(drift_query, 8):
+		var other: Enemy = _get_enemy_from_collider(result["collider"])
+		# Its own hitbox resolves to itself: skipped
+		if other != null and other != self and !other.is_dead:
+			burst_drift_projectile(BurstCause.ENEMY)
+			return
+
+## The query returns an enemy's root area or one of its child areas (hitbox): both resolve to the enemy
+func _get_enemy_from_collider(collider : Object) -> Enemy:
+	var found : Enemy = collider as Enemy
+	if found == null:
+		var node : Node = collider as Node
+		if node != null:
+			found = node.get_parent() as Enemy
+	return found
+
+## The projectile bursts: every living enemy around takes the hit, then it dies (SPLAT)
+func burst_drift_projectile(cause : BurstCause = BurstCause.OUT_OF_STEAM) -> void:
+	if !drift_projectile:
+		return
+	drift_projectile = false
+	var flight_dir: Vector2 = last_move_dir
+	drift_burst_shape.radius = JUICE.drift_hit_burst_radius
+	drift_query.shape = drift_burst_shape
+	drift_query.transform = Transform2D(0.0, global_position)
+	var victims : Array[Enemy] = []
+	for result: Dictionary in get_world_2d().direct_space_state.intersect_shape(drift_query, 32):
+		var victim: Enemy = _get_enemy_from_collider(result["collider"])
+		# Its own hitbox, a dead enemy, or the second area of an enemy already hit: skipped
+		if victim == null or victim == self or victim.is_dead or victims.has(victim):
+			continue
+		victims.append(victim)
+		var push: Vector2 = victim.global_position - global_position
+		victim.get_damages(drift_hit_damages, push, JUICE.drift_hit_burst_knockback, EnemyManager.DEATH_TYPES.KNOCKED)
+	SignalManager.screen_shake_requested.emit(JUICE.drift_hit_shake, 0.2)
+	_play_burst_sfx(cause)
+	knockback_velocity = Vector2.ZERO
+	current_life = 0
+	on_death(flight_dir, 0.0, EnemyManager.DEATH_TYPES.SPLAT)
+	
+	## Shared level players (two per level, not two per enemy), moved to the burst point
+func _play_burst_sfx(cause : BurstCause) -> void:
+	var path : String
+	match cause:
+		BurstCause.WALL:
+			path = "/root/World/AudioManager/WallSplatSfx"
+		BurstCause.ENEMY:
+			path = "/root/World/AudioManager/ChainedSplatSfx"
+		_:
+			return
+	var sfx : AudioStreamPlayer2D = get_node_or_null(path) as AudioStreamPlayer2D
+	if sfx == null:
+		return
+	sfx.global_position = global_position
+	sfx.play()

@@ -37,7 +37,8 @@ enum DEATH_TYPES {
 	KNOCKED,
 	SLICE,
 	EXPLOSION,
-	SHOT
+	SHOT,
+	SPLAT
 }
 
 var death_state_names: PackedStringArray = build_death_state_names() # index = Death_Types

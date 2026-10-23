@@ -13,8 +13,8 @@ class_name TutorialManager
 @export var phase2_page_keys: PackedStringArray = ["TUTO_PHASE2_COMBO", "TUTO_PHASE2_DASH", "TUTO_PHASE2_ZOMBIES"]
 
 @export_group("Phase 2")
-@export var horde_spawner: Spawner        # inactive in the scene: spawned once when phase 2 starts
-@export var tutorial_weapon: WeaponData   # placed on every maneuver in phase 2
+@export var horde_spawner: HordeSpawner
+@export var tutorial_weapon: WeaponData
 
 @export_group("HUD")
 @export var title_label: Label
@@ -35,6 +35,10 @@ class_name TutorialManager
 @export var page_next_button: Button
 @export var page_input_delay: float = 0.6  # the next button ignores input this long after a page shows
 
+@export_group("Ending")
+## Shown before the colossi come (key = title, key + "_BODY" = text)
+@export var ending_page_keys: PackedStringArray = ["TUTO_COLOSS"]
+
 var step_index: int = 0
 var progress: int = 0
 var transition_left: float = 0.0  # > 0 while "step done" is displayed
@@ -51,12 +55,14 @@ var intro_pending: bool = false  # intro waits for the map: it would open behind
 var free_play: bool = false
 var frags_at_start: int = 0
 var shown_kills: int = -1
-
+var ending: bool = false
+var hordes_total: int = 0
 
 func _ready() -> void:
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.map_generated.connect(_on_map_generated)
+	SignalManager.extraction_reached.connect(_on_extraction_reached)
 	skip_label.text = tr("TUTO_SKIP")
 	yes_button.text = tr("TUTO_YES")
 	no_button.text = tr("TUTO_NO")
@@ -154,7 +160,7 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: flo
 
 
 func _is_counting() -> bool:
-	return !leaving and !free_play and !page_open and transition_left <= 0.0 and step_index < steps.size()
+	return !leaving and !ending and !free_play and !page_open and transition_left <= 0.0 and step_index < steps.size()
 
 
 func _add_progress() -> void:
@@ -181,13 +187,16 @@ func _start_free_play() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if game_paused:
+	if game_paused or ending:
 		return
 	# Kill counter, refreshed only when it changes
 	var kills: int = StatsManager.frags - frags_at_start
 	if kills != shown_kills:
 		shown_kills = kills
 		counter_label.text = "%s %d" % [tr("TUTO_KILLS"), kills]
+		# Every horde wiped out: the colossi come, time to leave
+		if hordes_total > 0 and kills >= hordes_total:
+			start_ending()
 
 
 func _equip_tutorial_weapon() -> void:
@@ -204,6 +213,7 @@ func _spawn_hordes() -> void:
 		return
 	horde_spawner.is_active = true
 	horde_spawner.setup_trigger()
+	hordes_total = horde_spawner.spawned_count
 
 
 # ---------------- PAGES ----------------
@@ -247,6 +257,28 @@ func _on_page_next_pressed() -> void:
 	SignalManager.game_paused.emit(false)
 	page_done.call()
 
+# ---------------- ENDING: COLOSS + EXTRACTION ----------------
+
+## All hordes killed, or "quit" confirmed: the colossi page, then a regular raid end
+func start_ending() -> void:
+	if ending or leaving:
+		return
+	ending = true
+	set_process(false)          # a pending step transition is dropped
+	set_physics_process(false)  # kill counter
+	title_label.text = tr("TUTO_EXTRACT")
+	hint_label.text = tr("TUTO_EXTRACT_HINT")
+	counter_label.text = ""
+	_open_pages(ending_page_keys, _on_ending_pages_closed)
+
+
+func _on_ending_pages_closed() -> void:
+	# Colossi, extraction and exit arrow: handled like the end of any raid
+	SignalManager.end_raid_requested.emit()
+
+
+func _on_extraction_reached() -> void:
+	_leave()
 
 # ---------------- QUIT ----------------
 
@@ -278,7 +310,12 @@ func _input(event: InputEvent) -> void:
 
 func _on_quit_yes_pressed() -> void:
 	quit_popup.hide()
-	_leave()
+	# First "quit": the coloss ending, the player leaves through the extraction.
+	# Once it runs, "quit" goes straight back to the menu
+	if ending:
+		_leave()
+	else:
+		start_ending()
 
 
 func _on_quit_no_pressed() -> void:

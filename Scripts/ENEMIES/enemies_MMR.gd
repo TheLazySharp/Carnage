@@ -540,8 +540,8 @@ class EnemyTypePool extends MultiMeshInstance2D:
 			var rot: float = instance_rotations[idx]
 			# Frozen enemies keep their last facing (no car tracking, no flow field turn)
 			if !enemy.is_dead and !enemy.is_frozen:
-				var state_key: StringName = enemy.state_machine.current_state_key if enemy.state_machine != null else &""
-				if state_key == &"chase" or state_key == &"attack":
+				var state_key: StringName = enemy.state_machine.current_state_key if enemy.state_machine != null else &"" 
+				if (state_key == &"chase" or state_key == &"attack") and !enemy.drift_projectile:
 					rot = angle_to_car(pos)
 				elif enemy.facing_direction != Vector2.ZERO:
 					rot = direction_to_rotation(enemy.facing_direction.angle())

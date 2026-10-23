@@ -1,6 +1,6 @@
 extends Label
 
-var font_text : Array = FontManager.FONTS[FontManager.types.TEXT]
+var font_text : Array = FontManager.FONTS[FontManager.types.TEXT_24]
 
 func _ready() -> void:
 	add_theme_font_override("font",font_text[0])

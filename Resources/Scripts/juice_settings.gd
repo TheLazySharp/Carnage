@@ -45,6 +45,55 @@ class_name JuiceSettings
 ## Speed share kept when touching the ground (slide after landing)
 @export_range(0.0, 1.0) var air_landing_speed_keep : float = 0.5
 
+@export_group("PERFECT DRIFT HIT")
+## The rear of the car swipes an enemy while drifting and spinning fast: it becomes a projectile
+## that bursts on the first enemy or wall it meets
+@export var drift_hit_enabled : bool = true
+## Car speed / max speed needed
+@export_range(0.0, 1.0) var drift_hit_min_speed_ratio : float = 0.3
+## Car rotation speed needed at the contact (deg/s): the tail must really swipe
+@export var drift_hit_min_spin_deg : float = 220.0
+## Projectile speed (px/s)
+@export var drift_hit_throw_speed : float = 1000.0
+## Knockback friction multiplier while flying (low = flies far)
+@export_range(0.0, 1.0) var drift_hit_friction_ratio : float = 0.3
+## Below this speed the projectile bursts on its own (out of steam)
+@export var drift_hit_end_speed : float = 150.0
+## Burst damages = car damages x this
+@export var drift_hit_damage_multiplier : float = 3.0
+## Enemies hurt by the burst, around the impact point (px)
+@export var drift_hit_burst_radius : float = 40.0
+@export var drift_hit_burst_knockback : float = 300.0
+## Feedback on the hit
+@export var drift_hit_stop_duration : float = 0.4
+@export var drift_hit_shake : float = 10.0
+## Shake on the hit itself (drift_hit_shake is the one of the burst)
+@export var drift_hit_launch_shake : float = 20.0
+## A perfect drift hit during a maneuver makes it count as amplified for the combo (like a dash)
+@export var drift_hit_counts_for_combo : bool = true
+## ...when it happened at most this many seconds before the maneuver ends
+@export var drift_hit_combo_window : float = 1.5
+## Camera on the hit: quick zoom in during the freeze, then back out while the enemy flies
+## Extra zoom at the peak (0.35 = +35 %, 0 = off)
+@export var drift_hit_zoom : float = 0.8
+## Real seconds (the hit stop does not slow them down)
+@export var drift_hit_zoom_in_time : float = 0.1
+@export var drift_hit_zoom_out_time : float = 0.3
+## Share of the way the view moves toward the impact point (0 = stays on the car)
+@export_range(0.0, 1.0) var drift_hit_focus : float = 0.4
+## Thrown enemy facing: true = back first (it looks at the car that hit it), false = face first
+@export var drift_hit_face_backward : bool = true
+
+## Particle scenes made by the graphic artist (null = no effect)
+## Impact: blood shots (BloodShotPool) fanned along the tail swipe
+@export var drift_hit_impact_vfx_enabled : bool = true
+@export var drift_hit_blood_shots : int = 6
+## Total fan angle of the shots (deg)
+@export var drift_hit_blood_spread_deg : float = 40.0
+## Trail: particles following the thrown enemy (Local Coords off, not one-shot)
+@export var drift_hit_trail_enabled : bool = true
+@export var drift_hit_trail_vfx : PackedScene
+
 @export_group("HIT PAUSE (victim only)")
 ## The hit enemy freezes in white flash before being thrown. Local: the rest of the game runs
 @export var victim_pause_enabled : bool = true
@@ -85,3 +134,28 @@ class_name JuiceSettings
 @export_range(0.0, 1.0) var car_speed_loss_per_hit : float = 0.03
 ## Cap of the speed share lost in a single physics frame, whatever the number of hits
 @export_range(0.0, 1.0) var car_max_speed_loss_per_frame : float = 0.08
+
+@export_group("CAR -> ENEMY FEEDBACK")
+## Standard hit: shake scaled by the car speed
+@export var car_hit_shake : float = 10.0
+@export var car_hit_shake_time : float = 0.2
+## Enemy thrown over the car: stronger shake
+@export var air_throw_shake : float = 12.0
+@export var air_throw_shake_time : float = 0.25
+## Ploughing into a horde: one sound per type and one shake at most every N seconds (real time)
+@export var car_hit_sfx_min_interval : float = 0.15
+@export var car_hit_shake_min_interval : float = 0.1
+
+@export_group("MANEUVER SUCCESS")
+## Short freeze + camera zoom when a maneuver is performed
+@export var maneuver_juice_enabled : bool = true
+@export var maneuver_stop_duration : float = 0.0 #default = 0.25
+## Extra zoom at the peak (0.15 = +15 %), real seconds for the timings
+@export var maneuver_zoom : float = 0.0 #default = 0.4
+@export var maneuver_zoom_in_time : float = 0.0 #default = 0.05
+@export var maneuver_zoom_out_time : float = 0.0 #default = 0.3
+## Maneuvers without this effect (e.g. the frequent short drift)
+@export var maneuver_juice_excluded : Array[ManeuverManager.Type] = []
+## Maneuver name: pops in big, then bounces back to its size (real time: plays during the freeze)
+@export var maneuver_name_pop_scale : float = 2
+@export var maneuver_name_pop_time : float = 0.

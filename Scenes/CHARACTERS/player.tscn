@@ -8,18 +8,29 @@
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
 [ext_resource type="Texture2D" uid="uid://cdpnf2ok8xnsx" path="res://Assets/VFX/Smoke_v8_Fade_Out.png" id="4_nbj0p"]
 [ext_resource type="Texture2D" uid="uid://b26maobbinw0y" path="res://Assets/VFX/Smoke_v8_Idle.png" id="5_qjiw1"]
+[ext_resource type="PackedScene" uid="uid://cnottdkm4adhv" path="res://Scenes/VFX/smoke_particles01.tscn" id="6_1ihg5"]
 [ext_resource type="Texture2D" uid="uid://rnoitvnqcl3t" path="res://Assets/VFX/EXPLO-sheet.png" id="6_m5ekh"]
 [ext_resource type="Script" uid="uid://df8dx67ykj2r3" path="res://Scripts/CHARACTERS/PLAYER/car_collect_zone.gd" id="7_in73v"]
 [ext_resource type="Texture2D" uid="uid://q1vqg1yau86s" path="res://Assets/UI/arrow_moving_sheet.png" id="7_ly7qr"]
-[ext_resource type="Script" uid="uid://dlf5xknkxwusr" path="res://Scripts/UI/garage_arrow.gd" id="8_4uqhq"]
 [ext_resource type="AudioStream" uid="uid://bxtjtt4dfuh0d" path="res://Assets/Audio/SFX/Car/car impact.mp3" id="8_y3qw6"]
 [ext_resource type="AudioStream" uid="uid://dekv4gi35dgxy" path="res://Assets/Audio/SFX/Car/car impact2.mp3" id="9_qdvgx"]
 [ext_resource type="AudioStream" uid="uid://drsh8wc3r0lrn" path="res://Assets/Audio/SFX/Car/car_skids_loop.mp3" id="9_qjiw1"]
 [ext_resource type="AudioStream" uid="uid://cjrjqee5gnw0i" path="res://Assets/Audio/SFX/Car/car impact3.mp3" id="10_y3qw6"]
+[ext_resource type="AudioStream" uid="uid://srrrrde7rko6" path="res://Assets/Audio/SFX/Punches/punch_1.mp3" id="11_j1h5o"]
+[ext_resource type="AudioStream" uid="uid://bs5tthsudx3in" path="res://Assets/Audio/SFX/Punches/punch_2.mp3" id="12_ce4r8"]
 [ext_resource type="AudioStream" uid="uid://dphqrbyjduulq" path="res://Assets/Audio/SFX/Car/car-engine-starting.mp3" id="12_s25yl"]
+[ext_resource type="AudioStream" uid="uid://qhbmumufawim" path="res://Assets/Audio/SFX/Punches/punch_3.mp3" id="13_2nu42"]
 [ext_resource type="AudioStream" uid="uid://btw3ucq0agu40" path="res://Assets/Audio/SFX/Car/car crash.mp3" id="13_in73v"]
+[ext_resource type="AudioStream" uid="uid://c1h058l6wcha2" path="res://Assets/Audio/SFX/Punches/punch_clean_1.mp3" id="14_415me"]
 [ext_resource type="Script" uid="uid://b1scnpur1dpt5" path="res://Scripts/CHARACTERS/PLAYER/engine_audio_manager.gd" id="14_iish4"]
+[ext_resource type="AudioStream" uid="uid://d32a414bccx67" path="res://Assets/Audio/SFX/Punches/blood_shot_1.mp3" id="14_nw3je"]
+[ext_resource type="AudioStream" uid="uid://7v4dympd6gdx" path="res://Assets/Audio/SFX/Punches/blood_shot_3.mp3" id="16_1mhlb"]
+[ext_resource type="AudioStream" uid="uid://cas3id7ku45xw" path="res://Assets/Audio/SFX/Punches/punch_clean_4.mp3" id="17_qbsq1"]
 [ext_resource type="Shader" uid="uid://d1quj0fpa74xf" path="res://Shaders/flash.gdshader" id="17_s25yl"]
+[ext_resource type="AudioStream" uid="uid://cakx1tilaui2j" path="res://Assets/Audio/SFX/Punches/punch_thrown_1.mp3" id="18_524rt"]
+[ext_resource type="AudioStream" uid="uid://dxu3hgtossq5l" path="res://Assets/Audio/SFX/Punches/punch_thrown_2.mp3" id="19_4ag0g"]
+[ext_resource type="AudioStream" uid="uid://mmnsosc434q0" path="res://Assets/Audio/SFX/Punches/punch_thrown_3.mp3" id="20_2fauw"]
+[ext_resource type="AudioStream" uid="uid://xla28s85el4h" path="res://Assets/Audio/SFX/Punches/punch_thrown_4.mp3" id="21_0hict"]
 [ext_resource type="Script" uid="uid://cgiigywajssx1" path="res://Scripts/CHARACTERS/PLAYER/car_beacon.gd" id="21_3arfo"]
 [ext_resource type="AudioStream" uid="uid://dxkrhhd1y7ehy" path="res://Assets/Audio/SFX/Car/Beeps/beep_far.mp3" id="22_s25yl"]
 [ext_resource type="AudioStream" uid="uid://bj3qouo8llu14" path="res://Assets/Audio/SFX/Car/Beeps/beep_close.mp3" id="23_vd0i7"]
@@ -33,12 +44,239 @@
 [ext_resource type="Script" uid="uid://dmijtv1xxo7h" path="res://Scripts/CHARACTERS/PLAYER/ultimate_manager.gd" id="29_1ihg5"]
 [ext_resource type="Script" uid="uid://u50nem48pd8" path="res://Scripts/CHARACTERS/PLAYER/sprite_fx_manager.gd" id="29_5bcg3"]
 [ext_resource type="Shader" uid="uid://d3cku4r77mwvd" path="res://Shaders/neon_underglow.gdshader" id="30_i8f1n"]
+[ext_resource type="Script" uid="uid://2htpyvkt4dyl" path="res://Scripts/VFX/rear_lights.gd" id="30_x1ujy"]
 [ext_resource type="Script" uid="uid://gxipkapx4o1t" path="res://Scripts/CHARACTERS/PLAYER/distance_tracker.gd" id="32_i8f1n"]
 [ext_resource type="Script" uid="uid://dve7euf78wc0h" path="res://Scripts/CHARACTERS/PLAYER/combo_manager.gd" id="34_mm77v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 radius = 19.0
 height = 74.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jhd0"]
+radius = 35.0
+height = 122.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qdvgx"]
+streams_count = 3
+stream_0/stream = ExtResource("8_y3qw6")
+stream_1/stream = ExtResource("9_qdvgx")
+stream_2/stream = ExtResource("10_y3qw6")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dfktb"]
+random_pitch = 1.0656005
+random_volume_offset_db = 2.0
+streams_count = 3
+stream_0/stream = ExtResource("11_j1h5o")
+stream_1/stream = ExtResource("12_ce4r8")
+stream_2/stream = ExtResource("13_2nu42")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_42lo8"]
+random_pitch = 1.0594631
+random_volume_offset_db = 2.0
+streams_count = 4
+stream_0/stream = ExtResource("14_nw3je")
+stream_1/stream = ExtResource("16_1mhlb")
+stream_2/stream = ExtResource("14_415me")
+stream_3/stream = ExtResource("17_qbsq1")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7e7he"]
+random_pitch = 1.0594631
+random_volume_offset_db = 2.0
+streams_count = 4
+stream_0/stream = ExtResource("18_524rt")
+stream_1/stream = ExtResource("19_4ag0g")
+stream_2/stream = ExtResource("20_2fauw")
+stream_3/stream = ExtResource("21_0hict")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4qls"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ly7qr"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uqhq"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gswtl"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0c68"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbj0p"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjiw1"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wjan"]
+atlas = ExtResource("6_m5ekh")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpuix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4qls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ly7qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uqhq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gswtl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0c68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbj0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjiw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wjan")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": 0,
+"name": &"Explosion",
+"speed": 7.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_3arfo"]
+offsets = PackedFloat32Array(0, 0.6262626, 1)
+colors = PackedColorArray(0.78072965, 0, 0.008172217, 1, 1, 0.47843137, 0.17254902, 1, 1, 1, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpuix"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyq23"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3qw6"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdvgx"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iish4"]
+atlas = ExtResource("7_ly7qr")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_in73v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpuix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyq23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3qw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdvgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iish4")
+}],
+"loop": 1,
+"name": &"moving",
+"speed": 8.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd0i7"]
+resource_local_to_scene = true
+shader = ExtResource("17_s25yl")
+shader_parameter/active = false
+shader_parameter/blood_tint = Color(0.4618621, 8.001737e-07, 1.4439226e-07, 1)
+shader_parameter/blood_amount = 0.0
+shader_parameter/shade_min = 0.35
+shader_parameter/shade_max = 1.2
+shader_parameter/glow_energy = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lx7x"]
+shader = ExtResource("30_i8f1n")
+shader_parameter/falloff = 1.00000002375
+
+[sub_resource type="Animation" id="Animation_3arfo"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CarSprite:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CarSprite:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_s25yl"]
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CarSprite:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(1, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0, 0, 20, 0, 0, 0, 0, 1, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.1, 0.2)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CarSprite:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vd0i7"]
+_data = {
+&"RESET": SubResource("Animation_3arfo"),
+&"flash": SubResource("Animation_s25yl")
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_in73v"]
 atlas = ExtResource("3_s0c68")
@@ -243,213 +481,25 @@ animations = [{
 "speed": 16.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_s25yl"]
-offsets = PackedFloat32Array(0, 0.34343433, 0.46464646)
-colors = PackedColorArray(0, 0, 0, 1, 0.16835018, 0.16835018, 0.16835018, 1, 1, 1, 1, 1)
+[sub_resource type="Gradient" id="Gradient_x1ujy"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3jhd0"]
-radius = 35.0
-height = 122.0
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lruus"]
+gradient = SubResource("Gradient_x1ujy")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(1, 0.5)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qdvgx"]
-streams_count = 3
-stream_0/stream = ExtResource("8_y3qw6")
-stream_1/stream = ExtResource("9_qdvgx")
-stream_2/stream = ExtResource("10_y3qw6")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x1ujy"]
+gradient = SubResource("Gradient_x1ujy")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(1, 0.5)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o4qls"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(0, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ly7qr"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(50, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4uqhq"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(100, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gswtl"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(150, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s0c68"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(200, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nbj0p"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(250, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qjiw1"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(300, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7wjan"]
-atlas = ExtResource("6_m5ekh")
-region = Rect2(350, 0, 50, 50)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_tpuix"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o4qls")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ly7qr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4uqhq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gswtl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s0c68")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nbj0p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qjiw1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7wjan")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": 0,
-"name": &"Explosion",
-"speed": 7.0
-}]
-
-[sub_resource type="Gradient" id="Gradient_3arfo"]
-offsets = PackedFloat32Array(0, 0.6262626, 1)
-colors = PackedColorArray(0.78072965, 0, 0.008172217, 1, 1, 0.47843137, 0.17254902, 1, 1, 1, 0, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tpuix"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(0, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pyq23"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(32, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y3qw6"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(64, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdvgx"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(96, 0, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iish4"]
-atlas = ExtResource("7_ly7qr")
-region = Rect2(128, 0, 32, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_in73v"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tpuix")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pyq23")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y3qw6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qdvgx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iish4")
-}],
-"loop": 1,
-"name": &"moving",
-"speed": 8.0
-}]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd0i7"]
-resource_local_to_scene = true
-shader = ExtResource("17_s25yl")
-shader_parameter/active = false
-shader_parameter/blood_tint = Color(0.4618621, 8.001737e-07, 1.4439226e-07, 1)
-shader_parameter/blood_amount = 0.0
-shader_parameter/shade_min = 0.35
-shader_parameter/shade_max = 1.2
-shader_parameter/glow_energy = 30.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lx7x"]
-shader = ExtResource("30_i8f1n")
-shader_parameter/falloff = 1.00000002375
-
-[sub_resource type="Animation" id="Animation_3arfo"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../CarSprite:self_modulate:a")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../CarSprite:material:shader_parameter/active")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_s25yl"]
-resource_name = "flash"
-length = 0.2
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../CarSprite:self_modulate:a")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(1, 0, 0),
-"points": PackedFloat32Array(1, 0, 0, 0, 0, 20, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.1, 0.2)
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../CarSprite:material:shader_parameter/active")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vd0i7"]
-_data = {
-&"RESET": SubResource("Animation_3arfo"),
-&"flash": SubResource("Animation_s25yl")
-}
-
-[node name="Car" type="CharacterBody2D" unique_id=1977967618 groups=["player"]]
+[node name="Car" type="CharacterBody2D" unique_id=1977967618 node_paths=PackedStringArray("rear_left", "rear_right", "rear_left_burn_anim", "rear_right_burn_anim", "drivin_smoke_r_2", "drivin_smoke_l_2") groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
-z_index = 11
 z_as_relative = false
 collision_mask = 393754
 motion_mode = 1
@@ -458,6 +508,12 @@ platform_on_leave = 2
 platform_floor_layers = 0
 platform_wall_layers = 8
 script = ExtResource("1_rsha1")
+rear_left = NodePath("CarSprite/RearLeft")
+rear_right = NodePath("CarSprite/RearRight")
+rear_left_burn_anim = NodePath("CarSprite/RearLeft/RearLeftBurnAnim")
+rear_right_burn_anim = NodePath("CarSprite/RearRight/RearRightBurnAnim")
+drivin_smoke_r_2 = NodePath("CarSprite/TireRight/SmokeParticles01")
+drivin_smoke_l_2 = NodePath("CarSprite/TireLeft/SmokeParticles01")
 debug_car_data = ExtResource("2_73b8b")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1929464131 groups=["player"]]
@@ -466,93 +522,6 @@ z_as_relative = false
 position = Vector2(-21, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ly7qr")
-
-[node name="RearLeft" type="Marker2D" parent="." unique_id=269822107]
-position = Vector2(-51, -11)
-
-[node name="RearLeftBurnAnim" type="AnimatedSprite2D" parent="RearLeft" unique_id=584128568]
-visible = false
-position = Vector2(-13, 2)
-rotation = -1.5707964
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_k282b")
-animation = &"fadeOut"
-
-[node name="DrivinSmokeL2" type="CPUParticles2D" parent="RearLeft" unique_id=262545815]
-position = Vector2(-2.2109375, -0.015625)
-emitting = false
-amount = 20
-lifetime = 0.1
-one_shot = true
-speed_scale = 0.4
-direction = Vector2(-1, 0)
-spread = 24.64
-gravity = Vector2(0, 0)
-initial_velocity_min = 51.43
-initial_velocity_max = 148.57
-scale_amount_min = 4.0
-scale_amount_max = 4.0
-color_ramp = SubResource("Gradient_s25yl")
-
-[node name="RearLeftLight" type="ColorRect" parent="RearLeft" unique_id=917175822]
-z_index = 2
-offset_right = 1.0
-offset_bottom = 2.0
-color = Color(3, 0.1, 0.1, 0.9)
-
-[node name="RearLeftLight2" type="ColorRect" parent="RearLeft" unique_id=1379393109]
-visible = false
-z_index = 2
-offset_top = 4.5
-offset_right = 1.5
-offset_bottom = 7.5
-offset_transform_enabled = true
-offset_transform_position = Vector2(0, -0.5)
-color = Color(3, 0.1, 0.1, 0.9)
-
-[node name="RearRight" type="Marker2D" parent="." unique_id=278920196]
-position = Vector2(-51.007813, 8.9921875)
-
-[node name="RearRightBurnAnim" type="AnimatedSprite2D" parent="RearRight" unique_id=438628624]
-visible = false
-position = Vector2(-12.999994, 0)
-rotation = -1.5707964
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_k282b")
-animation = &"fadeIn"
-flip_h = true
-
-[node name="DrivinSmokeR2" type="CPUParticles2D" parent="RearRight" unique_id=343121497]
-position = Vector2(-5, 0)
-emitting = false
-amount = 20
-lifetime = 0.1
-one_shot = true
-speed_scale = 0.4
-direction = Vector2(-1, 0)
-spread = 24.64
-gravity = Vector2(0, 0)
-initial_velocity_min = 51.43
-initial_velocity_max = 148.57
-scale_amount_min = 4.0
-scale_amount_max = 4.0
-color_ramp = SubResource("Gradient_s25yl")
-
-[node name="RearRightLight" type="ColorRect" parent="RearRight" unique_id=519623567]
-z_index = 2
-offset_right = 1.0
-offset_bottom = 2.0
-color = Color(3, 0.1, 0.1, 0.9)
-
-[node name="RearRightLight2" type="ColorRect" parent="RearRight" unique_id=107812700]
-visible = false
-z_index = 2
-offset_top = -4.5
-offset_right = 1.5
-offset_bottom = -1.5
-offset_transform_enabled = true
-offset_transform_position = Vector2(0, -0.5)
-color = Color(3, 0.1, 0.1, 0.9)
 
 [node name="CollectZone" type="Area2D" parent="." unique_id=360244839 groups=["player"]]
 visible = false
@@ -611,6 +580,21 @@ bus = &"SFX"
 [node name="Engine" type="Node2D" parent="Audio" unique_id=328896966]
 script = ExtResource("14_iish4")
 
+[node name="DriftHitSfx" type="AudioStreamPlayer" parent="Audio" unique_id=1783184024]
+stream = SubResource("AudioStreamRandomizer_dfktb")
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="CarHitSfx" type="AudioStreamPlayer" parent="Audio" unique_id=2081398534]
+stream = SubResource("AudioStreamRandomizer_42lo8")
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="AirThrowSfx" type="AudioStreamPlayer" parent="Audio" unique_id=994301275]
+stream = SubResource("AudioStreamRandomizer_7e7he")
+max_polyphony = 3
+bus = &"SFX"
+
 [node name="VFX" type="Node2D" parent="." unique_id=1012362398]
 
 [node name="CarExplosion" type="AnimatedSprite2D" parent="VFX" unique_id=985797068]
@@ -654,12 +638,12 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_in73v")
 animation = &"moving"
 frame_progress = 0.8817457
-script = ExtResource("8_4uqhq")
 
 [node name="GhostTimer" type="Timer" parent="." unique_id=1431349754]
 wait_time = 0.15
 
 [node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=707894945]
+current = true
 
 [node name="Beacon" type="Node2D" parent="." unique_id=1728405434]
 script = ExtResource("21_3arfo")
@@ -675,11 +659,15 @@ bus = &"Beeps"
 [node name="BeepTimer" type="Timer" parent="Beacon" unique_id=2026395165]
 autostart = true
 
-[node name="DriftManager" type="Node2D" parent="." unique_id=445293594]
+[node name="DriftManager" type="Node2D" parent="." unique_id=445293594 node_paths=PackedStringArray("smoke_left", "smoke_right")]
 script = ExtResource("24_s25yl")
 enable_auto_slide = false
 release_grip = 0.02
 exit_recovery_speed = 1.0
+slip_reference_deg = 30.0
+smoke_left = NodePath("../CarSprite/TireLeft/SmokeParticles01")
+smoke_right = NodePath("../CarSprite/TireRight/SmokeParticles01")
+smoke_max_scale_ratio = 2.5
 
 [node name="DriftSfx" type="AudioStreamPlayer2D" parent="DriftManager" unique_id=225319736]
 stream = ExtResource("9_qjiw1")
@@ -699,8 +687,10 @@ neons_activated = true
 [node name="BurnoutManager" type="Node2D" parent="." unique_id=479621051]
 script = ExtResource("25_nbmfc")
 
-[node name="ManeuverManager" type="Node2D" parent="." unique_id=490171926]
+[node name="ManeuverManager" type="Node2D" parent="." unique_id=490171926 node_paths=PackedStringArray("rear_left", "rear_right")]
 script = ExtResource("27_sifl5")
+rear_left = NodePath("../CarSprite/RearLeft")
+rear_right = NodePath("../CarSprite/RearRight")
 brake_action = &"back"
 short_drift_max_duration = 0.6
 short_drift_min_speed = 120.0
@@ -727,6 +717,7 @@ offset = Vector2(0, 20)
 [node name="Neons" type="Node2D" parent="CarSprite" unique_id=1752156398]
 script = ExtResource("3_2lx7x")
 glow_intensity = 3.5
+idle_visible = false
 beacon_intensity = 3.0
 
 [node name="NeonFront" type="ColorRect" parent="CarSprite/Neons" unique_id=2064742782]
@@ -764,6 +755,91 @@ offset_bottom = 42.112133
 [node name="Flash" type="AnimationPlayer" parent="CarSprite" unique_id=573113732]
 root_node = NodePath("../../VFX")
 libraries/ = SubResource("AnimationLibrary_vd0i7")
+
+[node name="RearLeft" type="Marker2D" parent="CarSprite" unique_id=269822107]
+position = Vector2(-10.999998, 51)
+rotation = -1.5707964
+
+[node name="RearLeftBurnAnim" type="AnimatedSprite2D" parent="CarSprite/RearLeft" unique_id=584128568]
+visible = false
+position = Vector2(-13, 2)
+rotation = -1.5707964
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_k282b")
+animation = &"fadeOut"
+
+[node name="RearLeftLight" type="ColorRect" parent="CarSprite/RearLeft" unique_id=917175822]
+visible = false
+z_index = 2
+offset_right = 1.0
+offset_bottom = 2.0
+color = Color(2.9996202, 0.11019871, 0.11019871, 1)
+
+[node name="RearLeftLight2" type="ColorRect" parent="CarSprite/RearLeft" unique_id=1379393109]
+visible = false
+z_index = 2
+offset_top = 4.5
+offset_right = 1.5
+offset_bottom = 7.5
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -0.5)
+color = Color(3, 0.1, 0.1, 0.9)
+
+[node name="RearRight" type="Marker2D" parent="CarSprite" unique_id=278920196]
+position = Vector2(8.992189, 51.007813)
+rotation = -1.5707964
+
+[node name="RearRightBurnAnim" type="AnimatedSprite2D" parent="CarSprite/RearRight" unique_id=438628624]
+visible = false
+position = Vector2(-12.999994, 0)
+rotation = -1.5707964
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_k282b")
+animation = &"fadeIn"
+flip_h = true
+
+[node name="RearRightLight" type="ColorRect" parent="CarSprite/RearRight" unique_id=519623567]
+visible = false
+z_index = 2
+offset_right = 1.0
+offset_bottom = 2.0
+color = Color(2.9996202, 0.11019871, 0.11019871, 1)
+
+[node name="RearRightLight2" type="ColorRect" parent="CarSprite/RearRight" unique_id=107812700]
+visible = false
+z_index = 2
+offset_top = -4.5
+offset_right = 1.5
+offset_bottom = -1.5
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -0.5)
+color = Color(3, 0.1, 0.1, 0.9)
+
+[node name="TireLeft" type="Marker2D" parent="CarSprite" unique_id=736749020]
+position = Vector2(-14.868742, 41.02446)
+rotation = -1.5707964
+
+[node name="SmokeParticles01" parent="CarSprite/TireLeft" unique_id=18006183 instance=ExtResource("6_1ihg5")]
+
+[node name="TireRight" type="Marker2D" parent="CarSprite" unique_id=587410193]
+position = Vector2(14.790909, 40.92975)
+rotation = -1.5707964
+
+[node name="SmokeParticles01" parent="CarSprite/TireRight" unique_id=326486524 instance=ExtResource("6_1ihg5")]
+
+[node name="BrakeLights" type="Node2D" parent="CarSprite" unique_id=1863138472]
+script = ExtResource("30_x1ujy")
+idle_intensity = 0.05
+
+[node name="HaloL" type="Sprite2D" parent="CarSprite/BrakeLights" unique_id=1863766041]
+position = Vector2(-8.475281, 52.503265)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_lruus")
+
+[node name="HaloR" type="Sprite2D" parent="CarSprite/BrakeLights" unique_id=312094089]
+position = Vector2(8.513855, 52.496094)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("GradientTexture2D_x1ujy")
 
 [node name="SpriteFX" type="Node2D" parent="." unique_id=124961842]
 script = ExtResource("29_5bcg3")

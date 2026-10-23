@@ -6,7 +6,7 @@
 [ext_resource type="ButtonGroup" uid="uid://d4grxpy2ntjw5" path="res://Resources/ButtonGroups/portrait_button_group.tres" id="3_yfpg6"]
 [ext_resource type="Script" uid="uid://cb7051ydya2sc" path="res://Scripts/UI/survivor_id.gd" id="4_gha5h"]
 [ext_resource type="Texture2D" uid="uid://cgd80u4apy6kl" path="res://Assets/PNJs/boris.png" id="5_d0hfw"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="6_ekey8"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="6_ekey8"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="6_nea1d"]
 [ext_resource type="Script" uid="uid://nfmh1lmcmwxe" path="res://Scripts/UI/survivor_bio.gd" id="6_uhxue"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="7_ekey8"]

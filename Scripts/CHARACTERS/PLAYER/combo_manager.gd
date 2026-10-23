@@ -2,6 +2,7 @@ extends Node
 class_name ComboManager
 ## Combo multiplier. Its window, step, decay and max are car statistics (CarData),
 ## so level-ups and charms can modify them
+@onready var car: CharacterBody2D = $".."
 
 @export var streak_acceleration: float = 0.5        # each chained maneuver raises the next gain by this share
 @export var amplified_gain_multiplier: float = 2.0  # gain multiplier for a maneuver completed while dashing
@@ -9,8 +10,8 @@ class_name ComboManager
 @export_range(0.0, 0.5) var window_shrink_per_streak: float = 0.1  # each chained maneuver shortens the next window by this share
 @export var min_window: float = 2.0                                # the window never gets shorter than this (seconds)
 @export var decay_height_scaling: float = 0.0                      # 0 = constant decay; 0.5 = decays 3x faster at x5 than at x1
-
-@onready var car: CharacterBody2D = $".."
+const JUICE = preload("uid://dbohpdgym7v6q")
+var last_drift_hit_time: float = -1000.0  # real time of the last perfect drift hit not used yet
 
 var combo_multiplier: float = 1.0
 var streak: int = 0                              # distinct maneuvers chained in the current window
@@ -37,6 +38,7 @@ func _ready() -> void:
 		combo_gauge.step = 0.0
 		combo_gauge.show_percentage = false
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
+	SignalManager.perfect_drift_hit.connect(_on_perfect_drift_hit)
 	SignalManager.wall_collision.connect(_on_wall_collision)
 	SignalManager.game_paused.connect(_on_game_paused)
 	# Only runs while the window is open or the multiplier is decaying
@@ -65,15 +67,20 @@ func _physics_process(delta: float) -> void:
 	_update_hud()
 
 
-func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: float, _drift_level: int, is_amplified: bool, _attack_angle: float) -> void:
+func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: float, drift_level: int, is_amplified: bool, _attack_angle: float) -> void:
 	# The loop (car ultimate) benefits from the combo but does not feed it
 	if maneuver_type == ManeuverManager.Type.LOOP:
+		SignalManager.maneuver_rated.emit(maneuver_type, drift_level, is_amplified, false)
 		return
 	var car_data: CarData = car.player
-	if maneuver_type != last_maneuver or is_amplified:
+	# Dash or perfect drift hit during the maneuver: amplified for the combo
+	var drift_hit_used: bool = _consume_drift_hit()
+	var boosted: bool = is_amplified or drift_hit_used
+	SignalManager.maneuver_rated.emit(maneuver_type, drift_level, is_amplified, drift_hit_used)
+	if maneuver_type != last_maneuver or boosted:
 		streak += 1
 		var gain: float = car_data.combo_step.get_value() * (1.0 + (streak - 1) * streak_acceleration)
-		if is_amplified:
+		if boosted:
 			gain *= amplified_gain_multiplier
 		combo_multiplier = minf(combo_multiplier + gain, car_data.combo_max.get_value())
 		last_maneuver = maneuver_type
@@ -116,3 +123,16 @@ func _update_hud() -> void:
 		var window_open: bool = window_left > 0.0
 		combo_gauge.visible = window_open
 		combo_gauge.value = window_left / window_duration if window_open else 0.0
+
+func _on_perfect_drift_hit(_hit_position: Vector2) -> void:
+	last_drift_hit_time = Time.get_ticks_msec() / 1000.0
+
+
+## True when a perfect drift hit landed during the maneuver that just ended. Used once
+func _consume_drift_hit() -> bool:
+	if !JUICE.drift_hit_counts_for_combo:
+		return false
+	if Time.get_ticks_msec() / 1000.0 - last_drift_hit_time > JUICE.drift_hit_combo_window:
+		return false
+	last_drift_hit_time = -1000.0
+	return true

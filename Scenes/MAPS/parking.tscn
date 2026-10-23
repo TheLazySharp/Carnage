@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://y0gpp1mfd5sx" path="res://Scenes/MAPS/lands.tscn" id="15_c3hir"]
 [ext_resource type="Script" uid="uid://u6ax1pacfg6e" path="res://Scripts/UI/maneuver_label.gd" id="15_w5ff8"]
 [ext_resource type="Script" uid="uid://c7sdgrppogbwa" path="res://Scripts/ENEMIES/horde_outliner.gd" id="16_mggjl"]
+[ext_resource type="Script" uid="uid://bglt4nv3oey0d" path="res://Scripts/UI/exit_arrow.gd" id="16_ocsld"]
+[ext_resource type="Texture2D" uid="uid://q1vqg1yau86s" path="res://Assets/UI/arrow_moving_sheet.png" id="17_5mroa"]
 [ext_resource type="Shader" uid="uid://bb440f6jgtoel" path="res://Shaders/mass_holes.gdshader" id="17_w5ff8"]
 [ext_resource type="Shader" uid="uid://bnhputjhskyuh" path="res://Shaders/outliner.gdshader" id="18_32lpc"]
 [ext_resource type="Script" uid="uid://b7t5qqvxkabj3" path="res://Scripts/ITEMS/collectables_pool.gd" id="24_c3hir"]
@@ -118,6 +120,49 @@ _data = {
 &"RESET": SubResource("Animation_yxjhj"),
 &"blinking_red": SubResource("Animation_qe1gh")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1mdj"]
+atlas = ExtResource("17_5mroa")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snqyw"]
+atlas = ExtResource("17_5mroa")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnjs8"]
+atlas = ExtResource("17_5mroa")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb1ka"]
+atlas = ExtResource("17_5mroa")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cdqd"]
+atlas = ExtResource("17_5mroa")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42lo8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1mdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snqyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnjs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pb1ka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cdqd")
+}],
+"loop": 1,
+"name": &"moving",
+"speed": 10.0
+}]
 
 [node name="World" type="Node2D" unique_id=1548430314]
 script = ExtResource("1_7u5t2")
@@ -332,13 +377,21 @@ visible = false
 
 [node name="ManeuverLabel" type="Label" parent="CanvasLayer" unique_id=229804214]
 z_index = 10
-offset_left = 530.0
+offset_left = 959.0
 offset_top = 197.25616
-offset_right = 1277.0
-offset_bottom = 243.25616
-horizontal_alignment = 2
+offset_right = 1279.0
+offset_bottom = 247.25616
+horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("15_w5ff8")
+
+[node name="ExitArrow" type="Node2D" parent="CanvasLayer" unique_id=2062152623]
+script = ExtResource("16_ocsld")
+
+[node name="AnimatedArrow" type="AnimatedSprite2D" parent="CanvasLayer/ExitArrow" unique_id=970725355]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_42lo8")
+animation = &"moving"
 
 [node name="HordeOutline" type="Node2D" parent="." unique_id=200299998]
 z_index = 10
@@ -360,6 +413,7 @@ script = ExtResource("82_4v767")
 horde_outline = NodePath("../HordeOutline")
 
 [node name="Car" parent="." unique_id=2034565894 instance=ExtResource("73_o2skn")]
+z_index = 11
 position = Vector2(259, 996)
 
 [node name="Camera2D" type="Camera2D" parent="Car" unique_id=131930234]
@@ -376,7 +430,7 @@ zoom_max_out = 0.9
 [node name="Lands" parent="." unique_id=369331439 instance=ExtResource("15_c3hir")]
 
 [node name="Enemies" type="Node2D" parent="." unique_id=1932136132]
-z_index = 20
+z_index = 15
 z_as_relative = false
 
 [node name="Horde" type="Node2D" parent="." unique_id=992034029]
@@ -407,6 +461,7 @@ blood_scene = ExtResource("48_quewe")
 pool_size = 800
 
 [node name="BloodShotPool" type="Node2D" parent="VFX" unique_id=138263947]
+z_index = 15
 script = ExtResource("48_i5dpw")
 blood_shot_scene = ExtResource("49_i5dpw")
 
@@ -427,12 +482,11 @@ z_index = 10
 
 [node name="Horde" parent="Spawners" unique_id=898307467 instance=ExtResource("79_83n8t")]
 position = Vector2(1646.9214, 226.07727)
-nb_horde = 12
-max_enemy_count = 30
+nb_horde = 20
+max_enemy_count = 40
 horde_radius_px = 64.0
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("73_tk2je")]
-is_active = true
 
 [node name="Marker1" parent="Spawners/ColossArrival" index="0" unique_id=624590813]
 position = Vector2(20.901855, 172.28784)
@@ -459,6 +513,7 @@ position = Vector2(12.431885, 1852.4446)
 position = Vector2(18, 2141)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("74_ywo5e")]
+is_active = false
 is_infinite = false
 max_enemy_count = 400
 auto_spawn = true

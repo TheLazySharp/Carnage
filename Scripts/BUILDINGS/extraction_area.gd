@@ -7,7 +7,7 @@ extends Area2D
 
 @onready var zone: ColorRect = $"Warp Shape/ColorRect"
 @onready var warp_shape: CollisionShape2D = $"Warp Shape"
-
+var extracted : bool = false  # leaving and re-entering during the 2 s delay must not load twice
 
 func _ready() -> void:
 	SignalManager.map_generated.connect(_on_map_generated)
@@ -36,10 +36,15 @@ func _on_map_generated(data : MapData) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		#animation_player.play("closing")
-		await get_tree().create_timer(2).timeout
-		SignalManager.emit_signal("next_day")
-		if InventoryManager.has_reward:
-			SceneManager.load_level(SceneManager.SCENES.REWARDS)
-		else : SceneManager.load_level(SceneManager.SCENES.CAR_LEVELUP)
+	if extracted or !body.is_in_group("player"):
+		return
+	extracted = true
+	await get_tree().create_timer(2).timeout
+	# The tutorial handles its own exit (back to the menu)
+	if GameMaster.tutorial_active:
+		SignalManager.emit_signal("extraction_reached")
+		return
+	SignalManager.emit_signal("next_day")
+	if InventoryManager.has_reward:
+		SceneManager.load_level(SceneManager.SCENES.REWARDS)
+	else : SceneManager.load_level(SceneManager.SCENES.CAR_LEVELUP)

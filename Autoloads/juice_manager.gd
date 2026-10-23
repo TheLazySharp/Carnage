@@ -12,7 +12,7 @@ var time_scale_before_stop : float = 1.0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS  # the restore timer must run whatever happens
-
+	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 
 ## Called once per car -> enemy hit. Global hit-stop only on a strong hit
 ## that follows a calm moment: never repeated inside a horde.
@@ -44,3 +44,9 @@ func hit_stop(duration : float) -> void:
 	await get_tree().create_timer(duration, true, false, true).timeout
 	Engine.time_scale = time_scale_before_stop
 	hit_stop_active = false
+	
+
+func _on_maneuver_performed(maneuver_type : ManeuverManager.Type, _intensity : float, _drift_level : int, _is_amplified : bool, _attack_angle : float) -> void:
+	if !SETTINGS.maneuver_juice_enabled or SETTINGS.maneuver_juice_excluded.has(maneuver_type):
+		return
+	hit_stop(SETTINGS.maneuver_stop_duration)

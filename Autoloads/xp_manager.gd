@@ -32,13 +32,13 @@ enum XP_TYPES {
 }
 
 const XP_SPHERE_1 = preload("uid://b1rnp8w8r7smq")
-const XP_SPHERE_2 = preload("uid://fxr6ftyl6c2j")
-const XP_SPHERE_5 = preload("uid://bvo82cae7qnoy")
+#const XP_SPHERE_2 = preload("uid://fxr6ftyl6c2j")
+#const XP_SPHERE_5 = preload("uid://bvo82cae7qnoy")
 
 var xp_ressources : Dictionary  = {
 	XP_TYPES.XP_1 : XP_SPHERE_1,
-	XP_TYPES.XP_2 : XP_SPHERE_2,
-	XP_TYPES.XP_5 : XP_SPHERE_5
+	#XP_TYPES.XP_2 : XP_SPHERE_2,
+	#XP_TYPES.XP_5 : XP_SPHERE_5
 	}
 
 

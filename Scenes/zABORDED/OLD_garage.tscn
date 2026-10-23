@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="6_6lwu2"]
 [ext_resource type="Texture2D" uid="uid://cti4mltaqkgeo" path="res://Assets/UI/gas_reverse.png" id="6_518uu"]
 [ext_resource type="Texture2D" uid="uid://8bmhd5qrtwjb" path="res://Assets/Items/minus.png" id="7_6lwu2"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="7_61h7n"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="7_61h7n"]
 [ext_resource type="Texture2D" uid="uid://b0qia31ffr14m" path="res://Assets/Items/turbo.png" id="7_eb3v0"]
 [ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="8_3qt3b"]
 [ext_resource type="Script" uid="uid://cjses3u4dag08" path="res://Scripts/UI/garage_repair_button.gd" id="8_3thmm"]

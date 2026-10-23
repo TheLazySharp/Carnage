@@ -1,4 +1,5 @@
 extends Spawner
+class_name HordeSpawner
 ## Spawns nb_horde idle hordes at random, spaced positions on the generated map.
 ## Placement goes entirely through the Spawner base: build_grid() fills
 ## free_cells from MapData, spawn() picks a cell, and is_placement_valid()
@@ -27,7 +28,7 @@ var current_center : Vector2 = Vector2.ZERO
 var current_resource : EnemyData = null
 var current_horde : Array[Enemy] = []
 var current_leader : Enemy = null
-
+var spawned_count : int = 0
 @onready var horde_manager : HordeManager = get_node_or_null("/root/World/HordesManager")
 
 
@@ -66,7 +67,7 @@ func setup_trigger() -> void:
 	if free_cells.is_empty():
 		push_warning("[HordeSpawner] no free cell, nothing spawned")
 		return
-
+	spawned_count = 0
 	_horde_centers.clear()
 	_pick_centers()
 	for center : Vector2 in _horde_centers:
@@ -101,6 +102,7 @@ func on_spawned(instance : Node) -> void:
 	if horde_manager != null:
 		horde_manager.count_enemies(1)
 	current_horde.append(enemy)
+	spawned_count += 1
 	enemy.activate(enemy.global_position)
 
 

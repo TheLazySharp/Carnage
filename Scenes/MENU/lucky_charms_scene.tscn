@@ -9,7 +9,7 @@
 [ext_resource type="ButtonGroup" uid="uid://bdyk8h062kq3u" path="res://Resources/ButtonGroups/lucky_charms_current_buttons.tres" id="6_6jcl5"]
 [ext_resource type="Script" uid="uid://uk04t0pt2ylg" path="res://Scripts/UI/lucky_charms/holder_lucky_charms_slots.gd" id="6_xddph"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="7_0jka3"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text.gd" id="9_24kxp"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="9_24kxp"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="11_0jka3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3un3"]

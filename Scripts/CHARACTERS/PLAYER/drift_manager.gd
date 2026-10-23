@@ -37,6 +37,37 @@ extends Node2D
 ## ...and while the car still slides sideways faster than this (px/s)
 @export var recovery_min_lateral_speed : float = 40.0
 
+# ---------------- SLIP INTENSITY (smoke, squeal) ----------------
+@export_group("Slip intensity")
+## Slip angle giving full intensity (degrees)
+@export var slip_reference_deg : float = 45.0
+## How fast the intensity follows the slip angle (higher = snappier, lower = smoother)
+@export var slip_smoothing : float = 12.0
+## Squeal volume at zero slip, share of the full volume
+@export var squeal_min_volume_ratio : float = 0.5
+## Squeal pitch at zero slip and at full slip
+@export var squeal_pitch_min : float = 0.9
+@export var squeal_pitch_max : float = 1.15
+
+var slip_ratio : float = 0.0  # smoothed slip intensity, 0..1
+
+# ---------------- SKID SMOKE (follows the slip angle) ----------------
+@export_group("Skid smoke")
+@export var smoke_left : CPUParticles2D
+@export var smoke_right : CPUParticles2D
+@export var enable_skid_smoke : bool = true
+## Particle size at zero slip and at full slip, share of the emitter's own size
+@export var smoke_min_scale_ratio : float = 0.5
+@export var smoke_max_scale_ratio : float = 1.6
+## Smoke opacity at zero slip, share of the emitter's own opacity
+@export_range(0.0, 1.0) var smoke_min_alpha : float = 0.35
+
+# Rear wheel emitters, shared with the car's start puff: their base values are restored after a skid
+var skid_smokes : Array[CPUParticles2D] = []
+var smoke_base_scale_min : float = 1.0
+var smoke_base_scale_max : float = 1.0
+var smoke_base_alpha : float = 1.0
+var skid_smoke_active : bool = false
 
 # ---------------- DRIFT CHARGE (Mario Kart style mini-turbo) ----------------
 # Holding a drift charges tiers: rear trails change color and get thicker.
@@ -148,6 +179,17 @@ func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker
 	skid_lifetime = player.skid_lifetime
 	skid_fade_speed = player.skid_fade_speed
 
+	# Skid smoke: the emitters live under the rear wheel markers
+	skid_smokes.clear()
+	if smoke_left != null and smoke_right != null:
+		skid_smokes.append(smoke_left)
+		skid_smokes.append(smoke_right)
+		smoke_base_scale_min = smoke_left.scale_amount_min
+		smoke_base_scale_max = smoke_left.scale_amount_max
+		smoke_base_alpha = smoke_left.self_modulate.a
+	else:
+		push_warning("[DriftManager] skid smoke emitters not found under the rear wheels")
+
 	# Clean the legacy drift points DMG bonus a previous run may have left on the resource
 	player.dmg.remove_modifiers_from("drift manager bonus")
 
@@ -211,6 +253,15 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	
 	lateral_velocity = lateral_velocity.lerp(Vector2.ZERO, current_grip)
 	
+		# ----------------- SLIP INTENSITY (skid width, smoke) -----------------
+	var target_slip : float = 0.0
+	if p_velocity.length_squared() > 100.0:
+		target_slip = clampf(absf(p_velocity.angle_to(p_forward)) / deg_to_rad(slip_reference_deg), 0.0, 1.0)
+	elif drifting:
+		target_slip = 1.0  # spinning almost in place: full slip
+	slip_ratio = lerpf(slip_ratio, target_slip, minf(slip_smoothing * delta, 1.0))
+	
+	
 	# ----------------- SKIDS -----------------
 	# Drift released: the mini-turbo fires now, even if the skid goes on while the tires grip again
 	if was_drifting and !drifting:
@@ -236,10 +287,15 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 		var recovery_left : float = 1.0 - current_grip / (normal_grip * recovery_end_ratio)
 		drift_sfx.volume_db = drift_sfx_base_volume + linear_to_db(maxf(recovery_left, 0.05))
 	elif drifting:
-		drift_sfx.volume_db = drift_sfx_base_volume
+		# Sharper and louder as the car gets sideways
+		drift_sfx.volume_db = drift_sfx_base_volume + linear_to_db(lerpf(squeal_min_volume_ratio, 1.0, slip_ratio))
+		drift_sfx.pitch_scale = lerpf(squeal_pitch_min, squeal_pitch_max, slip_ratio)
 
 	if !skidding and skidding_last_frame:
 		end_skid()
+
+	# ----------------- SKID SMOKE -----------------
+	update_skid_smoke()
 
 	# ----------------- DRIFT CHARGE (mini-turbo) -----------------
 	if enable_drift_charge and drifting:
@@ -256,10 +312,10 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	# Haptics: the tires working (stronger with the slip angle), fading while they look for grip,
 	# then a thump when they bite again
 	if drifting:
-		var slip_ratio : float = 1.0  # spinning almost in place: full slip
+		var rumble_slip : float = 1.0  # spinning almost in place: full slip
 		if p_velocity.length() > 10.0:
-			slip_ratio = clampf(absf(p_velocity.angle_to(p_forward)) / (PI * 0.5), 0.0, 1.0)
-		Haptics.set_continuous(slip_ratio * drift_rumble_weak, slip_ratio * slip_ratio * drift_rumble_strong)
+			rumble_slip = clampf(absf(p_velocity.angle_to(p_forward)) / (PI * 0.5), 0.0, 1.0)
+		Haptics.set_continuous(rumble_slip * drift_rumble_weak, rumble_slip * rumble_slip * drift_rumble_strong)
 	elif recovering:
 		var recovery_left : float = exit_time_left / exit_recovery_duration
 		Haptics.set_continuous(recovery_left * drift_rumble_weak, 0.0)
@@ -289,6 +345,7 @@ func apply_charge_tier() -> void:
 func start_skid(is_slide : bool) -> void:
 	skid_is_slide = is_slide
 	drift_sfx.volume_db = drift_sfx_base_volume + (slide_volume_offset_db if is_slide else 0.0)
+	drift_sfx.pitch_scale = 1.0  # slides and new skids start from the neutral pitch
 	drift_sfx.play()
 
 	var left_pair : Array = create_skid_line(is_slide)
@@ -371,11 +428,10 @@ func create_trail_line() -> Line2D:
 	trail.width = 2
 	trail.default_color = charge_colors[0] if charge_colors.size() > 0 else Color(3.0, 0.1, 0.1, 0.9)
 	trail.antialiased = true
-	trail.z_index = 2
+	trail.z_index = -1
 	trail.begin_cap_mode = Line2D.LINE_CAP_ROUND
 	trail.end_cap_mode = Line2D.LINE_CAP_ROUND
 	return trail
-
 
 func update_skid_points() -> void:
 	var left_wheel : Vector2 = rear_left.global_position
@@ -522,6 +578,7 @@ func force_stop_skid() -> void:
 	exit_time_left = 0.0  # a wall kills the drift: no exit slide
 	was_recovering = false
 	Haptics.set_continuous(0.0, 0.0)
+	_stop_skid_smoke()
 
 	# Wall hit kills the mini-turbo charge: no boost on release
 	drift_charge = 0.0
@@ -562,3 +619,31 @@ func _ready_debug() -> void:
 	get_tree().current_scene.add_child.call_deferred(skid_parent)
 	SignalManager.game_paused.connect(_on_game_paused)
 	drift_sfx_base_volume = drift_sfx.volume_db
+
+## Smoothed slip intensity (0..1), for the smoke and other drift FX
+func get_slip_ratio() -> float:
+	return slip_ratio
+
+## Skid smoke while drifting, sliding or catching grip: bigger and denser as the car gets sideways
+func update_skid_smoke() -> void:
+	if skid_smokes.is_empty():
+		return
+	var skid_smoke : bool = enable_skid_smoke and (drifting or sliding or recovering)
+	if skid_smoke:
+		var scale_ratio : float = lerpf(smoke_min_scale_ratio, smoke_max_scale_ratio, slip_ratio)
+		var alpha : float = lerpf(smoke_min_alpha, 1.0, slip_ratio) * smoke_base_alpha
+		for smoke : CPUParticles2D in skid_smokes:
+			smoke.scale_amount_min = smoke_base_scale_min * scale_ratio
+			smoke.scale_amount_max = smoke_base_scale_max * scale_ratio
+			smoke.self_modulate.a = alpha
+			smoke.emitting = true
+	elif skid_smoke_active:
+		_stop_skid_smoke()
+	skid_smoke_active = skid_smoke
+
+
+## Stops emitting: the clouds already in the air keep drifting and fade out on their own
+func _stop_skid_smoke() -> void:
+	for smoke : CPUParticles2D in skid_smokes:
+		smoke.emitting = false
+	skid_smoke_active = false

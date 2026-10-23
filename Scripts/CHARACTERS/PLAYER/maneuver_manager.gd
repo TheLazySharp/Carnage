@@ -13,8 +13,8 @@ const MANEUVER_NAMES: PackedStringArray = [
 @onready var burnout_manager: BurnoutManager = $"../BurnoutManager"
 @onready var dash_manager: DashManager = $"../DashManager"
 @onready var drift_manager: Node2D = $"../DriftManager"
-@onready var rear_left: Marker2D = $"../RearLeft"
-@onready var rear_right: Marker2D = $"../RearRight"
+@export var rear_left: Marker2D
+@export var rear_right: Marker2D
 
 @export_group("Inputs")
 @export var drift_action: StringName = &"drift"

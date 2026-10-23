@@ -45,9 +45,25 @@ var zoom_punch : float = 0.0
 var was_skidding : bool = false
 
 
+# ---- PERFECT DRIFT HIT ZOOM (tuned in JuiceSettings) ----
+const JUICE = preload("uid://dbohpdgym7v6q")
+var smooth_zoom : float = 1.0
+var hit_zoom_start : float = -1000.0    # real time of the last perfect drift hit
+var hit_focus_point : Vector2 = Vector2.ZERO
+
+# Settings of the running hit zoom (perfect drift hit or maneuver)
+var hit_zoom_amount : float = 0.0
+var hit_zoom_focus : float = 0.0
+var hit_zoom_in : float = 0.05
+var hit_zoom_hold : float = 0.0
+var hit_zoom_out : float = 0.3
+
 func _ready() -> void:
 	zoom = Vector2(zoom_base, zoom_base)
 	target_zoom = zoom_base
+	smooth_zoom = zoom_base
+	SignalManager.perfect_drift_hit.connect(_on_perfect_drift_hit)
+	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.screen_shake_requested.connect(screen_shake)
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)
@@ -67,9 +83,9 @@ func _physics_process(delta : float) -> void:
 	else:
 		shake_offset = shake_offset.lerp(Vector2.ZERO, 10.5 * delta)
 
-	offset = _clamped_offset(lookahead_offset) + shake_offset
+	# Final zoom and offset are applied in _process (the hit zoom runs in real time)
 	zoom_punch = lerpf(zoom_punch, 0.0, 4.0 * delta)
-	zoom = zoom.lerp(Vector2.ONE * (target_zoom + zoom_punch), zoom_speed * delta)
+	smooth_zoom = lerpf(smooth_zoom, target_zoom + zoom_punch, zoom_speed * delta)
 	rotation = lerp_angle(rotation, deg_to_rad(target_roll), roll_speed * delta)
 
 	# ---- SUIVI VOITURE  ----
@@ -98,9 +114,67 @@ func _physics_process(delta : float) -> void:
 			zoom_punch = drift_punch_zoom
 		was_skidding = skidding
 
+## Final zoom and offset, every rendered frame: the hit zoom keeps moving during the hit stop,
+## when the physics barely ticks
+func _process(_delta : float) -> void:
+	var hit_amount : float = _get_hit_zoom_amount()
+	var focus_offset : Vector2 = Vector2.ZERO
+	if hit_amount > 0.0:
+		focus_offset = (hit_focus_point - global_position) * hit_zoom_focus * hit_amount
+	zoom = Vector2.ONE * smooth_zoom * (1.0 + hit_zoom_amount * hit_amount)
+	offset = _clamped_offset(lookahead_offset + focus_offset) + shake_offset
+
+
+## 0 -> 1 (zoom in) -> hold during the freeze -> 0 (zoom out), in real seconds
+func _get_hit_zoom_amount() -> float:
+	var elapsed : float = Time.get_ticks_msec() / 1000.0 - hit_zoom_start
+	var zoom_in : float = maxf(hit_zoom_in, 0.001)
+	var zoom_out : float = maxf(hit_zoom_out, 0.001)
+	if elapsed < 0.0 or elapsed >= zoom_in + hit_zoom_hold + zoom_out:
+		return 0.0
+	if elapsed < zoom_in:
+		var t_in : float = elapsed / zoom_in
+		return 1.0 - (1.0 - t_in) * (1.0 - t_in)  # ease out: snaps in
+	if elapsed < zoom_in + hit_zoom_hold:
+		return 1.0
+	return 1.0 - smoothstep(0.0, 1.0, (elapsed - zoom_in - hit_zoom_hold) / zoom_out)
+
+
+func _on_perfect_drift_hit(hit_position : Vector2) -> void:
+	start_hit_zoom(hit_position, JUICE.drift_hit_zoom, JUICE.drift_hit_focus,
+			JUICE.drift_hit_zoom_in_time, JUICE.drift_hit_stop_duration, JUICE.drift_hit_zoom_out_time)
+
+
+func _on_maneuver_performed(maneuver_type : ManeuverManager.Type, _intensity : float, _drift_level : int, _is_amplified : bool, _attack_angle : float) -> void:
+	if !JUICE.maneuver_juice_enabled or JUICE.maneuver_juice_excluded.has(maneuver_type):
+		return
+	# Centred on the car: no focus offset
+	start_hit_zoom(global_position, JUICE.maneuver_zoom, 0.0,
+			JUICE.maneuver_zoom_in_time, JUICE.maneuver_stop_duration, JUICE.maneuver_zoom_out_time)
+
+
+## Punch zoom in real time. While a zoom is still coming in or holding, a weaker or equal one is ignored
+## (several enemies in one swipe: a single zoom), a stronger one takes over
+func start_hit_zoom(point : Vector2, amount : float, focus : float, zoom_in : float, hold : float, zoom_out : float) -> void:
+	if amount <= 0.0:
+		return
+	var now : float = Time.get_ticks_msec() / 1000.0
+	if now - hit_zoom_start < hit_zoom_in + hit_zoom_hold and amount <= hit_zoom_amount:
+		return
+	hit_zoom_start = now
+	hit_focus_point = point
+	hit_zoom_amount = amount
+	hit_zoom_focus = focus
+	hit_zoom_in = zoom_in
+	hit_zoom_hold = hold
+	hit_zoom_out = zoom_out
 
 func screen_shake(intensity : float, time : float) -> void:
 	if !enable_shake:
+		return
+	# A weaker shake never cuts a stronger one in progress: it only extends it
+	if active_shake_time > 0.0 and intensity <= shake_intensity:
+		active_shake_time = maxf(active_shake_time, time)
 		return
 	randomize()
 	noise.seed = randi()

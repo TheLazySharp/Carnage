@@ -30,6 +30,7 @@ var game_over : bool = false
 
 func _ready() -> void:
 	if GameMaster.is_debug():
+		
 		return
 	car_res = CarManager.selected_car
 	car_node.dashing.connect(on_dash)
