@@ -21,6 +21,7 @@ class_name TutorialManager
 @export var hint_label: Label
 @export var counter_label: Label
 @export var skip_label: Label
+@export var demo_video_player: VideoStreamPlayer
 
 @export_group("Quit popup")
 @export var quit_popup: Control
@@ -34,10 +35,15 @@ class_name TutorialManager
 @export var page_body: Label
 @export var page_next_button: Button
 @export var page_input_delay: float = 0.6  # the next button ignores input this long after a page shows
+@export var page_video_player: VideoStreamPlayer  # optional: clip shown with a page
+## Page key -> looping clip (e.g. TUTO_INTRO_BLOOD, TUTO_PHASE2_PERFECT_HIT). Pages without one hide the player
+@export var page_videos: Dictionary[String, VideoStream] = {}
 
 @export_group("Ending")
 ## Shown before the colossi come (key = title, key + "_BODY" = text)
 @export var ending_page_keys: PackedStringArray = ["TUTO_COLOSS"]
+
+@onready var hud : Control = $"/root/World/CanvasLayer/HUD"
 
 var step_index: int = 0
 var progress: int = 0
@@ -148,6 +154,9 @@ func _start_step(index: int) -> void:
 	hint_label.text = tr(step.hint_key)
 	_update_counter()
 
+	var maneuver_data: ManeuverData = LoadoutManager.get_maneuver_data(step.maneuver_type)
+	_show_demo(maneuver_data.demo_video if maneuver_data != null else null)
+
 
 func _update_counter() -> void:
 	counter_label.text = "%d / %d" % [progress, steps[step_index].required_count]
@@ -177,6 +186,8 @@ func _add_progress() -> void:
 
 func _start_free_play() -> void:
 	free_play = true
+	_show_demo(null)
+	BloodBars.show()
 	title_label.text = tr("TUTO_FREE_PLAY")
 	hint_label.text = tr("TUTO_FREE_PLAY_HINT")
 	frags_at_start = StatsManager.frags
@@ -228,14 +239,19 @@ func _open_pages(keys: PackedStringArray, on_done: Callable) -> void:
 	page_open = true
 	# The game stays frozen while the player reads
 	SignalManager.game_paused.emit(true)
+	BloodBars.hide()
 	_show_page()
 	page_popup.show()
 	page_next_button.grab_focus()
+	skip_label.hide()
 
 func _show_page() -> void:
+	hud.hide()
+	BloodBars.hide()
 	var key: String = page_keys[page_index]
 	page_title.text = tr(key)
 	page_body.text = tr(key + "_BODY")
+	_play_clip(page_video_player, page_videos.get(key, null))
 	var is_last_page: bool = page_index == page_keys.size() - 1
 	page_next_button.text = tr("TUTO_INTRO_START") if is_last_page else tr("TUTO_INTRO_NEXT")
 	# Short lock: a press already in progress (loading screen, drift on Space, double tap) cannot skip the page
@@ -253,6 +269,9 @@ func _on_page_next_pressed() -> void:
 		_show_page()
 		return
 	page_popup.hide()
+	hud.show()
+	skip_label.show()
+	_play_clip(page_video_player, null)
 	page_open = false
 	SignalManager.game_paused.emit(false)
 	page_done.call()
@@ -264,6 +283,7 @@ func start_ending() -> void:
 	if ending or leaving:
 		return
 	ending = true
+	_show_demo(null)
 	set_process(false)          # a pending step transition is dropped
 	set_physics_process(false)  # kill counter
 	title_label.text = tr("TUTO_EXTRACT")
@@ -271,6 +291,21 @@ func start_ending() -> void:
 	counter_label.text = ""
 	_open_pages(ending_page_keys, _on_ending_pages_closed)
 
+## Step clip, in the HUD
+func _show_demo(video: VideoStream) -> void:
+	_play_clip(demo_video_player, video)
+
+## Plays a clip in a loop on the given player, or hides it when there is none
+func _play_clip(player: VideoStreamPlayer, video: VideoStream) -> void:
+	if player == null:
+		return
+	if video == null:
+		player.stop()
+		player.hide()
+		return
+	player.stream = video
+	player.show()
+	player.play()
 
 func _on_ending_pages_closed() -> void:
 	# Colossi, extraction and exit arrow: handled like the end of any raid

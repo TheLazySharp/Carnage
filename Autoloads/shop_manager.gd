@@ -108,15 +108,6 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://b82jil28njo77", #add 3 projectiles (EPIC)
 	"uid://1jcxa8pvy8yh", #invincibility EPIC
 ]
-const ALL_MANEUVERS_UIDS : Array[String] = [
-	"uid://b4o7xjo8isqj0", #burnout
-	"uid://b8dwx3opcyu68", #donut
-	"uid://bie426kp6jx7a", #reverse 180
-	"uid://d37q3bjdh6vpc", #horn
-	"uid://boboqx2yj8bl7", #short drift
-	"uid://cht1vuqnvh1ny", #spin 360
-	"uid://h5gvivokva2o", #U turn
-]
 
 
 enum CONST_REFS {
@@ -182,8 +173,6 @@ func load_pools() -> void :
 	for uid : String in ALL_CHARMS_UIDS:
 		all_charms.append(load(uid) as CharmData)
 
-	for uid : String in ALL_MANEUVERS_UIDS:
-		all_maneuvers.append(load(uid) as ManeuverData)
 
 func pick_boost_rarity() -> InventoryManager.Rarities:
 	var weighted_sum : int = 0
@@ -245,10 +234,10 @@ func pick_charm(p_rarity : InventoryManager.Rarities = InventoryManager.Rarities
 	
 	return pool[rng.randi_range(0,pool.size() -1)]
 
-## Maneuvers the player does not own yet, in random order
+## Maneuvers the player does not own yet, in random order (the loop is always owned: never offered)
 func pick_maneuvers(count : int) -> Array[ManeuverData]:
 	var pool : Array[ManeuverData] = []
-	for data : ManeuverData in all_maneuvers:
+	for data : ManeuverData in LoadoutManager.maneuver_data_by_type.values():
 		if !LoadoutManager.owns(data.maneuver_type):
 			pool.append(data)
 	pool.shuffle()

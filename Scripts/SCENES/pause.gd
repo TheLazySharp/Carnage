@@ -4,6 +4,9 @@ extends Control
 @onready var commands: Button = $VBoxContainer/Commands
 @onready var quit_to_menu: Button = $"VBoxContainer/QuitToMenu"
 @onready var loadout_panel: LoadoutPanel = $LoadoutPanel
+@onready var maneuvers: Button = $VBoxContainer/Maneuvers
+@onready var maneuvers_list: Control = $ManeuversList
+
 
 var game_paused : bool = false
 
@@ -53,3 +56,7 @@ func get_focus() -> void:
 
 func _on_stats_pressed() -> void:
 	pass # Replace with function body.
+
+
+func _on_maneuvers_pressed() -> void:
+	maneuvers_list.show()

@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://b136nu6rnr2c0"]
+
+[ext_resource type="Script" uid="uid://d4f5y81x8lv5p" path="res://Scripts/UI/maneuvers_list.gd" id="1_x7jpw"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_ob76i"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_2w2j3"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="4_otq6f"]
+[ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="5_ob76i"]
+
+[node name="ManeuversList" type="Control" unique_id=1873912760 node_paths=PackedStringArray("demo_video", "maneuver_name", "maneuver_desc", "previous", "next", "close_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x7jpw")
+demo_video = NodePath("VideoFrame/VideoStreamPlayer")
+maneuver_name = NodePath("ManeuverName")
+maneuver_desc = NodePath("ManeuverDesc")
+previous = NodePath("Previous")
+next = NodePath("Next")
+close_button = NodePath("Close")
+
+[node name="Background" type="ColorRect" parent="." unique_id=311089001]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VideoFrame" type="ColorRect" parent="." unique_id=610112478]
+custom_minimum_size = Vector2(650, 370)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -185.0
+offset_right = 325.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23392546, 0.23392546, 0.23392543, 0.9019608)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="VideoFrame" unique_id=2016503702]
+texture_filter = 1
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+expand = true
+loop = true
+
+[node name="Title" type="Label" parent="." unique_id=789541338]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_ob76i")
+theme_override_font_sizes/font_size = 64
+text = "MANEUVERS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("3_2w2j3")
+
+[node name="ManeuverName" type="Label" parent="." unique_id=1024925470]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.5
+offset_top = -260.0
+offset_right = 324.5
+offset_bottom = -210.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SPIN 360"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_otq6f")
+
+[node name="Next" type="Label" parent="." unique_id=1199395349]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 340.0
+offset_top = -260.0
+offset_right = 455.0
+offset_bottom = -210.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NEXT : R1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_otq6f")
+
+[node name="Previous" type="Label" parent="." unique_id=801436492]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -460.0
+offset_top = -260.0
+offset_right = -345.0
+offset_bottom = -210.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PREVIOUS : L1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_otq6f")
+
+[node name="ManeuverDesc" type="Label" parent="." unique_id=1334820583]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -407.0
+offset_top = -203.0
+offset_right = 407.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_otq6f")
+
+[node name="Close" type="Button" parent="." unique_id=17121183]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -72.5
+offset_top = -57.0
+offset_right = 72.5
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "CLOSE"
+script = ExtResource("5_ob76i")
+
+[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]

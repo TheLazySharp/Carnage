@@ -10,6 +10,7 @@ var max_life: Statistic
 var dmg: Statistic
 var impact_force: Statistic
 var knockback_friction: Statistic
+var drift_hit_dmg: Statistic
 
 @export var nb_xp: int = 1
 
@@ -84,7 +85,6 @@ enum BurstCause { WALL, ENEMY, OUT_OF_STEAM }
 
 # ---- PERFECT DRIFT HIT (tuned in JuiceSettings) ----
 var drift_projectile : bool = false
-var drift_hit_damages : int = 0
 var drift_query : PhysicsShapeQueryParameters2D = null  # created on the first launch only
 var drift_burst_shape : CircleShape2D = null
 var drift_trail_fx : Node2D = null
@@ -164,6 +164,7 @@ func init_stats() -> void:
 	dmg = Statistic.new(enemy.base_dmg)
 	impact_force = Statistic.new(enemy.base_impact_force)
 	knockback_friction = Statistic.new(enemy.base_knockback_friction)
+	drift_hit_dmg = Statistic.new(enemy.base_drift_hit_dmg)
  
 	if enemy.speed_variation > 0.0:
 		var variation := randf_range(-enemy.speed_variation, enemy.speed_variation)
@@ -567,6 +568,7 @@ func get_enemy_stat(stat: EnemyData.Enemy_Stats) -> Statistic:
 		EnemyData.Enemy_Stats.DMG: return dmg
 		EnemyData.Enemy_Stats.IMPACT_FORCE: return impact_force
 		EnemyData.Enemy_Stats.KNOCKBACK_FRICTION: return knockback_friction
+		EnemyData.Enemy_Stats.DRIFT_HIT_DMG: return drift_hit_dmg
 	return null
 
 func apply_knockback(direction: Vector2, force: float) -> void:
@@ -576,11 +578,10 @@ func apply_knockback(direction: Vector2, force: float) -> void:
 
 ## Perfect drift hit: thrown by the car's tail, the enemy flies until it meets an enemy or a wall.
 ## Returns false when the hit is ignored (the car then skips its feedback)
-func launch_drift_hit(direction: Vector2, damages: int) -> bool:
+func launch_drift_hit(direction: Vector2) -> bool:
 	if game_paused or is_dead or drift_projectile or air_duration > 0.0:
 		return false
 	drift_projectile = true
-	drift_hit_damages = damages
 	knockback_velocity = direction.normalized() * JUICE.drift_hit_throw_speed
 	velocity = knockback_velocity
 	# It always dies at the end of the flight: the AI is no longer needed
@@ -668,7 +669,7 @@ func burst_drift_projectile(cause : BurstCause = BurstCause.OUT_OF_STEAM) -> voi
 			continue
 		victims.append(victim)
 		var push: Vector2 = victim.global_position - global_position
-		victim.get_damages(drift_hit_damages, push, JUICE.drift_hit_burst_knockback, EnemyManager.DEATH_TYPES.KNOCKED)
+		victim.get_damages(roundi(drift_hit_dmg.get_value()), push, JUICE.drift_hit_burst_knockback, EnemyManager.DEATH_TYPES.KNOCKED)
 	SignalManager.screen_shake_requested.emit(JUICE.drift_hit_shake, 0.2)
 	_play_burst_sfx(cause)
 	knockback_velocity = Vector2.ZERO

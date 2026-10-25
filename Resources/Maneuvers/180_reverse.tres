@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="ManeuverData" format=3 uid="uid://bie426kp6jx7a"]
 
+[ext_resource type="VideoStream" uid="uid://c5ukudqsvy0jt" path="res://Assets/Shorts/Tuto/R180.ogv" id="1_87r12"]
 [ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_bd0ic"]
 [ext_resource type="Script" uid="uid://l3cskju6tgc2" path="res://Resources/Scripts/maneuver_data.gd" id="1_mbfqh"]
 
@@ -9,4 +10,5 @@ maneuver_type = 4
 icon = ExtResource("1_bd0ic")
 name_key = "MANEUVER_REVERSE"
 description_key = "MANEUVER_REVERSE_DESC"
+demo_video = ExtResource("1_87r12")
 metadata/_custom_type_script = "uid://l3cskju6tgc2"

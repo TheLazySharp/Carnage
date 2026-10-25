@@ -164,10 +164,10 @@ signal exit_arrow_target(target : Vector2)
 signal end_raid_requested   # ends the raid now: colossi, extraction, exit arrow (tutorial ending)
 @warning_ignore("unused_signal")
 signal extraction_reached   # the car went through the open extraction zone
-
 @warning_ignore("unused_signal")
 signal perfect_drift_hit(hit_position : Vector2)
-
+@warning_ignore("unused_signal")
+signal drift_hit_juice(hit_position : Vector2)  # a perfect drift hit allowed to play its freeze / zoom
 
 # ---- UI -----
 @warning_ignore("unused_signal")

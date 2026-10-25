@@ -146,6 +146,7 @@ script = ExtResource("4_qubrp")
 script = ExtResource("7_ccuge")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1746516377]
+visible = false
 
 [node name="HUD" parent="CanvasLayer" unique_id=1655855182 instance=ExtResource("8_mg0ki")]
 
@@ -462,8 +463,9 @@ position = Vector2(12.431885, 1852.4446)
 position = Vector2(18, 2141)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("34_4v516")]
+is_active = false
 is_infinite = false
-max_enemy_count = 400
+max_enemy_count = 100
 auto_spawn = true
 spawn_rate = 0.4
 
@@ -473,6 +475,7 @@ autostart = true
 
 [node name="ItemSpawner" parent="Spawners" unique_id=951681507 instance=ExtResource("35_ptf30")]
 z_index = 10
+is_active = false
 
 [editable path="Spawners/ColossArrival"]
 [editable path="Spawners/SpawnerAuto"]

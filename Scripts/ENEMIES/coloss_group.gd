@@ -5,7 +5,7 @@ extends Node2D
 @onready var foot_steps_expl: AudioStreamPlayer = $FootStepsExpl
 @onready var close_foot_steps: AudioStreamPlayer = $CloseFootSteps
 
-var auto_progress : float = 1.5
+var auto_progress : float = 1.0
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)

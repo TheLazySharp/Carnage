@@ -51,7 +51,7 @@ var ghost_timer : Timer
 @export_group("Dash tuning")
 @export var dash_kick_ratio : float = 0.35   # instant kick as a ratio of max speed (was 1.0)
 @export var dash_speed_mult : float = 1.15   # max speed cap during dash (was 1.25)
-@export var dash_torque_mult : float = 1.6   # acceleration mult during dash (was 2.0)
+@export var dash_torque_mult : float = 1.3   # acceleration mult during dash (was 1.6)
 @export var boost_accel : float = 650.0      # continuous forward push while held (was 900.0)
 
 
@@ -189,9 +189,7 @@ func consume_survivor_blood() -> bool:
 
 
 func hitstop() -> void:
-	Engine.time_scale = HITSTOP_SCALE
-	await get_tree().create_timer(HITSTOP_DURATION, true, false, true).timeout
-	Engine.time_scale = 1.0
+	JuiceManager.hit_stop(HITSTOP_DURATION)
 
 
 func _spawn_ghost() -> void:

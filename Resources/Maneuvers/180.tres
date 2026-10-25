@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="ManeuverData" format=3 uid="uid://h5gvivokva2o"]
 
+[ext_resource type="VideoStream" uid="uid://c1p5pb8m4edyb" path="res://Assets/Shorts/Tuto/180_cut.ogv" id="1_1a1pa"]
 [ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_uvgp0"]
 [ext_resource type="Script" uid="uid://l3cskju6tgc2" path="res://Resources/Scripts/maneuver_data.gd" id="2_1ipq6"]
 
@@ -9,4 +10,5 @@ maneuver_type = 1
 icon = ExtResource("1_uvgp0")
 name_key = "MANEUVER_DRIFT_U_TURN"
 description_key = "MANEUVER_DRIFT_U_TURN_DESC"
+demo_video = ExtResource("1_1a1pa")
 metadata/_custom_type_script = "uid://l3cskju6tgc2"

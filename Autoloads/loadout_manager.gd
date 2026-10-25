@@ -10,11 +10,32 @@ var pending_weapons : Array[WeaponData] = []
 var maneuver_power : Dictionary[ManeuverManager.Type, Statistic] = {}
 # A maneuver bought at the shop: the loadout panel opens on the roadmap to place a weapon on it
 var has_new_maneuver : bool = false
-
+## Sandbox only: false = no weapon fires (clean maneuver captures). Kept for the whole session
+var sandbox_weapons_enabled : bool = true
 var sandbox_active : bool = false
+
+
+## Every maneuver resource (shop, tutorial, maneuver menu, names on screen).
+## Loaded at runtime: no preload cycle with resources referencing autoloads
+const MANEUVER_DATA_UIDS : Array[String] = [
+	"uid://b4o7xjo8isqj0", #burnout
+	"uid://b8dwx3opcyu68", #donut
+	"uid://bie426kp6jx7a", #reverse 180
+	"uid://d37q3bjdh6vpc", #horn
+	"uid://boboqx2yj8bl7", #short drift
+	"uid://cht1vuqnvh1ny", #spin 360
+	"uid://h5gvivokva2o", #U turn
+	"uid://bo683su45ub5v", #loop
+]
+var maneuver_data_by_type : Dictionary[ManeuverManager.Type, ManeuverData] = {}
+
+
+
+
 
 func _ready() -> void:
 	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
+	_load_maneuver_catalog()
 
 func start_run(p_car : CarData) -> void:
 	car = p_car
@@ -29,6 +50,28 @@ func start_run(p_car : CarData) -> void:
 		for maneuver_type : ManeuverManager.Type in ManeuverManager.Type.values():
 			unlock(maneuver_type)
 		has_new_maneuver = false
+
+func _load_maneuver_catalog() -> void:
+	maneuver_data_by_type.clear()
+	for uid : String in MANEUVER_DATA_UIDS:
+		var data : ManeuverData = load(uid) as ManeuverData
+		if data == null:
+			push_warning("[LoadoutManager] maneuver resource not found: " + uid)
+			continue
+		maneuver_data_by_type[data.maneuver_type] = data
+
+
+func get_maneuver_data(maneuver_type : ManeuverManager.Type) -> ManeuverData:
+	return maneuver_data_by_type.get(maneuver_type, null)
+
+
+## Name shown to the player: translated name of the resource, technical name as a fallback
+func get_maneuver_display_name(maneuver_type : ManeuverManager.Type) -> String:
+	var data : ManeuverData = get_maneuver_data(maneuver_type)
+	if data != null and data.name_key != "":
+		return tr(data.name_key)
+	return ManeuverManager.get_maneuver_name(maneuver_type)
+
 
 func is_test_mode() -> bool:
 	return sandbox_active
@@ -46,6 +89,9 @@ func unlock(maneuver_type : ManeuverManager.Type) -> void:
 
 
 func get_weapon(maneuver_type : ManeuverManager.Type) -> WeaponData:
+	# Sandbox with weapons off: every maneuver is unarmed, the weapons stay equipped but never fire
+	if sandbox_active and !sandbox_weapons_enabled:
+		return null
 	return weapon_by_maneuver.get(maneuver_type, null)
 
 ## Falls back on the base power when no run is started (map test scenes)
@@ -103,6 +149,11 @@ func auto_assign_pending() -> void:
 			if owned_maneuvers.has(maneuver_type) and !weapon_by_maneuver.has(maneuver_type):
 				weapon_by_maneuver[maneuver_type] = weapon
 	pending_weapons.clear()
+
+func _unhandled_input(event : InputEvent) -> void:
+	if sandbox_active and event.is_action_pressed("sandbox_toggle_weapons"):
+		sandbox_weapons_enabled = !sandbox_weapons_enabled
+		print("[Sandbox] weapons ", "ON" if sandbox_weapons_enabled else "OFF")
 
 func _on_sandbox_mode() -> void : 
 	sandbox_active = true

@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ManeuverData" format=3 uid="uid://cht1vuqnvh1ny"]
 
 [ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_4ljja"]
+[ext_resource type="VideoStream" uid="uid://c2utswww2sg1m" path="res://Assets/Shorts/Tuto/360.ogv" id="1_neoik"]
 [ext_resource type="Script" uid="uid://l3cskju6tgc2" path="res://Resources/Scripts/maneuver_data.gd" id="2_3kxi3"]
 
 [resource]
@@ -9,4 +10,5 @@ maneuver_type = 7
 icon = ExtResource("1_4ljja")
 name_key = "MANEUVER_360"
 description_key = "MANEUVER_360_DESC"
+demo_video = ExtResource("1_neoik")
 metadata/_custom_type_script = "uid://l3cskju6tgc2"

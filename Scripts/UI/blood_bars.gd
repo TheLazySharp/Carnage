@@ -10,6 +10,7 @@ var car : CarData
 @onready var survivor_blood_label: Label = $SurvivorBlood/SurvivorBloodLabel
 @onready var survivor_sprite: Sprite2D = $SurvivorBlood/SurvivorSprite
 @onready var blood_q: Label = $BloodTank/BloodQ
+var sandbox_active : bool = false
 
 var bars_inited: bool = false
 
@@ -17,6 +18,8 @@ func _ready() -> void:
 	SignalManager.update_fortune.connect(_on_fortune_updated)
 	SignalManager.game_is_over.connect(_on_game_over)
 	SignalManager.loading_screen_closed.connect(_on_loading_ended)
+	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
+
 	hide()
 
 
@@ -65,6 +68,14 @@ func _on_game_over(game_is_over : bool) -> void :
 	if game_is_over:
 		bars_inited = false
 		self.hide()
+
+func _on_sandbox_mode() -> void : 
+	sandbox_active = true
+	
+func _unhandled_input(event : InputEvent) -> void:
+	if sandbox_active and event.is_action_pressed("sandbox_toggle_weapons"):
+		self.hide()
+
 
 func _on_loading_ended() -> void : 
 	if !bars_inited:

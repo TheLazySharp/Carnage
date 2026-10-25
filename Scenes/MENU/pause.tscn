@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="5_5k2js"]
 [ext_resource type="PackedScene" uid="uid://b5ymk58gfmq3l" path="res://Scenes/MENU/current_stats.tscn" id="5_vflra"]
 [ext_resource type="PackedScene" uid="uid://bunq80hdti7b0" path="res://Scenes/UI/loadout_panel.tscn" id="7_nrq64"]
+[ext_resource type="PackedScene" uid="uid://b136nu6rnr2c0" path="res://Scenes/UI/maneuvers_list.tscn" id="8_fu0im"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
 
@@ -77,6 +78,20 @@ flat = true
 alignment = 2
 script = ExtResource("5_5k2js")
 
+[node name="Maneuvers" type="Button" parent="VBoxContainer" unique_id=1840846602]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_smv6p")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "MANEUVERS"
+flat = true
+alignment = 2
+script = ExtResource("5_5k2js")
+
 [node name="Commands" type="Button" parent="VBoxContainer" unique_id=1195712447]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
@@ -122,6 +137,12 @@ offset_bottom = 238.0
 grow_horizontal = 0
 grow_vertical = 1
 
+[node name="ManeuversList" parent="." unique_id=1873912760 node_paths=PackedStringArray("blocked_menu") instance=ExtResource("8_fu0im")]
+visible = false
+layout_mode = 1
+blocked_menu = NodePath("../VBoxContainer")
+
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Maneuvers" to="." method="_on_maneuvers_pressed"]
 [connection signal="pressed" from="VBoxContainer/Commands" to="." method="_on_commands_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitToMenu" to="." method="_on_quit_to_menu_pressed"]

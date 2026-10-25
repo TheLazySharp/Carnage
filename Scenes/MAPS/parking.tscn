@@ -487,6 +487,7 @@ max_enemy_count = 40
 horde_radius_px = 64.0
 
 [node name="ColossArrival" parent="Spawners" unique_id=129810557 instance=ExtResource("73_tk2je")]
+is_active = true
 
 [node name="Marker1" parent="Spawners/ColossArrival" index="0" unique_id=624590813]
 position = Vector2(20.901855, 172.28784)
@@ -513,7 +514,6 @@ position = Vector2(12.431885, 1852.4446)
 position = Vector2(18, 2141)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("74_ywo5e")]
-is_active = false
 is_infinite = false
 max_enemy_count = 400
 auto_spawn = true

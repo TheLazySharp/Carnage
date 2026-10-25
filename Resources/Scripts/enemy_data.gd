@@ -27,6 +27,8 @@ class_name EnemyData
 @export var base_knockback_friction : float = 800 
 @export var speed_variation : float = 10.0
 @export var level_life_boost : int = 5
+## Damages dealt to each enemy hit when this enemy, thrown by a perfect drift hit, bursts
+@export var base_drift_hit_dmg : int = 5
 
 @export_group("FLOCKING")
 ## Gregarious behaviour while chasing. Null = default of the chase state.
@@ -52,5 +54,6 @@ enum Enemy_Stats {
 	MAX_LIFE,
 	DMG,
 	IMPACT_FORCE,
-	KNOCKBACK_FRICTION
+	KNOCKBACK_FRICTION,
+	DRIFT_HIT_DMG
 }

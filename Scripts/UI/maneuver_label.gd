@@ -22,7 +22,7 @@ func _ready() -> void:
 
 ## The ComboManager rated the maneuver: DASH / PERFECT HIT prefixes, never the intensity
 func _on_maneuver_rated(maneuver_type: ManeuverManager.Type, drift_level: int, is_amplified: bool, perfect_hit: bool) -> void:
-	var label_text: String = ManeuverManager.get_maneuver_name(maneuver_type)
+	var label_text: String = LoadoutManager.get_maneuver_display_name(maneuver_type)
 	if perfect_hit:
 		label_text = "%s  %s" % [tr("MANEUVER_PERFECT_HIT"), label_text]
 	if is_amplified:
@@ -34,7 +34,7 @@ func _on_maneuver_rated(maneuver_type: ManeuverManager.Type, drift_level: int, i
 
 
 func _on_maneuver_locked(maneuver_type: ManeuverManager.Type) -> void:
-	_show("%s  LOCKED" % ManeuverManager.get_maneuver_name(maneuver_type), LOCKED_COLOR)
+	_show("%s  LOCKED" % LoadoutManager.get_maneuver_display_name(maneuver_type), LOCKED_COLOR)
 
 func _show(label_text: String, color: Color) -> void:
 	text = label_text

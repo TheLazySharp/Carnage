@@ -60,7 +60,6 @@ class_name JuiceSettings
 ## Below this speed the projectile bursts on its own (out of steam)
 @export var drift_hit_end_speed : float = 150.0
 ## Burst damages = car damages x this
-@export var drift_hit_damage_multiplier : float = 3.0
 ## Enemies hurt by the burst, around the impact point (px)
 @export var drift_hit_burst_radius : float = 40.0
 @export var drift_hit_burst_knockback : float = 300.0
@@ -83,6 +82,9 @@ class_name JuiceSettings
 @export_range(0.0, 1.0) var drift_hit_focus : float = 0.4
 ## Thrown enemy facing: true = back first (it looks at the car that hit it), false = face first
 @export var drift_hit_face_backward : bool = true
+## Freeze, camera zoom, shake and rumble of the hit: at most once per this many real seconds.
+## Every enemy is still thrown; spaced hits on a line keep their freeze, a horde no longer chains them
+@export var drift_hit_juice_cooldown : float = 0.7
 
 ## Particle scenes made by the graphic artist (null = no effect)
 ## Impact: blood shots (BloodShotPool) fanned along the tail swipe
@@ -154,8 +156,8 @@ class_name JuiceSettings
 @export var maneuver_zoom : float = 0.0 #default = 0.4
 @export var maneuver_zoom_in_time : float = 0.0 #default = 0.05
 @export var maneuver_zoom_out_time : float = 0.0 #default = 0.3
-## Maneuvers without this effect (e.g. the frequent short drift)
-@export var maneuver_juice_excluded : Array[ManeuverManager.Type] = []
+## Values of ManeuverManager.Type, as numbers (an enum type here would create a load cycle)
+@export var maneuver_juice_excluded : Array[int] = []
 ## Maneuver name: pops in big, then bounces back to its size (real time: plays during the freeze)
 @export var maneuver_name_pop_scale : float = 2
-@export var maneuver_name_pop_time : float = 0.
+@export var maneuver_name_pop_time : float = 0.5

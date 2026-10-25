@@ -263,9 +263,7 @@ func _process_player_inputs(delta : float) -> void:
 			_handle_wall_collision(collision, forward, delta)
 
 	# ----------------- VFX -----------------
-	if Input.is_action_just_pressed("accelerate") \
-		or Input.is_action_just_pressed("move_left") \
-		or Input.is_action_just_pressed("move_right"):
+	if Input.is_action_pressed("accelerate") and (Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right")) :
 		play_drivin_smokes()
 
 
@@ -496,14 +494,17 @@ func _perfect_drift_hit(hit_enemy : Enemy) -> void:
 	var offset : Vector2 = hit_enemy.global_position - global_position
 	var tail_velocity : Vector2 = velocity + Vector2(-offset.y, offset.x) * angular_speed
 	var direction : Vector2 = tail_velocity if tail_velocity.length_squared() > 1.0 else offset
-	var damages : int = roundi(player.dmg.get_value() * JUICE.drift_hit_damage_multiplier)
-	if !hit_enemy.launch_drift_hit(direction, damages):
+	if !hit_enemy.launch_drift_hit(direction):
 		return
+	# Every hit: sprite kick and sound
 	sprite_fx.car_hit_kick(hit_enemy.global_position, 1.0)
-	JuiceManager.hit_stop(JUICE.drift_hit_stop_duration)
-	SignalManager.screen_shake_requested.emit(JUICE.drift_hit_launch_shake, 0.25)
-	Haptics.pulse(0.4, 1.0, 0.15)
 	_play_drift_hit_sfx()
+	# Time and camera effects: once per cooldown, never chained inside a horde
+	if JuiceManager.try_drift_hit_juice():
+		JuiceManager.hit_stop(JUICE.drift_hit_stop_duration)
+		SignalManager.screen_shake_requested.emit(JUICE.drift_hit_launch_shake, 0.25)
+		Haptics.pulse(0.4, 1.0, 0.15)
+		SignalManager.drift_hit_juice.emit(hit_enemy.global_position)
 	SignalManager.perfect_drift_hit.emit(hit_enemy.global_position)
 
 ## Real time: the hit stop slows the game clock, not the sound

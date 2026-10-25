@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ManeuverData" format=3 uid="uid://bo683su45ub5v"]
+
+[ext_resource type="VideoStream" uid="uid://d36nea7gxvgc1" path="res://Assets/Shorts/Tuto/loop.ogv" id="1_b07hs"]
+[ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_f32n8"]
+[ext_resource type="Script" uid="uid://l3cskju6tgc2" path="res://Resources/Scripts/maneuver_data.gd" id="2_b07hs"]
+
+[resource]
+script = ExtResource("2_b07hs")
+maneuver_type = 3
+icon = ExtResource("1_f32n8")
+name_key = "MANEUVER_LOOP"
+description_key = "MANEUVER_LOOP_DESC"
+base_price = 0
+demo_video = ExtResource("1_b07hs")
+metadata/_custom_type_script = "uid://l3cskju6tgc2"

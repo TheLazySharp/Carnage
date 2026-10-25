@@ -78,7 +78,8 @@ project/assembly_name="MyBloodyShooter"
 
 movie_writer/video_quality=1.0
 movie_writer/ogv/encoding_speed=3
-movie_writer/movie_file="C:/Users/pierr/Documents/PIERRICK/LAZY SHARP/GAMES/0. TURBO SLAYER/GODOT MOVIE MAKER/screenshot.avi"
+movie_writer/movie_file="C:/Users/Utilisateur/Documents/LAZY SHARP/GAMES/0. TURBO SLAYER/SCREENSHOTS/screenshot.avi"
+movie_writer/fps=30
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
@@ -269,6 +270,11 @@ loadout={
 hide_panel={
 "deadzone": 0.2,
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":true,"script":null)
+]
+}
+sandbox_toggle_weapons={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194338,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

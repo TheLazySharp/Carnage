@@ -7,3 +7,4 @@ extends Resource
 @export var name_key : String = ""         # translation key
 @export var description_key : String = ""  # translation key
 @export var base_price : int = 150         # blood
+@export var demo_video : VideoStream

@@ -1,9 +1,9 @@
 extends Node
 
 const Y_DIST : int = 128
-const X_DIST : int = 128
+const X_DIST : int = 96
 const DIST_RANDOMNESS : int = 24
-const STEPS : int = 8
+const STEPS : int = 10
 const GRID_WIDTH : int = 5
 const PATHS : int = 4
 

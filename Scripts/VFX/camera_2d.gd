@@ -62,7 +62,7 @@ func _ready() -> void:
 	zoom = Vector2(zoom_base, zoom_base)
 	target_zoom = zoom_base
 	smooth_zoom = zoom_base
-	SignalManager.perfect_drift_hit.connect(_on_perfect_drift_hit)
+	SignalManager.drift_hit_juice.connect(_on_perfect_drift_hit)
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.screen_shake_requested.connect(screen_shake)
 	SignalManager.game_paused.connect(_on_game_paused)

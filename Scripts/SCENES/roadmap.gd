@@ -130,7 +130,7 @@ func _input(event: InputEvent) -> void:
 		if SceneManager.previous_scene == SceneManager.SCENES.CAR_SELECTION:
 			SceneManager.load_level(SceneManager.SCENES.CAR_SELECTION)
 		else :
-			SceneManager.load_level(SceneManager.SCENES.HOME)
+			SceneManager.load_level(SceneManager.SCENES.SHOP)
 		
 func _on_map_district_selected(district : DistrictsData)-> void : 
 	for map_district : MapDistrict in districts.get_children():
