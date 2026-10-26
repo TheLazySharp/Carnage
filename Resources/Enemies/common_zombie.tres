@@ -123,6 +123,7 @@ sprite_states = Array[ExtResource("3_b0njb")]([SubResource("Resource_b0njb"), Su
 blood_particles = ExtResource("1_b0njb")
 base_speed = 40.0
 base_impact_force = 200.0
+base_drift_hit_dmg = 3
 chase_flocking = ExtResource("2_b1lue")
 idle_flocking = ExtResource("3_wxsbi")
 drops_dollar = false

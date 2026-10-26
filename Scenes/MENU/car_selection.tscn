@@ -258,6 +258,7 @@ vertical_alignment = 1
 script = ExtResource("10_k7rdh")
 
 [node name="FuelTank" type="Label" parent="CarID/StatsPanel/HBoxContainer/Stats" unique_id=35440440]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("8_k7rdh")
 theme_override_font_sizes/font_size = 24
@@ -327,6 +328,7 @@ value = 200.0
 show_percentage = false
 
 [node name="FuelBar" type="ProgressBar" parent="CarID/StatsPanel/HBoxContainer/Levels" unique_id=854042719]
+visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_dfktb")

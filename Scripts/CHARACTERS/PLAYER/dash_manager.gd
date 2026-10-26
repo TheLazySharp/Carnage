@@ -7,7 +7,6 @@ signal dash_ended
 
 @export var enable_input_buffer : bool = true
 @export var enable_anticipation : bool = true
-@export var enable_ghost : bool = true
 @export var enable_hitstop : bool = true
 
 const DASH_BUFFER_TIME : float = 0.15
@@ -15,7 +14,6 @@ const ANTICIPATION_TIME : float = 0.09      # seconds real time before propulsio
 const HITSTOP_SCALE : float = 0.08
 const HITSTOP_DURATION : float = 0.08       # seconds real time (ignore time_scale)
 const DASH_FRICTION : float = 10.0
-const GHOST_INTERVAL : float = 0.05
 
 # ---------------- SUSTAINED BOOST (NFSU2 style) ----------------
 const NITRO_TICK_TIME : float = 0.3        # seconds between two nitro units
@@ -32,8 +30,6 @@ const MOD_TORQUE : String = "torque_dash_modifier"
 const MOD_CHARGE_SPEED : String = "drift_charge_boost"
 const MOD_CHARGE_TORQUE : String = "drift_charge_accel_boost"
 
-@export var ghost_scene : PackedScene
-
 var car : CharacterBody2D
 var car_res : CarData
 var player : SurvivorData
@@ -46,20 +42,12 @@ var boost_time : float = 0.0                # elapsed boost time, drives MIN_BOO
 var nitro_timer : float = 0.0
 var buffer_timer : float = 0.0
 var original_friction : float = 0.0
-var ghost_timer : Timer
 
 @export_group("Dash tuning")
 @export var dash_kick_ratio : float = 0.35   # instant kick as a ratio of max speed (was 1.0)
-@export var dash_speed_mult : float = 1.15   # max speed cap during dash (was 1.25)
-@export var dash_torque_mult : float = 1.3   # acceleration mult during dash (was 1.6)
+@export var dash_speed_mult : float = 0.5   # max speed cap during dash (was 1.25)
+@export var dash_torque_mult : float = 0.3   # acceleration mult during dash (was 1.6)
 @export var boost_accel : float = 650.0      # continuous forward push while held (was 900.0)
-
-
-func _ready() -> void:
-	ghost_timer = Timer.new()
-	ghost_timer.wait_time = GHOST_INTERVAL
-	ghost_timer.timeout.connect(_spawn_ghost)
-	add_child(ghost_timer)
 
 
 func init_dash(p_car : CharacterBody2D, data : CarData, survivor : SurvivorData) -> void:
@@ -161,8 +149,6 @@ func execute_dash(p_sustained : bool) -> void:
 	car.friction = DASH_FRICTION
 	dash_timer = car_res.dash_duration.get_value()
 	is_dashing = true
-	if enable_ghost:
-		ghost_timer.start()
 
 
 func end_dash() -> void:
@@ -178,7 +164,6 @@ func end_dash() -> void:
 	car_res.acceleration.remove_modifiers_from(MOD_TORQUE)
 
 	car.friction = original_friction
-	ghost_timer.stop()
 	dash_ended.emit()
 
 
@@ -190,11 +175,3 @@ func consume_survivor_blood() -> bool:
 
 func hitstop() -> void:
 	JuiceManager.hit_stop(HITSTOP_DURATION)
-
-
-func _spawn_ghost() -> void:
-	if ghost_scene == null or !is_instance_valid(car):
-		return
-	var ghost : Node2D = ghost_scene.instantiate()
-	ghost.set_property(car.position, car.scale, car.rotation)
-	get_tree().current_scene.add_child(ghost)

@@ -143,7 +143,11 @@ func _ready() -> void:
 	discount = Statistic.new(base_discount)
 	
 func load_pools() -> void : 
-
+	# load_pools() runs at every new run: empty the pools first, or every entry gets duplicated
+	all_car_boosts.clear()
+	all_weapon_boosts.clear()
+	all_ammo_boosts.clear()
+	all_charms.clear()
 	for uid : String in CAR_BOOSTS_UIDS:
 		all_car_boosts.append(load(uid) as BoostData)
 		

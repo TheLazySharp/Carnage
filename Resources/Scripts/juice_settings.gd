@@ -61,8 +61,8 @@ class_name JuiceSettings
 @export var drift_hit_end_speed : float = 150.0
 ## Burst damages = car damages x this
 ## Enemies hurt by the burst, around the impact point (px)
-@export var drift_hit_burst_radius : float = 40.0
-@export var drift_hit_burst_knockback : float = 300.0
+@export var drift_hit_burst_radius : float = 20.0
+@export var drift_hit_burst_knockback : float = 400.0
 ## Feedback on the hit
 @export var drift_hit_stop_duration : float = 0.4
 @export var drift_hit_shake : float = 10.0

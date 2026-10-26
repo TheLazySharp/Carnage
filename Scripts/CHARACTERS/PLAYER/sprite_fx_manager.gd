@@ -36,9 +36,14 @@ class_name SpriteFXManager
 
 @export_group("Skid ghosts (arcade afterimage trail)")
 @export var enable_skid_ghosts : bool = true
-@export var ghost_scene : PackedScene
-@export var ghost_interval : float = 0.06
-@export var ghost_tint : Color = Color(1.0, 1.0, 1.0, 0.45)
+@export var ghosts_on_dash : bool = true
+@export var ghost_shader : Shader                   # afterimage_pooled.gdshader
+@export var ghost_interval : float = 0.045
+@export var ghost_lifetime : float = 0.28
+## Tint over the ghost life (0 = spawn, 1 = vanished)
+@export var ghost_tint_gradient : Gradient
+@export_range(0.0, 1.0) var ghost_tint_strength : float = 0.55
+@export_range(0.0, 1.0) var ghost_alpha : float = 1.0
 
 # ---- ENEMY HIT KICK (sprite only, tuned in JuiceSettings) ----
 const JUICE = preload("uid://dbohpdgym7v6q")
@@ -71,6 +76,11 @@ var drift_yaw_vel : float = 0.0
 
 # ---- SKID GHOSTS ----
 var ghost_cooldown : float = 0.0
+var ghosts : Array[Sprite2D] = []
+var ghost_materials : Array[ShaderMaterial] = []
+var ghost_ages : PackedFloat32Array = PackedFloat32Array()
+var next_ghost : int = 0
+var ghost_dashing : bool = false
 
 
 func init_fx(p_car : CharacterBody2D, p_sprite : Sprite2D, dash_manager : DashManager) -> void:
@@ -83,8 +93,11 @@ func init_fx(p_car : CharacterBody2D, p_sprite : Sprite2D, dash_manager : DashMa
 
 	dash_manager.dash_anticipating.connect(_on_dash_anticipating)
 	dash_manager.dash_started.connect(_on_dash_started)
+	dash_manager.dash_started.connect(func() -> void: ghost_dashing = true)
+	dash_manager.dash_ended.connect(func() -> void: ghost_dashing = false)
 	car.wall_impact.connect(_on_wall_impact)
 	SignalManager.game_paused.connect(func(paused : bool) -> void: game_paused = paused)
+	_init_ghost_pool()
 
 
 func _physics_process(delta : float) -> void:
@@ -128,15 +141,6 @@ func _physics_process(delta : float) -> void:
 	drift_yaw_vel += (drift_yaw_stiffness * (drift_target - drift_yaw) - drift_yaw_damping * drift_yaw_vel) * delta
 	drift_yaw += drift_yaw_vel * delta
 
-	# ---- SKID GHOSTS: afterimage trail while drifting or sliding ----
-	if enable_skid_ghosts and ghost_scene != null and car.get_drift_factor() != 0.0:
-		ghost_cooldown -= delta
-		if ghost_cooldown <= 0.0:
-			ghost_cooldown = ghost_interval
-			var ghost : Node2D = ghost_scene.instantiate()
-			ghost.set_property(car.position, car.scale, car.rotation + drift_yaw)
-			ghost.modulate = ghost_tint
-			get_tree().current_scene.add_child(ghost)
 
 	# ---- STEERING LEAN ----
 	var target_lean : float = 0.0
@@ -154,6 +158,9 @@ func _physics_process(delta : float) -> void:
 		sprite.scale = Vector2(base_scale.x * (1.0 + stretch), base_scale.y * (1.0 - stretch * 0.5))
 	sprite.rotation = base_rotation + lean + chassis + kick_yaw + drift_yaw
 	sprite.position = base_position + kick_offset
+
+	# ---- SKID GHOSTS: after APPLY, so a ghost copies the final sprite pose (lean, kick, drift swing) ----
+	update_ghosts(delta)
 
 
 func _on_dash_anticipating() -> void:
@@ -217,3 +224,74 @@ func update_kick(delta : float) -> void:
 	kick_offset += kick_offset_vel * delta
 	kick_yaw_vel += (-stiffness_k * kick_yaw - damping_c * kick_yaw_vel) * delta
 	kick_yaw += kick_yaw_vel * delta
+
+# ---------------- SKID GHOSTS (pooled afterimages) ----------------
+
+## Enough ghosts to cover one lifetime at the spawn rate: the oldest one is reused.
+## Each ghost owns its material, created once: tint and fade are driven through uniforms
+func _init_ghost_pool() -> void:
+	if !enable_skid_ghosts or ghost_shader == null:
+		return
+	if ghost_tint_gradient == null:
+		ghost_tint_gradient = Gradient.new()
+		ghost_tint_gradient.offsets = PackedFloat32Array([0.0, 0.5, 1.0])
+		ghost_tint_gradient.colors = PackedColorArray([
+			Color(1.0, 0.85, 0.3), Color(1.0, 0.3, 0.4), Color(0.3, 0.3, 0.9)])
+	var pool_size : int = ceili(ghost_lifetime / ghost_interval) + 1
+	ghost_ages.resize(pool_size)
+	for i : int in pool_size:
+		var ghost_material : ShaderMaterial = ShaderMaterial.new()
+		ghost_material.shader = ghost_shader
+		ghost_material.set_shader_parameter("tint_strength", ghost_tint_strength)
+		ghost_material.set_shader_parameter("alpha", ghost_alpha)
+		var ghost : Sprite2D = Sprite2D.new()
+		ghost.top_level = true   # world space: stays where it spawned while the car drives on
+		ghost.material = ghost_material
+		ghost.z_index = sprite.z_index - 1
+		ghost.hide()
+		add_child(ghost)
+		ghosts.append(ghost)
+		ghost_materials.append(ghost_material)
+		ghost_ages[i] = ghost_lifetime   # dead until spawned
+
+
+func update_ghosts(delta : float) -> void:
+	if ghosts.is_empty():
+		return
+	# Living ghosts: tint follows the gradient, fade goes to 0
+	for i : int in ghosts.size():
+		if ghost_ages[i] >= ghost_lifetime:
+			continue
+		ghost_ages[i] += delta
+		if ghost_ages[i] >= ghost_lifetime:
+			ghosts[i].hide()
+			continue
+		var life_ratio : float = ghost_ages[i] / ghost_lifetime
+		ghost_materials[i].set_shader_parameter("tint_color", ghost_tint_gradient.sample(life_ratio))
+		ghost_materials[i].set_shader_parameter("fade", 1.0 - life_ratio)
+
+	# Spawn while drifting, sliding or dashing
+	var wants_ghost : bool = car.get_drift_factor() != 0.0 or (ghosts_on_dash and ghost_dashing)
+	if !enable_skid_ghosts or !wants_ghost:
+		ghost_cooldown = 0.0   # first ghost right away on the next drift
+		return
+	ghost_cooldown -= delta
+	if ghost_cooldown > 0.0:
+		return
+	ghost_cooldown = ghost_interval
+	_spawn_ghost()
+
+
+func _spawn_ghost() -> void:
+	var index : int = next_ghost
+	next_ghost = (next_ghost + 1) % ghosts.size()
+	var ghost : Sprite2D = ghosts[index]
+	ghost.texture = sprite.texture
+	ghost.offset = sprite.offset
+	ghost.flip_h = sprite.flip_h
+	ghost.flip_v = sprite.flip_v
+	ghost.global_transform = sprite.global_transform
+	ghost_materials[index].set_shader_parameter("tint_color", ghost_tint_gradient.sample(0.0))
+	ghost_materials[index].set_shader_parameter("fade", 1.0)
+	ghost_ages[index] = 0.0
+	ghost.show()
