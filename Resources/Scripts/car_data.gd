@@ -101,7 +101,8 @@ enum Car_Stats {
 	COMBO_DECAY,
 	COMBO_MAX,
 	ULTIMATE_RECHARGE_SPEED,
-	DRIFT_CHARGE_SPEED
+	DRIFT_CHARGE_SPEED,
+	DRIFT_HIT_POWER
 }
 
 enum Car_Upgrades {
@@ -113,7 +114,8 @@ enum Car_Upgrades {
 	TANK,
 	NITRO,
 	WHEELS,
-	BUMPER
+	BUMPER,
+	REAR_BUMPER
 }
 
 var acceleration: Statistic
@@ -135,7 +137,10 @@ var combo_decay : Statistic              # lower is better
 var combo_max : Statistic
 var ultimate_recharge_speed : Statistic  # multiplier on the recharge speed
 var drift_charge_speed : Statistic       # multiplier on the drift charge speed
+var drift_hit_power : Statistic          # multiplier on the perfect drift hit burst damages (rear bumper)
 
+## Level of each car part for this run (0 = not upgraded)
+var part_levels : Dictionary[Car_Upgrades, int] = {}
 
 var stat_modifiers : Array[Modifier] = []
 @warning_ignore("unused_signal")
@@ -182,6 +187,8 @@ func init_stats() -> void:
 	combo_max = Statistic.new(base_combo_max)
 	ultimate_recharge_speed = Statistic.new(1.0)
 	drift_charge_speed = Statistic.new(1.0)
+	drift_hit_power = Statistic.new(1.0)
+	part_levels.clear()
 
 func get_car_stat(stat : Car_Stats) -> Statistic:
 	match stat:
@@ -202,7 +209,25 @@ func get_car_stat(stat : Car_Stats) -> Statistic:
 		Car_Stats.COMBO_MAX: return combo_max
 		Car_Stats.ULTIMATE_RECHARGE_SPEED: return ultimate_recharge_speed
 		Car_Stats.DRIFT_CHARGE_SPEED: return drift_charge_speed
+		Car_Stats.DRIFT_HIT_POWER: return drift_hit_power
 	return null
 	
 func unscaled_speed()-> float:
 	return max_speed.get_value() * StatsManager.max_speed / StatsManager.display_max_speed
+
+func get_part_level(part : Car_Upgrades) -> int:
+	return part_levels.get(part, 0)
+
+## One more level on a car part: its modifier on each of its target stats. False when maxed
+func upgrade_part(part_boost : BoostData) -> bool:
+	if !part_boost.is_car_part():
+		return false
+	var level : int = get_part_level(part_boost.car_part)
+	if level >= part_boost.get_max_level():
+		return false
+	for target_stat : BoostData.Target_Stats in part_boost.target_stats:
+		var stat : Statistic = part_boost.get_car_stat(target_stat, self)
+		if stat != null:
+			stat.add_modifier(part_boost.make_part_modifier(level))
+	part_levels[part_boost.car_part] = level + 1
+	return true

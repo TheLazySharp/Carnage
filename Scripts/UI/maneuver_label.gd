@@ -20,15 +20,16 @@ func _ready() -> void:
 	add_theme_color_override("font_color",font_UX_S_Y[2])
 
 
-## The ComboManager rated the maneuver: DASH / PERFECT HIT prefixes, never the intensity
+## The ComboManager rated the maneuver: DASH / PERFECT HIT prefixes, drift charge as ! / !! / !!!
 func _on_maneuver_rated(maneuver_type: ManeuverManager.Type, drift_level: int, is_amplified: bool, perfect_hit: bool) -> void:
 	var label_text: String = LoadoutManager.get_maneuver_display_name(maneuver_type)
 	if perfect_hit:
 		label_text = "%s  %s" % [tr("MANEUVER_PERFECT_HIT"), label_text]
 	if is_amplified:
 		label_text = "%s  %s" % [tr("MANEUVER_DASH"), label_text]
+	# One ! per drift charge tier reached (no charge = nothing)
 	if drift_level > 0:
-		label_text += "  LV%d" % (drift_level + 1)
+		label_text += " " + "!".repeat(drift_level)
 	_show(label_text, Color.WHITE)
 	_pop()
 

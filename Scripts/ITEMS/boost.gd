@@ -65,7 +65,9 @@ func setup(p_boost : BoostData, p_is_in_shop : bool) -> void:
 	price_cont.visible = is_in_shop
 	discount_tag.visible = ShopManager.apply_discount
 	strike_price.visible = ShopManager.apply_discount
-
+	
+	if boost.is_car_part():
+		_setup_part()
 
 
 func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index : int) -> String:
@@ -89,6 +91,10 @@ func get_modifier_sign_string_and_values(type : BoostData.Mod_Type, stat_index :
 
 
 func _on_confirm_pressed() -> void:
+	if boost.is_car_part():
+		_confirm_part()
+		return
+		
 	var is_purchase : bool = is_in_shop and boost.target_ressource != BoostData.Target_Ressources.CAR
 	var final_price : int = mini(price, discounted_price)
 	# Check the wallet BEFORE applying anything
@@ -148,6 +154,9 @@ func _on_confirm_focus_exited() -> void:
 # Number of complete modification lines: the three parallel arrays must all be filled.
 # Prevents out of bounds access when a BoostData resource is badly configured.
 func get_modifications_count() -> int:
+	# Car part: one line per target stat, its bonus comes from the level (two lines on the card at most)
+	if boost.is_car_part():
+		return mini(boost.target_stats.size(), 2)
 	var stats_count : int = boost.target_stats.size()
 	var count : int = mini(stats_count, mini(boost.target_stats_values.size(), boost.target_stats_modifier_types.size()))
 	if count != stats_count:
@@ -173,7 +182,7 @@ func get_target_stat(stat_index : int) -> Statistic:
 
 func refresh_modification_line(stat_index : int, stat_label : Label, bonus_label : Label, value_label : StyledLabel) -> void:
 	stat_label.text = boost.get_stat_string(boost.target_stats[stat_index])
-	bonus_label.text = get_modifier_sign_string_and_values(boost.target_stats_modifier_types[stat_index], stat_index)
+	bonus_label.text = _get_bonus_string(stat_index)
 
 	var target_stat : Statistic = get_target_stat(stat_index)
 	if target_stat == null:
@@ -181,14 +190,9 @@ func refresh_modification_line(stat_index : int, stat_label : Label, bonus_label
 		value_label.reset_color()
 		return
 
-	var preview_mod := Modifier.new(
-		boost.target_stats_values[stat_index],
-		boost.get_modifier_type(boost.target_stats_modifier_types[stat_index]),
-		"boost applied " + InventoryManager.get_boost_name(boost))
-
 	var current_value : float = target_stat.get_value()
-	var new_value : float = target_stat.preview_value(preview_mod)
-	value_label.text = str(new_value)
+	var new_value : float = target_stat.preview_value(_get_preview_modifier(stat_index))
+	value_label.text = str(snappedf(new_value, 0.1))
 
 	# XOR: a drop is a downgrade, unless lowering this stat is an improvement
 	var is_downgrade : bool = not is_equal_approx(new_value, current_value) \
@@ -213,3 +217,51 @@ func refresh_modifications() -> void:
 func get_as_reward() -> void : 
 	SignalManager.emit_signal("reward_chosen")
 	print( "boost chosen : inventory has reward ", InventoryManager.has_reward)
+
+
+# ---------------- CAR PARTS ----------------
+
+## Car part card: translated name, level instead of rarity, greyed out and not selectable once maxed
+func _setup_part() -> void:
+	var level : int = CarManager.selected_car.get_part_level(boost.car_part)
+	var maxed : bool = level >= boost.get_max_level()
+	boost_name.text = tr(boost.name)
+	boost_rarity.add_theme_color_override("font_color", Color.WHITE)
+	if maxed:
+		boost_rarity.text = tr("PART_MAX")
+		confirm.disabled = true
+		confirm.focus_mode = Control.FOCUS_NONE
+		modulate = Color(1.0, 1.0, 1.0, 0.5)
+	else:
+		boost_rarity.text = "%s %d > %d" % [tr("PART_LEVEL"), level, level + 1]
+
+
+func _confirm_part() -> void:
+	var car : CarData = CarManager.selected_car
+	var base_max_life : int = int(car.max_life.get_value())
+	if !car.upgrade_part(boost):
+		return
+	# A bigger blood tank fills up by the same amount
+	car.current_life += int(car.max_life.get_value()) - base_max_life
+	SignalManager.stats_updated.emit()
+	SignalManager.car_level_up_upgrade.emit()
+	if InventoryManager.has_reward:
+		get_as_reward()
+
+
+## Modifier shown in the preview: the next level of a part, or the boost's own values
+func _get_preview_modifier(stat_index : int) -> Modifier:
+	if boost.is_car_part():
+		return boost.make_part_modifier(CarManager.selected_car.get_part_level(boost.car_part))
+	return Modifier.new(
+		boost.target_stats_values[stat_index],
+		boost.get_modifier_type(boost.target_stats_modifier_types[stat_index]),
+		"boost applied " + InventoryManager.get_boost_name(boost))
+
+
+func _get_bonus_string(stat_index : int) -> String:
+	if boost.is_car_part():
+		var bonus : float = boost.get_next_bonus(CarManager.selected_car.get_part_level(boost.car_part))
+		return "-" if bonus <= 0.0 else "+ %d %%" % roundi(bonus * 100.0)
+	return get_modifier_sign_string_and_values(boost.target_stats_modifier_types[stat_index], stat_index)
+	

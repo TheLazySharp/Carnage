@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://cduxwtfiy7n8"]
+
+[ext_resource type="Texture2D" uid="uid://ch2tpu8vunnsk" path="res://Assets/Items/engine.png" id="1_ac3jo"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_qrt4t"]
+
+[resource]
+script = ExtResource("2_qrt4t")
+ref = 16
+name = "PART_ENGINE"
+target_ressource = 1
+target_stats = Array[int]([10, 9])
+target_weapon_types = 6
+icon = ExtResource("1_ac3jo")
+car_part = 1
+level_bonuses = Array[float]([0.08, 0.06, 0.05, 0.04, 0.02])
+metadata/_custom_type_script = "uid://71ta02ofykhp"

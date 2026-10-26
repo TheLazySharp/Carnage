@@ -34,30 +34,12 @@ var item_colors : Dictionary = {
 
 const CAR_BOOSTS_UIDS : Array[String] = [
 	# --------- CAR BOOSTS ---------------------
-	"uid://dpd83dad37goh", #bumper common
-	"uid://dtqdcc0f16p4f", #bumper epic
-	"uid://5n8emckrs5pv", #bumper rare
-	"uid://cboeim8dshmtm", #carbon common
-	"uid://c6e0cxngso5cp", #carbon epic 
-	"uid://bn08he2nupmi4", #carbon rare
-	"uid://y5muklkvmup", #engine common
-	"uid://bowrkjeknqqru", #engine epic
-	"uid://vydcpyr47y13", #engine rare
-	#"uid://djtfdsqw457gd", #nitro common
-	#"uid://d1kxt1otl2rfy", #nitro epic
-	#"uid://8k6vcoyxekru", #nitro rare
-	"uid://bs1v1nyhpxmer", #shield common
-	"uid://cqhcq4c1upd25", #shield epic
-	"uid://o6d75wr36o5d", #shield rare
-	"uid://cytvsdd41rvyd", #tank common
-	"uid://denneeu83vykp", #tank epic
-	"uid://dpar3wem8fljc", #tank rare
-	"uid://cfu8gxkhor7a5", #turbo common
-	"uid://c3gx0tkshh2qw", #turbo epic
-	"uid://bd0gfid5eh63h", #turbo rare
-	#"uid://doj7a2p4rio26", #wheels common
-	#"uid://bjyo2yyblhs07", #wheels epic
-	#"uid://bkpcv00gc0jjf", #wheels rare
+"uid://d0emed7oc4j30", # blood tank
+"uid://dygrjk5k2pav8", # front bumper
+"uid://cduxwtfiy7n8", # engine
+"uid://c3gyaf3yrsw0t", # rear bumper
+"uid://dsxu31q6706q4", # tires
+
 ]
 const WEAPONS_BOOSTS_UIDS : Array[String] = [
 	# --------------- WEAPONS BOOSTS -------------
@@ -137,7 +119,8 @@ enum CONST_REFS {
 	Grenade,
 	Grenade_Belt,
 	Saw,
-	Saw_carrier
+	Saw_carrier,
+	Rear_Bumper
 }
 
 

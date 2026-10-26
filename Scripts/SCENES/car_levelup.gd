@@ -73,20 +73,7 @@ func _ready() -> void:
 	upgrades_tag.text = str(maxi(0,XPManager.available_upgrades))
 	icon.texture = car.car_sprite
 	
-	var proposed_boosts : Array[BoostData] = []
-	
-	for i : int in nb_boost:
-		var boost : BoostData = pick_boost(proposed_boosts)
-		proposed_boosts.append(boost)
-		
-		var boost_card := boost_scene.instantiate()
-		boost_container.add_child(boost_card)
-		boost_card.setup(boost,false)
-	
-	final_boosts = proposed_boosts
-	proposed_boosts.clear()
-	boost_container.get_child(0).get_child(0).grab_focus()
-	append_buttons()
+	_build_part_cards()
 
 	life_bar.max_value = StatsManager.max_life
 	fuel_bar.max_value = StatsManager.max_fuel
@@ -135,9 +122,7 @@ func _ready() -> void:
 	
 	reset_values()
 	
-	boost_container.get_child(0).get_child(0).grab_focus()
-	append_buttons()
-	_on_button_focused(boost_container.get_child(0).get_child(0))
+	_focus_first_part()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("confirm"):
@@ -172,24 +157,13 @@ func _on_visibility_changed() -> void:
 		#boost_container.get_child(0).get_child(0).grab_focus()
 		pass
 
-func reroll() -> void : 
-	for i in range(boost_container.get_child_count() -1,-1,-1) :
-		boost_container.get_child(i).queue_free()
-	
-	var proposed_boosts : Array[BoostData] = []
-	
-	for i : int in nb_boost:
-		var boost : BoostData = pick_boost(proposed_boosts)
-		proposed_boosts.append(boost)
-		
-		var boost_card := boost_scene.instantiate()
-		boost_container.add_child(boost_card)
-		boost_card.setup(boost,false)
-		if i == 0 : 
-			boost_card.get_child(0).grab_focus()
-	
-	final_boosts = proposed_boosts
-	proposed_boosts.clear()
+func reroll() -> void:
+	_rebuild_parts.call_deferred()
+
+
+func _rebuild_parts() -> void:
+	_build_part_cards()
+	_focus_first_part()
 
 func _on_ignore_pressed() -> void:
 	if XPManager.available_upgrades > 0 :
@@ -207,9 +181,11 @@ func append_buttons() -> void :
 			boost_scenes.append(boost_container.get_child(i))
 			buttons.append(boost_container.get_child(i).get_node("Confirm"))
 
-func show_modified_stats(boost : BoostData, target_stat_idx : int) -> float : 
-	return boost.get_car_stat(boost.target_stats[target_stat_idx],car).preview_value(Modifier.new(boost.target_stats_values[target_stat_idx],boost.get_modifier_type(boost.target_stats_modifier_types[target_stat_idx]),"boost applied " + InventoryManager.get_boost_name(boost)))
-
+func show_modified_stats(boost : BoostData, target_stat_idx : int) -> float :
+	var stat : Statistic = boost.get_car_stat(boost.target_stats[target_stat_idx], car)
+	if boost.is_car_part():
+		return stat.preview_value(boost.make_part_modifier(car.get_part_level(boost.car_part)))
+	return stat.preview_value(Modifier.new(boost.target_stats_values[target_stat_idx],boost.get_modifier_type(boost.target_stats_modifier_types[target_stat_idx]),"boost applied " + InventoryManager.get_boost_name(boost)))
 
 func get_modified_bar(boost : BoostData, target_stat_idx : int) -> ProgressBar:
 	match boost.target_stats[target_stat_idx]:
@@ -292,35 +268,32 @@ func _on_button_focused(button : Button) -> void:
 	var current_boost_scn : Control = focused_button.get_parent()
 	var focused_boost : BoostData = current_boost_scn.boost
 	for idx in focused_boost.target_stats.size():
-		if show_modified_stats(focused_boost,idx) >= focused_boost.get_car_stat(focused_boost.target_stats[idx],car).get_value():
-			var stylebox_back : StyleBox = StyleBoxFlat.new()
+		var modified_bar : ProgressBar = get_modified_bar(focused_boost, idx)
+		var current_bar : ProgressBar = get_current_bar(focused_boost, idx)
+		var modified_label : Label = get_modified_label(focused_boost, idx)
+		# Stats without a row in the panel (combo gain, drift charge, perfect hit power): shown on the card only
+		if modified_bar == null or current_bar == null or modified_label == null:
+			continue
+		var current_value : float = focused_boost.get_car_stat(focused_boost.target_stats[idx], car).get_value()
+		var new_value : float = show_modified_stats(focused_boost, idx)
+
+		var stylebox_front : StyleBox = StyleBoxFlat.new()
+		set_stylebox(stylebox_front, FontManager.dark_yellow)
+		current_bar.add_theme_stylebox_override("fill", stylebox_front)
+
+		var stylebox_back : StyleBox = StyleBoxFlat.new()
+		if new_value >= current_value:
 			set_stylebox(stylebox_back, Color.DARK_GREEN)
-			get_modified_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_back)
-			
-			var stylebox_front : StyleBox = StyleBoxFlat.new()
-			set_stylebox(stylebox_front, FontManager.dark_yellow)
-			get_current_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_front)
-			
-			get_modified_bar(focused_boost,idx).value = show_modified_stats(focused_boost,idx)
-			get_current_bar(focused_boost,idx).value = focused_boost.get_car_stat(focused_boost.target_stats[idx],car).get_value()
-			
-			get_modified_label(focused_boost,idx).text = "> " + str(show_modified_stats(focused_boost,idx))
-			get_modified_label(focused_boost,idx).add_theme_color_override("font_color",Color.GREEN)
-			
-		else : 
-			var stylebox_back : StyleBox = StyleBoxFlat.new()
+			modified_bar.value = new_value
+			current_bar.value = current_value
+			modified_label.add_theme_color_override("font_color", Color.GREEN)
+		else:
 			set_stylebox(stylebox_back, Color.DARK_RED)
-			get_modified_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_back)
-			
-			var stylebox_front : StyleBox = StyleBoxFlat.new()
-			set_stylebox(stylebox_front, FontManager.dark_yellow)
-			get_current_bar(focused_boost,idx).add_theme_stylebox_override("fill",stylebox_front)
-			
-			get_current_bar(focused_boost,idx).value = show_modified_stats(focused_boost,idx)
-			get_modified_bar(focused_boost,idx).value = focused_boost.get_car_stat(focused_boost.target_stats[idx],car).get_value()
-			
-			get_modified_label(focused_boost,idx).text = "> " + str(show_modified_stats(focused_boost,idx))
-			get_modified_label(focused_boost,idx).add_theme_color_override("font_color",Color.RED)
+			current_bar.value = new_value
+			modified_bar.value = current_value
+			modified_label.add_theme_color_override("font_color", Color.RED)
+		modified_bar.add_theme_stylebox_override("fill", stylebox_back)
+		modified_label.text = "> " + str(snappedf(new_value, 0.1))
 			
 func reset_values() -> void : 
 	life_bar_new.value = life_bar.value
@@ -362,3 +335,39 @@ func set_stylebox(sb : StyleBox, color : Color) -> void:
 	sb.skew = Vector2(0.6,0)
 	sb.draw_center = true
 	sb.corner_detail = 8
+
+# ---------------- CAR PARTS ----------------
+
+## The car parts of the catalog, in the Car_Upgrades order (always the same layout)
+func _get_car_parts() -> Array[BoostData]:
+	var parts : Array[BoostData] = []
+	for part_boost : BoostData in ShopManager.all_car_boosts:
+		if part_boost.is_car_part():
+			parts.append(part_boost)
+	parts.sort_custom(func(a : BoostData, b : BoostData) -> bool: return a.car_part < b.car_part)
+	return parts
+
+
+func _build_part_cards() -> void:
+	for i : int in range(boost_container.get_child_count() - 1, -1, -1):
+		var old_card : Node = boost_container.get_child(i)
+		boost_container.remove_child(old_card)
+		old_card.queue_free()
+	buttons.clear()
+	boost_scenes.clear()
+	final_boosts = _get_car_parts()
+	for part_boost : BoostData in final_boosts:
+		var boost_card := boost_scene.instantiate()
+		boost_container.add_child(boost_card)
+		boost_card.setup(part_boost, false)
+	append_buttons()
+
+
+func _focus_first_part() -> void:
+	for button : Button in buttons:
+		if !button.disabled:
+			button.grab_focus()
+			return
+	# Every part is maxed: nothing left to spend the level-ups on
+	XPManager.available_upgrades = 0
+	SceneManager.load_level(SceneManager.SCENES.SHOP)

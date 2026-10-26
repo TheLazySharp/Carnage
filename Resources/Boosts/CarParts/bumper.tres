@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://dygrjk5k2pav8"]
+
+[ext_resource type="Texture2D" uid="uid://bmgonqrvktc7g" path="res://Assets/Items/front_gear.png" id="1_miwho"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_mpllt"]
+
+[resource]
+script = ExtResource("2_mpllt")
+ref = 14
+name = "PART_FRONT_BUMPER"
+target_ressource = 1
+target_stats = Array[int]([12])
+target_weapon_types = 6
+icon = ExtResource("1_miwho")
+car_part = 8
+level_bonuses = Array[float]([0.2, 0.16, 0.12, 0.08, 0.04])
+metadata/_custom_type_script = "uid://71ta02ofykhp"

@@ -86,3 +86,15 @@ TUTO_PHASE2_PERFECT_HIT;Perfect Hit;Perfect Hit
 TUTO_PHASE2_PERFECT_HIT_BODY;While drifting at speed, give a sharp turn of the wheel to swing the rear of your car into a zombie: it flies off and bursts on the first zombie or wall it meets. Land it during a maneuver and that maneuver gives a combo bonus, just like a dash.;En drift et à bonne vitesse, donne un coup de volant sec pour balancer l’arrière de la voiture dans un zombie : il s’envole et éclate sur le premier zombie ou mur qu’il rencontre. Réussis-le pendant une manœuvre, et elle te donne un bonus de combo, comme un dash.
 MANEUVER_LOOP;LOOP;LOOP
 MANEUVER_LOOP_DESC;Close a loop with your tire marks: your car’s ultimate strikes inside it.;Referme une boucle avec tes traces de pneus : l’ultime de ta voiture frappe à l’intérieur.
+PART_ENGINE;Engine;Moteur
+PART_ENGINE_DESC;Increases max speed and acceleration.;Augmente la vitesse max et l’accélération.
+PART_FRONT_BUMPER;Front Bumper;Pare-chocs avant
+PART_FRONT_BUMPER_DESC;Increases ramming damage.;Augmente les dégâts d’impact.
+PART_REAR_BUMPER;Rear Bumper;Pare-chocs arrière
+PART_REAR_BUMPER_DESC;Increases perfect hit power.;Augmente la puissance du coup parfait.
+PART_TIRES;Tires;Pneus
+PART_TIRES_DESC;Increases combo gain and drift charge speed.;Augmente le gain de combo et la vitesse de charge du drift.
+PART_BLOOD_TANK;Blood Tank;Réservoir de sang
+PART_BLOOD_TANK_DESC;Increases the car’s max life.;Augmente la vie max de la voiture.
+PART_LEVEL;Lv.;Niv.
+PART_MAX;MAX;MAX

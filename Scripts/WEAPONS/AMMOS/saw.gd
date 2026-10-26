@@ -15,6 +15,8 @@ var velocity : Vector2
 var start_position : Vector2
 var damage_multiplier: float = 1.0
 var is_active : bool = false
+var launcher : Node2D = null  # owner pool, set at creation
+@export var cut_area : Area2D
 @export var wall_mask : int = 8
 ## Blade radius for the wall test: the saw stops when its edge touches the wall, not its center
 @export var wall_hit_radius : float = 16.0
@@ -31,6 +33,10 @@ func _ready() -> void:
 	ray_params.collide_with_areas = false
 	# A saw thrown while the car hugs a wall starts inside it: it must break right away
 	ray_params.hit_from_inside = true
+	if !is_active:
+		hide()
+		set_process(false)
+		_set_cut_enabled(false)
 
 func _process(delta: float) -> void:
 	if game_paused:
@@ -58,17 +64,37 @@ func _on_game_paused(games_is_paused : bool) -> void :
 	game_paused = games_is_paused
 
 func throw(from_position: Vector2, direction: Vector2, p_damage_multiplier: float = 1.0) -> void:
+	# Stats read on every throw: a pooled saw follows the modifiers added during the raid
+	damages = saw_data.dmg.get_value()
+	speed = saw_data.speed.get_value()
+	speed_rotation = saw_data.speed_rotation.get_value()
 	global_position = from_position
 	start_position = from_position
 	move_direction = direction.normalized()
 	velocity = move_direction * speed
 	damage_multiplier = p_damage_multiplier
-	show()
 	is_active = true
+	show()
 	set_process(true)
+	_set_cut_enabled(true)
 
-func desactivate() -> void: 
-	self.queue_free()
+## Back to the launcher's pool (freed only if it has no launcher)
+func desactivate() -> void:
+	if !is_active:
+		return  # already pooled: the screen exit after the move off-screen lands here
+	is_active = false
+	hide()
+	set_process(false)
+	_set_cut_enabled(false)
+	global_position = Vector2(-1000.0, -1000.0)
+	if launcher != null:
+		launcher.return_saw(self)
+	else:
+		queue_free()
+
+func _set_cut_enabled(enabled: bool) -> void:
+	if cut_area != null:
+		cut_area.set_deferred("monitoring", enabled)
 
 func _on_screen_exited() -> void:
 	desactivate()

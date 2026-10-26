@@ -71,6 +71,10 @@ var spin_360_min_angle: float
 @export var loop_max_age: float = 3.0
 @export var loop_min_perimeter: float = 300.0
 
+@export_group("Horn")
+## Seconds between two horn maneuvers (an easy maneuver: it must not be spammed)
+@export var horn_cooldown : float = 2.0
+var horn_ready_time : float = 0.0  # real time when the horn can fire again
 
 # Thresholds converted once
 var short_drift_min_slip: float
@@ -177,7 +181,7 @@ func _physics_process(delta: float) -> void:
 	_update_reverse_u_turn(delta, heading, forward_speed)
 
 	if Input.is_action_just_pressed(horn_action):
-		_emit_maneuver(Type.HORN, speed / reference_speed)
+		_try_horn(speed / reference_speed)
 
 
 # --- Drift session ---
@@ -340,6 +344,23 @@ func _emit_maneuver(maneuver_type: Type, intensity: float) -> void:
 	var attack_angle: float = car.global_rotation + direction_offset
 	# Amplified if the dash is active when the maneuver completes
 	SignalManager.maneuver_performed.emit(maneuver_type, clampf(intensity, 0.0, 1.0), level, dash_manager.is_dashing, attack_angle)
+
+
+
+#---- Horn ----
+## Horn with a cooldown. A locked horn starts no cooldown: its LOCKED feedback shows on every press
+func _try_horn(intensity : float) -> void:
+	if !LoadoutManager.owns(Type.HORN):
+		_emit_maneuver(Type.HORN, intensity)
+		return
+	var now : float = Time.get_ticks_msec() / 1000.0
+	if now < horn_ready_time:
+		return
+	horn_ready_time = now + horn_cooldown
+	_emit_maneuver(Type.HORN, intensity)
+
+
+# ------- PUBLIC API ----------
 
 ## Attack shape per maneuver, shared by every weapon:
 ## x = direction (radians, relative to the car heading), y = arc (radians), z = duration (seconds).

@@ -28,7 +28,10 @@ enum Target_Stats {
 	COLLECT_RADIUS,
 	DRIFT_TURN_BONUS,
 	MAX_FUEL,
-	MAX_NITRO
+	MAX_NITRO,
+	COMBO_STEP,
+	DRIFT_CHARGE_SPEED,
+	DRIFT_HIT_POWER
 }
 
 enum Mod_Type {
@@ -42,6 +45,7 @@ const LOWER_IS_BETTER : Dictionary = {
 	Target_Stats.FIRE_RATE: true,
 }
 
+@export_group("GENERAL")
 @export var ref : ShopManager.CONST_REFS
 @export var name : String
 @export var target_ressource : Target_Ressources
@@ -53,8 +57,12 @@ const LOWER_IS_BETTER : Dictionary = {
 @export var icon : Texture2D
 @export var text : String
 @export var rarity : InventoryManager.Rarities
-#var price : int
-#var is_in_shop : bool = false
+
+@export_group("CAR PART")
+## Car part this boost represents (N_A = legacy boost, not a part)
+@export var car_part : CarData.Car_Upgrades = CarData.Car_Upgrades.N_A
+## Bonus of each level, as a share of every target stat (0.2 = +20 %). The array size is the max level
+@export var level_bonuses : Array[float] = []
 
 func get_stats()-> Array[Dictionary]:
 	var stats: Array[Dictionary] = []
@@ -144,6 +152,9 @@ func get_stat_string(stat : Target_Stats) -> String:
 		Target_Stats.COOL_DOWN: return "Cool Down"
 		Target_Stats.SPEED: return "Speed"
 		Target_Stats.SPEED_ROTATION: return "Speed Rotation"
+		Target_Stats.COMBO_STEP: return "Combo Gain"
+		Target_Stats.DRIFT_CHARGE_SPEED: return "Drift Charge"
+		Target_Stats.DRIFT_HIT_POWER: return "Perfect Hit Damages"
 	return ""
 
 func get_rarity_string(boost_rarity : InventoryManager.Rarities) -> String:
@@ -167,6 +178,9 @@ func get_car_stat(target_stat : Target_Stats, car : CarData) -> Statistic:
 		Target_Stats.DRIFT_TURN_BONUS: return car.drift_turn_bonus
 		Target_Stats.CAR_DMG: return car.dmg
 		Target_Stats.MAX_NITRO: return car.max_nitro
+		Target_Stats.COMBO_STEP: return car.combo_step
+		Target_Stats.DRIFT_CHARGE_SPEED: return car.drift_charge_speed
+		Target_Stats.DRIFT_HIT_POWER: return car.drift_hit_power
 	return null
 
 func get_weapon_stat(target_stat : Target_Stats, weapon : WeaponData) -> Statistic:
@@ -191,3 +205,18 @@ func get_modifier_type(mod_type : Mod_Type) -> Modifier.Type :
 ## True when lowering this stat improves it
 static func is_lower_better(stat : int) -> bool:
 	return LOWER_IS_BETTER.has(stat)
+	
+func is_car_part() -> bool:
+	return car_part != CarData.Car_Upgrades.N_A and !level_bonuses.is_empty()
+
+func get_max_level() -> int:
+	return level_bonuses.size()
+
+func get_next_bonus(current_level : int) -> float:
+	if current_level >= level_bonuses.size():
+		return 0.0
+	return level_bonuses[current_level]
+
+func make_part_modifier(current_level : int) -> Modifier:
+	var source : String = "car part %s lv%d" % [CarData.Car_Upgrades.keys()[car_part], current_level + 1]
+	return Modifier.new(get_next_bonus(current_level), Modifier.Type.PERCENT_ADD, source)

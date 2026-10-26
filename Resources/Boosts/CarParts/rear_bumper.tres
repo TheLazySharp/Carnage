@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BoostData" format=3 uid="uid://c3gyaf3yrsw0t"]
+
+[ext_resource type="Texture2D" uid="uid://drcqx1tsmpkt0" path="res://Assets/Items/rear_bumper.png" id="1_nd1jr"]
+[ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_pastp"]
+
+[resource]
+script = ExtResource("2_pastp")
+ref = 27
+name = "PART_REAR_BUMPER"
+target_ressource = 1
+target_stats = Array[int]([22])
+target_weapon_types = 6
+icon = ExtResource("1_nd1jr")
+car_part = 9
+level_bonuses = Array[float]([0.25, 0.2, 0.15, 0.1, 0.05])
+metadata/_custom_type_script = "uid://71ta02ofykhp"

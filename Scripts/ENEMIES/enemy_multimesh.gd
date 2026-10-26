@@ -453,7 +453,7 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0,
 
 	# 2. drops
 	#XP
-	#collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
+	collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
 	#if enemy.drops_dollar:
 		#collectable_pool.spawn_dollar(global_position)
 

@@ -7,10 +7,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_dfktb"]
 radius = 10.049875
 
-[node name="Saw" type="Node2D" unique_id=1510335606 groups=["bullets"]]
+[node name="Saw" type="Node2D" unique_id=1510335606 node_paths=PackedStringArray("cut_area") groups=["bullets"]]
 scale = Vector2(2, 2)
 script = ExtResource("1_442fj")
 saw_data = ExtResource("2_ja5ng")
+cut_area = NodePath("CutArea")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=273247620]
 scale = Vector2(0.6, 0.6)
