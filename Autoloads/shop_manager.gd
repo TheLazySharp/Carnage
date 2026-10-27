@@ -39,8 +39,8 @@ const CAR_BOOSTS_UIDS : Array[String] = [
 "uid://cduxwtfiy7n8", # engine
 "uid://c3gyaf3yrsw0t", # rear bumper
 "uid://dsxu31q6706q4", # tires
-
 ]
+
 const WEAPONS_BOOSTS_UIDS : Array[String] = [
 	# --------------- WEAPONS BOOSTS -------------
 	"uid://bcdbbiu70qly7", #flamer common
@@ -84,13 +84,14 @@ const AMMO_BOOSTS_UIDS : Array[String] = [
 	"uid://ckf34b0eo613m", #grenade rare
 ]
 const ALL_CHARMS_UIDS : Array[String] = [
-	"uid://cycv6edr3ie0h", #invincibility common
+	"uid://cycv6edr3ie0h", #invincibility
 	"uid://dkm27p4j8u1jj", #shop discount
-	"uid://dig2dq8y0nvfs", #add 1 projectile on all weapons (COMMON)
-	"uid://b82jil28njo77", #add 3 projectiles (EPIC)
-	"uid://1jcxa8pvy8yh", #invincibility EPIC
+	"uid://dig2dq8y0nvfs", #add 1 projectile on all weapons
+	"uid://dgv25qwqvd5w3", #pennant : repeat same maneuver still increase combo
+	"uid://byrlcqr4l75j6", #dice : % chance to get a free amplified maneuver
+	"uid://bcojdkbw1matu", #hammer : wall collision in drift do not kill the drit and maneuver
+	"uid://d2b37qu16h6av", #rabbit foot : % chance to repeat last salvo
 ]
-
 
 enum CONST_REFS {
 	N_A,
@@ -104,9 +105,9 @@ enum CONST_REFS {
 	Landmine,
 	Flame,
 	Baseball_Bat,
-	Invincibility,
-	Add_Projectile,
-	Shop_Discount,
+	Charm_Hat,
+	Charm_Bullet,
+	Charm_Discount,
 	Bumper,
 	Carbon,
 	Engine,
@@ -120,9 +121,16 @@ enum CONST_REFS {
 	Grenade_Belt,
 	Saw,
 	Saw_carrier,
-	Rear_Bumper
+	Rear_Bumper,
+	Charm_Pennant,
+	Charm_dices,
+	Charm_rabbit_foot,
+	Charm_Hammer,
+	Charm_Skull,
+	Charm_Grenade,
+	Charm_piggy,
+	Charm_rose,
 }
-
 
 var all_car_boosts : Array[BoostData] = []
 var all_weapon_boosts : Array[BoostData] = []
@@ -191,35 +199,13 @@ func pick_boost(boost_list : Array[BoostData], p_rarity : InventoryManager.Rarit
 	return pool[rng.randi_range(0,pool.size() -1)]
 
 
-func pick_charm_rarity() -> InventoryManager.Rarities:
-	var weighted_sum : int = 0
-	for rarity : InventoryManager.Rarities  in item_levels:
-		weighted_sum += item_levels[rarity]
-	
-	var shop_item_weight : int = rng.randi_range(0,weighted_sum -1)
-	
-	for rarity : InventoryManager.Rarities in item_levels:
-		shop_item_weight -= item_levels[rarity]
-		if shop_item_weight < 0:
-			return rarity
-	return InventoryManager.Rarities.COMMON
-
-func pick_charm(p_rarity : InventoryManager.Rarities = InventoryManager.Rarities.COMMON)-> CharmData:
-	var rarity : InventoryManager.Rarities
-	if p_rarity != InventoryManager.Rarities.COMMON:
-		rarity = p_rarity
-	else :
-		rarity = pick_charm_rarity()
-
-	var pool : Array = all_charms.filter(
-		func(charm : CharmData) -> bool:
-		return charm.rarity == rarity)
-	
-	if pool.is_empty():
-		push_warning("shop manager : no charm with rarity "+ str(rarity))
-		pool = all_charms
-	
-	return pool[rng.randi_range(0,pool.size() -1)]
+func pick_charms(count : int) -> Array[CharmData]:
+	var pool : Array[CharmData] = []
+	for charm : CharmData in all_charms:
+		if !CharmsManager.has_charm(charm):
+			pool.append(charm)
+	pool.shuffle()
+	return pool.slice(0, count)
 
 ## Maneuvers the player does not own yet, in random order (the loop is always owned: never offered)
 func pick_maneuvers(count : int) -> Array[ManeuverData]:
@@ -235,8 +221,6 @@ func pick_weapon()-> WeaponData:
 	if pool.is_empty():
 		push_warning("shop manager : no weapon available")
 	return pool[rng.randi_range(0,pool.size() -1)]
-
-
 
 func get_reroll_cost() -> int :
 	var reroll_cost : int

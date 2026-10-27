@@ -81,19 +81,6 @@ func pick_boost(proposed_boosts : Array[BoostData], pick_list : Array[BoostData]
 	push_warning("shop : no valid boost found after 1000 attempts")
 	return null
 
-func pick_charm(proposed_charms : Array[CharmData]) -> CharmData:
-	var attempts : int = 0
-	while attempts <100:
-		var charm : CharmData = ShopManager.pick_charm()
-		if proposed_charms.has(charm):
-			attempts += 1
-			#print("charm already proposed")
-			continue
-		
-		return charm
-	push_warning("shop : no valid charm found after 100 attempts")
-	
-	return ShopManager.pick_charm()
 
 func _on_item_baught() -> void:
 	if self.visible:
@@ -108,10 +95,10 @@ func _on_back_pressed() -> void:
 func _on_visibility_changed() -> void:
 	if self.visible and items_ready : 
 		boost_container.get_child(0).get_child(0).grab_focus()
+		SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_Discount)
 
 func reroll() -> void : 
 	var proposed_boosts : Array[BoostData] = []
-	var proposed_charms : Array[CharmData] = []
 	
 	#var ammos : int = mini(nb_ammo,WeaponsManager.weapons.size())
 	#var weapons : int = mini(nb_weapon,WeaponsManager.weapons.size())
@@ -132,17 +119,11 @@ func reroll() -> void :
 		#boost_container.add_child(boost_card)
 		#boost_card.setup(boost,true)
 
-
-	#for i : int in nb_charm:
-		#var charm : CharmData = pick_charm(proposed_charms)
-		#proposed_charms.append(charm)
-		#
-		#var charm_card := charm_scene.instantiate()
-		#charm_container.add_child(charm_card)
-		#charm_card.setup(charm,true)
-		#
-	#proposed_boosts.clear()
-	#proposed_charms.clear()
+	# Charms not owned yet, no duplicate (fewer cards when almost everything is owned)
+	for charm : CharmData in ShopManager.pick_charms(nb_charm):
+		var charm_card : Control = charm_scene.instantiate()
+		charm_container.add_child(charm_card)
+		charm_card.setup(charm, true)
 	
 	# Maneuvers not owned yet (fewer cards when almost everything is owned)
 	for maneuver : ManeuverData in ShopManager.pick_maneuvers(nb_maneuver):
@@ -153,7 +134,7 @@ func reroll() -> void :
 	items_ready = true
 
 func _on_reroll_pressed() -> void:
-	if ShopManager.get_reroll_cost() >= InventoryManager.blood_tank_q:
+	if ShopManager.get_reroll_cost() > InventoryManager.blood_tank_q:
 		return
 	for i in range(boost_container.get_child_count() -1,-1,-1) :
 		boost_container.get_child(i).queue_free()

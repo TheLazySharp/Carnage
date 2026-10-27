@@ -37,6 +37,7 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.combo_changed.connect(_on_combo_changed)
+	SignalManager.maneuver_salvo_repeated.connect(_on_maneuver_performed)
 
 	shot_sfx.stream = revolver_data.weapon_sfx
 	# Several shot sounds can overlap instead of cutting each other

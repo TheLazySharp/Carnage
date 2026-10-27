@@ -71,7 +71,6 @@ class_name CarData
 #@export var car_explosion: SpriteFrames
 
 var drifting : bool = false
-
 var engine_lvl: int = 0
 var turbo_lvl: int = 0
 var shield_lvl: int = 0
@@ -150,7 +149,13 @@ var current_life : int
 var current_fuel : int 
 var current_nitro : int
 
+
+#--- Charms -----
 var invincible : bool = false
+var combo_repeat_gain : float = 0.0
+var free_amplify_chance : float = 0.0  #dice charm
+var salvo_repeat_chance : float = 0.0  #rabbit foot charm
+var wall_keeps_drift : bool = false  #hammer charm
 
 var is_unlocked : bool = false
 
@@ -166,8 +171,7 @@ func init_stats() -> void:
 	nitro_lvl = 0
 	wheels_lvl = 0
 	bumper_lvl = 0
-	
-	invincible = false
+
 	
 	acceleration = Statistic.new(base_acceleration)
 	max_speed = Statistic.new(base_max_speed)
@@ -180,7 +184,6 @@ func init_stats() -> void:
 	drift_turn_bonus = Statistic.new(base_drift_turn_bonus)
 	max_fuel = Statistic.new(base_max_fuel)
 	max_nitro = Statistic.new(base_max_nitro)
-
 	combo_window = Statistic.new(base_combo_window)
 	combo_step = Statistic.new(base_combo_step)
 	combo_decay = Statistic.new(base_combo_decay)
@@ -188,7 +191,15 @@ func init_stats() -> void:
 	ultimate_recharge_speed = Statistic.new(1.0)
 	drift_charge_speed = Statistic.new(1.0)
 	drift_hit_power = Statistic.new(1.0)
+	
+	invincible = false
+	combo_repeat_gain = 0.0
+	free_amplify_chance = 0.0
+	salvo_repeat_chance = 0.0
+	wall_keeps_drift = false
+	
 	part_levels.clear()
+
 
 func get_car_stat(stat : Car_Stats) -> Statistic:
 	match stat:

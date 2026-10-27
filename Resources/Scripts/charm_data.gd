@@ -10,7 +10,7 @@ var price: int
 var is_in_shop : bool = false
 @export var p_value : float
 @export var p_value_descr : String
-
+@export var trigger_sfx : AudioStream
 
 @export var effect_script : GDScript
 

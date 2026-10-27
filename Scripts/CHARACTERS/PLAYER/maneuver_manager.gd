@@ -76,6 +76,11 @@ var spin_360_min_angle: float
 @export var horn_cooldown : float = 2.0
 var horn_ready_time : float = 0.0  # real time when the horn can fire again
 
+
+@export_group("Charms")
+## Rabbit foot: gap between the end of the salvo and its repetition (seconds)
+@export var salvo_repeat_gap: float = 0.1
+
 # Thresholds converted once
 var short_drift_min_slip: float
 var u_turn_min_angle: float
@@ -96,6 +101,7 @@ var drift_entry_speed: float = 0.0
 var drift_rotation: float = 0.0
 # Highest drift charge tier reached during the session (the DriftManager resets it on release)
 var drift_level: int = 0
+var hammer_triggered: bool = false #once per drift
 
 # Donut state
 var donut_rotation: float = 0.0
@@ -134,9 +140,14 @@ func _on_game_paused(game_on_pause: bool) -> void:
 	game_paused = game_on_pause
 
 func _on_wall_collision() -> void:
-	# A drift killed by a wall is a failed drift: no maneuver on release
-	if in_drift_session:
-		drift_session_consumed = true
+	if !in_drift_session or drift_session_consumed:
+		return
+	if car.player.wall_keeps_drift: # Hammer charm
+		if !hammer_triggered:
+			hammer_triggered = true
+			SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_Hammer)
+		return
+	drift_session_consumed = true
 
 func _on_burnout_charged() -> void:
 	# A rev while steering is a donut attempt, not a burnout
@@ -194,6 +205,7 @@ func _start_drift_session(speed: float, heading: float, forward_speed: float) ->
 	drift_entry_speed = speed
 	drift_rotation = 0.0
 	drift_level = 0
+	hammer_triggered = false
 	donut_turn_count = 0
 	_reset_donut()
 	_reset_trail(_get_trail_position())
@@ -339,13 +351,26 @@ func _emit_maneuver(maneuver_type: Type, intensity: float) -> void:
 	# World-space attack direction: car heading + the pattern offset
 	var direction_offset: float = get_pattern(maneuver_type).x
 	if maneuver_type == Type.SHORT_DRIFT:
-		# Inner side of the turn, toward the horde being dodged: rotation > 0 = clockwise = right turn -> right side
-		direction_offset = PI * 0.5 if drift_rotation > 0.0 else -PI * 0.5
+		direction_offset = PI * 0.5 if drift_rotation > 0.0 else -PI * 0.5 #rotation > 0 = clockwise = right turn -> right side
 	var attack_angle: float = car.global_rotation + direction_offset
-	# Amplified if the dash is active when the maneuver completes
-	SignalManager.maneuver_performed.emit(maneuver_type, clampf(intensity, 0.0, 1.0), level, dash_manager.is_dashing, attack_angle)
+	var is_amplified : bool = dash_manager.is_dashing
+	if !is_amplified and maneuver_type != Type.LOOP and car.player.free_amplify_chance > 0.0 and randf() < car.player.free_amplify_chance: # Dice charm
+		is_amplified = true
+		SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_dices)
+	SignalManager.maneuver_performed.emit(maneuver_type, clampf(intensity, 0.0, 1.0), level, is_amplified, attack_angle)
 
+	if maneuver_type != Type.LOOP and LoadoutManager.get_weapon(maneuver_type) != null and car.player.salvo_repeat_chance > 0.0 and randf() < car.player.salvo_repeat_chance:
+		_repeat_salvo(maneuver_type, clampf(intensity, 0.0, 1.0), level, is_amplified, direction_offset) # Rabbit foot charm
 
+func _repeat_salvo(maneuver_type: Type, intensity: float, level: int, is_amplified: bool, direction_offset: float) -> void:
+	var delay: float = maxf(get_pattern(maneuver_type).z, 0.0) + salvo_repeat_gap
+	await get_tree().create_timer(delay).timeout
+	if !is_instance_valid(car) or car.game_is_over:
+		return
+	while game_paused:
+		await get_tree().process_frame
+	SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_rabbit_foot)
+	SignalManager.maneuver_salvo_repeated.emit(maneuver_type, intensity, level, is_amplified, car.global_rotation + direction_offset)
 
 #---- Horn ----
 ## Horn with a cooldown. A locked horn starts no cooldown: its LOCKED feedback shows on every press

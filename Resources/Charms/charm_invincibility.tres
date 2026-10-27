@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("3_bov4m")
 ref = 11
-name = "Invincibility"
+name = "Protective hat"
 icon = ExtResource("2_fd2wv")
 description = "The car is invicible for 3 sec when hit by enemiesCool down : 7 sec"
 p_value = 3.0

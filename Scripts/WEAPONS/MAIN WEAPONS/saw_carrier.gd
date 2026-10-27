@@ -25,13 +25,13 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.combo_changed.connect(_on_combo_changed)
+	SignalManager.maneuver_salvo_repeated.connect(_on_maneuver_performed)
 
 	saw_launch_sfx.stream = carrier_data.weapon_sfx
 	# Several shot sounds can overlap instead of cutting each other
 	saw_launch_sfx.max_polyphony = sfx_polyphony
 	
 	_create_saws(pool_size)
-
 
 func _on_combo_changed(multiplier : float, _combo_count : int) -> void:
 	combo_multiplier = multiplier

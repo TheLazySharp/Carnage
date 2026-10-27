@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://bcojdkbw1matu"]
+
+[ext_resource type="Script" uid="uid://uxjdsq55tsde" path="res://Scripts/CHARMS/charm_hammer.gd" id="1_v2v5x"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_nsbyl"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_l4yie"]
+
+[resource]
+script = ExtResource("3_l4yie")
+ref = 31
+name = "CHARM_HAMMER"
+icon = ExtResource("2_nsbyl")
+description = "CHARM_HAMMER_DESC"
+effect_script = ExtResource("1_v2v5x")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

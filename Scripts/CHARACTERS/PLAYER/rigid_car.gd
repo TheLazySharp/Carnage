@@ -310,6 +310,8 @@ func _handle_wall_collision(collision : KinematicCollision2D, forward : Vector2,
 
 	if drifting:
 		SignalManager.wall_collision.emit()
+		if player.wall_keeps_drift: # Hammer charm
+			return
 		drifting = false
 		drift_locked = true  # drift stays dead until the key is released (see fix 2)
 		drift_manager.force_stop_skid()

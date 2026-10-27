@@ -25,6 +25,7 @@ func _ready() -> void:
 		flames.append(flame)
 	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
 	SignalManager.combo_changed.connect(_on_combo_changed)
+	SignalManager.maneuver_salvo_repeated.connect(_on_maneuver_performed)
 
 
 func spawn_flame(car_rotation : float, p_nb_projectile : int = int(flamer_data.nb_projectile.get_value()), origin : Vector2 = self.global_position) -> void : 

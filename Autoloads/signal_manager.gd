@@ -84,8 +84,6 @@ signal start_timer
 @warning_ignore("unused_signal")
 signal weapon_stats_initiated(weapon : WeaponData)
 
-@warning_ignore("unused_signal")
-signal player_invincible(invincible : bool)
 
 @warning_ignore("unused_signal")
 signal sandbox_mode
@@ -176,9 +174,6 @@ signal text_window_closed(message_key: StringName)
 signal loading_screen_closed
 
 
-
-
-
 # ---- DEAD LAPS -----
 @warning_ignore("unused_signal")
 signal new_frag
@@ -208,9 +203,18 @@ signal implant_unplugged
 @warning_ignore("unused_signal")
 signal maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: float, drift_level: int, is_amplified: bool, attack_angle: float)
 @warning_ignore("unused_signal")
+signal maneuver_salvo_repeated(maneuver_type : ManeuverManager.Type, intensity : float, drift_level : int, is_amplified : bool, attack_angle : float)
+@warning_ignore("unused_signal")
 signal combo_changed(multiplier: float, combo_count: int)
 @warning_ignore("unused_signal")
 signal maneuver_locked(maneuver_type: ManeuverManager.Type)
 ## Emitted by the ComboManager once a maneuver is rated (read by the maneuver label)
 @warning_ignore("unused_signal")
 signal maneuver_rated(maneuver_type : ManeuverManager.Type, drift_level : int, is_amplified : bool, perfect_hit : bool)
+
+
+# ---- CHARMS ------
+@warning_ignore("unused_signal")
+signal player_invincible(invincible : bool)
+@warning_ignore("unused_signal")
+signal charm_triggered(ref : int)  # a charm just acted (ShopManager.CONST_REFS value)

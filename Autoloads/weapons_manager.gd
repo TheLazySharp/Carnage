@@ -17,8 +17,6 @@ const GRENADE_BELT = preload("uid://dcaqmwjtwjml4")
 const SAW = preload("uid://bla2di7wvuhnn")
 const SAW_CARRIER = preload("uid://d3713cb4urg63")
 
-
-
 var weapon_scenes: Array[Array] = []
 var weapons : Array[WeaponData] = []
 var unequipped_weapons: Array[WeaponData] = []
