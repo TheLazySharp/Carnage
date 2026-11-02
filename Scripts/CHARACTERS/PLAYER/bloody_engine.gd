@@ -21,6 +21,7 @@ var blood_hold_timer : float = 0.0
 @export var neons_activated : bool = false
 
 signal blood_absorbed
+var charm_skull_floor_reached : bool = false
 
 @export var fuel_per_splat: int = 1
 var max_life : float
@@ -48,6 +49,7 @@ func _ready() -> void:
 	SignalManager.car_blood_changed.connect(_on_car_blood_changed)
 	SignalManager.survivor_blood_consummed.connect(_on_survivor_blood_consummed)
 	SignalManager.combo_changed.connect(_on_combo_changed)
+	SignalManager.charm_skull_triggered.connect(_on_skull_charm_triggered)
 	vaccum_particles = vaccum_particles_scene.instantiate()
 	add_child(vaccum_particles)
 	vaccum_particles.emitting = false
@@ -206,7 +208,14 @@ func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 			player.current_life = 1
 	else:
 		player.current_life = new_life
+		if new_life < player.max_life * CharmsManager.charm_skull_life_floor and ! charm_skull_floor_reached:
+			SignalManager.emit_signal("charm_skull_triggered",true)
+		else : 
+			SignalManager.emit_signal("charm_skull_triggered",false)
+
 	BloodBars.update_survivor_blood()
 	if is_dead:
 		car.on_death()
 	
+func _on_skull_charm_triggered(skull_triggered : bool) -> void : 
+	charm_skull_floor_reached = skull_triggered

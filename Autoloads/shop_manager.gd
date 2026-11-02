@@ -91,6 +91,7 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://byrlcqr4l75j6", #dice : % chance to get a free amplified maneuver
 	"uid://bcojdkbw1matu", #hammer : wall collision in drift do not kill the drit and maneuver
 	"uid://d2b37qu16h6av", #rabbit foot : % chance to repeat last salvo
+	"uid://0d6g8w4alby3", #skull : 20% more damage if survivor health below 30%
 ]
 
 enum CONST_REFS {

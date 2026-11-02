@@ -44,7 +44,6 @@ var WEAPONS_TYPES : Dictionary = {
 
 func _ready() -> void:
 	SignalManager.game_is_over.connect(_on_game_over)
-	
 
 
 func load_weapons() -> void:

@@ -4,6 +4,10 @@ var active_charms: Dictionary = {}
 var holder : Array[CharmData] = []
 var sfx_player : AudioStreamPlayer
 
+# ----- charm Values ------
+var charm_skull_life_floor : float = 0.0
+var charm_skull_dmg_boost : float = 0.2
+
 func register(charm: CharmData, effect: CharmEffect) -> void:
 	active_charms[charm] = effect
 	holder.append(charm)

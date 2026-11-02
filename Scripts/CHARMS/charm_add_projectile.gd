@@ -7,7 +7,7 @@ var nb : int
 func activate(p_charm : CharmData) -> void:
 	SignalManager.weapon_stats_initiated.connect(_on_weapon_stats_initiated)
 	nb = int(p_charm.p_value)
-	charm_projectile_mod = Modifier.new(nb,Modifier.Type.FLAT,"add projectile from charm")	
+	charm_projectile_mod = Modifier.new(nb,Modifier.Type.FLAT,"add projectile from charm")
 	
 	if !WeaponsManager.weapons.is_empty():
 		for i in WeaponsManager.weapons.size():
