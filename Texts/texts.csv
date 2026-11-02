@@ -98,3 +98,28 @@ PART_BLOOD_TANK;Blood Tank;Réservoir de sang
 PART_BLOOD_TANK_DESC;Increases the car’s max life.;Augmente la vie max de la voiture.
 PART_LEVEL;Lv.;Niv.
 PART_MAX;MAX;MAX
+CHARM_PENNANT;Club Pennant;Fanion de club
+CHARM_PENNANT_DESC;Repeating the same maneuver still raises the combo.;Répéter la même manœuvre fait quand même monter le combo.
+CHARM_DICE;Fuzzy Dice;Dés en peluche
+CHARM_DICE_DESC;Each maneuver has a chance to be amplified, as if you were dashing.;Chaque manœuvre a une chance d’être amplifiée, comme pendant un dash.
+MANEUVER_LUCKY;LUCKY;LUCKY
+CHARM_RABBIT_FOOT;Rabbit’s Foot;Patte de lapin
+CHARM_RABBIT_FOOT_DESC;Each maneuver salvo has a chance to fire twice.;Chaque salve de manœuvre a une chance d’être tirée deux fois.
+CHARM_HAMMER;Hammer;Marteau
+CHARM_HAMMER_DESC;Hitting a wall no longer breaks your drift or your combo.;Heurter un mur ne coupe plus le drift ni le combo.
+CHARM_SKULL;Skull;Crâne
+CHARM_SKULL_DESC;"Weapons damages + 20% if survivor life gos below 30%
+";Dégats des armes +20% si la vie du survivant est inférieure à 30%
+CHARM_DART;Dart;Fléchette
+CHARM_DART_DESC;When a perfect hit throws an enemy into others, the driver regains blood for each enemy hit.;Quand un perfect hit projette un ennemi sur d’autres, le pilote récupère du sang pour chaque ennemi touché.
+LOADOUT_TAB_MANEUVERS;Maneuvers;Manœuvres
+LOADOUT_TAB_CHARMS;Charms;Charms
+LOADOUT_LOCKED;LOCKED;VERROUILLÉ
+CHARM_HAT;Cap;Casquette
+CHARM_HAT_DESC;The car becomes invincible for a few seconds at regular intervals.;La voiture devient invincible quelques secondes à intervalles réguliers.
+CHARM_BULLET;Bullet;Munition
+CHARM_BULLET_DESC;One more projectile on every weapon.;Un projectile de plus sur toutes les armes.
+CHARM_HAWAIIAN;Hawaiian Shirt;Chemise hawaïenne
+CHARM_HAWAIIAN_DESC;Every shop price is lowered.;Tous les prix du shop baissent.
+CHARM_SKULL;Skull;Crâne
+CHARM_SKULL_DESC;Weapons deal more damage while the driver is low on blood.;Les armes font plus de dégâts quand le pilote manque de sang.

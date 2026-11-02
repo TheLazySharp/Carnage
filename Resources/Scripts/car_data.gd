@@ -20,6 +20,9 @@ class_name CarData
 @export var base_combo_decay : float = 0.2    # multiplier lost per second once the window is over
 @export var base_combo_max : float = 5.0
 
+@export_group("CHARMS")
+## Charms equipped at the same time (jobs, charms... add to it through modifiers)
+@export var base_charm_slots : int = 5
 
 @export_group("MAIN STATS")
 @export var base_acceleration := 300
@@ -101,7 +104,8 @@ enum Car_Stats {
 	COMBO_MAX,
 	ULTIMATE_RECHARGE_SPEED,
 	DRIFT_CHARGE_SPEED,
-	DRIFT_HIT_POWER
+	DRIFT_HIT_POWER,
+	CHARM_SLOTS
 }
 
 enum Car_Upgrades {
@@ -129,7 +133,7 @@ var collect_radius : Statistic
 var drift_turn_bonus : Statistic
 var max_fuel : Statistic
 var max_nitro : Statistic
-
+var charm_slots : Statistic              # charms equipped at the same time
 var combo_window : Statistic
 var combo_step : Statistic
 var combo_decay : Statistic              # lower is better
@@ -191,6 +195,7 @@ func init_stats() -> void:
 	ultimate_recharge_speed = Statistic.new(1.0)
 	drift_charge_speed = Statistic.new(1.0)
 	drift_hit_power = Statistic.new(1.0)
+	charm_slots = Statistic.new(base_charm_slots)
 	
 	invincible = false
 	combo_repeat_gain = 0.0
@@ -220,7 +225,8 @@ func get_car_stat(stat : Car_Stats) -> Statistic:
 		Car_Stats.COMBO_MAX: return combo_max
 		Car_Stats.ULTIMATE_RECHARGE_SPEED: return ultimate_recharge_speed
 		Car_Stats.DRIFT_CHARGE_SPEED: return drift_charge_speed
-		Car_Stats.DRIFT_HIT_POWER: return drift_hit_power
+		Car_Stats.DRIFT_CHARGE_SPEED: return drift_charge_speed
+		Car_Stats.CHARM_SLOTS: return charm_slots
 	return null
 	
 func unscaled_speed()-> float:

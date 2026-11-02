@@ -15,7 +15,6 @@ const PICKUP = preload("uid://b7vsscuy32osn")
 const SEDAN = preload("uid://dubbw5mialr30")
 
 
-
 func _ready() -> void:
 	cars_administration()
 

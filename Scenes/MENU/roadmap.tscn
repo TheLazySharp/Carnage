@@ -103,7 +103,7 @@ grow_vertical = 1
 [node name="LoadoutPanel" parent="CanvasLayer" unique_id=250150395 instance=ExtResource("4_tslxm")]
 
 [node name="PanelContainer" parent="CanvasLayer/LoadoutPanel" index="0" unique_id=469199150]
-offset_left = -258.625
-offset_right = 176.625
+offset_left = -625.5
+offset_right = 172.0
 
 [editable path="CanvasLayer/LoadoutPanel"]

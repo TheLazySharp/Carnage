@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://dq5xvf3nn64ki"]
+
+[ext_resource type="Script" uid="uid://b24ei0itaw6w1" path="res://Scripts/JOBS/collectionist.gd" id="1_dxnm6"]
+[ext_resource type="Texture2D" uid="uid://c5r5wpwsuw4jn" path="res://Assets/UI/piston.png" id="2_nlg3e"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_4ppxg"]
+
+[resource]
+script = ExtResource("3_4ppxg")
+name = "Collectionist"
+icon = ExtResource("2_nlg3e")
+description = "Charms slot + 1"
+effect_script = ExtResource("1_dxnm6")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

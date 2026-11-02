@@ -133,6 +133,9 @@ signal beacon_start
 @warning_ignore("unused_signal")
 signal mission_completed
 
+@warning_ignore("unused_signal")
+signal shop_entered
+
 # ---- RACE (oval districts) ----
 @warning_ignore("unused_signal")
 signal race_started
@@ -220,3 +223,7 @@ signal player_invincible(invincible : bool)
 signal charm_triggered(ref : int)  # a charm just acted (ShopManager.CONST_REFS value)
 @warning_ignore("unused_signal")
 signal charm_skull_triggered(floor_reached : bool)
+@warning_ignore("unused_signal")
+signal drift_hit_chained(victim_count : int)  # a perfect hit projectile burst on other enemies (dart charm)
+@warning_ignore("unused_signal")
+signal survivor_blood_gained(amount : int)  # blood given back to the driver (dart charm...)

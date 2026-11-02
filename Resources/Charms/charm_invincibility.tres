@@ -7,9 +7,9 @@
 [resource]
 script = ExtResource("3_bov4m")
 ref = 11
-name = "Protective hat"
+name = "CHARM_HAT"
 icon = ExtResource("2_fd2wv")
-description = "The car is invicible for 3 sec when hit by enemiesCool down : 7 sec"
+description = "CHARM_HAT_DESC"
 p_value = 3.0
 p_value_descr = "invincibility duration"
 effect_script = ExtResource("1_t854p")

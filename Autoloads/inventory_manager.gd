@@ -85,5 +85,8 @@ func get_boost_name(boost : BoostData) -> String :
 func get_weapon_name(weapon : WeaponData) -> String : 
 	return str(ShopManager.CONST_REFS.keys()[weapon.weapon_ref])
 	
+
 func get_charm_name(charm : CharmData) -> String : 
-	return str(ShopManager.CONST_REFS.keys()[charm.ref])
+	if charm.name.is_empty():
+		return str(ShopManager.CONST_REFS.keys()[charm.ref])
+	return tr(charm.name)

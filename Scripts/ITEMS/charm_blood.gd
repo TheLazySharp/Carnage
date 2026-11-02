@@ -47,9 +47,13 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	sold_out.hide()
 	
 	if charm.is_in_shop:
-		shop_price = rng.randi_range(
-			int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),
-			int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod))
+		if ShopManager.current_charm_prices.has(charm):
+			shop_price = ShopManager.current_charm_prices[charm]
+		else:
+			shop_price = rng.randi_range(
+				int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 0.75 * GameMaster.difficulty_mod),
+				int(XPManager.current_level + ShopManager.charms_price_levels[charm.rarity] * 1.25 * GameMaster.difficulty_mod))
+			ShopManager.current_charm_prices[charm] = shop_price
 		price_tag.text = str(shop_price)
 		discounted_price = int(shop_price * ShopManager.discount.get_value())
 		discount_tag.text = str(discounted_price)
@@ -63,7 +67,11 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	else : 
 		discount_tag.hide()
 		strike_price.hide()
-		
+
+	if charm.is_in_shop and CharmsManager.has_charm(charm):
+		sold_out.show()
+		price_cont.hide()
+		confirm.disabled = true
 
 func _on_confirm_pressed() -> void:
 	var final_price : int = mini(shop_price, discounted_price)
@@ -77,9 +85,7 @@ func _on_confirm_pressed() -> void:
 			InventoryManager.blood_tank_q -=  final_price
 			SignalManager.emit_signal("update_fortune")
 			
-			var effect : CharmEffect = charm.effect_script.new()
-			effect.activate(charm)
-			CharmsManager.register(charm, effect)
+			CharmsManager.buy(charm)
 			
 			sold_out.show()
 			price_cont.hide()

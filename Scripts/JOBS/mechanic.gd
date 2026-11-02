@@ -1,15 +1,22 @@
 extends JobEffect
+# Mechanic: gives back up to 20% of the car max life when arriving at the shop
 
+const REPAIR_RATIO : float = 0.2
 
 
 func activate() -> void:
-	jobs_manager.mechanic_job.connect(_job_done)
-	
-func deactivate() -> void:
-	pass
+	if !SignalManager.shop_entered.is_connected(_on_shop_entered):
+		SignalManager.shop_entered.connect(_on_shop_entered)
 
-func _job_done() -> void : 
+
+func deactivate() -> void:
+	if SignalManager.shop_entered.is_connected(_on_shop_entered):
+		SignalManager.shop_entered.disconnect(_on_shop_entered)
+
+
+func _on_shop_entered() -> void:
 	var car : CarData = CarManager.selected_car
-	var car_repair : int = min(car.max_life.get_value() * 0.25, car.max_life.get_value() - car.current_life)
-	car.current_life += car_repair
-	print("mechanic job done ! : ",car_repair)
+	var max_life : int = int(car.max_life.get_value())
+	var repair : int = roundi(max_life * REPAIR_RATIO)
+	car.current_life = mini(car.current_life + repair, max_life)
+	BloodBars.update_car_blood()

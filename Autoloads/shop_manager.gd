@@ -92,6 +92,7 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://bcojdkbw1matu", #hammer : wall collision in drift do not kill the drit and maneuver
 	"uid://d2b37qu16h6av", #rabbit foot : % chance to repeat last salvo
 	"uid://0d6g8w4alby3", #skull : 20% more damage if survivor health below 30%
+	"uid://bdoie0d6ay4lg", #dart : a perfect hit projecting one enemy on another gives blood to the survivor
 ]
 
 enum CONST_REFS {
@@ -129,8 +130,9 @@ enum CONST_REFS {
 	Charm_Hammer,
 	Charm_Skull,
 	Charm_Grenade,
-	Charm_piggy,
-	Charm_rose,
+	Charm_Piggy,
+	Charm_Rose,
+	Charm_Dart,
 }
 
 var all_car_boosts : Array[BoostData] = []
@@ -147,10 +149,30 @@ var apply_discount : bool = false
 var discount : Statistic
 var base_discount : float = 1.0
 
+
+# ---- Current offer: kept until the next raid, so leaving and coming back never rerolls for free ----
+var offer_ready : bool = false
+var current_charms : Array[CharmData] = []
+var current_maneuvers : Array[ManeuverData] = []
+var current_charm_prices : Dictionary[CharmData, int] = {}
+
+
 func _ready() -> void:
 	rng.randomize()
 	discount = Statistic.new(base_discount)
+	SignalManager.next_day.connect(_on_next_day)
 	
+## A raid was played: the next shop visit gets a new offer
+func _on_next_day() -> void:
+	clear_offer()
+
+func clear_offer() -> void:
+	offer_ready = false
+	current_charms.clear()
+	current_maneuvers.clear()
+	current_charm_prices.clear()
+
+
 func load_pools() -> void : 
 	# load_pools() runs at every new run: empty the pools first, or every entry gets duplicated
 	all_car_boosts.clear()
@@ -234,3 +256,6 @@ func unload() -> void :
 	all_ammo_boosts.clear()
 	all_charms.clear()
 	all_maneuvers.clear()
+	discount.clear_modifiers()
+	apply_discount = false
+	clear_offer()

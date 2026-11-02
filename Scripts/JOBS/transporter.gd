@@ -1,30 +1,30 @@
 extends JobEffect
+# Transporter: one more projectile on every weapon (up to its max_projectile)
 
-var transporter_mod : Modifier = Modifier.new(1,Modifier.Type.FLAT,"transporter job")
+var transporter_mod : Modifier = Modifier.new(1.0, Modifier.Type.FLAT, "transporter job")
 
 
 func activate() -> void:
-	SignalManager.weapon_stats_initiated.connect(_on_weapon_stats_initiated)
-	if !WeaponsManager.weapons.is_empty():
-		for i in WeaponsManager.weapons.size():
-			if WeaponsManager.weapons[i].nb_projectile.get_value() < WeaponsManager.weapons[i].max_projectile:
-				WeaponsManager.weapons[i].nb_projectile.add_modifier(transporter_mod)
+	if !SignalManager.weapon_stats_initiated.is_connected(_on_weapon_stats_initiated):
+		SignalManager.weapon_stats_initiated.connect(_on_weapon_stats_initiated)
+	for weapon : WeaponData in WeaponsManager.weapons:
+		_apply(weapon)
 
 
 func deactivate() -> void:
-	fired_job()
+	if SignalManager.weapon_stats_initiated.is_connected(_on_weapon_stats_initiated):
+		SignalManager.weapon_stats_initiated.disconnect(_on_weapon_stats_initiated)
+	for weapon : WeaponData in WeaponsManager.weapons:
+		weapon.nb_projectile.remove_modifier(transporter_mod)
 
-func apply_transporter_job(p_weapon : WeaponData) -> void : 
+
+func _on_weapon_stats_initiated(p_weapon : WeaponData) -> void:
 	if WeaponsManager.weapons.has(p_weapon):
-		for i in WeaponsManager.weapons.size():
-			if WeaponsManager.weapons[i] == p_weapon and WeaponsManager.weapons[i].nb_projectile.get_value() < WeaponsManager.weapons[i].max_projectile:
-				WeaponsManager.weapons[i].nb_projectile.add_modifier(transporter_mod)
-	
-
-func fired_job() -> void : 
-	for i in WeaponsManager.weapons.size():
-		WeaponsManager.weapons[i].nb_projectile.remove_modifier(transporter_mod)
+		_apply(p_weapon)
 
 
-func _on_weapon_stats_initiated(p_weapon : WeaponData) -> void :
-	apply_transporter_job(p_weapon)
+func _apply(weapon : WeaponData) -> void:
+	if weapon.nb_projectile.modifiers.has(transporter_mod):
+		return
+	if weapon.nb_projectile.get_value() < weapon.max_projectile:
+		weapon.nb_projectile.add_modifier(transporter_mod)

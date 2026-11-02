@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://bdoie0d6ay4lg"]
+
+[ext_resource type="Script" uid="uid://cidve6ev2xm5t" path="res://Scripts/CHARMS/charm_dart.gd" id="1_es0ad"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_vfu5n"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_ympcy"]
+
+[resource]
+script = ExtResource("3_ympcy")
+ref = 36
+name = "CHARM_DART"
+icon = ExtResource("2_vfu5n")
+description = "CHARM_DART_DESC"
+p_value = 2.0
+p_value_descr = "give p_value of blood to the driver"
+effect_script = ExtResource("1_es0ad")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

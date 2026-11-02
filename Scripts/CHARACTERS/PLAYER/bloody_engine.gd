@@ -44,20 +44,16 @@ func _ready() -> void:
 	blood_impact_pool= $/root/World/VFX/BloodImpactPool
 
 	SignalManager.game_paused.connect(_on_game_paused)
-	SignalManager.blood_consummed.connect(_on_car_blood_consummed)
+	SignalManager.survivor_blood_consummed.connect(_on_survivor_blood_consummed)
+	SignalManager.survivor_blood_gained.connect(_on_survivor_blood_gained)
 	ItemManager.gas.connect(_on_gas_tank_picked_up)
 	SignalManager.car_blood_changed.connect(_on_car_blood_changed)
-	SignalManager.survivor_blood_consummed.connect(_on_survivor_blood_consummed)
 	SignalManager.combo_changed.connect(_on_combo_changed)
 	SignalManager.charm_skull_triggered.connect(_on_skull_charm_triggered)
 	vaccum_particles = vaccum_particles_scene.instantiate()
 	add_child(vaccum_particles)
 	vaccum_particles.emitting = false
 
-#func _input(event: InputEvent) -> void:
-	#if event.is_action_pressed("test"):
-		#InventoryManager.blood_tank_q +=1000
-		#BloodBars.update_blood_tank()
 
 func init_bloody_engine(p_car_res : CarData, p_sprite : Sprite2D, _dash_manager : DashManager) -> void :
 	car_res = p_car_res
@@ -208,14 +204,21 @@ func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 			player.current_life = 1
 	else:
 		player.current_life = new_life
-		if new_life < player.max_life * CharmsManager.charm_skull_life_floor and ! charm_skull_floor_reached:
-			SignalManager.emit_signal("charm_skull_triggered",true)
-		else : 
-			SignalManager.emit_signal("charm_skull_triggered",false)
+	_update_skull_floor()
 
 	BloodBars.update_survivor_blood()
 	if is_dead:
 		car.on_death()
+
+func _on_survivor_blood_gained(amount : int) -> void:
+	_on_survivor_blood_changed(amount, player.max_life)
+
+func _update_skull_floor() -> void:
+	var below_floor : bool = player.current_life < player.max_life * CharmsManager.charm_skull_life_floor
+	if below_floor == charm_skull_floor_reached:
+		return
+	charm_skull_floor_reached = below_floor
+	SignalManager.emit_signal("charm_skull_triggered", below_floor)
 	
 func _on_skull_charm_triggered(skull_triggered : bool) -> void : 
 	charm_skull_floor_reached = skull_triggered
