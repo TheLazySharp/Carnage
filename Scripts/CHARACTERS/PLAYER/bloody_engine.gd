@@ -101,6 +101,12 @@ func _on_combo_changed(multiplier : float, _combo_count : int) -> void:
 	combo_multiplier = multiplier
 
 func blood_up(added_blood : int) -> void :
+	# Piggy bank charm: a share of the harvested blood goes to the shop wallet instead of the car
+	if car_res.blood_to_bank_ratio > 0.0:
+		var to_bank : int = roundi(added_blood * car_res.blood_to_bank_ratio)
+		InventoryManager.blood_tank_q += to_bank
+		BloodBars.update_blood_tank()
+		added_blood -= to_bank
 	SignalManager.emit_signal("car_blood_absorbed",added_blood)
 	_on_car_blood_changed(added_blood)
 

@@ -9,7 +9,7 @@ var font_UX_S_Y : Array = FontManager.FONTS[FontManager.types.UX_S_YELLOW]
 
 var fade_tween: Tween = null
 var pop_tween: Tween = null
-var lucky_pending: bool = false  # the dice charm amplified the maneuver about to be rated
+var amplify_key_pending: String = ""
 const JUICE = preload("uid://dbohpdgym7v6q")
 
 func _ready() -> void:
@@ -28,10 +28,10 @@ func _on_maneuver_rated(maneuver_type: ManeuverManager.Type, drift_level: int, i
 	if perfect_hit:
 		label_text = "%s  %s" % [tr("MANEUVER_PERFECT_HIT"), label_text]
 	if is_amplified:
-		# Amplified by the dice charm instead of the dash: LUCKY
-		var amplify_key: String = "MANEUVER_LUCKY" if lucky_pending else "MANEUVER_DASH"
+		# Amplified by a charm instead of the dash: the charm word
+		var amplify_key: String = "MANEUVER_DASH" if amplify_key_pending.is_empty() else amplify_key_pending
 		label_text = "%s  %s" % [tr(amplify_key), label_text]
-	lucky_pending = false
+	amplify_key_pending = ""
 	# One ! per drift charge tier reached (no charge = nothing)
 	if drift_level > 0:
 		label_text += " " + "!".repeat(drift_level)
@@ -62,7 +62,9 @@ func _pop() -> void:
 	pop_tween = create_tween().set_ignore_time_scale(true)
 	pop_tween.tween_property(self, "scale", Vector2.ONE, JUICE.maneuver_name_pop_time).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## The dice charm fires right before its maneuver is rated (same frame)
+
 func _on_charm_triggered(ref: int) -> void:
 	if ref == ShopManager.CONST_REFS.Charm_dices:
-		lucky_pending = true
+		amplify_key_pending = "MANEUVER_LUCKY"
+	elif ref == ShopManager.CONST_REFS.Charm_Syringe:
+		amplify_key_pending = "MANEUVER_ADRENALINE"

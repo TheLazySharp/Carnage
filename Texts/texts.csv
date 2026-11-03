@@ -123,3 +123,10 @@ CHARM_HAWAIIAN;Hawaiian Shirt;Chemise hawaïenne
 CHARM_HAWAIIAN_DESC;Every shop price is lowered.;Tous les prix du shop baissent.
 CHARM_SKULL;Skull;Crâne
 CHARM_SKULL_DESC;Weapons deal more damage while the driver is low on blood.;Les armes font plus de dégâts quand le pilote manque de sang.
+CHARM_CHEESEBURGER;Cheeseburger;Cheeseburger
+CHARM_CHEESEBURGER_DESC;The driver can hold 30 more blood.;Le pilote peut contenir 30 de sang en plus.
+CHARM_SYRINGE;Syringe;Seringue
+CHARM_SYRINGE_DESC;While the driver is low on blood, every maneuver is amplified.;Quand le pilote manque de sang, toutes les manœuvres sont amplifiées.
+CHARM_PIGGY_BANK;Piggy Bank;Tirelire
+CHARM_PIGGY_BANK_DESC;Harvested blood goes to your wallet instead of the car.;Le sang récolté va dans ton porte-monnaie au lieu de la voiture.
+MANEUVER_ADRENALINE;ADRENALINE;ADRÉNALINE

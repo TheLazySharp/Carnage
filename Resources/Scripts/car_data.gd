@@ -160,7 +160,8 @@ var combo_repeat_gain : float = 0.0
 var free_amplify_chance : float = 0.0  #dice charm
 var salvo_repeat_chance : float = 0.0  #rabbit foot charm
 var wall_keeps_drift : bool = false  #hammer charm
-
+var low_blood_amplify_ratio : float = 0.0 
+var blood_to_bank_ratio : float = 0.0
 var is_unlocked : bool = false
 
 func init_stats() -> void:
@@ -201,6 +202,8 @@ func init_stats() -> void:
 	combo_repeat_gain = 0.0
 	free_amplify_chance = 0.0
 	salvo_repeat_chance = 0.0
+	blood_to_bank_ratio = 0.0
+	low_blood_amplify_ratio = 0.0
 	wall_keeps_drift = false
 	
 	part_levels.clear()

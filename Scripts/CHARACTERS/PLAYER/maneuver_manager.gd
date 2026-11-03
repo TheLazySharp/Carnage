@@ -354,13 +354,28 @@ func _emit_maneuver(maneuver_type: Type, intensity: float) -> void:
 		direction_offset = PI * 0.5 if drift_rotation > 0.0 else -PI * 0.5 #rotation > 0 = clockwise = right turn -> right side
 	var attack_angle: float = car.global_rotation + direction_offset
 	var is_amplified : bool = dash_manager.is_dashing
-	if !is_amplified and maneuver_type != Type.LOOP and car.player.free_amplify_chance > 0.0 and randf() < car.player.free_amplify_chance: # Dice charm
-		is_amplified = true
-		SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_dices)
+	# Charms that amplify for free (not the loop: the ultimate stays apart).
+	# Emitted before the maneuver, so the label already knows the reason when it is rated
+	if !is_amplified and maneuver_type != Type.LOOP:
+		# Syringe: always, while the driver is low on blood (no need to roll the dice then)
+		if _is_driver_low_on_blood():
+			is_amplified = true
+			SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_Syringe)
+		# Dice: a chance
+		elif car.player.free_amplify_chance > 0.0 and randf() < car.player.free_amplify_chance:
+			is_amplified = true
+			SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_dices)
 	SignalManager.maneuver_performed.emit(maneuver_type, clampf(intensity, 0.0, 1.0), level, is_amplified, attack_angle)
 
 	if maneuver_type != Type.LOOP and LoadoutManager.get_weapon(maneuver_type) != null and car.player.salvo_repeat_chance > 0.0 and randf() < car.player.salvo_repeat_chance:
 		_repeat_salvo(maneuver_type, clampf(intensity, 0.0, 1.0), level, is_amplified, direction_offset) # Rabbit foot charm
+
+func _is_driver_low_on_blood() -> bool:
+	var ratio: float = car.player.low_blood_amplify_ratio
+	if ratio <= 0.0 or SurvivorsManager.on_board_survivors.is_empty():
+		return false
+	var driver: SurvivorData = SurvivorsManager.on_board_survivors[0]
+	return driver.current_life < driver.max_life * ratio
 
 func _repeat_salvo(maneuver_type: Type, intensity: float, level: int, is_amplified: bool, direction_offset: float) -> void:
 	var delay: float = maxf(get_pattern(maneuver_type).z, 0.0) + salvo_repeat_gap

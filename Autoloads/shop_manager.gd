@@ -93,6 +93,10 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://d2b37qu16h6av", #rabbit foot : % chance to repeat last salvo
 	"uid://0d6g8w4alby3", #skull : 20% more damage if survivor health below 30%
 	"uid://bdoie0d6ay4lg", #dart : a perfect hit projecting one enemy on another gives blood to the survivor
+	"uid://carxlirtqqcaq", #cheeseburger : survivor max life + 30
+	"uid://dm6l1gndrnaga", #syringe : all maneuvers are amplfied 
+	"uid://br2sqjgua6lu7", #piggy : cash goes in a pigypack
+	
 ]
 
 enum CONST_REFS {
@@ -133,6 +137,8 @@ enum CONST_REFS {
 	Charm_Piggy,
 	Charm_Rose,
 	Charm_Dart,
+	Charm_Cheeseburger,
+	Charm_Syringe
 }
 
 var all_car_boosts : Array[BoostData] = []
