@@ -310,6 +310,8 @@ func _handle_wall_collision(collision : KinematicCollision2D, forward : Vector2,
 
 	if drifting:
 		SignalManager.wall_collision.emit()
+		if player.wall_keeps_drift: # Hammer charm
+			return
 		drifting = false
 		drift_locked = true  # drift stays dead until the key is released (see fix 2)
 		drift_manager.force_stop_skid()
@@ -494,7 +496,7 @@ func _perfect_drift_hit(hit_enemy : Enemy) -> void:
 	var offset : Vector2 = hit_enemy.global_position - global_position
 	var tail_velocity : Vector2 = velocity + Vector2(-offset.y, offset.x) * angular_speed
 	var direction : Vector2 = tail_velocity if tail_velocity.length_squared() > 1.0 else offset
-	if !hit_enemy.launch_drift_hit(direction):
+	if !hit_enemy.launch_drift_hit(direction, player.drift_hit_power.get_value()):
 		return
 	# Every hit: sprite kick and sound
 	sprite_fx.car_hit_kick(hit_enemy.global_position, 1.0)

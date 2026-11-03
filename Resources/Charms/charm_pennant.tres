@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://dgv25qwqvd5w3"]
+
+[ext_resource type="Script" uid="uid://bbaxqwgbqekni" path="res://Scripts/CHARMS/charm_pennant.gd" id="1_jbnhv"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_q5tk0"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_dpvtx"]
+
+[resource]
+script = ExtResource("3_dpvtx")
+ref = 28
+name = "CHARM_PENNANT"
+icon = ExtResource("2_q5tk0")
+description = "CHARM_PENNANT_DESC"
+p_value = 0.25
+p_value_descr = "share of a normal bonus added to combo"
+effect_script = ExtResource("1_jbnhv")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

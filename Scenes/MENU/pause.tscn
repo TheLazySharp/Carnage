@@ -92,6 +92,20 @@ flat = true
 alignment = 2
 script = ExtResource("5_5k2js")
 
+[node name="Loadout" type="Button" parent="VBoxContainer" unique_id=1975298932]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_smv6p")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pyn1s")
+text = "LOADOUT"
+flat = true
+alignment = 2
+script = ExtResource("5_5k2js")
+
 [node name="Commands" type="Button" parent="VBoxContainer" unique_id=1195712447]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
@@ -126,14 +140,15 @@ offset_top = 99.0
 offset_bottom = 99.0
 
 [node name="LoadoutPanel" parent="." unique_id=250150395 instance=ExtResource("7_nrq64")]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_bottom = 0.0
-offset_left = -225.0
-offset_top = 238.0
-offset_right = -225.0
-offset_bottom = 238.0
+offset_left = -192.0
+offset_top = 384.0
+offset_right = -192.0
+offset_bottom = 384.0
 grow_horizontal = 0
 grow_vertical = 1
 
@@ -144,5 +159,6 @@ blocked_menu = NodePath("../VBoxContainer")
 
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="VBoxContainer/Maneuvers" to="." method="_on_maneuvers_pressed"]
+[connection signal="pressed" from="VBoxContainer/Loadout" to="." method="_on_loadout_pressed"]
 [connection signal="pressed" from="VBoxContainer/Commands" to="." method="_on_commands_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitToMenu" to="." method="_on_quit_to_menu_pressed"]

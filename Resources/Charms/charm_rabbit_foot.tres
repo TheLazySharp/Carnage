@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://d2b37qu16h6av"]
+
+[ext_resource type="Script" uid="uid://deqam287fedh3" path="res://Scripts/CHARMS/charm_rabbit_foot.gd" id="1_bk3gr"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_ccv62"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_tga2o"]
+
+[resource]
+script = ExtResource("3_tga2o")
+ref = 30
+name = "CHARM_RABBIT_FOOT"
+icon = ExtResource("2_ccv62")
+description = "CHARM_RABBIT_FOOT_DESC"
+p_value = 0.2
+p_value_descr = "% chance repeated salvo "
+effect_script = ExtResource("1_bk3gr")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

@@ -21,6 +21,7 @@ var blood_hold_timer : float = 0.0
 @export var neons_activated : bool = false
 
 signal blood_absorbed
+var charm_skull_floor_reached : bool = false
 
 @export var fuel_per_splat: int = 1
 var max_life : float
@@ -43,19 +44,16 @@ func _ready() -> void:
 	blood_impact_pool= $/root/World/VFX/BloodImpactPool
 
 	SignalManager.game_paused.connect(_on_game_paused)
-	SignalManager.blood_consummed.connect(_on_car_blood_consummed)
+	SignalManager.survivor_blood_consummed.connect(_on_survivor_blood_consummed)
+	SignalManager.survivor_blood_gained.connect(_on_survivor_blood_gained)
 	ItemManager.gas.connect(_on_gas_tank_picked_up)
 	SignalManager.car_blood_changed.connect(_on_car_blood_changed)
-	SignalManager.survivor_blood_consummed.connect(_on_survivor_blood_consummed)
 	SignalManager.combo_changed.connect(_on_combo_changed)
+	SignalManager.charm_skull_triggered.connect(_on_skull_charm_triggered)
 	vaccum_particles = vaccum_particles_scene.instantiate()
 	add_child(vaccum_particles)
 	vaccum_particles.emitting = false
 
-#func _input(event: InputEvent) -> void:
-	#if event.is_action_pressed("test"):
-		#InventoryManager.blood_tank_q +=1000
-		#BloodBars.update_blood_tank()
 
 func init_bloody_engine(p_car_res : CarData, p_sprite : Sprite2D, _dash_manager : DashManager) -> void :
 	car_res = p_car_res
@@ -103,6 +101,12 @@ func _on_combo_changed(multiplier : float, _combo_count : int) -> void:
 	combo_multiplier = multiplier
 
 func blood_up(added_blood : int) -> void :
+	# Piggy bank charm: a share of the harvested blood goes to the shop wallet instead of the car
+	if car_res.blood_to_bank_ratio > 0.0:
+		var to_bank : int = roundi(added_blood * car_res.blood_to_bank_ratio)
+		InventoryManager.blood_tank_q += to_bank
+		BloodBars.update_blood_tank()
+		added_blood -= to_bank
 	SignalManager.emit_signal("car_blood_absorbed",added_blood)
 	_on_car_blood_changed(added_blood)
 
@@ -206,7 +210,21 @@ func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 			player.current_life = 1
 	else:
 		player.current_life = new_life
+	_update_skull_floor()
+
 	BloodBars.update_survivor_blood()
 	if is_dead:
 		car.on_death()
+
+func _on_survivor_blood_gained(amount : int) -> void:
+	_on_survivor_blood_changed(amount, player.max_life)
+
+func _update_skull_floor() -> void:
+	var below_floor : bool = player.current_life < player.max_life * CharmsManager.charm_skull_life_floor
+	if below_floor == charm_skull_floor_reached:
+		return
+	charm_skull_floor_reached = below_floor
+	SignalManager.emit_signal("charm_skull_triggered", below_floor)
 	
+func _on_skull_charm_triggered(skull_triggered : bool) -> void : 
+	charm_skull_floor_reached = skull_triggered

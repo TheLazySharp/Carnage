@@ -79,7 +79,7 @@ func _ready() -> void:
 	fuel_bar.max_value = StatsManager.max_fuel
 	speed_bar.max_value = StatsManager.display_max_speed
 	torque_bar.max_value = StatsManager.max_torque
-	drift_bar.max_value = StatsManager.max_drift
+	drift_bar.max_value = StatsManager.max_drift_score
 	damages_bar.max_value = StatsManager.max_damages
 	dash_dmg_bar.max_value = StatsManager.max_dash_damages
 	dash_duration_bar.max_value = StatsManager.max_dash_duration
@@ -91,7 +91,7 @@ func _ready() -> void:
 	fuel_bar_new.max_value = StatsManager.max_fuel
 	speed_bar_new.max_value = StatsManager.display_max_speed
 	torque_bar_new.max_value = StatsManager.max_torque
-	drift_bar_new.max_value = StatsManager.max_drift
+	drift_bar_new.max_value = StatsManager.max_drift_score
 	damages_bar_new.max_value = StatsManager.max_damages
 	dash_dmg_bar_new.max_value = StatsManager.max_dash_damages
 	dash_duration_bar_new.max_value = StatsManager.max_dash_duration
@@ -102,7 +102,7 @@ func _ready() -> void:
 	fuel_bar.value = car.max_fuel.get_value()
 	speed_bar.value = car.max_speed.get_value()
 	torque_bar.value = car.acceleration.get_value()
-	drift_bar.value = car.drift_turn_bonus.get_value()
+	drift_bar.value = StatsManager.get_drift_score(car)
 	damages_bar.value = car.dmg.get_value()
 	dash_dmg_bar.value = car.dash_dmg_bonus.get_value()
 	dash_duration_bar.value = car.dash_duration.get_value()
@@ -113,7 +113,7 @@ func _ready() -> void:
 	fuel_tank_current.text = str(int(car.max_fuel.get_value()))
 	speed_current.text = str(int(car.max_speed.get_value()))
 	torque_current.text = str(int(car.acceleration.get_value()))
-	drift_current.text = str(int(car.drift_turn_bonus.get_value()))
+	drift_current.text = str(roundi(StatsManager.get_drift_score(car)))
 	dmg_current.text = str(int(car.dmg.get_value()))
 	dash_lenght_current.text = str(int(car.dash_duration.get_value()))
 	dash_dmg_current.text = str(int(car.dash_dmg_bonus.get_value()))
@@ -162,6 +162,12 @@ func reroll() -> void:
 
 
 func _rebuild_parts() -> void:
+	# Refresh the current values: the chosen part has just changed them
+	life_bar.value = car.max_life.get_value()
+	speed_bar.value = car.max_speed.get_value()
+	torque_bar.value = car.acceleration.get_value()
+	drift_bar.value = StatsManager.get_drift_score(car)
+	damages_bar.value = car.dmg.get_value()
 	_build_part_cards()
 	_focus_first_part()
 
@@ -271,29 +277,38 @@ func _on_button_focused(button : Button) -> void:
 		var modified_bar : ProgressBar = get_modified_bar(focused_boost, idx)
 		var current_bar : ProgressBar = get_current_bar(focused_boost, idx)
 		var modified_label : Label = get_modified_label(focused_boost, idx)
-		# Stats without a row in the panel (combo gain, drift charge, perfect hit power): shown on the card only
+		# Stats without their own row (combo gain, drift charge, perfect hit power): shown through the drift score
 		if modified_bar == null or current_bar == null or modified_label == null:
 			continue
 		var current_value : float = focused_boost.get_car_stat(focused_boost.target_stats[idx], car).get_value()
-		var new_value : float = show_modified_stats(focused_boost, idx)
+		_show_bar_preview(current_bar, modified_bar, modified_label, current_value, show_modified_stats(focused_boost, idx))
 
-		var stylebox_front : StyleBox = StyleBoxFlat.new()
-		set_stylebox(stylebox_front, FontManager.dark_yellow)
-		current_bar.add_theme_stylebox_override("fill", stylebox_front)
+	# Drift row: only shown when the focused part changes the score
+	var current_drift : float = StatsManager.get_drift_score(car)
+	var new_drift : float = StatsManager.get_drift_score(car, focused_boost)
+	if !is_equal_approx(current_drift, new_drift):
+		_show_bar_preview(drift_bar, drift_bar_new, drift_new, current_drift, new_drift)
 
-		var stylebox_back : StyleBox = StyleBoxFlat.new()
-		if new_value >= current_value:
-			set_stylebox(stylebox_back, Color.DARK_GREEN)
-			modified_bar.value = new_value
-			current_bar.value = current_value
-			modified_label.add_theme_color_override("font_color", Color.GREEN)
-		else:
-			set_stylebox(stylebox_back, Color.DARK_RED)
-			current_bar.value = new_value
-			modified_bar.value = current_value
-			modified_label.add_theme_color_override("font_color", Color.RED)
-		modified_bar.add_theme_stylebox_override("fill", stylebox_back)
-		modified_label.text = "> " + str(snappedf(new_value, 0.1))
+
+## Colors and fills one row of the stats panel: green when the value rises, red when it drops
+func _show_bar_preview(current_bar : ProgressBar, modified_bar : ProgressBar, modified_label : Label, current_value : float, new_value : float) -> void:
+	var stylebox_front : StyleBox = StyleBoxFlat.new()
+	set_stylebox(stylebox_front, FontManager.dark_yellow)
+	current_bar.add_theme_stylebox_override("fill", stylebox_front)
+
+	var stylebox_back : StyleBox = StyleBoxFlat.new()
+	if new_value >= current_value:
+		set_stylebox(stylebox_back, Color.DARK_GREEN)
+		modified_bar.value = new_value
+		current_bar.value = current_value
+		modified_label.add_theme_color_override("font_color", Color.GREEN)
+	else:
+		set_stylebox(stylebox_back, Color.DARK_RED)
+		current_bar.value = new_value
+		modified_bar.value = current_value
+		modified_label.add_theme_color_override("font_color", Color.RED)
+	modified_bar.add_theme_stylebox_override("fill", stylebox_back)
+	modified_label.text = "> " + str(roundi(new_value))
 			
 func reset_values() -> void : 
 	life_bar_new.value = life_bar.value
@@ -311,7 +326,7 @@ func reset_values() -> void :
 	fuel_tank_current.text = str(int(car.max_fuel.get_value()))
 	speed_current.text = str(int(car.max_speed.get_value()))
 	torque_current.text = str(int(car.acceleration.get_value()))
-	drift_current.text = str(int(car.drift_turn_bonus.get_value()))
+	drift_current.text = str(roundi(StatsManager.get_drift_score(car)))
 	dmg_current.text = str(int(car.dmg.get_value()))
 	dash_lenght_current.text = str(int(car.dash_duration.get_value()))
 	dash_dmg_current.text = str(int(car.dash_dmg_bonus.get_value()))

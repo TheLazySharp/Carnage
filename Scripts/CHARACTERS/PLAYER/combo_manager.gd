@@ -84,6 +84,8 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: flo
 			gain *= amplified_gain_multiplier
 		combo_multiplier = minf(combo_multiplier + gain, car_data.combo_max.get_value())
 		last_maneuver = maneuver_type
+	elif car_data.combo_repeat_gain > 0.0: # Pennant charm
+		combo_multiplier = minf(combo_multiplier + car_data.combo_step.get_value() * car_data.combo_repeat_gain, car_data.combo_max.get_value())
 	# The longer the chain, the shorter the window: the top of the combo is hard to hold
 	window_duration = maxf(car_data.combo_window.get_value() * pow(1.0 - window_shrink_per_streak, maxi(streak - 1, 0)), min_window)
 	window_left = window_duration
@@ -93,6 +95,8 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: flo
 
 
 func _on_wall_collision() -> void:
+	if car.player.wall_keeps_drift:
+		return
 	if break_on_wall_hit and window_left > 0.0:
 		_break_chain()
 

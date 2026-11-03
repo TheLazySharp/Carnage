@@ -28,6 +28,12 @@ func activate(p_charm : CharmData) -> void:
 func deactivate() -> void:
 	CarManager.selected_car.invincible = false
 	SignalManager.emit_signal("player_invincible",CarManager.selected_car.invincible)
+	if SignalManager.game_paused.is_connected(_on_game_paused):
+		SignalManager.game_paused.disconnect(_on_game_paused)
+	if SignalManager.start_timer.is_connected(_on_game_timer_start):
+		SignalManager.start_timer.disconnect(_on_game_timer_start)
+	cool_down_timer.queue_free()
+	invincibility_timer.queue_free()
 
 	cool_down_timer.stop()
 
@@ -44,6 +50,7 @@ func _on_game_timer_start() -> void:
 func _on_cool_down_timer_timeout() -> void : 
 	CarManager.selected_car.invincible = true
 	SignalManager.emit_signal("player_invincible",CarManager.selected_car.invincible)
+	SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_Hat)
 
 	cool_down_timer.stop()
 	invincibility_timer.start()
@@ -53,6 +60,5 @@ func _on_invincibility_timer_timeout() -> void :
 	CarManager.selected_car.invincible = false
 	SignalManager.emit_signal("player_invincible",CarManager.selected_car.invincible)
 
-	
 	cool_down_timer.start()
 	invincibility_timer.stop()

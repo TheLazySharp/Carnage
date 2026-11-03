@@ -48,6 +48,13 @@ class NeonEffect:
 			_start_transition()
 			_wake()
 
+## Master switch: false = neons hidden and not processed at all (can also be set by code, e.g. from a graphics option)
+@export var neons_enabled : bool = true:
+	set(value):
+		neons_enabled = value
+		if is_node_ready():
+			_apply_enabled()
+
 @export var idle_color : Color = Color(0.6, 0.6, 0.6, 1.0)
 
 @export var transition_time : float = 0.25
@@ -122,7 +129,7 @@ func _ready() -> void:
 	_from_colors = _current_colors.duplicate()
 	bloody_engine.blood_absorbed.connect(_on_blood_absorbed)
 	
-	_wake()
+	_apply_enabled()
 
 
 # --- Public API ---------------------------------------------------------------
@@ -291,8 +298,19 @@ func _start_transition() -> void:
 
 
 func _wake() -> void:
+	# Every effect request goes through here: nothing shows while the neons are switched off
+	if !neons_enabled:
+		return
 	show()
 	set_process(true)
+
+
+func _apply_enabled() -> void:
+	if neons_enabled:
+		_wake()
+	else:
+		hide()
+		set_process(false)
 
 func _on_blood_absorbed() -> void:
 	play(CHANNEL_BLOOD, blood_color, Pattern.PULSE, blood_hold_time, PRIORITY_BLOOD)
@@ -336,4 +354,3 @@ func _debug_next_neon() -> void:
 		_:
 			# Idle: nothing to play, the neons fade back to idle
 			_debug_channel = &""
-	print("[Neons debug] ", neon_name)

@@ -48,11 +48,15 @@ func _ready() -> void:
 	new_stylebox.border_color = FontManager.dark_yellow
 	reroll_button.add_theme_stylebox_override("focus",new_stylebox)
 
-	reroll()
+	if ShopManager.offer_ready:
+		_build_offer()
+	else:
+		reroll()
 	update_reroll_button()
 	
 	repair_button.grab_focus()
-	
+
+	SignalManager.emit_signal("shop_entered")
 	BloodBars.show()
 
 
@@ -81,19 +85,6 @@ func pick_boost(proposed_boosts : Array[BoostData], pick_list : Array[BoostData]
 	push_warning("shop : no valid boost found after 1000 attempts")
 	return null
 
-func pick_charm(proposed_charms : Array[CharmData]) -> CharmData:
-	var attempts : int = 0
-	while attempts <100:
-		var charm : CharmData = ShopManager.pick_charm()
-		if proposed_charms.has(charm):
-			attempts += 1
-			#print("charm already proposed")
-			continue
-		
-		return charm
-	push_warning("shop : no valid charm found after 100 attempts")
-	
-	return ShopManager.pick_charm()
 
 func _on_item_baught() -> void:
 	if self.visible:
@@ -108,44 +99,29 @@ func _on_back_pressed() -> void:
 func _on_visibility_changed() -> void:
 	if self.visible and items_ready : 
 		boost_container.get_child(0).get_child(0).grab_focus()
+		SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_Discount)
 
+## New offer (first visit after a raid, or the paid reroll button): stored until the next raid
 func reroll() -> void : 
-	var proposed_boosts : Array[BoostData] = []
-	var proposed_charms : Array[CharmData] = []
-	
-	#var ammos : int = mini(nb_ammo,WeaponsManager.weapons.size())
-	#var weapons : int = mini(nb_weapon,WeaponsManager.weapons.size())
-	
-	#for i : int in ammos:
-		#var boost : BoostData = pick_boost(proposed_boosts, ShopManager.all_ammo_boosts)
-		#proposed_boosts.append(boost)
-		#
-		#var boost_card := boost_scene.instantiate()
-		#boost_container.add_child(boost_card)
-		#boost_card.setup(boost,true)
-		
-	#for i : int in weapons:
-		#var boost : BoostData = pick_boost(proposed_boosts, ShopManager.all_weapon_boosts)
-		#proposed_boosts.append(boost)
-		#
-		#var boost_card := boost_scene.instantiate()
-		#boost_container.add_child(boost_card)
-		#boost_card.setup(boost,true)
+	ShopManager.current_charms = ShopManager.pick_charms(nb_charm)
+	ShopManager.current_maneuvers = ShopManager.pick_maneuvers(nb_maneuver)
+	ShopManager.current_charm_prices.clear()
+	ShopManager.offer_ready = true
+	_build_offer()
 
 
-	#for i : int in nb_charm:
-		#var charm : CharmData = pick_charm(proposed_charms)
-		#proposed_charms.append(charm)
-		#
-		#var charm_card := charm_scene.instantiate()
-		#charm_container.add_child(charm_card)
-		#charm_card.setup(charm,true)
-		#
-	#proposed_boosts.clear()
-	#proposed_charms.clear()
+## Cards of the stored offer
+func _build_offer() -> void:
+	# Charms: one bought during an earlier visit shows as sold (see the charm card setup)
+	for charm : CharmData in ShopManager.current_charms:
+		var charm_card : Control = charm_scene.instantiate()
+		charm_container.add_child(charm_card)
+		charm_card.setup(charm, true)
 	
-	# Maneuvers not owned yet (fewer cards when almost everything is owned)
-	for maneuver : ManeuverData in ShopManager.pick_maneuvers(nb_maneuver):
+	# Maneuvers: one bought during an earlier visit is no longer offered
+	for maneuver : ManeuverData in ShopManager.current_maneuvers:
+		if LoadoutManager.owns(maneuver.maneuver_type):
+			continue
 		var maneuver_card : Control = maneuver_scene.instantiate()
 		maneuver_container.add_child(maneuver_card)
 		maneuver_card.setup(maneuver)
@@ -153,7 +129,7 @@ func reroll() -> void :
 	items_ready = true
 
 func _on_reroll_pressed() -> void:
-	if ShopManager.get_reroll_cost() >= InventoryManager.blood_tank_q:
+	if ShopManager.get_reroll_cost() > InventoryManager.blood_tank_q:
 		return
 	for i in range(boost_container.get_child_count() -1,-1,-1) :
 		boost_container.get_child(i).queue_free()

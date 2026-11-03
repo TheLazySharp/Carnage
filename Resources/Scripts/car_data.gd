@@ -20,6 +20,9 @@ class_name CarData
 @export var base_combo_decay : float = 0.2    # multiplier lost per second once the window is over
 @export var base_combo_max : float = 5.0
 
+@export_group("CHARMS")
+## Charms equipped at the same time (jobs, charms... add to it through modifiers)
+@export var base_charm_slots : int = 5
 
 @export_group("MAIN STATS")
 @export var base_acceleration := 300
@@ -71,7 +74,6 @@ class_name CarData
 #@export var car_explosion: SpriteFrames
 
 var drifting : bool = false
-
 var engine_lvl: int = 0
 var turbo_lvl: int = 0
 var shield_lvl: int = 0
@@ -102,7 +104,8 @@ enum Car_Stats {
 	COMBO_MAX,
 	ULTIMATE_RECHARGE_SPEED,
 	DRIFT_CHARGE_SPEED,
-	DRIFT_HIT_POWER
+	DRIFT_HIT_POWER,
+	CHARM_SLOTS
 }
 
 enum Car_Upgrades {
@@ -130,7 +133,7 @@ var collect_radius : Statistic
 var drift_turn_bonus : Statistic
 var max_fuel : Statistic
 var max_nitro : Statistic
-
+var charm_slots : Statistic              # charms equipped at the same time
 var combo_window : Statistic
 var combo_step : Statistic
 var combo_decay : Statistic              # lower is better
@@ -150,8 +153,15 @@ var current_life : int
 var current_fuel : int 
 var current_nitro : int
 
-var invincible : bool = false
 
+#--- Charms -----
+var invincible : bool = false
+var combo_repeat_gain : float = 0.0
+var free_amplify_chance : float = 0.0  #dice charm
+var salvo_repeat_chance : float = 0.0  #rabbit foot charm
+var wall_keeps_drift : bool = false  #hammer charm
+var low_blood_amplify_ratio : float = 0.0 
+var blood_to_bank_ratio : float = 0.0
 var is_unlocked : bool = false
 
 func init_stats() -> void:
@@ -166,8 +176,7 @@ func init_stats() -> void:
 	nitro_lvl = 0
 	wheels_lvl = 0
 	bumper_lvl = 0
-	
-	invincible = false
+
 	
 	acceleration = Statistic.new(base_acceleration)
 	max_speed = Statistic.new(base_max_speed)
@@ -180,7 +189,6 @@ func init_stats() -> void:
 	drift_turn_bonus = Statistic.new(base_drift_turn_bonus)
 	max_fuel = Statistic.new(base_max_fuel)
 	max_nitro = Statistic.new(base_max_nitro)
-
 	combo_window = Statistic.new(base_combo_window)
 	combo_step = Statistic.new(base_combo_step)
 	combo_decay = Statistic.new(base_combo_decay)
@@ -188,7 +196,18 @@ func init_stats() -> void:
 	ultimate_recharge_speed = Statistic.new(1.0)
 	drift_charge_speed = Statistic.new(1.0)
 	drift_hit_power = Statistic.new(1.0)
+	charm_slots = Statistic.new(base_charm_slots)
+	
+	invincible = false
+	combo_repeat_gain = 0.0
+	free_amplify_chance = 0.0
+	salvo_repeat_chance = 0.0
+	blood_to_bank_ratio = 0.0
+	low_blood_amplify_ratio = 0.0
+	wall_keeps_drift = false
+	
 	part_levels.clear()
+
 
 func get_car_stat(stat : Car_Stats) -> Statistic:
 	match stat:
@@ -209,7 +228,8 @@ func get_car_stat(stat : Car_Stats) -> Statistic:
 		Car_Stats.COMBO_MAX: return combo_max
 		Car_Stats.ULTIMATE_RECHARGE_SPEED: return ultimate_recharge_speed
 		Car_Stats.DRIFT_CHARGE_SPEED: return drift_charge_speed
-		Car_Stats.DRIFT_HIT_POWER: return drift_hit_power
+		Car_Stats.DRIFT_CHARGE_SPEED: return drift_charge_speed
+		Car_Stats.CHARM_SLOTS: return charm_slots
 	return null
 	
 func unscaled_speed()-> float:

@@ -15,6 +15,7 @@ signal quit_pause(game_paused: bool)
 func _ready() -> void:
 	self.hide()
 	resume.grab_focus()
+	loadout_panel.closed.connect(get_focus)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -23,7 +24,6 @@ func _input(event: InputEvent) -> void:
 			SignalManager.emit_signal("game_paused", game_paused)
 			if !GameMaster.tutorial_active:
 				self.show()
-				loadout_panel.open(true)
 				resume.grab_focus()
 				
 			else : 
@@ -60,3 +60,7 @@ func _on_stats_pressed() -> void:
 
 func _on_maneuvers_pressed() -> void:
 	maneuvers_list.show()
+
+
+func _on_loadout_pressed() -> void:
+	loadout_panel.open(true)

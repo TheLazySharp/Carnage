@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://bunq80hdti7b0"]
 
 [ext_resource type="Script" uid="uid://d0jm4markjpcj" path="res://Scripts/SCENES/loadout_panel.gd" id="1_blb7g"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="2_3v45d"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="3_ddmlh"]
 
-[node name="LoadoutPanel" type="Control" unique_id=250150395 node_paths=PackedStringArray("rows_container", "counters_label", "hint_label", "hint_label2")]
+[node name="LoadoutPanel" type="Control" unique_id=250150395 node_paths=PackedStringArray("tab_container", "row_template", "weapon_desc_label", "weapon_count_template", "hint_label", "hint_label2", "charm_slot_template", "owned_charm_template", "slots_label", "charm_description_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,22 +12,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_blb7g")
-rows_container = NodePath("PanelContainer/VBoxContainer/Rows")
-counters_label = NodePath("PanelContainer/VBoxContainer/Counters")
-hint_label = NodePath("PanelContainer/VBoxContainer/Tips")
-hint_label2 = NodePath("PanelContainer/VBoxContainer/Tips2")
+tab_container = NodePath("PanelContainer/TabContainer")
+row_template = NodePath("PanelContainer/TabContainer/Maneuvers/VBoxContainer/RepartitionContainer")
+weapon_desc_label = NodePath("PanelContainer/TabContainer/Maneuvers/WeaponDesc")
+weapon_count_template = NodePath("PanelContainer/TabContainer/Maneuvers/WeaponQContainer/WeaponCount")
+hint_label = NodePath("PanelContainer/TabContainer/Maneuvers/TipsContainer/Tips")
+hint_label2 = NodePath("PanelContainer/TabContainer/Maneuvers/TipsContainer/Tips2")
+charm_slot_template = NodePath("PanelContainer/TabContainer/Charms/CharmHolderContainer/HoldCharm")
+owned_charm_template = NodePath("PanelContainer/TabContainer/Charms/OwnedCharmContainer/OwnedCharm")
+slots_label = NodePath("PanelContainer/TabContainer/Charms/Slots")
+charm_description_label = NodePath("PanelContainer/TabContainer/Charms/CharmDescription")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=469199150]
+custom_minimum_size = Vector2(790, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -217.625
-offset_top = -180.25
-offset_right = 217.625
-offset_bottom = 180.25
+offset_left = -631.5
+offset_top = -368.5
+offset_right = 158.5
+offset_bottom = 368.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -33,35 +42,173 @@ grow_vertical = 2
 layout_mode = 2
 color = Color(0.06469653, 0.06469653, 0.06469653, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=955977969]
-custom_minimum_size = Vector2(400, 0)
+[node name="TabContainer" type="TabContainer" parent="PanelContainer" unique_id=499697628]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3v45d")
+theme_override_font_sizes/font_size = 24
+current_tab = 1
+
+[node name="Maneuvers" type="TabBar" parent="PanelContainer/TabContainer" unique_id=1688276251]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Maneuvers" unique_id=1048707570]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 581.0
+offset_bottom = 104.5
+
+[node name="RepartitionContainer" type="HBoxContainer" parent="PanelContainer/TabContainer/Maneuvers/VBoxContainer" unique_id=960733167]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ManeuverIcon" type="TextureRect" parent="PanelContainer/TabContainer/Maneuvers/VBoxContainer/RepartitionContainer" unique_id=1470259529]
+custom_minimum_size = Vector2(64, 70)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="ManeuverName" type="Label" parent="PanelContainer/TabContainer/Maneuvers/VBoxContainer/RepartitionContainer" unique_id=1023445018]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+text = "Burnout"
+vertical_alignment = 1
+script = ExtResource("3_ddmlh")
+
+[node name="WeaponIcon" type="TextureRect" parent="PanelContainer/TabContainer/Maneuvers/VBoxContainer/RepartitionContainer" unique_id=166393908]
+custom_minimum_size = Vector2(64, 70)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="WeaponName" type="Label" parent="PanelContainer/TabContainer/Maneuvers/VBoxContainer/RepartitionContainer" unique_id=575280745]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+text = "< Grenade Launcher >"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_ddmlh")
+
+[node name="WeaponDesc" type="Label" parent="PanelContainer/TabContainer/Maneuvers" unique_id=1895049121]
+visible = false
+layout_mode = 0
+offset_left = 614.0
+offset_top = 50.0
+offset_right = 992.0
+offset_bottom = 263.0
+script = ExtResource("3_ddmlh")
+
+[node name="WeaponQContainer" type="HBoxContainer" parent="PanelContainer/TabContainer/Maneuvers" unique_id=1936325533]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -143.0
+offset_right = 627.0
+offset_bottom = -35.0
+grow_vertical = 0
+
+[node name="WeaponCount" type="VBoxContainer" parent="PanelContainer/TabContainer/Maneuvers/WeaponQContainer" unique_id=649758816]
+layout_mode = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="PanelContainer/TabContainer/Maneuvers/WeaponQContainer/WeaponCount" unique_id=1504102042]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="WeaponQ" type="Label" parent="PanelContainer/TabContainer/Maneuvers/WeaponQContainer/WeaponCount" unique_id=235154050]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "1 / 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_ddmlh")
+
+[node name="TipsContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Maneuvers" unique_id=955977969]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.5
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1760400704]
-layout_mode = 2
-text = "LOADOUT"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Rows" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=366509042]
-layout_mode = 2
-
-[node name="Counters" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1725886301]
-layout_mode = 2
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Tips" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1384071999]
+[node name="Tips" type="Label" parent="PanelContainer/TabContainer/Maneuvers/TipsContainer" unique_id=1384071999]
+visible = false
 layout_mode = 2
 text = "Up/Down : Maneuver | Left/Right : Weapons"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tips2" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1941520829]
+[node name="Tips2" type="Label" parent="PanelContainer/TabContainer/Maneuvers/TipsContainer" unique_id=1941520829]
 layout_mode = 2
 text = "Confirm : press A"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Charms" type="TabBar" parent="PanelContainer/TabContainer" unique_id=1210373520]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="CharmHolderContainer" type="GridContainer" parent="PanelContainer/TabContainer/Charms" unique_id=258865506]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 346.0
+offset_bottom = 184.0
+columns = 5
+
+[node name="HoldCharm" type="TextureRect" parent="PanelContainer/TabContainer/Charms/CharmHolderContainer" unique_id=1476412775]
+custom_minimum_size = Vector2(64, 70)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Slots" type="Label" parent="PanelContainer/TabContainer/Charms" unique_id=1548707460]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 200.0
+offset_right = 240.5
+offset_bottom = 250.0
+text = "Charms : 2/5"
+vertical_alignment = 1
+script = ExtResource("3_ddmlh")
+
+[node name="OwnedCharmContainer" type="GridContainer" parent="PanelContainer/TabContainer/Charms" unique_id=793379658]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 280.0
+offset_right = 394.0
+offset_bottom = 504.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 5
+
+[node name="OwnedCharm" type="TextureRect" parent="PanelContainer/TabContainer/Charms/OwnedCharmContainer" unique_id=890276655]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 4
+
+[node name="CharmDescription" type="Label" parent="PanelContainer/TabContainer/Charms" unique_id=303146541]
+custom_minimum_size = Vector2(335, 400)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -346.0
+offset_top = -302.0
+offset_right = -11.0
+offset_bottom = 98.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Charm description"
+autowrap_mode = 2

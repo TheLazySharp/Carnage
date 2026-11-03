@@ -9,12 +9,14 @@ var font_UX_S_Y : Array = FontManager.FONTS[FontManager.types.UX_S_YELLOW]
 
 var fade_tween: Tween = null
 var pop_tween: Tween = null
+var amplify_key_pending: String = ""
 const JUICE = preload("uid://dbohpdgym7v6q")
 
 func _ready() -> void:
 	modulate.a = 0.0
 	SignalManager.maneuver_locked.connect(_on_maneuver_locked)
 	SignalManager.maneuver_rated.connect(_on_maneuver_rated)
+	SignalManager.charm_triggered.connect(_on_charm_triggered)
 	add_theme_font_override("font",font_UX_S_Y[0])
 	add_theme_font_size_override("font_size",font_UX_S_Y[1])
 	add_theme_color_override("font_color",font_UX_S_Y[2])
@@ -26,7 +28,10 @@ func _on_maneuver_rated(maneuver_type: ManeuverManager.Type, drift_level: int, i
 	if perfect_hit:
 		label_text = "%s  %s" % [tr("MANEUVER_PERFECT_HIT"), label_text]
 	if is_amplified:
-		label_text = "%s  %s" % [tr("MANEUVER_DASH"), label_text]
+		# Amplified by a charm instead of the dash: the charm word
+		var amplify_key: String = "MANEUVER_DASH" if amplify_key_pending.is_empty() else amplify_key_pending
+		label_text = "%s  %s" % [tr(amplify_key), label_text]
+	amplify_key_pending = ""
 	# One ! per drift charge tier reached (no charge = nothing)
 	if drift_level > 0:
 		label_text += " " + "!".repeat(drift_level)
@@ -56,3 +61,10 @@ func _pop() -> void:
 	scale = Vector2.ONE * JUICE.maneuver_name_pop_scale
 	pop_tween = create_tween().set_ignore_time_scale(true)
 	pop_tween.tween_property(self, "scale", Vector2.ONE, JUICE.maneuver_name_pop_time).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func _on_charm_triggered(ref: int) -> void:
+	if ref == ShopManager.CONST_REFS.Charm_dices:
+		amplify_key_pending = "MANEUVER_LUCKY"
+	elif ref == ShopManager.CONST_REFS.Charm_Syringe:
+		amplify_key_pending = "MANEUVER_ADRENALINE"

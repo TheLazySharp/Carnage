@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dfk5gp0kb1bgy" path="res://Scripts/CHARACTERS/PLAYER/rigid_car.gd" id="1_rsha1"]
 [ext_resource type="Resource" uid="uid://dubbw5mialr30" path="res://Resources/Cars/skyline.tres" id="2_73b8b"]
-[ext_resource type="PackedScene" uid="uid://caih21wmxphk2" path="res://Scenes/VFX/ghost.tscn" id="2_nbj0p"]
 [ext_resource type="Script" uid="uid://ceckjc6ch4gch" path="res://Scripts/VFX/neons.gd" id="3_2lx7x"]
 [ext_resource type="Texture2D" uid="uid://b3rc8ngbuu013" path="res://Assets/VFX/Smoke_v8_Fade_In.png" id="3_s0c68"]
 [ext_resource type="Script" uid="uid://uql3e8oj3gbk" path="res://Scripts/WEAPONS/weapons.gd" id="4_mlgtv"]
@@ -47,6 +46,7 @@
 [ext_resource type="Script" uid="uid://2htpyvkt4dyl" path="res://Scripts/VFX/rear_lights.gd" id="30_x1ujy"]
 [ext_resource type="Script" uid="uid://gxipkapx4o1t" path="res://Scripts/CHARACTERS/PLAYER/distance_tracker.gd" id="32_i8f1n"]
 [ext_resource type="Script" uid="uid://dve7euf78wc0h" path="res://Scripts/CHARACTERS/PLAYER/combo_manager.gd" id="34_mm77v"]
+[ext_resource type="Shader" uid="uid://gymhmxqe7qlw" path="res://Assets/Léonce/Scripts/afterimage_shader.gdshader" id="46_415me"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 radius = 19.0
@@ -498,6 +498,10 @@ fill = 1
 fill_from = Vector2(0.5, 0)
 fill_to = Vector2(1, 0.5)
 
+[sub_resource type="Gradient" id="Gradient_co36j"]
+offsets = PackedFloat32Array(0, 0.31460676, 0.997191, 1)
+colors = PackedColorArray(0, 0.74509805, 0.92941177, 0.78431374, 0.29803923, 0.50980395, 1, 0.78431374, 0.8745098, 0.25882354, 0.20392157, 0.78431374, 1, 1, 1, 1)
+
 [node name="Car" type="CharacterBody2D" unique_id=1977967618 node_paths=PackedStringArray("rear_left", "rear_right", "rear_left_burn_anim", "rear_right_burn_anim", "drivin_smoke_r_2", "drivin_smoke_l_2") groups=["player"]]
 self_modulate = Color(1, 1, 1, 0)
 z_as_relative = false
@@ -676,7 +680,6 @@ parameters/looping = true
 
 [node name="DashManager" type="Node2D" parent="." unique_id=1598535898]
 script = ExtResource("26_dmmou")
-ghost_scene = ExtResource("2_nbj0p")
 
 [node name="BloodyEngine" type="Node2D" parent="." unique_id=1712951826]
 script = ExtResource("25_vd0i7")
@@ -707,6 +710,7 @@ break_on_wall_hit = false
 
 [node name="UltimateManager" type="Node2D" parent="." unique_id=1767501934]
 script = ExtResource("29_1ihg5")
+combo_recharge_share = 0.5
 
 [node name="CarSprite" type="Sprite2D" parent="." unique_id=1213502237]
 material = SubResource("ShaderMaterial_vd0i7")
@@ -718,6 +722,7 @@ offset = Vector2(0, 20)
 script = ExtResource("3_2lx7x")
 glow_intensity = 3.5
 idle_visible = false
+neons_enabled = false
 beacon_intensity = 3.0
 
 [node name="NeonFront" type="ColorRect" parent="CarSprite/Neons" unique_id=2064742782]
@@ -844,7 +849,9 @@ texture = SubResource("GradientTexture2D_x1ujy")
 [node name="SpriteFX" type="Node2D" parent="." unique_id=124961842]
 script = ExtResource("29_5bcg3")
 drift_angle_exaggeration = 0.5
-ghost_scene = ExtResource("2_nbj0p")
+ghost_shader = ExtResource("46_415me")
+ghost_interval = 0.06
+ghost_tint_gradient = SubResource("Gradient_co36j")
 
 [node name="DistanceTracker" type="Node2D" parent="." unique_id=967735705]
 script = ExtResource("32_i8f1n")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://dm6l1gndrnaga"]
+
+[ext_resource type="Script" uid="uid://dcblnotu8o7kv" path="res://Scripts/CHARMS/charm_syringe.gd" id="1_7wxyb"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_xqvj2"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_41vtr"]
+
+[resource]
+script = ExtResource("3_41vtr")
+ref = 38
+name = "CHARM_SYRINGE"
+icon = ExtResource("2_xqvj2")
+description = "CHARM_SYRINGE_DESC"
+p_value = 0.2
+p_value_descr = "% of life under which charm trigger"
+effect_script = ExtResource("1_7wxyb")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

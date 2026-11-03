@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://byrlcqr4l75j6"]
+
+[ext_resource type="Script" uid="uid://c6s3gnnfqskdl" path="res://Scripts/CHARMS/charm_dices.gd" id="1_7rdf3"]
+[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_sbk2k"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_nukd4"]
+
+[resource]
+script = ExtResource("3_nukd4")
+ref = 29
+name = "CHARM_DICE"
+icon = ExtResource("2_sbk2k")
+description = "CHARM_DICE_DESC"
+p_value = 0.15
+p_value_descr = "% chance of free amplified "
+effect_script = ExtResource("1_7rdf3")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

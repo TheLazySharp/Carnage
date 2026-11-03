@@ -88,6 +88,7 @@ var drift_projectile : bool = false
 var drift_query : PhysicsShapeQueryParameters2D = null  # created on the first launch only
 var drift_burst_shape : CircleShape2D = null
 var drift_trail_fx : Node2D = null
+var drift_hit_power : float = 1.0  # car rear bumper multiplier on the burst damages
 
 @export_group("WALLS PHYSICS")
 var near_wall : bool = false
@@ -578,23 +579,21 @@ func apply_knockback(direction: Vector2, force: float) -> void:
 
 ## Perfect drift hit: thrown by the car's tail, the enemy flies until it meets an enemy or a wall.
 ## Returns false when the hit is ignored (the car then skips its feedback)
-func launch_drift_hit(direction: Vector2) -> bool:
+func launch_drift_hit(direction: Vector2, power: float = 1.0) -> bool:
 	if game_paused or is_dead or drift_projectile or air_duration > 0.0:
 		return false
 	drift_projectile = true
+	drift_hit_power = power
 	knockback_velocity = direction.normalized() * JUICE.drift_hit_throw_speed
 	velocity = knockback_velocity
-	# It always dies at the end of the flight: the AI is no longer needed
-	# It always dies at the end of the flight: the AI is no longer needed
 	if state_machine != null:
 		state_machine.process_mode = Node.PROCESS_MODE_DISABLED
-	# Straight flight: the facing is set once (read by the renderer)
 	facing_direction = -knockback_velocity if JUICE.drift_hit_face_backward else knockback_velocity
 	if mm_pool != null and mm_pool.has_state(DRIFT_HIT_STATE):
 		set_animation_state(DRIFT_HIT_STATE)
 	if JUICE.drift_hit_impact_vfx_enabled:
 		_shoot_drift_hit_blood()
-	if JUICE.drift_hit_trail_enabled and drift_trail_fx:
+	if JUICE.drift_hit_trail_enabled and drift_trail_fx == null:
 		drift_trail_fx = Vfx.attach_loop(JUICE.drift_hit_trail_vfx, self)
 	flash_damage()
 	if JUICE.victim_pause_enabled:
@@ -608,7 +607,6 @@ func launch_drift_hit(direction: Vector2) -> bool:
 		drift_burst_shape = CircleShape2D.new()
 	return true
 
-## Impact: a fan of blood shots along the throw direction
 func _shoot_drift_hit_blood() -> void:
 	var count : int = maxi(JUICE.drift_hit_blood_shots, 1)
 	var base_angle : float = knockback_velocity.angle()
@@ -652,7 +650,7 @@ func _get_enemy_from_collider(collider : Object) -> Enemy:
 			found = node.get_parent() as Enemy
 	return found
 
-## The projectile bursts: every living enemy around takes the hit, then it dies (SPLAT)
+
 func burst_drift_projectile(cause : BurstCause = BurstCause.OUT_OF_STEAM) -> void:
 	if !drift_projectile:
 		return
@@ -664,13 +662,15 @@ func burst_drift_projectile(cause : BurstCause = BurstCause.OUT_OF_STEAM) -> voi
 	var victims : Array[Enemy] = []
 	for result: Dictionary in get_world_2d().direct_space_state.intersect_shape(drift_query, 32):
 		var victim: Enemy = _get_enemy_from_collider(result["collider"])
-		# Its own hitbox, a dead enemy, or the second area of an enemy already hit: skipped
 		if victim == null or victim == self or victim.is_dead or victims.has(victim):
 			continue
 		victims.append(victim)
 		var push: Vector2 = victim.global_position - global_position
-		victim.get_damages(roundi(drift_hit_dmg.get_value()), push, JUICE.drift_hit_burst_knockback, EnemyManager.DEATH_TYPES.KNOCKED)
-	SignalManager.screen_shake_requested.emit(JUICE.drift_hit_shake, 0.2)
+		victim.get_damages(roundi(drift_hit_dmg.get_value() * drift_hit_power), push, JUICE.drift_hit_burst_knockback, EnemyManager.DEATH_TYPES.KNOCKED)
+	# Dart charm: the burst hit other enemies
+	if !victims.is_empty():
+		SignalManager.emit_signal("drift_hit_chained",victims.size())
+	SignalManager.emit_signal("screen_shake_requested",JUICE.drift_hit_shake, 0.2)
 	_play_burst_sfx(cause)
 	knockback_velocity = Vector2.ZERO
 	current_life = 0
