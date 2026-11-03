@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://qdn70t2pvwmt"]
+
+[ext_resource type="Script" uid="uid://dy5lakyvj3b7k" path="res://Assets/Léonce/Scripts/tracer_trail_2d.gd" id="1_hd32o"]
+
+[sub_resource type="Gradient" id="Gradient_7e0cr"]
+offsets = PackedFloat32Array(0, 0.6017699, 1)
+colors = PackedColorArray(0.81, 0.62100005, 0, 0.81960785, 0.99, 0.99266666, 1, 0.15686275, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_bqj4u"]
+offsets = PackedFloat32Array(0.2861357, 1)
+colors = PackedColorArray(0.99845165, 0.8623917, 0.45107138, 1, 1, 1, 1, 0)
+
+[node name="tracer_trail_2d" type="Node2D" unique_id=835182430]
+z_index = 5
+script = ExtResource("1_hd32o")
+projectile_speed = 2000.0
+thickness = 5
+trail_duration = 0.1
+gradient = SubResource("Gradient_7e0cr")
+double_line = true
+core_thickness = 2
+core_gradient = SubResource("Gradient_bqj4u")

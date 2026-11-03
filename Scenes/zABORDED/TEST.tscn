@@ -138,7 +138,12 @@
 [ext_resource type="Texture2D" uid="uid://c50278mhx407" path="res://Assets/Léonce/VFX/flamethrower.png" id="139_onpsi"]
 [ext_resource type="Texture2D" uid="uid://deqdd7uxcnhb5" path="res://Assets/Léonce/Enemies/zombie01_death_shot.png" id="139_x2kih"]
 [ext_resource type="Texture2D" uid="uid://cc1kmoolfudut" path="res://Assets/Léonce/Enemies/zombie01_death_knocked.png" id="140_bqj4u"]
+[ext_resource type="Script" uid="uid://cyornpy2vipig" path="res://Assets/Léonce/Scripts/tracer_preview.gd" id="140_onpsi"]
+[ext_resource type="PackedScene" uid="uid://qdn70t2pvwmt" path="res://Assets/Léonce/Scene/tracer_trail_2d.tscn" id="141_onpsi"]
+[ext_resource type="Texture2D" uid="uid://blecditsbx72j" path="res://Assets/Léonce/Enemies/zombieA_shadow.png" id="142_7e0cr"]
 [ext_resource type="Texture2D" uid="uid://dmuvi1ee80nb7" path="res://Assets/Léonce/Enemies/zombie01_death_sliced.png" id="142_bac6x"]
+[ext_resource type="Texture2D" uid="uid://cxvdh7kd6q63d" path="res://Assets/Léonce/VFX/Smoke/particle_misc02.png" id="143_bac6x"]
+[ext_resource type="Texture2D" uid="uid://d0kvfdlyh5n8w" path="res://Assets/Léonce/VFX/Smoke/particle_misc01.png" id="144_dwvcj"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -1236,8 +1241,8 @@ damping_max = 68.109
 anim_offset_max = 1.0
 
 [sub_resource type="Gradient" id="Gradient_27q37"]
-offsets = PackedFloat32Array(0, 0.31460676, 0.997191, 1)
-colors = PackedColorArray(6.545782e-06, 0.7452105, 0.9293724, 1, 0.29803923, 0.50980395, 1, 1, 0.8745098, 0.25882354, 0.20392157, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0.31460676, 0.41011235, 0.997191, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.29803923, 0.50980395, 1, 1, 0.8745098, 0.25882354, 0.20392157, 1, 1, 1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_r7ksg"]
 script = ExtResource("101_uhr7h")
@@ -4536,6 +4541,75 @@ shader_parameter/turbulence_noise_speed = Vector3(1, 1, 1)
 shader_parameter/h_frames = 11.000000475
 shader_parameter/v_frames = 4.000000142499999
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nhvyv"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_1xj8r"]
+colors = PackedColorArray(0.7445537, 0.855937, 0.08624264, 1, 6.738305e-07, 0.816419, 0.70988184, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axph7"]
+atlas = ExtResource("144_dwvcj")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvgkl"]
+atlas = ExtResource("144_dwvcj")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykn0a"]
+atlas = ExtResource("144_dwvcj")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx5bo"]
+atlas = ExtResource("144_dwvcj")
+region = Rect2(108, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5iohe"]
+atlas = ExtResource("144_dwvcj")
+region = Rect2(144, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oogmi"]
+atlas = ExtResource("144_dwvcj")
+region = Rect2(180, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xj8r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axph7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvgkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykn0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lx5bo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5iohe")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_oogmi")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tyiq4"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_gd1db"]
+offsets = PackedFloat32Array(0.65486723, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
 [node name="TextureSlicer" type="Node2D" parent="." unique_id=142767713]
@@ -4547,11 +4621,10 @@ output_dir_override = "res://Assets/Tilesets/Roofs/Roof Cracks/"
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1228029581]
 position = Vector2(1808.17, 1150.545)
 scale = Vector2(1e-05, 1e-05)
-offset = Vector2(37.24, 32.7)
-zoom = Vector2(1.575, 1.575)
+offset = Vector2(184.725, -2.095)
+zoom = Vector2(3, 3)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
-visible = false
 top_level = true
 z_index = 6
 material = SubResource("CanvasItemMaterial_hnt52")
@@ -6076,7 +6149,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=520588908]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=784507091]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -6109,10 +6182,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1433792787]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=837659194]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1253717775]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=2003675088]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -6129,7 +6202,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=404178682]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=379506491]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -6238,9 +6311,6 @@ sprite_frames = SubResource("SpriteFrames_xe1kh")
 autoplay = "default"
 frame = 6
 frame_progress = 1.0
-
-[node name="Node2D" parent="." unique_id=761729978 instance=ExtResource("126_rv0vo")]
-position = Vector2(1988, 856)
 
 [node name="Explosion1" parent="." unique_id=547738887 instance=ExtResource("126_rv0vo")]
 position = Vector2(2024, 1158)
@@ -6637,6 +6707,7 @@ animation = &"shot04"
 frame = 7
 
 [node name="Flamethrower" type="GPUParticles2D" parent="." unique_id=847509773]
+visible = false
 z_index = 10
 material = SubResource("ShaderMaterial_bac6x")
 position = Vector2(1973, 1138)
@@ -6647,3 +6718,51 @@ preprocess = 0.04
 randomness = 0.02
 fixed_fps = 60
 process_material = SubResource("ShaderMaterial_dwvcj")
+
+[node name="Projectile" type="Node2D" parent="." unique_id=833924554]
+z_index = 10
+position = Vector2(1953, 1135)
+script = ExtResource("140_onpsi")
+trail_scene = ExtResource("141_onpsi")
+projectile_texture = ExtResource("142_7e0cr")
+
+[node name="PoisonParticles" type="CPUParticles2D" parent="." unique_id=360515109]
+z_index = 10
+material = SubResource("CanvasItemMaterial_nhvyv")
+position = Vector2(2147, 1238)
+amount = 12
+texture = ExtResource("143_bac6x")
+lifetime = 0.41
+direction = Vector2(1, 1.45)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 52.91
+color = Color(0.48125738, 0.4648471, 0.14287156, 1)
+color_ramp = SubResource("Gradient_1xj8r")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="PoisonBlob" type="AnimatedSprite2D" parent="PoisonParticles" unique_id=1502754782]
+modulate = Color(0.26501715, 0.8149007, 0, 1)
+z_index = 10
+sprite_frames = SubResource("SpriteFrames_1xj8r")
+autoplay = "default"
+frame_progress = 0.9654742
+
+[node name="PoisonSplatter" type="CPUParticles2D" parent="." unique_id=617652544]
+material = SubResource("CanvasItemMaterial_tyiq4")
+position = Vector2(2053, 1216)
+emitting = false
+amount = 16
+texture = ExtResource("143_bac6x")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 52.91
+initial_velocity_max = 396.13
+color = Color(0.39039737, 0.5343609, 0.084523864, 1)
+color_ramp = SubResource("Gradient_gd1db")
+anim_speed_min = 1.0
+anim_speed_max = 1.0

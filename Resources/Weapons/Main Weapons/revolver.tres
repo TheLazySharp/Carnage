@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_c65e2"]
 [ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/Ammos/bullet.tres" id="2_e4v8e"]
-[ext_resource type="PackedScene" uid="uid://dww6b787qn3x0" path="res://Scenes/WEAPONS/AMMOS/bullet.tscn" id="3_c65e2"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="4_fvhad"]
 [ext_resource type="AudioStream" uid="uid://dh1famt01su4b" path="res://Assets/Audio/SFX/Weapons/Pistol.mp3" id="5_e4v8e"]
 [ext_resource type="AudioStream" uid="uid://y80iur83x1s2" path="res://Assets/Audio/SFX/Weapons/revolver.mp3" id="6_f0j8p"]
+
+[sub_resource type="Resource" id="Resource_eln3b"]
+metadata/__load_path__ = "res://Scenes/WEAPONS/bullet.tscn"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bnc6f"]
 streams_count = 2
@@ -22,7 +24,7 @@ description = "Shot a bullet on the closest enemy"
 type_2 = 3
 tar_up_stat = 2
 weapon_scene_uid = "uid://bf606njwyoo0l"
-weapon_ammo_scene = ExtResource("3_c65e2")
+weapon_ammo_scene = SubResource("Resource_eln3b")
 weapon_ammo_res = ExtResource("2_e4v8e")
 weapon_sfx = SubResource("AudioStreamRandomizer_bnc6f")
 base_dmg = 0
