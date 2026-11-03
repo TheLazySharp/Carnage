@@ -134,9 +134,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BloodTank" type="HBoxContainer" parent="." unique_id=1686244625]
-offset_top = 169.0
-offset_right = 269.0
-offset_bottom = 210.0
+offset_left = 324.0
+offset_top = 87.0
+offset_right = 593.0
+offset_bottom = 128.0
 theme_override_constants/separation = 0
 
 [node name="BloodDrop" type="TextureRect" parent="BloodTank" unique_id=1743159460]

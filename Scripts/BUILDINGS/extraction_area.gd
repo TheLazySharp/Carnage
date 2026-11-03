@@ -45,6 +45,7 @@ func _on_body_entered(body: Node2D) -> void:
 		SignalManager.emit_signal("extraction_reached")
 		return
 	SignalManager.emit_signal("next_day")
-	if InventoryManager.has_reward:
-		SceneManager.load_level(SceneManager.SCENES.REWARDS)
-	else : SceneManager.load_level(SceneManager.SCENES.CAR_LEVELUP)
+	if SurvivorsManager.rescued_survivor != null:
+		SceneManager.load_level(SceneManager.SCENES.SURVIVOR_RECAP)
+	else:
+		SceneManager.load_post_raid()

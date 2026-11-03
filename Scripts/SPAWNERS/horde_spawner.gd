@@ -167,9 +167,6 @@ func _spawn_horde(center : Vector2) -> void:
 
 
 func set_leader(_leader : Enemy) -> void:
-	#leader.set_enemy_color(Color.BLACK)
-	#leader.max_life = 2
-	#leader.damages_on_player = 5
 	pass
 
 func _cells_in_disc(center : Vector2) -> Array[Vector2i]:

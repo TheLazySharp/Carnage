@@ -33,6 +33,7 @@ var administration_done : bool = false
 var run_pool : Array[SurvivorData] = []            # frozen at run start: survivors that can be met on the road
 var on_board_survivors : Array[SurvivorData] = []  # in the car ([0] = driver)
 var next_spawned_survivor : SurvivorData = null    # survivor of the district selected on the roadmap
+var rescued_survivor : SurvivorData = null
 
 @warning_ignore("unused_signal")
 signal portrait_hovered(id : int)
@@ -101,6 +102,30 @@ func _on_survivor_picked_up(new_survivor : SurvivorData) -> void:
 	LoadoutManager.add_pending_weapon(new_survivor.weapon)
 
 
+## Saved on the road: on board right away (weapon placed at the end of the raid),
+## codec bubble now, recap screen after the raid (his job starts there)
+func rescue(new_survivor : SurvivorData) -> void:
+	if new_survivor == null or on_board_survivors.has(new_survivor):
+		return
+	_on_survivor_picked_up(new_survivor)
+	rescued_survivor = new_survivor
+	SignalManager.survivor_rescued.emit(new_survivor)
+
+
+## Recap screen validated: the rescued survivor job starts. Once only
+func confirm_rescue() -> void:
+	if rescued_survivor == null:
+		return
+	var job : JobData = rescued_survivor.job_ressource
+	rescued_survivor = null
+	if job == null or job.effect_script == null:
+		return
+	var effect : JobEffect = job.effect_script.new()
+	effect.activate()
+	JobsManager.register(job, effect)
+
+
+
 func _on_district_selected(next_survivor : SurvivorData) -> void:
 	next_spawned_survivor = next_survivor
 
@@ -116,13 +141,9 @@ func refresh_known_survivors() -> void:
 ## Resets the run only: the meta lists (locked, next to unlock) are kept
 func reload() -> void:
 	run_pool.clear()
-	#known_survivors.clear()
-	#locked_survivors.clear()
 	on_board_survivors.clear()
 	next_spawned_survivor = null
-	#refresh_known_survivors()
-	#survivor_admninistration()
-
+	rescued_survivor = null
 
 func unload() -> void:
 	reload()

@@ -29,7 +29,7 @@ func _ready() -> void:
 	#XPManager.current_level = 4
 	#InventoryManager.auto_parts = 2000
 	
-	jobs_manager.emit_signal("mechanic_job")
+	JobsManager.emit_signal("mechanic_job")
 	car_name.text = car.car_name
 	car_icon.texture = car.car_sprite
 	

@@ -786,7 +786,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="Bank" type="Node2D" unique_id=330276966 groups=["walls"]]
+[node name="SurvivorBuilding" type="Node2D" unique_id=330276966 groups=["walls"]]
 script = ExtResource("1_txv0u")
 unlock_timer = 10.0
 

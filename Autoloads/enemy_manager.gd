@@ -38,10 +38,35 @@ enum DEATH_TYPES {
 	SLICE,
 	EXPLOSION,
 	SHOT,
-	SPLAT
+	SPLAT,
+	BURN,
+	POISON,
+	SHOCK
 }
 
 var death_state_names: PackedStringArray = build_death_state_names() # index = Death_Types
+
+enum Status { NONE, BURN, POISON, SHOCK, FREEZE }
+
+const STATUS_TICK : Dictionary[Status, float] = {
+	Status.BURN: 0.25,
+	Status.POISON: 0.75,
+}
+## Death animation when a status tick kills
+const STATUS_DEATH : Dictionary[Status, DEATH_TYPES] = {
+	Status.BURN: DEATH_TYPES.BURN,
+	Status.POISON: DEATH_TYPES.POISON,
+	Status.SHOCK: DEATH_TYPES.SHOCK
+}
+
+## Enemy tint while the status is active (NONE = back to normal)
+const STATUS_COLORS : Dictionary[Status, Color] = {
+	Status.NONE: Color.WHITE,
+	Status.BURN: Color(1.0, 0.55, 0.3),
+	Status.POISON: Color(0.55, 1.0, 0.4),
+	Status.SHOCK: Color(1.0, 1.0, 0.45),
+	Status.FREEZE: Color(0.55, 0.8, 1.0),
+}
 
 
 func build_death_state_names() -> PackedStringArray:

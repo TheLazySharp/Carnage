@@ -58,6 +58,14 @@ enum Type {
 @export var base_nb_projectile: int = 1
 @export var base_speed : float
 
+
+@export_group("STATUS")
+## Status inflicted on hit (one active at a time on an enemy)
+@export var status : EnemyManager.Status = EnemyManager.Status.NONE
+@export var status_duration : float = 3.0
+## BURN / POISON: damages per tick. SHOCK: slow share (0.85 = 85% slower). FREEZE: unused (full stop)
+@export var status_power : float = 0.0
+
 @export_group("MANEUVERS")
 ## Preferred maneuvers: tried first when the weapon is placed automatically (until the build screen exists)
 @export var assigned_maneuvers : Array[ManeuverManager.Type] = []

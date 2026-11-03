@@ -78,10 +78,12 @@ shader_type canvas_item;
 
 uniform int mass_filter = 0;
 uniform float mass_outline_threshold = 0.5;   // inside a mass, non-flashing pixels this bright are painted black
+uniform float status_tint_strength = 0.75;    // how much the dark body takes the status color
 uniform sampler2DArray atlas_array : filter_nearest, repeat_disable;
 uniform vec2 layer_frame_uv_sizes[__MAX_LAYERS__];
 
 varying float flash;
+varying vec3 tint;   // instance color rgb: status tint (white = none). Alpha stays the flash flag
 varying flat float atlas_layer;
 varying flat vec2 frame_uv_size;
 
@@ -92,6 +94,7 @@ void vertex() {
     UV = cd.xy + UV * frame_uv_size;
     atlas_layer = cd.z;
     flash = COLOR.a;
+    tint = COLOR.rgb;
     if ((mass_filter == 1 && in_mass) || (mass_filter == 2 && !in_mass)) {
         VERTEX = vec2(0.0);   // collapse the quad: nothing rasterized
     }
@@ -119,6 +122,11 @@ void fragment() {
         if (mass_filter == 2 && min(col.r, min(col.g, col.b)) >= mass_outline_threshold) {
             col.rgb = vec3(0.0);
         }
+        // Status tint: dark body pixels take the status color, the white outline and the red eyes stay as drawn.
+        // White tint = no status (no change at all)
+        float body = 1.0 - max(col.r, max(col.g, col.b));
+        float has_tint = step(0.001, 3.0 - (tint.r + tint.g + tint.b));
+        col.rgb = mix(col.rgb, tint, status_tint_strength * body * has_tint);
         COLOR = vec4(col.rgb, col.a);
     }
 }
@@ -457,7 +465,6 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		buffer[base + 0] = color.r
 		buffer[base + 1] = color.g
 		buffer[base + 2] = color.b
-		buffer[base + 3] = color.a
 		buffer_is_dirty = true
 
 
@@ -488,9 +495,10 @@ class EnemyTypePool extends MultiMeshInstance2D:
 		(material as ShaderMaterial).set_shader_parameter("mass_filter", 1)
 
 
-	## Alive and not being knocked back: a knocked enemy bursts out of the mass.
+	## Alive, not knocked back and without status: a knocked enemy bursts out of the mass,
+	## an enemy under a status leaves it to show its tint (the mass is painted with one fill color)
 	func is_mass_candidate(enemy: Enemy, outline: HordeOutline) -> bool:
-		if enemy.is_dead or enemy.air_duration > 0.0:
+		if enemy.is_dead or enemy.air_duration > 0.0 or enemy.status != EnemyManager.Status.NONE:
 			return false
 		return enemy.knockback_velocity.length_squared() < outline.knockback_exclusion_speed_squared
 

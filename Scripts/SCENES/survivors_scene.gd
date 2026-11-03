@@ -11,7 +11,7 @@ func _ready() -> void:
 	SurvivorsManager.portrait_hovered.connect(_on_portrait_hovered)
 
 	WeaponsManager.unload()
-	jobs_manager.unload()
+	JobsManager.unload()
 	SurvivorsManager.unload()
 	WeaponsManager.load_weapons()
 
@@ -28,7 +28,7 @@ func _on_select_pressed() -> void:
 	var job : JobData = starting_survivor.job_ressource
 	var effect : JobEffect = job.effect_script.new()
 	effect.activate()
-	jobs_manager.register(job, effect)
+	JobsManager.register(job, effect)
 
 	SceneManager.load_level(SceneManager.SCENES.CAR_SELECTION)
 	

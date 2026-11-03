@@ -2,10 +2,38 @@
 
 [ext_resource type="Script" uid="uid://dakfh46ghesvg" path="res://Scripts/WEAPONS/AMMOS/saw.gd" id="1_442fj"]
 [ext_resource type="Resource" uid="uid://bla2di7wvuhnn" path="res://Resources/Weapons/Ammos/saw.tres" id="2_ja5ng"]
-[ext_resource type="Texture2D" uid="uid://26wegs3iddri" path="res://Assets/weapons/saw.png" id="2_y365y"]
+[ext_resource type="Texture2D" uid="uid://dpqtjgfp5p0t5" path="res://Assets/Léonce/VFX/saw_blade.png" id="3_y365y"]
+[ext_resource type="Script" uid="uid://ctyll71bygvad" path="res://Scripts/VFX/after_image.gd" id="4_ja5ng"]
+[ext_resource type="Shader" uid="uid://gymhmxqe7qlw" path="res://Assets/Léonce/Scripts/afterimage_shader.gdshader" id="5_5xnix"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ja5ng"]
+atlas = ExtResource("3_y365y")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xnix"]
+atlas = ExtResource("3_y365y")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ssidi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ja5ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xnix")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 30.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dfktb"]
-radius = 10.049875
+radius = 10.5
+
+[sub_resource type="Gradient" id="Gradient_tskrm"]
+offsets = PackedFloat32Array(0.11518325, 0.42408377, 0.6439791, 0.8062827, 0.973822)
+colors = PackedColorArray(0.50499195, 0.66365576, 0.9960812, 1, 0.68525314, 0.7891086, 0.9975025, 1, 0.9607843, 0.54509807, 0.85490197, 1, 0.97913903, 0.797277, 0.9242781, 1, 1, 1, 1, 1)
 
 [node name="Saw" type="Node2D" unique_id=1510335606 node_paths=PackedStringArray("cut_area") groups=["bullets"]]
 scale = Vector2(2, 2)
@@ -13,9 +41,11 @@ script = ExtResource("1_442fj")
 saw_data = ExtResource("2_ja5ng")
 cut_area = NodePath("CutArea")
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=273247620]
+[node name="Icon" type="AnimatedSprite2D" parent="." unique_id=1237996074]
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_y365y")
+sprite_frames = SubResource("SpriteFrames_ssidi")
+autoplay = "default"
+frame_progress = 0.89792717
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=465855147]
 
@@ -25,6 +55,14 @@ collision_mask = 10
 
 [node name="CutShape" type="CollisionShape2D" parent="CutArea" unique_id=1618164039 groups=["explosives"]]
 shape = SubResource("CircleShape2D_dfktb")
+
+[node name="AfterImage" type="Node2D" parent="." unique_id=425540214 node_paths=PackedStringArray("source")]
+script = ExtResource("4_ja5ng")
+source = NodePath("../Icon")
+ghost_shader = ExtResource("5_5xnix")
+interval = 0.04
+lifetime = 0.2
+tint_gradient = SubResource("Gradient_tskrm")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]
 [connection signal="area_entered" from="CutArea" to="." method="_on_cut_area_entered"]

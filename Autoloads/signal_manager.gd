@@ -175,7 +175,13 @@ signal drift_hit_juice(hit_position : Vector2)  # a perfect drift hit allowed to
 signal text_window_closed(message_key: StringName)
 @warning_ignore("unused_signal")
 signal loading_screen_closed
+@warning_ignore("unused_signal")
+signal survivor_rescued(survivor : SurvivorData)
 
+
+# ----- ENEMIES ----
+@warning_ignore("unused_signal")
+signal poisoned_enemy_died(death_position : Vector2)  # a poisoned enemy died: poison puddle on the ground (to come)
 
 # ---- DEAD LAPS -----
 @warning_ignore("unused_signal")
