@@ -2,27 +2,40 @@
 
 [ext_resource type="Script" uid="uid://bg5e1pk6xqu8m" path="res://Scripts/WEAPONS/AMMOS/ammo_rev.gd" id="1_wseha"]
 [ext_resource type="Resource" uid="uid://b8nw2s85q3f0a" path="res://Resources/Weapons/Ammos/bullet.tres" id="2_1y1lp"]
-[ext_resource type="Texture2D" uid="uid://bg5idxjop7rm4" path="res://Assets/weapons/long_bullet_flash.png" id="3_4v88u"]
+[ext_resource type="Texture2D" uid="uid://ch6ctlcpjxkb1" path="res://Assets/Textures/white_stain_small.png" id="3_ftrr0"]
+[ext_resource type="Gradient" uid="uid://pvxi8c2wy41w" path="res://Assets/Gradients/bullet_trail.tres" id="4_tjvl0"]
+[ext_resource type="Gradient" uid="uid://52uuseycviao" path="res://Assets/Gradients/bullet_trail_core.tres" id="5_6vu5e"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4v88u"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_8imps"]
 radius = 2.0
-height = 14.0
 
-[node name="Bullet" type="Area2D" unique_id=1598410154 groups=["bullets"]]
+[node name="Bullet" type="Area2D" unique_id=1598410154 node_paths=PackedStringArray("tracers") groups=["bullets"]]
 collision_layer = 4
 collision_mask = 10
 monitorable = false
 script = ExtResource("1_wseha")
 bullet_data = ExtResource("2_1y1lp")
+tracers = [NodePath("Tracer"), NodePath("Tracer/TracerCore")]
+tracer_duration = 0.06
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1108651613]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_4v88u")
+texture = ExtResource("3_ftrr0")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=6404617]
-position = Vector2(1, 0)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_4v88u")
+shape = SubResource("CircleShape2D_8imps")
+
+[node name="Tracer" type="Line2D" parent="." unique_id=48484318]
+texture_filter = 1
+width = 5.0
+gradient = ExtResource("4_tjvl0")
+
+[node name="TracerCore" type="Line2D" parent="Tracer" unique_id=1053372250]
+texture_filter = 1
+scale = Vector2(0.99999994, 0.99999994)
+width = 2.0
+gradient = ExtResource("5_6vu5e")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

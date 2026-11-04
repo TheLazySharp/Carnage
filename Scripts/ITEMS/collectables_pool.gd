@@ -9,16 +9,16 @@ extends Node2D
 
 @export_group("SCENES")
 @export var xp_scene : PackedScene
-@export var dollar_scene : PackedScene
+#@export var dollar_scene : PackedScene
 @export var xp_pool_size : int = 400
-@export var dollar_pool_size : int = 200
+#@export var dollar_pool_size : int = 200
 
 var xp_items : Array[Node2D] = []
-var dollar_items : Array[Node2D] = []
+#var dollar_items : Array[Node2D] = []
 var xp_free : Array[int] = []
-var dollar_free : Array[int] = []
+#var dollar_free : Array[int] = []
 var xp_steal_cursor : int = 0
-var dollar_steal_cursor : int = 0
+#var dollar_steal_cursor : int = 0
 ## SpriteFrames built once per XPData instead of once per orb
 var xp_frames_cache : Dictionary = {}
 
@@ -33,14 +33,14 @@ func _ready() -> void:
 		xp_items[i] = item
 		xp_free[i] = xp_pool_size - 1 - i  # stack: pop_back() hands out index 0 first
 
-	dollar_items.resize(dollar_pool_size)
-	dollar_free.resize(dollar_pool_size)
-	for i : int in range(dollar_pool_size):
-		var item : Node2D = dollar_scene.instantiate()
-		add_child(item)
-		item.setup_pooled(self, i)
-		dollar_items[i] = item
-		dollar_free[i] = dollar_pool_size - 1 - i
+	#dollar_items.resize(dollar_pool_size)
+	#dollar_free.resize(dollar_pool_size)
+	#for i : int in range(dollar_pool_size):
+		#var item : Node2D = dollar_scene.instantiate()
+		#add_child(item)
+		#item.setup_pooled(self, i)
+		#dollar_items[i] = item
+		#dollar_free[i] = dollar_pool_size - 1 - i
 
 
 ## Public API: replaces xp_scene.instantiate() + add_child() + launch_spawn()
@@ -48,8 +48,8 @@ func spawn_xp(spawn_position : Vector2, data : XPData) -> void:
 	xp_items[_acquire_xp()].activate(spawn_position, data)
 
 
-func spawn_dollar(spawn_position : Vector2) -> void:
-	dollar_items[_acquire_dollar()].activate(spawn_position)
+#func spawn_dollar(spawn_position : Vector2) -> void:
+	#dollar_items[_acquire_dollar()].activate(spawn_position)
 
 
 func release_xp(index : int) -> void:
@@ -60,20 +60,20 @@ func release_xp(index : int) -> void:
 	xp_free.push_back(index)
 
 
-func release_dollar(index : int) -> void:
-	var item : Node2D = dollar_items[index]
-	if not item.is_active:
-		return
-	item.deactivate()
-	dollar_free.push_back(index)
+#func release_dollar(index : int) -> void:
+	#var item : Node2D = dollar_items[index]
+	#if not item.is_active:
+		#return
+	#item.deactivate()
+	#dollar_free.push_back(index)
 
 
 ## Wipes the ground, e.g. on a new day. Wire it to a signal if the design needs it.
 func release_all() -> void:
 	for i : int in xp_items.size():
 		release_xp(i)
-	for i : int in dollar_items.size():
-		release_dollar(i)
+	#for i : int in dollar_items.size():
+		#release_dollar(i)
 
 
 ## SpriteFrames are identical for every orb sharing an XPData: build them once.
@@ -109,11 +109,11 @@ func _acquire_xp() -> int:
 	return xp_free.pop_back()
 
 
-func _acquire_dollar() -> int:
-	if dollar_free.is_empty():
-		var stolen : int = dollar_steal_cursor
-		dollar_steal_cursor = (dollar_steal_cursor + 1) % dollar_items.size()
-		dollar_items[stolen].deactivate()
-		push_warning("CollectablePool: dollar pool exhausted, recycling oldest one")
-		return stolen
-	return dollar_free.pop_back()
+#func _acquire_dollar() -> int:
+	#if dollar_free.is_empty():
+		#var stolen : int = dollar_steal_cursor
+		#dollar_steal_cursor = (dollar_steal_cursor + 1) % dollar_items.size()
+		#dollar_items[stolen].deactivate()
+		#push_warning("CollectablePool: dollar pool exhausted, recycling oldest one")
+		#return stolen
+	#return dollar_free.pop_back()

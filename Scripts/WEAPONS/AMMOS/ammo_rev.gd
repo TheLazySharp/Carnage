@@ -3,6 +3,13 @@ extends Area2D
 
 @export var bullet_data: WeaponData
 
+@export_group("TRACER")
+@export var tracers: Array[Line2D] = []
+## the tracer covers the distance flown in that time (speed x duration)
+@export var tracer_duration: float = 0.1
+##  points snapped to this grid (pixel art)
+@export var tracer_pixel_size: int = 1
+
 var speed : float
 var max_range : float
 var damages : int
@@ -16,6 +23,7 @@ var velocity : Vector2
 var start_position : Vector2
 
 @onready var parent_weapon: Node2D = $/root/World/Car/Weapons/Revolver
+@onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 @export var wall_mask: int = 8
 var ray_params: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.new()
 var damage_multiplier: float = 1.0  # set per shot (combo)
@@ -32,7 +40,12 @@ func _ready() -> void:
 	damages = int(bullet_data.dmg.get_value())
 	ray_params.collision_mask = wall_mask
 	ray_params.collide_with_areas = false
-	
+	if not is_active:
+		set_process(false)
+	for tracer: Line2D in tracers:
+		tracer.clear_points()
+		tracer.add_point(Vector2.ZERO)
+		tracer.add_point(Vector2.ZERO)
 
 func fire(from_position: Vector2, direction: Vector2, angle: float, p_damage_multiplier: float = 1.0) -> void:
 	global_position = from_position
@@ -43,8 +56,9 @@ func fire(from_position: Vector2, direction: Vector2, angle: float, p_damage_mul
 	is_active = true
 	set_process(true)
 	set_deferred("monitoring", true)
-	#set_deferred("monitorable", true)
 	global_rotation = angle
+	_update_tracers()
+	camera_2d.screen_shake(2,0.3)
 
 
 func _process(delta: float) -> void:
@@ -54,6 +68,7 @@ func _process(delta: float) -> void:
 		desactivate()
 	var previous: Vector2 = global_position
 	global_position += velocity * delta
+	_update_tracers()
 
 	ray_params.from = previous
 	ray_params.to = global_position
@@ -103,3 +118,19 @@ func _on_body_entered(body: Node2D) -> void:
 	if is_active:
 		if body.is_in_group("walls"):
 			desactivate()
+
+
+## Head on the bullet, tail at the distance flown in tracer_duration (shorter while it leaves the muzzle).
+## to_local: right whatever the bullet / sprite rotation
+func _update_tracers() -> void:
+	if tracers.is_empty():
+		return
+	var full_length: float = velocity.length() * tracer_duration
+	var length: float = minf(global_position.distance_to(start_position), full_length)
+	var snap: Vector2 = Vector2(tracer_pixel_size, tracer_pixel_size)
+	var head: Vector2 = global_position.snapped(snap)
+	var tail: Vector2 = (global_position - velocity.normalized() * length).snapped(snap)
+	for tracer: Line2D in tracers:
+		# Point 0 = head: the Gradient reads like the artist's (0 = fresh, 1 = expired)
+		tracer.set_point_position(0, tracer.to_local(head))
+		tracer.set_point_position(1, tracer.to_local(tail))

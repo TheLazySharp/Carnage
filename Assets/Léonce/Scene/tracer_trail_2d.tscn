@@ -10,7 +10,7 @@ colors = PackedColorArray(0.81, 0.62100005, 0, 0.81960785, 0.99, 0.99266666, 1, 
 offsets = PackedFloat32Array(0.2861357, 1)
 colors = PackedColorArray(0.99845165, 0.8623917, 0.45107138, 1, 1, 1, 1, 0)
 
-[node name="tracer_trail_2d" type="Node2D" unique_id=835182430]
+[node name="BulletTrail" type="Node2D" unique_id=835182430]
 z_index = 5
 script = ExtResource("1_hd32o")
 projectile_speed = 2000.0

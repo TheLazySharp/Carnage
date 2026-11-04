@@ -3,19 +3,258 @@
 [ext_resource type="Script" uid="uid://bh7f5ci3oime1" path="res://Scripts/WEAPONS/AMMOS/grenade.gd" id="1_ocbu8"]
 [ext_resource type="Resource" uid="uid://bp0x5m5caby4l" path="res://Resources/Weapons/Ammos/grenade.tres" id="2_lljlb"]
 [ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="3_lljlb"]
-[ext_resource type="Texture2D" uid="uid://cpl58xraet1nq" path="res://Assets/weapons/grenade.png" id="3_o8lmd"]
+[ext_resource type="Texture2D" uid="uid://bh72v203fh5rn" path="res://Assets/Léonce/VFX/grenade.png" id="4_hl3mg"]
+[ext_resource type="PackedScene" uid="uid://cfrf6j5k2sttc" path="res://Scenes/VFX/grenade_pin.tscn" id="5_3iuea"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3iuea"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex3nf"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mp0g4"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qdhr"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yb4qg"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j303o"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv4nr"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dymes"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0hse"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7t8y"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iisvl"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6ddc"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2me7"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgfry"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iluw0"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj5n1"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcyrg"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwf4f"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct4rs"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_judke"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a51k"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krbyi"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f655y"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cth5i"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfctm"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0m4l"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(144, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jjtm"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(160, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfbb4"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(176, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxgw0"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(192, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5g4k5"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(208, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxwdq"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(224, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bax0c"]
+atlas = ExtResource("4_hl3mg")
+region = Rect2(240, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ssidi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3iuea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ex3nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mp0g4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3qdhr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yb4qg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j303o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iv4nr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dymes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0hse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7t8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iisvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6ddc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2me7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgfry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iluw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj5n1")
+}],
+"loop": 1,
+"name": &"throw_a",
+"speed": 32.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcyrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwf4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ct4rs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_judke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0a51k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_krbyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f655y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cth5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfctm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0m4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jjtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfbb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxgw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5g4k5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxwdq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bax0c")
+}],
+"loop": 1,
+"name": &"throw_b",
+"speed": 32.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dfktb"]
-radius = 64.0
+radius = 46.0
 
 [node name="Grenade" type="Node2D" unique_id=1510335606 groups=["explosives"]]
 script = ExtResource("1_ocbu8")
 grenade_data = ExtResource("2_lljlb")
 explosion_scene = ExtResource("3_lljlb")
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=273247620]
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1610943164]
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_o8lmd")
+sprite_frames = SubResource("SpriteFrames_ssidi")
+animation = &"throw_b"
 
 [node name="ExplosionArea" type="Area2D" parent="." unique_id=1568583541 groups=["explosives"]]
 collision_layer = 1024
@@ -26,6 +265,8 @@ shape = SubResource("CircleShape2D_dfktb")
 
 [node name="ExplosionSFX" type="AudioStreamPlayer" parent="." unique_id=1699463355]
 bus = &"Weapons"
+
+[node name="GrenadePin" parent="." unique_id=257877405 instance=ExtResource("5_3iuea")]
 
 [connection signal="area_entered" from="ExplosionArea" to="." method="_on_explosion_area_entered"]
 [connection signal="area_exited" from="ExplosionArea" to="." method="_on_explosion_area_exited"]

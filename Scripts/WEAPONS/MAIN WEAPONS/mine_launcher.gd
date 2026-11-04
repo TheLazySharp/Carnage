@@ -5,7 +5,7 @@ const LANDMINE = preload("uid://b6sojfyjbslm1")
 @export var launcher_data : WeaponData
 
 
-var game_paused:=false
+var game_paused : bool = false
 @onready var cool_down: Timer = $CoolDown
 var cool_down_upgrade : float
 @onready var car : CharacterBody2D = $"/root/World/Car"

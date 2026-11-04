@@ -21,17 +21,18 @@ signal grenade_landed(world_position : Vector2)
 
 
 @export_group("FLIGHT FX")
-@export var spin_turns : float = 2.0
+## Throw animations of the AnimatedSprite (the atlas draws the spin): one picked at random per throw
+@export var throw_animations : Array[StringName] = [&"throw_a", &"throw_b"]
+## Throw animation speed (frames per second)
+#@export var animation_fps : float = 32.0
 @export var arc_peak_scale : float = 1.9
 ## Extra upward sprite offset at the top of the arc, in pixels
 @export var arc_peak_lift : float = 18.0
 
-@onready var sprite : Sprite2D = $Icon
-
 var start_pos : Vector2 = Vector2.ZERO
 var target_pos : Vector2 = Vector2.ZERO
 var sprite_base_scale : Vector2 = Vector2.ONE
-var spin_amount : float = 0.0
+var flight_tween : Tween = null
 var flight_duration : float = 0.0
 var can_launch : bool = false
 var game_paused : bool = false
@@ -50,13 +51,13 @@ var targets: Array[Node2D]
 @onready var explosion_sfx: AudioStreamPlayer = $ExplosionSFX
 @onready var explosion_shape: CollisionShape2D = $ExplosionArea/ExplosionShape
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
-
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
+@onready var grenade_pin: CPUParticles2D = $GrenadePin
 
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
-	sprite_base_scale = sprite.scale
-
+	sprite_base_scale = animated_sprite.scale
 	max_lvl = grenade_data.max_level
 	explosion_sfx.stream = grenade_data.weapon_sfx
 	damages = int(grenade_data.dmg.get_value())
@@ -78,7 +79,6 @@ func launch_grenade(from_pos : Vector2, p_throw_angle : float = NAN, p_damage_mu
 	throw_angle = p_throw_angle
 	damage_multiplier = p_damage_multiplier
 
-	spin_amount = spin_turns * TAU * (1.0 if randf() < 0.5 else -1.0)
 	flight_duration = maxf(0.05, duration + randf_range(-duration_random, duration_random))
 
 	# The target needs the physics world: defer until we are in the tree
@@ -90,9 +90,29 @@ func launch_grenade(from_pos : Vector2, p_throw_angle : float = NAN, p_damage_mu
 
 func start_flight() -> void:
 	target_pos = pick_landing_position(start_pos)
-	var tween : Tween = create_tween()
-	tween.tween_method(apply_flight, 0.0, 1.0, flight_duration)
-	tween.tween_callback(on_grenade_landed)
+	_play_throw_animation()
+	flight_tween = create_tween()
+	flight_tween.tween_method(apply_flight, 0.0, 1.0, flight_duration)
+	flight_tween.tween_callback(on_grenade_landed)
+	# Thrown during a pause (deferred launch): wait for the game to resume
+	if game_paused:
+		flight_tween.pause()
+		animated_sprite.pause()
+
+
+## One of the throw animations at random, looping during the flight at animation_fps
+func _play_throw_animation() -> void:
+	var frames : SpriteFrames = animated_sprite.sprite_frames
+	if frames == null or throw_animations.is_empty():
+		return
+	var animation_name : StringName = throw_animations.pick_random()
+	if !frames.has_animation(animation_name):
+		push_warning("Grenade: no animation '%s' in the AnimatedSprite" % animation_name)
+		return
+	# The SpriteFrames speed is ignored: the export sets it
+	#animated_sprite.speed_scale = animation_fps / maxf(frames.get_animation_speed(animation_name), 0.001)
+	animated_sprite.play(animation_name)
+	grenade_pin.emitting = true
 
 
 func pick_landing_position(from_pos : Vector2) -> Vector2:
@@ -138,20 +158,17 @@ func is_landing_clear(world_pos : Vector2) -> bool:
 		return false
 	return true
 
-
-# sin(ratio * PI) gives 0 -> 1 -> 0: the perceived height of the grenade above the ground.
 func apply_flight(ratio : float) -> void:
 	global_position = start_pos.lerp(target_pos, ratio)
 	var height : float = sin(ratio * PI)
-	sprite.rotation = spin_amount * ratio
-	sprite.scale = sprite_base_scale * (1.0 + (arc_peak_scale - 1.0) * height)
-	sprite.position.y = -arc_peak_lift * height
+	animated_sprite.scale = sprite_base_scale * (1.0 + (arc_peak_scale - 1.0) * height)
+	animated_sprite.position.y = -arc_peak_lift * height
 
 
 func on_grenade_landed() -> void:
-	sprite.rotation = 0.0
-	sprite.scale = sprite_base_scale
-	sprite.position = Vector2.ZERO
+	animated_sprite.stop()
+	animated_sprite.scale = sprite_base_scale
+	animated_sprite.position = Vector2.ZERO
 	grenade_landed.emit(global_position)
 	self.hide()
 	explosion()
@@ -198,6 +215,14 @@ func _on_explosion_animation_finished() -> void:
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
+	if flight_tween == null or !flight_tween.is_valid():
+		return
+	if game_on_pause:
+		flight_tween.pause()
+		animated_sprite.pause()
+	else:
+		flight_tween.play()
+		animated_sprite.play()
 
 
 func _on_explosion_area_entered(area: Area2D) -> void:

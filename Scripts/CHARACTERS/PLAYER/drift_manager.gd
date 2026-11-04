@@ -2,10 +2,6 @@ extends Node2D
 
 @onready var skid_parent : Node2D
 
-#@onready var drift_label : Label
-#@onready var total_label : Label
-#@onready var drift_multi_label : Label
-
 # ---------------- AUTO SLIDE ----------------
 @export var enable_auto_slide : bool = true
 @export_group("Auto slide")
@@ -88,6 +84,16 @@ var charge_colors : Array[Color] = []
 @export var tier_rumble : float = 0.4           # pulse on each drift tier, +50% per tier
 @export var grip_catch_rumble : float = 0.4     # pulse when the tires grip again after a drift
 
+@export_group("Spikes")
+@export var spikes_scene : PackedScene
+@export var spikes_base_damages : float = 1.0
+@export var drop_spikes_active : bool = true
+var spikes_damages : Statistic
+@onready var spikes_drop_timer: Timer = $SpikesDropTimer
+@onready var spike_marker: Marker2D = $"../MineMarker"
+
+
+
 var drift_charge : float = 0.0
 var charge_tier : int = 0
 
@@ -156,9 +162,11 @@ func _ready() -> void:
 	if GameMaster.is_debug():
 		_ready_debug()
 		return
-	skid_parent = get_node("/root/World/SkidMarks")
 	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.active_spikes.connect(_on_spikes_activated)
+	skid_parent = get_node("/root/World/SkidMarks")
 	drift_sfx_base_volume = drift_sfx.volume_db
+	spikes_damages = Statistic.new(spikes_base_damages)
 
 
 func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker2D, p_rear_right : Marker2D) -> void:
@@ -281,6 +289,7 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	elif skidding:
 		skid_time += delta
 		update_skid_points()
+		
 
 	# The squeal fades out as the grip comes back
 	if recovering:
@@ -328,6 +337,12 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 	
 	skidding_last_frame = skidding
 	player.drifting = drifting
+
+	if drifting and spikes_drop_timer.is_stopped():
+		spikes_drop_timer.start()
+	
+	if !drifting:
+		spikes_drop_timer.stop()
 
 	return forward_velocity + lateral_velocity
 
@@ -394,6 +409,8 @@ func create_skid_line(is_slide : bool) -> Array:
 	if !is_slide:
 		line.gradient = _make_tail_gradient(line.default_color)
 		border.gradient = _make_tail_gradient(border.default_color)
+		
+		
 	return [line, border]
 
 func _make_tail_gradient(color : Color) -> Gradient:
@@ -647,3 +664,17 @@ func _stop_skid_smoke() -> void:
 	for smoke : CPUParticles2D in skid_smokes:
 		smoke.emitting = false
 	skid_smoke_active = false
+
+
+func _on_spikes_drop_timer_timeout() -> void:
+	if drifting and drop_spikes_active:
+		drop_spikes()
+
+
+func drop_spikes() -> void : 
+	var spike : Area2D = spikes_scene.instantiate()
+	spike.global_position = spike_marker.global_position
+	get_node("/root/World/Collectables").add_child(spike)
+
+func _on_spikes_activated(trigger : bool) -> void : 
+	drop_spikes_active = true if trigger else false

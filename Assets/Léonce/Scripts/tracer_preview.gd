@@ -40,7 +40,6 @@ func _process(delta: float) -> void:
 
 	_update_shots(delta)
 
-
 ## Le tir part de la position de ce node, vers le point cliqué.
 func _fire(target: Vector2) -> void:
 	if trail_scene == null:
