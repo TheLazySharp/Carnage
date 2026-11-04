@@ -161,3 +161,10 @@ class_name JuiceSettings
 ## Maneuver name: pops in big, then bounces back to its size (real time: plays during the freeze)
 @export var maneuver_name_pop_scale : float = 2
 @export var maneuver_name_pop_time : float = 0.5
+
+@export_group("SURVIVOR RESCUE")
+## Slow motion when a survivor is saved: game speed and duration (real seconds)
+@export var rescue_slowmo_time_scale : float = 0.3
+@export var rescue_slowmo_duration : float = 1.0
+## Codec bubble display time (real seconds)
+@export var rescue_codec_time : float = 3.0

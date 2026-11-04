@@ -178,7 +178,7 @@ func set_new_leader(new_leader : Enemy, new_leader_horde : Array) -> void:
 	if game_over:
 		return
 	new_leader.is_leader = true
-	#new_leader.set_enemy_color(Color.BLACK)
+
 
 	for i in range(new_leader_horde.size() -1,-1,-1):
 		if !is_instance_valid(new_leader_horde[i]):

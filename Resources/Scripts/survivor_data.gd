@@ -9,5 +9,5 @@ class_name SurvivorData
 @export var weapon : WeaponData
 @export var is_on_board : bool = false
 @export var max_life : int = 100
-
+@export var rescue_lines : Array[String] = []
 var current_life : int

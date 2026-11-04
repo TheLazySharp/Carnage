@@ -3,7 +3,7 @@ extends Node2D
 @export_category("GENERAL")
 @export var saw_data : WeaponData
 
-@onready var icon: Sprite2D = $Icon
+@onready var icon: AnimatedSprite2D = $Icon
 
 var damages : float
 var speed : float
@@ -41,10 +41,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if game_paused:
 		return
-	icon.rotation += delta * speed_rotation
 	var previous : Vector2 = global_position
 	global_position += velocity * delta
-	# Same wall test as the minigun bullets: a ray over this frame's move, reaching the blade edge
 	ray_params.from = previous
 	ray_params.to = global_position + move_direction * wall_hit_radius
 	var hit : Dictionary = get_world_2d().direct_space_state.intersect_ray(ray_params)
@@ -67,9 +65,11 @@ func throw(from_position: Vector2, direction: Vector2, p_damage_multiplier: floa
 	# Stats read on every throw: a pooled saw follows the modifiers added during the raid
 	damages = saw_data.dmg.get_value()
 	speed = saw_data.speed.get_value()
+	icon.rotation = randi_range(0,180)
 	speed_rotation = saw_data.speed_rotation.get_value()
 	global_position = from_position
 	start_position = from_position
+	self.get_node("AfterImage").reset()
 	move_direction = direction.normalized()
 	velocity = move_direction * speed
 	damage_multiplier = p_damage_multiplier

@@ -238,6 +238,7 @@ func _init_ghost_pool() -> void:
 		ghost_tint_gradient.colors = PackedColorArray([
 			Color(1.0, 0.85, 0.3), Color(1.0, 0.3, 0.4), Color(0.3, 0.3, 0.9)])
 	var pool_size : int = ceili(ghost_lifetime / ghost_interval) + 1
+	var ghost_z : int = clampi(_get_absolute_z(sprite) - 1,RenderingServer.CANVAS_ITEM_Z_MIN, RenderingServer.CANVAS_ITEM_Z_MAX)
 	ghost_ages.resize(pool_size)
 	for i : int in pool_size:
 		var ghost_material : ShaderMaterial = ShaderMaterial.new()
@@ -247,7 +248,8 @@ func _init_ghost_pool() -> void:
 		var ghost : Sprite2D = Sprite2D.new()
 		ghost.top_level = true   # world space: stays where it spawned while the car drives on
 		ghost.material = ghost_material
-		ghost.z_index = sprite.z_index - 1
+		ghost.z_as_relative = false
+		ghost.z_index = ghost_z
 		ghost.hide()
 		add_child(ghost)
 		ghosts.append(ghost)
@@ -295,3 +297,15 @@ func _spawn_ghost() -> void:
 	ghost_materials[index].set_shader_parameter("fade", 1.0)
 	ghost_ages[index] = 0.0
 	ghost.show()
+
+## Z index the item is drawn with: its own, plus its parents' while z_as_relative is on
+func _get_absolute_z(item : CanvasItem) -> int:
+	var absolute_z : int = 0
+	var node : Node = item
+	while node is CanvasItem:
+		var canvas_item : CanvasItem = node as CanvasItem
+		absolute_z += canvas_item.z_index
+		if !canvas_item.z_as_relative:
+			break
+		node = node.get_parent()
+	return absolute_z

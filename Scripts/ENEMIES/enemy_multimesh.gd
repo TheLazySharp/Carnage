@@ -124,12 +124,15 @@ var accumululated_delta : float
 var night_speed_mod : Modifier
 var night_dmg_mod : Modifier
 var night_life_mod : Modifier
-var enemy_freezer : Modifier
 
-# FREEZE
+# STATUS (one active at a time: burn, poison, shock, freeze)
 const FREEZE_DURATION: float = 3.0
-var is_frozen: bool = false          # read by the renderer / state machine to lock facing
-var freeze_time_left: float = 0.0
+var is_frozen: bool = false          # read by the renderer / state machine to lock facing (= status FREEZE)
+var status : EnemyManager.Status = EnemyManager.Status.NONE
+var status_time_left : float = 0.0
+var status_tick_left : float = 0.0
+var status_power : float = 0.0
+var status_speed_mod : Modifier = null  # SHOCK slow / FREEZE stop, removed when the status ends
 
 
 func _ready() -> void:
@@ -155,8 +158,6 @@ func _ready() -> void:
 	night_speed_mod = Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
 	night_dmg_mod = Modifier.new(night_damages_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_dmg_mod")
 	night_life_mod = Modifier.new(night_max_life_boost,Modifier.Type.FLAT,"day_end_enemy_life_mod")
-	enemy_freezer = Modifier.new(-1, Modifier.Type.PERCENT_MULT,"enemy freezer item", FREEZE_DURATION)
-
 	call_deferred("register_to_renderer")
  
 func init_stats() -> void:
@@ -177,10 +178,8 @@ func _process(delta: float) -> void:
 	delta = minf(delta, 0.066)
 	if game_paused:
 		return
-	if is_frozen:
-		freeze_time_left -= delta
-		if freeze_time_left <= 0.0:
-			is_frozen = false
+	if status != EnemyManager.Status.NONE:
+		_update_status(delta)
 	if hit_pause_left > 0.0:
 		hit_pause_left -= delta
 		return  # frozen: no move, no flight, no accumulated delta (no catch-up jump)
@@ -438,6 +437,10 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0,
 		return
 	is_dead = true
 	drift_projectile = false
+	# Poisoned when dying: leaves a poison puddle on the ground (to come)
+	if status == EnemyManager.Status.POISON:
+		SignalManager.poisoned_enemy_died.emit(global_position)
+	clear_status()
 	if drift_trail_fx != null:
 		Vfx.release_loop(drift_trail_fx)
 		drift_trail_fx = null
@@ -558,9 +561,7 @@ func _on_damage_flash_timer_timeout() -> void:
 	damage_flash_timer.stop()
  
 func _on_freeze() -> void :
-	speed.add_temp_modifier(enemy_freezer)
-	is_frozen = true
-	freeze_time_left = FREEZE_DURATION
+	apply_status(EnemyManager.Status.FREEZE, FREEZE_DURATION, 1.0)
  
 func get_enemy_stat(stat: EnemyData.Enemy_Stats) -> Statistic:
 	match stat:
@@ -691,3 +692,65 @@ func _play_burst_sfx(cause : BurstCause) -> void:
 		return
 	sfx.global_position = global_position
 	sfx.play()
+	
+	# ---------------- STATUS ----------------
+
+## One status at a time: the same one refreshes its duration, another one replaces it.
+## power: BURN / POISON = damages per tick, SHOCK = slow share (0.85 = 85% slower), FREEZE = unused (full stop)
+func apply_status(new_status : EnemyManager.Status, duration : float, power : float) -> void:
+	if is_dead or new_status == EnemyManager.Status.NONE:
+		return
+	if new_status == status:
+		status_time_left = maxf(status_time_left, duration)
+		status_power = maxf(status_power, power)
+		return
+	clear_status()
+	status = new_status
+	status_time_left = duration
+	status_power = power
+	status_tick_left = EnemyManager.STATUS_TICK.get(status, 0.0)
+	if status == EnemyManager.Status.SHOCK:
+		status_speed_mod = Modifier.new(-clampf(power, 0.0, 1.0), Modifier.Type.PERCENT_MULT, "status shock")
+	elif status == EnemyManager.Status.FREEZE:
+		status_speed_mod = Modifier.new(-1.0, Modifier.Type.PERCENT_MULT, "status freeze")
+		is_frozen = true
+	if status_speed_mod != null:
+		speed.add_modifier(status_speed_mod)
+	set_enemy_color(EnemyManager.STATUS_COLORS[status])
+
+
+func clear_status() -> void:
+	if status == EnemyManager.Status.NONE:
+		return
+	if status_speed_mod != null:
+		speed.remove_modifier(status_speed_mod)
+		status_speed_mod = null
+	status = EnemyManager.Status.NONE
+	status_time_left = 0.0
+	is_frozen = false
+	set_enemy_color(EnemyManager.STATUS_COLORS[EnemyManager.Status.NONE])
+
+
+func _update_status(delta : float) -> void:
+	status_time_left -= delta
+	var tick : float = EnemyManager.STATUS_TICK.get(status, 0.0)
+	if tick > 0.0:
+		status_tick_left -= delta
+		if status_tick_left <= 0.0:
+			status_tick_left += tick
+			_take_status_damage(roundi(status_power), EnemyManager.STATUS_DEATH[status])
+	if status_time_left <= 0.0:
+		clear_status()
+
+
+## Damage over time tick: life, damage number and death only.
+## No flash, knockback or blood shot: readable and cheap when a whole horde burns
+func _take_status_damage(damages : int, death_type : EnemyManager.DEATH_TYPES) -> void:
+	if damages <= 0 or is_dead:
+		return
+	current_life -= damages
+	SignalManager.emit_signal("weapon_damages", damages)
+	display_damages(damages)
+	if current_life <= 0:
+		current_life = 0
+		call_deferred("on_death", Vector2.ZERO, 0.0, death_type)

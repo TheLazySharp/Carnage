@@ -17,7 +17,6 @@ var margin : float
 @onready var building_area: Area2D = $BuildingArea
 @onready var unlock_bar: ProgressBar = $UnlockBar
 @onready var spawn_center: Marker2D = $SpawnCenter
-@onready var new_survivor: Control = $/root/World/CanvasLayer/NewSurvivor
 
 var game_paused : bool = false
 
@@ -107,8 +106,4 @@ func spawn_collectables() -> void :
 func spawn_survivors() -> void :
 	if SurvivorsManager.next_spawned_survivor and RoadMapManager.last_district.type == DistrictsData.types.SURVIVOR and GameMaster.game_mode != GameMaster.GAME_MODES.GOD :
 		SignalManager.emit_signal("beacon_stop")
-		var survivor : SurvivorData = SurvivorsManager.next_spawned_survivor
-		SignalManager.emit_signal("game_paused",true)
-		SurvivorsManager.emit_signal("picked_up_survivor",survivor)
-		new_survivor.show()
-		
+		SurvivorsManager.rescue(SurvivorsManager.next_spawned_survivor)

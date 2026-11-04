@@ -14,8 +14,11 @@
 [ext_resource type="Script" uid="uid://c7sdgrppogbwa" path="res://Scripts/ENEMIES/horde_outliner.gd" id="16_mggjl"]
 [ext_resource type="Script" uid="uid://bglt4nv3oey0d" path="res://Scripts/UI/exit_arrow.gd" id="16_ocsld"]
 [ext_resource type="Texture2D" uid="uid://q1vqg1yau86s" path="res://Assets/UI/arrow_moving_sheet.png" id="17_5mroa"]
+[ext_resource type="Script" uid="uid://c2jelaeucrhqb" path="res://Scripts/UI/codec_line.gd" id="17_p1mdj"]
 [ext_resource type="Shader" uid="uid://bb440f6jgtoel" path="res://Shaders/mass_holes.gdshader" id="17_w5ff8"]
 [ext_resource type="Shader" uid="uid://bnhputjhskyuh" path="res://Shaders/outliner.gdshader" id="18_32lpc"]
+[ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="18_snqyw"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="19_jnjs8"]
 [ext_resource type="Script" uid="uid://b7t5qqvxkabj3" path="res://Scripts/ITEMS/collectables_pool.gd" id="24_c3hir"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="25_w7bus"]
 [ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="26_mggjl"]
@@ -27,7 +30,6 @@
 [ext_resource type="Script" uid="uid://dkwdnk3qayljv" path="res://Scripts/UI/HUD_texts.gd" id="55_6fcfe"]
 [ext_resource type="Texture2D" uid="uid://cigoc373iff72" path="res://Assets/UI/white_arrow.png" id="57_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://cmi5s38sxx8n1" path="res://Scenes/MENU/pause.tscn" id="58_ywo5e"]
-[ext_resource type="PackedScene" uid="uid://bgao02vsiwner" path="res://Scenes/MENU/new_survivor.tscn" id="60_tk2je"]
 [ext_resource type="Script" uid="uid://b53gepxrtesmg" path="res://Scripts/VFX/damage_label_pool.gd" id="68_6fcfe"]
 [ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="69_pp6a2"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/player.tscn" id="73_o2skn"]
@@ -373,8 +375,6 @@ autoplay = &"blinking_red"
 [node name="Pause" parent="CanvasLayer" unique_id=739595383 instance=ExtResource("58_ywo5e")]
 visible = false
 
-[node name="NewSurvivor" parent="CanvasLayer" unique_id=928422093 instance=ExtResource("60_tk2je")]
-
 [node name="ManeuverLabel" type="Label" parent="CanvasLayer" unique_id=229804214]
 z_index = 10
 offset_left = 959.0
@@ -392,6 +392,71 @@ script = ExtResource("16_ocsld")
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_42lo8")
 animation = &"moving"
+
+[node name="CodecLine" type="Control" parent="CanvasLayer" unique_id=275921967 node_paths=PackedStringArray("portrait", "name_label", "line_label", "rescue_sfx")]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -207.0
+offset_top = 126.0
+offset_right = 198.0
+offset_bottom = 210.0
+grow_horizontal = 2
+script = ExtResource("17_p1mdj")
+portrait = NodePath("Portrait")
+name_label = NodePath("Name")
+line_label = NodePath("Line")
+rescue_sfx = NodePath("RescueSfx")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/CodecLine" unique_id=556189233]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06053035, 0.06053035, 0.060530342, 1)
+
+[node name="Portrait" type="TextureRect" parent="CanvasLayer/CodecLine" unique_id=1074381250]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+texture = ExtResource("18_snqyw")
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/CodecLine/Portrait" unique_id=1917040456]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="CanvasLayer/CodecLine" unique_id=809582214]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 8.0
+offset_right = 168.0
+offset_bottom = 31.0
+text = "Marina"
+vertical_alignment = 1
+script = ExtResource("19_jnjs8")
+
+[node name="Line" type="Label" parent="CanvasLayer/CodecLine" unique_id=624497469]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 37.0
+offset_right = 387.0
+offset_bottom = 77.0
+text = "Nice ride. Smells like death."
+script = ExtResource("19_jnjs8")
+
+[node name="RescueSfx" type="AudioStreamPlayer" parent="CanvasLayer/CodecLine" unique_id=826454524]
 
 [node name="HordeOutline" type="Node2D" parent="." unique_id=200299998]
 z_index = 10

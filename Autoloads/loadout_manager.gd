@@ -30,9 +30,6 @@ const MANEUVER_DATA_UIDS : Array[String] = [
 var maneuver_data_by_type : Dictionary[ManeuverManager.Type, ManeuverData] = {}
 
 
-
-
-
 func _ready() -> void:
 	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
 	_load_maneuver_catalog()
@@ -64,8 +61,6 @@ func _load_maneuver_catalog() -> void:
 func get_maneuver_data(maneuver_type : ManeuverManager.Type) -> ManeuverData:
 	return maneuver_data_by_type.get(maneuver_type, null)
 
-
-## Name shown to the player: translated name of the resource, technical name as a fallback
 func get_maneuver_display_name(maneuver_type : ManeuverManager.Type) -> String:
 	var data : ManeuverData = get_maneuver_data(maneuver_type)
 	if data != null and data.name_key != "":
@@ -94,7 +89,7 @@ func get_weapon(maneuver_type : ManeuverManager.Type) -> WeaponData:
 		return null
 	return weapon_by_maneuver.get(maneuver_type, null)
 
-## Falls back on the base power when no run is started (map test scenes)
+
 func get_maneuver_power(maneuver_type : ManeuverManager.Type) -> float:
 	if maneuver_power.has(maneuver_type):
 		return maneuver_power[maneuver_type].get_value()
@@ -108,8 +103,6 @@ func count_assignments(weapon : WeaponData) -> int:
 	return count
 
 
-## Returns false when the move breaks a rule (maneuver not owned, weapon already on its max).
-## Replaces the weapon previously on this maneuver
 func assign(maneuver_type : ManeuverManager.Type, weapon : WeaponData) -> bool:
 	if !owned_maneuvers.has(maneuver_type):
 		return false
@@ -122,7 +115,6 @@ func assign(maneuver_type : ManeuverManager.Type, weapon : WeaponData) -> bool:
 func unassign(maneuver_type : ManeuverManager.Type) -> void:
 	weapon_by_maneuver.erase(maneuver_type)
 
-## Tutorial only: one weapon on every owned maneuver, ignoring the per-weapon limit
 func assign_everywhere(weapon : WeaponData) -> void:
 	for maneuver_type : ManeuverManager.Type in owned_maneuvers:
 		weapon_by_maneuver[maneuver_type] = weapon
@@ -134,7 +126,6 @@ func add_pending_weapon(weapon : WeaponData) -> void:
 
 ## Places the pending weapons on free owned maneuvers, their preferred maneuvers first
 func auto_assign_pending() -> void:
-	# Test mode: each new weapon goes on every maneuver (the newest one wins)
 	if is_test_mode():
 		for weapon : WeaponData in pending_weapons:
 			assign_everywhere(weapon)

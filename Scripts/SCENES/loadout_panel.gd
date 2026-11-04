@@ -55,6 +55,7 @@ func _ready() -> void:
 	tab_container.set_tab_title(MANEUVERS_TAB, tr("LOADOUT_TAB_MANEUVERS"))
 	tab_container.set_tab_title(CHARMS_TAB, tr("LOADOUT_TAB_CHARMS"))
 	tab_container.tab_changed.connect(_on_tab_changed)
+	set_process(false)
 	hide()
 
 
@@ -90,13 +91,14 @@ func open(p_read_only: bool = false) -> void:
 	if hint_label != null:
 		hint_label.text = tr("LOADOUT_HINT_READ_ONLY") if read_only else tr("LOADOUT_HINT_EDIT")
 	show()
+	set_process(true)
 
 
 func close() -> void:
 	if !visible:
 		return
 	hide()
-	# Focus back to the menu behind (roadmap district, pause button...)
+	set_process(false)
 	if is_instance_valid(previous_focus) and previous_focus.is_visible_in_tree():
 		previous_focus.grab_focus()
 	previous_focus = null
@@ -106,27 +108,44 @@ func close() -> void:
 func _input(event: InputEvent) -> void:
 	if !visible:
 		return
-	# Mouse: handled by the charm cells themselves (gui_input). The panel root blocks the scene behind
 	if event is InputEventMouse:
 		return
-	# Pause key: let it through, the pause menu closes the panel and resumes the game
 	if event.is_action("pause"):
 		return
-	if event.is_action_pressed("go_previous"):
-		_change_tab(-1)
-	elif event.is_action_pressed("go_next"):
-		_change_tab(1)
-	elif event.is_action_pressed("ui_back") or event.is_action_pressed("loadout"):
+	if event.is_action_pressed("ui_back") or event.is_action_pressed("loadout"):
 		close()
-	elif read_only and event.is_action_pressed("ui_accept"):
-		close()
-	elif tab_container.current_tab == MANEUVERS_TAB:
-		_maneuvers_input(event)
-	elif tab_container.current_tab == CHARMS_TAB:
-		_charms_input(event)
-	# The scene behind never reacts while the panel is open
+	elif event.is_action_pressed("ui_accept"):
+		if read_only or tab_container.current_tab == MANEUVERS_TAB:
+			close()
+		else:
+			_accept_charm()
 	get_viewport().set_input_as_handled()
 
+
+## Runs only while the panel is open. Input keeps one press per push of the stick or trigger
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("go_previous"):
+		_change_tab(-1)
+	elif Input.is_action_just_pressed("go_next"):
+		_change_tab(1)
+	elif Input.is_action_just_pressed("ui_up"):
+		_navigate(0, -1)
+	elif Input.is_action_just_pressed("ui_down"):
+		_navigate(0, 1)
+	elif Input.is_action_just_pressed("ui_left"):
+		_navigate(-1, 0)
+	elif Input.is_action_just_pressed("ui_right"):
+		_navigate(1, 0)
+
+
+func _navigate(dx: int, dy: int) -> void:
+	if tab_container.current_tab == MANEUVERS_TAB:
+		if dy != 0:
+			_move_selection(dy)
+		elif !read_only:
+			_cycle_weapon(dx)
+	else:
+		_move_charm_focus(dx, dy)
 
 func _change_tab(direction: int) -> void:
 	tab_container.current_tab = wrapi(tab_container.current_tab + direction, 0, tab_container.get_tab_count())
@@ -146,19 +165,6 @@ func _free_nodes(nodes: Array) -> void:
 
 
 # ---------------- MANEUVERS TAB ----------------
-
-func _maneuvers_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_up"):
-		_move_selection(-1)
-	elif event.is_action_pressed("ui_down"):
-		_move_selection(1)
-	# Read-only: rows can be browsed (weapon descriptions), never changed
-	elif !read_only and event.is_action_pressed("ui_left"):
-		_cycle_weapon(-1)
-	elif !read_only and event.is_action_pressed("ui_right"):
-		_cycle_weapon(1)
-	elif event.is_action_pressed("ui_accept"):
-		close()
 
 
 func _build_rows() -> void:
@@ -307,19 +313,6 @@ func _reset_charm_focus() -> void:
 	focus_index = 0
 	picked_index = -1
 	_refresh_charms()
-
-
-func _charms_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_left"):
-		_move_charm_focus(-1, 0)
-	elif event.is_action_pressed("ui_right"):
-		_move_charm_focus(1, 0)
-	elif event.is_action_pressed("ui_up"):
-		_move_charm_focus(0, -1)
-	elif event.is_action_pressed("ui_down"):
-		_move_charm_focus(0, 1)
-	elif !read_only and event.is_action_pressed("ui_accept"):
-		_accept_charm()
 
 
 ## Slots = one row, owned charms = a grid with the OwnedCharmContainer columns

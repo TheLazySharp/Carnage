@@ -18,7 +18,7 @@ var game_on_pause : bool = false
 var survivor : SurvivorData
 
 func _ready() -> void:
-	SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)
+	#SurvivorsManager.picked_up_survivor.connect(_on_survivor_picked_up)
 	hide() 
 
 
@@ -47,7 +47,7 @@ func _on_pick_up_pressed() -> void:
 	var job : JobData = survivor.job_ressource
 	var effect : JobEffect = job.effect_script.new()
 	effect.activate()
-	jobs_manager.register(job, effect)
+	JobsManager.register(job, effect)
 	
 	self.hide()
 	SignalManager.emit_signal("game_paused",game_on_pause)

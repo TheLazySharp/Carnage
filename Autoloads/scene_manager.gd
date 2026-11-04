@@ -21,7 +21,8 @@ enum SCENES {
 	REWARDS,
 	DEAD_LAPS_WIN,
 	TUTORIAL,
-	SANDBOX_NEW
+	SANDBOX_NEW,
+	SURVIVOR_RECAP
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -31,9 +32,6 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.START_INTRO : "uid://dqfr2nck8fjao",
 	SCENES.END_DAY : "uid://dkpvtoel7hhai",
 	SCENES.GARAGE : "uid://cfitxfs1gyuep",
-	#"Tuto" : "uid://ci6t4884t7q6r",
-	#"Level01" : "uid://c6msxridefxxd",
-	#"LuckyCharms" : "uid://ch2rp03kbdyg7",
 	SCENES.COMMANDS : "uid://dayxnnf2ndx5c",
 	SCENES.MISSIONS : "uid://dc6hb14w0yref",
 	SCENES.SURVIVORS : "uid://cui5s6rmjs40o",
@@ -50,6 +48,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.DEAD_LAPS_WIN : "uid://yqd1m8allrb7",
 	SCENES.TUTORIAL : "uid://cq2s06r5jphru",
 	SCENES.SANDBOX_NEW : "uid://doy16umvky4m1",
+	SCENES.SURVIVOR_RECAP : "uid://n80vprxw83m5",
 }
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
@@ -177,6 +176,11 @@ func _close_overlay_when_generated() -> void:
 func _on_map_generated(_data : MapData) -> void:
 	_level_ready = true
 
+func load_post_raid() -> void:
+	if InventoryManager.has_reward:
+		load_level(SCENES.REWARDS)
+	else:
+		load_level(SCENES.CAR_LEVELUP)
 
 func unload_game() -> void:
 	XPManager.unload()
@@ -189,6 +193,6 @@ func unload_game() -> void:
 	SurvivorsManager.unload()
 	ShopManager.unload()
 	BuildingsManager.unload()
-	jobs_manager.unload()
+	JobsManager.unload()
 	BloodBars.unload()
 	GameMaster.tutorial_active = false
