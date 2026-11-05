@@ -143,8 +143,9 @@
 [ext_resource type="Texture2D" uid="uid://blecditsbx72j" path="res://Assets/Léonce/Enemies/zombieA_shadow.png" id="142_7e0cr"]
 [ext_resource type="Texture2D" uid="uid://dmuvi1ee80nb7" path="res://Assets/Léonce/Enemies/zombie01_death_sliced.png" id="142_bac6x"]
 [ext_resource type="Texture2D" uid="uid://cxvdh7kd6q63d" path="res://Assets/Léonce/VFX/Smoke/particle_misc02.png" id="143_bac6x"]
-[ext_resource type="Texture2D" uid="uid://d0kvfdlyh5n8w" path="res://Assets/Léonce/VFX/Smoke/particle_misc01.png" id="144_dwvcj"]
 [ext_resource type="PackedScene" uid="uid://cfrf6j5k2sttc" path="res://Scenes/VFX/grenade_pin.tscn" id="145_dwvcj"]
+[ext_resource type="Texture2D" uid="uid://doli7tlek85ix" path="res://Assets/Léonce/VFX/Smoke/particles_misc01.png" id="148_at31f"]
+[ext_resource type="Texture2D" uid="uid://ct7nbddk1bwct" path="res://Assets/Léonce/VFX/poison_vial.png" id="149_5du53"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hnt52"]
 blend_mode = 1
@@ -4542,40 +4543,113 @@ shader_parameter/turbulence_noise_speed = Vector3(1, 1, 1)
 shader_parameter/h_frames = 11.000000475
 shader_parameter/v_frames = 4.000000142499999
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nhvyv"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tyiq4"]
 particles_animation = true
 particles_anim_h_frames = 7
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id="Gradient_1xj8r"]
-colors = PackedColorArray(0.7445537, 0.855937, 0.08624264, 1, 6.738305e-07, 0.816419, 0.70988184, 1)
+[sub_resource type="Gradient" id="Gradient_gd1db"]
+offsets = PackedFloat32Array(0.65486723, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_axph7"]
-atlas = ExtResource("144_dwvcj")
-region = Rect2(0, 0, 36, 36)
+atlas = ExtResource("149_5du53")
+region = Rect2(0, 0, 25, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uvgkl"]
-atlas = ExtResource("144_dwvcj")
-region = Rect2(36, 0, 36, 36)
+atlas = ExtResource("149_5du53")
+region = Rect2(25, 0, 25, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykn0a"]
-atlas = ExtResource("144_dwvcj")
-region = Rect2(72, 0, 36, 36)
+atlas = ExtResource("149_5du53")
+region = Rect2(50, 0, 25, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lx5bo"]
-atlas = ExtResource("144_dwvcj")
-region = Rect2(108, 0, 36, 36)
+atlas = ExtResource("149_5du53")
+region = Rect2(75, 0, 25, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5iohe"]
-atlas = ExtResource("144_dwvcj")
-region = Rect2(144, 0, 36, 36)
+atlas = ExtResource("149_5du53")
+region = Rect2(100, 0, 25, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oogmi"]
-atlas = ExtResource("144_dwvcj")
-region = Rect2(180, 0, 36, 36)
+atlas = ExtResource("149_5du53")
+region = Rect2(125, 0, 25, 25)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1xj8r"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwgqe"]
+atlas = ExtResource("149_5du53")
+region = Rect2(150, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2oy8"]
+atlas = ExtResource("149_5du53")
+region = Rect2(175, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tfgd"]
+atlas = ExtResource("149_5du53")
+region = Rect2(200, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4rry"]
+atlas = ExtResource("149_5du53")
+region = Rect2(225, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txy8h"]
+atlas = ExtResource("149_5du53")
+region = Rect2(250, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd3b8"]
+atlas = ExtResource("149_5du53")
+region = Rect2(275, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6bas"]
+atlas = ExtResource("149_5du53")
+region = Rect2(300, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ux2w"]
+atlas = ExtResource("149_5du53")
+region = Rect2(325, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvvno"]
+atlas = ExtResource("149_5du53")
+region = Rect2(350, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7b3f"]
+atlas = ExtResource("149_5du53")
+region = Rect2(375, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_paqmt"]
+atlas = ExtResource("149_5du53")
+region = Rect2(400, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbxrx"]
+atlas = ExtResource("149_5du53")
+region = Rect2(425, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3xtf"]
+atlas = ExtResource("149_5du53")
+region = Rect2(450, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5qmv"]
+atlas = ExtResource("149_5du53")
+region = Rect2(475, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1g56"]
+atlas = ExtResource("149_5du53")
+region = Rect2(500, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfkj0"]
+atlas = ExtResource("149_5du53")
+region = Rect2(525, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04l2e"]
+atlas = ExtResource("149_5du53")
+region = Rect2(550, 0, 25, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bwxs"]
+atlas = ExtResource("149_5du53")
+region = Rect2(575, 0, 25, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cbgfx"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -4593,23 +4667,135 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5iohe")
 }, {
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_oogmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwgqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2oy8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tfgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4rry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txy8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd3b8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6bas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ux2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvvno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7b3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_paqmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbxrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3xtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5qmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1g56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfkj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04l2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bwxs")
 }],
 "loop": 1,
 "name": &"default",
-"speed": 15.0
+"speed": 36.0
 }]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tyiq4"]
+[sub_resource type="Animation" id="Animation_bv63a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_a3qrm"]
+resource_name = "poison_vial_particles"
+length = 0.6667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.283185307179586]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_glj78"]
+_data = {
+&"RESET": SubResource("Animation_bv63a"),
+&"poison_vial_particles": SubResource("Animation_a3qrm")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1xj8r"]
 particles_animation = true
-particles_anim_h_frames = 7
+particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id="Gradient_gd1db"]
-offsets = PackedFloat32Array(0.65486723, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="Gradient" id="Gradient_7ei5d"]
+offsets = PackedFloat32Array(0, 0.2909699, 0.71571904, 1)
+colors = PackedColorArray(0.42466667, 0.52, 0, 0, 0.42344004, 0.51552075, 1.92523e-07, 1, 0.4120384, 0.6860027, 0, 1, 0.414, 0.69, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cbgfx"]
+gradient = SubResource("Gradient_7ei5d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gd1db"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.5
+direction = Vector3(0, 0, 0)
+spread = 39.672
+initial_velocity_max = 19.48
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 99.99999
+radial_accel_max = 99.99999
+color_ramp = SubResource("GradientTexture1D_cbgfx")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.09999997
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+turbulence_noise_strength = 3.79
+turbulence_noise_scale = 3.19
 
 [node name="Node2D" type="Node2D" unique_id=283109215]
 
@@ -6150,7 +6336,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=99286227]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1841500884]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -6183,10 +6369,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=2037574264]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=382720761]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=602833370]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1256233496]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -6203,7 +6389,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=301019582]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1285466392]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -6580,6 +6766,7 @@ autoplay = "walk_idle02"
 frame_progress = 0.62433994
 
 [node name="EnemyAnimations" type="Node2D" parent="." unique_id=964715141]
+position = Vector2(-32, -17)
 
 [node name="Sliced01" type="AnimatedSprite2D" parent="EnemyAnimations" unique_id=383998220]
 z_index = 6
@@ -6727,32 +6914,9 @@ script = ExtResource("140_onpsi")
 trail_scene = ExtResource("141_onpsi")
 projectile_texture = ExtResource("142_7e0cr")
 
-[node name="PoisonParticles" type="CPUParticles2D" parent="." unique_id=360515109]
-z_index = 10
-material = SubResource("CanvasItemMaterial_nhvyv")
-position = Vector2(2147, 1238)
-amount = 12
-texture = ExtResource("143_bac6x")
-lifetime = 0.41
-direction = Vector2(1, 1.45)
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_max = 52.91
-color = Color(0.48125738, 0.4648471, 0.14287156, 1)
-color_ramp = SubResource("Gradient_1xj8r")
-anim_speed_min = 1.0
-anim_speed_max = 1.0
-
-[node name="PoisonBlob" type="AnimatedSprite2D" parent="PoisonParticles" unique_id=1502754782]
-modulate = Color(0.26501715, 0.8149007, 0, 1)
-z_index = 10
-sprite_frames = SubResource("SpriteFrames_1xj8r")
-autoplay = "default"
-frame_progress = 0.9654742
-
 [node name="PoisonSplatter" type="CPUParticles2D" parent="." unique_id=617652544]
 material = SubResource("CanvasItemMaterial_tyiq4")
-position = Vector2(2053, 1216)
+position = Vector2(2067, 1234)
 emitting = false
 amount = 16
 texture = ExtResource("143_bac6x")
@@ -6770,3 +6934,25 @@ anim_speed_max = 1.0
 
 [node name="GrenadePin" parent="." unique_id=257877405 instance=ExtResource("145_dwvcj")]
 position = Vector2(2040, 1112)
+
+[node name="PoisonVial" type="AnimatedSprite2D" parent="." unique_id=1833179292]
+z_index = 10
+position = Vector2(2037, 1198)
+sprite_frames = SubResource("SpriteFrames_cbgfx")
+frame_progress = 0.97609425
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PoisonVial" unique_id=1909842596]
+libraries/ = SubResource("AnimationLibrary_glj78")
+autoplay = &"poison_vial_particles"
+
+[node name="Pivot" type="Node2D" parent="PoisonVial" unique_id=2045341449]
+position = Vector2(1, 0)
+
+[node name="PoisonParticles" type="GPUParticles2D" parent="PoisonVial/Pivot" unique_id=2096424537]
+z_index = 8
+material = SubResource("CanvasItemMaterial_1xj8r")
+position = Vector2(-6, -6)
+amount = 30
+texture = ExtResource("148_at31f")
+lifetime = 0.31
+process_material = SubResource("ParticleProcessMaterial_gd1db")
