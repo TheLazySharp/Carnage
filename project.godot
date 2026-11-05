@@ -45,7 +45,7 @@ ShopManager="*uid://c3ilfi0ndrh2n"
 GameMaster="*uid://bh4jtaefovb6p"
 CharmsManager="*uid://dt2ws5wathrud"
 EnemyManager="*uid://bxdwykiiwe7mo"
-JobsManager="*uid://cid3lkejoqtxp"
+jobs_manager="*uid://cid3lkejoqtxp"
 ItemManager="*uid://pfnlydcuwirj"
 BuildingsManager="*uid://dhojtvnvny37"
 BloodPools="*uid://df2bxfoj3gypl"
@@ -58,6 +58,7 @@ ImplantsManager="*uid://j2p4rfdd8hnu"
 BloodBars="*uid://caiyd78rwxaxs"
 LoadoutManager="*uid://bdri8jtreqpg7"
 Haptics="*uid://k4nsh1ebntvr"
+JobsManager="*uid://cid3lkejoqtxp"
 
 [debug]
 
