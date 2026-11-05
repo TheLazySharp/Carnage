@@ -76,10 +76,10 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: floa
 		return
 	if ManeuverManager.get_pattern(maneuver_type).z < 0.0:
 		return
-	drop_mines_on_trail(launcher_data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier))
+	drop_mines_on_trail(launcher_data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier), maneuver_type)
 
 
-func drop_mines_on_trail(count : int) -> void:
+func drop_mines_on_trail(count : int, maneuver_type : ManeuverManager.Type) -> void:
 	# Recent part of the drift path recorded by the ManeuverManager (rear axle, points ~evenly spaced)
 	var trail : PackedVector2Array = maneuver_manager.trail_points
 	var trail_points_kept : int = ceili(mine_trail_length / maneuver_manager.loop_sample_distance)
@@ -87,6 +87,8 @@ func drop_mines_on_trail(count : int) -> void:
 	var available : int = trail.size() - first
 	# At most one mine per trail point: the extra mines go on a tight line behind the car
 	var on_trail : int = mini(count, available) if available >= 2 else 0
+	# Same for every mine of the salvo: computed once (the maneuver level raises the combo share)
+	var damage_multiplier : float = launcher_data.get_combo_damage_multiplier(combo_multiplier, maneuver_type)
 
 	var explosives : Node = get_node("/root/World/Explosives")
 	for i : int in count:
@@ -98,7 +100,7 @@ func drop_mines_on_trail(count : int) -> void:
 		else:
 			mine_position = get_fallback_position(i - on_trail)
 		var landmine : Node2D = LANDMINE.instantiate()
-		landmine.damage_multiplier = launcher_data.get_combo_damage_multiplier(combo_multiplier)
+		landmine.damage_multiplier = damage_multiplier
 		explosives.add_child(landmine)
 		landmine.global_position = mine_position
 	drop_mine_sfx.play()

@@ -166,16 +166,17 @@ func get_salvo_count(maneuver_type : ManeuverManager.Type, intensity : float, dr
 	count *= LoadoutManager.get_maneuver_power(maneuver_type)
 	count *= 0.5 + 0.5 * intensity
 	count *= 1.0 + drift_level * drift_level_bonus
-	count *= 1.0 + (combo_multiplier - 1.0) * combo_projectile_share
+	count *= 1.0 + (combo_multiplier - 1.0) * combo_projectile_share * LoadoutManager.get_combo_share_factor(maneuver_type)
 	if is_amplified:
 		count *= amplified_multiplier
 	# Rounded up (minus a float margin): every bonus adds at least one projectile, even on a small base
 	return maxi(ceili(count - 0.001), 1)
 
 
-## Damage multiplier from the combo: a share only, the combo mostly raises the projectile count
-func get_combo_damage_multiplier(combo_multiplier : float) -> float :
-	return 1.0 + (combo_multiplier - 1.0) * combo_damage_share
+## Damage multiplier from the combo: a share only between projectiles and damages
+func get_combo_damage_multiplier(combo_multiplier : float, maneuver_type : int = -1) -> float :
+	var share_factor : float = 1.0 if maneuver_type < 0 else LoadoutManager.get_combo_share_factor(maneuver_type)
+	return 1.0 + (combo_multiplier - 1.0) * combo_damage_share * share_factor
 
 func get_shots_per_direction() -> int :
 	if stream_stat == Stats_Types.N_A:

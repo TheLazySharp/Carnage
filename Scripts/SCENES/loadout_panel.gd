@@ -196,7 +196,10 @@ func _add_row(maneuver_type: ManeuverManager.Type, is_locked: bool) -> HBoxConta
 	row.show()
 	var data: ManeuverData = LoadoutManager.get_maneuver_data(maneuver_type)
 	(row.get_node("ManeuverIcon") as TextureRect).texture = data.icon if data != null else null
-	(row.get_node("ManeuverName") as Label).text = LoadoutManager.get_maneuver_display_name(maneuver_type)
+	var maneuver_label : String = LoadoutManager.get_maneuver_display_name(maneuver_type)
+	if !is_locked:
+		maneuver_label += "  %s %d" % [tr("PART_LEVEL"), LoadoutManager.get_maneuver_level(maneuver_type)]
+	(row.get_node("ManeuverName") as Label).text = maneuver_label
 	if is_locked:
 		(row.get_node("WeaponIcon") as TextureRect).texture = null
 		(row.get_node("WeaponName") as Label).text = tr("LOADOUT_LOCKED")

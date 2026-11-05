@@ -91,6 +91,8 @@ var charge_colors : Array[Color] = []
 var spikes_damages : Statistic
 @onready var spikes_drop_timer: Timer = $SpikesDropTimer
 @onready var spike_marker: Marker2D = $"../MineMarker"
+@onready var spikes_audio_player: AudioStreamPlayer = $SpikesAudioPlayer
+@onready var spikes_audio_timer: Timer = $SpikesAudioTimer
 
 
 
@@ -340,9 +342,13 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 
 	if drifting and spikes_drop_timer.is_stopped():
 		spikes_drop_timer.start()
+		spikes_audio_timer.start()
+		
 	
 	if !drifting:
 		spikes_drop_timer.stop()
+		spikes_audio_timer.stop()
+		
 
 	return forward_velocity + lateral_velocity
 
@@ -678,3 +684,8 @@ func drop_spikes() -> void :
 
 func _on_spikes_activated(trigger : bool) -> void : 
 	drop_spikes_active = true if trigger else false
+
+
+func _on_spike_audio_timer_timeout() -> void:
+	if drifting and drop_spikes_active:
+		spikes_audio_player.play()

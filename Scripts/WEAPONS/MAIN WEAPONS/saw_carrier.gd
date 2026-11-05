@@ -45,7 +45,7 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: floa
 	var count : int = carrier_data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier)
 	if count <= 0:
 		return
-	var damage_multiplier : float = carrier_data.get_combo_damage_multiplier(combo_multiplier)
+	var damage_multiplier : float = carrier_data.get_combo_damage_multiplier(combo_multiplier, maneuver_type)
 	var ring_center : Vector2 = to_global(ring_center_offset)
 	for i : int in count:
 		var angle : float = ManeuverManager.get_spread_angle(i, count, pattern.y, attack_angle)

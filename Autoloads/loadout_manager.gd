@@ -27,6 +27,14 @@ const MANEUVER_DATA_UIDS : Array[String] = [
 	"uid://h5gvivokva2o", #U turn
 	"uid://bo683su45ub5v", #loop
 ]
+
+
+
+
+
+const MAX_MANEUVER_LEVEL : int = 5
+const LEVEL_SHARE_FACTORS : PackedFloat32Array = [1.0, 1.2, 1.4, 1.65, 1.9, 2.2]
+var maneuver_levels : Dictionary[ManeuverManager.Type, int] = {}  # only upgraded maneuvers (others = level 0)
 var maneuver_data_by_type : Dictionary[ManeuverManager.Type, ManeuverData] = {}
 
 
@@ -41,6 +49,7 @@ func start_run(p_car : CarData) -> void:
 	has_new_maneuver = false
 	pending_weapons.clear()
 	maneuver_power.clear()
+	maneuver_levels.clear()
 	for maneuver_type : ManeuverManager.Type in ManeuverManager.Type.values():
 		maneuver_power[maneuver_type] = Statistic.new(ManeuverManager.get_power(maneuver_type))
 	if is_test_mode():
@@ -94,6 +103,32 @@ func get_maneuver_power(maneuver_type : ManeuverManager.Type) -> float:
 	if maneuver_power.has(maneuver_type):
 		return maneuver_power[maneuver_type].get_value()
 	return ManeuverManager.get_power(maneuver_type)
+
+## 0 = not owned or just unlocked (check owns()), up to MAX_MANEUVER_LEVEL
+func get_maneuver_level(maneuver_type : ManeuverManager.Type) -> int:
+	if !owns(maneuver_type):
+		return 0
+	return maneuver_levels.get(maneuver_type, 0)
+
+
+## Owned, below the max level, not the loop (car ultimate)
+func can_upgrade(maneuver_type : ManeuverManager.Type) -> bool:
+	return maneuver_type != ManeuverManager.Type.LOOP and owns(maneuver_type) and get_maneuver_level(maneuver_type) < MAX_MANEUVER_LEVEL
+
+
+func upgrade(maneuver_type : ManeuverManager.Type) -> bool:
+	if !can_upgrade(maneuver_type):
+		return false
+	maneuver_levels[maneuver_type] = get_maneuver_level(maneuver_type) + 1
+	return true
+
+
+## Multiplies the weapon combo shares (projectiles and damages) on this maneuver
+func get_combo_share_factor(maneuver_type : ManeuverManager.Type) -> float:
+	var level : int = clampi(get_maneuver_level(maneuver_type), 0, MAX_MANEUVER_LEVEL)
+	return LEVEL_SHARE_FACTORS[level]
+
+
 
 func count_assignments(weapon : WeaponData) -> int:
 	var count : int = 0

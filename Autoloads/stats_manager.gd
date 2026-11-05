@@ -49,20 +49,25 @@ func _on_distance_traveled(distance_meters: int) -> void:
 	total_distance += distance_meters
 
 
-func get_drift_score(car : CarData, preview_part : BoostData = null) -> float:
+
+func get_drift_score(car : CarData, preview_part : BoostData = null, preview_level : int = -1) -> float:
 	var total : float = 0.0
-	total += _get_preview_value(car, car.drift_turn_bonus, preview_part) / max_drift
-	total += _get_preview_value(car, car.drift_charge_speed, preview_part) / max_drift_charge_speed
-	total += _get_preview_value(car, car.combo_step, preview_part) / max_combo_step
-	total += _get_preview_value(car, car.drift_hit_power, preview_part) / max_drift_hit_power
+	total += _get_preview_value(car, car.drift_turn_bonus, preview_part, preview_level) / max_drift
+	total += _get_preview_value(car, car.drift_charge_speed, preview_part, preview_level) / max_drift_charge_speed
+	total += _get_preview_value(car, car.combo_step, preview_part, preview_level) / max_combo_step
+	total += _get_preview_value(car, car.drift_hit_power, preview_part, preview_level) / max_drift_hit_power
 	return max_drift_score * total / 4.0
 
 
-## Value of a car stat, with the next level of the part if that part targets it
-func _get_preview_value(car : CarData, stat : Statistic, preview_part : BoostData) -> float:
+## Value of a car stat, with the part raised to preview_level if that part targets it
+func _get_preview_value(car : CarData, stat : Statistic, preview_part : BoostData, preview_level : int) -> float:
 	if preview_part == null or !preview_part.is_car_part():
+		return stat.get_value()
+	var current_level : int = car.get_part_level(preview_part.car_part)
+	var target_level : int = current_level + 1 if preview_level < 0 else preview_level
+	if target_level <= current_level:
 		return stat.get_value()
 	for target_stat : BoostData.Target_Stats in preview_part.target_stats:
 		if preview_part.get_car_stat(target_stat, car) == stat:
-			return stat.preview_value(preview_part.make_part_modifier(car.get_part_level(preview_part.car_part)))
+			return stat.preview_value(preview_part.make_part_preview_modifier(current_level, target_level))
 	return stat.get_value()

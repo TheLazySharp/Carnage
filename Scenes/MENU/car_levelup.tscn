@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cum1kdgu8a1di"]
 
 [ext_resource type="Script" uid="uid://ci1udv0u5wm6e" path="res://Scripts/SCENES/car_levelup.gd" id="1_1impy"]
-[ext_resource type="PackedScene" uid="uid://dbjho30cytfku" path="res://Scenes/ITEMS/boost.tscn" id="2_kkdjs"]
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="3_mxdxo"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="4_1yhnf"]
 [ext_resource type="Texture2D" uid="uid://x6vnsvuexoh5" path="res://Assets/Characters/Cars/pickup_white.png" id="5_1impy"]
@@ -10,6 +9,11 @@
 [ext_resource type="AudioStream" uid="uid://dil5nqxm80pc5" path="res://Assets/Audio/SFX/Garage/garage_drill.mp3" id="9_mxdxo"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="9_q02oa"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="10_qcsoc"]
+[ext_resource type="Texture2D" uid="uid://ch2tpu8vunnsk" path="res://Assets/Items/engine.png" id="11_sr04d"]
+[ext_resource type="Texture2D" uid="uid://c32m7ll3ka4tp" path="res://Assets/Items/fuel_tank.png" id="12_2taig"]
+[ext_resource type="Texture2D" uid="uid://bmgonqrvktc7g" path="res://Assets/Items/front_gear.png" id="13_upn4r"]
+[ext_resource type="Texture2D" uid="uid://drcqx1tsmpkt0" path="res://Assets/Items/rear_bumper.png" id="14_0lu01"]
+[ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="15_q02oa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3aobf"]
 
@@ -38,7 +42,16 @@ skew = Vector2(0.6, 0)
 bg_color = Color(1, 0.7764706, 0, 1)
 skew = Vector2(0.6, 0)
 
-[node name="CarLevelUp" type="Control" unique_id=2121295686]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4d8j6"]
+bg_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssidi"]
+bg_color = Color(0.45490196, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3d320"]
+bg_color = Color(0.45490196, 0, 0, 1)
+
+[node name="CarLevelUp" type="Control" unique_id=2121295686 node_paths=PackedStringArray("level_up_rows", "upgrade_desc_label", "validate_button", "undo_hint_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,7 +59,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1impy")
-boost_scene = ExtResource("2_kkdjs")
+level_up_rows = NodePath("LevelUp")
+upgrade_desc_label = NodePath("UpgradeDesc")
+validate_button = NodePath("VBoxContainer/Confirm")
+undo_hint_label = NodePath("CancelHint")
 
 [node name="Background" type="ColorRect" parent="." unique_id=693917777]
 layout_mode = 1
@@ -101,23 +117,6 @@ theme_override_fonts/font = ExtResource("4_1yhnf")
 text = "Upgrades : 2"
 script = ExtResource("8_0lu01")
 
-[node name="BoostContainer" type="GridContainer" parent="." unique_id=1285383820]
-custom_minimum_size = Vector2(410, 400)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -584.0
-offset_top = -289.0
-offset_right = -4.0
-offset_bottom = 375.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 16
-
 [node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1176608004]
 layout_mode = 1
 anchors_preset = 7
@@ -125,15 +124,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 199.0
-offset_top = -128.0
-offset_right = 443.0
-offset_bottom = -64.0
+offset_left = -151.5
+offset_top = -64.0
+offset_right = 151.5
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 30
 
-[node name="Ignore" type="Button" parent="VBoxContainer" unique_id=1115489960]
+[node name="Confirm" type="Button" parent="VBoxContainer" unique_id=1115489960]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -144,7 +142,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("9_q02oa")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3aobf")
-text = "IGNORE"
+text = "CONFIRM"
 flat = true
 icon_alignment = 1
 script = ExtResource("10_qcsoc")
@@ -162,9 +160,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -555.0
-offset_top = -138.0
-offset_bottom = 264.0
+offset_left = -513.0
+offset_top = 16.0
+offset_right = -32.0
+offset_bottom = 277.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hwclg")
@@ -293,12 +292,13 @@ vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
 [node name="Levels" type="VBoxContainer" parent="StatsPanel/HBoxContainer" unique_id=1502966394]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_constants/separation = 30
 
 [node name="LifeBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1260924554]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -308,7 +308,8 @@ value = 300.0
 show_percentage = false
 
 [node name="LifeBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/LifeBarNew" unique_id=542228531]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -321,7 +322,8 @@ show_percentage = false
 
 [node name="FuelBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=2026601496]
 visible = false
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -331,7 +333,8 @@ value = 300.0
 show_percentage = false
 
 [node name="FuelBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/FuelBarNew" unique_id=290253463]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -343,7 +346,8 @@ value = 200.0
 show_percentage = false
 
 [node name="SpeedBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=740588237]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -353,7 +357,8 @@ value = 300.0
 show_percentage = false
 
 [node name="SpeedBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/SpeedBarNew" unique_id=1772037971]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -365,7 +370,8 @@ value = 200.0
 show_percentage = false
 
 [node name="TorqueBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1437244389]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -375,7 +381,8 @@ value = 300.0
 show_percentage = false
 
 [node name="TorqueBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/TorqueBarNew" unique_id=1457098941]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -387,7 +394,8 @@ value = 200.0
 show_percentage = false
 
 [node name="DriftBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1295471482]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -397,7 +405,8 @@ value = 300.0
 show_percentage = false
 
 [node name="DriftBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/DriftBarNew" unique_id=1816709001]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -409,7 +418,8 @@ value = 200.0
 show_percentage = false
 
 [node name="DamagesBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=2043010945]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -419,7 +429,8 @@ value = 300.0
 show_percentage = false
 
 [node name="DamagesBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/DamagesBarNew" unique_id=1151073734]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -432,7 +443,8 @@ show_percentage = false
 
 [node name="DashDurationBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=222275096]
 visible = false
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -442,7 +454,8 @@ value = 300.0
 show_percentage = false
 
 [node name="DashDurationBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/DashDurationBarNew" unique_id=2049582365]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -455,7 +468,8 @@ show_percentage = false
 
 [node name="DashDmgBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1156534774]
 visible = false
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -465,7 +479,8 @@ value = 300.0
 show_percentage = false
 
 [node name="DashDmgBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/DashDmgBarNew" unique_id=1467885159]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -478,7 +493,8 @@ show_percentage = false
 
 [node name="NitroTankBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1554916201]
 visible = false
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -488,7 +504,8 @@ value = 300.0
 show_percentage = false
 
 [node name="NitroTankBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/NitroTankBarNew" unique_id=1839791686]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -501,7 +518,8 @@ show_percentage = false
 
 [node name="NitroGainBarNew" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels" unique_id=1716134723]
 visible = false
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_mxdxo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u1qgd")
@@ -511,7 +529,8 @@ value = 300.0
 show_percentage = false
 
 [node name="NitroGainBar" type="ProgressBar" parent="StatsPanel/HBoxContainer/Levels/NitroGainBarNew" unique_id=1944846127]
-custom_minimum_size = Vector2(0, 20)
+custom_minimum_size = Vector2(200, 20)
+custom_maximum_size = Vector2(150, -1)
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 20.0
@@ -734,5 +753,771 @@ text = "-> 200"
 vertical_alignment = 2
 script = ExtResource("8_0lu01")
 
+[node name="LevelUp" type="VBoxContainer" parent="." unique_id=1501506872]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 148.0
+offset_right = 710.0
+offset_bottom = 657.0
+theme_override_constants/separation = 40
+
+[node name="Engine" type="HBoxContainer" parent="LevelUp" unique_id=2001540330]
+layout_mode = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelUp/Engine" unique_id=1543326879]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="Icon" type="TextureRect" parent="LevelUp/Engine/ColorRect" unique_id=139349096]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_sr04d")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LevelUp/Engine/ColorRect/Icon" unique_id=934610407]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 36.5
+offset_right = 100.0
+offset_bottom = 59.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 18
+text = "Engine"
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar" type="ProgressBar" parent="LevelUp/Engine" unique_id=1027916113]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="LevelUp/Engine" unique_id=1638755986]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar2" type="ProgressBar" parent="LevelUp/Engine" unique_id=681335863]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="LevelUp/Engine" unique_id=771375566]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar3" type="ProgressBar" parent="LevelUp/Engine" unique_id=908359199]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="LevelUp/Engine" unique_id=1316590966]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar4" type="ProgressBar" parent="LevelUp/Engine" unique_id=1056244833]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="LevelUp/Engine" unique_id=1551802681]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar5" type="ProgressBar" parent="LevelUp/Engine" unique_id=896210770]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="LevelUp/Engine" unique_id=1998942776]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="Tank" type="HBoxContainer" parent="LevelUp" unique_id=1973018007]
+layout_mode = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelUp/Tank" unique_id=198577693]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="Icon" type="TextureRect" parent="LevelUp/Tank/ColorRect" unique_id=2093309404]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_2taig")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LevelUp/Tank/ColorRect/Icon" unique_id=341270828]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 36.5
+offset_right = 100.0
+offset_bottom = 59.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 18
+text = "Blood Tank"
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar" type="ProgressBar" parent="LevelUp/Tank" unique_id=1184103397]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="LevelUp/Tank" unique_id=108006430]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar2" type="ProgressBar" parent="LevelUp/Tank" unique_id=1909588634]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="LevelUp/Tank" unique_id=1930110387]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar3" type="ProgressBar" parent="LevelUp/Tank" unique_id=16043102]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="LevelUp/Tank" unique_id=588114209]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar4" type="ProgressBar" parent="LevelUp/Tank" unique_id=465667841]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="LevelUp/Tank" unique_id=364878068]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar5" type="ProgressBar" parent="LevelUp/Tank" unique_id=795368955]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="LevelUp/Tank" unique_id=2035061486]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="Front" type="HBoxContainer" parent="LevelUp" unique_id=1396544125]
+layout_mode = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelUp/Front" unique_id=422264165]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="Icon" type="TextureRect" parent="LevelUp/Front/ColorRect" unique_id=2133187396]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_upn4r")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LevelUp/Front/ColorRect/Icon" unique_id=866209244]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 36.5
+offset_right = 100.0
+offset_bottom = 59.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 18
+text = "Front"
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar" type="ProgressBar" parent="LevelUp/Front" unique_id=424068250]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="LevelUp/Front" unique_id=1210012711]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar2" type="ProgressBar" parent="LevelUp/Front" unique_id=354393675]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="LevelUp/Front" unique_id=240933329]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar3" type="ProgressBar" parent="LevelUp/Front" unique_id=35480334]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="LevelUp/Front" unique_id=751117686]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar4" type="ProgressBar" parent="LevelUp/Front" unique_id=1058903574]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="LevelUp/Front" unique_id=1286797433]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar5" type="ProgressBar" parent="LevelUp/Front" unique_id=828313202]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="LevelUp/Front" unique_id=1885897123]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="Rear" type="HBoxContainer" parent="LevelUp" unique_id=913089658]
+layout_mode = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelUp/Rear" unique_id=839465145]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="Icon" type="TextureRect" parent="LevelUp/Rear/ColorRect" unique_id=1638396857]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_0lu01")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LevelUp/Rear/ColorRect/Icon" unique_id=1714504323]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 36.5
+offset_right = 100.0
+offset_bottom = 59.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 18
+text = "Rear"
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar" type="ProgressBar" parent="LevelUp/Rear" unique_id=268172692]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="LevelUp/Rear" unique_id=289935704]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar2" type="ProgressBar" parent="LevelUp/Rear" unique_id=1735598055]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="LevelUp/Rear" unique_id=1814024787]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar3" type="ProgressBar" parent="LevelUp/Rear" unique_id=1461230075]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="LevelUp/Rear" unique_id=1523696403]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar4" type="ProgressBar" parent="LevelUp/Rear" unique_id=952328304]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="LevelUp/Rear" unique_id=2096499765]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar5" type="ProgressBar" parent="LevelUp/Rear" unique_id=1786617126]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="LevelUp/Rear" unique_id=1011317248]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="Tires" type="HBoxContainer" parent="LevelUp" unique_id=629972685]
+layout_mode = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelUp/Tires" unique_id=986312665]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="Icon" type="TextureRect" parent="LevelUp/Tires/ColorRect" unique_id=1408175174]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_q02oa")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="LevelUp/Tires/ColorRect/Icon" unique_id=721645779]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 36.5
+offset_right = 100.0
+offset_bottom = 59.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_font_sizes/font_size = 18
+text = "Tires"
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar" type="ProgressBar" parent="LevelUp/Tires" unique_id=243602231]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="LevelUp/Tires" unique_id=150418803]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar2" type="ProgressBar" parent="LevelUp/Tires" unique_id=956627173]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="LevelUp/Tires" unique_id=361570696]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar3" type="ProgressBar" parent="LevelUp/Tires" unique_id=524194226]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="LevelUp/Tires" unique_id=397035337]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar4" type="ProgressBar" parent="LevelUp/Tires" unique_id=2062864234]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="LevelUp/Tires" unique_id=20655873]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="ProgressBar5" type="ProgressBar" parent="LevelUp/Tires" unique_id=566072581]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_4d8j6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssidi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="LevelUp/Tires" unique_id=498458778]
+custom_minimum_size = Vector2(68, 68)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_mxdxo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3d320")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
+[node name="UpgradeDesc" type="Label" parent="." unique_id=1749338887]
+custom_minimum_size = Vector2(500, 220)
+layout_mode = 0
+offset_left = 762.0
+offset_top = 161.30002
+offset_right = 1262.0
+offset_bottom = 381.30002
+text = "Car upgrade description"
+autowrap_mode = 2
+script = ExtResource("8_0lu01")
+
+[node name="CancelHint" type="Label" parent="." unique_id=741051892]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+offset_right = 198.0
+grow_vertical = 0
+text = "Undo upgrade : press B"
+vertical_alignment = 1
+script = ExtResource("8_0lu01")
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="VBoxContainer/Ignore" to="." method="_on_ignore_pressed"]

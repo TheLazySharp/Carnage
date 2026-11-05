@@ -43,9 +43,13 @@
 [ext_resource type="PackedScene" uid="uid://b87ivxjudrx3x" path="res://Scenes/WEAPONS/spikes.tscn" id="28_1mhlb"]
 [ext_resource type="Script" uid="uid://dmijtv1xxo7h" path="res://Scripts/CHARACTERS/PLAYER/ultimate_manager.gd" id="29_1ihg5"]
 [ext_resource type="Script" uid="uid://u50nem48pd8" path="res://Scripts/CHARACTERS/PLAYER/sprite_fx_manager.gd" id="29_5bcg3"]
+[ext_resource type="AudioStream" uid="uid://delr0qpu0wyfb" path="res://Assets/Audio/SFX/Spikes/spikes_1.mp3" id="30_4ag0g"]
 [ext_resource type="Shader" uid="uid://d3cku4r77mwvd" path="res://Shaders/neon_underglow.gdshader" id="30_i8f1n"]
 [ext_resource type="Script" uid="uid://2htpyvkt4dyl" path="res://Scripts/VFX/rear_lights.gd" id="30_x1ujy"]
+[ext_resource type="AudioStream" uid="uid://c5mrfw5qec67h" path="res://Assets/Audio/SFX/Spikes/spikes_2.mp3" id="31_2fauw"]
+[ext_resource type="AudioStream" uid="uid://c2fci2ygihjxs" path="res://Assets/Audio/SFX/Spikes/spikes_3.mp3" id="32_0hict"]
 [ext_resource type="Script" uid="uid://gxipkapx4o1t" path="res://Scripts/CHARACTERS/PLAYER/distance_tracker.gd" id="32_i8f1n"]
+[ext_resource type="AudioStream" uid="uid://cnudw1ga7xent" path="res://Assets/Audio/SFX/Spikes/spikes_4.mp3" id="33_ov87q"]
 [ext_resource type="Script" uid="uid://dve7euf78wc0h" path="res://Scripts/CHARACTERS/PLAYER/combo_manager.gd" id="34_mm77v"]
 [ext_resource type="Shader" uid="uid://gymhmxqe7qlw" path="res://Assets/Léonce/Scripts/afterimage_shader.gdshader" id="46_415me"]
 
@@ -205,6 +209,14 @@ animations = [{
 "name": &"moving",
 "speed": 8.0
 }]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ssidi"]
+random_pitch = 1.122462
+streams_count = 4
+stream_0/stream = ExtResource("30_4ag0g")
+stream_1/stream = ExtResource("31_2fauw")
+stream_2/stream = ExtResource("32_0hict")
+stream_3/stream = ExtResource("33_ov87q")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vd0i7"]
 resource_local_to_scene = true
@@ -683,6 +695,15 @@ parameters/looping = true
 [node name="SpikesDropTimer" type="Timer" parent="DriftManager" unique_id=1900582182]
 wait_time = 0.2
 
+[node name="SpikesAudioPlayer" type="AudioStreamPlayer" parent="DriftManager" unique_id=107758906]
+stream = SubResource("AudioStreamRandomizer_ssidi")
+volume_db = -3.0
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="SpikesAudioTimer" type="Timer" parent="DriftManager" unique_id=197846431]
+wait_time = 0.8
+
 [node name="DashManager" type="Node2D" parent="." unique_id=1598535898]
 script = ExtResource("26_dmmou")
 
@@ -724,6 +745,7 @@ texture = ExtResource("26_nbmfc")
 offset = Vector2(0, 20)
 
 [node name="Neons" type="Node2D" parent="CarSprite" unique_id=1752156398]
+visible = false
 script = ExtResource("3_2lx7x")
 glow_intensity = 3.5
 idle_visible = false
@@ -867,3 +889,4 @@ script = ExtResource("32_i8f1n")
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="Beacon/BeepTimer" to="Beacon" method="_on_beep_timer_timeout"]
 [connection signal="timeout" from="DriftManager/SpikesDropTimer" to="DriftManager" method="_on_spikes_drop_timer_timeout"]
+[connection signal="timeout" from="DriftManager/SpikesAudioTimer" to="DriftManager" method="_on_spike_audio_timer_timeout"]

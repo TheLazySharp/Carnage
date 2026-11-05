@@ -38,7 +38,7 @@ func start(data: WeaponData, maneuver_type: ManeuverManager.Type, intensity: flo
 		interval = data.get_stream_interval()
 		spread_half = deg_to_rad(data.stream_spread_degrees) * 0.5
 	timer = 0.0
-	damage_multiplier = data.get_combo_damage_multiplier(combo_multiplier)
+	damage_multiplier = data.get_combo_damage_multiplier(combo_multiplier, maneuver_type)
 	return true
 
 

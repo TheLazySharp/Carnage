@@ -5,7 +5,6 @@ var velocity : Vector2 = Vector2.ZERO
 
 @export var death_type : EnemyManager.DEATH_TYPES = EnemyManager.DEATH_TYPES.DEFAULT
 @onready var drift_manager : Node2D = $/root/World/Car/DriftManager
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var variant_sprite : Sprite2D = $Sprite2D
 
 
@@ -21,4 +20,4 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func drop() -> void : 
-	audio_stream_player.play()
+	pass

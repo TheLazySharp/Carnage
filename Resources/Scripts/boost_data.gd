@@ -59,10 +59,9 @@ const LOWER_IS_BETTER : Dictionary = {
 @export var rarity : InventoryManager.Rarities
 
 @export_group("CAR PART")
-## Car part this boost represents (N_A = legacy boost, not a part)
 @export var car_part : CarData.Car_Upgrades = CarData.Car_Upgrades.N_A
-## Bonus of each level, as a share of every target stat (0.2 = +20 %). The array size is the max level
 @export var level_bonuses : Array[float] = []
+@export var mastery_key : String = ""
 
 func get_stats()-> Array[Dictionary]:
 	var stats: Array[Dictionary] = []
@@ -220,3 +219,18 @@ func get_next_bonus(current_level : int) -> float:
 func make_part_modifier(current_level : int) -> Modifier:
 	var source : String = "car part %s lv%d" % [CarData.Car_Upgrades.keys()[car_part], current_level + 1]
 	return Modifier.new(get_next_bonus(current_level), Modifier.Type.PERCENT_ADD, source)
+
+
+func make_part_preview_modifier(from_level : int, to_level : int) -> Modifier:
+	var level_type : Modifier.Type = make_part_modifier(from_level).type
+	var is_mult : bool = level_type == Modifier.Type.PERCENT_MULT
+	var combined : float = 1.0 if is_mult else 0.0
+	for level : int in range(from_level, to_level):
+		var bonus : float = get_next_bonus(level)
+		if is_mult:
+			combined *= 1.0 + bonus
+		else:
+			combined += bonus
+	if is_mult:
+		combined -= 1.0
+	return Modifier.new(combined, level_type, "car part preview")

@@ -2,22 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c0vjcdnr0wpqo" path="res://Scripts/WEAPONS/spikes.gd" id="1_lyg03"]
 [ext_resource type="Texture2D" uid="uid://v55rjcibf6au" path="res://Assets/Léonce/VFX/spikes.png" id="2_ptyeq"]
-[ext_resource type="AudioStream" uid="uid://delr0qpu0wyfb" path="res://Assets/Audio/SFX/Spikes/spikes_1.mp3" id="3_ab8xv"]
-[ext_resource type="AudioStream" uid="uid://c5mrfw5qec67h" path="res://Assets/Audio/SFX/Spikes/spikes_2.mp3" id="4_1nt8b"]
-[ext_resource type="AudioStream" uid="uid://c2fci2ygihjxs" path="res://Assets/Audio/SFX/Spikes/spikes_3.mp3" id="5_avupl"]
-[ext_resource type="AudioStream" uid="uid://cnudw1ga7xent" path="res://Assets/Audio/SFX/Spikes/spikes_4.mp3" id="6_q1nqm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ssidi"]
 radius = 6.0827627
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ssidi"]
-random_pitch = 1.122462
-random_volume_offset_db = 3.0
-streams_count = 4
-stream_0/stream = ExtResource("3_ab8xv")
-stream_1/stream = ExtResource("4_1nt8b")
-stream_2/stream = ExtResource("5_avupl")
-stream_3/stream = ExtResource("6_q1nqm")
 
 [node name="Spikes" type="Area2D" unique_id=1905997728 groups=["bullets", "weapons"]]
 collision_layer = 4
@@ -30,10 +17,5 @@ shape = SubResource("CircleShape2D_ssidi")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1321336240]
 texture = ExtResource("2_ptyeq")
 hframes = 6
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=912507509]
-stream = SubResource("AudioStreamRandomizer_ssidi")
-max_polyphony = 3
-bus = &"Weapons"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -13,4 +13,5 @@ target_weapon_types = 6
 icon = ExtResource("1_si3l4")
 car_part = 5
 level_bonuses = Array[float]([0.2, 0.16, 0.12, 0.08, 0.04])
+mastery_key = "PART_BLOOD_TANK_MASTERY"
 metadata/_custom_type_script = "uid://71ta02ofykhp"

@@ -59,7 +59,7 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: floa
 	if pattern.z < 0.0:
 		return
 	var count : int = mini(flamer_data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier), flames.size())
-	var damage_multiplier : float = flamer_data.get_combo_damage_multiplier(combo_multiplier)
+	var damage_multiplier : float = flamer_data.get_combo_damage_multiplier(combo_multiplier, maneuver_type)
 	var ring_center : Vector2 = to_global(ring_center_offset)
 	for i : int in count:
 		var angle : float = ManeuverManager.get_spread_angle(i, count, pattern.y, attack_angle)

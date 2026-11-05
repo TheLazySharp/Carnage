@@ -162,6 +162,8 @@ var offer_ready : bool = false
 var current_charms : Array[CharmData] = []
 var current_maneuvers : Array[ManeuverData] = []
 var current_charm_prices : Dictionary[CharmData, int] = {}
+var current_maneuver_prices : Dictionary[ManeuverData, int] = {}
+var current_maneuvers_sold : Array[ManeuverData] = []
 
 
 func _ready() -> void:
@@ -178,7 +180,8 @@ func clear_offer() -> void:
 	current_charms.clear()
 	current_maneuvers.clear()
 	current_charm_prices.clear()
-
+	current_maneuver_prices.clear()
+	current_maneuvers_sold.clear()
 
 func load_pools() -> void : 
 	# load_pools() runs at every new run: empty the pools first, or every entry gets duplicated
@@ -237,11 +240,13 @@ func pick_charms(count : int) -> Array[CharmData]:
 	pool.shuffle()
 	return pool.slice(0, count)
 
-## Maneuvers the player does not own yet, in random order (the loop is always owned: never offered)
+
 func pick_maneuvers(count : int) -> Array[ManeuverData]:
 	var pool : Array[ManeuverData] = []
 	for data : ManeuverData in LoadoutManager.maneuver_data_by_type.values():
-		if !LoadoutManager.owns(data.maneuver_type):
+		if data.maneuver_type == ManeuverManager.Type.LOOP:
+			continue
+		if !LoadoutManager.owns(data.maneuver_type) or LoadoutManager.can_upgrade(data.maneuver_type):
 			pool.append(data)
 	pool.shuffle()
 	return pool.slice(0, count)

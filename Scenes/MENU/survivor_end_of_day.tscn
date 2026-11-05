@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://n80vprxw83m5"]
 
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="1_ut0v5"]
-[ext_resource type="Script" uid="uid://cxsx4qv3k5lyx" path="res://Scenes/MENU/survivor_end_of_day.gd" id="1_x2h2v"]
+[ext_resource type="Script" uid="uid://cxsx4qv3k5lyx" path="res://Scripts/SCENES/survivor_end_of_day.gd" id="1_x2h2v"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="2_x2h2v"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="3_dm6ri"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="4_18wy5"]

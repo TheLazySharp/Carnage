@@ -12,9 +12,6 @@ var game_is_over : bool = false
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	#pause_manager.quit_pause.connect(_update_ingame_pause)
-	#SignalManager.game_paused.connect(_on_game_paused)
-	#BuildingsManager.load_pools()
 	if !GameMaster.tutorial_active:
 		player.game_over.connect(_update_game_over)
 		TimeManager.load_time()

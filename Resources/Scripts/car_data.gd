@@ -144,6 +144,7 @@ var drift_hit_power : Statistic          # multiplier on the perfect drift hit b
 
 ## Level of each car part for this run (0 = not upgraded)
 var part_levels : Dictionary[Car_Upgrades, int] = {}
+var mastered_parts : Array[Car_Upgrades] = []
 
 var stat_modifiers : Array[Modifier] = []
 @warning_ignore("unused_signal")
@@ -207,6 +208,7 @@ func init_stats() -> void:
 	wall_keeps_drift = false
 	
 	part_levels.clear()
+	mastered_parts.clear()
 
 
 func get_car_stat(stat : Car_Stats) -> Statistic:
@@ -250,4 +252,30 @@ func upgrade_part(part_boost : BoostData) -> bool:
 		if stat != null:
 			stat.add_modifier(part_boost.make_part_modifier(level))
 	part_levels[part_boost.car_part] = level + 1
+	# Max level reached: the part level 5 bonus turns on
+	if level + 1 >= part_boost.get_max_level() and !mastered_parts.has(part_boost.car_part):
+		mastered_parts.append(part_boost.car_part)
 	return true
+
+
+## Undoes the last level of a car part (level-up screen). False when the part is at level 0
+func downgrade_part(part_boost : BoostData) -> bool:
+	if !part_boost.is_car_part():
+		return false
+	var level : int = get_part_level(part_boost.car_part)
+	if level <= 0:
+		return false
+	# Same source as the modifier upgrade_part() added for this level
+	var source : String = part_boost.make_part_modifier(level - 1).source
+	for target_stat : BoostData.Target_Stats in part_boost.target_stats:
+		var stat : Statistic = part_boost.get_car_stat(target_stat, self)
+		if stat != null:
+			stat.remove_modifiers_from(source)
+	part_levels[part_boost.car_part] = level - 1
+	mastered_parts.erase(part_boost.car_part)
+	return true
+
+
+## Level 5 bonus of a car part (Engine: overdrive, Bumper: ram, Rear bumper: rocket, Wheels: spikes, Tank: second life)
+func has_part_mastery(part : Car_Upgrades) -> bool:
+	return mastered_parts.has(part)
