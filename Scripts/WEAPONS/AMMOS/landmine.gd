@@ -19,7 +19,7 @@ var damage_multiplier : float = 1.0  # set by the launcher (combo)
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
 @onready var trigger_area: Area2D = $TriggerArea
 
-var game_paused:=false
+var game_paused : bool = false
 
 
 func _ready() -> void:

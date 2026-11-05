@@ -2,28 +2,41 @@
 
 [ext_resource type="Script" uid="uid://ciwqjh6u3c0kp" path="res://Scripts/WEAPONS/AMMOS/ammo_mg.gd" id="1_64sch"]
 [ext_resource type="Resource" uid="uid://tmw3kk1tg1re" path="res://Resources/Weapons/Ammos/mg_bullet.tres" id="2_0f2xj"]
-[ext_resource type="Texture2D" uid="uid://bg5idxjop7rm4" path="res://Assets/weapons/long_bullet_flash.png" id="3_0f2xj"]
+[ext_resource type="Texture2D" uid="uid://ch6ctlcpjxkb1" path="res://Assets/Textures/white_stain_small.png" id="3_8imps"]
+[ext_resource type="Gradient" uid="uid://pvxi8c2wy41w" path="res://Assets/Gradients/bullet_trail.tres" id="5_ld7dj"]
+[ext_resource type="Gradient" uid="uid://52uuseycviao" path="res://Assets/Gradients/bullet_trail_core.tres" id="6_7d1d4"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0f2xj"]
-radius = 2.499999
-height = 32.499996
+[sub_resource type="CircleShape2D" id="CircleShape2D_8imps"]
+radius = 3.9528465
 
-[node name="MinigunBullet" type="Area2D" unique_id=101956596 groups=["bullets"]]
+[node name="MinigunBullet" type="Area2D" unique_id=101956596 node_paths=PackedStringArray("tracers") groups=["bullets"]]
 scale = Vector2(0.8, 0.8)
 collision_layer = 4
 collision_mask = 10
 monitorable = false
 script = ExtResource("1_64sch")
 bullet_data = ExtResource("2_0f2xj")
+tracers = [NodePath("Tracer"), NodePath("Tracer/TracerCore")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1212305147]
 modulate = Color(1.353256, 1.353256, 1.353256, 1)
-texture = ExtResource("3_0f2xj")
+texture = ExtResource("3_8imps")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=368599335]
-position = Vector2(1.2499999, -3.5527137e-15)
+position = Vector2(1.1920929e-07, 2.6645348e-15)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_0f2xj")
+shape = SubResource("CircleShape2D_8imps")
+
+[node name="Tracer" type="Line2D" parent="." unique_id=834973582]
+texture_filter = 1
+width = 5.0
+gradient = ExtResource("5_ld7dj")
+
+[node name="TracerCore" type="Line2D" parent="Tracer" unique_id=1436688324]
+texture_filter = 1
+scale = Vector2(0.99999994, 0.99999994)
+width = 2.0
+gradient = ExtResource("6_7d1d4")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cix0l141kmn2q"]
+
+[ext_resource type="Script" uid="uid://dy5lakyvj3b7k" path="res://Assets/Léonce/Scripts/tracer_trail_2d.gd" id="1_06ger"]
+[ext_resource type="Gradient" uid="uid://pvxi8c2wy41w" path="res://Assets/Gradients/bullet_trail.tres" id="2_5ktce"]
+[ext_resource type="Gradient" uid="uid://52uuseycviao" path="res://Assets/Gradients/bullet_trail_core.tres" id="3_ynha1"]
+
+[node name="BulletTrail" type="Node2D" unique_id=835182430]
+z_index = 5
+script = ExtResource("1_06ger")
+projectile_speed = 2000.0
+thickness = 5
+trail_duration = 0.1
+gradient = ExtResource("2_5ktce")
+double_line = true
+core_thickness = 2
+core_gradient = ExtResource("3_ynha1")

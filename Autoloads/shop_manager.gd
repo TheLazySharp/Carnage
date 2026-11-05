@@ -138,7 +138,8 @@ enum CONST_REFS {
 	Charm_Rose,
 	Charm_Dart,
 	Charm_Cheeseburger,
-	Charm_Syringe
+	Charm_Syringe,
+	Spikes
 }
 
 var all_car_boosts : Array[BoostData] = []
