@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_06sbx")
 name = "long_red_pulse"
-weight = 1.2
+weight = 0.0
 pixel_size = 1
 total_length = Vector2i(80, 200)
 thickness = Vector2i(1, 2)

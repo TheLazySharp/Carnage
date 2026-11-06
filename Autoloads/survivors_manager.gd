@@ -73,12 +73,17 @@ func select_survivor(new_survivor : SurvivorData) -> void:
 
 func survivor_admninistration() -> void : 
 	known_survivors.append(VIKTOR)
-	locked_survivors.append(BORIS)
-	locked_survivors.append(LARA)
-	locked_survivors.append(JAVIER)
-	locked_survivors.append(LEO)
-	locked_survivors.append(PETER)
+	known_survivors.append(BORIS)
+	known_survivors.append(LARA)
+	known_survivors.append(JAVIER)
+	known_survivors.append(LEO)
+	known_survivors.append(PETER)
 	
+	#locked_survivors.append(BORIS)
+	#locked_survivors.append(LARA)
+	#locked_survivors.append(JAVIER)
+	#locked_survivors.append(LEO)
+	#locked_survivors.append(PETER)
 
 ## No survivor on the map once the car is full, or when nobody is left to meet
 func can_offer_survivor() -> bool:

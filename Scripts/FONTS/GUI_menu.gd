@@ -20,5 +20,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if self.has_focus():
 		icon = FontManager.BUTTON_ICON
+		self.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		self.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 	else : 
 		icon = null

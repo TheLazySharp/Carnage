@@ -4,16 +4,20 @@ extends Node
 var active_charms: Dictionary = {}           # equipped CharmData -> its CharmEffect
 var holder : Array[CharmData] = []            # equipped charms
 var owned : Array[CharmData] = []             # every charm bought (inventory)
+var mastery_owned : Array[CharmData] = []     # granted by car parts at their max level (own slots, never in the shop)
+var mastery_holder : Array[CharmData] = []    # granted and switched on in the loadout
 var sfx_player : AudioStreamPlayer
 
 # ----- charm Values ------
 var charm_skull_life_floor : float = 0.0
 var charm_skull_dmg_boost : float = 0.2
+var drop_spikes_active : bool = false
 
 func _ready() -> void:
 	sfx_player = AudioStreamPlayer.new()
 	add_child(sfx_player)
 	SignalManager.charm_triggered.connect(_on_charm_triggered)
+	SignalManager.active_spikes.connect(_on_spikes_activated)
 
 
 func buy(charm: CharmData) -> void:
@@ -61,8 +65,12 @@ func is_equipped(charm : CharmData) -> bool:
 	return holder.has(charm)
 
 
+## Active charm with this ref (equipped, or mastery switched on), null otherwise
 func get_charm(ref : int) -> CharmData:
 	for charm : CharmData in holder:
+		if charm.ref == ref:
+			return charm
+	for charm : CharmData in mastery_holder:
 		if charm.ref == ref:
 			return charm
 	return null
@@ -89,6 +97,8 @@ func unload() -> void :
 	active_charms.clear()
 	holder.clear()
 	owned.clear()
+	mastery_holder.clear()
+	mastery_owned.clear()
 
 func _on_charm_triggered(ref : int) -> void:
 	var charm : CharmData = get_charm(ref)
@@ -106,3 +116,58 @@ func fit_to_slots() -> void:
 
 func _play_trigger_visual(_charm : CharmData) -> void:
 	pass
+
+
+## Car part at its max level: its charm is granted and switched on, in its own slot
+func grant_mastery(charm : CharmData) -> void:
+	if charm == null or mastery_owned.has(charm):
+		return
+	mastery_owned.append(charm)
+	equip_mastery(charm)
+
+
+## Part max level undone (level-up screen): the charm is switched off and taken back
+func revoke_mastery(charm : CharmData) -> void:
+	if charm == null:
+		return
+	unequip_mastery(charm)
+	mastery_owned.erase(charm)
+
+
+func equip_mastery(charm : CharmData) -> bool:
+	if !mastery_owned.has(charm) or mastery_holder.has(charm):
+		return false
+	var effect : CharmEffect = charm.effect_script.new()
+	effect.activate(charm)
+	active_charms[charm] = effect
+	mastery_holder.append(charm)
+	return true
+
+
+func unequip_mastery(charm : CharmData) -> void:
+	if !mastery_holder.has(charm):
+		return
+	var effect : CharmEffect = active_charms.get(charm) as CharmEffect
+	if effect != null:
+		effect.deactivate()
+	active_charms.erase(charm)
+	mastery_holder.erase(charm)
+
+
+## Loadout: switches a granted mastery charm on / off
+func toggle_mastery(charm : CharmData) -> void:
+	if mastery_holder.has(charm):
+		unequip_mastery(charm)
+	else:
+		equip_mastery(charm)
+
+
+func has_mastery(charm : CharmData) -> bool:
+	return mastery_owned.has(charm)
+
+
+func is_mastery_active(charm : CharmData) -> bool:
+	return mastery_holder.has(charm)
+
+func _on_spikes_activated(trigger : bool) -> void : 
+	drop_spikes_active = true if trigger else false

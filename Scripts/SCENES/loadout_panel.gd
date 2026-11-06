@@ -4,10 +4,11 @@ class_name LoadoutPanel
 
 signal closed  # the menu around takes the focus back
 
-enum CharmZone { SLOTS, OWNED }
+enum CharmZone { SLOTS, OWNED, MASTERY }
 
 const SELECTED_COLOR: Color = Color(1.0, 0.85, 0.2)
 const LOCKED_COLOR: Color = Color(0.5, 0.5, 0.5)
+const MASTERY_LOCKED_COLOR: Color = Color(0.25, 0.25, 0.25)  # mastery charm not granted yet
 const MANEUVERS_TAB: int = 0
 const CHARMS_TAB: int = 1
 const FOCUS_SCALE: float = 1.15  # focused charm cell
@@ -24,6 +25,15 @@ const FOCUS_SCALE: float = 1.15  # focused charm cell
 @export var owned_charm_template: TextureRect     # first cell of OwnedCharmContainer: hidden, duplicated per unequipped charm
 @export var slots_label: Label                    # Slots: "Charms : 2/5"
 @export var charm_description_label: Label        # CharmDescription: focused charm
+@export var mastery_container: GridContainer      # MasteryCharmHolder: one fixed cell per car part
+## Car part of each mastery cell, same order as the cells
+@export var mastery_slot_parts: Array[CarData.Car_Upgrades] = [
+	CarData.Car_Upgrades.ENGINE,
+	CarData.Car_Upgrades.TANK,
+	CarData.Car_Upgrades.BUMPER,
+	CarData.Car_Upgrades.REAR_BUMPER,
+	CarData.Car_Upgrades.WHEELS,
+]
 
 var read_only: bool = false  # consultation only: nothing can be changed
 var previous_focus: Control = null  # focused control of the menu behind, given back on close
@@ -45,13 +55,23 @@ var focus_zone: CharmZone = CharmZone.SLOTS
 var focus_index: int = 0
 var picked_zone: CharmZone = CharmZone.SLOTS
 var picked_index: int = -1               # -1 = nothing picked
-
+var mastery_cells: Array[TextureRect] = []    # HoldCharm cells, fixed
+var mastery_charms: Array[CharmData] = []     # charm of each cell part (granted or not, null = none set)
+var mastery_boosts: Array[BoostData] = []     # car part of each cell
 
 func _ready() -> void:
 	row_template.hide()
 	weapon_count_template.hide()
 	charm_slot_template.hide()
 	owned_charm_template.hide()
+	for cell_node: Node in mastery_container.get_children():
+		var mastery_cell: TextureRect = cell_node as TextureRect
+		if mastery_cell == null:
+			continue
+		mastery_cell.pivot_offset = mastery_cell.custom_minimum_size * 0.5
+		mastery_cell.mouse_filter = Control.MOUSE_FILTER_STOP
+		mastery_cell.gui_input.connect(_on_charm_cell_input.bind(CharmZone.MASTERY, mastery_cells.size()))
+		mastery_cells.append(mastery_cell)
 	tab_container.set_tab_title(MANEUVERS_TAB, tr("LOADOUT_TAB_MANEUVERS"))
 	tab_container.set_tab_title(CHARMS_TAB, tr("LOADOUT_TAB_CHARMS"))
 	tab_container.tab_changed.connect(_on_tab_changed)
@@ -282,8 +302,10 @@ func _refresh_weapon_counts() -> void:
 func _build_charms() -> void:
 	_free_nodes(slot_cells)
 	_free_nodes(owned_cells)
-	slot_charms.clear()
-	owned_charms.clear()
+	if ShopManager.all_car_boosts.is_empty():
+		ShopManager.load_pools()
+	mastery_charms.clear()
+	mastery_boosts.clear()
 	# One cell per slot, in the equip order: the empty ones at the end
 	for i: int in CharmsManager.get_slot_count():
 		slot_charms.append(CharmsManager.holder[i] if i < CharmsManager.holder.size() else null)
@@ -294,7 +316,13 @@ func _build_charms() -> void:
 		slot_cells.append(_add_charm_cell(charm_slot_template, slot_charms[i], CharmZone.SLOTS, i))
 	for i: int in owned_charms.size():
 		owned_cells.append(_add_charm_cell(owned_charm_template, owned_charms[i], CharmZone.OWNED, i))
-
+	mastery_charms.clear()
+	mastery_boosts.clear()
+	for i: int in mastery_cells.size():
+		var part_boost: BoostData = _get_part_boost(mastery_slot_parts[i]) if i < mastery_slot_parts.size() else null
+		mastery_boosts.append(part_boost)
+		mastery_charms.append(part_boost.mastery_charm if part_boost != null else null)
+	print("[MASTERY] cells: ", mastery_cells.size(), " | car boosts loaded: ", ShopManager.all_car_boosts.size())
 
 func _add_charm_cell(template: TextureRect, charm: CharmData, zone: CharmZone, index: int) -> TextureRect:
 	var cell: TextureRect = template.duplicate() as TextureRect
@@ -318,33 +346,56 @@ func _reset_charm_focus() -> void:
 	_refresh_charms()
 
 
-## Slots = one row, owned charms = a grid with the OwnedCharmContainer columns
+## Mastery = top row, slots = one row, owned charms = a grid with the OwnedCharmContainer columns
 func _move_charm_focus(dx: int, dy: int) -> void:
 	var columns: int = maxi((owned_charm_template.get_parent() as GridContainer).columns, 1)
 	if dx != 0:
-		var zone_size: int = slot_charms.size() if focus_zone == CharmZone.SLOTS else owned_charms.size()
+		var zone_size: int = slot_charms.size()
+		if focus_zone == CharmZone.OWNED:
+			zone_size = owned_charms.size()
+		elif focus_zone == CharmZone.MASTERY:
+			zone_size = mastery_cells.size()
 		if zone_size == 0:
 			return
 		focus_index = wrapi(focus_index + dx, 0, zone_size)
 	elif dy > 0:
-		if focus_zone == CharmZone.SLOTS:
+		if focus_zone == CharmZone.MASTERY:
+			if !slot_charms.is_empty():
+				focus_zone = CharmZone.SLOTS
+				focus_index = mini(focus_index, slot_charms.size() - 1)
+			elif !owned_charms.is_empty():
+				focus_zone = CharmZone.OWNED
+				focus_index = mini(focus_index, owned_charms.size() - 1)
+		elif focus_zone == CharmZone.SLOTS:
 			if owned_charms.is_empty():
 				return
 			focus_zone = CharmZone.OWNED
 			focus_index = mini(focus_index, owned_charms.size() - 1)
 		elif focus_index + columns < owned_charms.size():
 			focus_index += columns
-	elif dy < 0 and focus_zone == CharmZone.OWNED:
-		if focus_index >= columns:
-			focus_index -= columns
-		elif !slot_charms.is_empty():
-			focus_zone = CharmZone.SLOTS
-			focus_index = mini(focus_index, slot_charms.size() - 1)
+	elif dy < 0:
+		if focus_zone == CharmZone.OWNED:
+			if focus_index >= columns:
+				focus_index -= columns
+			elif !slot_charms.is_empty():
+				focus_zone = CharmZone.SLOTS
+				focus_index = mini(focus_index, slot_charms.size() - 1)
+		elif focus_zone == CharmZone.SLOTS and !mastery_cells.is_empty():
+			focus_zone = CharmZone.MASTERY
+			focus_index = mini(focus_index, mastery_cells.size() - 1)
 	_refresh_charms()
 
 
 ## First accept picks the focused cell, an accept on the other zone swaps them
 func _accept_charm() -> void:
+	# Mastery slot: switches its charm on / off (no pick, no swap)
+	if focus_zone == CharmZone.MASTERY:
+		picked_index = -1
+		var mastery_charm: CharmData = _get_focused_charm()
+		if mastery_charm != null and CharmsManager.has_mastery(mastery_charm):
+			CharmsManager.toggle_mastery(mastery_charm)
+		_refresh_charms()
+		return
 	if picked_index < 0:
 		picked_zone = focus_zone
 		picked_index = focus_index
@@ -382,7 +433,11 @@ func _on_charm_cell_input(event: InputEvent, zone: CharmZone, index: int) -> voi
 
 
 func _get_focused_charm() -> CharmData:
-	var zone_charms: Array[CharmData] = slot_charms if focus_zone == CharmZone.SLOTS else owned_charms
+	var zone_charms: Array[CharmData] = slot_charms
+	if focus_zone == CharmZone.OWNED:
+		zone_charms = owned_charms
+	elif focus_zone == CharmZone.MASTERY:
+		zone_charms = mastery_charms
 	if focus_index < 0 or focus_index >= zone_charms.size():
 		return null
 	return zone_charms[focus_index]
@@ -393,12 +448,19 @@ func _refresh_charms() -> void:
 		_style_charm_cell(slot_cells[i], CharmZone.SLOTS, i)
 	for i: int in owned_cells.size():
 		_style_charm_cell(owned_cells[i], CharmZone.OWNED, i)
+	for i: int in mastery_cells.size():
+		_style_mastery_cell(i)
 	if slots_label != null:
 		slots_label.text = "%s : %d/%d" % [tr("LOADOUT_TAB_CHARMS"), CharmsManager.holder.size(), CharmsManager.get_slot_count()]
 	if charm_description_label != null:
 		var charm: CharmData = _get_focused_charm()
-		charm_description_label.text = "" if charm == null else "%s\n\n%s" % [
-			InventoryManager.get_charm_name(charm), tr(charm.description)]
+		if charm == null:
+			charm_description_label.text = ""
+		else:
+			var description: String = "%s\n\n%s" % [InventoryManager.get_charm_name(charm), tr(charm.description)]
+			if focus_zone == CharmZone.MASTERY:
+				description += "\n\n" + _get_mastery_status(focus_index)
+			charm_description_label.text = description
 
 
 ## Focused = slightly bigger, picked for a swap = yellow
@@ -407,3 +469,31 @@ func _style_charm_cell(cell: TextureRect, zone: CharmZone, index: int) -> void:
 	var is_picked: bool = zone == picked_zone and index == picked_index
 	cell.scale = Vector2.ONE * (FOCUS_SCALE if is_focused else 1.0)
 	cell.modulate = SELECTED_COLOR if is_picked else Color.WHITE
+
+## Mastery cell: always the charm icon. Not granted yet = dark grey, granted but switched off = grey
+func _style_mastery_cell(index: int) -> void:
+	var cell: TextureRect = mastery_cells[index]
+	var charm: CharmData = mastery_charms[index] if index < mastery_charms.size() else null
+	cell.texture = charm.icon if charm != null else null
+	var is_focused: bool = focus_zone == CharmZone.MASTERY and index == focus_index
+	cell.scale = Vector2.ONE * (FOCUS_SCALE if is_focused else 1.0)
+	if charm == null or !CharmsManager.has_mastery(charm):
+		cell.modulate = MASTERY_LOCKED_COLOR
+	elif CharmsManager.is_mastery_active(charm):
+		cell.modulate = Color.WHITE
+	else:
+		cell.modulate = LOCKED_COLOR
+
+
+func _get_mastery_status(index: int) -> String:
+	var charm: CharmData = mastery_charms[index]
+	if !CharmsManager.has_mastery(charm):
+		return tr("LOADOUT_MASTERY_LOCKED") % tr(mastery_boosts[index].name)
+	return tr("LOADOUT_MASTERY_ON") if CharmsManager.is_mastery_active(charm) else tr("LOADOUT_MASTERY_OFF")
+
+
+func _get_part_boost(part: CarData.Car_Upgrades) -> BoostData:
+	for part_boost: BoostData in ShopManager.all_car_boosts:
+		if part_boost.is_car_part() and part_boost.car_part == part:
+			return part_boost
+	return null

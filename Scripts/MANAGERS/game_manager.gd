@@ -16,39 +16,12 @@ func _ready() -> void:
 		player.game_over.connect(_update_game_over)
 		TimeManager.load_time()
 		ItemManager.load_pools()
+	if ShopManager.all_car_boosts.is_empty():
 		ShopManager.load_pools()
 	
-#func _process(_delta: float) -> void:
-	#process_inputs()
-	
-#func process_inputs()-> void:
-	#if Input.is_action_just_released("pause"):
-		#pause_status()
-#
-#func pause_status()-> void:
-	#if !game_paused:
-		#game_paused = true
-		#SignalManager.emit_signal("game_paused", game_paused)
-		##pause_manager.show()
-		##pause_manager.get_focus()
-	#else:
-		#game_paused = false
-		#SignalManager.emit_signal("game_paused", game_paused)
-		##pause_manager.hide()
 
 
 func _update_game_over(game_over : bool) -> void:
 	game_is_over = game_over
 	if game_is_over:
 		SceneManager.load_level(SceneManager.SCENES.GAME_OVER)
-
-#func _update_ingame_pause(ingame_pause : bool) -> void:
-	#game_paused = ingame_pause
-	#pause_status()
-
-#func _on_game_paused(paused : bool) -> void:
-	#game_paused = paused
-
-#func _leveling_pause(leveling_pause : bool) -> void:
-	#game_paused = leveling_pause
-	#SignalManager.emit_signal("game_paused", game_paused)

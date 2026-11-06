@@ -165,11 +165,10 @@ func _ready() -> void:
 		_ready_debug()
 		return
 	SignalManager.game_paused.connect(_on_game_paused)
-	SignalManager.active_spikes.connect(_on_spikes_activated)
 	skid_parent = get_node("/root/World/SkidMarks")
 	drift_sfx_base_volume = drift_sfx.volume_db
 	spikes_damages = Statistic.new(spikes_base_damages)
-
+	drop_spikes_active = CharmsManager.drop_spikes_active
 
 func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker2D, p_rear_right : Marker2D) -> void:
 	car = car_node
@@ -643,6 +642,7 @@ func _ready_debug() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	drift_sfx_base_volume = drift_sfx.volume_db
 
+
 ## Smoothed slip intensity (0..1), for the smoke and other drift FX
 func get_slip_ratio() -> float:
 	return slip_ratio
@@ -681,9 +681,6 @@ func drop_spikes() -> void :
 	var spike : Area2D = spikes_scene.instantiate()
 	spike.global_position = spike_marker.global_position
 	get_node("/root/World/Collectables").add_child(spike)
-
-func _on_spikes_activated(trigger : bool) -> void : 
-	drop_spikes_active = true if trigger else false
 
 
 func _on_spike_audio_timer_timeout() -> void:

@@ -7,16 +7,15 @@ var player : SurvivorData
 @onready var card: ColorRect = $Confirm/MarginContainer/Card
 @onready var charm_name: Label = $Confirm/MarginContainer/Card/PanelColor/Name
 @onready var icon: TextureRect = $Confirm/MarginContainer/Card/PanelColor/IconBkg/Icon
-@onready var charm_rarity: Label = $Confirm/MarginContainer/Card/PanelColor/Rarity
 
 @onready var confirm: Button = $Confirm
-@onready var description: Label = $Confirm/MarginContainer/Card/PanelColor/Description
 
 var price_mult : int = 10
 @onready var price_cont: HBoxContainer = $Price
-@onready var price_tag: Label = $Price/PriceTags/PriceTag
-@onready var discount_tag: Label = $Price/PriceTags/DiscountTag
-@onready var strike_price: Control = $Price/PriceTags/PriceTag/StrikePrice
+@onready var price_tag: Label = $Price/PriceTags/Price/PriceTag
+@onready var discount_tag: Label = $Price/PriceTags/Discount/DiscountTag
+@onready var strike_price: Control = $Price/PriceTags/Price/PriceTag/StrikePrice
+@onready var discount_cont: HBoxContainer = $Price/PriceTags/Discount
 
 
 @onready var sold_out: ColorRect = $Confirm/MarginContainer/SoldOut
@@ -40,10 +39,7 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	charm_name.text = InventoryManager.get_charm_name(p_charm)
 	icon.texture = charm.icon
 	card.color = charm.get_shop_color()
-	charm_rarity.text = charm.get_rarity_string(charm.rarity)
-	charm_rarity.add_theme_color_override("font_color",charm.get_shop_color())
 	charm.is_in_shop = p_is_in_shop
-	description.text = charm.description
 	sold_out.hide()
 	
 	if charm.is_in_shop:
@@ -62,10 +58,10 @@ func setup(p_charm : CharmData, p_is_in_shop : bool) -> void :
 	else : price_cont.hide()
 	
 	if ShopManager.apply_discount :
-		discount_tag.show()
+		discount_cont.show()
 		strike_price.show()
 	else : 
-		discount_tag.hide()
+		discount_cont.hide()
 		strike_price.hide()
 
 	if charm.is_in_shop and CharmsManager.has_charm(charm):

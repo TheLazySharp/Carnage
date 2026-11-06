@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dmpwpkmcwrq4d" path="res://Assets/Audio/SFX/Punches/splat_3.mp3" id="9_wihcf"]
 [ext_resource type="AudioStream" uid="uid://cjyaet7fm488o" path="res://Assets/Audio/SFX/Punches/splat_chained_1.mp3" id="10_8lmgg"]
 [ext_resource type="AudioStream" uid="uid://bmltwtid1wtb0" path="res://Assets/Audio/SFX/Punches/splat_chained_2.mp3" id="11_ni7hh"]
+[ext_resource type="AudioStream" uid="uid://d3dy3rwu1gt4t" path="res://Assets/Audio/SFX/PickUp/pickUp.mp3" id="12_0lwwy"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_416yl"]
 streams_count = 2
@@ -34,8 +35,9 @@ streams_count = 2
 stream_0/stream = ExtResource("10_8lmgg")
 stream_1/stream = ExtResource("11_ni7hh")
 
-[node name="AudioManager" type="Node" unique_id=121741402]
+[node name="AudioManager" type="Node" unique_id=121741402 node_paths=PackedStringArray("xp_player")]
 script = ExtResource("1_flqku")
+xp_player = NodePath("XpCollect")
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1935494431]
 stream = SubResource("AudioStreamRandomizer_416yl")
@@ -71,4 +73,8 @@ volume_db = 3.0
 max_distance = 3000.0
 attenuation = 0.20306318
 max_polyphony = 4
+bus = &"SFX"
+
+[node name="XpCollect" type="AudioStreamPlayer" parent="." unique_id=2116868571]
+stream = ExtResource("12_0lwwy")
 bus = &"SFX"

@@ -255,6 +255,8 @@ func upgrade_part(part_boost : BoostData) -> bool:
 	# Max level reached: the part level 5 bonus turns on
 	if level + 1 >= part_boost.get_max_level() and !mastered_parts.has(part_boost.car_part):
 		mastered_parts.append(part_boost.car_part)
+		# Level 5 bonus: a charm granted in its own slot
+		CharmsManager.grant_mastery(part_boost.mastery_charm)
 	return true
 
 
@@ -271,8 +273,10 @@ func downgrade_part(part_boost : BoostData) -> bool:
 		var stat : Statistic = part_boost.get_car_stat(target_stat, self)
 		if stat != null:
 			stat.remove_modifiers_from(source)
-	part_levels[part_boost.car_part] = level - 1
-	mastered_parts.erase(part_boost.car_part)
+	if level + 1 >= part_boost.get_max_level() and !mastered_parts.has(part_boost.car_part):
+		mastered_parts.append(part_boost.car_part)
+		# Level 5 bonus: a charm granted in its own slot
+		CharmsManager.grant_mastery(part_boost.mastery_charm)
 	return true
 
 

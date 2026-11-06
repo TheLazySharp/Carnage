@@ -51,6 +51,9 @@ bg_color = Color(0.45490196, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3d320"]
 bg_color = Color(0.45490196, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ie8k"]
+bg_color = Color(0.12225222, 0.12225225, 0.12225217, 1)
+
 [node name="CarLevelUp" type="Control" unique_id=2121295686 node_paths=PackedStringArray("level_up_rows", "upgrade_desc_label", "validate_button", "undo_hint_label")]
 layout_mode = 3
 anchors_preset = 15
@@ -1504,9 +1507,22 @@ offset_left = 762.0
 offset_top = 161.30002
 offset_right = 1262.0
 offset_bottom = 381.30002
+theme_override_styles/normal = SubResource("StyleBoxFlat_0ie8k")
 text = "Car upgrade description"
 autowrap_mode = 2
 script = ExtResource("8_0lu01")
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeDesc" unique_id=931736449]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 74.0
+grow_horizontal = 0
 
 [node name="CancelHint" type="Label" parent="." unique_id=741051892]
 layout_mode = 1

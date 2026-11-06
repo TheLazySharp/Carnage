@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_u0xap")
+drift_hit_min_spin_deg = 250.0
 victim_pause_enabled = false
 hit_stop_enabled = false
 car_kick_offset_px = 6.0

@@ -16,3 +16,11 @@ func _ready() -> void:
 	var new_stylebox : StyleBox = get_theme_stylebox("focus")
 	new_stylebox.border_color = FontManager.dark_yellow
 	add_theme_stylebox_override("focus",new_stylebox)
+
+func _process(_delta: float) -> void:
+	if self.has_focus():
+		icon = FontManager.BUTTON_ICON
+		self.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		self.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+	else : 
+		icon = null

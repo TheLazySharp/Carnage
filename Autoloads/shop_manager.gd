@@ -15,10 +15,10 @@ var boosts_price_levels : Dictionary = {
 }
 
 var charms_price_levels : Dictionary = {
-	InventoryManager.Rarities.COMMON: 40,
-	InventoryManager.Rarities.RARE: 60,
-	InventoryManager.Rarities.EPIC: 100,
-	InventoryManager.Rarities.LEGENDARY: 200
+	InventoryManager.Rarities.COMMON: 100,
+	InventoryManager.Rarities.RARE: 150,
+	InventoryManager.Rarities.EPIC: 200,
+	InventoryManager.Rarities.LEGENDARY: 300
 }
 
 var item_colors : Dictionary = {
@@ -96,7 +96,6 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://carxlirtqqcaq", #cheeseburger : survivor max life + 30
 	"uid://dm6l1gndrnaga", #syringe : all maneuvers are amplfied 
 	"uid://br2sqjgua6lu7", #piggy : cash goes in a pigypack
-	
 ]
 
 enum CONST_REFS {

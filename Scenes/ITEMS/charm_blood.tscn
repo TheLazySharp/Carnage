@@ -4,9 +4,9 @@
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="2_5yy0c"]
 [ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="3_6lcmo"]
 [ext_resource type="Texture2D" uid="uid://dmrml5clvddsu" path="res://Assets/LuckyCharms/magic_tree_gre.png" id="4_wy2tt"]
-[ext_resource type="Script" uid="uid://cpf7sh5pfft6g" path="res://Scripts/FONTS/GUI_UX_XS.gd" id="5_dbr2o"]
+[ext_resource type="Script" uid="uid://d01u5x887iipv" path="res://Scripts/FONTS/GUI_text_16.gd" id="5_5yy0c"]
 [ext_resource type="Script" uid="uid://dimcwppccsqal" path="res://Scripts/FONTS/GUI_sold_out.gd" id="6_0u07d"]
-[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="7_034ls"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="6_5yy0c"]
 [ext_resource type="Script" uid="uid://q1x6o5hrm08l" path="res://Scripts/UI/strike_price.gd" id="8_muj55"]
 [ext_resource type="Texture2D" uid="uid://hnexr8g6micy" path="res://Assets/Items/Drops/Dollars/blood.png" id="9_0ie8k"]
 
@@ -33,24 +33,25 @@ expand_margin_top = 8.0
 expand_margin_right = 8.0
 expand_margin_bottom = 8.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0ie8k"]
+load_path = "res://.godot/imported/blood.png-6621a23d0f2de24dd7362ccd6ab76849.ctex"
+
 [node name="Charm" type="Control" unique_id=188465822]
-custom_minimum_size = Vector2(580, 120)
+custom_minimum_size = Vector2(170, 190)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 580.0
-offset_bottom = 120.0
+offset_right = 170.0
+offset_bottom = 190.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 layout_direction = 2
 script = ExtResource("1_0ie8k")
 
 [node name="Confirm" type="Button" parent="." unique_id=1154624133]
-custom_minimum_size = Vector2(425, 120)
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.73310226
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -0.1993103
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -61,7 +62,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_hs08e")
 theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_0qb4p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ygkm8")
 script = ExtResource("3_6lcmo")
-metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="Confirm" unique_id=2099998874]
 layout_mode = 1
@@ -74,7 +74,6 @@ theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
-metadata/_edit_use_anchors_ = true
 
 [node name="Card" type="ColorRect" parent="Confirm/MarginContainer" unique_id=1070041603]
 clip_contents = true
@@ -94,17 +93,34 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Name" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1115629901]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.5
+offset_top = 4.0
+offset_right = 92.5
+offset_bottom = 20.333336
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_5yy0c")
+theme_override_font_sizes/font_size = 16
+text = "Magic Tree Green"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_5yy0c")
+
 [node name="IconBkg" type="ColorRect" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1970320811]
 custom_minimum_size = Vector2(74, 74)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 2.0
-offset_top = -37.0
-offset_right = 76.0
-offset_bottom = 37.0
-grow_vertical = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.0
+offset_top = 34.0
+offset_right = 37.0
+offset_bottom = 108.0
+grow_horizontal = 2
 
 [node name="Icon" type="TextureRect" parent="Confirm/MarginContainer/Card/PanelColor/IconBkg" unique_id=1397811881]
 custom_minimum_size = Vector2(64, 64)
@@ -123,60 +139,9 @@ grow_vertical = 2
 texture = ExtResource("4_wy2tt")
 expand_mode = 2
 
-[node name="Name" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1115629901]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -110.5
-offset_top = 4.0
-offset_right = 74.5
-offset_bottom = 20.333336
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_5yy0c")
-theme_override_font_sizes/font_size = 16
-text = "Magic Tree Green"
-vertical_alignment = 1
-script = ExtResource("5_dbr2o")
-
-[node name="Rarity" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=127947413]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 69.5
-offset_top = 4.0
-offset_right = 192.5
-offset_bottom = 20.333336
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_5yy0c")
-theme_override_font_sizes/font_size = 16
-text = "Legendary"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("5_dbr2o")
-
-[node name="Description" type="Label" parent="Confirm/MarginContainer/Card/PanelColor" unique_id=1111204753]
-custom_minimum_size = Vector2(310, 64)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -113.5
-offset_top = 32.0
-offset_right = 196.5
-offset_bottom = 96.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_5yy0c")
-theme_override_font_sizes/font_size = 16
-text = "The car is invicible for 1 sec when hit by enemies
-Cool down : 7 sec"
-vertical_alignment = 1
-autowrap_mode = 3
-script = ExtResource("5_dbr2o")
-
 [node name="SoldOut" type="ColorRect" parent="Confirm/MarginContainer" unique_id=1664175286]
 visible = false
+custom_minimum_size = Vector2(100, 100)
 clip_contents = true
 layout_mode = 2
 color = Color(1, 1, 1, 0)
@@ -195,6 +160,7 @@ grow_vertical = 2
 color = Color(0.15294118, 0.15294118, 0.15294118, 0.9647059)
 
 [node name="Name" type="Label" parent="Confirm/MarginContainer/SoldOut/PanelColor" unique_id=246179523]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -206,6 +172,7 @@ theme_override_font_sizes/font_size = 48
 text = "SOLD OUT"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 script = ExtResource("6_0u07d")
 
 [node name="NotEnoughCash" type="ColorRect" parent="Confirm/MarginContainer" unique_id=250199873]
@@ -228,7 +195,7 @@ grow_vertical = 2
 color = Color(0.15294118, 0.15294118, 0.15294118, 0.9647059)
 
 [node name="Text" type="Label" parent="Confirm/MarginContainer/NotEnoughCash/PanelColor" unique_id=169512475]
-custom_minimum_size = Vector2(407, 102)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -237,7 +204,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_5yy0c")
 theme_override_font_sizes/font_size = 48
-text = "Not enough cash"
+text = "Not enough blood"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -245,29 +212,43 @@ script = ExtResource("6_0u07d")
 
 [node name="Price" type="HBoxContainer" parent="." unique_id=1913280125]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 432.0
-offset_top = -32.0
-offset_right = 572.0
-offset_bottom = 32.0
-grow_vertical = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -34.75
+offset_top = -62.0
+offset_right = 34.75
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 16
 
 [node name="PriceTags" type="VBoxContainer" parent="Price" unique_id=97873247]
 layout_mode = 2
 
-[node name="PriceTag" type="Label" parent="Price/PriceTags" unique_id=149250085]
-custom_minimum_size = Vector2(60, 30)
+[node name="Price" type="HBoxContainer" parent="Price/PriceTags" unique_id=354233909]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_5yy0c")
+
+[node name="BloodIcon" type="TextureRect" parent="Price/PriceTags/Price" unique_id=93938517]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="Price/PriceTags/Price" unique_id=149250085]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5yy0c")
+theme_override_font_sizes/font_size = 16
 text = "1000"
 horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("7_034ls")
+vertical_alignment = 2
+script = ExtResource("5_5yy0c")
 
-[node name="StrikePrice" type="Control" parent="Price/PriceTags/PriceTag" unique_id=225847669]
+[node name="StrikePrice" type="Control" parent="Price/PriceTags/Price/PriceTag" unique_id=225847669]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -277,19 +258,25 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_muj55")
 
-[node name="DiscountTag" type="Label" parent="Price/PriceTags" unique_id=1933707841]
-custom_minimum_size = Vector2(60, 30)
+[node name="Discount" type="HBoxContainer" parent="Price/PriceTags" unique_id=1635003471]
+visible = false
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_5yy0c")
-text = "1000"
-horizontal_alignment = 2
-vertical_alignment = 1
-script = ExtResource("7_034ls")
 
-[node name="TextureRect" type="TextureRect" parent="Price" unique_id=93938517]
-custom_minimum_size = Vector2(32, 20)
+[node name="BloodIcon" type="TextureRect" parent="Price/PriceTags/Discount" unique_id=154135515]
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 texture = ExtResource("9_0ie8k")
-stretch_mode = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="Price/PriceTags/Discount" unique_id=1933707841]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_5yy0c")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("5_5yy0c")
 
 [connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]

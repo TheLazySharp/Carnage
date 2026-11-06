@@ -17,6 +17,7 @@ signal update_max_xp_target(target_xp: int)
 signal animation_play(animation_ok : bool)
 signal update_level(current_level: int)
 signal level_up_sfx
+signal xp_collected  # one per sphere picked up (sfx); update_xp follows the gauge fill instead
 
 var xp_bucket: Array
 var is_leveling : bool = false
@@ -38,18 +39,20 @@ enum XP_TYPES {
 	XP_10
 }
 
-const XP_SPHERE_1 = preload("uid://b1rnp8w8r7smq")
-#const XP_SPHERE_2 = preload("uid://fxr6ftyl6c2j")
-#const XP_SPHERE_5 = preload("uid://bvo82cae7qnoy")
+# Loaded at runtime in _ready(), NOT preloaded: xp_data.gd references XPManager,
+# so a preload here creates a load cycle that breaks the exported game
+const XP_SPHERE_1_UID : String = "uid://b1rnp8w8r7smq"
+#const XP_SPHERE_2_UID : String = "uid://fxr6ftyl6c2j"
+#const XP_SPHERE_5_UID : String = "uid://bvo82cae7qnoy"
 
-var xp_ressources : Dictionary  = {
-	XP_TYPES.XP_1 : XP_SPHERE_1,
-	#XP_TYPES.XP_2 : XP_SPHERE_2,
-	#XP_TYPES.XP_5 : XP_SPHERE_5
-	}
+var xp_ressources : Dictionary = {}
 
 
 func _ready() -> void:
+	xp_ressources[XP_TYPES.XP_1] = load(XP_SPHERE_1_UID)
+	#xp_ressources[XP_TYPES.XP_2] = load(XP_SPHERE_2_UID)
+	#xp_ressources[XP_TYPES.XP_5] = load(XP_SPHERE_5_UID)
+	
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.next_day.connect(_on_raid_ended)
 	
@@ -72,6 +75,7 @@ func _level_cost(level : int) -> int:
 func add_xp_in_bucket(xp_value : int)-> void:
 	xp_bucket.append(xp_value)
 	raid_xp += xp_value
+	xp_collected.emit()
 	if !is_leveling:
 		process_next_xp()
 	

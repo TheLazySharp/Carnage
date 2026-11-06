@@ -19,11 +19,13 @@ var car : CarData = CarManager.selected_car
 @export var upgrade_desc_label : Label      # UpgradeDesc
 @export var validate_button : Button        # former IGNORE: active once every upgrade is spent
 @export var undo_hint_label : Label         # "Back: undo the last upgrade", shown when there is something to undo
+@export var mastery_icon : TextureRect     # icon of the charm granted at level 5, shown on the Lvl5 cells
 @export_group("Cells")
 @export var obtained_color : Color = Color("740000")
 @export var locked_color : Color = Color(0.18, 0.18, 0.18)
 @export var focus_border_color : Color = Color.WHITE
 @export var focus_border_width : int = 2
+@export var mastery_font_color : Color = Color(2.5, 1.5, 0.3)
 
 @onready var upgrades_tag: Label = $Background/Upgrades/UpgradesTag
 @onready var garage_drill: AudioStreamPlayer = $Sfx/GarageDrill
@@ -92,6 +94,7 @@ var style_locked_focus : StyleBoxFlat
 
 
 func _ready() -> void:
+	XPManager.available_upgrades = 7
 	hide()
 	if XPManager.available_upgrades < 1:
 		SceneManager.load_level(SceneManager.SCENES.SHOP)
@@ -224,6 +227,8 @@ func _build_grid() -> void:
 			cell.mouse_entered.connect(_select_cell.bind(row_index, level))
 			bar.min_value = 0.0
 			bar.max_value = 100.0
+			if level == LEVEL_COUNT:
+				cell.add_theme_color_override("font_color", mastery_font_color)
 			cells.append(cell)
 			bars.append(bar)
 		row_cells.append(cells)
@@ -279,6 +284,8 @@ func _refresh_grid() -> void:
 ## Description and stats preview of the focused cell
 func _refresh_details() -> void:
 	reset_values()
+	if mastery_icon != null:
+		mastery_icon.hide()
 	if on_validate or row_parts.is_empty():
 		upgrade_desc_label.text = ""
 		return
@@ -289,10 +296,15 @@ func _refresh_details() -> void:
 	var bonus : float = part_boost.get_next_bonus(focus_level - 1)
 	for target_stat : BoostData.Target_Stats in part_boost.target_stats:
 		lines.append("%s + %d %%" % [part_boost.get_stat_string(target_stat), roundi(bonus * 100.0)])
-	# Level 5: the final bonus of the part, visible from the start
-	if focus_level == LEVEL_COUNT and !part_boost.mastery_key.is_empty():
+	# Level 5 cell: the charm granted by the part, shown even while the level is locked
+	if focus_level == LEVEL_COUNT and part_boost.mastery_charm != null:
+		var charm : CharmData = part_boost.mastery_charm
 		lines.append("")
-		lines.append(tr(part_boost.mastery_key))
+		lines.append(tr("MASTERY_GET") % InventoryManager.get_charm_name(charm))
+		lines.append(tr(charm.description))
+		if mastery_icon != null:
+			mastery_icon.texture = charm.icon
+			mastery_icon.show()
 	lines.append("")
 	if focus_level <= current_level:
 		lines.append(tr("LEVELUP_OWNED"))

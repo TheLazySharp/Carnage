@@ -112,8 +112,8 @@ CHARM_SKULL_DESC;"Weapons damages + 20% if survivor life gos below 30%
 ";Dégats des armes +20% si la vie du survivant est inférieure à 30%
 CHARM_DART;Dart;Fléchette
 CHARM_DART_DESC;When a perfect hit throws an enemy into others, the driver regains blood for each enemy hit.;Quand un perfect hit projette un ennemi sur d’autres, le pilote récupère du sang pour chaque ennemi touché.
-LOADOUT_TAB_MANEUVERS;Maneuvers;Manœuvres
-LOADOUT_TAB_CHARMS;Charms;Charms
+LOADOUT_TAB_MANEUVERS;< L1 - Maneuvers;< L1 - Manœuvres
+LOADOUT_TAB_CHARMS;Charms - R1 >;Charms - R1 >
 LOADOUT_LOCKED;LOCKED;VERROUILLÉ
 CHARM_HAT;Cap;Casquette
 CHARM_HAT_DESC;The car becomes invincible for a few seconds at regular intervals.;La voiture devient invincible quelques secondes à intervalles réguliers.
@@ -154,3 +154,7 @@ SHOP_LEVEL_BUY;Available: confirm to buy;Disponible : valide pour l’acheter
 SHOP_LEVEL_LOCKED;Buy the previous level first;Achète d’abord le niveau précédent
 SHOP_NOT_ENOUGH_BLOOD;Not enough blood;Pas assez de sang
 MANEUVER_LEVEL_EFFECT;Combo effect on this maneuver (projectiles and damage): x%s;Effet du combo sur cette manœuvre (projectiles et dégâts) : x%s
+MASTERY_GET;Get %s;Obtiens %s
+LOADOUT_MASTERY_ON;Active: confirm to switch it off;Actif : valide pour le désactiver
+LOADOUT_MASTERY_OFF;Off: confirm to switch it on;Désactivé : valide pour l’activer
+LOADOUT_MASTERY_LOCKED;Upgrade %s to level 5 to unlock it;Monte %s au niveau 5 pour le débloquer

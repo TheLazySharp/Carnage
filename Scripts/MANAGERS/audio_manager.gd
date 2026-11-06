@@ -5,7 +5,15 @@ var current_biome: String
 var sfx_volume: int
 var game_paused:=false
 
+@export_group("XP PICKUP")
+@export var xp_player : AudioStreamPlayer     # stream = XP pickup sound, same bus as the other sfx
+@export var xp_min_interval : float = 0.06    # seconds: pickups closer than this share one sound
+@export var xp_chain_window : float = 0.4     # a pickup within this delay continues the chain (pitch goes up)
+@export var xp_pitch_step : float = 0.04
+@export var xp_max_pitch : float = 1.6
 
+var xp_last_sound_ms : int = -100000
+var xp_chain_pitch : float = 1.0
 
 @onready var level_up_sfx_player: AudioStreamPlayer = $LevelUpSfx
 @onready var items_sfx: AudioStreamPlayer = $ItemsSfx
@@ -27,7 +35,7 @@ var buy_sfx : AudioStreamMP3
 func _ready() -> void:
 	sfx_players = [items_sfx,items_sfx2,items_sfx3]
 	SignalManager.game_paused.connect(_on_game_paused)
-	XPManager.update_xp.connect(_on_update_xp)
+	XPManager.xp_collected.connect(_on_xp_collected)
 	XPManager.level_up_sfx.connect(_on_level_up)
 	SignalManager.piston_picked_up.connect(_on_gears_picked_up)
 	SignalManager.dollar_picked_up.connect(_on_dollar_picked_up)
@@ -48,8 +56,20 @@ func play_sfx(sfx : AudioStreamMP3) -> void:
 			player.play()
 			return
 
-func _on_update_xp(_xp : int) -> void:
-	play_sfx(pickup_xp_sfx)
+## One sound per burst of pickups, its pitch rising while the pickups keep coming
+func _on_xp_collected() -> void:
+	var now_ms : int = Time.get_ticks_msec()
+	var elapsed : float = (now_ms - xp_last_sound_ms) / 1000.0
+	if elapsed < xp_min_interval:
+		return
+	# Chain: higher pitch at each sound; after a pause, back to normal
+	if elapsed < xp_chain_window:
+		xp_chain_pitch = minf(xp_chain_pitch + xp_pitch_step, xp_max_pitch)
+	else:
+		xp_chain_pitch = 1.0
+	xp_last_sound_ms = now_ms
+	xp_player.pitch_scale = xp_chain_pitch
+	xp_player.play()
 
 func _on_gears_picked_up() -> void:
 	play_sfx(pickup_gears_sfx)

@@ -61,7 +61,8 @@ const LOWER_IS_BETTER : Dictionary = {
 @export_group("CAR PART")
 @export var car_part : CarData.Car_Upgrades = CarData.Car_Upgrades.N_A
 @export var level_bonuses : Array[float] = []
-@export var mastery_key : String = ""
+## Granted at the max level of the part, in its own slot (loadout). Never offered in the shop
+@export var mastery_charm : CharmData
 
 func get_stats()-> Array[Dictionary]:
 	var stats: Array[Dictionary] = []

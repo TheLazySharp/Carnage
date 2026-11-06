@@ -24,6 +24,8 @@ var player : SurvivorData
 @export var maneuver_rows : Control                           # LevelUp: one row per maneuver
 @export var row_maneuvers : Array[ManeuverManager.Type] = []  # maneuver of each row, same order as the rows
 @export var maneuver_desc_label : Label                       # ManeuverDesc
+@export var desc_name_label : Label     # DescPanel/Name
+@export var desc_icon : TextureRect     # DescPanel/IconBkg/Icon
 @export var price_variation : float = 0.25    # random +/- share around the base price
 @export var upgrade_price_step : float = 0.5  # price x(1 + step x purchase): unlock 1x, lv1 1.5x ... lv5 3.5x
 @export_group("Cells")
@@ -142,6 +144,8 @@ func _input(event: InputEvent) -> void:
 func _move_focus(dx : int, dy : int) -> void:
 	var last_row : int = row_data.size() - 1
 	var last_charm : int = charm_buttons.size() - 1
+	var charm_columns : int = maxi(charm_container.columns, 1)
+	var charm_rows : int = ceili(float(charm_buttons.size()) / charm_columns)
 	match zone:
 		Zone.GRID:
 			if row_data.is_empty():
@@ -152,28 +156,36 @@ func _move_focus(dx : int, dy : int) -> void:
 			elif dy > 0 and focus_row == last_row:
 				return_zone = Zone.GRID
 				_set_zone(Zone.BACK)
-			elif dx > 0 and focus_column == COLUMN_COUNT - 1 and !charm_buttons.is_empty():
-				# Right of the last level: the charm at the same height
-				charm_index = clampi(int(float(focus_row) * charm_buttons.size() / row_data.size()), 0, last_charm)
+			elif dx < 0 and focus_column == 0 and !charm_buttons.is_empty():
+				# Left of the icons: the right column of the charms, at the same height
+				var target_charm_row : int = clampi(int(float(focus_row) * charm_rows / row_data.size()), 0, charm_rows - 1)
+				charm_index = mini(target_charm_row * charm_columns + charm_columns - 1, last_charm)
 				_set_zone(Zone.CHARMS)
 			else:
 				focus_row = clampi(focus_row + dy, 0, last_row)
 				focus_column = clampi(focus_column + dx, 0, COLUMN_COUNT - 1)
 				_refresh_grid()
 		Zone.CHARMS:
-			if dy < 0 and charm_index == 0:
+			var charm_column : int = charm_index % charm_columns
+			var charm_row : int = floori(float(charm_index) / charm_columns)
+			if dy < 0 and charm_row == 0:
 				return_zone = Zone.CHARMS
 				_set_zone(Zone.REPAIR)
-			elif dy > 0 and charm_index == last_charm:
+			elif dy > 0 and charm_index + charm_columns > last_charm:
 				return_zone = Zone.CHARMS
 				_set_zone(Zone.BACK)
-			elif dx < 0 and !row_data.is_empty():
-				# Left of a charm: the last level of the row at the same height
-				focus_row = clampi(int(float(charm_index) * row_data.size() / charm_buttons.size()), 0, last_row)
-				focus_column = COLUMN_COUNT - 1
+			elif dx > 0 and (charm_column == charm_columns - 1 or charm_index == last_charm):
+				# Right of the charms: the icon of the maneuver row at the same height
+				if row_data.is_empty():
+					return
+				focus_row = clampi(int(float(charm_row) * row_data.size() / charm_rows), 0, last_row)
+				focus_column = 0
 				_set_zone(Zone.GRID)
+			elif dx != 0:
+				charm_index = clampi(charm_index + dx, 0, last_charm)
+				_set_zone(Zone.CHARMS)
 			elif dy != 0:
-				charm_index = clampi(charm_index + dy, 0, last_charm)
+				charm_index = clampi(charm_index + dy * charm_columns, 0, last_charm)
 				_set_zone(Zone.CHARMS)
 		Zone.REPAIR:
 			if dy < 0:
@@ -359,22 +371,25 @@ func _refresh_price(row : int, data : ManeuverData, owned : bool, level : int) -
 			tag.remove_theme_color_override("font_color")
 
 
-## Description of the selected cell (icon: the maneuver, level: its combo effect)
+## Description panel: the selected maneuver cell or charm (name, icon, description). Empty on the buttons
 func _refresh_details() -> void:
+	if zone == Zone.CHARMS and charm_index < ShopManager.current_charms.size():
+		var charm : CharmData = ShopManager.current_charms[charm_index]
+		_show_desc(InventoryManager.get_charm_name(charm), charm.icon, tr(charm.description))
+		return
 	if zone != Zone.GRID or row_data.is_empty():
-		maneuver_desc_label.text = ""
+		_show_desc("", null, "")
 		return
 	var data : ManeuverData = row_data[focus_row]
 	var owned : bool = LoadoutManager.owns(data.maneuver_type)
 	var level : int = LoadoutManager.get_maneuver_level(data.maneuver_type)
 	var lines : PackedStringArray = []
+	lines.append(tr(data.description_key))
+	lines.append("")
 	if focus_column == 0:
-		lines.append(tr(data.name_key))
-		lines.append(tr(data.description_key))
-		lines.append("")
 		lines.append(tr("SHOP_MANEUVER_UNLOCKED") if owned else _get_buy_status(data, "SHOP_UNLOCK"))
 	else:
-		lines.append("%s - %s %d" % [tr(data.name_key), tr("PART_LEVEL"), focus_column])
+		lines.append("%s %d" % [tr("PART_LEVEL"), focus_column])
 		lines.append(tr("MANEUVER_LEVEL_EFFECT") % String.num(LoadoutManager.LEVEL_SHARE_FACTORS[focus_column], 2))
 		lines.append("")
 		if !owned:
@@ -385,7 +400,15 @@ func _refresh_details() -> void:
 			lines.append(_get_buy_status(data, "SHOP_LEVEL_BUY"))
 		else:
 			lines.append(tr("SHOP_LEVEL_LOCKED"))
-	maneuver_desc_label.text = "\n".join(lines)
+	_show_desc(tr(data.name_key), data.icon, "\n".join(lines))
+
+
+func _show_desc(title : String, icon_texture : Texture2D, text : String) -> void:
+	desc_name_label.text = title
+	desc_icon.texture = icon_texture
+	# No icon (buttons): hide its background too
+	(desc_icon.get_parent() as CanvasItem).visible = icon_texture != null
+	maneuver_desc_label.text = text
 
 
 func _get_buy_status(data : ManeuverData, buy_key : String) -> String:
@@ -500,6 +523,8 @@ func _build_offer() -> void:
 		var card_button : Button = charm_card.get_node_or_null("Confirm") as Button
 		if card_button != null:
 			card_button.focus_entered.connect(_on_charm_focus_entered.bind(charm_buttons.size()))
+			# Mouse over a card: its description, like the maneuver cells
+			card_button.mouse_entered.connect(_on_charm_focus_entered.bind(charm_buttons.size()))
 			charm_buttons.append(card_button)
 	charm_index = clampi(charm_index, 0, maxi(charm_buttons.size() - 1, 0))
 	items_ready = true
