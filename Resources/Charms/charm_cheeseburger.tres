@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://carxlirtqqcaq"]
 
 [ext_resource type="Script" uid="uid://uco716m52e4k" path="res://Scripts/CHARMS/charm_cheeseburger.gd" id="1_o8tpq"]
-[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_7qtyj"]
+[ext_resource type="Texture2D" uid="uid://ufu4whlqve64" path="res://Assets/placeholders/Icons/Skillicon1_11.png" id="2_o8tpq"]
 [ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_la6r7"]
 
 [resource]
 script = ExtResource("3_la6r7")
 ref = 37
 name = "CHARM_CHEESEBURGER"
-icon = ExtResource("2_7qtyj")
+icon = ExtResource("2_o8tpq")
 description = "CHARM_CHEESEBURGER_DESC"
 p_value = 30.0
 p_value_descr = "survivor max life boost"

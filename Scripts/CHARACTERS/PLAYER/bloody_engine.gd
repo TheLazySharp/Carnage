@@ -202,12 +202,12 @@ func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 		player.current_life = player.max_life
 		BloodBars.update_blood_tank()
 	elif new_life <= 0:
-		if can_die:
-			player.current_life = 0
-			is_dead = true
-		else:
+		if !can_die:
 			# Tutorial: the driver never dies
 			player.current_life = 1
+		elif !_try_second_life():
+			player.current_life = 0
+			is_dead = true
 	else:
 		player.current_life = new_life
 	_update_skull_floor()
@@ -215,6 +215,17 @@ func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 	BloodBars.update_survivor_blood()
 	if is_dead:
 		car.on_death()
+
+
+func _try_second_life() -> bool:
+	if !car_res.second_life_enabled or car_res.second_life_used:
+		return false
+	car_res.second_life_used = true
+	car_res.current_life = roundi(car_res.max_life.get_value() * car_res.second_life_ratio)
+	player.current_life = maxi(roundi(player.max_life * car_res.second_life_ratio), 1)
+	BloodBars.update_car_blood()
+	SignalManager.second_life_triggered.emit()
+	return true
 
 func _on_survivor_blood_gained(amount : int) -> void:
 	_on_survivor_blood_changed(amount, player.max_life)

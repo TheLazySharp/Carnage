@@ -140,7 +140,11 @@ enum CONST_REFS {
 	Charm_Syringe,
 	Spikes,
 	Poison_Vial,
-	Poison_Belt
+	Poison_Belt,
+	Charm_Heart,
+	Charm_Rocket,
+	Charm_Ram,
+	Charm_Overdrive
 }
 
 var all_car_boosts : Array[BoostData] = []

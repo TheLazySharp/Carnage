@@ -24,6 +24,7 @@ class_name CarData
 ## Charms equipped at the same time (jobs, charms... add to it through modifiers)
 @export var base_charm_slots : int = 5
 
+
 @export_group("MAIN STATS")
 @export var base_acceleration := 300
 @export var base_max_speed := 250
@@ -164,6 +165,10 @@ var wall_keeps_drift : bool = false  #hammer charm
 var low_blood_amplify_ratio : float = 0.0 
 var blood_to_bank_ratio : float = 0.0
 var is_unlocked : bool = false
+var second_life_enabled : bool = false
+var second_life_ratio : float = 0.5
+var second_life_used : bool = false
+var rocket_enabled : bool = false
 
 func init_stats() -> void:
 	if CarManager.unlocked_cars.has(self):
@@ -206,6 +211,9 @@ func init_stats() -> void:
 	blood_to_bank_ratio = 0.0
 	low_blood_amplify_ratio = 0.0
 	wall_keeps_drift = false
+	second_life_enabled = false
+	second_life_used = false
+	rocket_enabled = false
 	
 	part_levels.clear()
 	mastered_parts.clear()

@@ -235,3 +235,5 @@ signal drift_hit_chained(victim_count : int)  # a perfect hit projectile burst o
 signal survivor_blood_gained(amount : int)  # blood given back to the driver (dart charm...)
 @warning_ignore("unused_signal")
 signal active_spikes(trigger : bool)
+@warning_ignore("unused_signal")
+signal second_life_triggered

@@ -135,6 +135,8 @@ func _input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed("confirm"):
 		back.grab_focus()
+	if event.is_action_pressed("back"):
+		back.grab_focus()
 	elif zone == Zone.GRID and event.is_action_pressed("ui_accept"):
 		_try_buy(focus_row, focus_column)
 		get_viewport().set_input_as_handled()

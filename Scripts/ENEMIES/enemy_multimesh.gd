@@ -89,6 +89,8 @@ var drift_query : PhysicsShapeQueryParameters2D = null  # created on the first l
 var drift_burst_shape : CircleShape2D = null
 var drift_trail_fx : Node2D = null
 var drift_hit_power : float = 1.0  # car rear bumper multiplier on the burst damages
+var drift_pierce : bool = false          # rocket (rear bumper mastery): crosses the enemies instead of bursting on them
+var drift_pierced : Array[Enemy] = []    # enemies already hit by this rocket (once each)
 
 @export_group("WALLS PHYSICS")
 var near_wall : bool = false
@@ -580,11 +582,14 @@ func apply_knockback(direction: Vector2, force: float) -> void:
 
 ## Perfect drift hit: thrown by the car's tail, the enemy flies until it meets an enemy or a wall.
 ## Returns false when the hit is ignored (the car then skips its feedback)
-func launch_drift_hit(direction: Vector2, power: float = 1.0) -> bool:
+## can_pierce: false for throws that must stay a classic perfect hit (ram)
+func launch_drift_hit(direction: Vector2, power: float = 1.0, can_pierce: bool = true) -> bool:
 	if game_paused or is_dead or drift_projectile or air_duration > 0.0:
 		return false
 	drift_projectile = true
 	drift_hit_power = power
+	drift_pierce = can_pierce and CarManager.selected_car.rocket_enabled
+	drift_pierced.clear()
 	knockback_velocity = direction.normalized() * JUICE.drift_hit_throw_speed
 	velocity = knockback_velocity
 	if state_machine != null:
@@ -626,21 +631,38 @@ func update_drift_projectile(delta: float) -> void:
 	global_position += move
 	velocity = knockback_velocity
 	last_move_dir = knockback_velocity.normalized()
-	var flight_speed: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * JUICE.drift_hit_friction_ratio * delta)
-	knockback_velocity = last_move_dir * flight_speed
-	# Out of steam: bursts on its own
-	if flight_speed < JUICE.drift_hit_end_speed:
-		burst_drift_projectile(BurstCause.OUT_OF_STEAM)
-		return
-	# First living enemy touched: burst
+	# Rocket: keeps its speed until a wall (the map is closed). Classic throw: slows down, then bursts on its own
+	if !drift_pierce:
+		var flight_speed: float = move_toward(knockback_velocity.length(), 0.0, knockback_friction.get_value() * JUICE.drift_hit_friction_ratio * delta)
+		knockback_velocity = last_move_dir * flight_speed
+		if flight_speed < JUICE.drift_hit_end_speed:
+			burst_drift_projectile(BurstCause.OUT_OF_STEAM)
+			return
 	drift_query.shape = collision_box.shape
 	drift_query.transform = Transform2D(0.0, global_position)
 	for result: Dictionary in get_world_2d().direct_space_state.intersect_shape(drift_query, 8):
 		var other: Enemy = _get_enemy_from_collider(result["collider"])
 		# Its own hitbox resolves to itself: skipped
-		if other != null and other != self and !other.is_dead:
+		if other == null or other == self or other.is_dead:
+			continue
+		if drift_pierce:
+			_pierce_enemy(other)
+		else:
+			# Classic throw: first living enemy touched, burst
 			burst_drift_projectile(BurstCause.ENEMY)
 			return
+
+## Rocket: an enemy crossed takes the burst damages once, pushed aside of the flight line
+func _pierce_enemy(other: Enemy) -> void:
+	if drift_pierced.has(other):
+		return
+	drift_pierced.append(other)
+	var side: Vector2 = last_move_dir.orthogonal()
+	if (other.global_position - global_position).dot(side) < 0.0:
+		side = -side
+	other.get_damages(roundi(drift_hit_dmg.get_value() * drift_hit_power), side, JUICE.drift_hit_burst_knockback, EnemyManager.DEATH_TYPES.KNOCKED)
+	# Dart charm: each enemy crossed counts as a chained hit
+	SignalManager.emit_signal("drift_hit_chained", 1)
 
 ## The query returns an enemy's root area or one of its child areas (hitbox): both resolve to the enemy
 func _get_enemy_from_collider(collider : Object) -> Enemy:

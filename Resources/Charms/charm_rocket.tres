@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://d4h18eben7vhx"]
+
+[ext_resource type="Script" uid="uid://cvxmsi012eadk" path="res://Scripts/CHARMS/charm_rocket.gd" id="1_e4nhd"]
+[ext_resource type="Texture2D" uid="uid://dwkcgpdjd0aap" path="res://Assets/placeholders/Icons/Skillicon1_21.png" id="2_jvbeo"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_k8lay"]
+
+[resource]
+script = ExtResource("3_k8lay")
+ref = 43
+name = "CHARM_ROCKET"
+icon = ExtResource("2_jvbeo")
+description = "CHARM_ROCKET_DESC"
+effect_script = ExtResource("1_e4nhd")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

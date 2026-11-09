@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://drcqx1tsmpkt0" path="res://Assets/Items/rear_bumper.png" id="1_nd1jr"]
 [ext_resource type="Script" uid="uid://71ta02ofykhp" path="res://Resources/Scripts/boost_data.gd" id="2_pastp"]
+[ext_resource type="Resource" uid="uid://d4h18eben7vhx" path="res://Resources/Charms/charm_rocket.tres" id="2_y0i8d"]
 
 [resource]
 script = ExtResource("2_pastp")
@@ -13,5 +14,5 @@ target_weapon_types = 6
 icon = ExtResource("1_nd1jr")
 car_part = 9
 level_bonuses = Array[float]([0.25, 0.2, 0.15, 0.1, 0.05])
-mastery_key = "PART_REAR_BUMPER_MASTERY"
+mastery_charm = ExtResource("2_y0i8d")
 metadata/_custom_type_script = "uid://71ta02ofykhp"

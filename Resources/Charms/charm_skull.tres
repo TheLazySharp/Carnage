@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://0d6g8w4alby3"]
 
 [ext_resource type="Script" uid="uid://l0s5qkoqkx6p" path="res://Scripts/CHARMS/charm_skull.gd" id="1_tmpcu"]
-[ext_resource type="Texture2D" uid="uid://ers5f6abq1k" path="res://Assets/UI/skull.png" id="2_j0fjp"]
+[ext_resource type="Texture2D" uid="uid://cg1uypgrykxxb" path="res://Assets/placeholders/Icons/Skillicon1_19.png" id="2_tmpcu"]
 [ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_xu0lw"]
 
 [resource]
 script = ExtResource("3_xu0lw")
 ref = 32
 name = "CHARM_SKULL"
-icon = ExtResource("2_j0fjp")
+icon = ExtResource("2_tmpcu")
 description = "CHARM_SKULL_DESC"
 p_value = 0.3
 effect_script = ExtResource("1_tmpcu")

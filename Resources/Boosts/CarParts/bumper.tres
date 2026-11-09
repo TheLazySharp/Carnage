@@ -13,5 +13,4 @@ target_weapon_types = 6
 icon = ExtResource("1_miwho")
 car_part = 8
 level_bonuses = Array[float]([0.2, 0.16, 0.12, 0.08, 0.04])
-mastery_key = "PART_FRONT_BUMPER_MASTERY"
 metadata/_custom_type_script = "uid://71ta02ofykhp"

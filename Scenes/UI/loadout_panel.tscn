@@ -4,7 +4,14 @@
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="2_3v45d"]
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="3_ddmlh"]
 
-[node name="LoadoutPanel" type="Control" unique_id=250150395 node_paths=PackedStringArray("tab_container", "row_template", "weapon_desc_label", "weapon_count_template", "hint_label", "hint_label2", "charm_slot_template", "owned_charm_template", "slots_label", "charm_description_label", "mastery_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssidi"]
+bg_color = Color(0.033853278, 0.033853278, 0.033853274, 0.78431374)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="LoadoutPanel" type="Control" unique_id=250150395 node_paths=PackedStringArray("tab_container", "row_template", "weapon_desc_label", "weapon_count_template", "hint_label", "hint_label2", "charm_slot_template", "owned_charm_template", "slots_label", "mastery_slots_label", "charm_description_label", "mastery_slot_template")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,11 +25,12 @@ weapon_desc_label = NodePath("PanelContainer/TabContainer/< L1 - Maneuvers/Weapo
 weapon_count_template = NodePath("PanelContainer/TabContainer/< L1 - Maneuvers/WeaponQContainer/WeaponCount")
 hint_label = NodePath("PanelContainer/TabContainer/< L1 - Maneuvers/TipsContainer/Tips")
 hint_label2 = NodePath("PanelContainer/TabContainer/< L1 - Maneuvers/TipsContainer/Tips2")
-charm_slot_template = NodePath("PanelContainer/TabContainer/Charms - R1 >/CharmHolderContainer/Charm")
-owned_charm_template = NodePath("PanelContainer/TabContainer/Charms - R1 >/OwnedCharmContainer/OwnedCharm")
+charm_slot_template = NodePath("PanelContainer/TabContainer/Charms - R1 >/CharmHolderContainer/Panel")
+owned_charm_template = NodePath("PanelContainer/TabContainer/Charms - R1 >/OwnedBackground/OwnedCharmContainer/OwnedCharm")
 slots_label = NodePath("PanelContainer/TabContainer/Charms - R1 >/Slots")
+mastery_slots_label = NodePath("PanelContainer/TabContainer/Charms - R1 >/SpecSlots")
 charm_description_label = NodePath("PanelContainer/TabContainer/Charms - R1 >/CharmDescription")
-mastery_container = NodePath("PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder")
+mastery_slot_template = NodePath("PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder/Panel")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=469199150]
 custom_minimum_size = Vector2(790, 0)
@@ -158,37 +166,38 @@ vertical_alignment = 1
 layout_mode = 2
 metadata/_tab_index = 1
 
+[node name="SpecSlots" type="Label" parent="PanelContainer/TabContainer/Charms - R1 >" unique_id=1950073553]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+offset_left = 14.0
+offset_top = 4.0
+offset_right = 244.5
+offset_bottom = 34.0
+text = "Spec Charms : 0/5"
+vertical_alignment = 1
+script = ExtResource("3_ddmlh")
+
 [node name="MasteryCharmHolder" type="GridContainer" parent="PanelContainer/TabContainer/Charms - R1 >" unique_id=258865506]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 40.0
+offset_top = 44.0
 offset_right = 346.0
-offset_bottom = 110.0
+offset_bottom = 108.0
 columns = 5
 
-[node name="HoldCharm" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder" unique_id=1476412775]
-custom_minimum_size = Vector2(64, 70)
+[node name="Panel" type="Panel" parent="PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder" unique_id=418384994]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-stretch_mode = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_ssidi")
 
-[node name="HoldCharm2" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder" unique_id=1688268478]
-custom_minimum_size = Vector2(64, 70)
-layout_mode = 2
-stretch_mode = 5
-
-[node name="HoldCharm3" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder" unique_id=1242270728]
-custom_minimum_size = Vector2(64, 70)
-layout_mode = 2
-stretch_mode = 5
-
-[node name="HoldCharm4" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder" unique_id=620999969]
-custom_minimum_size = Vector2(64, 70)
-layout_mode = 2
-stretch_mode = 5
-
-[node name="HoldCharm5" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder" unique_id=44329858]
-custom_minimum_size = Vector2(64, 70)
-layout_mode = 2
+[node name="HoldCharm" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder/Panel" unique_id=1476412775]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stretch_mode = 5
 
 [node name="CharmHolderContainer" type="GridContainer" parent="PanelContainer/TabContainer/Charms - R1 >" unique_id=177050056]
@@ -199,33 +208,50 @@ offset_right = 346.0
 offset_bottom = 312.0
 columns = 5
 
-[node name="Charm" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/CharmHolderContainer" unique_id=961716294]
-custom_minimum_size = Vector2(64, 70)
+[node name="Panel" type="Panel" parent="PanelContainer/TabContainer/Charms - R1 >/CharmHolderContainer" unique_id=192215271]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ssidi")
+
+[node name="Charm" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/CharmHolderContainer/Panel" unique_id=961716294]
+custom_minimum_size = Vector2(64, 70)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stretch_mode = 5
 
 [node name="Slots" type="Label" parent="PanelContainer/TabContainer/Charms - R1 >" unique_id=1548707460]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 3)
 layout_mode = 0
 offset_left = 10.0
-offset_top = 320.0
+offset_top = 138.0
 offset_right = 240.5
-offset_bottom = 370.0
+offset_bottom = 161.0
 text = "Charms : 2/5"
 vertical_alignment = 1
 script = ExtResource("3_ddmlh")
 
-[node name="OwnedCharmContainer" type="GridContainer" parent="PanelContainer/TabContainer/Charms - R1 >" unique_id=793379658]
+[node name="OwnedBackground" type="ColorRect" parent="PanelContainer/TabContainer/Charms - R1 >" unique_id=1184418661]
+custom_minimum_size = Vector2(400, 300)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 391.0
-offset_right = 394.0
-offset_bottom = 695.0
+offset_left = 9.369995
+offset_top = 340.46875
+offset_right = 49.369995
+offset_bottom = 380.46875
+color = Color(0.019607844, 0.019607844, 0.019607844, 0.78431374)
+
+[node name="OwnedCharmContainer" type="GridContainer" parent="PanelContainer/TabContainer/Charms - R1 >/OwnedBackground" unique_id=793379658]
+layout_mode = 1
+offset_right = 400.0
+offset_bottom = 300.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 5
 
-[node name="OwnedCharm" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/OwnedCharmContainer" unique_id=890276655]
+[node name="OwnedCharm" type="TextureRect" parent="PanelContainer/TabContainer/Charms - R1 >/OwnedBackground/OwnedCharmContainer" unique_id=890276655]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 stretch_mode = 4

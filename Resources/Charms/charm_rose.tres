@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://c2yjm0h5lxhbp"]
 
 [ext_resource type="Script" uid="uid://74wtosoo7tsd" path="res://Scripts/CHARMS/charm_rose.gd" id="1_fiih0"]
-[ext_resource type="Texture2D" uid="uid://cml72x4bwnp42" path="res://Assets/Items/cross.png" id="2_7iket"]
+[ext_resource type="Texture2D" uid="uid://b8lo3liadt2ee" path="res://Assets/placeholders/Icons/Skillicon1_15.png" id="2_fiih0"]
 [ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_krlcb"]
 
 [resource]
 script = ExtResource("3_krlcb")
 ref = 35
 name = "CHARM_ROSE"
-icon = ExtResource("2_7iket")
+icon = ExtResource("2_fiih0")
 description = "CHARM_ROSE_DESC"
 effect_script = ExtResource("1_fiih0")
 metadata/_custom_type_script = "uid://glp77jy3lf6n"

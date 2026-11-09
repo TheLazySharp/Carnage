@@ -2,16 +2,28 @@ extends CharacterBody2D
 
 var player : CarData
 
+@onready var car_sprite : Sprite2D = $CarSprite
+
 # ---------------- CAR DATA ----------------
+@export_group("Driving")
+## input opposing the motion brakes this much harder (arcade)
+@export var brake_multiplier : float = 3.0  
+## rotation floor while drifting: fast spins even at low speed
+@export var drift_min_steer_factor : float = 0.4
+
 var max_backward_speed : int = 0
 var backward_speed_ratio : float = 0.9
-@export var brake_multiplier : float = 3.0  # input opposing the motion brakes this much harder (arcade)
-@export var drift_min_steer_factor : float = 0.4  # rotation floor while drifting: fast spins even at low speed
 var friction : float = 0.0
 var turn_speed : float = 0.0
 var velocity_floor : float = 0
 
-@onready var car_sprite : Sprite2D = $CarSprite
+
+
+@export_group("Charms")
+@export var second_life_invincibility : float = 2.0    # seconds of invincibility after the revival
+@export var second_life_blink_interval : float = 0.15  # one flash every N seconds while invincible
+@export var second_life_slowmo_duration : float = 0.6  # real seconds of slow motion
+@export var second_life_slowmo_scale : float = 0.3     # game speed during the slow motion
 
 
 # ---------------- SFX ----------------
@@ -33,8 +45,14 @@ var last_car_hit_shake_time : float = -1000.0
 
 
 # ---------------- SKID ----------------
+@export_group("Visuals")
 @export var rear_left : Marker2D
 @export var rear_right : Marker2D
+@export var rear_left_burn_anim : AnimatedSprite2D
+@export var rear_right_burn_anim : AnimatedSprite2D
+@export var drivin_smoke_r_2 : CPUParticles2D
+@export var drivin_smoke_l_2 : CPUParticles2D
+
 var drifting : bool = false
 var braking : bool = false
 var angular_speed : float = 0.0  #read by the perfect drift hit
@@ -45,8 +63,6 @@ var angular_speed : float = 0.0  #read by the perfect drift hit
 @onready var burnout_manager : BurnoutManager = $BurnoutManager
 @onready var dash_manager : DashManager = $DashManager
 @onready var sprite_fx : SpriteFXManager = $SpriteFX
-@export var rear_left_burn_anim : AnimatedSprite2D
-@export var rear_right_burn_anim : AnimatedSprite2D
 @onready var collect_zone: CollisionShape2D = $CollectZone/CollectZone
 
 # Signals
@@ -73,13 +89,13 @@ var forward_only : bool = false
 # ---------------- VFX ----------------
 @onready var car_explosion : AnimatedSprite2D = $VFX/CarExplosion
 @onready var sparkles : CPUParticles2D = $VFX/Sparkles
-@export var drivin_smoke_r_2 : CPUParticles2D
-@export var drivin_smoke_l_2 : CPUParticles2D
 @onready var flash : AnimationPlayer = $CarSprite/Flash
 
 # ---------------- INVINCIBILITY ----------------
 var invincibility_tween : Tween = null
 var glow_sprite : Sprite2D = null
+
+
 
 # ---------------- AUTOPILOT ----------------
 enum AutopilotState { NONE, ZOOM, DRIVE, EXIT }
@@ -107,6 +123,7 @@ var last_position : Vector2 = Vector2.ZERO
 
 # ---------------- DEBUG ----------------
 #@export var debug_drive_mode : bool = false  # drop the car scene in a map test scene: driving only
+@export_group("Debug")
 @export var debug_car_data : CarData = null  # CarData used when launching outside the normal game flow
 
 
@@ -129,6 +146,7 @@ func _ready() -> void:
 	SignalManager.end_autopilot_transition.connect(_on_exit_transition)
 	SignalManager.autopilot_zoom_completed.connect(_on_zoom_complete)
 	SignalManager.player_invincible.connect(_on_invincible)
+	SignalManager.second_life_triggered.connect(_on_second_life_triggered)
 	ItemManager.repair.connect(_on_repair_picked_up)
 
 	# DRIVING
@@ -597,6 +615,23 @@ func stop_invincibility_vfx() -> void:
 	if glow_sprite:
 		glow_sprite.queue_free()
 		glow_sprite = null
+
+
+func _on_second_life_triggered() -> void:
+	player.invincible = true
+	JuiceManager.hit_stop(second_life_slowmo_duration, second_life_slowmo_scale)
+	SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_Heart)
+	var blinks : int = ceili(second_life_invincibility / second_life_blink_interval)
+	for i : int in blinks:
+		if game_is_over:
+			return
+		# stop() first: play() does not restart an animation already playing
+		flash.stop()
+		flash.play("flash")
+		# process_always = false: the blinking waits during the pause menu
+		await get_tree().create_timer(second_life_blink_interval, false).timeout
+	if !game_is_over:
+		player.invincible = false
 
 func _ready_debug() -> void:
 	# Minimal init for map test scenes: driving only.

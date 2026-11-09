@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://bhxufg0hrq3f7"]
+
+[ext_resource type="Script" uid="uid://dv0bw3tyfd25f" path="res://Scripts/CHARMS/charm_heart.gd" id="1_a6mcg"]
+[ext_resource type="Texture2D" uid="uid://o5y8x6hkbmhp" path="res://Assets/placeholders/Icons/Skillicon1_16.png" id="2_a6mcg"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_wteve"]
+
+[resource]
+script = ExtResource("3_wteve")
+ref = 42
+name = "CHARM_HEART"
+icon = ExtResource("2_a6mcg")
+description = "CHARM_HEART_DESC"
+p_value = 0.5
+p_value_descr = "If you die, you revive with half of your max life"
+effect_script = ExtResource("1_a6mcg")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"
