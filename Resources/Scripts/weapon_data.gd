@@ -45,6 +45,7 @@ enum Type {
 ## Death animation played when this weapon lands the killing blow.
 ## Falls back to DEFAULT if the enemy has no death state of this type.
 @export var death_type : EnemyManager.DEATH_TYPES = EnemyManager.DEATH_TYPES.DEFAULT
+@export var muzzle_flash : PackedScene
 
 @export_group("BASE STATS")
 @export var base_dmg : = 5

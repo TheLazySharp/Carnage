@@ -3,13 +3,17 @@ extends Node2D
 const BULLET = preload("uid://doe8o0sd0xuas")
 
 @export var minigun_data: WeaponData
+@export var muzzle_flash_count: int = 4  #flashes pool
+@export var oval_half_length: float = 24.0
+@export var oval_half_width: float = 12.0
+@export var oval_center_offset: Vector2 = Vector2.ZERO
 
 @onready var timer: Timer = $FireRate
 @onready var fire_point: Marker2D = $FirePoint
 
 @onready var player: CharacterBody2D = $/root/World/Car
 @onready var shot_sfx: AudioStreamPlayer2D = $ShotSfx
-@onready var muzzle_flash: AnimatedSprite2D = $MuzzleFlash
+
 
 # ---- MAIN STATS -----
 var nb_ammo: float
@@ -41,6 +45,8 @@ var angle_step : float = 10
 var combo_multiplier: float = 1.0
 var salvo: ManeuverSalvo = ManeuverSalvo.new()
 var sfx_cooldown: float = 0.0
+var muzzle_flashes: Array[MuzzleFlashVFX] = []
+var muzzle_flash_index: int = 0
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
@@ -52,7 +58,10 @@ func _ready() -> void:
 	# Several shot sounds can overlap instead of cutting each other
 	shot_sfx.max_polyphony = sfx_polyphony
 	create_bullet_pool(max_bullet_count)
-	muzzle_flash.hide()
+	for i: int in maxi(muzzle_flash_count, 1):
+		var muzzle_flash: MuzzleFlashVFX = minigun_data.muzzle_flash.instantiate() as MuzzleFlashVFX
+		add_child(muzzle_flash)
+		muzzle_flashes.append(muzzle_flash)
 
 	nb_ammo = minigun_data.nb_ammo.get_value()
 	timer.wait_time = minigun_data.fire_rate.get_value()
@@ -77,9 +86,11 @@ func _physics_process(delta: float) -> void:
 	var due: int = salvo.advance(delta)
 	if due == 0:
 		return
+	var flash_step: int = ceili(float(due) / muzzle_flashes.size())
+	var car_rotation: float = player.global_rotation
+	var oval_center: Vector2 = player.global_position + oval_center_offset.rotated(car_rotation)
 	for i: int in due:
-		_fire_salvo_bullet(salvo.next_angle())
-	# One sound per volley, not per bullet
+		_fire_salvo_bullet(salvo.next_angle(), oval_center, car_rotation, i % flash_step == 0)
 	if sfx_cooldown <= 0.0:
 		shot_sfx.play()
 		sfx_cooldown = sfx_min_interval
@@ -95,10 +106,6 @@ func fire_bullet(p_target_pos : Vector2)-> void :
 		var bullet_dir : Vector2 = Vector2.RIGHT.rotated(bullet_angle)
 		var bullet : AmmoMG = get_bullet_from_pool()
 		bullet.fire(fire_point.global_position, bullet_dir, bullet_angle)
-
-	muzzle_flash.rotation = base_angle + deg_to_rad(90)
-	muzzle_flash.show()
-	muzzle_flash.play("fire")
 	shot_sfx.play()
 
 func _on_fire_rate_timeout() -> void:
@@ -189,9 +196,22 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: floa
 		return
 	salvo.start(minigun_data, maneuver_type, intensity, drift_level, is_amplified, attack_angle, combo_multiplier)
 
-func _fire_salvo_bullet(angle: float) -> void:
+func _fire_salvo_bullet(angle: float, oval_center: Vector2, car_rotation: float, with_flash: bool) -> void:
+	var direction: Vector2 = Vector2.RIGHT.rotated(angle)
+	var start_position: Vector2 = oval_center + _get_oval_offset(angle - car_rotation).rotated(car_rotation)
 	var bullet: AmmoMG = get_bullet_from_pool()
-	bullet.fire(fire_point.global_position, Vector2.RIGHT.rotated(angle), angle, salvo.damage_multiplier)
-	muzzle_flash.rotation = angle + deg_to_rad(90)
-	muzzle_flash.show()
-	muzzle_flash.play("fire")
+	bullet.fire(start_position, direction, angle, salvo.damage_multiplier)
+	if with_flash:
+		_play_muzzle_flash(start_position, angle)
+
+
+func _get_oval_offset(local_angle: float) -> Vector2:
+	var local_direction: Vector2 = Vector2.RIGHT.rotated(local_angle)
+	var x_ratio: float = local_direction.x / maxf(oval_half_length, 1.0)
+	var y_ratio: float = local_direction.y / maxf(oval_half_width, 1.0)
+	return local_direction / sqrt(x_ratio * x_ratio + y_ratio * y_ratio)
+
+func _play_muzzle_flash(start_position: Vector2, angle: float) -> void:
+	var muzzle_flash: MuzzleFlashVFX = muzzle_flashes[muzzle_flash_index]
+	muzzle_flash_index = (muzzle_flash_index + 1) % muzzle_flashes.size()
+	muzzle_flash.activate(start_position, angle)

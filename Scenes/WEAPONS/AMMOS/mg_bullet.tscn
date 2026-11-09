@@ -17,6 +17,7 @@ monitorable = false
 script = ExtResource("1_64sch")
 bullet_data = ExtResource("2_0f2xj")
 tracers = [NodePath("Tracer"), NodePath("Tracer/TracerCore")]
+tracer_duration = 0.07
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1212305147]
 modulate = Color(1.353256, 1.353256, 1.353256, 1)

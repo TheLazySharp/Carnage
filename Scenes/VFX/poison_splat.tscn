@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://c1c1mfll805km"]
+
+[ext_resource type="Script" uid="uid://dkeaxycjj55th" path="res://Scripts/VFX/poison_splat.gd" id="1_hunnq"]
+[ext_resource type="Texture2D" uid="uid://cxvdh7kd6q63d" path="res://Assets/Léonce/VFX/Smoke/particle_misc02.png" id="1_je4hw"]
+[ext_resource type="Texture2D" uid="uid://cqij74idu6om1" path="res://Assets/Léonce/VFX/shards_particles.png" id="2_hunnq"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5e1og"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_4eyv7"]
+offsets = PackedFloat32Array(0.65486723, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mnft1"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_xadfk"]
+offsets = PackedFloat32Array(0.23303835, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="PoisonSplat" type="Node2D" unique_id=801604003]
+script = ExtResource("1_hunnq")
+
+[node name="PoisonSplatter" type="CPUParticles2D" parent="." unique_id=1254819072]
+material = SubResource("CanvasItemMaterial_5e1og")
+emitting = false
+amount = 16
+texture = ExtResource("1_je4hw")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 52.91
+initial_velocity_max = 396.13
+color = Color(0.39039737, 0.5343609, 0.084523864, 1)
+color_ramp = SubResource("Gradient_4eyv7")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Shards" type="CPUParticles2D" parent="PoisonSplatter" unique_id=942600144]
+material = SubResource("CanvasItemMaterial_mnft1")
+emitting = false
+amount = 4
+texture = ExtResource("2_hunnq")
+lifetime = 0.15000000000000002
+one_shot = true
+explosiveness = 0.9
+randomness = 0.3
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+damping_min = 135.815
+damping_max = 135.815
+color_ramp = SubResource("Gradient_xadfk")
+anim_offset_max = 1.0
+
+[connection signal="finished" from="PoisonSplatter" to="." method="_on_poison_splatter_finished"]
+[connection signal="finished" from="PoisonSplatter/Shards" to="." method="_on_shards_finished"]

@@ -50,7 +50,7 @@ enum Status { NONE, BURN, POISON, SHOCK, FREEZE }
 
 const STATUS_TICK : Dictionary[Status, float] = {
 	Status.BURN: 0.25,
-	Status.POISON: 0.75,
+	Status.POISON: 1.0,
 }
 ## Death animation when a status tick kills
 const STATUS_DEATH : Dictionary[Status, DEATH_TYPES] = {

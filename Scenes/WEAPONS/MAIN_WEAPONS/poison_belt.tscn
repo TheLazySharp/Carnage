@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bnopl2i1ubyi1"]
+
+[ext_resource type="Script" uid="uid://bpdh5ftwmbue2" path="res://Scripts/WEAPONS/MAIN WEAPONS/poison_belt.gd" id="1_farfc"]
+[ext_resource type="Resource" uid="uid://hlo3f63kk5an" path="res://Resources/Weapons/Main Weapons/poison_belt.tres" id="2_3gnes"]
+
+[node name="PoisonBelt" type="Node2D" unique_id=1646551024]
+script = ExtResource("1_farfc")
+poison_belt_data = ExtResource("2_3gnes")
+
+[node name="PoisonLaunchSFX" type="AudioStreamPlayer2D" parent="." unique_id=1011108374]

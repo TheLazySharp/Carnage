@@ -158,3 +158,5 @@ MASTERY_GET;Get %s;Obtiens %s
 LOADOUT_MASTERY_ON;Active: confirm to switch it off;Actif : valide pour le désactiver
 LOADOUT_MASTERY_OFF;Off: confirm to switch it on;Désactivé : valide pour l’activer
 LOADOUT_MASTERY_LOCKED;Upgrade %s to level 5 to unlock it;Monte %s au niveau 5 pour le débloquer
+CHARM_ROSE;Rose;Rose
+CHARM_ROSE_DESC;Your drift trail leaves spikes that damage the zombies walking on them.;Ta trace de drift laisse des picots qui blessent les zombies qui marchent dessus.

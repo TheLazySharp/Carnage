@@ -13,7 +13,6 @@ base_maneuvers = Array[int]([0, 7, 1, 4])
 ultimate_scene = ExtResource("4_slxi1")
 base_combo_window = 8.0
 base_combo_max = 7.0
-base_charm_slots = 2
 base_acceleration = 200
 base_max_speed = 220
 base_dmg = 1

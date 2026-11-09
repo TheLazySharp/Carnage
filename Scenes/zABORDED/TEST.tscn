@@ -4659,7 +4659,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ni8qe")
 }],
-"loop": 0,
+"loop": 1,
 "name": &"MuzzleFlash03",
 "speed": 25.0
 }, {
@@ -4941,7 +4941,7 @@ particles_anim_loop = false
 offsets = PackedFloat32Array(0, 0.2909699, 0.71571904, 1)
 colors = PackedColorArray(0.42466667, 0.52, 0, 0, 0.42344004, 0.51552075, 1.92523e-07, 1, 0.4120384, 0.6860027, 0, 1, 0.414, 0.69, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cbgfx"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_at31f"]
 gradient = SubResource("Gradient_7ei5d")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gd1db"]
@@ -4953,7 +4953,7 @@ initial_velocity_max = 19.48
 gravity = Vector3(0, 0, 0)
 radial_accel_min = 99.99999
 radial_accel_max = 99.99999
-color_ramp = SubResource("GradientTexture1D_cbgfx")
+color_ramp = SubResource("GradientTexture1D_at31f")
 hue_variation_min = -0.100000024
 hue_variation_max = 0.09999997
 anim_speed_min = 1.0
@@ -6500,7 +6500,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1055284836]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1065644579]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -6533,10 +6533,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=2097340711]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=158987105]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1316123542]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1312572470]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -6553,7 +6553,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=459225839]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1611910152]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -7083,7 +7083,7 @@ visible = false
 position = Vector2(2040, 1112)
 
 [node name="MuzzleFlash01" type="AnimatedSprite2D" parent="." unique_id=198525341]
-position = Vector2(2067, 1234)
+position = Vector2(1968.9674, 1132.9324)
 sprite_frames = SubResource("SpriteFrames_1xj8r")
 animation = &"MuzzleFlash04"
 
@@ -7092,7 +7092,7 @@ position = Vector2(-5.51, 0)
 emitting = false
 amount = 3
 texture = ExtResource("145_5du53")
-lifetime = 0.09999999999999999
+lifetime = 0.1
 one_shot = true
 explosiveness = 0.8
 randomness = 0.8
@@ -7151,7 +7151,6 @@ sprite_frames = SubResource("SpriteFrames_cbgfx")
 
 [node name="Pivot" type="Node2D" parent="PoisonAnimation/PoisonVial" unique_id=2045341449]
 position = Vector2(1, 0)
-rotation = 5.451253
 
 [node name="PoisonParticles" type="GPUParticles2D" parent="PoisonAnimation/PoisonVial/Pivot" unique_id=2096424537]
 z_index = 8

@@ -451,7 +451,8 @@ func _refresh_charms() -> void:
 	for i: int in mastery_cells.size():
 		_style_mastery_cell(i)
 	if slots_label != null:
-		slots_label.text = "%s : %d/%d" % [tr("LOADOUT_TAB_CHARMS"), CharmsManager.holder.size(), CharmsManager.get_slot_count()]
+		slots_label.text = str("Charms : ", CharmsManager.holder.size(),"/",CharmsManager.get_slot_count())
+		#slots_label.text = "%s : %d/%d" % [tr("LOADOUT_TAB_CHARMS"), CharmsManager.holder.size(), CharmsManager.get_slot_count()]
 	if charm_description_label != null:
 		var charm: CharmData = _get_focused_charm()
 		if charm == null:

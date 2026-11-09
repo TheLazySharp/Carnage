@@ -16,6 +16,11 @@ const GRENADE = preload("uid://bp0x5m5caby4l")
 const GRENADE_BELT = preload("uid://dcaqmwjtwjml4")
 const SAW = preload("uid://bla2di7wvuhnn")
 const SAW_CARRIER = preload("uid://d3713cb4urg63")
+const POISON_VIAL = preload("uid://ce4ashdy18nn3")
+const POISON_BELT = preload("uid://hlo3f63kk5an")
+
+
+
 
 var weapon_scenes: Array[Array] = []
 var weapons : Array[WeaponData] = []
@@ -56,6 +61,7 @@ func load_weapons() -> void:
 	locked_weapon(BAT_HANDLER)
 	locked_weapon(GRENADE_BELT)
 	locked_weapon(SAW_CARRIER)
+	locked_weapon(POISON_BELT)
 	#  weapon_scenes.append(["name", "scene UID", preload("scene UID")])
 	weapon_scenes.append(["revolver", "uid://bf606njwyoo0l", preload("uid://bf606njwyoo0l")])
 	weapon_scenes.append(["bullet", "uid://dww6b787qn3x0", preload("uid://dww6b787qn3x0")])
@@ -71,6 +77,8 @@ func load_weapons() -> void:
 	weapon_scenes.append(["grenade_belt", "uid://cv2a4pt15kqm0", preload("uid://cv2a4pt15kqm0")])
 	weapon_scenes.append(["saw", "uid://dmpgkp1cor6kw", preload("uid://dmpgkp1cor6kw")])
 	weapon_scenes.append(["saw_carrier", "uid://d0scglw5kyu05", preload("uid://d0scglw5kyu05")])
+	weapon_scenes.append(["poison_vial", "uid://dsmeqe0gu8kk6", preload("uid://dsmeqe0gu8kk6")])
+	weapon_scenes.append(["poison_belt", "uid://bnopl2i1ubyi1", preload("uid://bnopl2i1ubyi1")])
 
 	
 func test_weapons() ->void:

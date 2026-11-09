@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://hlo3f63kk5an"]
+
+[ext_resource type="Script" uid="uid://b4w306m6nlsvc" path="res://Resources/Scripts/weapon_data.gd" id="1_waodu"]
+[ext_resource type="Resource" uid="uid://ce4ashdy18nn3" path="res://Resources/Weapons/Ammos/poison_vial.tres" id="2_waodu"]
+[ext_resource type="PackedScene" uid="uid://dsmeqe0gu8kk6" path="res://Scenes/WEAPONS/AMMOS/poison_vial.tscn" id="3_a7cj8"]
+[ext_resource type="Texture2D" uid="uid://dst4vom4fc4ea" path="res://Assets/weapons/poison_belt.png" id="4_v7vlu"]
+[ext_resource type="AudioStream" uid="uid://dokj0b23rofhr" path="res://Assets/Audio/SFX/Weapons/glass/fizz.mp3" id="5_a7cj8"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1ene1"]
+streams_count = 1
+stream_0/stream = ExtResource("5_a7cj8")
+
+[resource]
+script = ExtResource("1_waodu")
+weapon_ref = 41
+weapon_name = "Poison Vial Belt"
+weapon_icon = ExtResource("4_v7vlu")
+max_level = 35
+description = "Throw poison vial"
+type_1 = 5
+weapon_scene_uid = "uid://bnopl2i1ubyi1"
+weapon_ammo_scene = ExtResource("3_a7cj8")
+weapon_ammo_res = ExtResource("2_waodu")
+weapon_sfx = SubResource("AudioStreamRandomizer_1ene1")
+base_dmg = 0
+base_radius = 0
+base_speed_rotation = 0
+base_nb_ammo = 0
+assigned_maneuvers = Array[int]([0, 1, 2, 7, 4, 5, 6])
+salvo_base_stat = 9
+drift_level_bonus = 0.25
+amplified_multiplier = 2.0
+combo_projectile_share = 0.3
+combo_damage_share = 0.2
+dmg_on_resources = 0
+metadata/_custom_type_script = "uid://b4w306m6nlsvc"

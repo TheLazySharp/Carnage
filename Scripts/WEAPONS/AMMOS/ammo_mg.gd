@@ -10,6 +10,7 @@ extends Area2D
 ## points snapped to this grid (pixel art)
 @export var tracer_pixel_size: int = 1
 
+
 var speed : float
 var max_range : float
 var damages : int
@@ -21,6 +22,8 @@ var max_range_squared: float
 var damage_multiplier: float = 1.0  # set per shot (combo)
 var velocity : Vector2
 var start_position : Vector2
+
+
 
 @onready var parent_weapon: Node2D = $"/root/World/Car/Weapons/Minigun"
 @onready var camera_2d: Camera2D = $/root/World/Car/Camera2D
@@ -43,6 +46,9 @@ func _ready() -> void:
 	damages = int(bullet_data.dmg.get_value())
 	ray_params.collision_mask = wall_mask
 	ray_params.collide_with_areas = false
+
+
+	
 	if not is_active:
 		set_process(false)
 	for tracer: Line2D in tracers:

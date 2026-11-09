@@ -84,9 +84,9 @@ const AMMO_BOOSTS_UIDS : Array[String] = [
 	"uid://ckf34b0eo613m", #grenade rare
 ]
 const ALL_CHARMS_UIDS : Array[String] = [
-	"uid://cycv6edr3ie0h", #invincibility
-	"uid://dkm27p4j8u1jj", #shop discount
-	"uid://dig2dq8y0nvfs", #add 1 projectile on all weapons
+	"uid://cycv6edr3ie0h", #cap : invincibility
+	"uid://dkm27p4j8u1jj", # hawaiian : shop discount
+	"uid://dig2dq8y0nvfs", # bullet : add 1 projectile on all weapons
 	"uid://dgv25qwqvd5w3", #pennant : repeat same maneuver still increase combo
 	"uid://byrlcqr4l75j6", #dice : % chance to get a free amplified maneuver
 	"uid://bcojdkbw1matu", #hammer : wall collision in drift do not kill the drit and maneuver
@@ -138,7 +138,9 @@ enum CONST_REFS {
 	Charm_Dart,
 	Charm_Cheeseburger,
 	Charm_Syringe,
-	Spikes
+	Spikes,
+	Poison_Vial,
+	Poison_Belt
 }
 
 var all_car_boosts : Array[BoostData] = []

@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://0vxea6g57j5i"]
+
+[ext_resource type="Texture2D" uid="uid://dfeuy22s14soa" path="res://Assets/Léonce/VFX/muzzle_flash01.png" id="1_5ait0"]
+[ext_resource type="Script" uid="uid://bejaa4i4j10l" path="res://Scripts/VFX/muzzle_flash.gd" id="1_porkb"]
+[ext_resource type="Texture2D" uid="uid://kqlm6dom5jhy" path="res://Assets/Léonce/VFX/muzzle_flash_particle01.png" id="2_porkb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv63a"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3qrm"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glj78"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ei5d"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umu21"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7et0f"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2lp1"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ruuf"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmr4g"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vt7u"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4fd4"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni8qe"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(72, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8kd1"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(0, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep35n"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(24, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edvwh"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(48, 72, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0k6c"]
+atlas = ExtResource("1_5ait0")
+region = Rect2(72, 72, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37gr2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv63a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3qrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glj78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ei5d")
+}],
+"loop": 0,
+"name": &"MuzzleFlash01",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umu21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7et0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2lp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ruuf")
+}],
+"loop": 0,
+"name": &"MuzzleFlash02",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmr4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vt7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4fd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ni8qe")
+}],
+"loop": 0,
+"name": &"MuzzleFlash03",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8kd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep35n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edvwh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0k6c")
+}],
+"loop": 0,
+"name": &"MuzzleFlash04",
+"speed": 25.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_vu74h"]
+offsets = PackedFloat32Array(0.45132744, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="MuzzleFlash" type="Node2D" unique_id=539290212]
+z_index = 5
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_porkb")
+
+[node name="MuzzleAnimation" type="AnimatedSprite2D" parent="." unique_id=512838365]
+sprite_frames = SubResource("SpriteFrames_37gr2")
+animation = &"MuzzleFlash04"
+
+[node name="FlashParticles" type="CPUParticles2D" parent="MuzzleAnimation" unique_id=1811342778]
+emitting = false
+amount = 5
+texture = ExtResource("2_porkb")
+lifetime = 0.1
+one_shot = true
+explosiveness = 0.8
+randomness = 0.8
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 300.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = 1.0
+color_ramp = SubResource("Gradient_vu74h")
+
+[connection signal="animation_finished" from="MuzzleAnimation" to="." method="_on_muzzle_animation_animation_finished"]
+[connection signal="finished" from="MuzzleAnimation/FlashParticles" to="." method="_on_flash_particles_finished"]

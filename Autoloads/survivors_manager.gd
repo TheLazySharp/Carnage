@@ -5,7 +5,7 @@ const BORIS = preload("uid://co2hy6ybsg7b6")
 const JAVIER = preload("uid://b5ctlqm42kkmh")
 const LARA = preload("uid://dxhcqb7igjvjw")
 const LEO = preload("uid://b6nh0gs2w1hog")
-#const MARINA = preload("uid://d3q6e2ttbedxt")
+const MARINA = preload("uid://d3q6e2ttbedxt")
 const VIKTOR = preload("uid://c4cxif75gn4yr")
 const PETER = preload("uid://dmkjdk1jmfb4v")
 
@@ -19,7 +19,7 @@ const ALL_SURVIVORS : Array = [
 	LARA,
 	LEO,
 	PETER,
-	#MARINA,
+	MARINA,
 ]
 
 # ---- META (kept between runs) ----
@@ -78,6 +78,7 @@ func survivor_admninistration() -> void :
 	known_survivors.append(JAVIER)
 	known_survivors.append(LEO)
 	known_survivors.append(PETER)
+	known_survivors.append(MARINA)
 	
 	#locked_survivors.append(BORIS)
 	#locked_survivors.append(LARA)
