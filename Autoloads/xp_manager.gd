@@ -28,7 +28,7 @@ var game_paused : bool = false
 var raid_xp : int = 0  # DEBUG: XP gained in the current raid (curve tuning)
 
 ## XP needed to go from level L to L+1 = LEVEL_COST_SCALE * (L + LEVEL_COST_OFFSET) ^ LEVEL_COST_EXPONENT
-const LEVEL_COST_SCALE : float = 8.0
+const LEVEL_COST_SCALE : float = 32.0
 const LEVEL_COST_OFFSET : int = 3
 const LEVEL_COST_EXPONENT : float = 2.0
 
@@ -39,19 +39,13 @@ enum XP_TYPES {
 	XP_10
 }
 
-# Loaded at runtime in _ready(), NOT preloaded: xp_data.gd references XPManager,
-# so a preload here creates a load cycle that breaks the exported game
 const XP_SPHERE_1_UID : String = "uid://b1rnp8w8r7smq"
-#const XP_SPHERE_2_UID : String = "uid://fxr6ftyl6c2j"
-#const XP_SPHERE_5_UID : String = "uid://bvo82cae7qnoy"
 
 var xp_ressources : Dictionary = {}
 
 
 func _ready() -> void:
 	xp_ressources[XP_TYPES.XP_1] = load(XP_SPHERE_1_UID)
-	#xp_ressources[XP_TYPES.XP_2] = load(XP_SPHERE_2_UID)
-	#xp_ressources[XP_TYPES.XP_5] = load(XP_SPHERE_5_UID)
 	
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.next_day.connect(_on_raid_ended)
@@ -101,6 +95,33 @@ func process_next_xp() -> void :
 	
 	await get_tree().create_timer(xp_delay).timeout
 	process_next_xp()
+
+
+## End of raid: adds the score as XP, credits the levels gained (available_upgrades) and returns
+## the needle segments for the score screen: [{ "level", "from", "to", "level_up" }], from / to = 0..1 of that level.
+## One segment per level crossed: level_up = true -> needle to the right, gear change, back to the left
+func add_raid_xp(xp_gain : int) -> Array[Dictionary]:
+	var segments : Array[Dictionary] = []
+	var remaining : int = maxi(xp_gain, 0)
+	while true:
+		var target : int = xp_levels[current_level]
+		var from_ratio : float = float(current_xp) / target
+		var space : int = target - current_xp
+		if remaining >= space and current_level < total_levels:
+			segments.append({"level": current_level, "from": from_ratio, "to": 1.0, "level_up": true})
+			remaining -= space
+			current_level += 1
+			current_xp = 0
+			available_upgrades += 1
+		else:
+			current_xp = mini(current_xp + remaining, target)
+			segments.append({"level": current_level, "from": from_ratio, "to": float(current_xp) / target, "level_up": false})
+			break
+	current_level_target_xp = xp_levels[current_level]
+	emit_signal("update_level", current_level)
+	emit_signal("update_xp", current_xp)
+	emit_signal("update_max_xp_target", current_level_target_xp)
+	return segments
 
 
 func level_up() -> void:

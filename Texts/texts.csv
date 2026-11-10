@@ -161,3 +161,24 @@ LOADOUT_MASTERY_LOCKED;Upgrade %s to level 5 to unlock it;Monte %s au niveau 5 p
 CHARM_ROSE;Rose;Rose
 CHARM_ROSE_DESC;Your drift trail leaves spikes that damage the zombies walking on them.;Ta trace de drift laisse des picots qui blessent les zombies qui marchent dessus.
 LOADOUT_MASTERY_SLOTS;Spec Charms;Spec Charms
+CHARM_HEART;Second Life;Seconde vie
+CHARM_HEART_DESC;Once per run, instead of dying, the car comes back with half its blood.;Une fois par partie, au lieu de mourir, la voiture repart avec la moitié de son sang.
+CHARM_ROCKET;Rocket;Rocket
+CHARM_ROCKET_DESC;The zombie thrown by a perfect hit crosses the horde, hurting everything on its way, until it bursts against a wall.;Le zombie projeté par un coup parfait traverse la horde en blessant tout sur son passage, jusqu’à éclater contre un mur.
+CHARM_RAM;Ram;Bélier
+CHARM_RAM_DESC;At speed, the zombies you hit head-on are thrown ahead and burst on those in front.;Lancée à vive allure, la voiture projette les zombies percutés de face, qui éclatent sur ceux de devant.
+CHARM_OVERDRIVE;Overdrive;Surrégime
+CHARM_OVERDRIVE_DESC;While dashing, the car kills common zombies in one hit and no longer slows down when hitting them.;Pendant le dash, la voiture tue d’un coup les zombies communs et ne ralentit plus en les percutant.
+SCORE_KILLS_COMMON;Zombies;Zombies
+SCORE_KILLS_COLOSS;Coloss;Colosses
+SCORE_KILLS_TANK;Tanks;Tanks
+SCORE_KILLS_FAST;Runners;Coureurs
+SCORE_KILLS_LAUNCHER;Launchers;Lanceurs
+SCORE_DISTANCE;Distance;Distance
+SCORE_HORDES;Hordes wiped out;Hordes anéanties
+SCORE_MANEUVERS;Maneuvers;Manœuvres
+SCORE_AMPLIFIED;Dashed maneuvers;Manœuvres dashées
+SCORE_PERFECT_HITS;Perfect hits;Coups parfaits
+SCORE_DAMAGE_TAKEN;Damage taken;Dégâts subis
+SCORE_COMBO;Max combo;Combo max
+SCORE_TOTAL;Total;Total

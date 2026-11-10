@@ -1,14 +1,11 @@
 [gd_scene format=3 uid="uid://cgcffox7hd5rk"]
 
-[ext_resource type="Script" uid="uid://dlitht070wmyn" path="res://Scripts/LEVELUP/leveling.gd" id="1_6sbp8"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_a2wwf"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_gt0yx"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_6t8lo"]
-[ext_resource type="Script" uid="uid://1ip2euf7mcol" path="res://Scripts/LEVELUP/leveling_weapons.gd" id="5_p64v4"]
 [ext_resource type="Script" uid="uid://bnfkyuguhwr7h" path="res://Scripts/LEVELUP/levelup_icon.gd" id="6_inetq"]
 [ext_resource type="FontFile" uid="uid://ka3caedu5yxc" path="res://Fonts/ARCADEPI.TTF" id="7_8302b"]
 [ext_resource type="Script" uid="uid://dl8tp3idajii5" path="res://Scripts/FONTS/GUI_button.gd" id="8_m3oh7"]
-[ext_resource type="Script" uid="uid://bosjvfxlih3bo" path="res://Scripts/LEVELUP/leveling_ammos.gd" id="9_f51xe"]
 [ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="10_fw72e"]
 [ext_resource type="Script" uid="uid://p1oaleyi5pio" path="res://Scripts/LEVELUP/levelup_label_Lvl.gd" id="11_qrg5i"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="12_05kyw"]
@@ -126,7 +123,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_6sbp8")
 
 [node name="LevelingBkgd" type="ColorRect" parent="." unique_id=440472600]
 layout_mode = 1
@@ -200,12 +196,11 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-script = ExtResource("5_p64v4")
 
 [node name="GridContainer" type="GridContainer" parent="WeaponsContainer" unique_id=854795896]
-layout_direction = 2
 layout_mode = 2
 size_flags_vertical = 0
+layout_direction = 2
 theme_override_constants/h_separation = 14
 columns = 5
 
@@ -215,8 +210,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot0" unique_id=1337495510]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot0/Weapon" unique_id=583215888]
@@ -296,8 +291,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot1" unique_id=1255056579]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot1/Weapon" unique_id=200867466]
@@ -377,8 +372,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot2" unique_id=393174059]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot2/Weapon" unique_id=897457982]
@@ -458,8 +453,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot3" unique_id=129035100]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot3/Weapon" unique_id=114856513]
@@ -539,8 +534,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Weapon" type="Panel" parent="WeaponsContainer/GridContainer/WeaponSlot4" unique_id=824259991]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="WeaponsContainer/GridContainer/WeaponSlot4/Weapon" unique_id=637999651]
@@ -630,12 +625,11 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-script = ExtResource("9_f51xe")
 
 [node name="GridContainer" type="GridContainer" parent="AmmoContainer" unique_id=917789848]
-layout_direction = 2
 layout_mode = 2
 size_flags_vertical = 0
+layout_direction = 2
 theme_override_constants/h_separation = 14
 columns = 5
 
@@ -646,8 +640,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot0" unique_id=737552345]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot0/Ammo" unique_id=1105036065]
@@ -729,8 +723,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot1" unique_id=1082142733]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot1/Ammo" unique_id=2004122582]
@@ -812,8 +806,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot2" unique_id=943184775]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot2/Ammo" unique_id=1493682070]
@@ -895,8 +889,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot3" unique_id=868986304]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot3/Ammo" unique_id=1187979883]
@@ -978,8 +972,8 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="Ammo" type="Panel" parent="AmmoContainer/GridContainer/AmmoSlot4" unique_id=1005164980]
-clip_contents = true
 custom_minimum_size = Vector2(140, 140)
+clip_contents = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AmmoContainer/GridContainer/AmmoSlot4/Ammo" unique_id=1065099857]
@@ -1107,6 +1101,8 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("11_qrg5i")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [node name="AnimUpgrade" type="AnimationPlayer" parent="TextPanel/WeaponLevels" unique_id=1407380206]
 libraries/ = SubResource("AnimationLibrary_p4ios")
@@ -1145,6 +1141,8 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("11_qrg5i")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [node name="AnimUpgrade" type="AnimationPlayer" parent="TextPanel/AmmoLevels" unique_id=1901992062]
 libraries/ = SubResource("AnimationLibrary_p4ios")

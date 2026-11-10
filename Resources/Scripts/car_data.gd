@@ -169,6 +169,8 @@ var second_life_enabled : bool = false
 var second_life_ratio : float = 0.5
 var second_life_used : bool = false
 var rocket_enabled : bool = false
+var ram_enabled : bool = false
+var overdrive_enabled : bool = false
 
 func init_stats() -> void:
 	if CarManager.unlocked_cars.has(self):
@@ -214,6 +216,8 @@ func init_stats() -> void:
 	second_life_enabled = false
 	second_life_used = false
 	rocket_enabled = false
+	ram_enabled = false
+	overdrive_enabled = false
 	
 	part_levels.clear()
 	mastered_parts.clear()

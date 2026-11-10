@@ -459,7 +459,7 @@ func on_death(death_direction: Vector2 = Vector2.ZERO, death_force: float = 0.0,
 
 	# 2. drops
 	#XP
-	collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
+	#collectable_pool.spawn_xp(global_position, XPManager.xp_ressources[enemy.xp_type])
 	#if enemy.drops_dollar:
 		#collectable_pool.spawn_dollar(global_position)
 
@@ -503,7 +503,7 @@ func on_coloss_death() -> void :
  
 	unregister_from_renderer()
  
-	SignalManager.emit_signal("enemy_is_dead", self, self.horde)
+	#SignalManager.emit_signal("enemy_is_dead", self, self.horde)
   
 func unregister_from_renderer() -> void:
 	if mm_pool and mm_index >= 0:

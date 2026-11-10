@@ -182,6 +182,8 @@ signal survivor_rescued(survivor : SurvivorData)
 # ----- ENEMIES ----
 @warning_ignore("unused_signal")
 signal poisoned_enemy_died(death_position : Vector2)  # a poisoned enemy died: poison puddle on the ground (to come)
+@warning_ignore("unused_signal")
+signal horde_destroyed  # last member of a horde killed (end of raid score)
 
 # ---- DEAD LAPS -----
 @warning_ignore("unused_signal")

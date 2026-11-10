@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://csm4r4rww0jkc"]
+
+[ext_resource type="Script" uid="uid://b6an5a23q11w" path="res://Scripts/CHARMS/charm_overdrive.gd" id="1_fmvya"]
+[ext_resource type="Texture2D" uid="uid://b7klj08dkbv6q" path="res://Assets/placeholders/Icons/Skillicon1_14.png" id="2_fmvya"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_kfr5k"]
+
+[resource]
+script = ExtResource("3_kfr5k")
+ref = 45
+name = "CHARM_OVERDRIVE"
+icon = ExtResource("2_fmvya")
+description = "CHARM_OVERDRIVE_DESC"
+effect_script = ExtResource("1_fmvya")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

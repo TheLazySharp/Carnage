@@ -22,7 +22,8 @@ enum SCENES {
 	DEAD_LAPS_WIN,
 	TUTORIAL,
 	SANDBOX_NEW,
-	SURVIVOR_RECAP
+	SURVIVOR_RECAP,
+	SCORE
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -49,6 +50,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.TUTORIAL : "uid://cq2s06r5jphru",
 	SCENES.SANDBOX_NEW : "uid://doy16umvky4m1",
 	SCENES.SURVIVOR_RECAP : "uid://n80vprxw83m5",
+	SCENES.SCORE : "uid://bepq3whxkt0bw",
 }
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
@@ -180,7 +182,7 @@ func load_post_raid() -> void:
 	if InventoryManager.has_reward:
 		load_level(SCENES.REWARDS)
 	else:
-		load_level(SCENES.CAR_LEVELUP)
+		load_level(SCENES.SCORE)
 
 func unload_game() -> void:
 	XPManager.unload()

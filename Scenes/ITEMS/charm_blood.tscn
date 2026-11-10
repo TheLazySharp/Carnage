@@ -121,6 +121,7 @@ offset_top = 34.0
 offset_right = 37.0
 offset_bottom = 108.0
 grow_horizontal = 2
+color = Color(0.096204735, 0.09620475, 0.096204735, 1)
 
 [node name="Icon" type="TextureRect" parent="Confirm/MarginContainer/Card/PanelColor/IconBkg" unique_id=1397811881]
 custom_minimum_size = Vector2(64, 64)

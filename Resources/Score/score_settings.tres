@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ScoreSettings" format=3 uid="uid://dsnfw873homux"]
+
+[ext_resource type="Script" uid="uid://ch4w2w8q51iv8" path="res://Resources/Scripts/score_settings.gd" id="1_nt0cx"]
+
+[resource]
+script = ExtResource("1_nt0cx")
+kill_points = Dictionary[int, int]({
+0: 1,
+2: 3
+})
+metadata/_custom_type_script = "uid://ch4w2w8q51iv8"

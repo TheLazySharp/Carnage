@@ -145,8 +145,10 @@ func step_player_detection() -> void:
 			return
 
 func _on_enemy_death(dead_enemy : Enemy, dead_enemy_horde : Array) -> void : 
-	if dead_enemy_horde != null:
+	if dead_enemy_horde != null and dead_enemy_horde.has(dead_enemy):
 		dead_enemy_horde.erase(dead_enemy)
+		if dead_enemy_horde.is_empty():
+			SignalManager.horde_destroyed.emit()
 	
 	var was_leader : bool = dead_enemy.is_leader
 	#dead_enemy.queue_free()

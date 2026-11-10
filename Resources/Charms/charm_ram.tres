@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharmData" format=3 uid="uid://y7u746yra67u"]
+
+[ext_resource type="Script" uid="uid://b7oocjmlxeop4" path="res://Scripts/CHARMS/charm_ram.gd" id="1_kuqlw"]
+[ext_resource type="Texture2D" uid="uid://ctgc1qobt7sy0" path="res://Assets/placeholders/Icons/Skillicon1_28.png" id="2_4qdc7"]
+[ext_resource type="Script" uid="uid://glp77jy3lf6n" path="res://Resources/Scripts/charm_data.gd" id="3_86ye4"]
+
+[resource]
+script = ExtResource("3_86ye4")
+ref = 44
+name = "CHARM_RAM"
+icon = ExtResource("2_4qdc7")
+description = "CHARM_RAM_DESC"
+p_value = 0.5
+p_value_descr = "speed floor ratio"
+effect_script = ExtResource("1_kuqlw")
+metadata/_custom_type_script = "uid://glp77jy3lf6n"

@@ -94,7 +94,7 @@ var style_locked_focus : StyleBoxFlat
 
 
 func _ready() -> void:
-	XPManager.available_upgrades = 5
+	#XPManager.available_upgrades = 5
 	hide()
 	if XPManager.available_upgrades < 1:
 		SceneManager.load_level(SceneManager.SCENES.SHOP)

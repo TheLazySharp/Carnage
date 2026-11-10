@@ -54,7 +54,7 @@ bg_color = Color(0.45490196, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ie8k"]
 bg_color = Color(0.12225222, 0.12225225, 0.12225217, 1)
 
-[node name="CarLevelUp" type="Control" unique_id=2121295686 node_paths=PackedStringArray("level_up_rows", "upgrade_desc_label", "validate_button", "undo_hint_label")]
+[node name="CarLevelUp" type="Control" unique_id=2121295686 node_paths=PackedStringArray("level_up_rows", "upgrade_desc_label", "validate_button", "undo_hint_label", "mastery_icon")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,6 +66,7 @@ level_up_rows = NodePath("LevelUp")
 upgrade_desc_label = NodePath("UpgradeDesc")
 validate_button = NodePath("VBoxContainer/Confirm")
 undo_hint_label = NodePath("CancelHint")
+mastery_icon = NodePath("UpgradeDesc/TextureRect")
 
 [node name="Background" type="ColorRect" parent="." unique_id=693917777]
 layout_mode = 1

@@ -17,13 +17,16 @@ var friction : float = 0.0
 var turn_speed : float = 0.0
 var velocity_floor : float = 0
 
-
-
 @export_group("Charms")
 @export var second_life_invincibility : float = 2.0    # seconds of invincibility after the revival
 @export var second_life_blink_interval : float = 0.15  # one flash every N seconds while invincible
 @export var second_life_slowmo_duration : float = 0.6  # real seconds of slow motion
 @export var second_life_slowmo_scale : float = 0.3     # game speed during the slow motion
+@export var ram_cone_deg : float = 30.0         # front bumper mastery: half angle of the frontal cone
+@export var ram_min_speed_ratio : float = 0.5   # share of the max speed needed (moving forward)
+@export var overdrive_target_types : Array[EnemyManager.Enemy_Types] = [EnemyManager.Enemy_Types.COMMON]
+
+var is_dashing : bool = false #overdrive charm use
 
 
 # ---------------- SFX ----------------
@@ -163,8 +166,12 @@ func _ready() -> void:
 	#burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_dash())
 	burnout_manager.burnout_launched.connect(func() -> void: dash_manager.try_timed_dash())
 	dash_manager.init_dash(self, player,SurvivorsManager.on_board_survivors[0])
-	dash_manager.dash_started.connect(func() -> void: dashing.emit())
-	dash_manager.dash_ended.connect(func() -> void: dash_end.emit())
+	dash_manager.dash_started.connect(func() -> void:
+		is_dashing = true
+		dashing.emit())
+	dash_manager.dash_ended.connect(func() -> void:
+		is_dashing = false
+		dash_end.emit())
 	sprite_fx.init_fx(self, car_sprite, dash_manager)
 
 	# FUEL
@@ -447,18 +454,25 @@ func _on_hitbox_area_entered(area : Area2D) -> void:
 	if _is_perfect_drift_hit(hit_enemy):
 		_perfect_drift_hit(hit_enemy)
 		return
-	# Below velocity_floor: no damages, but the enemy is still bumped
+	# Front bumper mastery: frontal hit at speed, thrown ahead (classic perfect hit, never a rocket)
+	if _is_ram_hit(hit_enemy):
+		_throw_enemy(hit_enemy, velocity, false)
+		return
+	var overdrive_kill : bool = _is_overdrive_kill(hit_enemy)
 	var damages : int = 0
-	if velocity.length() >= velocity_floor:
+	if overdrive_kill:
+		damages = maxi(roundi(player.dmg.get_value()), hit_enemy.current_life)
+		StatsManager.total_car_dmg += damages
+	elif velocity.length() >= velocity_floor:
 		damages = roundi(player.dmg.get_value())
 		StatsManager.total_car_dmg += damages
 	var forward : Vector2 = Vector2.RIGHT.rotated(rotation)
 	var speed_ratio : float = velocity.length() / player.unscaled_speed()
 	if hit_enemy.hit_by_car(damages, velocity, forward, global_position, speed_ratio):
-		_apply_enemy_hit_slowdown()
+		if !overdrive_kill:
+			_apply_enemy_hit_slowdown()
 		sprite_fx.car_hit_kick(hit_enemy.global_position, speed_ratio)
 		JuiceManager.on_car_hit(speed_ratio)
-		# hit_by_car() just decided the throw: in the air = flung over the car
 		_car_hit_feedback(hit_enemy.air_duration > 0.0, speed_ratio)
 
 ## Each hit costs a bit of speed, capped per physics frame:
@@ -511,12 +525,31 @@ func _is_perfect_drift_hit(hit_enemy : Enemy) -> bool:
 
 
 func _perfect_drift_hit(hit_enemy : Enemy) -> void:
-	# Speed of the car body at the contact point: car velocity + rotation (the tail swipe)
+
 	var offset : Vector2 = hit_enemy.global_position - global_position
 	var tail_velocity : Vector2 = velocity + Vector2(-offset.y, offset.x) * angular_speed
 	var direction : Vector2 = tail_velocity if tail_velocity.length_squared() > 1.0 else offset
-	if !hit_enemy.launch_drift_hit(direction, player.drift_hit_power.get_value()):
-		return
+	if _throw_enemy(hit_enemy, direction, true):
+		SignalManager.perfect_drift_hit.emit(hit_enemy.global_position)
+
+
+func _is_ram_hit(hit_enemy : Enemy) -> bool:
+	if !player.ram_enabled:
+		return false
+	var forward : Vector2 = Vector2.RIGHT.rotated(rotation)
+	if velocity.dot(forward) < player.unscaled_speed() * ram_min_speed_ratio:
+		return false
+	var to_enemy : Vector2 = hit_enemy.global_position - global_position
+	if to_enemy.length_squared() < 0.01:
+		return false
+	return to_enemy.normalized().dot(forward) >= cos(deg_to_rad(ram_cone_deg))
+
+func _is_overdrive_kill(hit_enemy : Enemy) -> bool:
+	return player.overdrive_enabled and is_dashing and overdrive_target_types.has(hit_enemy.type)
+
+func _throw_enemy(hit_enemy : Enemy, direction : Vector2, can_pierce : bool) -> bool:
+	if !hit_enemy.launch_drift_hit(direction, player.drift_hit_power.get_value(), can_pierce):
+		return false
 	# Every hit: sprite kick and sound
 	sprite_fx.car_hit_kick(hit_enemy.global_position, 1.0)
 	_play_drift_hit_sfx()
@@ -526,9 +559,9 @@ func _perfect_drift_hit(hit_enemy : Enemy) -> void:
 		SignalManager.screen_shake_requested.emit(JUICE.drift_hit_launch_shake, 0.25)
 		Haptics.pulse(0.4, 1.0, 0.15)
 		SignalManager.drift_hit_juice.emit(hit_enemy.global_position)
-	SignalManager.perfect_drift_hit.emit(hit_enemy.global_position)
+	return true
 
-## Real time: the hit stop slows the game clock, not the sound
+
 func _play_drift_hit_sfx() -> void:
 	var now : float = Time.get_ticks_msec() / 1000.0
 	if now - last_drift_hit_sfx_time < DRIFT_HIT_SFX_MIN_INTERVAL:

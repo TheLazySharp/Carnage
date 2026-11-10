@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="15_wa8nx"]
 [ext_resource type="Script" uid="uid://q1x6o5hrm08l" path="res://Scripts/UI/strike_price.gd" id="16_wa8nx"]
 [ext_resource type="Texture2D" uid="uid://dmrml5clvddsu" path="res://Assets/LuckyCharms/magic_tree_gre.png" id="17_srxg8"]
-[ext_resource type="PackedScene" uid="uid://caiyd78rwxaxs" path="res://Scenes/UI/blood_bars.tscn" id="18_rchw7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vlox"]
 bg_color = Color(1, 1, 1, 1)
@@ -1853,6 +1852,7 @@ offset_top = 73.0
 offset_right = 37.0
 offset_bottom = 147.0
 grow_horizontal = 2
+color = Color(0.06053035, 0.06053035, 0.060530342, 1)
 
 [node name="Icon" type="TextureRect" parent="DescPanel/IconBkg" unique_id=1378856524]
 custom_minimum_size = Vector2(64, 64)
@@ -1886,8 +1886,6 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Maneuver upgrades desc"
 autowrap_mode = 2
-
-[node name="BloodBars" parent="." unique_id=831071856 instance=ExtResource("18_rchw7")]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Buttons/Reroll" to="." method="_on_reroll_pressed"]

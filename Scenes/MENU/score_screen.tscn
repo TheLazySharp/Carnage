@@ -1,0 +1,273 @@
+[gd_scene format=3 uid="uid://bepq3whxkt0bw"]
+
+[ext_resource type="Script" uid="uid://dcm6t5t437et1" path="res://Scripts/SCENES/score_screen.gd" id="1_23r8h"]
+[ext_resource type="AudioStream" uid="uid://c7gy36h1hdi1p" path="res://Assets/Audio/SFX/Impact/bullet_impact.mp3" id="2_1rf3y"]
+[ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_vl61d"]
+[ext_resource type="AudioStream" uid="uid://dwrv0yy7gj1p0" path="res://Assets/Audio/SFX/Impact/sword_impact.mp3" id="3_0rwg5"]
+[ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_6fehf"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_2v65v"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="7_1rf3y"]
+[ext_resource type="Texture2D" uid="uid://pi1q3pv4wn13" path="res://Assets/Items/speedometer.png" id="7_2v65v"]
+[ext_resource type="Script" uid="uid://dictxjasb63jo" path="res://Scripts/FONTS/GUI_text_24.gd" id="8_0rwg5"]
+[ext_resource type="Texture2D" uid="uid://b0b7qk5fot4tl" path="res://Assets/Items/needle.png" id="8_pl47y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fv041"]
+
+[node name="Score" type="Control" unique_id=1191983561]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_23r8h")
+quantity_sfx = ExtResource("2_1rf3y")
+score_sfx = ExtResource("3_0rwg5")
+total_sfx = ExtResource("3_0rwg5")
+step_delay = 0.5
+needle_fill_speed = 0.8
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=299801154]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="." unique_id=232484500]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -639.5
+offset_right = 639.5
+offset_bottom = 116.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_vl61d")
+theme_override_font_sizes/font_size = 64
+text = "SCORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+script = ExtResource("3_6fehf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=67429078]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -74.0
+offset_right = 113.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Ok" type="Button" parent="VBoxContainer" unique_id=1800549619]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_vl61d")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fv041")
+text = "OK"
+flat = true
+script = ExtResource("4_2v65v")
+
+[node name="Stats" type="Control" parent="." unique_id=1077771956]
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 14.0
+offset_right = 3.0
+offset_bottom = 14.0
+
+[node name="EndGameStats" type="VBoxContainer" parent="Stats" unique_id=1268968872]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 128.0
+offset_right = 565.0
+offset_bottom = 290.0
+theme_override_constants/separation = 16
+
+[node name="Stat" type="HBoxContainer" parent="Stats/EndGameStats" unique_id=2053077570]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Key" type="Label" parent="Stats/EndGameStats/Stat" unique_id=2053463166]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "Zombies killed :"
+script = ExtResource("8_0rwg5")
+
+[node name="Quantity" type="Label" parent="Stats/EndGameStats/Stat" unique_id=1312452559]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "150"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Multiply" type="Label" parent="Stats/EndGameStats/Stat" unique_id=427030229]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "x"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Points" type="Label" parent="Stats/EndGameStats/Stat" unique_id=1816146833]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "2"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Equal" type="Label" parent="Stats/EndGameStats/Stat" unique_id=694244122]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "="
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Score" type="Label" parent="Stats/EndGameStats/Stat" unique_id=608085333]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "300"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Total" type="HBoxContainer" parent="Stats/EndGameStats" unique_id=2120441526]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Key" type="Label" parent="Stats/EndGameStats/Total" unique_id=668293943]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "TOTAL :"
+script = ExtResource("8_0rwg5")
+
+[node name="Quantity" type="Label" parent="Stats/EndGameStats/Total" unique_id=50498706]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Multiply" type="Label" parent="Stats/EndGameStats/Total" unique_id=50454670]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Points" type="Label" parent="Stats/EndGameStats/Total" unique_id=741979215]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "2"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Equal" type="Label" parent="Stats/EndGameStats/Total" unique_id=158942259]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Score" type="Label" parent="Stats/EndGameStats/Total" unique_id=716746801]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "300"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Speedometer" type="TextureRect" parent="." unique_id=599331292]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 0
+offset_left = 848.0909
+offset_top = 225.36365
+offset_right = 976.0909
+offset_bottom = 353.36365
+texture = ExtResource("7_2v65v")
+
+[node name="Needle" type="TextureRect" parent="Speedometer" unique_id=574318421]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -2.0943952
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("8_pl47y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Speedometer" unique_id=1983220139]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Levels" type="HBoxContainer" parent="Speedometer/VBoxContainer" unique_id=966640869]
+layout_mode = 2
+alignment = 1
+
+[node name="Level" type="Label" parent="Speedometer/VBoxContainer/Levels" unique_id=244446608]
+layout_mode = 2
+text = "LEVEL "
+vertical_alignment = 1
+script = ExtResource("8_0rwg5")
+
+[node name="LevelNb" type="Label" parent="Speedometer/VBoxContainer/Levels" unique_id=85568266]
+layout_mode = 2
+text = "2"
+vertical_alignment = 1
+script = ExtResource("8_0rwg5")
+
+[node name="Upgrades" type="HBoxContainer" parent="Speedometer/VBoxContainer" unique_id=18497624]
+layout_mode = 2
+alignment = 1
+
+[node name="Upgrade" type="Label" parent="Speedometer/VBoxContainer/Upgrades" unique_id=1862846263]
+layout_mode = 2
+text = "UPGRADES : "
+vertical_alignment = 1
+script = ExtResource("8_0rwg5")
+
+[node name="UpgradesNb" type="Label" parent="Speedometer/VBoxContainer/Upgrades" unique_id=1560330536]
+layout_mode = 2
+text = "2"
+vertical_alignment = 1
+script = ExtResource("8_0rwg5")
+
+[connection signal="pressed" from="VBoxContainer/Ok" to="." method="_on_ok_pressed"]
