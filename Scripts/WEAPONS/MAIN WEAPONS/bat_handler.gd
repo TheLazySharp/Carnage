@@ -1,44 +1,45 @@
 extends Node2D
 
-@export var handler_data : WeaponData
-@onready var player: CharacterBody2D = $/root/World/Car
-
-var car : CarData
 const BASEBALL_BAT = preload("uid://c5g74aadec237")
-var car_height : float
-var spawn_pos_angles  : Array[float] = []
+
+@export var handler_data : WeaponData
+# Animation range of each maneuver (x = min, y = max, from 1 to 4). Not listed = no swing.
+## Short drift / horn: (1, 2). Spin 180 / reverse spin 180: (3, 3). Spin 360 / donut / burnout: (4, 4)
+@export var swing_range_by_maneuver : Dictionary[ManeuverManager.Type, Vector2i] = {}
+
+@onready var player : CharacterBody2D = $/root/World/Car
+
+var bat : BaseballBat
+var combo_multiplier : float = 1.0
+var game_paused : bool = false
 
 
 func _ready() -> void:
-	car = CarManager.selected_car
-	car_height = car.car_sprite.get_height()
-	spawn_baseballbat(player.rotation)
-	spawn_pos_angles = [
-		PI/2,
-		-PI/2,
-		0.0,
-		PI,
-		PI/4,
-		-PI/4,
-		3 * PI/4,
-		-3 * PI/4
-	]
+	bat = BASEBALL_BAT.instantiate() as BaseballBat
+	add_child(bat)
+	SignalManager.game_paused.connect(_on_game_paused)
+	SignalManager.combo_changed.connect(_on_combo_changed)
+	SignalManager.maneuver_performed.connect(_on_maneuver_performed)
+	SignalManager.maneuver_salvo_repeated.connect(_on_maneuver_performed)
 
-func _process(_delta: float) -> void:
-	if int(handler_data.nb_projectile.get_value()) == get_child_count(false):
+
+func _on_maneuver_performed(maneuver_type : ManeuverManager.Type, intensity : float, drift_level : int, is_amplified : bool, attack_angle : float) -> void:
+	if !handler_data.weapon_is_active or game_paused or LoadoutManager.get_weapon(maneuver_type) != handler_data:
 		return
-	spawn_baseballbat(player.rotation)
+	if !swing_range_by_maneuver.has(maneuver_type):
+		return
+	var swing_range : Vector2i = swing_range_by_maneuver[maneuver_type]
+	var count : int = handler_data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier)
+	var animation_index : int = clampi(count, swing_range.x, swing_range.y) - 1
+	# Side and front / rear from the maneuver direction, in car local space (like the other weapons)
+	var local_attack : Vector2 = Vector2.RIGHT.rotated(attack_angle - player.global_rotation)
+	var damage : int = roundi(bat.bat_data.dmg.get_value() * handler_data.get_combo_damage_multiplier(combo_multiplier, maneuver_type))
+	bat.swing(animation_index, local_attack.y > 0.0, local_attack.x < 0.0, damage)
 
 
-func spawn_baseballbat(car_rotation : float,p_nb_projectile : int = int(handler_data.nb_projectile.get_value()), origin : Vector2 = player.global_position) -> void : 
-	if get_child_count(false) > 0:
-		for i in get_children().size():
-			get_children()[i].queue_free()
-	
-	for i in range(min(p_nb_projectile,spawn_pos_angles.size())):
-		var angle : float = spawn_pos_angles[i] + car_rotation
-		var offset : Vector2 = Vector2.RIGHT.rotated(angle) * car_height * 0.5
-		var bat : Node2D = BASEBALL_BAT.instantiate()
-		add_child(bat)
-		bat.global_position = origin + offset
-		bat.global_rotation = spawn_pos_angles[i] - PI/2
+func _on_combo_changed(multiplier : float, _combo_count : int) -> void:
+	combo_multiplier = multiplier
+
+
+func _on_game_paused(game_on_pause : bool) -> void:
+	game_paused = game_on_pause

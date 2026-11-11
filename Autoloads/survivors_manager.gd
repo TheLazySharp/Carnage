@@ -1,25 +1,28 @@
 extends Node
 ## Survivors: meta unlocks (known / locked) and the current run (frozen pool, on board)
 
-const BORIS = preload("uid://co2hy6ybsg7b6")
+const DOMINIC = preload("uid://b6nh0gs2w1hog")
+const FREDRIK = preload("uid://co2hy6ybsg7b6")
 const JAVIER = preload("uid://b5ctlqm42kkmh")
 const LARA = preload("uid://dxhcqb7igjvjw")
-const LEO = preload("uid://b6nh0gs2w1hog")
 const MARINA = preload("uid://d3q6e2ttbedxt")
-const VIKTOR = preload("uid://c4cxif75gn4yr")
 const PETER = preload("uid://dmkjdk1jmfb4v")
+const CLEM = preload("uid://c4cxif75gn4yr")
+const ALMA = preload("uid://dvuusxwhxeiiy")
+
 
 
 
 ##preload ressources array
 const ALL_SURVIVORS : Array = [
-	VIKTOR,
-	BORIS,
+	CLEM,
+	FREDRIK,
 	JAVIER,
 	LARA,
-	LEO,
+	DOMINIC,
 	PETER,
 	MARINA,
+	ALMA,
 ]
 
 # ---- META (kept between runs) ----
@@ -34,6 +37,7 @@ var run_pool : Array[SurvivorData] = []            # frozen at run start: surviv
 var on_board_survivors : Array[SurvivorData] = []  # in the car ([0] = driver)
 var next_spawned_survivor : SurvivorData = null    # survivor of the district selected on the roadmap
 var rescued_survivor : SurvivorData = null
+var starting_job : JobData = null
 
 @warning_ignore("unused_signal")
 signal portrait_hovered(id : int)
@@ -46,6 +50,7 @@ signal in_game_survivor_queuefree
 func _ready() -> void:
 	SignalManager.district_survivor.connect(_on_district_selected)
 	SignalManager.sandbox_mode.connect(_on_sandbox_mode)
+	SignalManager.run_started.connect(_on_run_started)
 	if !administration_done:
 		administration_done = true
 		survivor_admninistration()
@@ -57,6 +62,7 @@ func select_survivor(new_survivor : SurvivorData) -> void:
 	if !on_board_survivors.is_empty() or !known_survivors.has(new_survivor):
 		return
 	on_board_survivors.append(new_survivor)
+	starting_job = new_survivor.job_ressource
 	run_pool.clear()
 	
 	if !known_survivors.is_empty():
@@ -72,19 +78,21 @@ func select_survivor(new_survivor : SurvivorData) -> void:
 	run_pool.shuffle()
 
 func survivor_admninistration() -> void : 
-	known_survivors.append(VIKTOR)
-	known_survivors.append(BORIS)
+	known_survivors.append(CLEM)
+	known_survivors.append(FREDRIK)
 	known_survivors.append(LARA)
 	known_survivors.append(JAVIER)
-	known_survivors.append(LEO)
+	known_survivors.append(DOMINIC)
 	known_survivors.append(PETER)
 	known_survivors.append(MARINA)
+	known_survivors.append(ALMA)
 	
-	#locked_survivors.append(BORIS)
+	#locked_survivors.append(FREDRIK)
 	#locked_survivors.append(LARA)
 	#locked_survivors.append(JAVIER)
-	#locked_survivors.append(LEO)
+	#locked_survivors.append(DOMINIC)
 	#locked_survivors.append(PETER)
+	#locked_survivors.append(ALMA)
 
 ## No survivor on the map once the car is full, or when nobody is left to meet
 func can_offer_survivor() -> bool:
@@ -124,13 +132,14 @@ func confirm_rescue() -> void:
 		return
 	var job : JobData = rescued_survivor.job_ressource
 	rescued_survivor = null
-	if job == null or job.effect_script == null:
+	JobsManager.activate_job(job)
+
+## Run ready (roadmap or sandbox car selection): the starting survivor job starts, once
+func _on_run_started() -> void:
+	if starting_job == null:
 		return
-	var effect : JobEffect = job.effect_script.new()
-	effect.activate()
-	JobsManager.register(job, effect)
-
-
+	JobsManager.activate_job(starting_job)
+	starting_job = null
 
 func _on_district_selected(next_survivor : SurvivorData) -> void:
 	next_spawned_survivor = next_survivor
@@ -150,6 +159,7 @@ func reload() -> void:
 	on_board_survivors.clear()
 	next_spawned_survivor = null
 	rescued_survivor = null
+	starting_job = null
 
 func unload() -> void:
 	reload()

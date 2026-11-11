@@ -15,6 +15,7 @@ enum Phase { LINES, TOTAL, NEEDLE, DONE }
 @export var step_delay : float = 0.25         # min seconds between two displays (the only wait without sfx)
 @export var needle_fill_speed : float = 0.6   # share of a level per second
 @export var gear_change_pause : float = 0.25  # needle held at the left after a level up
+@export var needle_drop_speed : float = 3.0   # share of a level per second when the needle falls back (gear change)
 
 @export_group("SPEEDOMETER")
 @export var needle_min_degrees : float = -120.0  # 0 % of a level
@@ -48,7 +49,7 @@ var quantity_player : AudioStreamPlayer
 var score_player : AudioStreamPlayer
 var total_player : AudioStreamPlayer
 var speedometer_player : AudioStreamPlayer
-
+var needle_dropping : bool = false
 
 func _ready() -> void:
 	BloodBars.hide()
@@ -162,8 +163,15 @@ func _show_total() -> void:
 	_start_step(total_player)
 
 
-## Needle up to the end of the segment while the total goes down. Full sweep: level +1, back to the left
+
 func _process_needle(delta : float) -> void:
+	if needle_dropping:
+		needle_ratio = maxf(needle_ratio - needle_drop_speed * delta, 0.0)
+		_set_needle(needle_ratio)
+		if needle_ratio <= 0.0:
+			needle_dropping = false
+			wait_left = gear_change_pause
+		return
 	if wait_left > 0.0:
 		return  # gear change pause
 	var segment : Dictionary = segments[segment_index]
@@ -181,10 +189,9 @@ func _process_needle(delta : float) -> void:
 		level_nb.text = str(segment["level"] + 1)
 		upgrades += 1
 		upgrades_nb.text = str(upgrades)
-
-		needle_ratio = 0.0
-		_set_needle(needle_ratio)
-		wait_left = gear_change_pause
+		# The needle falls back to the left before the next level
+		needle_dropping = true
+		return
 	if segment_index >= segments.size():
 		_finish()
 

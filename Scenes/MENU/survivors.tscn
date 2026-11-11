@@ -482,6 +482,7 @@ text = "Mechanic"
 script = ExtResource("6_ekey8")
 
 [node name="PNJJobDescr" type="Label" parent="SurvivorBio" unique_id=886522394]
+custom_minimum_size = Vector2(450, 350)
 layout_mode = 0
 offset_top = 202.0
 offset_right = 466.0
@@ -528,6 +529,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="WeaponDescr" type="Label" parent="SurvivorBio/WeaponIcon" unique_id=799287219]
+custom_minimum_size = Vector2(230, 200)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

@@ -174,7 +174,7 @@ SCORE_KILLS_COLOSS;Coloss;Colosses
 SCORE_KILLS_TANK;Tanks;Tanks
 SCORE_KILLS_FAST;Runners;Coureurs
 SCORE_KILLS_LAUNCHER;Launchers;Lanceurs
-SCORE_DISTANCE;Distance;Distance
+SCORE_DISTANCE;Distance (miles);Distance (miles)
 SCORE_HORDES;Hordes wiped out;Hordes anéanties
 SCORE_MANEUVERS;Maneuvers;Manœuvres
 SCORE_AMPLIFIED;Dashed maneuvers;Manœuvres dashées
@@ -182,3 +182,25 @@ SCORE_PERFECT_HITS;Perfect hits;Coups parfaits
 SCORE_DAMAGE_TAKEN;Damage taken;Dégâts subis
 SCORE_COMBO;Max combo;Combo max
 SCORE_TOTAL;Total;Total
+JOB_TRANSPORTER;Transporter;Transporteur
+JOB_TRANSPORTER_DESC;One more projectile on every weapon.;Un projectile de plus sur toutes les armes.
+JOB_COLLECTIONIST;Collectionist;Collectionneur
+JOB_COLLECTIONIST_DESC;One more charm slot.;Un emplacement de charm en plus.
+JOB_STUNTMAN;Stuntman;Cascadeur
+JOB_STUNTMAN_DESC;One free car upgrade after each raid.;Une amélioration de voiture gratuite après chaque raid.
+JOB_MECHANIC;Mechanic;Mécanicien
+JOB_MECHANIC_DESC;Repairs 25% of the car’s blood after each raid.;Répare 25 % du sang de la voiture après chaque raid.
+JOB_HUNTER;Hunter;Chasseur
+JOB_HUNTER_DESC;The car collects blood from 50% further away.;La voiture récupère le sang 50 % plus loin.
+JOB_MERCHANT;Merchant;Marchand
+JOB_MERCHANT_DESC;Every shop price is 20% lower.;Tous les prix du shop baissent de 20 %.
+JOB_THIEF;Thief;Voleur
+JOB_THIEF_DESC;Brings a stolen stash of blood to the shop bank.;Apporte un butin de sang volé à la réserve du shop.
+JOB_REPORTER;Reporter;Reporter
+JOB_REPORTER_DESC;Unlocks the horn (or raises its level if you already have it).;Débloque le klaxon (ou augmente son niveau s’il est déjà débloqué).
+JOB_MEDIC;Medic;Médecin
+JOB_MEDIC_DESC;After each raid, the driver is back to full life.;Après chaque raid, le pilote retrouve toute sa vie.
+JOB_HACKER;Hacker;Hacker
+JOB_HACKER_DESC;The first shop reroll after each raid is free.;Le premier reroll du shop après chaque raid est gratuit.
+JOB_PROFESSOR;Professor;Professeur
+JOB_PROFESSOR_DESC;Night classes: +20% score at the end of each raid.;Cours du soir : +20 % de score à la fin de chaque raid.

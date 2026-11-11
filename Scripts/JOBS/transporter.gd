@@ -1,7 +1,7 @@
 extends JobEffect
 # Transporter: one more projectile on every weapon (up to its max_projectile)
 
-var transporter_mod : Modifier = Modifier.new(1.0, Modifier.Type.FLAT, "transporter job")
+var transporter_mod : Modifier = Modifier.new(job.p_value, Modifier.Type.FLAT, "transporter job")
 
 
 func activate() -> void:

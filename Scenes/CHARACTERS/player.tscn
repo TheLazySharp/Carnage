@@ -685,6 +685,7 @@ slip_reference_deg = 30.0
 smoke_left = NodePath("../CarSprite/TireLeft/SmokeParticles01")
 smoke_right = NodePath("../CarSprite/TireRight/SmokeParticles01")
 smoke_max_scale_ratio = 2.5
+enable_drift_charge = false
 spikes_scene = ExtResource("28_1mhlb")
 drop_spikes_active = false
 
@@ -733,6 +734,7 @@ loop_min_perimeter = 500.0
 
 [node name="ComboManager" type="Node2D" parent="." unique_id=1653631433]
 script = ExtResource("34_mm77v")
+streak_acceleration = 0.1
 break_on_wall_hit = false
 
 [node name="UltimateManager" type="Node2D" parent="." unique_id=1767501934]

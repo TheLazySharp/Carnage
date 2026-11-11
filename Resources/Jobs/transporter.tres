@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("3_ifnch")
-name = "Transorter"
-description = "add 1 projectile to every weapon"
+name = "JOB_TRANSPORTER"
+description = "JOB_TRANSPORTER_DESC"
+p_value = 1.0
 effect_script = ExtResource("1_5rnwh")
 metadata/_custom_type_script = "uid://ct52062gam1r7"

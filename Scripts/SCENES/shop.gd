@@ -78,7 +78,10 @@ func _ready() -> void:
 	player = SurvivorsManager.on_board_survivors[0]
 
 	SignalManager.update_fortune.connect(_on_item_baught)
-	reroll_cost_label.text = str(ShopManager.get_reroll_cost())
+	if ShopManager.free_rerolls_left > 0:
+		reroll_cost_label.text = "FREE"
+	else :
+		reroll_cost_label.text = str(ShopManager.get_reroll_cost())
 	
 	#REROLL BUTTON
 	reroll_button.add_theme_font_override("font",font_button[0])
@@ -532,15 +535,16 @@ func _build_offer() -> void:
 	items_ready = true
 
 func _on_reroll_pressed() -> void:
-	if ShopManager.get_reroll_cost() > InventoryManager.blood_tank_q:
+	var cost : int = ShopManager.get_reroll_cost()
+	if cost > InventoryManager.blood_tank_q:
 		return
 	reroll()
 	
-	InventoryManager.blood_tank_q -= ShopManager.get_reroll_cost()
+	InventoryManager.blood_tank_q -= cost
 	BloodBars.update_blood_tank()
 	SignalManager.emit_signal("update_fortune")
 	
-	ShopManager.reroll_count += 1
+	ShopManager.use_reroll()
 	reroll_cost_label.text = str(ShopManager.get_reroll_cost())
 	reroll_button.grab_focus()
 	

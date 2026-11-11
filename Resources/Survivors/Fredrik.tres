@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://co2hy6ybsg7b6"]
+
+[ext_resource type="Texture2D" uid="uid://b63v11ooeq62w" path="res://Assets/PNJs/fredrik.png" id="1_y76nn"]
+[ext_resource type="Resource" uid="uid://cn741fa7g2b7f" path="res://Resources/Jobs/transporter.tres" id="2_y62mx"]
+[ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_4i3jn"]
+[ext_resource type="Resource" uid="uid://cxd60bmbatyvi" path="res://Resources/Weapons/Main Weapons/mine_launcher.tres" id="4_6bvsh"]
+
+[resource]
+script = ExtResource("3_4i3jn")
+name = "Fredrik"
+age = 53
+job_ressource = ExtResource("2_y62mx")
+bio = "Truck driver"
+icon = ExtResource("1_y76nn")
+weapon = ExtResource("4_6bvsh")
+metadata/_custom_type_script = "uid://bpgisub1g6477"

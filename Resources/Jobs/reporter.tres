@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://hrluihb2q2k4"]
+
+[ext_resource type="Script" uid="uid://bcs77jxaoe3sb" path="res://Scripts/JOBS/reporter.gd" id="1_v3jko"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_7e6vv"]
+
+[resource]
+script = ExtResource("3_7e6vv")
+name = "JOB_REPORTER"
+description = "JOB_REPORTER_DESC"
+effect_script = ExtResource("1_v3jko")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

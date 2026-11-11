@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwcv6rutk035o"
-path="res://.godot/imported/batx2.png-fb177644092f3c7a4777ed3af5af68c8.ctex"
+uid="uid://bfcleyc6da06a"
+path="res://.godot/imported/agatha.png-4f628fbaeb61a5c0e93f2a22b0c2af5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Léonce/VFX/batx2.png"
-dest_files=["res://.godot/imported/batx2.png-fb177644092f3c7a4777ed3af5af68c8.ctex"]
+source_file="res://Assets/PNJs/agatha.png"
+dest_files=["res://.godot/imported/agatha.png-4f628fbaeb61a5c0e93f2a22b0c2af5c.ctex"]
 
 [params]
 

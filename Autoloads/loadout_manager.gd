@@ -56,6 +56,7 @@ func start_run(p_car : CarData) -> void:
 		for maneuver_type : ManeuverManager.Type in ManeuverManager.Type.values():
 			unlock(maneuver_type)
 		has_new_maneuver = false
+	SignalManager.emit_signal("run_started")
 
 func _load_maneuver_catalog() -> void:
 	maneuver_data_by_type.clear()

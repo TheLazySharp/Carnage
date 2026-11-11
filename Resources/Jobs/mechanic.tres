@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_6vykn")
-name = "Mechanic"
-description = "At the end of each raid, repair up to 25% of max life"
+name = "JOB_MECHANIC"
+description = "JOB_MECHANIC_DESC"
+p_value = 0.25
 effect_script = ExtResource("1_dklgj")
 metadata/_custom_type_script = "uid://ct52062gam1r7"

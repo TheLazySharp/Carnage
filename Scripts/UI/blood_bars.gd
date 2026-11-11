@@ -49,6 +49,7 @@ func update_survivor_blood() -> void :
 	survivor_blood.value = player.current_life
 	survivor_blood_label.text = "%d / %d" % [player.current_life, player.max_life]
 
+
 func update_blood_tank() -> void:
 	if !bars_inited:
 		init()

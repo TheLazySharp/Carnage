@@ -18,8 +18,8 @@ func refresh(survivor : SurvivorData) -> void :
 	icon.texture = survivor.icon
 	survivor_name.text = survivor.name
 	pnj_age.text = str(survivor.age) + " years old"
-	pnj_job_name.text = survivor.job_ressource.name
-	pnj_job_descr.text = survivor.job_ressource.description
+	pnj_job_name.text = tr(survivor.job_ressource.name)
+	pnj_job_descr.text = tr(survivor.job_ressource.description)
 	pnj_bio.text = survivor.bio
 	weapon_icon.texture = survivor.weapon.weapon_icon
 	weapon_descr.text = survivor.weapon.description

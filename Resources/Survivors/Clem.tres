@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://c4cxif75gn4yr"]
+
+[ext_resource type="Texture2D" uid="uid://dbwvmixd10msq" path="res://Assets/PNJs/viktor.png" id="1_281a8"]
+[ext_resource type="Resource" uid="uid://423d8ybsuypj" path="res://Resources/Jobs/medic.tres" id="2_281a8"]
+[ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_kc7ne"]
+[ext_resource type="Resource" uid="uid://hlo3f63kk5an" path="res://Resources/Weapons/Main Weapons/poison_belt.tres" id="4_g6sci"]
+
+[resource]
+script = ExtResource("3_kc7ne")
+name = "Clem"
+age = 27
+job_ressource = ExtResource("2_281a8")
+bio = "Clem is a doctor"
+icon = ExtResource("1_281a8")
+weapon = ExtResource("4_g6sci")
+metadata/_custom_type_script = "uid://bpgisub1g6477"

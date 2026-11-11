@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://dam3c1t8g818w"]
+
+[ext_resource type="Script" uid="uid://cr6rtochegk0c" path="res://Scripts/JOBS/thief.gd" id="1_b5rd8"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_fx27x"]
+
+[resource]
+script = ExtResource("3_fx27x")
+name = "JOB_THIEF"
+description = "JOB_THIEF_DESC"
+p_value = 500.0
+effect_script = ExtResource("1_b5rd8")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

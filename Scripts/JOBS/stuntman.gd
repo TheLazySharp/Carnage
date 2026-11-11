@@ -8,4 +8,4 @@ func deactivate() -> void:
 	SignalManager.next_day.disconnect(_on_next_day)
 
 func _on_next_day() -> void : 
-	XPManager.available_upgrades += 1
+	XPManager.available_upgrades += job.p_value

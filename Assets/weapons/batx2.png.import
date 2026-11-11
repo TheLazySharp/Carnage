@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d28hb5qvlmyq2"
-path="res://.godot/imported/batx1.png-056e1300ff1f72d7dc3d16142e725503.ctex"
+uid="uid://dwcv6rutk035o"
+path="res://.godot/imported/batx2.png-ec8acd59797b6cdb64a8533ce3244c41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Léonce/VFX/batx1.png"
-dest_files=["res://.godot/imported/batx1.png-056e1300ff1f72d7dc3d16142e725503.ctex"]
+source_file="res://Assets/weapons/batx2.png"
+dest_files=["res://.godot/imported/batx2.png-ec8acd59797b6cdb64a8533ce3244c41.ctex"]
 
 [params]
 

@@ -65,7 +65,7 @@ func unload() -> void:
 	total_drift = 0
 	total_car_dmg = 0
 	total_distance = 0
-
+	score_extra_multiplier = 1.0
 
 func _on_distance_traveled(distance_meters: int) -> void:
 	total_distance += distance_meters

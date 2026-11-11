@@ -1,7 +1,7 @@
 extends JobEffect
 #Collectionist: one more charm slot on the car.
 
-var collectionist_mod : Modifier = Modifier.new(1.0, Modifier.Type.FLAT, "collectionist job")
+var collectionist_mod : Modifier = Modifier.new(job.p_value, Modifier.Type.FLAT, "collectionist job")
 var applied_stat : Statistic = null
 
 

@@ -1,7 +1,7 @@
 extends JobEffect
 # Hunter: +50% collect radius on the car.
 
-var hunter_mod : Modifier = Modifier.new(0.5, Modifier.Type.PERCENT_MULT, "hunter job")
+var hunter_mod : Modifier = Modifier.new(job.p_value, Modifier.Type.PERCENT_MULT, "hunter job")
 var applied_stat : Statistic = null
 
 

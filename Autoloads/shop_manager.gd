@@ -156,7 +156,8 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var available_boosts : int = 1
 var boost_shopped : int = 0
 var reroll_count : int = 0
-
+var free_rerolls_per_visit : int = 0  # hacker job
+var free_rerolls_left : int = 0
 var apply_discount : bool = false
 var discount : Statistic
 var base_discount : float = 1.0
@@ -176,9 +177,10 @@ func _ready() -> void:
 	discount = Statistic.new(base_discount)
 	SignalManager.next_day.connect(_on_next_day)
 	
-## A raid was played: the next shop visit gets a new offer
+## A raid was played: the next shop visit gets a new offer (and its free rerolls)
 func _on_next_day() -> void:
 	clear_offer()
+	free_rerolls_left = free_rerolls_per_visit
 
 func clear_offer() -> void:
 	offer_ready = false
@@ -263,9 +265,19 @@ func pick_weapon()-> WeaponData:
 	return pool[rng.randi_range(0,pool.size() -1)]
 
 func get_reroll_cost() -> int :
+	# Hacker job: free rerolls first
+	if free_rerolls_left > 0:
+		return 0
 	var reroll_cost : int
 	reroll_cost = 5 + reroll_count * 3 if SceneManager.race_mode else 100 + reroll_count * 25
 	return reroll_cost
+
+## A reroll was bought: a free one is used first, otherwise the next one costs more
+func use_reroll() -> void:
+	if free_rerolls_left > 0:
+		free_rerolls_left -= 1
+	else:
+		reroll_count += 1
 
 func unload() -> void : 
 	all_car_boosts.clear()
@@ -275,4 +287,6 @@ func unload() -> void :
 	all_maneuvers.clear()
 	discount.clear_modifiers()
 	apply_discount = false
+	free_rerolls_per_visit = 0
+	free_rerolls_left = 0
 	clear_offer()

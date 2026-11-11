@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://423d8ybsuypj"]
+
+[ext_resource type="Script" uid="uid://b2jfjo84cn3xv" path="res://Scripts/JOBS/medic.gd" id="1_erdqf"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_rhqxh"]
+
+[resource]
+script = ExtResource("3_rhqxh")
+name = "JOB_MEDIC"
+description = "JOB_MEDIC_DESC"
+effect_script = ExtResource("1_erdqf")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://l8lqtdaq1umf"]
+
+[ext_resource type="Script" uid="uid://ba0cw8al6uvvx" path="res://Scripts/JOBS/hacker.gd" id="1_svltt"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_u5rs0"]
+
+[resource]
+script = ExtResource("3_u5rs0")
+name = "JOB_HACKER"
+description = "JOB_HACKER_DESC"
+effect_script = ExtResource("1_svltt")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

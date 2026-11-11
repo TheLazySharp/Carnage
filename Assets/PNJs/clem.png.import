@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be72ch1umh01"
-path="res://.godot/imported/batx3.png-8e6380af6e4f102f7132a34ae5d5e57e.ctex"
+uid="uid://cpl0uveocgiu6"
+path="res://.godot/imported/clem.png-7116062737c8b46394bc3624a83fd200.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Léonce/VFX/batx3.png"
-dest_files=["res://.godot/imported/batx3.png-8e6380af6e4f102f7132a34ae5d5e57e.ctex"]
+source_file="res://Assets/PNJs/clem.png"
+dest_files=["res://.godot/imported/clem.png-7116062737c8b46394bc3624a83fd200.ctex"]
 
 [params]
 

@@ -68,6 +68,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: float, drift_level: int, is_amplified: bool, _attack_angle: float) -> void:
+	var debug_before : float = combo_multiplier
 	# The loop (car ultimate) benefits from the combo but does not feed it
 	if maneuver_type == ManeuverManager.Type.LOOP:
 		SignalManager.maneuver_rated.emit(maneuver_type, drift_level, is_amplified, false)
@@ -91,6 +92,9 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: flo
 	window_left = window_duration
 	set_physics_process(true)
 	_update_hud()
+	print("[COMBO] %s | amplified: %s | streak: %d | step: %.2f | gain: +%.2f | combo: x%.2f / max x%.2f" % [
+		ManeuverManager.Type.keys()[maneuver_type], is_amplified, streak, car.player.combo_step.get_value(),
+		combo_multiplier - debug_before, combo_multiplier, car.player.combo_max.get_value()])
 	SignalManager.combo_changed.emit(combo_multiplier, streak)
 
 

@@ -239,3 +239,8 @@ signal survivor_blood_gained(amount : int)  # blood given back to the driver (da
 signal active_spikes(trigger : bool)
 @warning_ignore("unused_signal")
 signal second_life_triggered
+
+
+# ---- RAID -----
+@warning_ignore("unused_signal")
+signal run_started  # LoadoutManager.start_run()

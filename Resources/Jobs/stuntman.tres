@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://c42ih6nh75qbl"]
+
+[ext_resource type="Script" uid="uid://8p20hbgu80yy" path="res://Scripts/JOBS/stuntman.gd" id="1_2fi5m"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="3_s0uwj"]
+
+[resource]
+script = ExtResource("3_s0uwj")
+name = "JOB_STUNTMAN"
+description = "JOB_STUNTMAN_DESC"
+p_value = 1.0
+effect_script = ExtResource("1_2fi5m")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

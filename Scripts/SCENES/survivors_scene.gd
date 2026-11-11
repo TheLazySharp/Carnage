@@ -24,11 +24,6 @@ func _on_select_pressed() -> void:
 	var starting_survivor : SurvivorData = SurvivorsManager.known_survivors[survivor_index]
 	WeaponsManager.init_weapon(starting_survivor.weapon) #init before being instantiated when car is instantiated
 	SurvivorsManager.select_survivor(starting_survivor)
-	
-	var job : JobData = starting_survivor.job_ressource
-	var effect : JobEffect = job.effect_script.new()
-	effect.activate()
-	JobsManager.register(job, effect)
 
 	SceneManager.load_level(SceneManager.SCENES.CAR_SELECTION)
 	
