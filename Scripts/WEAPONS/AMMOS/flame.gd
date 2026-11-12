@@ -93,7 +93,7 @@ func burn_enemies() -> void:
 			if is_instance_valid(target):
 				target.get_damages(dealt, Vector2.ZERO, 0.0, flame_data.death_type)
 				if flame_data.status != EnemyManager.Status.NONE:
-					target.apply_status(flame_data.status, flame_data.status_duration, flame_data.status_power)
+					target.apply_status(flame_data.status, flame_data.status_duration, flame_data.status_power * damage_multiplier)
 				flame_data.total_damages_dealt += dealt
 
 func _on_area_entered(area: Area2D) -> void:

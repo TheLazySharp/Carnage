@@ -179,7 +179,7 @@ func explosion()-> void:
 			target.get_damages(dealt, Vector2.ZERO, 0.0, vial_data.death_type)
 			vial_data.total_damages_dealt += dealt
 		if vial_data.status != EnemyManager.Status.NONE and "apply_status" in target:
-			target.apply_status(vial_data.status, vial_data.status_duration, vial_data.status_power)
+			target.apply_status(vial_data.status, vial_data.status_duration, vial_data.status_power * damage_multiplier)
 
 ## The sound outlives the vial (freed on landing): moved to the world, freed once played
 func _play_detached_sfx() -> void:

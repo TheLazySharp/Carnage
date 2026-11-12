@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="JobData" format=3 uid="uid://b4fh2q2ocptov"]
+
+[ext_resource type="Script" uid="uid://bhlj8xlf3o18r" path="res://Scripts/JOBS/singer.gd" id="1_u1b7y"]
+[ext_resource type="Script" uid="uid://ct52062gam1r7" path="res://Resources/Scripts/job_data.gd" id="2_h4kx1"]
+
+[resource]
+script = ExtResource("2_h4kx1")
+name = "JOB_SINGER"
+description = "JOB_SINGER_DESC"
+p_value = 2.0
+effect_script = ExtResource("1_u1b7y")
+metadata/_custom_type_script = "uid://ct52062gam1r7"

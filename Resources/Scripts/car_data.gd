@@ -173,6 +173,7 @@ var rocket_enabled : bool = false
 var ram_enabled : bool = false
 var overdrive_enabled : bool = false
 var combo_floor : float = 1.0
+var drift_hit_freeze_duration : float = 0.0  #cop job
 
 func init_stats() -> void:
 	if CarManager.unlocked_cars.has(self):
@@ -221,6 +222,7 @@ func init_stats() -> void:
 	rocket_enabled = false
 	ram_enabled = false
 	overdrive_enabled = false
+	drift_hit_freeze_duration = 0.0
 	
 	part_levels.clear()
 	mastered_parts.clear()

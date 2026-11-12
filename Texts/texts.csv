@@ -226,3 +226,8 @@ GUIDE_SHOP_CHARMS;Buy charms: their effects last for the whole run.;Achète des 
 GUIDE_SHOP_MANEUVERS;Unlock maneuvers and raise their mastery level: the weapons placed on them get more out of your combo.;Débloque des manœuvres et monte leur niveau de maîtrise : les armes placées dessus profitent davantage de ton combo.
 GUIDE_SHOP_COMBO;Each mastery level also raises your max combo.;Chaque niveau de maîtrise augmente aussi ton combo maximum.
 GUIDE_ROADMAP_RESCUE;Next raid: a survivor needs you. Find where they hide and save them ! At the end of the raid, you get their weapon and the effects of their job.;Au prochain raid, un survivant t’attend. Sauve-le : en fin de raid, tu récupères son arme et les effets de son métier.
+JOB_COP;Cop;Flic
+JOB_COP_DESC;Arrest: zombies caught in the burst of a thrown zombie are frozen for a moment.;Interpellation : les zombies pris dans l’éclatement d’un zombie projeté sont immobilisés un instant.
+JOB_SINGER;Singer;Chanteuse
+JOB_SINGER_DESC;Your max combo is raised by 2.;Ton combo maximum augmente de 2.
+SHOP_CHARM_STORED;Slots full: %s goes to your inventory. Equip it from the loadout.;Emplacements pleins : %s va dans ton inventaire. Équipe-le depuis le loadout.

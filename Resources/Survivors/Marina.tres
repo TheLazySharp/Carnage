@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://d3q6e2ttbedxt"]
 
 [ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="1_hr66l"]
-[ext_resource type="Resource" uid="uid://hrluihb2q2k4" path="res://Resources/Jobs/reporter.tres" id="2_hr66l"]
+[ext_resource type="Resource" uid="uid://cumvhp4dnfru0" path="res://Resources/Jobs/cop.tres" id="2_hr66l"]
 [ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_06geg"]
 [ext_resource type="Resource" uid="uid://ewkqgn8g8vxg" path="res://Resources/Weapons/Main Weapons/revolver.tres" id="4_hr66l"]
 
@@ -10,7 +10,7 @@ script = ExtResource("3_06geg")
 name = "Marina"
 age = 35
 job_ressource = ExtResource("2_hr66l")
-bio = "Marina's Bio"
+bio = "Marina is a cop"
 icon = ExtResource("1_hr66l")
 weapon = ExtResource("4_hr66l")
 metadata/_custom_type_script = "uid://bpgisub1g6477"

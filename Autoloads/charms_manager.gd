@@ -24,7 +24,9 @@ func buy(charm: CharmData) -> void:
 	if owned.has(charm):
 		return
 	owned.append(charm)
-	equip(charm)
+	# Slots full: kept in the inventory, switched on later from the loadout
+	if !equip(charm):
+		SignalManager.charm_stored.emit(charm)
 
 
 func equip(charm: CharmData) -> bool:

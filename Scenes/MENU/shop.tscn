@@ -82,7 +82,24 @@ bg_color = Color(0.45490196, 0, 0, 1)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0ie8k"]
 load_path = "res://.godot/imported/blood.png-6621a23d0f2de24dd7362ccd6ab76849.ctex"
 
-[node name="Shop" type="Control" unique_id=2121295686 node_paths=PackedStringArray("maneuver_rows", "maneuver_desc_label", "desc_name_label", "desc_icon")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssidi"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45490196, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3227t"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45490196, 0, 0, 1)
+
+[node name="Shop" type="Control" unique_id=2121295686 node_paths=PackedStringArray("maneuver_rows", "maneuver_desc_label", "desc_name_label", "desc_icon", "inventory_popup", "inventory_popup_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,6 +114,9 @@ row_maneuvers = Array[int]([0, 1, 4, 7, 2, 5, 6])
 maneuver_desc_label = NodePath("DescPanel/ItemDesc")
 desc_name_label = NodePath("DescPanel/Name")
 desc_icon = NodePath("DescPanel/IconBkg/Icon")
+inventory_popup = NodePath("InventoryPopup")
+inventory_popup_label = NodePath("InventoryPopup/Label")
+inventory_popup_duration = 2.0
 
 [node name="Background" type="ColorRect" parent="." unique_id=693917777]
 layout_mode = 1
@@ -1812,22 +1832,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -256.0
+offset_left = -241.0
 offset_top = -193.0
-offset_right = 64.0
-offset_bottom = 207.0
+offset_right = 59.0
+offset_bottom = 286.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="DescPanel" unique_id=1031451725]
+[node name="Background" type="Panel" parent="DescPanel" unique_id=2107584420]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 1.1650001
-offset_bottom = -3.0517578e-05
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.27022192, 0.27022192, 0.2702219, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ssidi")
 
 [node name="Name" type="Label" parent="DescPanel" unique_id=362317822]
 custom_minimum_size = Vector2(300, 40)
@@ -1873,19 +1892,43 @@ texture = ExtResource("17_srxg8")
 expand_mode = 2
 
 [node name="ItemDesc" type="Label" parent="DescPanel" unique_id=2003029293]
-custom_minimum_size = Vector2(300, 200)
+custom_minimum_size = Vector2(290, 200)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 6.0
-offset_top = -11.5
-offset_right = -14.0
-offset_bottom = 188.5
+offset_left = -145.0
+offset_top = -70.0
+offset_right = 145.0
+offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Maneuver upgrades desc"
+autowrap_mode = 2
+
+[node name="InventoryPopup" type="Panel" parent="." unique_id=617254034]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 0
+offset_left = 398.92004
+offset_top = 120.879974
+offset_right = 698.92004
+offset_bottom = 200.87997
+theme_override_styles/panel = SubResource("StyleBoxFlat_3227t")
+
+[node name="Label" type="Label" parent="InventoryPopup" unique_id=1855641508]
+custom_minimum_size = Vector2(240, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

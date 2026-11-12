@@ -28,6 +28,7 @@ var player : SurvivorData
 @export var desc_icon : TextureRect     # DescPanel/IconBkg/Icon
 @export var price_variation : float = 0.25    # random +/- share around the base price
 @export var upgrade_price_step : float = 0.5  # price x(1 + step x purchase): unlock 1x, lv1 1.5x ... lv5 3.5x
+
 @export_group("Cells")
 @export var obtained_color : Color = Color("740000")
 @export var locked_color : Color = Color(0.18, 0.18, 0.18)
@@ -35,6 +36,12 @@ var player : SurvivorData
 @export var icon_focus_color : Color = Color.WHITE                # icon background when selected
 @export var focus_border_color : Color = Color.WHITE
 @export var focus_border_width : int = 2
+
+@export_group("Inventory popup")
+@export var inventory_popup : Control           # "slots full" message, hides by itself
+@export var inventory_popup_label : Label
+@export var inventory_popup_duration : float = 2.5
+
 
 #var nb_boost : int
 var nb_ammo : int = 2
@@ -66,6 +73,7 @@ var return_zone : Zone = Zone.GRID          # where down from Repair / up from B
 var focus_row : int = 0
 var focus_column : int = 1
 var charm_index : int = 0
+var popup_time_left : float = 0.0
 
 # ---- Cell looks, built once from the first cell ----
 var style_obtained : StyleBoxFlat
@@ -78,6 +86,10 @@ func _ready() -> void:
 	player = SurvivorsManager.on_board_survivors[0]
 
 	SignalManager.update_fortune.connect(_on_item_baught)
+	SignalManager.charm_stored.connect(_on_charm_stored)
+	if inventory_popup != null:
+		inventory_popup.hide()
+		
 	if ShopManager.free_rerolls_left > 0:
 		reroll_cost_label.text = "FREE"
 	else :
@@ -124,6 +136,11 @@ func _ready() -> void:
 
 ## Navigation polled: one press per push of the stick (no repeat from analog motion events)
 func _process(_delta : float) -> void:
+	# Inventory popup: hides by itself
+	if popup_time_left > 0.0:
+		popup_time_left -= _delta
+		if popup_time_left <= 0.0:
+			inventory_popup.hide()
 	if Input.is_action_just_pressed("ui_up"):
 		_move_focus(0, -1)
 	elif Input.is_action_just_pressed("ui_down"):
@@ -564,3 +581,11 @@ func update_reroll_button()-> void :
 	else :
 		reroll_label.add_theme_color_override("font_color",Color.RED)
 		reroll_cost_label.add_theme_color_override("font_color",Color.RED)
+
+## Charm bought with every slot full: it waits in the inventory, the player is told where it went
+func _on_charm_stored(charm : CharmData) -> void:
+	if inventory_popup == null:
+		return
+	inventory_popup_label.text = tr("SHOP_CHARM_STORED") % InventoryManager.get_charm_name(charm)
+	inventory_popup.show()
+	popup_time_left = inventory_popup_duration

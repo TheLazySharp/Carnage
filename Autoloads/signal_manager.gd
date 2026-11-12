@@ -177,7 +177,8 @@ signal text_window_closed(message_key: StringName)
 signal loading_screen_closed
 @warning_ignore("unused_signal")
 signal survivor_rescued(survivor : SurvivorData)
-
+@warning_ignore("unused_signal")
+signal charm_stored(charm : CharmData)  # bought with every slot full: kept in the inventory, not active yet
 
 # ----- ENEMIES ----
 @warning_ignore("unused_signal")

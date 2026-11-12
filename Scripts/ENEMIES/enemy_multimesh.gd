@@ -683,6 +683,8 @@ func burst_drift_projectile(cause : BurstCause = BurstCause.OUT_OF_STEAM) -> voi
 	drift_query.shape = drift_burst_shape
 	drift_query.transform = Transform2D(0.0, global_position)
 	var victims : Array[Enemy] = []
+	# Cop job: the burst arrests the enemies around it (frozen)
+	var freeze_time : float = CarManager.selected_car.drift_hit_freeze_duration
 	for result: Dictionary in get_world_2d().direct_space_state.intersect_shape(drift_query, 32):
 		var victim: Enemy = _get_enemy_from_collider(result["collider"])
 		if victim == null or victim == self or victim.is_dead or victims.has(victim):
@@ -690,6 +692,8 @@ func burst_drift_projectile(cause : BurstCause = BurstCause.OUT_OF_STEAM) -> voi
 		victims.append(victim)
 		var push: Vector2 = victim.global_position - global_position
 		victim.get_damages(roundi(drift_hit_dmg.get_value() * drift_hit_power), push, JUICE.drift_hit_burst_knockback, EnemyManager.DEATH_TYPES.KNOCKED)
+		if freeze_time > 0.0:
+			victim.apply_status(EnemyManager.Status.FREEZE, freeze_time, 1.0)
 	# Dart charm: the burst hit other enemies
 	if !victims.is_empty():
 		SignalManager.emit_signal("drift_hit_chained",victims.size())
