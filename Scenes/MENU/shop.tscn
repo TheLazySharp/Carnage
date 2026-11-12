@@ -1821,9 +1821,10 @@ grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="DescPanel" unique_id=1031451725]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.1650001
+offset_bottom = -3.0517578e-05
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.27022192, 0.27022192, 0.2702219, 1)

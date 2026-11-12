@@ -29,11 +29,8 @@ const MANEUVER_DATA_UIDS : Array[String] = [
 ]
 
 
-
-
-
 const MAX_MANEUVER_LEVEL : int = 5
-const LEVEL_SHARE_FACTORS : PackedFloat32Array = [1.0, 1.2, 1.4, 1.65, 1.9, 2.2]
+const LEVEL_SHARE_FACTORS : PackedFloat32Array = [1.0, 1.25, 1.5, 1.80, 2.1, 2.5]
 var maneuver_levels : Dictionary[ManeuverManager.Type, int] = {}  # only upgraded maneuvers (others = level 0)
 var maneuver_data_by_type : Dictionary[ManeuverManager.Type, ManeuverData] = {}
 
@@ -120,7 +117,12 @@ func can_upgrade(maneuver_type : ManeuverManager.Type) -> bool:
 func upgrade(maneuver_type : ManeuverManager.Type) -> bool:
 	if !can_upgrade(maneuver_type):
 		return false
-	maneuver_levels[maneuver_type] = get_maneuver_level(maneuver_type) + 1
+	var new_level : int = get_maneuver_level(maneuver_type) + 1
+	maneuver_levels[maneuver_type] = new_level
+	# Each level raises the combo max (bigger step at the max level, see CarData.maneuver_level_combo_max)
+	if new_level - 1 < car.maneuver_level_combo_max.size():
+		var bonus : float = car.maneuver_level_combo_max[new_level - 1]
+		car.combo_max.add_modifier(Modifier.new(bonus, Modifier.Type.FLAT, "maneuver %d lv%d" % [maneuver_type, new_level]))
 	return true
 
 
@@ -128,7 +130,6 @@ func upgrade(maneuver_type : ManeuverManager.Type) -> bool:
 func get_combo_share_factor(maneuver_type : ManeuverManager.Type) -> float:
 	var level : int = clampi(get_maneuver_level(maneuver_type), 0, MAX_MANEUVER_LEVEL)
 	return LEVEL_SHARE_FACTORS[level]
-
 
 
 func count_assignments(weapon : WeaponData) -> int:

@@ -143,6 +143,10 @@ func _ready() -> void:
 	focus_level = _get_next_level(0)
 	_refresh_grid()
 
+	GuideManager.play(&"car_levelup", [
+		{"text": "GUIDE_LEVELUP_PARTS", "target": level_up_rows},
+		{"text": "GUIDE_LEVELUP_MASTERY", "target": level_up_rows},
+	])
 
 # ---------------- INPUT ----------------
 

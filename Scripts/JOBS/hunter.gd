@@ -1,11 +1,12 @@
 extends JobEffect
 # Hunter: +50% collect radius on the car.
 
-var hunter_mod : Modifier = Modifier.new(job.p_value, Modifier.Type.PERCENT_MULT, "hunter job")
+var hunter_mod : Modifier = null
 var applied_stat : Statistic = null
 
 
 func activate() -> void:
+	hunter_mod = Modifier.new(job.p_value, Modifier.Type.PERCENT_MULT, "hunter job")
 	if !CarManager.car_selected.is_connected(_on_car_selected):
 		CarManager.car_selected.connect(_on_car_selected)
 	_apply_to_selected_car()

@@ -1,10 +1,11 @@
 extends JobEffect
 # Transporter: one more projectile on every weapon (up to its max_projectile)
 
-var transporter_mod : Modifier = Modifier.new(job.p_value, Modifier.Type.FLAT, "transporter job")
+var transporter_mod : Modifier = null
 
 
 func activate() -> void:
+	transporter_mod = Modifier.new(job.p_value, Modifier.Type.FLAT, "transporter job")
 	if !SignalManager.weapon_stats_initiated.is_connected(_on_weapon_stats_initiated):
 		SignalManager.weapon_stats_initiated.connect(_on_weapon_stats_initiated)
 	for weapon : WeaponData in WeaponsManager.weapons:

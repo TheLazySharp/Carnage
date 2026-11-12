@@ -204,3 +204,25 @@ JOB_HACKER;Hacker;Hacker
 JOB_HACKER_DESC;The first shop reroll after each raid is free.;Le premier reroll du shop après chaque raid est gratuit.
 JOB_PROFESSOR;Professor;Professeur
 JOB_PROFESSOR_DESC;Night classes: +20% score at the end of each raid.;Cours du soir : +20 % de score à la fin de chaque raid.
+SHOP_COMBO_MAX_BONUS;Max combo +%s;Combo max +%s
+CHARM_ANCHOR;Anchor;Ancre
+CHARM_ANCHOR_DESC;Your combo never falls below x2, and each raid starts there.;Ton combo ne retombe jamais sous x2, et chaque raid démarre à ce niveau.
+GUIDE_HINT_NEXT;A: continue;A : continuer
+GUIDE_HINT_R1;R1: charms;R1 : charms
+GUIDE_LOADOUT_WEAPONS;"This is your loadout.
+Place your weapons on your maneuvers. Each weapon fits on two different maneuvers only: choose according to its affinities.";"C'est ton loadout.
+Place tes armes sur tes manœuvres. Chaque arme ne peut aller que sur deux manœuvres différentes : choisis selon ses affinités."
+GUIDE_LOADOUT_CHANGE;You can change this layout every time you come back to the roadmap.;Tu pourras modifier cette répartition à chaque passage sur la roadmap.
+GUIDE_LOADOUT_CHARMS_R1;Press R1 to see your charms.;Appuie sur R1 pour afficher tes charms.
+GUIDE_LOADOUT_CHARMS;Charms are bought at the shop. Special ones are earned by upgrading your car at the end of a raid.;Les charms s’achètent au shop. Des charms spéciaux s’obtiennent en améliorant ta voiture en fin de raid.
+GUIDE_LOADOUT_MASTERY;Special charms go here: they are added and switched on as soon as you get them.;Les charms spéciaux arrivent ici : ils sont ajoutés et activés dès que tu les obtiens.
+GUIDE_LOADOUT_SLOTS;A charm you buy is equipped here automatically, as long as there is room.;Un charm acheté s’équipe ici automatiquement, tant qu’il reste de la place.
+GUIDE_LOADOUT_OWNED;Otherwise it waits here. You can swap your charms every time you come back to the roadmap.;Sinon, il attend ici. Tu peux échanger tes charms à chaque passage sur la roadmap.
+GUIDE_SCORE_LEVELS;Your score turns into levels. Each level gained gives an upgrade for your car parts.;Ton score se transforme en niveaux. Chaque niveau gagné donne une amélioration pour les pièces de ta voiture.
+GUIDE_LEVELUP_PARTS;Each car part improves its own stats. Pick the levels to install.;Chaque pièce de la voiture améliore ses propres stats. Choisis les niveaux à installer.
+GUIDE_LEVELUP_MASTERY;At level 5, a part gives you a powerful special charm.;Au niveau 5, une pièce te donne un charm spécial puissant.
+GUIDE_SHOP_REPAIR;Repair your car here.;Répare ta voiture ici.
+GUIDE_SHOP_CHARMS;Buy charms: their effects last for the whole run.;Achète des charms : leurs effets durent toute la partie.
+GUIDE_SHOP_MANEUVERS;Unlock maneuvers and raise their mastery level: the weapons placed on them get more out of your combo.;Débloque des manœuvres et monte leur niveau de maîtrise : les armes placées dessus profitent davantage de ton combo.
+GUIDE_SHOP_COMBO;Each mastery level also raises your max combo.;Chaque niveau de maîtrise augmente aussi ton combo maximum.
+GUIDE_ROADMAP_RESCUE;Next raid: a survivor needs you. Find where they hide and save them ! At the end of the raid, you get their weapon and the effects of their job.;Au prochain raid, un survivant t’attend. Sauve-le : en fin de raid, tu récupères son arme et les effets de son métier.

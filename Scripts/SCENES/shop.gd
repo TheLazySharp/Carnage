@@ -113,6 +113,12 @@ func _ready() -> void:
 	SignalManager.emit_signal("shop_entered")
 	BloodBars.show()
 
+	GuideManager.play(&"shop", [
+		{"text": "GUIDE_SHOP_REPAIR", "target": repair_button},
+		{"text": "GUIDE_SHOP_CHARMS", "target": charm_container},
+		{"text": "GUIDE_SHOP_MANEUVERS", "target": maneuver_rows},
+		{"text": "GUIDE_SHOP_COMBO", "target": maneuver_rows},
+	])
 
 # ---------------- INPUT ----------------
 
@@ -396,6 +402,9 @@ func _refresh_details() -> void:
 	else:
 		lines.append("%s %d" % [tr("PART_LEVEL"), focus_column])
 		lines.append(tr("MANEUVER_LEVEL_EFFECT") % String.num(LoadoutManager.LEVEL_SHARE_FACTORS[focus_column], 2))
+		var combo_max_bonus : PackedFloat32Array = LoadoutManager.car.maneuver_level_combo_max
+		if focus_column - 1 < combo_max_bonus.size():
+			lines.append(tr("SHOP_COMBO_MAX_BONUS") % String.num(combo_max_bonus[focus_column - 1], 2))
 		lines.append("")
 		if !owned:
 			lines.append(tr("SHOP_MANEUVER_LOCKED"))

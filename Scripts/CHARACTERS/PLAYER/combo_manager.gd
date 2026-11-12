@@ -41,7 +41,7 @@ func _ready() -> void:
 	SignalManager.perfect_drift_hit.connect(_on_perfect_drift_hit)
 	SignalManager.wall_collision.connect(_on_wall_collision)
 	SignalManager.game_paused.connect(_on_game_paused)
-	# Only runs while the window is open or the multiplier is decaying
+	SignalManager.start_timer.connect(_on_raid_start)
 	set_physics_process(false)
 	_update_hud()
 
@@ -60,15 +60,17 @@ func _physics_process(delta: float) -> void:
 	var car_data: CarData = car.player
 	# Higher combos fall faster when decay_height_scaling > 0
 	var decay_rate: float = car_data.combo_decay.get_value() * (1.0 + (combo_multiplier - 1.0) * decay_height_scaling)
-	combo_multiplier = maxf(combo_multiplier - decay_rate * delta, 1.0)
+	# Anchor charm: never below the floor (1.0 without it)
+	var floor_value: float = car_data.combo_floor
+	combo_multiplier = maxf(combo_multiplier - decay_rate * delta, floor_value)
 	SignalManager.combo_changed.emit(combo_multiplier, streak)
-	if combo_multiplier <= 1.0:
+	if combo_multiplier <= floor_value:
 		set_physics_process(false)
 	_update_hud()
 
 
 func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: float, drift_level: int, is_amplified: bool, _attack_angle: float) -> void:
-	var debug_before : float = combo_multiplier
+	#var debug_before : float = combo_multiplier
 	# The loop (car ultimate) benefits from the combo but does not feed it
 	if maneuver_type == ManeuverManager.Type.LOOP:
 		SignalManager.maneuver_rated.emit(maneuver_type, drift_level, is_amplified, false)
@@ -92,9 +94,9 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: flo
 	window_left = window_duration
 	set_physics_process(true)
 	_update_hud()
-	print("[COMBO] %s | amplified: %s | streak: %d | step: %.2f | gain: +%.2f | combo: x%.2f / max x%.2f" % [
-		ManeuverManager.Type.keys()[maneuver_type], is_amplified, streak, car.player.combo_step.get_value(),
-		combo_multiplier - debug_before, combo_multiplier, car.player.combo_max.get_value()])
+	#print("[COMBO] %s | amplified: %s | streak: %d | step: %.2f | gain: +%.2f | combo: x%.2f / max x%.2f" % [
+		#ManeuverManager.Type.keys()[maneuver_type], is_amplified, streak, car.player.combo_step.get_value(),
+		#combo_multiplier - debug_before, combo_multiplier, car.player.combo_max.get_value()])
 	SignalManager.combo_changed.emit(combo_multiplier, streak)
 
 
@@ -114,11 +116,16 @@ func _break_chain() -> void:
 	streak = 0
 	last_maneuver = -1
 	window_left = 0.0
-	if combo_multiplier <= 1.0:
+	if combo_multiplier <= car.player.combo_floor:
 		set_physics_process(false)
 	_update_hud()
 	SignalManager.combo_changed.emit(combo_multiplier, streak)
 
+
+func _on_raid_start() -> void:
+	combo_multiplier = car.player.combo_floor
+	_update_hud()
+	SignalManager.combo_changed.emit(combo_multiplier, streak)
 
 func _update_hud() -> void:
 	if multiplier_label != null:

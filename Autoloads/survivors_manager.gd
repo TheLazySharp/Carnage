@@ -4,11 +4,12 @@ extends Node
 const DOMINIC = preload("uid://b6nh0gs2w1hog")
 const FREDRIK = preload("uid://co2hy6ybsg7b6")
 const JAVIER = preload("uid://b5ctlqm42kkmh")
-const LARA = preload("uid://dxhcqb7igjvjw")
+#const LARA = preload("uid://dxhcqb7igjvjw")
 const MARINA = preload("uid://d3q6e2ttbedxt")
 const PETER = preload("uid://dmkjdk1jmfb4v")
 const CLEM = preload("uid://c4cxif75gn4yr")
 const ALMA = preload("uid://dvuusxwhxeiiy")
+const FRANCK = preload("uid://dx32ydmg6le5f")
 
 
 
@@ -18,11 +19,12 @@ const ALL_SURVIVORS : Array = [
 	CLEM,
 	FREDRIK,
 	JAVIER,
-	LARA,
+	#LARA,
 	DOMINIC,
 	PETER,
 	MARINA,
 	ALMA,
+	FRANCK,
 ]
 
 # ---- META (kept between runs) ----
@@ -78,14 +80,15 @@ func select_survivor(new_survivor : SurvivorData) -> void:
 	run_pool.shuffle()
 
 func survivor_admninistration() -> void : 
-	known_survivors.append(CLEM)
-	known_survivors.append(FREDRIK)
-	known_survivors.append(LARA)
-	known_survivors.append(JAVIER)
-	known_survivors.append(DOMINIC)
 	known_survivors.append(PETER)
 	known_survivors.append(MARINA)
+	known_survivors.append(JAVIER)
+	known_survivors.append(CLEM)
+	known_survivors.append(FREDRIK)
+	#known_survivors.append(LARA)
+	known_survivors.append(DOMINIC)
 	known_survivors.append(ALMA)
+	known_survivors.append(FRANCK)
 	
 	#locked_survivors.append(FREDRIK)
 	#locked_survivors.append(LARA)
@@ -93,6 +96,7 @@ func survivor_admninistration() -> void :
 	#locked_survivors.append(DOMINIC)
 	#locked_survivors.append(PETER)
 	#locked_survivors.append(ALMA)
+	#locked_survivors.append(FRANCK)
 
 ## No survivor on the map once the car is full, or when nobody is left to meet
 func can_offer_survivor() -> bool:

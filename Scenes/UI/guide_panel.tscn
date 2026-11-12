@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dhtar4ojgk64y"]
+
+[ext_resource type="Script" uid="uid://ds42o6vfg6v1v" path="res://Scripts/UI/guide_panel.gd" id="1_4ncrv"]
+[ext_resource type="Script" uid="uid://cxu6fbqwcqd56" path="res://Scripts/FONTS/GUI_text_24_Y.gd" id="2_icyy1"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="2_motev"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4d8j6"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.7764706, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d3sy1"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.7764706, 0, 1)
+
+[node name="GuidePanel" type="CanvasLayer" unique_id=958236915]
+layer = 100
+script = ExtResource("1_4ncrv")
+
+[node name="Focus" type="Panel" parent="." unique_id=852661283]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4d8j6")
+
+[node name="Box" type="PanelContainer" parent="." unique_id=1814479738]
+custom_minimum_size = Vector2(400, 400)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_bottom = 200.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d3sy1")
+
+[node name="Dim" type="ColorRect" parent="Box" unique_id=2023902867]
+layout_mode = 2
+color = Color(0, 0, 0, 0.99607843)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Box" unique_id=2036265639]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="Tips" type="Label" parent="Box/VBoxContainer" unique_id=292070091]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "TIPS"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_icyy1")
+
+[node name="Text" type="Label" parent="Box/VBoxContainer" unique_id=1785341004]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+autowrap_mode = 2
+script = ExtResource("2_motev")
+
+[node name="Hint" type="Label" parent="Box/VBoxContainer" unique_id=102888175]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_motev")

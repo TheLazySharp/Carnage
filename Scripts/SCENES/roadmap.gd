@@ -45,6 +45,12 @@ func _ready() -> void:
 	if BloodBars.visible:
 		BloodBars.hide()
 
+	# First game: back from the first raid, the next district is always a rescue
+	if RoadMapManager.selected_districts.size() == 1:
+		GuideManager.play(&"rescue", [
+			{"text": "GUIDE_ROADMAP_RESCUE"},
+		])
+
 func generate_new_map() -> void : 
 	if RoadMapManager.current_map_data.is_empty():
 		RoadMapManager.steps_reached = 0

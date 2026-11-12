@@ -1,11 +1,12 @@
 extends JobEffect
 #Collectionist: one more charm slot on the car.
 
-var collectionist_mod : Modifier = Modifier.new(job.p_value, Modifier.Type.FLAT, "collectionist job")
+var collectionist_mod : Modifier = null
 var applied_stat : Statistic = null
 
 
 func activate() -> void:
+	collectionist_mod = Modifier.new(job.p_value, Modifier.Type.FLAT, "collectionist job")
 	if !CarManager.car_selected.is_connected(_on_car_selected):
 		CarManager.car_selected.connect(_on_car_selected)
 	_apply_to_selected_car()

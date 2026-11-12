@@ -10,7 +10,7 @@ class_name BaseballBat
 @export var swing_end_degrees : PackedFloat32Array = [-45.0, 30.0, 150.0, 210.0]
 ## Share of each animation during which the stroke deals damage, from the first frame (0 = whole stroke at once)
 @export var sweep_time_ratios : PackedFloat32Array = [0.25, 0.25, 0.25, 0.25]
-@export var swing_radius : float = 48.0                 # bat reach from the car sprite center (px)
+@export var swing_radius : float = 65.0                 # bat reach from the car sprite center (px)
 @export var sweep_tolerance_degrees : float = 15.0      # extra angle behind the bat: fast enemies are not skipped
 @export var knockback_force : float = 1500.0
 @export var kill_knockback_force : float = 300.0

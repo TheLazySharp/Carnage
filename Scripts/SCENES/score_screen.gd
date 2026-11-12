@@ -202,7 +202,9 @@ func _finish() -> void:
 	_set_total_left(0.0)
 	ok_button.disabled = false
 	ok_button.grab_focus()
-
+	GuideManager.play(&"score", [
+		{"text": "GUIDE_SCORE_LEVELS", "target": $Speedometer},
+	])
 
 # ---------------- DISPLAY ----------------
 

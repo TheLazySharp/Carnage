@@ -59,6 +59,7 @@ BloodBars="*uid://caiyd78rwxaxs"
 LoadoutManager="*uid://bdri8jtreqpg7"
 Haptics="*uid://k4nsh1ebntvr"
 JobsManager="*uid://cid3lkejoqtxp"
+GuideManager="*uid://ciprhvw83upyt"
 
 [debug]
 

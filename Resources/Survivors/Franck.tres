@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SurvivorData" format=3 uid="uid://dx32ydmg6le5f"]
+
+[ext_resource type="Texture2D" uid="uid://4grre1jk7sql" path="res://Assets/PNJs/franck.png" id="1_pfebr"]
+[ext_resource type="Resource" uid="uid://c0vosbfesotna" path="res://Resources/Jobs/professor.tres" id="2_glpfs"]
+[ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_h3pkp"]
+[ext_resource type="Resource" uid="uid://bgv4w4g2bvoby" path="res://Resources/Weapons/Main Weapons/flame_launcher.tres" id="4_h3pkp"]
+
+[resource]
+script = ExtResource("3_h3pkp")
+name = "Franck"
+age = 53
+job_ressource = ExtResource("2_glpfs")
+bio = "Franck is a well known economic professor"
+icon = ExtResource("1_pfebr")
+weapon = ExtResource("4_h3pkp")
+metadata/_custom_type_script = "uid://bpgisub1g6477"

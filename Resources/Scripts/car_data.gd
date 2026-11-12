@@ -19,6 +19,7 @@ class_name CarData
 @export var base_combo_step : float = 0.25     # multiplier gained per new maneuver
 @export var base_combo_decay : float = 0.2    # multiplier lost per second once the window is over
 @export var base_combo_max : float = 5.0
+@export var maneuver_level_combo_max : PackedFloat32Array = [0.1, 0.1, 0.1, 0.1, 0.6]
 
 @export_group("CHARMS")
 ## Charms equipped at the same time (jobs, charms... add to it through modifiers)
@@ -171,6 +172,7 @@ var second_life_used : bool = false
 var rocket_enabled : bool = false
 var ram_enabled : bool = false
 var overdrive_enabled : bool = false
+var combo_floor : float = 1.0
 
 func init_stats() -> void:
 	if CarManager.unlocked_cars.has(self):
@@ -212,6 +214,7 @@ func init_stats() -> void:
 	salvo_repeat_chance = 0.0
 	blood_to_bank_ratio = 0.0
 	low_blood_amplify_ratio = 0.0
+	combo_floor = 1.0
 	wall_keeps_drift = false
 	second_life_enabled = false
 	second_life_used = false

@@ -13,13 +13,14 @@ const MANEUVERS_TAB: int = 0
 const CHARMS_TAB: int = 1
 const FOCUS_SCALE: float = 1.15  # focused charm cell
 
+
 @export var tab_container: TabContainer
 @export_group("Maneuvers tab")
 @export var row_template: HBoxContainer           # RepartitionContainer: hidden, duplicated per maneuver
 @export var weapon_desc_label: Label              # WeaponDesc: description of the selected row weapon
 @export var weapon_count_template: VBoxContainer  # WeaponCount: hidden, duplicated per weapon on board
 @export var hint_label: Label   # optional: Tips
-@export var hint_label2: Label  # optional: Tips2
+@export var maneuvers_close_button: Button
 @export_group("Charms tab")
 @export var charm_slot_template: Control          # CharmHolderContainer/Panel (icon TextureRect inside): hidden, duplicated per charm slot
 @export var owned_charm_template: TextureRect     # first cell of OwnedCharmContainer: hidden, duplicated per unequipped charm
@@ -27,7 +28,7 @@ const FOCUS_SCALE: float = 1.15  # focused charm cell
 @export var mastery_slots_label: Label
 @export var charm_description_label: Label        # CharmDescription: focused charm
 @export var mastery_slot_template: Control        # MasteryCharmHolder/Panel (icon TextureRect inside): hidden, duplicated per car part
-
+@export var charms_close_button: Button
 
 @export var mastery_slot_parts: Array[CarData.Car_Upgrades] = [
 	CarData.Car_Upgrades.ENGINE,
@@ -116,6 +117,8 @@ func open(p_read_only: bool = false) -> void:
 		hint_label.text = tr("LOADOUT_HINT_READ_ONLY") if read_only else tr("LOADOUT_HINT_EDIT")
 	show()
 	set_process(true)
+	if !read_only:
+		_play_guide()
 
 
 func close() -> void:
@@ -139,9 +142,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_back") or event.is_action_pressed("loadout"):
 		close()
 	elif event.is_action_pressed("ui_accept"):
-		if read_only or tab_container.current_tab == MANEUVERS_TAB:
+		if _is_close_button_focused():
 			close()
-		else:
+		elif tab_container.current_tab == CHARMS_TAB:
 			_accept_charm()
 	get_viewport().set_input_as_handled()
 
@@ -163,6 +166,13 @@ func _process(_delta: float) -> void:
 
 
 func _navigate(dx: int, dy: int) -> void:
+	# On a close button: up goes back to the selection it came from, the rest does nothing
+	if _is_close_button_focused():
+		if dy < 0:
+			get_viewport().gui_release_focus()
+			_refresh()
+			_refresh_charms()
+		return
 	if tab_container.current_tab == MANEUVERS_TAB:
 		if dy != 0:
 			_move_selection(dy)
@@ -176,8 +186,10 @@ func _change_tab(direction: int) -> void:
 
 
 func _on_tab_changed(_tab: int) -> void:
-	# Keyboard, gamepad or mouse: a pick never survives a tab change
+	if _is_close_button_focused():
+		get_viewport().gui_release_focus()
 	_reset_charm_focus()
+	_refresh()
 
 
 ## remove_child first: queue_free alone keeps the old nodes in the layout until the end of the frame
@@ -186,6 +198,7 @@ func _free_nodes(nodes: Array) -> void:
 		node.get_parent().remove_child(node)
 		node.queue_free()
 	nodes.clear()
+
 
 
 # ---------------- MANEUVERS TAB ----------------
@@ -242,10 +255,13 @@ func _build_weapon_counts() -> void:
 		weapon_count_nodes.append(count_node)
 
 
+## Down from the last row: the close button (no wrap)
 func _move_selection(direction: int) -> void:
-	if rows.is_empty():
+	if rows.is_empty() or (direction > 0 and selected_row == rows.size() - 1):
+		if direction > 0:
+			_focus_close_button(maneuvers_close_button)
 		return
-	selected_row = wrapi(selected_row + direction, 0, rows.size())
+	selected_row = clampi(selected_row + direction, 0, rows.size() - 1)
 	_refresh()
 
 
@@ -276,7 +292,7 @@ func _refresh() -> void:
 		(row.get_node("WeaponIcon") as TextureRect).texture = weapon.weapon_icon if weapon != null else null
 		var weapon_name: String = "-" if weapon == null else tr(weapon.weapon_name)
 		# Read-only: the selected row is highlighted (its description shows), but no arrows: nothing to cycle
-		var is_selected: bool = i == selected_row
+		var is_selected: bool = i == selected_row and !_is_close_button_focused()
 		var weapon_label: Label = row.get_node("WeaponName") as Label
 		weapon_label.text = "<  %s  >" % weapon_name if is_selected and !read_only else weapon_name
 		var color: Color = SELECTED_COLOR if is_selected else Color.WHITE
@@ -370,12 +386,18 @@ func _move_charm_focus(dx: int, dy: int) -> void:
 				focus_zone = CharmZone.OWNED
 				focus_index = mini(focus_index, owned_charms.size() - 1)
 		elif focus_zone == CharmZone.SLOTS:
+			# No owned charm: straight to the close button
 			if owned_charms.is_empty():
+				_focus_close_button(charms_close_button)
 				return
 			focus_zone = CharmZone.OWNED
 			focus_index = mini(focus_index, owned_charms.size() - 1)
 		elif focus_index + columns < owned_charms.size():
 			focus_index += columns
+		else:
+			# Last row of the owned charms: the close button
+			_focus_close_button(charms_close_button)
+			return
 	elif dy < 0:
 		if focus_zone == CharmZone.OWNED:
 			if focus_index >= columns:
@@ -470,7 +492,7 @@ func _refresh_charms() -> void:
 
 
 func _style_charm_cell(cell: Control, zone: CharmZone, index: int) -> void:
-	var is_focused: bool = zone == focus_zone and index == focus_index
+	var is_focused: bool = zone == focus_zone and index == focus_index and !_is_close_button_focused()
 	var is_picked: bool = zone == picked_zone and index == picked_index
 	cell.scale = Vector2.ONE * (FOCUS_SCALE if is_focused else 1.0)
 	cell.modulate = SELECTED_COLOR if is_picked else Color.WHITE
@@ -481,7 +503,7 @@ func _style_mastery_cell(index: int) -> void:
 	var icon: TextureRect = _get_cell_icon(cell)
 	var charm: CharmData = mastery_charms[index] if index < mastery_charms.size() else null
 	icon.texture = charm.icon if charm != null else null
-	var is_focused: bool = focus_zone == CharmZone.MASTERY and index == focus_index
+	var is_focused: bool = focus_zone == CharmZone.MASTERY and index == focus_index and !_is_close_button_focused()
 	cell.scale = Vector2.ONE * (FOCUS_SCALE if is_focused else 1.0)
 	if charm == null or !CharmsManager.has_mastery(charm):
 		icon.modulate = MASTERY_LOCKED_COLOR
@@ -520,3 +542,30 @@ func _get_part_boost(part: CarData.Car_Upgrades) -> BoostData:
 		if part_boost.is_car_part() and part_boost.car_part == part:
 			return part_boost
 	return null
+	
+## First game: weapons on maneuvers, then R1 to the charms tab and its three zones
+func _play_guide() -> void:
+	GuideManager.play(&"loadout", [
+		{"text": "GUIDE_LOADOUT_WEAPONS", "target": row_template.get_parent()},
+		{"text": "GUIDE_LOADOUT_CHANGE"},
+		{"text": "GUIDE_LOADOUT_CHARMS_R1", "action": &"go_next", "on_done": _change_tab.bind(1)},
+		{"text": "GUIDE_LOADOUT_CHARMS"},
+		{"text": "GUIDE_LOADOUT_MASTERY", "target": mastery_slot_template.get_parent()},
+		{"text": "GUIDE_LOADOUT_SLOTS", "target": charm_slot_template.get_parent()},
+		{"text": "GUIDE_LOADOUT_OWNED", "target": owned_charm_template.get_parent(), "on_done": charms_close_button.grab_focus},
+	])
+
+func _is_close_button_focused() -> bool:
+	var focus_owner: Control = get_viewport().gui_get_focus_owner()
+	return focus_owner != null and (focus_owner == maneuvers_close_button or focus_owner == charms_close_button)
+
+func _focus_close_button(button: Button) -> void:
+	if button == null:
+		return
+	button.grab_focus()
+	# The row / cell left loses its highlight
+	_refresh()
+	_refresh_charms()
+
+func _on_close_pressed() -> void:
+	close()

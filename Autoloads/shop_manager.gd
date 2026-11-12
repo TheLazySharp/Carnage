@@ -96,6 +96,7 @@ const ALL_CHARMS_UIDS : Array[String] = [
 	"uid://carxlirtqqcaq", #cheeseburger : survivor max life + 30
 	"uid://dm6l1gndrnaga", #syringe : all maneuvers are amplfied 
 	"uid://br2sqjgua6lu7", #piggy : cash goes in a pigypack
+	"uid://ct5fkvhiho06o", #anchor : combo min = p_value
 ]
 
 enum CONST_REFS {
@@ -144,7 +145,8 @@ enum CONST_REFS {
 	Charm_Heart,
 	Charm_Rocket,
 	Charm_Ram,
-	Charm_Overdrive
+	Charm_Overdrive,
+	Charm_Anchor
 }
 
 var all_car_boosts : Array[BoostData] = []

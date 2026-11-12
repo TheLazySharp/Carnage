@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://w1e8sqaaanso" path="res://Assets/PNJs/alma.png" id="1_jrq63"]
 [ext_resource type="Resource" uid="uid://dq5xvf3nn64ki" path="res://Resources/Jobs/collectionist.tres" id="2_vr6iv"]
 [ext_resource type="Script" uid="uid://bpgisub1g6477" path="res://Resources/Scripts/survivor_data.gd" id="3_dvc7h"]
-[ext_resource type="Resource" uid="uid://bla2di7wvuhnn" path="res://Resources/Weapons/Ammos/saw.tres" id="4_dvc7h"]
+[ext_resource type="Resource" uid="uid://d3713cb4urg63" path="res://Resources/Weapons/Main Weapons/saw_carrier.tres" id="4_jrq63"]
 
 [resource]
 script = ExtResource("3_dvc7h")
@@ -12,5 +12,5 @@ age = 16
 job_ressource = ExtResource("2_vr6iv")
 bio = "Alma is a young creator"
 icon = ExtResource("1_jrq63")
-weapon = ExtResource("4_dvc7h")
+weapon = ExtResource("4_jrq63")
 metadata/_custom_type_script = "uid://bpgisub1g6477"
