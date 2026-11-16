@@ -146,7 +146,16 @@ func _process(delta: float) -> void:
 		_open_pages(phase2_page_keys, _start_free_play)
 
 
+## The step pages first (if any), then the step itself
 func _start_step(index: int) -> void:
+	var step: TutorialStepData = steps[index]
+	if step.page_keys.is_empty():
+		_begin_step(index)
+	else:
+		_open_pages(step.page_keys, _begin_step.bind(index))
+
+
+func _begin_step(index: int) -> void:
 	step_index = index
 	progress = 0
 	var step: TutorialStepData = steps[step_index]
@@ -154,17 +163,35 @@ func _start_step(index: int) -> void:
 	hint_label.text = tr(step.hint_key)
 	_update_counter()
 
-	var maneuver_data: ManeuverData = LoadoutManager.get_maneuver_data(step.maneuver_type)
-	_show_demo(maneuver_data.demo_video if maneuver_data != null else null)
+	# Dash step: no clip (any maneuver counts). The next steps show theirs again
+	if step.require_amplified:
+		_show_demo(null)
+	else:
+		var maneuver_data: ManeuverData = LoadoutManager.get_maneuver_data(step.maneuver_type)
+		_show_demo(maneuver_data.demo_video if maneuver_data != null else null)
+
+	# Dash step: the driver blood shows what each dash costs, full at the start
+	if step.require_amplified:
+		var driver: SurvivorData = SurvivorsManager.on_board_survivors[0]
+		driver.current_life = driver.max_life
+		BloodBars.show()
+		BloodBars.update_survivor_blood()
 
 
 func _update_counter() -> void:
 	counter_label.text = "%d / %d" % [progress, steps[step_index].required_count]
 
 
-func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: float, _drift_level: int, _is_amplified: bool, _attack_angle: float) -> void:
+func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, _intensity: float, _drift_level: int, is_amplified: bool, _attack_angle: float) -> void:
+	if !_is_counting():
+		return
+	var step: TutorialStepData = steps[step_index]
+	# Dash step: any maneuver counts, as long as it is amplified (the loop excepted)
+	if step.require_amplified:
+		if is_amplified and maneuver_type != ManeuverManager.Type.LOOP:
+			_add_progress()
 	# Other maneuvers still show their popup, only the target one counts
-	if _is_counting() and maneuver_type == steps[step_index].maneuver_type:
+	elif maneuver_type == step.maneuver_type:
 		_add_progress()
 
 

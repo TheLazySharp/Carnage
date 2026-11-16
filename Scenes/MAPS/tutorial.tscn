@@ -52,6 +52,15 @@ title_key = "TUTO_REVERSE"
 hint_key = "TUTO_REVERSE_HINT"
 metadata/_custom_type_script = "uid://cc4q10pweyl5h"
 
+[sub_resource type="Resource" id="Resource_at31f"]
+script = ExtResource("3_jvoqg")
+maneuver_type = 7
+title_key = "TUTO_STEP_DASH"
+hint_key = "TUTO_STEP_DASH_HINT"
+page_keys = ["TUTO_DASH_COST", "TUTO_DASH_AMPLIFY", "TUTO_DASH_ESCAPE"]
+require_amplified = true
+metadata/_custom_type_script = "uid://cc4q10pweyl5h"
+
 [sub_resource type="Resource" id="Resource_ofxhe"]
 script = ExtResource("3_jvoqg")
 maneuver_type = 3
@@ -88,9 +97,6 @@ process_mode = 4
 process_mode = 4
 visible = false
 
-[node name="NewSurvivor" parent="CanvasLayer" parent_id_path=PackedInt32Array(1746516377) index="3" unique_id=928422093]
-process_mode = 4
-
 [node name="Horde" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="0" unique_id=898307467]
 is_active = false
 nb_horde = 3
@@ -101,7 +107,7 @@ is_active = false
 
 [node name="TutorialManager" type="Node2D" parent="." index="23" unique_id=306908674 node_paths=PackedStringArray("horde_spawner", "title_label", "hint_label", "counter_label", "skip_label", "demo_video_player", "quit_popup", "yes_button", "no_button", "pause_menu", "page_popup", "page_title", "page_body", "page_next_button", "page_video_player")]
 script = ExtResource("2_sit3x")
-steps = Array[ExtResource("3_jvoqg")]([SubResource("Resource_jvoqg"), SubResource("Resource_uwe6o"), SubResource("Resource_7fx8n"), SubResource("Resource_cdeii"), SubResource("Resource_1ccaw"), SubResource("Resource_1qkh0"), SubResource("Resource_ofxhe")])
+steps = Array[ExtResource("3_jvoqg")]([SubResource("Resource_jvoqg"), SubResource("Resource_uwe6o"), SubResource("Resource_7fx8n"), SubResource("Resource_cdeii"), SubResource("Resource_1ccaw"), SubResource("Resource_1qkh0"), SubResource("Resource_at31f"), SubResource("Resource_ofxhe")])
 horde_spawner = NodePath("../Spawners/Horde")
 tutorial_weapon = ExtResource("4_1ccaw")
 title_label = NodePath("CanvasLayer/TutorialHUD/Title")

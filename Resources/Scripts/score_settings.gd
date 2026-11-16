@@ -20,3 +20,7 @@ class_name ScoreSettings
 @export_group("MULTIPLIERS")
 ## Total x (1 + (max combo - 1) x share): 0.25 -> a x5 combo doubles the score
 @export var combo_total_share : float = 0.25
+
+@export_group("ECONOMY")
+## Dollars earned per score point at the end of a raid (0.1 = 10 $ for 100 points)
+@export var dollars_per_point : float = 0.1

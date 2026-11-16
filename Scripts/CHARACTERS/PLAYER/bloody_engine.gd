@@ -148,15 +148,6 @@ func blood_consumption(blood_q : int) -> void :
 	_on_car_blood_changed(-blood_q)
 
 
-#func _on_fuel_timer_timeout() -> void:
-	#if game_paused :
-		#return
-	#blood_consumption(car_res.regular_fuel_leak)
-
-#func _on_dash_started() -> void :
-	#fuel_consumption(car_res.dash_fuel_down)
-
-
 func _on_car_blood_consummed(blood_cost : int) -> void:
 	blood_consumption(blood_cost)
 	
@@ -196,14 +187,13 @@ func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 	if is_dead:
 		return
 	var new_life : int = player.current_life + p_life_change
-	if new_life > player.max_life:
-		# Overflow goes to the shop blood tank
-		InventoryManager.blood_tank_q += new_life - player.max_life
-		player.current_life = player.max_life
-		BloodBars.update_blood_tank()
-	elif new_life <= 0:
+	#if new_life > player.max_life:
+		## Overflow goes to the shop blood tank
+		#InventoryManager.blood_tank_q += new_life - player.max_life
+		#player.current_life = player.max_life
+		#BloodBars.update_blood_tank()
+	if new_life <= 0:
 		if !can_die:
-			# Tutorial: the driver never dies
 			player.current_life = 1
 		elif !_try_second_life():
 			player.current_life = 0

@@ -3,19 +3,21 @@ extends Control
 ## speedometer: needle from left to right, a full sweep = one level gained (gear change), and so on.
 ## Data from StatsManager.get_raid_score() and XPManager.add_raid_xp(). Every sfx is optional
 
-enum Phase { LINES, TOTAL, NEEDLE, DONE }
+enum Phase { LINES, TOTAL, DOLLARS, NEEDLE, DONE }
 
 @export_group("SFX (optional)")
 @export var quantity_sfx : AudioStream
 @export var score_sfx : AudioStream
 @export var total_sfx : AudioStream
 @export var speedometer_sfx : AudioStream
+@export var dollar_sfx : AudioStream
 
 @export_group("TIMING")
 @export var step_delay : float = 0.25         # min seconds between two displays (the only wait without sfx)
 @export var needle_fill_speed : float = 0.6   # share of a level per second
 @export var gear_change_pause : float = 0.25  # needle held at the left after a level up
 @export var needle_drop_speed : float = 3.0   # share of a level per second when the needle falls back (gear change)
+@export var dollar_count_duration : float = 1.0  # seconds for the dollars to count up from 0
 
 @export_group("SPEEDOMETER")
 @export var needle_min_degrees : float = -120.0  # 0 % of a level
@@ -51,6 +53,13 @@ var total_player : AudioStreamPlayer
 var speedometer_player : AudioStreamPlayer
 var needle_dropping : bool = false
 
+var dollar_player : AudioStreamPlayer
+
+# ---- Dollars ----
+var dollars_earned : int = 0
+var dollars_elapsed : float = 0.0
+@export var dollars_row : HBoxContainer
+
 func _ready() -> void:
 	BloodBars.hide()
 	stat_template.hide()
@@ -64,9 +73,14 @@ func _ready() -> void:
 
 	score = StatsManager.get_raid_score()
 	segments = XPManager.add_raid_xp(score["total"])
+	dollars_earned = roundi(score["total"] * StatsManager.score_settings.dollars_per_point)
+	InventoryManager.blood_tank_q += dollars_earned
+	BloodBars.update_blood_tank()
+	dollar_player = _make_player(dollar_sfx)
 
 	_build_lines()
 	_reset_total_row()
+	_build_dollars_row()
 	needle_ratio = segments[0]["from"]
 	_set_needle(needle_ratio)
 	level_nb.text = str(segments[0]["level"])
@@ -85,6 +99,10 @@ func _input(event : InputEvent) -> void:
 	if phase == Phase.LINES and event.is_action_pressed("ui_accept"):
 		_skip_line()
 		get_viewport().set_input_as_handled()
+	elif phase == Phase.DOLLARS and event.is_action_pressed("ui_accept"):
+		# The count ends at once
+		dollars_elapsed = dollar_count_duration
+		get_viewport().set_input_as_handled()
 
 
 func _on_ok_pressed() -> void:
@@ -100,7 +118,9 @@ func _process(delta : float) -> void:
 			_process_lines()
 		Phase.TOTAL:
 			if _step_done():
-				phase = Phase.NEEDLE
+				_start_dollars()
+		Phase.DOLLARS:
+			_process_dollars(delta)
 		Phase.NEEDLE:
 			_process_needle(delta)
 
@@ -222,6 +242,38 @@ func _build_lines() -> void:
 		_label(row, "Quantity").text = ""
 		_label(row, "Score").text = ""
 		line_rows.append(row)
+
+
+## Dedicated dollars row of the scene: total x rate = dollars, hidden until its turn
+func _build_dollars_row() -> void:
+	_label(dollars_row, "Key").text = "%s :" % tr("SCORE_DOLLARS")
+	_label(dollars_row, "Quantity").text = str(score["total"])
+	_label(dollars_row, "Points").text = String.num(StatsManager.score_settings.dollars_per_point, 2)
+	_label(dollars_row, "Score").text = ""
+	dollars_row.hide()
+
+
+func _start_dollars() -> void:
+	phase = Phase.DOLLARS
+	dollars_elapsed = 0.0
+	dollars_row.show()
+
+
+## Dollars counting up from 0, then a short pause before the needle
+func _process_dollars(delta : float) -> void:
+	dollars_elapsed += delta
+	var ratio : float = 2.0
+	if dollar_count_duration > 0.0:
+		ratio = minf(dollars_elapsed / dollar_count_duration, 1.0)
+	_label(dollars_row, "Score").text = str(roundi(dollars_earned * ratio))
+	if ratio < 1.0:
+		if dollar_player.stream != null and !dollar_player.playing:
+			dollar_player.play()
+		return
+	dollar_player.stop()
+	# The needle phase waits wait_left first (same pause as a gear change)
+	wait_left = step_delay
+	phase = Phase.NEEDLE
 
 
 func _reset_total_row() -> void:

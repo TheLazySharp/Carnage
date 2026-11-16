@@ -5,15 +5,17 @@
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="2_vl61d"]
 [ext_resource type="AudioStream" uid="uid://dwrv0yy7gj1p0" path="res://Assets/Audio/SFX/Impact/sword_impact.mp3" id="3_0rwg5"]
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_6fehf"]
+[ext_resource type="AudioStream" uid="uid://dcs41hr6yu2n" path="res://Assets/Audio/SFX/Coins/Cash_register.mp3" id="4_0rwg5"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_2v65v"]
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="7_1rf3y"]
 [ext_resource type="Texture2D" uid="uid://pi1q3pv4wn13" path="res://Assets/Items/speedometer.png" id="7_2v65v"]
 [ext_resource type="Script" uid="uid://dictxjasb63jo" path="res://Scripts/FONTS/GUI_text_24.gd" id="8_0rwg5"]
 [ext_resource type="Texture2D" uid="uid://b0b7qk5fot4tl" path="res://Assets/Items/needle.png" id="8_pl47y"]
+[ext_resource type="Texture2D" uid="uid://hnexr8g6micy" path="res://Assets/Items/Drops/Dollars/blood.png" id="10_06dww"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fv041"]
 
-[node name="Score" type="Control" unique_id=1191983561]
+[node name="Score" type="Control" unique_id=1191983561 node_paths=PackedStringArray("dollars_row")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,8 +26,10 @@ script = ExtResource("1_23r8h")
 quantity_sfx = ExtResource("2_1rf3y")
 score_sfx = ExtResource("3_0rwg5")
 total_sfx = ExtResource("3_0rwg5")
+dollar_sfx = ExtResource("4_0rwg5")
 step_delay = 0.5
 needle_fill_speed = 0.8
+dollars_row = NodePath("Stats/EndGameStats/Dollars")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=299801154]
 layout_mode = 1
@@ -152,6 +156,68 @@ theme_override_font_sizes/font_size = 24
 text = "300"
 horizontal_alignment = 2
 script = ExtResource("8_0rwg5")
+
+[node name="Dollars" type="HBoxContainer" parent="Stats/EndGameStats" unique_id=1946195707]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Key" type="Label" parent="Stats/EndGameStats/Dollars" unique_id=2072559162]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "Earnings :"
+script = ExtResource("8_0rwg5")
+
+[node name="Quantity" type="Label" parent="Stats/EndGameStats/Dollars" unique_id=780063316]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "150"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Multiply" type="Label" parent="Stats/EndGameStats/Dollars" unique_id=113975483]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "x"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Points" type="Label" parent="Stats/EndGameStats/Dollars" unique_id=2020461494]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "2"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Equal" type="Label" parent="Stats/EndGameStats/Dollars" unique_id=476995094]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "="
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Score" type="Label" parent="Stats/EndGameStats/Dollars" unique_id=1895499949]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "300"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Sprite2D" type="TextureRect" parent="Stats/EndGameStats/Dollars" unique_id=164364461]
+layout_mode = 2
+texture = ExtResource("10_06dww")
+stretch_mode = 5
 
 [node name="Total" type="HBoxContainer" parent="Stats/EndGameStats" unique_id=2120441526]
 layout_mode = 2

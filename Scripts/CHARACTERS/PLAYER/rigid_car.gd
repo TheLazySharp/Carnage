@@ -10,6 +10,10 @@ var player : CarData
 @export var brake_multiplier : float = 3.0  
 ## rotation floor while drifting: fast spins even at low speed
 @export var drift_min_steer_factor : float = 0.4
+## Steering without throttle below this speed makes the car crawl (px/s)
+@export var creep_speed : float = 60.0
+## How fast the crawl speed is reached (px/s²)
+@export var creep_accel : float = 200.0
 
 var max_backward_speed : int = 0
 var backward_speed_ratio : float = 0.9
@@ -254,7 +258,13 @@ func _process_player_inputs(delta : float) -> void:
 			accel_force *= brake_multiplier
 		velocity += forward * throttle * accel_force * delta
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+		var forward_speed : float = velocity.dot(forward)
+		if steer != 0.0 and absf(forward_speed) < creep_speed and !burnout_manager.is_revving():
+			# Steering at a standstill: the car crawls instead of staying still
+			var creep_dir : float = -1.0 if forward_speed < -1.0 else 1.0
+			velocity = velocity.move_toward(forward * creep_dir * creep_speed * absf(steer), creep_accel * delta)
+		else:
+			velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 	velocity = velocity.limit_length(player.unscaled_speed())
 	if throttle < 0.0:
@@ -262,7 +272,11 @@ func _process_player_inputs(delta : float) -> void:
 
 	# ----------------- ROTATION -----------------
 	var speed : float = velocity.dot(forward)
-	var min_steer : float = drift_min_steer_factor if drifting else MIN_STEER_FACTOR
+	# Outside drift and rev, rotation follows the speed (constant turning radius, like a real car):
+	# no more spinning on the spot. The rev keeps its floor for the donut
+	var min_steer : float = MIN_STEER_FACTOR if burnout_manager.is_revving() else 0.0
+	if drifting:
+		min_steer = drift_min_steer_factor
 	var steer_factor : float = clampf(absf(speed) / player.unscaled_speed(), min_steer, 1.0)
 
 	if drifting:

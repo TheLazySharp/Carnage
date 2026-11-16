@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://blq6k4c6ho7dd"]
+
+[ext_resource type="Script" uid="uid://dk5wl1p0cu8cj" path="res://Scripts/WEAPONS/poison_puddle.gd" id="1_eokuw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ssidi"]
+radius = 40.0
+
+[node name="PoisonPuddle" type="Node2D" unique_id=1630673796]
+script = ExtResource("1_eokuw")
+base_color = Color(0.39215687, 0.53333336, 0.08627451, 1)
+big_count_min = 5
+big_count_max = 10
+small_count_min = 10
+small_count_max = 20
+big_scatter_radius = 20
+small_scatter_radius = 40
+min_distance = 6
+
+[node name="PoisonArea" type="Area2D" parent="." unique_id=1380395803]
+collision_layer = 1024
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoisonArea" unique_id=481275027]
+shape = SubResource("CircleShape2D_ssidi")

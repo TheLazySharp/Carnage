@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://ce4ashdy18nn3" path="res://Resources/Weapons/Ammos/poison_vial.tres" id="2_ersk2"]
 [ext_resource type="Texture2D" uid="uid://doli7tlek85ix" path="res://Assets/Léonce/VFX/Smoke/particles_misc01.png" id="2_tgas8"]
 [ext_resource type="PackedScene" uid="uid://c1c1mfll805km" path="res://Scenes/VFX/poison_splat.tscn" id="3_ersk2"]
+[ext_resource type="PackedScene" uid="uid://blq6k4c6ho7dd" path="res://Scenes/WEAPONS/poison_puddle.tscn" id="4_4miln"]
 
 [sub_resource type="Animation" id="Animation_bv63a"]
 length = 0.6667
@@ -269,6 +270,7 @@ radius = 46.0
 script = ExtResource("1_n2t12")
 vial_data = ExtResource("2_ersk2")
 explosion_scene = ExtResource("3_ersk2")
+puddle_scene = ExtResource("4_4miln")
 
 [node name="PoisonAnimation" type="AnimationPlayer" parent="." unique_id=1457258123]
 root_node = NodePath("../PoisonVial")

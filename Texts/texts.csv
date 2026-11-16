@@ -218,7 +218,7 @@ GUIDE_LOADOUT_CHARMS;Charms are bought at the shop. Special ones are earned by u
 GUIDE_LOADOUT_MASTERY;Special charms go here: they are added and switched on as soon as you get them.;Les charms spéciaux arrivent ici : ils sont ajoutés et activés dès que tu les obtiens.
 GUIDE_LOADOUT_SLOTS;A charm you buy is equipped here automatically, as long as there is room.;Un charm acheté s’équipe ici automatiquement, tant qu’il reste de la place.
 GUIDE_LOADOUT_OWNED;Otherwise it waits here. You can swap your charms every time you come back to the roadmap.;Sinon, il attend ici. Tu peux échanger tes charms à chaque passage sur la roadmap.
-GUIDE_SCORE_LEVELS;Your score turns into levels. Each level gained gives an upgrade for your car parts.;Ton score se transforme en niveaux. Chaque niveau gagné donne une amélioration pour les pièces de ta voiture.
+GUIDE_SCORE_LEVELS;Your score turns into cash and levels. Each level gained gives an upgrade for your car parts.;Ton score se transforme fric et en niveaux. Chaque niveau gagné donne une amélioration pour les pièces de ta voiture.
 GUIDE_LEVELUP_PARTS;Each car part improves its own stats. Pick the levels to install.;Chaque pièce de la voiture améliore ses propres stats. Choisis les niveaux à installer.
 GUIDE_LEVELUP_MASTERY;At level 5, a part gives you a powerful special charm.;Au niveau 5, une pièce te donne un charm spécial puissant.
 GUIDE_SHOP_REPAIR;Repair your car here.;Répare ta voiture ici.
@@ -231,3 +231,12 @@ JOB_COP_DESC;Arrest: zombies caught in the burst of a thrown zombie are frozen f
 JOB_SINGER;Singer;Chanteuse
 JOB_SINGER_DESC;Your max combo is raised by 2.;Ton combo maximum augmente de 2.
 SHOP_CHARM_STORED;Slots full: %s goes to your inventory. Equip it from the loadout.;Emplacements pleins : %s va dans ton inventaire. Équipe-le depuis le loadout.
+SCORE_DOLLARS;Earnings;Gains
+TUTO_DASH_COST;The dash;Le dash
+TUTO_DASH_COST_BODY;Press the dash button for a burst of speed. It has a price: each dash costs your driver some blood.;Appuie sur le bouton de dash pour une accélération brutale. Elle a un prix : chaque dash coûte du sang à ton pilote.
+TUTO_DASH_AMPLIFY;Amplified maneuvers;Manœuvres amplifiées
+TUTO_DASH_AMPLIFY_BODY;Dash right before or during a maneuver to amplify it: its salvo fires far more projectiles, and your combo climbs twice as fast.;Dashe juste avant ou pendant une manœuvre pour l’amplifier : sa salve tire beaucoup plus de projectiles, et ton combo monte deux fois plus vite.
+TUTO_DASH_ESCAPE;A way out;Une porte de sortie
+TUTO_DASH_ESCAPE_BODY;Stuck in a horde? The speed boost of a dash pulls the car out of tight spots.;Coincé dans une horde ? L’accélération du dash sort la voiture des situations délicates.
+TUTO_STEP_DASH;Amplify 3 maneuvers;Amplifie 3 manœuvres
+TUTO_STEP_DASH_HINT;Dash during any maneuver;Dashe pendant n’importe quelle manœuvre

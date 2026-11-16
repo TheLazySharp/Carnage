@@ -8,4 +8,5 @@ kill_points = Dictionary[int, int]({
 0: 1,
 2: 3
 })
+dollars_per_point = 0.5
 metadata/_custom_type_script = "uid://ch4w2w8q51iv8"
