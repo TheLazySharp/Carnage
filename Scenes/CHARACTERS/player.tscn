@@ -52,6 +52,7 @@
 [ext_resource type="AudioStream" uid="uid://cnudw1ga7xent" path="res://Assets/Audio/SFX/Spikes/spikes_4.mp3" id="33_ov87q"]
 [ext_resource type="Script" uid="uid://dve7euf78wc0h" path="res://Scripts/CHARACTERS/PLAYER/combo_manager.gd" id="34_mm77v"]
 [ext_resource type="Shader" uid="uid://gymhmxqe7qlw" path="res://Assets/Léonce/Scripts/afterimage_shader.gdshader" id="46_415me"]
+[ext_resource type="PackedScene" uid="uid://ytg7keyo86mu" path="res://Scenes/VFX/tire_mark_emitter.tscn" id="49_2fauw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ly7qr"]
 radius = 19.0
@@ -676,16 +677,17 @@ bus = &"Beeps"
 [node name="BeepTimer" type="Timer" parent="Beacon" unique_id=2026395165]
 autostart = true
 
-[node name="DriftManager" type="Node2D" parent="." unique_id=445293594 node_paths=PackedStringArray("smoke_left", "smoke_right")]
+[node name="DriftManager" type="Node2D" parent="." unique_id=445293594 node_paths=PackedStringArray("tire_mark_left", "tire_mark_right", "smoke_left", "smoke_right")]
 script = ExtResource("24_s25yl")
 enable_auto_slide = false
+tire_mark_left = NodePath("../CarSprite/TireLeft/TireMarkEmitter")
+tire_mark_right = NodePath("../CarSprite/TireRight/TireMarkEmitter")
 release_grip = 0.02
 exit_recovery_speed = 1.0
 slip_reference_deg = 30.0
 smoke_left = NodePath("../CarSprite/TireLeft/SmokeParticles01")
 smoke_right = NodePath("../CarSprite/TireRight/SmokeParticles01")
 smoke_max_scale_ratio = 2.5
-enable_drift_charge = false
 spikes_scene = ExtResource("28_1mhlb")
 drop_spikes_active = false
 
@@ -856,11 +858,15 @@ rotation = -1.5707964
 
 [node name="SmokeParticles01" parent="CarSprite/TireLeft" unique_id=18006183 instance=ExtResource("6_1ihg5")]
 
+[node name="TireMarkEmitter" parent="CarSprite/TireLeft" unique_id=759050204 instance=ExtResource("49_2fauw")]
+
 [node name="TireRight" type="Marker2D" parent="CarSprite" unique_id=587410193]
 position = Vector2(14.790909, 40.92975)
 rotation = -1.5707964
 
 [node name="SmokeParticles01" parent="CarSprite/TireRight" unique_id=326486524 instance=ExtResource("6_1ihg5")]
+
+[node name="TireMarkEmitter" parent="CarSprite/TireRight" unique_id=308492986 instance=ExtResource("49_2fauw")]
 
 [node name="BrakeLights" type="Node2D" parent="CarSprite" unique_id=1863138472]
 script = ExtResource("30_x1ujy")

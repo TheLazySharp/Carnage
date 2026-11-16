@@ -59,7 +59,8 @@ func init_bloody_engine(p_car_res : CarData, p_sprite : Sprite2D, _dash_manager 
 	car_res = p_car_res
 	car_sprite = p_sprite
 	max_life = car_res.max_life.get_value()
-	car_res.current_life = int(max_life)
+	if TimeManager.current_day == 1:
+		car_res.current_life = int(max_life)
 	
 	player = SurvivorsManager.on_board_survivors[0]
 	init_survivor(player)
@@ -72,7 +73,8 @@ func init_bloody_engine(p_car_res : CarData, p_sprite : Sprite2D, _dash_manager 
 
 func init_survivor(survivor : SurvivorData) -> void : 
 	is_dead = false
-	survivor.current_life = survivor.max_life
+	if TimeManager.current_day == 1:
+		survivor.current_life = survivor.max_life
 	BloodBars.update_survivor_blood()
 	
 func _process(delta: float) -> void:
@@ -186,12 +188,7 @@ func _on_car_blood_changed(p_life_change : int) -> void:
 func _on_survivor_blood_changed(p_life_change : int, _p_max_life : int) -> void:
 	if is_dead:
 		return
-	var new_life : int = player.current_life + p_life_change
-	#if new_life > player.max_life:
-		## Overflow goes to the shop blood tank
-		#InventoryManager.blood_tank_q += new_life - player.max_life
-		#player.current_life = player.max_life
-		#BloodBars.update_blood_tank()
+	var new_life : int = mini(player.current_life + p_life_change, player.max_life)
 	if new_life <= 0:
 		if !can_die:
 			player.current_life = 1

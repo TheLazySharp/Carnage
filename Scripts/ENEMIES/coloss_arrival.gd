@@ -22,7 +22,7 @@ func _on_day_timer_end(timer_stop : bool) -> void :
 	if timer_stop:
 		distant = false
 		explosion.play()
-		camera_2d.screen_shake(30,3)
+		camera_2d.screen_shake(15,2)
 		distant_foot_steps.stop()
 		for i in get_children().size():
 			var coloss_auto := coloss_scene.instantiate()
@@ -40,9 +40,9 @@ func _on_coloss_arrival() -> void :
 func _on_steps_tmer_timeout() -> void:
 	if distant:
 		shake_intensity +=1
-		camera_2d.screen_shake(clamp(shake_intensity,10,20),0.4)
+		camera_2d.screen_shake(clamp(shake_intensity,5,15),0.4)
 	else :
-		camera_2d.screen_shake(clamp(shake_intensity,10,20),0.4)
+		camera_2d.screen_shake(clamp(shake_intensity,5,15),0.4)
 
 
 func _on_game_paused(game_is_paused : bool) -> void : 

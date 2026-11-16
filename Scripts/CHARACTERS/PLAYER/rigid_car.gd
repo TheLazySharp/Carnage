@@ -145,8 +145,6 @@ func _ready() -> void:
 		_ready_debug()
 		return
 	player = CarManager.selected_car
-	#if TimeManager.current_day == 1:
-		#player.init_stats()
 
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.start_autopilot_transition.connect(_on_autopilot_transition_start)

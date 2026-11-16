@@ -18,7 +18,8 @@ const DASH_FRICTION : float = 10.0
 # ---------------- SUSTAINED BOOST (NFSU2 style) ----------------
 const NITRO_TICK_TIME : float = 0.3        # seconds between two nitro units
 const NITRO_TICK_COST : int = 10             # nitro units burnt per tick
-const BLOOD_TICK_COST : int = 2             # nitro units burnt per tick
+const BLOOD_TICK_COST : int = 8            # nitro units burnt per tick
+const BLOOD_COST_THRESHOLD : int = 10            # nitro units burnt per tick
 const MIN_NITRO_TO_START : int = 10         # nitro needed to ignite. Set to max_nitro for a "full gauge only" rule
 const MIN_BOOST_TIME : float = 0.12         # floor duration so a tap still feels good
 const DASH_ACTION : StringName = &"dash"
@@ -73,10 +74,8 @@ func try_timed_dash() -> void:
 
 
 func dash_available() -> bool:
-	return !is_dashing \
-		and !is_preparing 
-		#and car_res.current_fuel >= car_res.dash_fuel_down 
-		#and car_res.current_nitro >= MIN_NITRO_TO_START
+	return !is_dashing and !is_preparing and player.current_life > BLOOD_COST_THRESHOLD  # not enough survivor blood: no dash
+
 
 
 ## called from car physics process

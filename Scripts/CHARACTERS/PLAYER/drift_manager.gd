@@ -12,12 +12,16 @@ extends Node2D
 @export var slide_turn_bonus : float = 1.5       # extra rotation while sliding, between 1.0 (none) and drift_turn_bonus (3.2): the slide takes an angle like a lighter manual drift
 @export var slide_damping_mult : float = 0.5     # drift forward damping applied at half strength while sliding
 @export var slide_volume_offset_db : float = -10.0
-@export var slide_skid_width : float = 3.0
 @export var slide_skid_alpha : float = 0.45
 
-@export_group("Skid tail")
-# Seconds before the loop max age during which drift skid points fade out
-@export var skid_fade_time : float = 1.0
+@export_group("Tire marks")
+## Rear wheel emitters (children of the rear wheel markers)
+@export var tire_mark_left : TireMarks
+@export var tire_mark_right : TireMarks
+
+var tire_marks : Array[TireMarks] = []
+var mark_base_tint : Color = Color.WHITE  # emitter tint from the inspector, dimmed for the auto slide
+var mark_base_lifetime : float = 4.0      # emitter lifetime from the inspector, used by the auto slide
 
 @export_group("Drift release")
 ## Lateral grip right after releasing a drift (0.11 = previous behaviour). Lower = the car keeps sliding
@@ -70,6 +74,8 @@ var skid_smoke_active : bool = false
 # Releasing a charged drift grants a speed boost.
 @export_group("Drift charge")
 @export var enable_drift_charge : bool = true
+## Rear light trails while drifting (their color shows the charge tier)
+@export var enable_light_trails : bool = false
 @export var charge_tier_time : float = 0.9   # seconds of drifting per tier
 var charge_colors : Array[Color] = []
 @export var enable_charge_boost : bool = true
@@ -124,15 +130,6 @@ var snap_speed : float = 0.0
 # ---------------- SKID ----------------
 var rear_left : Marker2D
 var rear_right : Marker2D
-var skid_spacing : float = 0.0
-var skid_lifetime : float = 0.0
-var skid_fade_speed : float = 0.0
-var left_line : Line2D = null
-var right_line : Line2D = null
-var left_border : Line2D = null
-var right_border : Line2D = null
-var last_left_pos : Vector2 = Vector2.ZERO
-var last_right_pos : Vector2 = Vector2.ZERO
 
 # ---------------- REAR LIGHT TRAILS ----------------
 var left_trail : Line2D = null
@@ -146,16 +143,6 @@ var trail_lifetime : float = 0.3
 @onready var drift_sfx : AudioStreamPlayer2D = $DriftSfx
 var drift_sfx_base_volume : float = 0.0
 
-# ---------------- DRIFT BONUS -> increase car DMG ----------------
-#var drift_bonus : int = 0
-#var total_drift_points : int = 0
-#var drift_point_add : float = 0.0
-#var car_dmg_mod : Modifier
-
-# Skid point timestamps (skid time), to erase drift points older than the loop max age
-var left_skid_times : PackedFloat32Array = PackedFloat32Array()
-var right_skid_times : PackedFloat32Array = PackedFloat32Array()
-var skid_time : float = 0.0
 @onready var maneuver_manager : ManeuverManager = $"../ManeuverManager"
 
 var debug_mode : bool = false
@@ -184,9 +171,18 @@ func init_drift(car_node : CharacterBody2D, data : CarData, p_rear_left : Marker
 	snap_speed = player.snap_speed
 	current_grip = normal_grip
 
-	skid_spacing = player.skid_spacing
-	skid_lifetime = player.skid_lifetime
-	skid_fade_speed = player.skid_fade_speed
+	# Tire marks: the emitters live under the rear wheel markers, their marks under SkidMarks
+	tire_marks.clear()
+	if tire_mark_left != null and tire_mark_right != null:
+		tire_marks.append(tire_mark_left)
+		tire_marks.append(tire_mark_right)
+		mark_base_tint = tire_mark_left.tint
+		mark_base_lifetime = tire_mark_left.lifetime
+		for emitter : TireMarks in tire_marks:
+			emitter.mark_parent = skid_parent
+			emitter.emitting = false
+	else:
+		push_warning("[DriftManager] tire mark emitters not assigned")
 
 	# Skid smoke: the emitters live under the rear wheel markers
 	skid_smokes.clear()
@@ -288,8 +284,7 @@ func update_drift(delta : float, input_drifting : bool, p_forward_velocity : Vec
 		end_skid()
 		start_skid(sliding)
 	elif skidding:
-		skid_time += delta
-		update_skid_points()
+		update_light_trails()
 		
 
 	# The squeal fades out as the grip comes back
@@ -368,82 +363,23 @@ func start_skid(is_slide : bool) -> void:
 	drift_sfx.pitch_scale = 1.0  # slides and new skids start from the neutral pitch
 	drift_sfx.play()
 
-	var left_pair : Array = create_skid_line(is_slide)
-	var right_pair : Array = create_skid_line(is_slide)
-
-	left_line = left_pair[0]
-	left_border = left_pair[1]
-	right_line = right_pair[0]
-	right_border = right_pair[1]
-
-	skid_parent.add_child(left_border)
-	skid_parent.add_child(left_line)
-	skid_parent.add_child(right_border)
-	skid_parent.add_child(right_line)
-
-	last_left_pos = Vector2.ZERO
-	last_right_pos = Vector2.ZERO
-	skid_time = 0.0
-	left_skid_times.clear()
-	right_skid_times.clear()
+	# Tire marks: lighter for an auto slide (the tint applies to the new chunk)
+	var mark_tint : Color = Color(mark_base_tint, mark_base_tint.a * slide_skid_alpha) if is_slide else mark_base_tint
+	# Drift marks live as long as they can close a loop: the visible trace is the loopable one
+	var mark_lifetime : float = mark_base_lifetime if is_slide else maneuver_manager.loop_max_age
+	for emitter : TireMarks in tire_marks:
+		emitter.tint = mark_tint
+		emitter.lifetime = mark_lifetime
+		emitter.emitting = true
 
 	# Light trails: real drift only
-	if !is_slide:
+	if !is_slide and enable_light_trails:
 		left_trail = create_trail_line()
 		right_trail = create_trail_line()
 		skid_parent.add_child(left_trail)
 		skid_parent.add_child(right_trail)
 		last_left_trail_pos = Vector2.ZERO
 		last_right_trail_pos = Vector2.ZERO
-
-
-func create_skid_line(is_slide : bool) -> Array:
-	var border : Line2D = Line2D.new()
-	border.width = (slide_skid_width + 4.0) if is_slide else 10.0
-	border.default_color = Color(1, 1, 1, 0.8 * (slide_skid_alpha if is_slide else 1.0))
-	border.antialiased = true
-	border.z_index = -2
-
-	var line : Line2D = Line2D.new()
-	line.width = slide_skid_width if is_slide else 6.0
-	line.default_color = Color(0, 0, 0, slide_skid_alpha if is_slide else 1.0)
-	line.antialiased = true
-	line.z_index = -1
-
-	# Drift skids fade from their tail as they approach the loop max age
-	if !is_slide:
-		line.gradient = _make_tail_gradient(line.default_color)
-		border.gradient = _make_tail_gradient(border.default_color)
-		
-		
-	return [line, border]
-
-func _make_tail_gradient(color : Color) -> Gradient:
-	# Uniform at start: the tail only fades once it gets close to the max age
-	var gradient : Gradient = Gradient.new()
-	gradient.offsets = PackedFloat32Array([0.0, 0.0])
-	gradient.colors = PackedColorArray([color, color])
-	return gradient
-
-
-func _update_tail_fade(line : Line2D, border : Line2D, times : PackedFloat32Array) -> void:
-	var max_age : float = maneuver_manager.loop_max_age
-	var oldest_age : float = skid_time - times[0]
-	if oldest_age <= 0.0:
-		return
-	# Tail opacity: 1.0 until (max age - fade time), 0.0 at the max age
-	var tail_ratio : float = clampf((max_age - oldest_age) / skid_fade_time, 0.0, 1.0)
-	# Share of the trace currently fading (time-based approximation of its length)
-	var fade_end : float = clampf((oldest_age - (max_age - skid_fade_time)) / oldest_age, 0.0, 1.0)
-	_set_tail(line, tail_ratio, fade_end)
-	_set_tail(border, tail_ratio, fade_end)
-
-
-func _set_tail(line : Line2D, tail_ratio : float, fade_end : float) -> void:
-	# Line2D gradients run from the first point (tail) to the last one (car)
-	var base : Color = line.default_color
-	line.gradient.offsets = PackedFloat32Array([0.0, fade_end])
-	line.gradient.colors = PackedColorArray([Color(base, base.a * tail_ratio), base])
 
 func create_trail_line() -> Line2D:
 	var trail : Line2D = Line2D.new()
@@ -455,47 +391,9 @@ func create_trail_line() -> Line2D:
 	trail.end_cap_mode = Line2D.LINE_CAP_ROUND
 	return trail
 
-func update_skid_points() -> void:
-	var left_wheel : Vector2 = rear_left.global_position
-	var right_wheel : Vector2 = rear_right.global_position
 
-	if last_left_pos == Vector2.ZERO:
-		left_line.add_point(left_wheel)
-		left_border.add_point(left_wheel)
-		right_line.add_point(right_wheel)
-		right_border.add_point(right_wheel)
-		left_skid_times.append(skid_time)
-		right_skid_times.append(skid_time)
-		last_left_pos = left_wheel
-		last_right_pos = right_wheel
-	else:
-		if left_wheel.distance_to(last_left_pos) > skid_spacing:
-			left_line.add_point(left_wheel)
-			left_border.add_point(left_wheel)
-			left_skid_times.append(skid_time)
-			last_left_pos = left_wheel
-		if right_wheel.distance_to(last_right_pos) > skid_spacing:
-			right_line.add_point(right_wheel)
-			right_border.add_point(right_wheel)
-			right_skid_times.append(skid_time)
-			last_right_pos = right_wheel
-
-	# Erase drift points older than the loop max age:
-	# the visible trace is exactly the part that can still close a loop
-	if !skid_is_slide:
-		var oldest_time : float = skid_time - maneuver_manager.loop_max_age
-		while left_skid_times.size() > 1 and left_skid_times[0] < oldest_time:
-			left_line.remove_point(0)
-			left_border.remove_point(0)
-			left_skid_times.remove_at(0)
-		while right_skid_times.size() > 1 and right_skid_times[0] < oldest_time:
-			right_line.remove_point(0)
-			right_border.remove_point(0)
-			right_skid_times.remove_at(0)
-		_update_tail_fade(left_line, left_border, left_skid_times)
-		_update_tail_fade(right_line, right_border, right_skid_times)
-
-	# LIGHT TRAILS (drift only)
+## Rear light trails (drift only): their color shows the mini-turbo tier
+func update_light_trails() -> void:
 	if left_trail == null:
 		return
 
@@ -524,18 +422,9 @@ func update_skid_points() -> void:
 		right_trail.remove_point(0)
 
 
-func fade_and_destroy(line : Line2D, border : Line2D) -> void:
-	drift_sfx.stop()
-	if line == null:
-		return
-	# modulate instead of default_color: drift skids use a gradient that overrides it
-	var tween : Tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(line, "modulate:a", 0.0, skid_lifetime)
-	tween.tween_property(border, "modulate:a", 0.0, skid_lifetime)
-	tween.set_parallel(false)
-	tween.tween_callback(line.queue_free)
-	tween.tween_callback(border.queue_free)
+func _set_tire_marks(on : bool) -> void:
+	for emitter : TireMarks in tire_marks:
+		emitter.emitting = on
 
 
 func fade_trail(trail : Line2D) -> void:
@@ -550,17 +439,13 @@ func end_skid() -> void:
 	drift_charge = 0.0
 	charge_tier = 0
 
-	fade_and_destroy(left_line, left_border)
-	fade_and_destroy(right_line, right_border)
+	drift_sfx.stop()
+	_set_tire_marks(false)
 	fade_trail(left_trail)
 	fade_trail(right_trail)
-
-	left_line = null
-	left_border = null
-	right_line = null
-	right_border = null
 	left_trail = null
 	right_trail = null
+
 
 func apply_charge_boost() -> void:
 	# Mini-turbo: releasing a charged drift grants a boost
@@ -578,14 +463,8 @@ func is_recovering() -> bool:
 	return recovering
 
 func force_stop_skid() -> void:
-	if left_line != null:
-		fade_and_destroy(left_line, left_border)
-		left_line = null
-		left_border = null
-	if right_line != null:
-		fade_and_destroy(right_line, right_border)
-		right_line = null
-		right_border = null
+	drift_sfx.stop()
+	_set_tire_marks(false)
 	if left_trail != null:
 		fade_trail(left_trail)
 		left_trail = null
