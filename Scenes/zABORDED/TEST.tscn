@@ -121,6 +121,7 @@
 [ext_resource type="Texture2D" uid="uid://dsva0sntb8c47" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 2.tres" id="106_3js2r"]
 [ext_resource type="Texture2D" uid="uid://88ih4l6ca3yq" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 3.tres" id="107_ay2hx"]
 [ext_resource type="Texture2D" uid="uid://c5hhwx0vq3le8" path="res://Assets/Textures/Roads/RoadBrushes/BRUSH 64A/Slice 4.tres" id="108_fxgdo"]
+[ext_resource type="Script" uid="uid://cewjlvg8eh00w" path="res://Assets/Léonce/Scripts/TireMarkEmitter.gd" id="119_5du53"]
 [ext_resource type="Script" uid="uid://dpw3cr3q7anp5" path="res://Assets/Léonce/Scripts/car_controller.gd" id="121_0cnaj"]
 [ext_resource type="Script" uid="uid://bmfjj6iuv0a4l" path="res://Assets/Léonce/Scripts/afterimage_spawner.gd" id="121_empg6"]
 [ext_resource type="PackedScene" uid="uid://d1rvb3smvuug0" path="res://Scenes/VFX/explosion_1.tscn" id="126_rv0vo"]
@@ -4973,7 +4974,7 @@ output_dir_override = "res://Assets/Tilesets/Roofs/Roof Cracks/"
 position = Vector2(1808.17, 1150.545)
 scale = Vector2(1e-05, 1e-05)
 offset = Vector2(184.725, -2.095)
-zoom = Vector2(3, 3)
+zoom = Vector2(1.555, 1.555)
 
 [node name="VFX" type="GPUParticles2D" parent="." unique_id=236192021]
 top_level = true
@@ -6500,7 +6501,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=464086858]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D2" unique_id=1505486636]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="RoadBrushPath2D" type="Path2D" parent="Land_layers/Roads" unique_id=1520984235]
@@ -6533,10 +6534,10 @@ modulate = Color(0.10013283, 0.111220814, 0.100132935, 0.654902)
 [node name="DetailLayer" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=859240602]
 modulate = Color(0.654902, 0.654902, 0.654902, 0.039215688)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=1591145166]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=596132211]
 modulate = Color(0.1882353, 0.1882353, 0.1882353, 0.12941177)
 
-[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=58556924]
+[node name="WearLine_1" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D" unique_id=972275384]
 modulate = Color(0.05490196, 0.05490196, 0.05490196, 0.20392157)
 
 [node name="RoadBrushPath2D3" parent="Land_layers/Roads" unique_id=1071800667 instance=ExtResource("83_3js2r")]
@@ -6553,7 +6554,7 @@ wear_lines = Array[ExtResource("74_5dgyk")]([SubResource("Resource_v1ttx")])
 stamp_color = Color(0.11995789, 0.12939501, 0.11681192, 0.654902)
 detail_color = Color(0.038397167, 0.038397167, 0.03839716, 1)
 
-[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=129685899]
+[node name="WearLine_0" type="Node2D" parent="Land_layers/Roads/RoadBrushPath2D3" unique_id=1665798038]
 modulate = Color(0.21960784, 0.21960784, 0.21960784, 0.61960787)
 
 [node name="Player" type="Node2D" parent="." unique_id=1892447495]
@@ -6587,6 +6588,16 @@ one_shot = true
 explosiveness = 0.8
 process_material = SubResource("ParticleProcessMaterial_tyiq4")
 
+[node name="Afterimage" type="Node2D" parent="." unique_id=547547359 node_paths=PackedStringArray("car_sprite")]
+position = Vector2(1951.325, 1135.055)
+rotation = -3.1350107
+script = ExtResource("121_empg6")
+car_sprite = NodePath("../Skyline")
+spawn_interval = 0.08
+afterimage_lifetime = 0.4
+tint_gradient = SubResource("Gradient_27q37")
+tint_strength = 0.4
+
 [node name="Skyline" type="Sprite2D" parent="." unique_id=953112584]
 z_index = 10
 position = Vector2(1951.325, 1135.055)
@@ -6594,20 +6605,36 @@ rotation = 3.1481745
 texture = ExtResource("99_8l2sf")
 script = ExtResource("121_0cnaj")
 
-[node name="Sprite2D" type="Sprite2D" parent="Skyline" unique_id=446376489]
+[node name="Shadow" type="Sprite2D" parent="Skyline" unique_id=446376489]
 modulate = Color(0, 0, 0, 0.6666667)
 z_index = -1
 position = Vector2(-3.02417, -3.7000732)
 rotation = -0.0065817833
 texture = ExtResource("99_8l2sf")
 
-[node name="Afterimage" type="Node2D" parent="Skyline" unique_id=547547359 node_paths=PackedStringArray("car_sprite")]
-script = ExtResource("121_empg6")
-car_sprite = NodePath("..")
-spawn_interval = 0.08
-afterimage_lifetime = 0.4
-tint_gradient = SubResource("Gradient_27q37")
-tint_strength = 0.4
+[node name="TireMarkEmitter1" type="Node2D" parent="Skyline" unique_id=1388903099]
+position = Vector2(9.502821, 26.993093)
+script = ExtResource("119_5du53")
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/TiremarksBig/"
+spacing = 1.0
+spacing_jitter = 2.0
+lifetime = 2.0
+tint = Color(0, 0, 0, 1)
+chunk_length = 24.0
+max_chunks = 50
+marks_z_index = 8
+
+[node name="TireMarkEmitter2" type="Node2D" parent="Skyline" unique_id=543131988]
+position = Vector2(-9.496767, 27.118149)
+script = ExtResource("119_5du53")
+stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/TiremarksBig/"
+spacing = 1.0
+spacing_jitter = 2.0
+lifetime = 2.0
+tint = Color(0, 0, 0, 1)
+chunk_length = 24.0
+max_chunks = 50
+marks_z_index = 8
 
 [node name="BloodVacuumParticles" parent="." unique_id=741759721 instance=ExtResource("95_jyj36")]
 position = Vector2(2148, 1102)
@@ -7145,6 +7172,7 @@ libraries/ = SubResource("AnimationLibrary_glj78")
 autoplay = &"poison_vial_particles"
 
 [node name="PoisonVial" type="AnimatedSprite2D" parent="PoisonAnimation" unique_id=1833179292]
+visible = false
 z_index = 10
 position = Vector2(2037, 1198)
 sprite_frames = SubResource("SpriteFrames_cbgfx")
