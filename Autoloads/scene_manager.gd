@@ -195,6 +195,7 @@ func unload_game() -> void:
 	SurvivorsManager.unload()
 	ShopManager.unload()
 	BuildingsManager.unload()
+	BiomesManager.unload()
 	JobsManager.unload()
 	BloodBars.unload()
 	GameMaster.tutorial_active = false

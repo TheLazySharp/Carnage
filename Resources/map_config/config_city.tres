@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MapGenConfig" format=3 uid="uid://katahs2lm30u"]
+
+[ext_resource type="Script" uid="uid://kjpbjms7ox14" path="res://Resources/Scripts/map_gen_config.gd" id="1_ockb8"]
+
+[resource]
+script = ExtResource("1_ockb8")
+border_margin_cells = 6
+metadata/_custom_type_script = "uid://kjpbjms7ox14"

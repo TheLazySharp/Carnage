@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://ceutdw8f20q6j" path="res://Scripts/ENEMIES/enemies_MMR.gd" id="19_w70id"]
 [ext_resource type="PackedScene" uid="uid://bx50mtpiyyt2j" path="res://Scenes/CHARACTERS/player.tscn" id="20_t654a"]
 [ext_resource type="Script" uid="uid://drt4cerri52hh" path="res://Scripts/VFX/camera_2d.gd" id="21_tj0a7"]
-[ext_resource type="PackedScene" uid="uid://y0gpp1mfd5sx" path="res://Scenes/MAPS/lands.tscn" id="22_nilsc"]
+[ext_resource type="PackedScene" uid="uid://y0gpp1mfd5sx" path="res://Scenes/MAPS/map_city.tscn" id="22_nilsc"]
 [ext_resource type="Script" uid="uid://b53gepxrtesmg" path="res://Scripts/VFX/damage_label_pool.gd" id="23_hu2wj"]
 [ext_resource type="PackedScene" uid="uid://h2ouuk33ddpd" path="res://Scenes/UI/damages_text.tscn" id="24_tuibr"]
 [ext_resource type="Script" uid="uid://cwjmyhyvmlkqc" path="res://Scripts/VFX/blood_impact_pool.gd" id="25_7yg05"]
@@ -30,7 +30,6 @@
 [ext_resource type="PackedScene" uid="uid://ccarv624txvb1" path="res://Scenes/VFX/bloodshot_particles.tscn" id="28_d4etk"]
 [ext_resource type="Script" uid="uid://b7t5qqvxkabj3" path="res://Scripts/ITEMS/collectables_pool.gd" id="29_xtg73"]
 [ext_resource type="PackedScene" uid="uid://5uh2knats63k" path="res://Scenes/ITEMS/xp_sphere.tscn" id="30_1ilwt"]
-[ext_resource type="PackedScene" uid="uid://xhbaiyiukqyj" path="res://Scenes/ITEMS/dollar.tscn" id="31_p4ndq"]
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="32_i6nq4"]
 [ext_resource type="PackedScene" uid="uid://ca2xs3prb7n8k" path="res://Scenes/ENNEMIES/coloss_arrival.tscn" id="33_4pd6f"]
 [ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="34_4v516"]
@@ -424,8 +423,6 @@ z_index = 10
 z_index = 9
 script = ExtResource("29_xtg73")
 xp_scene = ExtResource("30_1ilwt")
-dollar_scene = ExtResource("31_p4ndq")
-dollar_pool_size = 400
 
 [node name="Spawners" type="Node2D" parent="." unique_id=556355831]
 z_index = 10

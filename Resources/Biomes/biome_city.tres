@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BiomeData" format=3 uid="uid://c1tilec3f7nfc"]
+
+[ext_resource type="Script" uid="uid://cj3cg0ubikwxl" path="res://Resources/Scripts/biome_data.gd" id="1_e0kvw"]
+[ext_resource type="Resource" uid="uid://b0eo2cigbwq66" path="res://Resources/Buildings/CITY/city_buildings_pool.tres" id="1_o4q86"]
+[ext_resource type="Resource" uid="uid://katahs2lm30u" path="res://Resources/map_config/config_city.tres" id="2_uptvp"]
+
+[resource]
+script = ExtResource("1_e0kvw")
+display_name_key = "CITY"
+lands_scene_path = "uid://y0gpp1mfd5sx"
+map_config = ExtResource("2_uptvp")
+building_pool = ExtResource("1_o4q86")
+district_weights = Dictionary[int, int]({
+1: 3,
+3: 2
+})
+metadata/_custom_type_script = "uid://cj3cg0ubikwxl"

@@ -52,6 +52,20 @@ func generate(map_seed : int = 0) -> MapData:
 	return _data
 
 
+## Copies the per-biome parameters. Call it before generate().
+func configure(config : MapGenConfig) -> void:
+	map_size_cells = config.map_size_cells
+	border_margin_cells = config.border_margin_cells
+	block_interior_min = config.block_interior_min
+	block_interior_max = config.block_interior_max
+	removal_ratio = config.removal_ratio
+	artery_count_h = config.artery_count_h
+	artery_count_v = config.artery_count_v
+	sidewalk_cells = config.sidewalk_cells
+	reserve_district_plot = config.reserve_district_plot
+	district_plot_size = config.district_plot_size
+
+
 # =================================================================
 # PASS 1 : ROAD GRAPH
 # =================================================================
