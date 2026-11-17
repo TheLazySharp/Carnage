@@ -5,4 +5,5 @@
 [node name="TireMarkEmitter" type="Node2D" unique_id=759050204]
 script = ExtResource("1_20sln")
 stamp_folder = "res://Assets/Textures/Roads/RoadBrushes/TiremarksBig/"
-tint = Color(0.29411766, 0, 0, 1)
+spacing = 2.0
+tint = Color(0, 0, 0, 1)

@@ -4998,7 +4998,7 @@ script = ExtResource("2_geowy")
 [node name="Background" type="ColorRect" parent="." unique_id=2005278123]
 z_index = -1
 custom_minimum_size = Vector2(3072, 2560)
-color = Color(0.03137255, 0.03137255, 0.03137255, 1)
+color = Color(0.13319641, 0.13319641, 0.13319635, 1)
 
 [node name="RoadPath" type="Node2D" parent="." unique_id=1105191541]
 z_index = 1

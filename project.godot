@@ -17,6 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="TURBO SLAYER"
 run/main_scene="uid://gmjjc1vmgcds"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+run/max_fps=60
 config/icon="res://Assets/icon.svg"
 
 [audio]
