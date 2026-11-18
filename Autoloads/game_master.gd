@@ -13,8 +13,6 @@ enum BIOMES {
 	HARBOR
 	}
 
-var current_biome : BIOMES = BIOMES.CITY
-
 var DIFFICULTIES_MOD : Dictionary[DIFFICULTIES,float] = {
 	DIFFICULTIES.EASY : 0.8,
 	DIFFICULTIES.NORMAL : 1.0,

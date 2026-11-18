@@ -12,8 +12,6 @@ const ALMA = preload("uid://dvuusxwhxeiiy")
 const FRANCK = preload("uid://dx32ydmg6le5f")
 
 
-
-
 ##preload ressources array
 const ALL_SURVIVORS : Array = [
 	CLEM,

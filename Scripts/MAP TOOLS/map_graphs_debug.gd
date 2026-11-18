@@ -4,21 +4,13 @@ extends Node2D
 ## Draws the rasterized cell grid (the same data gameplay will use), the road
 ## graph overlay and the extracted blocks. Wheel = zoom, drag = pan.
 
-# ---------------- GENERATION PARAMETERS (mirrored into MapGenerator) ----------------
+# ---------------- GENERATION PARAMETERS (owned by the biome) ----------------
 @export_group("MAP GENERATION")
 @export var map_seed : int = 0                          # 0 = new random seed each generation (logged in console)
-@export var map_size_cells : Vector2i = Vector2i(96, 80)
-@export var cell_size : int = 32
-@export var lane_width_px : int = 96
-@export var street_lanes : int = 2
-@export var artery_lanes : int = 4
-@export var border_margin_cells : int = 6
-@export var block_interior_min : int = 4
-@export var block_interior_max : int = 12
-@export_range(0.0, 0.8) var removal_ratio : float = 0.1
-@export var artery_count_h : int = 1
-@export var artery_count_v : int = 1
-@export var sidewalk_cells : int = 2
+## Debug only: biome forced when this scene runs on its own (GameMaster.is_debug())
+@export var debug_biome : GameMaster.BIOMES = GameMaster.BIOMES.CITY
+## Debug only: overrides the biome's MapGenConfig. Empty = the biome's own config
+@export var debug_config : MapGenConfig = null
 @export var zone_size_cells : Vector2i = Vector2i(2, 4) # entry / extraction openings (display only for now)
 
 # ---------------- FAST TEST MAP ----------------
@@ -92,9 +84,10 @@ func _ready() -> void:
 	add_to_group("map_generator")
 	SignalManager.day_time_end.connect(_on_day_time_end)
 	if GameMaster.is_debug():
+		# Scene run on its own: it decides its biome, before any config is read
+		BiomesManager.set_biome(debug_biome)
 		_setup_camera()
 		generate.call_deferred()  # in game, World.build_level() drives it
-	_build_failsafe_walls()
 
 
 func _process(_delta : float) -> void:
@@ -146,6 +139,7 @@ func generate_async() -> void:
 		return
 	LoadingScreen.set_step(0, BUILD_STEPS, "Drawing the district...")
 	data = generator.generate(map_seed)
+	_build_failsafe_walls()
 	await get_tree().process_frame
 
 	LoadingScreen.set_step(1, BUILD_STEPS, "Adding buildings...")
@@ -164,7 +158,6 @@ func generate_async() -> void:
 	_build_debris()
 	await get_tree().process_frame
 
-	
 	LoadingScreen.set_step(4, BUILD_STEPS, "Adding road wear and cracks...")
 	_build_road_paths()
 	_build_road_cracks()
@@ -212,7 +205,7 @@ func _place_car() -> void:
 	if car == null:
 		return
 	# Entry mouth, on the main artery, facing right
-	car.global_position = Vector2(float(border_margin_cells + 2), float(data.artery_y)) * float(cell_size)
+	car.global_position = Vector2(float(generator.border_margin_cells + 2), float(data.artery_y)) * float(data.cell_size)
 	car.rotation = 0.0
 	car.set("velocity", Vector2.ZERO)
 	if not GameMaster.is_debug():
@@ -231,16 +224,18 @@ func _update_view() -> void:
 # ---------------- FAILSAFE WALLS ----------------
 func _build_failsafe_walls() -> void:
 	# Invisible closed border in the "walls" group (rigid_car reacts to it).
-	# Fully closed for now: the buildings belt will later be the visual wall,
-	# and openings will come with the entry/extraction gameplay pass.
+	# Rebuilt on each generation: its size comes from the generated map.
+	if walls_body != null and is_instance_valid(walls_body):
+		walls_body.queue_free()
 	walls_body = StaticBody2D.new()
 	walls_body.add_to_group("walls")
 	# Debug walls live on ALL collision layers so they match the car's
 	# collision_mask whatever the project's layer setup is
 	walls_body.collision_layer = 0xFFFFFFFF if GameMaster.is_debug() else 4
 	add_child(walls_body)
-	var t : float = float(cell_size * 2)  # thickness
-	var map_px : Vector2 = Vector2(map_size_cells) * float(cell_size)
+	var cell : float = float(data.cell_size)
+	var t : float = cell * 2.0  # thickness
+	var map_px : Vector2 = Vector2(data.map_size_cells) * cell
 	_add_wall(Rect2(-t, -t, map_px.x + 2.0 * t, t))        # top
 	_add_wall(Rect2(-t, map_px.y, map_px.x + 2.0 * t, t))  # bottom
 	_add_wall(Rect2(-t, 0.0, t, map_px.y))                 # left
@@ -256,19 +251,18 @@ func _add_wall(rect : Rect2) -> void:
 	walls_body.add_child(shape)
 
 
+## Debug override first (scene run on its own), then the biome's config
+func _current_config() -> MapGenConfig:
+	if GameMaster.is_debug() and debug_config != null:
+		return debug_config
+	if BiomesManager.current_data != null and BiomesManager.current_data.map_config != null:
+		return BiomesManager.current_data.map_config
+	push_error("[MapGraph] biome %s has no MapGenConfig: generator defaults used" % GameMaster.BIOMES.keys()[BiomesManager.current_biome])
+	return MapGenConfig.new()
+
+
 func _apply_params() -> void:
-	generator.map_size_cells = map_size_cells
-	generator.cell_size = cell_size
-	generator.lane_width_px = lane_width_px
-	generator.street_lanes = street_lanes
-	generator.artery_lanes = artery_lanes
-	generator.border_margin_cells = border_margin_cells
-	generator.block_interior_min = block_interior_min
-	generator.block_interior_max = block_interior_max
-	generator.removal_ratio = removal_ratio
-	generator.artery_count_h = artery_count_h
-	generator.artery_count_v = artery_count_v
-	generator.sidewalk_cells = sidewalk_cells
+	generator.configure(_current_config())
 
 
 # ---------------- DEBUG CAMERA ----------------
@@ -276,7 +270,7 @@ func _setup_camera() -> void:
 	camera = Camera2D.new()
 	add_child(camera)
 	camera.make_current()
-	var map_px : Vector2 = Vector2(map_size_cells) * float(cell_size)
+	var map_px : Vector2 = Vector2(_current_config().map_size_cells) * float(generator.cell_size)
 	camera.position = map_px * 0.5
 	var viewport_size : Vector2 = get_viewport_rect().size
 	var fit_zoom : float = minf(viewport_size.x / map_px.x, viewport_size.y / map_px.y) * 0.95
@@ -609,6 +603,7 @@ func open_exit() -> void:
 func _generate_fast_test() -> void:
 	LoadingScreen.set_step(0, 1, "Drawing the roads...")
 	data = generator.generate(map_seed)
+	_build_failsafe_walls()
 	_seal_map_border()
 	if fast_test_road_brush:
 		_build_road_paths()

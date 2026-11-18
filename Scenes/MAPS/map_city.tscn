@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://y0gpp1mfd5sx"]
 
 [ext_resource type="Script" uid="uid://8kyej0ari2gj" path="res://Scripts/MAP TOOLS/map_graphs_debug.gd" id="1_hogjg"]
+[ext_resource type="Resource" uid="uid://katahs2lm30u" path="res://Resources/map_config/config_city.tres" id="2_0g4fq"]
 [ext_resource type="Script" uid="uid://cp4mcqo6m303r" path="res://Scripts/MAP TOOLS/map_road_path.gd" id="2_fjwlv"]
 [ext_resource type="Script" uid="uid://dbfdhcqb6mesf" path="res://Scripts/MAP TOOLS/debug.gd" id="2_geowy"]
 [ext_resource type="Script" uid="uid://dy5rq620g8ioq" path="res://Scripts/MAP TOOLS/map_building_placer.gd" id="2_s1sq0"]
@@ -4937,6 +4938,7 @@ sources/0 = SubResource("TileSetAtlasSource_o76wv")
 
 [node name="Lands" type="Node2D" unique_id=369331439 node_paths=PackedStringArray("road_paths", "barrier_layer")]
 script = ExtResource("1_hogjg")
+debug_config = ExtResource("2_0g4fq")
 show_cell_grid = false
 show_graph = false
 show_blocks = false

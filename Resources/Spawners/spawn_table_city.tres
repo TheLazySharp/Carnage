@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="SpawnTable" format=3 uid="uid://bkxqc5o3j2c1q"]
+
+[ext_resource type="Script" uid="uid://bvhcyd4h3twr5" path="res://Resources/Scripts/spawn_entry.gd" id="1_dbbda"]
+[ext_resource type="Script" uid="uid://c6l2gagleidjy" path="res://Resources/Scripts/spawn_table.gd" id="2_14k3r"]
+[ext_resource type="Script" uid="uid://ccnytlk30iso3" path="res://Scripts/SPAWNERS/horde_spawn_entry.gd" id="2_i30m1"]
+[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="3_afre5"]
+[ext_resource type="Script" uid="uid://dtyomitcopy8b" path="res://Scripts/SPAWNERS/stream_spawn_entry.gd" id="4_wamf4"]
+[ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="5_wamf4"]
+
+[sub_resource type="Resource" id="Resource_afre5"]
+script = ExtResource("2_i30m1")
+nb_horde_start = 20
+nb_horde_end = 20
+horde_size_start = 40
+horde_size_end = 40
+horde_radius_px = 64.0
+spawner_scene = ExtResource("3_afre5")
+metadata/_custom_type_script = "uid://ccnytlk30iso3"
+
+[sub_resource type="Resource" id="Resource_j3pel"]
+script = ExtResource("4_wamf4")
+auto_spawn = true
+spawn_rate_start = 0.4
+spawn_rate_end = 0.4
+max_enemy_start = 400
+max_enemy_end = 400
+spawner_scene = ExtResource("5_wamf4")
+metadata/_custom_type_script = "uid://dtyomitcopy8b"
+
+[resource]
+script = ExtResource("2_14k3r")
+entries = Array[ExtResource("1_dbbda")]([SubResource("Resource_afre5"), SubResource("Resource_j3pel")])
+metadata/_custom_type_script = "uid://c6l2gagleidjy"

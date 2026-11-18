@@ -23,7 +23,8 @@ enum SCENES {
 	TUTORIAL,
 	SANDBOX_NEW,
 	SURVIVOR_RECAP,
-	SCORE
+	SCORE,
+	BIOME_INTRO
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -51,6 +52,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.SANDBOX_NEW : "uid://doy16umvky4m1",
 	SCENES.SURVIVOR_RECAP : "uid://n80vprxw83m5",
 	SCENES.SCORE : "uid://bepq3whxkt0bw",
+	SCENES.BIOME_INTRO : "uid://4lfs15m8ww5a",
 }
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
@@ -99,7 +101,12 @@ func _ready() -> void:
 	SignalManager.map_generated.connect(_on_map_generated)
 
 func load_level(scene : SCENES, loading_message : String = "") -> void:
-	previous_scene = current_scene
+	if scene == SCENES.ROADMAP:
+		scene = _resolve_roadmap_destination()
+	# The biome intro is a pass-through: the roadmap's "back" must still know
+	# where the player really came from (car selection, shop...)
+	if current_scene != SCENES.BIOME_INTRO:
+		previous_scene = current_scene
 	current_scene = scene
 	print("previous scene : ", SCENES.keys()[previous_scene], " / current scene : ", SCENES.keys()[current_scene])
 	# Same rule as load_district: an explicit message always wins, otherwise
@@ -120,6 +127,19 @@ func load_district(loading_district : DistrictsData, loading_message : String = 
 		message = default_loading_message
 	await _change_scene(districts_scenes[loading_district.type], message)
 
+## Every road to the roadmap goes through here: biome change after a final
+## district, then the biome intro screen once per biome
+func _resolve_roadmap_destination() -> SCENES:
+	if RoadMapManager.is_biome_completed():
+		if not BiomesManager.advance():
+			# Last biome cleared. TODO: victory screen, the run simply ends for now
+			push_warning("[SceneManager] run won: no victory screen yet, back to the menu")
+			unload_game()
+			return SCENES.MAIN_MENU
+		RoadMapManager.reset_map()
+	if BiomesManager.intro_pending:
+		return SCENES.BIOME_INTRO
+	return SCENES.ROADMAP
 
 ## The overlay is driven by the DESTINATION, never by the caller: only a scene
 ## implementing build_level() needs one, and that is tested after loading.

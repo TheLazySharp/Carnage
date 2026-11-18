@@ -69,6 +69,7 @@ func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
 	SignalManager.map_generated.connect(_on_map_generated)
 	SignalManager.extraction_reached.connect(_on_extraction_reached)
+	SignalManager.survivor_blood_consummed.connect(_on_survivor_blood_consumed)
 	skip_label.text = tr("TUTO_SKIP")
 	yes_button.text = tr("TUTO_YES")
 	no_button.text = tr("TUTO_NO")
@@ -302,6 +303,25 @@ func _on_page_next_pressed() -> void:
 	page_open = false
 	SignalManager.game_paused.emit(false)
 	page_done.call()
+
+# ---------------- DRIVER BLOOD ----------------
+
+## Tutorial only: the driver never stays unable to dash. Deferred so the check
+## runs after whoever actually subtracts the blood on this signal
+func _on_survivor_blood_consumed(_amount : int) -> void:
+	_refill_driver_if_drained.call_deferred()
+
+
+func _refill_driver_if_drained() -> void:
+	if SurvivorsManager.on_board_survivors.is_empty():
+		return
+	var driver : SurvivorData = SurvivorsManager.on_board_survivors[0]
+	# Same threshold as DashManager.dash_available()
+	if driver.current_life > DashManager.BLOOD_COST_THRESHOLD:
+		return
+	driver.current_life = driver.max_life
+	BloodBars.update_survivor_blood()
+
 
 # ---------------- ENDING: COLOSS + EXTRACTION ----------------
 

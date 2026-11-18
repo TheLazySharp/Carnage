@@ -225,7 +225,7 @@ GUIDE_SHOP_REPAIR;Repair your car here.;Répare ta voiture ici.
 GUIDE_SHOP_CHARMS;Buy charms: their effects last for the whole run.;Achète des charms : leurs effets durent toute la partie.
 GUIDE_SHOP_MANEUVERS;Unlock maneuvers and raise their mastery level: the weapons placed on them get more out of your combo.;Débloque des manœuvres et monte leur niveau de maîtrise : les armes placées dessus profitent davantage de ton combo.
 GUIDE_SHOP_COMBO;Each mastery level also raises your max combo.;Chaque niveau de maîtrise augmente aussi ton combo maximum.
-GUIDE_ROADMAP_RESCUE;Next raid: a survivor needs you. Find where they hide and save them ! At the end of the raid, you get their weapon and the effects of their job.;Au prochain raid, un survivant t’attend. Sauve-le : en fin de raid, tu récupères son arme et les effets de son métier.
+GUIDE_ROADMAP_RESCUE;Next raid: a survivor needs you. Find where they hide and save them by staying close to his building! At the end of the raid, you get their weapon and the effects of their job.;Au prochain raid, un survivant t’attend. Sauve-le en restant près de son immeuble. En fin de raid, tu récupères son arme et les effets de son métier.
 JOB_COP;Cop;Flic
 JOB_COP_DESC;Arrest: zombies caught in the burst of a thrown zombie are frozen for a moment.;Interpellation : les zombies pris dans l’éclatement d’un zombie projeté sont immobilisés un instant.
 JOB_SINGER;Singer;Chanteuse
@@ -233,10 +233,14 @@ JOB_SINGER_DESC;Your max combo is raised by 2.;Ton combo maximum augmente de 2.
 SHOP_CHARM_STORED;Slots full: %s goes to your inventory. Equip it from the loadout.;Emplacements pleins : %s va dans ton inventaire. Équipe-le depuis le loadout.
 SCORE_DOLLARS;Earnings;Gains
 TUTO_DASH_COST;The dash;Le dash
-TUTO_DASH_COST_BODY;Press the dash button for a burst of speed. It has a price: each dash costs your driver some blood.;Appuie sur le bouton de dash pour une accélération brutale. Elle a un prix : chaque dash coûte du sang à ton pilote.
+TUTO_DASH_COST_BODY;Press the dash button (B) for a burst of speed. It has a price: each dash costs your driver some blood.;Appuie sur le bouton de dash (B) pour une accélération brutale. Elle a un prix : chaque dash coûte du sang à ton pilote.
 TUTO_DASH_AMPLIFY;Amplified maneuvers;Manœuvres amplifiées
 TUTO_DASH_AMPLIFY_BODY;Dash right before or during a maneuver to amplify it: its salvo fires far more projectiles, and your combo climbs twice as fast.;Dashe juste avant ou pendant une manœuvre pour l’amplifier : sa salve tire beaucoup plus de projectiles, et ton combo monte deux fois plus vite.
 TUTO_DASH_ESCAPE;A way out;Une porte de sortie
 TUTO_DASH_ESCAPE_BODY;Stuck in a horde? The speed boost of a dash pulls the car out of tight spots.;Coincé dans une horde ? L’accélération du dash sort la voiture des situations délicates.
 TUTO_STEP_DASH;Amplify 3 maneuvers;Amplifie 3 manœuvres
 TUTO_STEP_DASH_HINT;Dash during any maneuver;Dashe pendant n’importe quelle manœuvre
+BIOME_CITY;CARNWAY CITY;CARNWAY CITY
+BIOME_DESERT;EASTERN DESERT;DESERT DE L'EST
+BIOME_COUNTRYSIDE;STEPPES;LES STEPPES
+BIOME_HARBOR;THE LAST RIDE;DERNIERE VALSE

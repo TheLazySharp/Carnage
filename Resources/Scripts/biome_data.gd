@@ -9,19 +9,17 @@ extends Resource
 ## Lands scene of this biome, loaded on demand by World
 @export_file("*.tscn") var lands_scene_path : String = ""
 @export var map_config : MapGenConfig
-@export var building_pool : BuildingPool
 ## Roadmap random district types (root, survivor rows, shops and final are forced elsewhere)
 @export var district_weights : Dictionary[DistrictsData.types, int] = {}
-
+## Rows of this biome's roadmap, final district included (min RoadMapManager.MIN_STEPS)
+@export var roadmap_steps : int = 10
+## Every spawner of this biome's raids, with their progression along the roadmap
+@export var spawn_table : SpawnTable
 
 func validate() -> PackedStringArray:
 	var issues : PackedStringArray = PackedStringArray()
 	if map_config == null:
 		issues.append("map_config is missing")
-	if building_pool == null:
-		issues.append("building_pool is missing")
-	elif building_pool.biome != biome:
-		issues.append("building_pool belongs to another biome")
 	if lands_scene_path.is_empty():
 		issues.append("lands_scene_path is empty")
 	var total_weight : int = 0
@@ -29,4 +27,6 @@ func validate() -> PackedStringArray:
 		total_weight += weight
 	if total_weight <= 0:
 		issues.append("district_weights total is 0: the roadmap cannot pick a type")
+	if roadmap_steps < RoadMapManager.MIN_STEPS:
+		issues.append("roadmap_steps below %d: clamped" % RoadMapManager.MIN_STEPS)
 	return issues

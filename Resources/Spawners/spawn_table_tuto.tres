@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SpawnTable" format=3 uid="uid://dlnhk2ikkbfm6"]
+
+[ext_resource type="Script" uid="uid://bvhcyd4h3twr5" path="res://Resources/Scripts/spawn_entry.gd" id="1_t1d6y"]
+[ext_resource type="Script" uid="uid://ccnytlk30iso3" path="res://Scripts/SPAWNERS/horde_spawn_entry.gd" id="2_g0bxn"]
+[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="3_jlw1n"]
+[ext_resource type="Script" uid="uid://c6l2gagleidjy" path="res://Resources/Scripts/spawn_table.gd" id="6_30vas"]
+
+[sub_resource type="Resource" id="Resource_afre5"]
+script = ExtResource("2_g0bxn")
+nb_horde_start = 3
+nb_horde_end = 3
+horde_radius_px = 64.0
+spawner_scene = ExtResource("3_jlw1n")
+enabled = false
+metadata/_custom_type_script = "uid://ccnytlk30iso3"
+
+[resource]
+script = ExtResource("6_30vas")
+entries = Array[ExtResource("1_t1d6y")]([SubResource("Resource_afre5")])
+metadata/_custom_type_script = "uid://c6l2gagleidjy"

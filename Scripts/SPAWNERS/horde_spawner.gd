@@ -15,6 +15,13 @@ const ENEMY = preload("uid://c31g0smlywes2")
 @export var min_distance_from_entry_px : float = 1200.0
 @export var horde_radius_px : float = 128.0
 @export var use_map_seed : bool = true
+## true = hordes spawn with the map, false = they wait for trigger_signal
+@export var auto_spawn : bool = true
+## SignalManager signal that spawns the hordes when auto_spawn is false
+@export var trigger_signal : StringName = &"launch_horde"
+## Hordes chase the car as soon as they spawn instead of waiting idle
+@export var chase_on_spawn : bool = false
+
 
 var renderer : EnemiesMultiMeshRenderer
 var game_paused : bool = false
@@ -64,6 +71,17 @@ func setup_trigger() -> void:
 	# Called by Spawner._on_map_generated once free_cells is filled
 	if not is_active:
 		return
+	if auto_spawn:
+		_spawn_all_hordes()
+		return
+	if not SignalManager.has_signal(trigger_signal):
+		push_error("[HordeSpawner] SignalManager has no signal '%s'" % trigger_signal)
+		return
+	# unbind() drops the signal's own arguments, whatever their count
+	SignalManager.connect(trigger_signal, _on_trigger.unbind(_signal_arg_count(trigger_signal)), CONNECT_ONE_SHOT)
+
+
+func _spawn_all_hordes() -> void:
 	if free_cells.is_empty():
 		push_warning("[HordeSpawner] no free cell, nothing spawned")
 		return
@@ -73,7 +91,21 @@ func setup_trigger() -> void:
 	for center : Vector2 in _horde_centers:
 		_spawn_horde(center)
 
-	#print("[HordeSpawner] ", _horde_centers.size(), " hordes of ",max_enemy_count, " enemies")
+
+func _on_trigger() -> void:
+	# A late horde must keep away from the CAR, not from the entry: the same
+	# min_distance_from_entry_px is reused around the car's current position
+	var car : Node2D = get_tree().get_first_node_in_group("player") as Node2D
+	if car != null:
+		_entry_pos = car.global_position
+	_spawn_all_hordes()
+
+
+func _signal_arg_count(signal_name : StringName) -> int:
+	for info : Dictionary in SignalManager.get_signal_list():
+		if info["name"] == signal_name:
+			return (info["args"] as Array).size()
+	return 0
 
 
 func is_placement_valid(_anchor : Vector2i, _size : Vector2i, world_center : Vector2) -> bool:
@@ -103,6 +135,9 @@ func on_spawned(instance : Node) -> void:
 		horde_manager.count_enemies(1)
 	current_horde.append(enemy)
 	spawned_count += 1
+	# Same order as the stream spawner: state first, then activation
+	if chase_on_spawn:
+		enemy.state_machine.state_transition_to("chase")
 	enemy.activate(enemy.global_position)
 
 

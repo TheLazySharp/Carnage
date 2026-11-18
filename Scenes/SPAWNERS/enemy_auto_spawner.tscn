@@ -5,9 +5,11 @@
 
 [node name="SpawnerAuto" type="Node2D" unique_id=210156015]
 script = ExtResource("1_1vdmu")
+is_infinite = false
+max_enemy_count = 400
+auto_spawn = true
 scene_to_spawn = ExtResource("2_kjb0a")
-max_spawn_attempts = 50
-spawn_rate = 0.3
+spawn_rate = 0.4
 
 [node name="SpawnRate" type="Timer" parent="." unique_id=2090149341]
 

@@ -5,14 +5,21 @@ extends Node
 
 ## Run order, fixed for the demo
 const BIOME_ORDER : Array[GameMaster.BIOMES] = [
+	GameMaster.BIOMES.DESERT,
 	GameMaster.BIOMES.CITY,
 	GameMaster.BIOMES.COUNTRYSIDE,
 ]
 
+## Debug builds only: every new run starts on this biome, then follows
+## BIOME_ORDER. -1 = BIOME_ORDER[0]. Example: GameMaster.BIOMES.DESERT
+const DEBUG_START_BIOME : int = -1
+
+
 ## Loaded on demand: a BiomeData drags its whole building pool into memory
 var biomes_data_uid : Dictionary[GameMaster.BIOMES, String] = {
-	GameMaster.BIOMES.CITY : "uid://REPLACE_CITY",
-	GameMaster.BIOMES.COUNTRYSIDE : "uid://REPLACE_COUNTRYSIDE",
+	GameMaster.BIOMES.CITY : "uid://c1tilec3f7nfc",
+	GameMaster.BIOMES.DESERT : "uid://fpfhwnxeu3vl",
+	GameMaster.BIOMES.COUNTRYSIDE : "uid://bk0xvrkuyxy8x",
 }
 
 var biome_index : int = 0
@@ -23,7 +30,11 @@ var intro_pending : bool = true
 
 
 func _ready() -> void:
-	_load_biome(BIOME_ORDER[0])
+	biome_index = _start_index()
+	_load_biome(BIOME_ORDER[biome_index])
+	for biome : GameMaster.BIOMES in BIOME_ORDER:
+		if not biomes_data_uid.has(biome):
+			push_error("[BiomesManager] %s is in BIOME_ORDER but has no BiomeData uid" % GameMaster.BIOMES.keys()[biome])
 
 
 ## Debug entry point (Lands scene run on its own): realigns the run index too
@@ -64,5 +75,13 @@ func _load_biome(biome : GameMaster.BIOMES) -> void:
 
 
 func unload() -> void:
-	biome_index = 0
-	_load_biome(BIOME_ORDER[0])
+	biome_index = _start_index()
+	_load_biome(BIOME_ORDER[biome_index])
+
+func _start_index() -> int:
+	if OS.is_debug_build() and DEBUG_START_BIOME != -1:
+		var index : int = BIOME_ORDER.find(DEBUG_START_BIOME)
+		if index != -1:
+			return index
+		push_warning("[BiomesManager] DEBUG_START_BIOME is not in BIOME_ORDER: run starts on the first biome")
+	return 0

@@ -1,3 +1,4 @@
+class_name StreamSpawner
 extends Spawner
 
 
@@ -64,4 +65,5 @@ func _on_game_paused(game_on_pause : bool) -> void:
 	
 func _on_half_time() -> void : 
 	auto_spawn = true
+	spawn_timer.wait_time = spawn_rate
 	spawn_timer.start()

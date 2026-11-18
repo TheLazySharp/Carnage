@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://4lfs15m8ww5a"]
+
+[ext_resource type="Script" uid="uid://c6d52eyvaol2d" path="res://Scripts/SCENES/biome_intro.gd" id="1_tq7a2"]
+[ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="2_rmmfu"]
+
+[node name="BiomeIntro" type="Control" unique_id=1060415037]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tq7a2")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1191434442]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07683582, 0.07683582, 0.07683582, 1)
+
+[node name="BiomeName" type="Label" parent="." unique_id=788291813]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.0
+offset_top = -67.5
+offset_right = 243.0
+offset_bottom = 67.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_rmmfu")

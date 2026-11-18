@@ -25,7 +25,6 @@ var button_index : int = 0
 
 func _ready() -> void:
 	SignalManager.selected_district.connect(_on_map_district_selected)
-	visual_edge_x = RoadMapManager.Y_DIST * (RoadMapManager.STEPS -1)
 	available_seats.text = "Available seats : " + str(CarManager.selected_car.seats - SurvivorsManager.on_board_survivors.size()) + " / " + str(CarManager.selected_car.seats)
 	if RoadMapManager.last_district:
 		last_district = RoadMapManager.last_district
@@ -35,7 +34,8 @@ func _ready() -> void:
 	unlock_step(RoadMapManager.steps_reached)
 
 	# Run start (no district played yet): the loadout is (re)built from the chosen car and the starting survivor
-	if RoadMapManager.last_district == null:
+	if !RoadMapManager.run_started:
+		RoadMapManager.run_started = true
 		LoadoutManager.start_run(CarManager.selected_car)
 		for survivor : SurvivorData in SurvivorsManager.on_board_survivors:
 			LoadoutManager.add_pending_weapon(survivor.weapon)
@@ -57,6 +57,8 @@ func generate_new_map() -> void :
 		map_data = RoadMapManager.generate_map()
 	else :
 		map_data = RoadMapManager.current_map_data
+	# Scroll limit from the biome's roadmap length, known once the map exists
+	visual_edge_x = RoadMapManager.Y_DIST * (RoadMapManager.steps - 1)
 	# Survivors placed (or brought back within reach) before the districts are drawn
 	RoadMapManager.refresh_survivors()
 	create_map()
@@ -93,7 +95,7 @@ func create_map() -> void :
 				spawn_district(district)
 	
 	var middle: int = floori(RoadMapManager.GRID_WIDTH * 0.5)
-	spawn_district(map_data[RoadMapManager.STEPS-1][middle])
+	spawn_district(map_data[RoadMapManager.steps - 1][middle])
 	
 	var map_height_pixels : int = RoadMapManager.Y_DIST * (RoadMapManager.GRID_WIDTH - 1)
 	visuals.position.y = (get_viewport_rect().size.y + map_height_pixels) * 0.5

@@ -3,130 +3,26 @@ extends Node
 const Y_DIST : int = 128
 const X_DIST : int = 96
 const DIST_RANDOMNESS : int = 24
-const STEPS : int = 10
+## Rows of the current roadmap, read from the biome at each generation
+var steps : int = 10
+## Below this the forced rows (survivors, shops, final) no longer fit
+const MIN_STEPS : int = 6
 const GRID_WIDTH : int = 5
 const PATHS : int = 4
 
 var starting_district_type : DistrictsData.types = DistrictsData.types.ARENA
 
 const SHOP_MIN_ROW : int = 3
-const SHOP_MAX_ROW : int = STEPS - 3
+
+
+## Last row a shop may sit on: depends on the biome's roadmap length
+func shop_max_row() -> int:
+	return steps - 3
 
 var start_column : int = floori(GRID_WIDTH * 0.5)
 
-
-const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
-	GameMaster.BIOMES.CITY : {
-		DistrictsData.types.ARENA : 3,
-		#DistrictsData.types.HIGHWAY : 1,
-		DistrictsData.types.SURVIVOR : 2,
-		#DistrictsData.types.EVENT : 1,
-		#DistrictsData.types.BANK : 3,
-		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.GUNSMITH : 0,
-		DistrictsData.types.SUPERMARKET : 0,
-		DistrictsData.types.CARDEALER : 0,
-		DistrictsData.types.SHOP : 0,
-		#DistrictsData.types.GARAGE : 2,
-	},
-	GameMaster.BIOMES.COUNTRYSIDE : {
-		DistrictsData.types.ARENA : 2,
-		#DistrictsData.types.HIGHWAY : 4,
-		DistrictsData.types.SURVIVOR : 2,
-		#DistrictsData.types.EVENT : 2,
-		#DistrictsData.types.BANK : 1,
-		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.GUNSMITH : 0,
-		DistrictsData.types.SUPERMARKET : 0,
-		DistrictsData.types.CARDEALER : 0,
-		DistrictsData.types.SHOP : 0,
-		#DistrictsData.types.GARAGE : 2,
-	},
-	GameMaster.BIOMES.DESERT : {
-		DistrictsData.types.ARENA : 1,
-		#DistrictsData.types.HIGHWAY : 2,
-		DistrictsData.types.SURVIVOR : 2,
-		#DistrictsData.types.EVENT : 4,
-		#DistrictsData.types.BANK : 1,
-		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.GUNSMITH : 0,
-		DistrictsData.types.SUPERMARKET : 0,
-		DistrictsData.types.CARDEALER : 0,
-		DistrictsData.types.SHOP : 0,
-		#DistrictsData.types.GARAGE : 2,
-	},
-	GameMaster.BIOMES.HARBOR : {
-		DistrictsData.types.ARENA : 2,
-		#DistrictsData.types.HIGHWAY : 1,
-		DistrictsData.types.SURVIVOR : 2,
-		#DistrictsData.types.EVENT : 1,
-		#DistrictsData.types.BANK : 3,
-		#DistrictsData.types.CAR_REPAIR : 2,
-		DistrictsData.types.GUNSMITH : 0,
-		DistrictsData.types.SUPERMARKET : 0,
-		DistrictsData.types.CARDEALER : 0,
-		DistrictsData.types.SHOP : 0,
-		#DistrictsData.types.GARAGE : 2,
-	},
-}
-
-
-#const DISTRICT_WEIGHTS_BY_BIOME : Dictionary = {
-	#GameMaster.BIOMES.CITY : {
-		#DistrictsData.types.ARENA : 3,
-		##DistrictsData.types.HIGHWAY : 1,
-		#DistrictsData.types.SURVIVOR : 2,
-		##DistrictsData.types.EVENT : 1,
-		##DistrictsData.types.BANK : 3,
-		##DistrictsData.types.CAR_REPAIR : 2,
-		#DistrictsData.types.GUNSMITH : 3,
-		#DistrictsData.types.SUPERMARKET : 1,
-		#DistrictsData.types.CARDEALER : 1,
-		#DistrictsData.types.SHOP : 2,
-		##DistrictsData.types.GARAGE : 2,
-	#},
-	#GameMaster.BIOMES.COUNTRYSIDE : {
-		#DistrictsData.types.ARENA : 2,
-		##DistrictsData.types.HIGHWAY : 4,
-		#DistrictsData.types.SURVIVOR : 2,
-		##DistrictsData.types.EVENT : 2,
-		##DistrictsData.types.BANK : 1,
-		##DistrictsData.types.CAR_REPAIR : 2,
-		#DistrictsData.types.SUPERMARKET : 1,
-		#DistrictsData.types.GUNSMITH : 2,
-		#DistrictsData.types.CARDEALER : 2,
-		#DistrictsData.types.SHOP : 1,
-		##DistrictsData.types.GARAGE : 2,
-	#},
-	#GameMaster.BIOMES.DESERT : {
-		#DistrictsData.types.ARENA : 1,
-		##DistrictsData.types.HIGHWAY : 2,
-		#DistrictsData.types.SURVIVOR : 2,
-		##DistrictsData.types.EVENT : 4,
-		##DistrictsData.types.BANK : 1,
-		##DistrictsData.types.CAR_REPAIR : 2,
-		#DistrictsData.types.SUPERMARKET : 1,
-		#DistrictsData.types.GUNSMITH : 1,
-		#DistrictsData.types.CARDEALER : 2,
-		#DistrictsData.types.SHOP : 3,
-		##DistrictsData.types.GARAGE : 2,
-	#},
-	#GameMaster.BIOMES.HARBOR : {
-		#DistrictsData.types.ARENA : 2,
-		##DistrictsData.types.HIGHWAY : 1,
-		#DistrictsData.types.SURVIVOR : 2,
-		##DistrictsData.types.EVENT : 1,
-		##DistrictsData.types.BANK : 3,
-		##DistrictsData.types.CAR_REPAIR : 2,
-		#DistrictsData.types.SUPERMARKET : 1,
-		#DistrictsData.types.GUNSMITH : 2,
-		#DistrictsData.types.CARDEALER : 3,
-		#DistrictsData.types.SHOP : 2,
-		##DistrictsData.types.GARAGE : 2,
-	#},
-#}
-
-var random_districts_weights : Dictionary = {}
+var random_districts_weights : Dictionary[DistrictsData.types, int] = {}
+var run_started : bool = false
 var random_districts_total_weights : int = 0
 
 
@@ -154,14 +50,15 @@ var selected_districts : Array[DistrictsData]
 func _ready() -> void:
 	SignalManager.next_day.connect(_on_next_day)
 
-func generate_map(_biome : GameMaster.BIOMES = GameMaster.current_biome) -> Array[Array] :
+func generate_map() -> Array[Array] :
+	steps = maxi(BiomesManager.current_data.roadmap_steps, MIN_STEPS)
 	map_data = generate_initial_grid()
 
 	var first_columns : Array[int] = setup_starting_connections()
 
 	for j : int in first_columns:
 		var current_j : int = j
-		for i : int in range(1, STEPS - 1):
+		for i : int in range(1, steps - 1):
 			current_j = setup_connection(i, current_j)
 
 	setup_final_district()
@@ -175,7 +72,7 @@ func generate_map(_biome : GameMaster.BIOMES = GameMaster.current_biome) -> Arra
 func generate_initial_grid() -> Array[Array] : 
 	var result : Array[Array] = []
 	
-	for i in STEPS:
+	for i in steps:
 		var adjacent_districts : Array[DistrictsData] = []
 		
 		for j in GRID_WIDTH:
@@ -187,7 +84,7 @@ func generate_initial_grid() -> Array[Array] :
 			current_district.next_districts = []
 			
 			#final district bigger distance
-			if i == STEPS -1 : 
+			if i == steps - 1 : 
 				current_district.position.x = (i + 1) * X_DIST
 			
 			adjacent_districts.append(current_district)
@@ -264,10 +161,10 @@ func should_cross_existing_path(i : int, j : int, district : DistrictsData) -> b
 
 func setup_final_district() -> void : 
 	var middle : int = floori(GRID_WIDTH * 0.5)
-	var final_district : DistrictsData = map_data[STEPS - 1][middle] as DistrictsData
+	var final_district : DistrictsData = map_data[steps - 1][middle] as DistrictsData
 	
 	for j in GRID_WIDTH:
-		var current_district : DistrictsData = map_data[STEPS - 2][j] as DistrictsData
+		var current_district : DistrictsData = map_data[steps - 2][j] as DistrictsData
 		if current_district.next_districts:
 			current_district.next_districts = [] as Array[DistrictsData]
 			current_district.next_districts.append(final_district)
@@ -275,11 +172,14 @@ func setup_final_district() -> void :
 	final_district.type = DistrictsData.types.FINAL
 
 func setup_random_district_weights() -> void : 
-	random_districts_weights = DISTRICT_WEIGHTS_BY_BIOME[GameMaster.current_biome]
+	random_districts_weights = BiomesManager.current_data.district_weights
 	random_districts_total_weights = 0
 
 	for weight : int in random_districts_weights.values():
 		random_districts_total_weights += weight
+
+	if random_districts_total_weights <= 0:
+		push_error("RoadMap : district weights total is 0 for biome %s" % GameMaster.BIOMES.keys()[BiomesManager.current_biome])
 
 func setup_district_types() -> void : 
 	#1 single starting district
@@ -412,7 +312,7 @@ func enforce_shop_on_every_path() -> void :
 
 
 func can_become_shop(district : DistrictsData, strict : bool) -> bool :
-	if district.row < SHOP_MIN_ROW or district.row > SHOP_MAX_ROW:
+	if district.row < SHOP_MIN_ROW or district.row > shop_max_row():
 		return false
 
 	if district.type == DistrictsData.types.SHOP:
@@ -430,6 +330,9 @@ func can_become_shop(district : DistrictsData, strict : bool) -> bool :
 
 	return true
 
+## The final district of this roadmap has been played: time for the next biome
+func is_biome_completed() -> bool:
+	return last_district != null and last_district.type == DistrictsData.types.FINAL
 
 func path_has_shop(path : Array) -> bool :
 	for district : DistrictsData in path:
@@ -463,6 +366,8 @@ func collect_all_paths() -> Array[Array] :
 
 
 func get_random_district_type_by_weight() -> DistrictsData.types :
+	if random_districts_total_weights <= 0:
+		return DistrictsData.types.ARENA
 	var roulette : int = randi() % random_districts_total_weights
 	var accumulator : int = 0
 
@@ -569,9 +474,15 @@ func _get_rarest_survivor(occurrences : Dictionary[SurvivorData, int]) -> Surviv
 	return rarest
 	
 	
-func unload()-> void : 
+## New biome, same run: only the map state goes
+func reset_map() -> void:
 	steps_reached = 0
 	map_data.clear()
 	current_map_data.clear()
 	last_district = null
 	selected_districts.clear()
+
+
+func unload()-> void : 
+	reset_map()
+	run_started = false

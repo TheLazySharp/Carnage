@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cq2s06r5jphru"]
 
-[ext_resource type="PackedScene" uid="uid://df565yrwfqn1v" path="res://Scenes/MAPS/parking.tscn" id="1_w5ys6"]
+[ext_resource type="PackedScene" uid="uid://df565yrwfqn1v" path="res://Scenes/MAPS/world.tscn" id="1_w5ys6"]
+[ext_resource type="Resource" uid="uid://b5snccer3x84r" path="res://Resources/Spawners/spawn_table_empty.tres" id="2_pxwbq"]
 [ext_resource type="Script" uid="uid://buloa8fsec4w0" path="res://Scripts/MANAGERS/tutorial_manager.gd" id="2_sit3x"]
+[ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="3_4vrmg"]
 [ext_resource type="Script" uid="uid://cc4q10pweyl5h" path="res://Resources/Scripts/tutorial_step_data.gd" id="3_jvoqg"]
 [ext_resource type="Resource" uid="uid://byammqyru2apq" path="res://Resources/Weapons/Main Weapons/minigun.tres" id="4_1ccaw"]
 [ext_resource type="Script" uid="uid://bpbgjusgkcser" path="res://Scripts/FONTS/GUI_UX_M_YELLOW.gd" id="5_cdeii"]
@@ -95,20 +97,22 @@ process_mode = 4
 
 [node name="DangerArrows" parent="CanvasLayer/Texts" index="2" unique_id=1038873053]
 process_mode = 4
-visible = false
 
-[node name="Horde" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="0" unique_id=898307467]
+[node name="Spawners" parent="." index="22" unique_id=556355831]
+table_override = ExtResource("2_pxwbq")
+
+[node name="ItemSpawner" parent="Spawners" index="1" unique_id=951681507]
+is_active = false
+
+[node name="TutorialHorde" parent="Spawners" index="2" unique_id=898307467 instance=ExtResource("3_4vrmg")]
 is_active = false
 nb_horde = 3
 max_enemy_count = 20
 
-[node name="ItemSpawner" parent="Spawners" parent_id_path=PackedInt32Array(556355831) index="3" unique_id=951681507]
-is_active = false
-
 [node name="TutorialManager" type="Node2D" parent="." index="23" unique_id=306908674 node_paths=PackedStringArray("horde_spawner", "title_label", "hint_label", "counter_label", "skip_label", "demo_video_player", "quit_popup", "yes_button", "no_button", "pause_menu", "page_popup", "page_title", "page_body", "page_next_button", "page_video_player")]
 script = ExtResource("2_sit3x")
 steps = Array[ExtResource("3_jvoqg")]([SubResource("Resource_jvoqg"), SubResource("Resource_uwe6o"), SubResource("Resource_7fx8n"), SubResource("Resource_cdeii"), SubResource("Resource_1ccaw"), SubResource("Resource_1qkh0"), SubResource("Resource_at31f"), SubResource("Resource_ofxhe")])
-horde_spawner = NodePath("../Spawners/Horde")
+horde_spawner = NodePath("../Spawners/TutorialHorde")
 tutorial_weapon = ExtResource("4_1ccaw")
 title_label = NodePath("CanvasLayer/TutorialHUD/Title")
 hint_label = NodePath("CanvasLayer/TutorialHUD/Hint")
@@ -297,4 +301,3 @@ text = "NEXT"
 script = ExtResource("8_ofxhe")
 
 [editable path="Spawners/ColossArrival"]
-[editable path="Spawners/SpawnerAuto"]

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SpawnTable" format=3 uid="uid://b5snccer3x84r"]
+
+[ext_resource type="Script" uid="uid://bvhcyd4h3twr5" path="res://Resources/Scripts/spawn_entry.gd" id="1_qorwt"]
+[ext_resource type="Script" uid="uid://c6l2gagleidjy" path="res://Resources/Scripts/spawn_table.gd" id="4_t5qps"]
+
+[resource]
+script = ExtResource("4_t5qps")
+metadata/_custom_type_script = "uid://c6l2gagleidjy"
