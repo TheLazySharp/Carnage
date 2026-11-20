@@ -63,6 +63,8 @@ script = ExtResource("2_icyy1")
 [node name="Text" type="Label" parent="Box/VBoxContainer" unique_id=1785341004]
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 script = ExtResource("2_motev")
 

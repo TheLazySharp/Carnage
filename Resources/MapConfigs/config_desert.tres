@@ -9,5 +9,4 @@ border_margin_cells = 4
 block_interior_max = 6
 artery_count_h = 0
 artery_count_v = 0
-district_plot_size = Vector2i(4, 4)
 metadata/_custom_type_script = "uid://kjpbjms7ox14"

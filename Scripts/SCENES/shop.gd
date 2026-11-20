@@ -1,10 +1,14 @@
 extends Control
-## Shop: maneuver levels on the left (one row per maneuver: icon = unlock, then one cell per level, like the car level-up),
-## 4 random charms on the right. Navigation by code over zones: grid, charms, repair / reroll / back buttons
+## Shop: 3 random charms and 3 random maneuver cards (new ones to unlock, owned ones to upgrade).
+## Navigation by code over zones: charms, maneuvers, repair / reroll / back buttons.
+## The offer (cards, prices, sold cards) is kept until the next raid or a reroll
 
-enum Zone { GRID, CHARMS, REPAIR, REROLL, BACK }
-const LEVEL_COUNT : int = 5
-const COLUMN_COUNT : int = LEVEL_COUNT + 1  # column 0 = the maneuver icon (unlock), 1..5 = its levels
+enum Zone { CHARMS, MANEUVERS, REPAIR, REROLL, BACK }
+# Results of _move_in_cards() when the move leaves the card grid
+const EXIT_UP : int = -1
+const EXIT_DOWN : int = -2
+const EXIT_LEFT : int = -3
+const EXIT_RIGHT : int = -4
 
 var player : SurvivorData
 
@@ -21,21 +25,13 @@ var player : SurvivorData
 @onready var repair_button: Button = $Buttons/RepairButton
 
 @export_group("Maneuvers")
-@export var maneuver_rows : Control                           # LevelUp: one row per maneuver
-@export var row_maneuvers : Array[ManeuverManager.Type] = []  # maneuver of each row, same order as the rows
-@export var maneuver_desc_label : Label                       # ManeuverDesc
-@export var desc_name_label : Label     # DescPanel/Name
-@export var desc_icon : TextureRect     # DescPanel/IconBkg/Icon
-@export var price_variation : float = 0.25    # random +/- share around the base price
-@export var upgrade_price_step : float = 0.5  # price x(1 + step x purchase): unlock 1x, lv1 1.5x ... lv5 3.5x
-
-@export_group("Cells")
-@export var obtained_color : Color = Color("740000")
-@export var locked_color : Color = Color(0.18, 0.18, 0.18)
-@export var locked_icon_color : Color = Color(0.25, 0.25, 0.25)  # icon background of a maneuver not unlocked yet
-@export var icon_focus_color : Color = Color.WHITE                # icon background when selected
-@export var focus_border_color : Color = Color.WHITE
-@export var focus_border_width : int = 2
+@export var maneuver_container : GridContainer   # cards of the maneuver offer
+@export var maneuver_card_scene : PackedScene    # ShopManeuverCard
+@export var maneuver_desc_label : Label          # ManeuverDesc
+@export var desc_name_label : Label              # DescPanel/Name
+@export var desc_icon : TextureRect              # DescPanel/IconBkg/Icon
+@export var price_variation : float = 0.25       # random +/- share around the base price
+@export var upgrade_price_step : float = 0.5     # price x(1 + step x purchase): unlock 1x, lv1 1.5x ... lv5 3.5x
 
 @export_group("Inventory popup")
 @export var inventory_popup : Control           # "slots full" message, hides by itself
@@ -43,10 +39,10 @@ var player : SurvivorData
 @export var inventory_popup_duration : float = 2.5
 
 
-#var nb_boost : int
 var nb_ammo : int = 2
 var nb_weapon : int = 2
-var nb_charm : int = 4
+var nb_charm : int = 3
+var nb_maneuver : int = 3
 
 var font_button : Array = FontManager.FONTS[FontManager.types.BUTTON]
 var font_button_focus : Array = FontManager.FONTS[FontManager.types.BUTTON_FOCUS]
@@ -55,31 +51,16 @@ var font_button_hover : Array = FontManager.FONTS[FontManager.types.BUTTON_HOVER
 
 var items_ready : bool = false
 
-# ---- Maneuver grid ----
-var row_data : Array[ManeuverData] = []     # one per row
-var row_icon_rects : Array[ColorRect] = []
-var row_icon_colors : PackedColorArray = PackedColorArray()  # icon background set in the editor (unlocked look)
-var row_cells : Array[Array] = []           # [row][level - 1] = Label
-var row_bars : Array[Array] = []            # [row][level - 1] = ProgressBar before that level
-var row_price_boxes : Array[Control] = []
-var row_price_tags : Array[Label] = []
-var row_discount_tags : Array[Label] = []
-var row_strike_prices : Array[Control] = []
+# ---- Offer cards ----
+var charm_buttons : Array[Button] = []      # Confirm button of each charm card
+var maneuver_cards : Array[ShopManeuverCard] = []
+var maneuver_buttons : Array[Button] = []   # Confirm button of each maneuver card
 
 # ---- Navigation ----
-var charm_buttons : Array[Button] = []      # Confirm button of each charm card
 var zone : Zone = Zone.REPAIR
-var return_zone : Zone = Zone.GRID          # where down from Repair / up from Back goes back to
-var focus_row : int = 0
-var focus_column : int = 1
 var charm_index : int = 0
+var maneuver_index : int = 0
 var popup_time_left : float = 0.0
-
-# ---- Cell looks, built once from the first cell ----
-var style_obtained : StyleBoxFlat
-var style_locked : StyleBoxFlat
-var style_obtained_focus : StyleBoxFlat
-var style_locked_focus : StyleBoxFlat
 
 
 func _ready() -> void:
@@ -89,12 +70,12 @@ func _ready() -> void:
 	SignalManager.charm_stored.connect(_on_charm_stored)
 	if inventory_popup != null:
 		inventory_popup.hide()
-		
+
 	if ShopManager.free_rerolls_left > 0:
 		reroll_cost_label.text = "FREE"
 	else :
 		reroll_cost_label.text = str(ShopManager.get_reroll_cost())
-	
+
 	#REROLL BUTTON
 	reroll_button.add_theme_font_override("font",font_button[0])
 	reroll_button.add_theme_font_size_override("font_size",font_button[1])
@@ -102,12 +83,11 @@ func _ready() -> void:
 	reroll_button.add_theme_color_override("font_focus_color",font_button_focus[2])
 	reroll_button.add_theme_color_override("font_pressed_color",font_button_pressed[2])
 	reroll_button.add_theme_color_override("font_hover_color",font_button_hover[2])
-	
+
 	var new_stylebox : StyleBox = reroll_button.get_theme_stylebox("focus")
 	new_stylebox.border_color = FontManager.dark_yellow
 	reroll_button.add_theme_stylebox_override("focus",new_stylebox)
 
-	_build_grid()
 	# A button selected with the mouse: the navigation continues from it
 	repair_button.focus_entered.connect(_on_button_focus_entered.bind(Zone.REPAIR))
 	reroll_button.focus_entered.connect(_on_button_focus_entered.bind(Zone.REROLL))
@@ -118,9 +98,9 @@ func _ready() -> void:
 	else:
 		reroll()
 	update_reroll_button()
-	
+
 	repair_button.grab_focus()
-	_refresh_grid()
+	_refresh_details()
 
 	SignalManager.emit_signal("shop_entered")
 	BloodBars.show()
@@ -128,8 +108,8 @@ func _ready() -> void:
 	GuideManager.play(&"shop", [
 		{"text": "GUIDE_SHOP_REPAIR", "target": repair_button},
 		{"text": "GUIDE_SHOP_CHARMS", "target": charm_container},
-		{"text": "GUIDE_SHOP_MANEUVERS", "target": maneuver_rows},
-		{"text": "GUIDE_SHOP_COMBO", "target": maneuver_rows},
+		{"text": "GUIDE_SHOP_MANEUVERS", "target": maneuver_container},
+		{"text": "GUIDE_SHOP_COMBO", "target": maneuver_container},
 	])
 
 # ---------------- INPUT ----------------
@@ -152,7 +132,7 @@ func _process(_delta : float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	# Mouse: handled by the cells, cards and buttons themselves
+	# Mouse: handled by the cards and buttons themselves
 	if event is InputEventMouse:
 		return
 	# Directions are handled in _process: Godot's own focus moves would fight it
@@ -161,276 +141,200 @@ func _input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed("confirm"):
 		back.grab_focus()
-	if event.is_action_pressed("back"):
+	if event.is_action_pressed("cancel"):
 		back.grab_focus()
-	elif zone == Zone.GRID and event.is_action_pressed("ui_accept"):
-		_try_buy(focus_row, focus_column)
-		get_viewport().set_input_as_handled()
-	# Charms and buttons: ui_accept presses the focused button (Godot)
+	# Cards and buttons: ui_accept presses the focused button (Godot)
 
 
 func _move_focus(dx : int, dy : int) -> void:
-	var last_row : int = row_data.size() - 1
-	var last_charm : int = charm_buttons.size() - 1
-	var charm_columns : int = maxi(charm_container.columns, 1)
-	var charm_rows : int = ceili(float(charm_buttons.size()) / charm_columns)
 	match zone:
-		Zone.GRID:
-			if row_data.is_empty():
-				return
-			if dy < 0 and focus_row == 0:
-				return_zone = Zone.GRID
-				_set_zone(Zone.REPAIR)
-			elif dy > 0 and focus_row == last_row:
-				return_zone = Zone.GRID
-				_set_zone(Zone.BACK)
-			elif dx < 0 and focus_column == 0 and !charm_buttons.is_empty():
-				# Left of the icons: the right column of the charms, at the same height
-				var target_charm_row : int = clampi(int(float(focus_row) * charm_rows / row_data.size()), 0, charm_rows - 1)
-				charm_index = mini(target_charm_row * charm_columns + charm_columns - 1, last_charm)
-				_set_zone(Zone.CHARMS)
-			else:
-				focus_row = clampi(focus_row + dy, 0, last_row)
-				focus_column = clampi(focus_column + dx, 0, COLUMN_COUNT - 1)
-				_refresh_grid()
-		Zone.CHARMS:
-			var charm_column : int = charm_index % charm_columns
-			var charm_row : int = floori(float(charm_index) / charm_columns)
-			if dy < 0 and charm_row == 0:
-				return_zone = Zone.CHARMS
-				_set_zone(Zone.REPAIR)
-			elif dy > 0 and charm_index + charm_columns > last_charm:
-				return_zone = Zone.CHARMS
-				_set_zone(Zone.BACK)
-			elif dx > 0 and (charm_column == charm_columns - 1 or charm_index == last_charm):
-				# Right of the charms: the icon of the maneuver row at the same height
-				if row_data.is_empty():
-					return
-				focus_row = clampi(int(float(charm_row) * row_data.size() / charm_rows), 0, last_row)
-				focus_column = 0
-				_set_zone(Zone.GRID)
-			elif dx != 0:
-				charm_index = clampi(charm_index + dx, 0, last_charm)
-				_set_zone(Zone.CHARMS)
-			elif dy != 0:
-				charm_index = clampi(charm_index + dy * charm_columns, 0, last_charm)
-				_set_zone(Zone.CHARMS)
+		Zone.CHARMS, Zone.MANEUVERS:
+			_move_in_zone(zone, dx, dy)
 		Zone.REPAIR:
 			if dy < 0:
 				_set_zone(Zone.REROLL)
 			elif dy > 0:
-				# Back to the top of the zone we came from
-				if return_zone == Zone.CHARMS and !charm_buttons.is_empty():
-					charm_index = 0
-					_set_zone(Zone.CHARMS)
-				elif !row_data.is_empty():
-					focus_row = 0
-					_set_zone(Zone.GRID)
+				_enter_from_repair()
 		Zone.REROLL:
 			if dy > 0:
 				_set_zone(Zone.REPAIR)
 		Zone.BACK:
 			if dy < 0:
-				# Back to the bottom of the zone we came from
-				if return_zone == Zone.CHARMS and !charm_buttons.is_empty():
-					charm_index = last_charm
-					_set_zone(Zone.CHARMS)
-				elif !row_data.is_empty():
-					focus_row = last_row
-					_set_zone(Zone.GRID)
+				_enter_from_back()
+
+
+func _move_in_zone(card_zone : Zone, dx : int, dy : int) -> void:
+	var buttons : Array[Button] = _zone_buttons(card_zone)
+	if buttons.is_empty():
+		return
+	var columns : int = _zone_columns(card_zone)
+	var index : int = _get_index(card_zone)
+	var column : int = index % columns
+	var target : int = _move_in_cards(buttons.size(), columns, index, dx, dy)
+	match target:
+		EXIT_UP:
+			# Maneuvers on top, charms below
+			if card_zone == Zone.CHARMS and !maneuver_buttons.is_empty():
+				_cross_to(Zone.MANEUVERS, column, true)
+			else:
+				_set_zone(Zone.REPAIR)
+		EXIT_DOWN:
+			if card_zone == Zone.MANEUVERS and !charm_buttons.is_empty():
+				_cross_to(Zone.CHARMS, column, false)
+			else:
+				_set_zone(Zone.BACK)
+		EXIT_LEFT, EXIT_RIGHT:
+			pass  # row ends: nothing on the sides (the description panel is not selectable)
+		_:
+			_set_index(card_zone, target)
+			_set_zone(card_zone)
+
+
+## Moves inside a card grid: the new index, or an EXIT_* value when the move leaves it
+func _move_in_cards(count : int, columns : int, index : int, dx : int, dy : int) -> int:
+	var column : int = index % columns
+	var row : int = floori(float(index) / columns)
+	if dy < 0:
+		return EXIT_UP if row == 0 else index - columns
+	if dy > 0:
+		return EXIT_DOWN if index + columns > count - 1 else index + columns
+	if dx < 0:
+		return EXIT_LEFT if column == 0 else index - 1
+	if dx > 0:
+		return EXIT_RIGHT if column == columns - 1 or index == count - 1 else index + 1
+	return index
+
+
+## Vertical move between the two card grids: same column, nearest row of the other grid
+func _cross_to(target_zone : Zone, column : int, to_last_row : bool) -> void:
+	var buttons : Array[Button] = _zone_buttons(target_zone)
+	if buttons.is_empty():
+		return
+	var columns : int = _zone_columns(target_zone)
+	var row : int = floori(float(buttons.size() - 1) / columns) if to_last_row else 0
+	_set_index(target_zone, mini(row * columns + mini(column, columns - 1), buttons.size() - 1))
+	_set_zone(target_zone)
+
+
+## Repair (top right): the top right maneuver card, the charms when there is no maneuver
+func _enter_from_repair() -> void:
+	if !maneuver_buttons.is_empty():
+		_cross_to(Zone.MANEUVERS, _zone_columns(Zone.MANEUVERS) - 1, false)
+	elif !charm_buttons.is_empty():
+		_cross_to(Zone.CHARMS, _zone_columns(Zone.CHARMS) - 1, false)
+
+
+## Continue (bottom center): the middle card of the charms' last row, the maneuvers when there is no charm
+func _enter_from_back() -> void:
+	if !charm_buttons.is_empty():
+		_cross_to(Zone.CHARMS, floori(_zone_columns(Zone.CHARMS) * 0.5), true)
+	elif !maneuver_buttons.is_empty():
+		_cross_to(Zone.MANEUVERS, floori(_zone_columns(Zone.MANEUVERS) * 0.5), true)
+
+
+func _zone_buttons(card_zone : Zone) -> Array[Button]:
+	return charm_buttons if card_zone == Zone.CHARMS else maneuver_buttons
+
+
+func _zone_columns(card_zone : Zone) -> int:
+	var container : GridContainer = charm_container if card_zone == Zone.CHARMS else maneuver_container
+	return maxi(container.columns, 1)
+
+
+func _get_index(card_zone : Zone) -> int:
+	return charm_index if card_zone == Zone.CHARMS else maneuver_index
+
+
+func _set_index(card_zone : Zone, index : int) -> void:
+	if card_zone == Zone.CHARMS:
+		charm_index = index
+	else:
+		maneuver_index = index
 
 
 func _set_zone(new_zone : Zone) -> void:
 	zone = new_zone
 	match zone:
-		Zone.GRID:
-			# The grid cells are labels: no Godot focus, the border shows the selection
-			var focus_owner : Control = get_viewport().gui_get_focus_owner()
-			if focus_owner != null:
-				focus_owner.release_focus()
 		Zone.CHARMS:
 			charm_buttons[charm_index].grab_focus()
+		Zone.MANEUVERS:
+			maneuver_buttons[maneuver_index].grab_focus()
 		Zone.REPAIR:
 			repair_button.grab_focus()
 		Zone.REROLL:
 			reroll_button.grab_focus()
 		Zone.BACK:
 			back.grab_focus()
-	_refresh_grid()
+	_refresh_details()
 
 
 func _on_button_focus_entered(button_zone : Zone) -> void:
 	zone = button_zone
-	_refresh_grid()
-
-
-func _on_charm_focus_entered(index : int) -> void:
-	zone = Zone.CHARMS
-	charm_index = index
-	_refresh_grid()
-
-
-func _select_cell(row : int, column : int) -> void:
-	focus_row = row
-	focus_column = column
-	_set_zone(Zone.GRID)
-
-
-func _on_cell_gui_input(event : InputEvent, row : int, column : int) -> void:
-	var mouse_button : InputEventMouseButton = event as InputEventMouseButton
-	if mouse_button == null or !mouse_button.pressed or mouse_button.button_index != MOUSE_BUTTON_LEFT:
-		return
-	_select_cell(row, column)
-	_try_buy(row, column)
-
-
-# ---------------- MANEUVER GRID ----------------
-
-func _build_grid() -> void:
-	var rows : Array[Node] = maneuver_rows.get_children()
-	for row_index : int in rows.size():
-		if row_index >= row_maneuvers.size():
-			push_warning("[Shop] Row Maneuvers has fewer entries than the rows")
-			break
-		var data : ManeuverData = LoadoutManager.get_maneuver_data(row_maneuvers[row_index])
-		var row_node : Node = rows[row_index]
-		if data == null:
-			push_warning("[Shop] no maneuver data for the row " + row_node.name)
-			continue
-		var grid_row : int = row_data.size()
-		row_data.append(data)
-
-		# Icon = column 0: unlocks the maneuver
-		var icon_rect : ColorRect = row_node.get_node("ColorRect") as ColorRect
-		(row_node.get_node("ColorRect/TextureRect") as TextureRect).texture = data.icon
-		(row_node.get_node("ColorRect/Label") as Label).text = tr(data.name_key)
-		icon_rect.mouse_filter = Control.MOUSE_FILTER_STOP
-		icon_rect.gui_input.connect(_on_cell_gui_input.bind(grid_row, 0))
-		icon_rect.mouse_entered.connect(_select_cell.bind(grid_row, 0))
-		row_icon_rects.append(icon_rect)
-		row_icon_colors.append(icon_rect.color)
-
-		var cells : Array[Label] = []
-		var bars : Array[ProgressBar] = []
-		for level : int in range(1, LEVEL_COUNT + 1):
-			var cell : Label = row_node.get_node("Lvl%d" % level) as Label
-			var bar_name : String = "ProgressBar" if level == 1 else "ProgressBar%d" % level
-			var bar : ProgressBar = row_node.get_node(bar_name) as ProgressBar
-			cell.mouse_filter = Control.MOUSE_FILTER_STOP
-			cell.gui_input.connect(_on_cell_gui_input.bind(grid_row, level))
-			cell.mouse_entered.connect(_select_cell.bind(grid_row, level))
-			bar.min_value = 0.0
-			bar.max_value = 100.0
-			cells.append(cell)
-			bars.append(bar)
-		row_cells.append(cells)
-		row_bars.append(bars)
-
-		# Price of the next purchase (unlock or next level)
-		var price_box : Control = row_node.get_node("Price") as Control
-		row_price_boxes.append(price_box)
-		row_price_tags.append(price_box.find_child("PriceTag", true, false) as Label)
-		row_discount_tags.append(price_box.find_child("DiscountTag", true, false) as Label)
-		row_strike_prices.append(price_box.find_child("StrikePrice", true, false) as Control)
-	if !row_cells.is_empty():
-		_build_styles(row_cells[0][0] as Label)
-
-
-## Four shared looks (obtained / locked, with or without the focus border), from the first cell style
-func _build_styles(sample : Label) -> void:
-	var base : StyleBoxFlat = sample.get_theme_stylebox("normal") as StyleBoxFlat
-	if base == null:
-		base = StyleBoxFlat.new()
-	style_obtained = base.duplicate() as StyleBoxFlat
-	style_obtained.bg_color = obtained_color
-	style_locked = base.duplicate() as StyleBoxFlat
-	style_locked.bg_color = locked_color
-	style_obtained_focus = style_obtained.duplicate() as StyleBoxFlat
-	style_obtained_focus.border_color = focus_border_color
-	style_obtained_focus.set_border_width_all(focus_border_width)
-	style_locked_focus = style_locked.duplicate() as StyleBoxFlat
-	style_locked_focus.border_color = focus_border_color
-	style_locked_focus.set_border_width_all(focus_border_width)
-
-
-func _refresh_grid() -> void:
-	for row : int in row_data.size():
-		var data : ManeuverData = row_data[row]
-		var owned : bool = LoadoutManager.owns(data.maneuver_type)
-		var level : int = LoadoutManager.get_maneuver_level(data.maneuver_type)
-		# Icon: grey while locked, highlighted when selected
-		var icon_focused : bool = zone == Zone.GRID and row == focus_row and focus_column == 0
-		if icon_focused:
-			row_icon_rects[row].color = icon_focus_color
-		else:
-			row_icon_rects[row].color = row_icon_colors[row] if owned else locked_icon_color
-		for i : int in LEVEL_COUNT:
-			var obtained : bool = owned and i < level
-			var focused : bool = zone == Zone.GRID and row == focus_row and i + 1 == focus_column
-			var style : StyleBoxFlat
-			if obtained:
-				style = style_obtained_focus if focused else style_obtained
-			else:
-				style = style_locked_focus if focused else style_locked
-			(row_cells[row][i] as Label).add_theme_stylebox_override("normal", style)
-			(row_bars[row][i] as ProgressBar).value = 100.0 if obtained else 0.0
-		_refresh_price(row, data, owned, level)
 	_refresh_details()
 
 
-## Price of the next purchase, hidden once the maneuver is at its max level. Red when the blood bank is too low
-func _refresh_price(row : int, data : ManeuverData, owned : bool, level : int) -> void:
-	var has_next : bool = !owned or level < LoadoutManager.MAX_MANEUVER_LEVEL
-	row_price_boxes[row].visible = has_next
-	if !has_next:
-		return
-	var price : int = _get_price(data)
-	var price_tag : Label = row_price_tags[row]
-	var discount_tag : Label = row_discount_tags[row]
-	price_tag.text = str(price)
-	discount_tag.text = str(int(price * ShopManager.discount.get_value()))
-	discount_tag.visible = ShopManager.apply_discount
-	row_strike_prices[row].visible = ShopManager.apply_discount
-	var too_expensive : bool = _get_final_price(data) > InventoryManager.blood_tank_q
-	for tag : Label in [price_tag, discount_tag]:
-		if too_expensive:
-			tag.add_theme_color_override("font_color", Color.RED)
-		else:
-			tag.remove_theme_color_override("font_color")
+## Focus or mouse over a card: its description
+func _on_card_focus_entered(card_zone : Zone, index : int) -> void:
+	zone = card_zone
+	_set_index(card_zone, index)
+	_refresh_details()
 
 
-## Description panel: the selected maneuver cell or charm (name, icon, description). Empty on the buttons
+# ---------------- MANEUVER CARDS ----------------
+
+func _refresh_maneuvers() -> void:
+	for i : int in maneuver_cards.size():
+		var data : ManeuverData = ShopManager.current_maneuvers[i]
+		var price : int = _get_price(data)
+		maneuver_cards[i].refresh(
+			_get_level_text(data),
+			price,
+			int(price * ShopManager.discount.get_value()),
+			_get_final_price(data) <= InventoryManager.blood_tank_q,
+			ShopManager.current_maneuvers_sold.has(data))
+
+
+## NEW = not unlocked yet, "Lvl n -> n+1" = the upgrade offered, current level (or MAX) once sold
+func _get_level_text(data : ManeuverData) -> String:
+	if !LoadoutManager.owns(data.maneuver_type):
+		return tr("SHOP_MANEUVER_NEW")
+	var level : int = LoadoutManager.get_maneuver_level(data.maneuver_type)
+	if ShopManager.current_maneuvers_sold.has(data):
+		if level >= LoadoutManager.MAX_MANEUVER_LEVEL:
+			return tr("SHOP_LEVEL_MAX")
+		return tr("SHOP_LEVEL_CURRENT") % level
+	return tr("SHOP_LEVEL_NEXT") % [level, level + 1]
+
+
+## Description panel: the selected charm or maneuver card (name, icon, description). Empty on the buttons
 func _refresh_details() -> void:
 	if zone == Zone.CHARMS and charm_index < ShopManager.current_charms.size():
 		var charm : CharmData = ShopManager.current_charms[charm_index]
 		_show_desc(InventoryManager.get_charm_name(charm), charm.icon, tr(charm.description))
 		return
-	if zone != Zone.GRID or row_data.is_empty():
+	if zone != Zone.MANEUVERS or maneuver_index >= ShopManager.current_maneuvers.size():
 		_show_desc("", null, "")
 		return
-	var data : ManeuverData = row_data[focus_row]
+	var data : ManeuverData = ShopManager.current_maneuvers[maneuver_index]
 	var owned : bool = LoadoutManager.owns(data.maneuver_type)
 	var level : int = LoadoutManager.get_maneuver_level(data.maneuver_type)
 	var lines : PackedStringArray = []
 	lines.append(tr(data.description_key))
 	lines.append("")
-	if focus_column == 0:
-		lines.append(tr("SHOP_MANEUVER_UNLOCKED") if owned else _get_buy_status(data, "SHOP_UNLOCK"))
+	if ShopManager.current_maneuvers_sold.has(data):
+		lines.append(tr("SHOP_SOLD"))
+	elif !owned:
+		lines.append(_get_buy_status(data, "SHOP_UNLOCK"))
 	else:
-		lines.append("%s %d" % [tr("PART_LEVEL"), focus_column])
-		lines.append(tr("MANEUVER_LEVEL_EFFECT") % String.num(LoadoutManager.LEVEL_SHARE_FACTORS[focus_column], 2))
+		# What the next level brings
+		var next_level : int = level + 1
+		lines.append("%s %d → %d" % [tr("PART_LEVEL"), level, next_level])
+		lines.append(tr("MANEUVER_LEVEL_EFFECT") % String.num(LoadoutManager.LEVEL_SHARE_FACTORS[next_level], 2))
 		var combo_max_bonus : PackedFloat32Array = LoadoutManager.car.maneuver_level_combo_max
-		if focus_column - 1 < combo_max_bonus.size():
-			lines.append(tr("SHOP_COMBO_MAX_BONUS") % String.num(combo_max_bonus[focus_column - 1], 2))
+		if level < combo_max_bonus.size():
+			lines.append(tr("SHOP_COMBO_MAX_BONUS") % String.num(combo_max_bonus[level], 2))
 		lines.append("")
-		if !owned:
-			lines.append(tr("SHOP_MANEUVER_LOCKED"))
-		elif focus_column <= level:
-			lines.append(tr("SHOP_LEVEL_OWNED"))
-		elif focus_column == level + 1:
-			lines.append(_get_buy_status(data, "SHOP_LEVEL_BUY"))
-		else:
-			lines.append(tr("SHOP_LEVEL_LOCKED"))
+		lines.append(_get_buy_status(data, "SHOP_LEVEL_BUY"))
 	_show_desc(tr(data.name_key), data.icon, "\n".join(lines))
 
 
@@ -448,7 +352,7 @@ func _get_buy_status(data : ManeuverData, buy_key : String) -> String:
 	return tr(buy_key)
 
 
-## Price of the next purchase (unlock, then each level): rolled once, kept until the next raid
+## Price of the card (unlock or next level): rolled once, kept until the next raid or a reroll
 func _get_price(data : ManeuverData) -> int:
 	if ShopManager.current_maneuver_prices.has(data):
 		return ShopManager.current_maneuver_prices[data]
@@ -467,30 +371,28 @@ func _get_final_price(data : ManeuverData) -> int:
 	return mini(price, int(price * ShopManager.discount.get_value()))
 
 
-## Icon of a locked maneuver: unlock (level 0). Level cell: only the next level of an unlocked maneuver
-func _try_buy(row : int, column : int) -> void:
-	if row < 0 or row >= row_data.size():
+## New maneuver: unlock. Owned one: next level. The card is sold until the next raid or a reroll
+func _try_buy_maneuver(index : int) -> void:
+	if index < 0 or index >= ShopManager.current_maneuvers.size():
 		return
-	var data : ManeuverData = row_data[row]
+	var data : ManeuverData = ShopManager.current_maneuvers[index]
+	if ShopManager.current_maneuvers_sold.has(data):
+		return
 	var owned : bool = LoadoutManager.owns(data.maneuver_type)
-	var level : int = LoadoutManager.get_maneuver_level(data.maneuver_type)
-	var is_unlock : bool = !owned and column == 0
-	var is_upgrade : bool = owned and column == level + 1 and level < LoadoutManager.MAX_MANEUVER_LEVEL
-	if !is_unlock and !is_upgrade:
+	if owned and !LoadoutManager.can_upgrade(data.maneuver_type):
 		return
 	var final_price : int = _get_final_price(data)
 	if final_price > InventoryManager.blood_tank_q:
+		maneuver_cards[index].not_enough_cash()
 		return
 	InventoryManager.blood_tank_q -= final_price
 	BloodBars.update_blood_tank()
-	if is_unlock:
-		LoadoutManager.unlock(data.maneuver_type)
-	else:
+	if owned:
 		LoadoutManager.upgrade(data.maneuver_type)
-	# The next purchase gets its own price
-	ShopManager.current_maneuver_prices.erase(data)
+	else:
+		LoadoutManager.unlock(data.maneuver_type)
+	ShopManager.current_maneuvers_sold.append(data)
 	SignalManager.emit_signal("update_fortune")
-	_refresh_grid()
 
 
 # ---------------- OFFER / BUTTONS ----------------
@@ -500,7 +402,7 @@ func pick_boost(proposed_boosts : Array[BoostData], pick_list : Array[BoostData]
 	while attempts <1000:
 		attempts += 1
 		var boost : BoostData = ShopManager.pick_boost(pick_list)
-		
+
 		if proposed_boosts.has(boost):
 			continue
 		if boost.target_weapon != null and !WeaponsManager.weapons.has(boost.target_weapon):
@@ -508,7 +410,7 @@ func pick_boost(proposed_boosts : Array[BoostData], pick_list : Array[BoostData]
 		if boost.target_weapon != null and proposed_boosts.any(
 				func(check : BoostData) -> bool: return InventoryManager.get_boost_name(check) == InventoryManager.get_boost_name(boost)):
 			continue
-		
+
 		return boost
 	# No valid boost left (e.g. an equipped weapon has no matching boost): caller shows fewer cards
 	push_warning("shop : no valid boost found after 1000 attempts")
@@ -519,33 +421,38 @@ func _on_item_baught() -> void:
 	if self.visible:
 		cash_register.play()
 		update_reroll_button()
-		# Prices turn red when the blood bank no longer covers them
-		_refresh_grid()
+		# Prices turn red when the blood bank no longer covers them, a bought card shows as sold
+		_refresh_maneuvers()
+		_refresh_details()
 
 func _on_back_pressed() -> void:
 	SceneManager.load_level(SceneManager.SCENES.ROADMAP)
 
 
 func _on_visibility_changed() -> void:
-	if self.visible and items_ready : 
+	if self.visible and items_ready :
 		_set_zone(Zone.REPAIR)
 		SignalManager.charm_triggered.emit(ShopManager.CONST_REFS.Charm_Discount)
 
-## New charm offer (first visit after a raid, or the paid reroll button): stored until the next raid.
-## Maneuvers are not rolled: every one is in the grid
-func reroll() -> void : 
+## New offer (first visit after a raid, or the paid reroll button): charms and maneuvers together,
+## prices and sold cards reset with them. Stored until the next raid
+func reroll() -> void :
 	ShopManager.current_charm_prices.clear()
 	ShopManager.current_charms = ShopManager.pick_charms(nb_charm)
+	ShopManager.current_maneuver_prices.clear()
+	ShopManager.current_maneuvers_sold.clear()
+	ShopManager.current_maneuvers = ShopManager.pick_maneuvers(nb_maneuver)
 	ShopManager.offer_ready = true
 	_build_offer()
 
 
-## Charm cards of the stored offer. The cards placed in the scene are layout previews: replaced here
+## Cards of the stored offer. The cards placed in the scene are layout previews: replaced here
 func _build_offer() -> void:
-	for child : Node in charm_container.get_children():
-		charm_container.remove_child(child)
-		child.queue_free()
+	_clear_container(charm_container)
+	_clear_container(maneuver_container)
 	charm_buttons.clear()
+	maneuver_cards.clear()
+	maneuver_buttons.clear()
 	# One bought during an earlier visit shows as sold (see the charm card setup)
 	for charm : CharmData in ShopManager.current_charms:
 		var charm_card : Control = charm_scene.instantiate()
@@ -553,28 +460,45 @@ func _build_offer() -> void:
 		charm_card.setup(charm, true)
 		var card_button : Button = charm_card.get_node_or_null("Confirm") as Button
 		if card_button != null:
-			card_button.focus_entered.connect(_on_charm_focus_entered.bind(charm_buttons.size()))
-			# Mouse over a card: its description, like the maneuver cells
-			card_button.mouse_entered.connect(_on_charm_focus_entered.bind(charm_buttons.size()))
+			card_button.focus_entered.connect(_on_card_focus_entered.bind(Zone.CHARMS, charm_buttons.size()))
+			card_button.mouse_entered.connect(_on_card_focus_entered.bind(Zone.CHARMS, charm_buttons.size()))
 			charm_buttons.append(card_button)
+	for data : ManeuverData in ShopManager.current_maneuvers:
+		var maneuver_card : ShopManeuverCard = maneuver_card_scene.instantiate() as ShopManeuverCard
+		maneuver_container.add_child(maneuver_card)
+		maneuver_card.setup(data)
+		var index : int = maneuver_buttons.size()
+		maneuver_card.confirm.pressed.connect(_try_buy_maneuver.bind(index))
+		maneuver_card.confirm.focus_entered.connect(_on_card_focus_entered.bind(Zone.MANEUVERS, index))
+		maneuver_card.confirm.mouse_entered.connect(_on_card_focus_entered.bind(Zone.MANEUVERS, index))
+		maneuver_cards.append(maneuver_card)
+		maneuver_buttons.append(maneuver_card.confirm)
 	charm_index = clampi(charm_index, 0, maxi(charm_buttons.size() - 1, 0))
+	maneuver_index = clampi(maneuver_index, 0, maxi(maneuver_buttons.size() - 1, 0))
+	_refresh_maneuvers()
 	items_ready = true
+
+
+func _clear_container(container : Node) -> void:
+	for child : Node in container.get_children():
+		container.remove_child(child)
+		child.queue_free()
 
 func _on_reroll_pressed() -> void:
 	var cost : int = ShopManager.get_reroll_cost()
 	if cost > InventoryManager.blood_tank_q:
 		return
 	reroll()
-	
+
 	InventoryManager.blood_tank_q -= cost
 	BloodBars.update_blood_tank()
 	SignalManager.emit_signal("update_fortune")
-	
+
 	ShopManager.use_reroll()
 	reroll_cost_label.text = str(ShopManager.get_reroll_cost())
 	reroll_button.grab_focus()
-	
-func update_reroll_button()-> void : 
+
+func update_reroll_button()-> void :
 	if ShopManager.get_reroll_cost() <= InventoryManager.blood_tank_q:
 		reroll_label.add_theme_color_override("font_color",Color.BLACK)
 		reroll_cost_label.add_theme_color_override("font_color",Color.BLACK)

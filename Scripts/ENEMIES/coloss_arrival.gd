@@ -12,7 +12,7 @@ var shake_intensity : int = 5
 
 func _ready() -> void:
 	SignalManager.day_time_end.connect(_on_day_timer_end)
-	SignalManager.coloss_incoming.connect(_on_coloss_arrival)
+	SignalManager.last_ten_secs.connect(_on_last_ten_secs)
 	SignalManager.game_paused.connect(_on_game_paused)
 
 
@@ -28,14 +28,14 @@ func _on_day_timer_end(timer_stop : bool) -> void :
 			var coloss_auto := coloss_scene.instantiate()
 			get_children()[i].add_child(coloss_auto)
 
-func _on_coloss_arrival() -> void : 
+func _on_last_ten_secs() -> void : 
 	if !is_active:
 		return
 	distant = true
 	distant_foot_steps.play()
 	steps_timer.start()
-	
 	distant_foot_steps.volume_db = 15
+	SignalManager.emit_signal("coloss_incoming")
 
 func _on_steps_tmer_timeout() -> void:
 	if distant:

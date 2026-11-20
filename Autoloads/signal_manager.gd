@@ -69,8 +69,6 @@ signal car_level_up_upgrade()
 @warning_ignore("unused_signal")
 signal enemy_stats_init(which : Enemy)
 
-@warning_ignore("unused_signal")
-signal coloss_incoming
 
 @warning_ignore("unused_signal")
 signal next_day
@@ -83,7 +81,6 @@ signal start_timer
 
 @warning_ignore("unused_signal")
 signal weapon_stats_initiated(weapon : WeaponData)
-
 
 @warning_ignore("unused_signal")
 signal sandbox_mode
@@ -158,8 +155,7 @@ signal pit_choice
 @warning_ignore("unused_signal")
 signal set_new_race
 
-@warning_ignore("unused_signal")
-signal exit_arrow_target(target : Vector2)
+
 
 @warning_ignore("unused_signal")
 signal end_raid_requested   # ends the raid now: colossi, extraction, exit arrow (tutorial ending)
@@ -169,6 +165,15 @@ signal extraction_reached   # the car went through the open extraction zone
 signal perfect_drift_hit(hit_position : Vector2)
 @warning_ignore("unused_signal")
 signal drift_hit_juice(hit_position : Vector2)  # a perfect drift hit allowed to play its freeze / zoom
+
+
+# ----- HUD ------
+@warning_ignore("unused_signal")
+signal exit_arrow_target(target : Vector2)
+@warning_ignore("unused_signal")
+signal coloss_incoming
+@warning_ignore("unused_signal")
+signal last_ten_secs
 
 # ---- UI -----
 @warning_ignore("unused_signal")
@@ -185,6 +190,9 @@ signal charm_stored(charm : CharmData)  # bought with every slot full: kept in t
 signal poisoned_enemy_died(death_position : Vector2)  # a poisoned enemy died: poison puddle on the ground (to come)
 @warning_ignore("unused_signal")
 signal horde_destroyed  # last member of a horde killed (end of raid score)
+@warning_ignore("unused_signal")
+signal final_hordes
+
 
 # ---- DEAD LAPS -----
 @warning_ignore("unused_signal")

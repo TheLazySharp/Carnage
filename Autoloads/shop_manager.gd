@@ -271,7 +271,7 @@ func get_reroll_cost() -> int :
 	if free_rerolls_left > 0:
 		return 0
 	var reroll_cost : int
-	reroll_cost = 5 + reroll_count * 3 if SceneManager.race_mode else 100 + reroll_count * 25
+	reroll_cost = 5 + reroll_count * 3 if SceneManager.race_mode else 30 + reroll_count * 4
 	return reroll_cost
 
 ## A reroll was bought: a free one is used first, otherwise the next one costs more

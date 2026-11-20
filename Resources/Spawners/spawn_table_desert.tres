@@ -5,29 +5,46 @@
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="3_7ang5"]
 [ext_resource type="Script" uid="uid://dtyomitcopy8b" path="res://Scripts/SPAWNERS/stream_spawn_entry.gd" id="4_8ddib"]
 [ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="5_adq3g"]
+[ext_resource type="PackedScene" uid="uid://bf52rpcsdyslp" path="res://Scenes/SPAWNERS/final_horde_spawner.tscn" id="6_5kbrv"]
 [ext_resource type="Script" uid="uid://c6l2gagleidjy" path="res://Resources/Scripts/spawn_table.gd" id="6_l50ra"]
 
 [sub_resource type="Resource" id="Resource_afre5"]
 script = ExtResource("2_5kbrv")
-nb_horde_start = 4
-nb_horde_end = 4
-horde_size_start = 100
-horde_size_end = 100
+nb_horde_start = 1
+nb_horde_end = 1
+horde_size_start = 70
+horde_size_end = 70
 min_horde_spacing_px = 200.0
 spawner_scene = ExtResource("3_7ang5")
 metadata/_custom_type_script = "uid://ccnytlk30iso3"
 
 [sub_resource type="Resource" id="Resource_j3pel"]
 script = ExtResource("4_8ddib")
+is_infinite = false
 auto_spawn = true
-spawn_rate_start = 0.4
-spawn_rate_end = 0.4
-max_enemy_start = 200
-max_enemy_end = 200
+spawn_rate_start = 0.15
+spawn_rate_end = 0.15
+max_enemy_start = 1000
+max_enemy_end = 1000
 spawner_scene = ExtResource("5_adq3g")
 metadata/_custom_type_script = "uid://dtyomitcopy8b"
 
+[sub_resource type="Resource" id="Resource_leogu"]
+script = ExtResource("2_5kbrv")
+auto_spawn = false
+trigger_signal = &"final_hordes"
+chase_on_spawn = true
+prespawn_dormant = true
+nb_horde_start = 20
+nb_horde_end = 20
+horde_size_start = 30
+horde_size_end = 30
+horde_radius_px = 96.0
+min_horde_spacing_px = 50.0
+spawner_scene = ExtResource("6_5kbrv")
+metadata/_custom_type_script = "uid://ccnytlk30iso3"
+
 [resource]
 script = ExtResource("6_l50ra")
-entries = Array[ExtResource("1_vn3nx")]([SubResource("Resource_afre5"), SubResource("Resource_j3pel")])
+entries = Array[ExtResource("1_vn3nx")]([SubResource("Resource_afre5"), SubResource("Resource_j3pel"), SubResource("Resource_leogu")])
 metadata/_custom_type_script = "uid://c6l2gagleidjy"

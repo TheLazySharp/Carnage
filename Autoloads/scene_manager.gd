@@ -24,7 +24,8 @@ enum SCENES {
 	SANDBOX_NEW,
 	SURVIVOR_RECAP,
 	SCORE,
-	BIOME_INTRO
+	BIOME_INTRO,
+	VICTORY
 }
 
 var scenes_uid: Dictionary[SCENES,String] = {
@@ -53,6 +54,7 @@ var scenes_uid: Dictionary[SCENES,String] = {
 	SCENES.SURVIVOR_RECAP : "uid://n80vprxw83m5",
 	SCENES.SCORE : "uid://bepq3whxkt0bw",
 	SCENES.BIOME_INTRO : "uid://4lfs15m8ww5a",
+	SCENES.VICTORY : "uid://cjc8nfxdge48r",
 }
 
 var districts_scenes : Dictionary[DistrictsData.types,String] = {
@@ -132,10 +134,7 @@ func load_district(loading_district : DistrictsData, loading_message : String = 
 func _resolve_roadmap_destination() -> SCENES:
 	if RoadMapManager.is_biome_completed():
 		if not BiomesManager.advance():
-			# Last biome cleared. TODO: victory screen, the run simply ends for now
-			push_warning("[SceneManager] run won: no victory screen yet, back to the menu")
-			unload_game()
-			return SCENES.MAIN_MENU
+			return SCENES.VICTORY
 		RoadMapManager.reset_map()
 	if BiomesManager.intro_pending:
 		return SCENES.BIOME_INTRO
@@ -199,6 +198,10 @@ func _on_map_generated(_data : MapData) -> void:
 	_level_ready = true
 
 func load_post_raid() -> void:
+	StatsManager.close_raid()
+	if RoadMapManager.is_biome_completed() and BiomesManager.is_last_biome():
+		load_level(SCENES.VICTORY)
+		return
 	if InventoryManager.has_reward:
 		load_level(SCENES.REWARDS)
 	else:

@@ -32,4 +32,4 @@ func _on_ok_keyboard_pressed() -> void:
 		SceneManager.load_level(SceneManager.SCENES.MAIN_MENU)
 		SceneManager.commands_from_menu = false
 	else :
-		SceneManager.load_level(SceneManager.SCENES.MISSIONS)
+		SceneManager.load_level(SceneManager.SCENES.SURVIVORS)

@@ -16,6 +16,7 @@ func _ready() -> void:
 	car.start_time.connect(_on_start_time)
 	car.engine_ignited.connect(_on_car_ready)
 	SignalManager.coloss_incoming.connect(_on_coloss_incoming)
+	SignalManager.last_ten_secs.connect(_on_final_hordes_incoming)
 	SignalManager.day_time_end.connect(_on_day_timer_end)
 
 	self.show()
@@ -46,5 +47,6 @@ func _on_day_timer_end(timer_stop : bool) -> void :
 		horde.hide()
 		danger_arrows.hide()
 		
-		
-		
+func _on_final_hordes_incoming() -> void : 
+	horde.show()
+	horde.text = " DANGER INCOMING !! "

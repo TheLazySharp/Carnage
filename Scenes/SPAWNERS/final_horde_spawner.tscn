@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bf52rpcsdyslp"]
+
+[ext_resource type="Script" uid="uid://cpjxgaw6fxo3r" path="res://Scripts/SPAWNERS/horde_spawner.gd" id="1_leogu"]
+
+[node name="FinalHorde" type="Node2D" unique_id=898307467]
+script = ExtResource("1_leogu")
+horde_radius_px = 64.0

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BiomeData" format=3 uid="uid://c1tilec3f7nfc"]
 
 [ext_resource type="Script" uid="uid://cj3cg0ubikwxl" path="res://Resources/Scripts/biome_data.gd" id="1_e0kvw"]
-[ext_resource type="Resource" uid="uid://katahs2lm30u" path="res://Resources/map_config/config_city.tres" id="2_uptvp"]
+[ext_resource type="Resource" uid="uid://katahs2lm30u" path="res://Resources/MapConfigs/config_city.tres" id="2_uptvp"]
 [ext_resource type="Resource" uid="uid://bkxqc5o3j2c1q" path="res://Resources/Spawners/spawn_table_city.tres" id="3_uptvp"]
 
 [resource]

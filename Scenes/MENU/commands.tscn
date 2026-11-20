@@ -81,16 +81,6 @@ text = "OK"
 flat = true
 script = ExtResource("4_w8ef4")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Controler" unique_id=1405240235]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
-grow_vertical = 2
-
 [node name="TextureRect" type="TextureRect" parent="Controler" unique_id=29104809]
 layout_mode = 1
 anchors_preset = 8
@@ -170,16 +160,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_ovrvl")
 text = "OK"
 flat = true
 script = ExtResource("4_w8ef4")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Keyboard" unique_id=1128741165]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
-grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Keyboard" unique_id=38469174]
 layout_mode = 1

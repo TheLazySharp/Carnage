@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://dff1t0jl2tlmg"]
+
+[ext_resource type="Script" uid="uid://jehgiodsrium" path="res://Scripts/SCENES/splash_screen.gd" id="1_r46i0"]
+[ext_resource type="Texture2D" uid="uid://vgt0bo6151re" path="res://Assets/lazy sharp v1.1 NOIR.png" id="2_syod3"]
+[ext_resource type="Texture2D" uid="uid://kgjmx6kc6mpt" path="res://Assets/logo_large_monochrome_dark.svg" id="3_n2dd0"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="4_n2dd0"]
+[ext_resource type="Texture2D" uid="uid://cdmb06xlwn02m" path="res://Assets/UI_Controller_Keys_Thumbnail2.png" id="5_npi1j"]
+[ext_resource type="Script" uid="uid://dip4xtpjvvxmk" path="res://Scripts/FONTS/GUI_text_title.gd" id="6_4nimb"]
+
+[node name="SplashScreen" type="Control" unique_id=439145757]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r46i0")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=103999838]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Cards" type="Control" parent="." unique_id=441587260]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StudioLogo" type="CenterContainer" parent="Cards" unique_id=1197698488]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="Cards/StudioLogo" unique_id=1555168708]
+texture_filter = 1
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+texture = ExtResource("2_syod3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MadeWithGodot" type="CenterContainer" parent="Cards" unique_id=289620023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="Cards/MadeWithGodot" unique_id=857922771]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("3_n2dd0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="GameTitle" type="CenterContainer" parent="Cards" unique_id=1787589663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Cards/GameTitle" unique_id=1142855883]
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="Cards/GameTitle/VBoxContainer" unique_id=1449930022]
+texture_filter = 1
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Cards/GameTitle/VBoxContainer" unique_id=1080588124]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_n2dd0")
+theme_override_font_sizes/font_size = 64
+text = "TURBO SLAYER"
+
+[node name="GamePad" type="CenterContainer" parent="Cards" unique_id=1762660891]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Cards/GamePad" unique_id=41787985]
+layout_mode = 2
+
+[node name="Pad" type="TextureRect" parent="Cards/GamePad/VBoxContainer" unique_id=871333260]
+texture_filter = 1
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+texture = ExtResource("5_npi1j")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Cards/GamePad/VBoxContainer" unique_id=166998459]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_n2dd0")
+theme_override_font_sizes/font_size = 40
+text = "SPLASH_GAMEPAD"
+script = ExtResource("6_4nimb")
+
+[node name="Tutorial" type="CenterContainer" parent="Cards" unique_id=742405109]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Cards/Tutorial" unique_id=1396898339]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_n2dd0")
+theme_override_font_sizes/font_size = 40
+text = "SPLASH_TUTORIAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("6_4nimb")

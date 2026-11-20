@@ -576,5 +576,6 @@ position = Vector2(18, 2141)
 
 [node name="ItemSpawner" parent="Spawners" unique_id=951681507 instance=ExtResource("37_ewkn0")]
 z_index = 10
+spawn_rate = 10.0
 
 [editable path="Spawners/ColossArrival"]

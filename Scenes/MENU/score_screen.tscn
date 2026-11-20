@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dsywnht7uy5au" path="res://Scripts/FONTS/GUI_title.gd" id="3_6fehf"]
 [ext_resource type="AudioStream" uid="uid://dcs41hr6yu2n" path="res://Assets/Audio/SFX/Coins/Cash_register.mp3" id="4_0rwg5"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="4_2v65v"]
+[ext_resource type="AudioStream" uid="uid://8g53lm18egk6" path="res://Assets/Audio/SFX/Weapons/GrenadeExplosion.mp3" id="4_7n2vd"]
 [ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="7_1rf3y"]
 [ext_resource type="Texture2D" uid="uid://pi1q3pv4wn13" path="res://Assets/Items/speedometer.png" id="7_2v65v"]
 [ext_resource type="Script" uid="uid://dictxjasb63jo" path="res://Scripts/FONTS/GUI_text_24.gd" id="8_0rwg5"]
@@ -25,7 +26,7 @@ grow_vertical = 2
 script = ExtResource("1_23r8h")
 quantity_sfx = ExtResource("2_1rf3y")
 score_sfx = ExtResource("3_0rwg5")
-total_sfx = ExtResource("3_0rwg5")
+total_sfx = ExtResource("4_7n2vd")
 dollar_sfx = ExtResource("4_0rwg5")
 step_delay = 0.5
 needle_fill_speed = 0.8
@@ -157,6 +158,60 @@ text = "300"
 horizontal_alignment = 2
 script = ExtResource("8_0rwg5")
 
+[node name="Total" type="HBoxContainer" parent="Stats/EndGameStats" unique_id=2120441526]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Key" type="Label" parent="Stats/EndGameStats/Total" unique_id=668293943]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "TOTAL :"
+script = ExtResource("8_0rwg5")
+
+[node name="Quantity" type="Label" parent="Stats/EndGameStats/Total" unique_id=50498706]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Multiply" type="Label" parent="Stats/EndGameStats/Total" unique_id=50454670]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Points" type="Label" parent="Stats/EndGameStats/Total" unique_id=741979215]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "2"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Equal" type="Label" parent="Stats/EndGameStats/Total" unique_id=158942259]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
+[node name="Score" type="Label" parent="Stats/EndGameStats/Total" unique_id=716746801]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_1rf3y")
+theme_override_font_sizes/font_size = 24
+text = "300"
+horizontal_alignment = 2
+script = ExtResource("8_0rwg5")
+
 [node name="Dollars" type="HBoxContainer" parent="Stats/EndGameStats" unique_id=1946195707]
 layout_mode = 2
 theme_override_constants/separation = 8
@@ -218,60 +273,6 @@ script = ExtResource("8_0rwg5")
 layout_mode = 2
 texture = ExtResource("10_06dww")
 stretch_mode = 5
-
-[node name="Total" type="HBoxContainer" parent="Stats/EndGameStats" unique_id=2120441526]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Key" type="Label" parent="Stats/EndGameStats/Total" unique_id=668293943]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("7_1rf3y")
-theme_override_font_sizes/font_size = 24
-text = "TOTAL :"
-script = ExtResource("8_0rwg5")
-
-[node name="Quantity" type="Label" parent="Stats/EndGameStats/Total" unique_id=50498706]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("7_1rf3y")
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 2
-script = ExtResource("8_0rwg5")
-
-[node name="Multiply" type="Label" parent="Stats/EndGameStats/Total" unique_id=50454670]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("7_1rf3y")
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 2
-script = ExtResource("8_0rwg5")
-
-[node name="Points" type="Label" parent="Stats/EndGameStats/Total" unique_id=741979215]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("7_1rf3y")
-theme_override_font_sizes/font_size = 24
-text = "2"
-horizontal_alignment = 2
-script = ExtResource("8_0rwg5")
-
-[node name="Equal" type="Label" parent="Stats/EndGameStats/Total" unique_id=158942259]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("7_1rf3y")
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 2
-script = ExtResource("8_0rwg5")
-
-[node name="Score" type="Label" parent="Stats/EndGameStats/Total" unique_id=716746801]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("7_1rf3y")
-theme_override_font_sizes/font_size = 24
-text = "300"
-horizontal_alignment = 2
-script = ExtResource("8_0rwg5")
 
 [node name="Speedometer" type="TextureRect" parent="." unique_id=599331292]
 custom_minimum_size = Vector2(128, 128)

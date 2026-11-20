@@ -10,6 +10,9 @@ extends SpawnEntry
 @export var trigger_signal : StringName = &"launch_horde"
 ## Hordes chase the car as soon as they spawn (final horde...)
 @export var chase_on_spawn : bool = false
+## Final hordes: instantiated with the map, dormant until trigger_signal, then woken away from the car.
+## Needs auto_spawn = false
+@export var prespawn_dormant : bool = false
 
 @export_group("Progression")
 @export var nb_horde_start : int = 6
@@ -37,3 +40,4 @@ func configure(spawner : Node, progress : float) -> void:
 	horde_spawner.auto_spawn = auto_spawn
 	horde_spawner.trigger_signal = trigger_signal
 	horde_spawner.chase_on_spawn = chase_on_spawn
+	horde_spawner.prespawn_dormant = prespawn_dormant

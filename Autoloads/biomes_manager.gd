@@ -7,7 +7,7 @@ extends Node
 const BIOME_ORDER : Array[GameMaster.BIOMES] = [
 	GameMaster.BIOMES.DESERT,
 	GameMaster.BIOMES.CITY,
-	GameMaster.BIOMES.COUNTRYSIDE,
+	#GameMaster.BIOMES.COUNTRYSIDE,
 ]
 
 ## Debug builds only: every new run starts on this biome, then follows

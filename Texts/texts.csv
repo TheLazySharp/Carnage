@@ -241,6 +241,19 @@ TUTO_DASH_ESCAPE_BODY;Stuck in a horde? The speed boost of a dash pulls the car 
 TUTO_STEP_DASH;Amplify 3 maneuvers;Amplifie 3 manœuvres
 TUTO_STEP_DASH_HINT;Dash during any maneuver;Dashe pendant n’importe quelle manœuvre
 BIOME_CITY;CARNWAY CITY;CARNWAY CITY
-BIOME_DESERT;EASTERN DESERT;DESERT DE L'EST
+BIOME_DESERT;LOW TOWN;LOW TOWN
 BIOME_COUNTRYSIDE;STEPPES;LES STEPPES
 BIOME_HARBOR;THE LAST RIDE;DERNIERE VALSE
+VICTORY_TITLE;Victory!;Victoire !
+VICTORY_RAIDS;Raids completed;Raids terminés
+VICTORY_DISTANCE;Distance driven;Distance parcourue
+VICTORY_MAX_COMBO;Best combo;Meilleur combo
+VICTORY_TOTAL_SCORE;Total score;Score total
+SPLASH_MADE_WITH;Made with;Réalisé avec
+SPLASH_GAMEPAD;We highly recommend playing with a gamepad;Nous vous recommandons vivement de jouer à la manette
+SPLASH_TUTORIAL;First time here? We recommend starting with the tutorial;Première fois ? Nous vous recommandons de commencer par le tutoriel
+SHOP_MANEUVER_NEW;NEW;NEW
+SHOP_LEVEL_MAX;MAX;MAX
+SHOP_SOLD;Sold;Vendu
+SHOP_LEVEL_NEXT;Lvl %d -> %d;Niv %d -> %d
+SHOP_LEVEL_CURRENT;Lvl %d;Niv %d

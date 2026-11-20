@@ -1,0 +1,1490 @@
+[gd_scene format=3 uid="uid://c7wen4x8cxdsq"]
+
+[ext_resource type="Texture2D" uid="uid://6k6adbgi3om5" path="res://Assets/Items/tire.png" id="1_hpaw5"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="2_kecbr"]
+[ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="3_3k21o"]
+[ext_resource type="Script" uid="uid://d01u5x887iipv" path="res://Scripts/FONTS/GUI_text_16.gd" id="4_1c7ec"]
+[ext_resource type="Script" uid="uid://q1x6o5hrm08l" path="res://Scripts/UI/strike_price.gd" id="5_1mg6g"]
+[ext_resource type="Texture2D" uid="uid://hnexr8g6micy" path="res://Assets/Items/Drops/Dollars/blood.png" id="6_5a080"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i78ew"]
+bg_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srxg8"]
+bg_color = Color(0.45490196, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rchw7"]
+bg_color = Color(0.45490196, 0, 0, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0ie8k"]
+load_path = "res://.godot/imported/blood.png-6621a23d0f2de24dd7362ccd6ab76849.ctex"
+
+[node name="LevelUp" type="VBoxContainer" unique_id=1803038420]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -521.0
+offset_top = -315.0
+offset_bottom = 315.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="QuickDrift" type="HBoxContainer" parent="." unique_id=1868934432]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="QuickDrift" unique_id=2140175418]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="QuickDrift/ColorRect" unique_id=1563490314]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_left = NodePath("../../../../Buttons/Reroll")
+texture = ExtResource("1_hpaw5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="QuickDrift/ColorRect" unique_id=698139093]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 30.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+text = "Quick Drift"
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar" type="ProgressBar" parent="QuickDrift" unique_id=1371399619]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="QuickDrift" unique_id=513877450]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar2" type="ProgressBar" parent="QuickDrift" unique_id=2020455363]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="QuickDrift" unique_id=20926991]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar3" type="ProgressBar" parent="QuickDrift" unique_id=297505485]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="QuickDrift" unique_id=876001003]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar4" type="ProgressBar" parent="QuickDrift" unique_id=2061937529]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="QuickDrift" unique_id=2106284042]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar5" type="ProgressBar" parent="QuickDrift" unique_id=216257697]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="QuickDrift" unique_id=53444016]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="Price" type="HBoxContainer" parent="QuickDrift" unique_id=1635106889]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTags" type="VBoxContainer" parent="QuickDrift/Price" unique_id=1134589590]
+layout_mode = 2
+
+[node name="Price" type="HBoxContainer" parent="QuickDrift/Price/PriceTags" unique_id=2129862854]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="QuickDrift/Price/PriceTags/Price" unique_id=201653963]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="QuickDrift/Price/PriceTags/Price" unique_id=1182644697]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="StrikePrice" type="Control" parent="QuickDrift/Price/PriceTags/Price/PriceTag" unique_id=1611101928]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1mg6g")
+
+[node name="Discount" type="HBoxContainer" parent="QuickDrift/Price/PriceTags" unique_id=670427241]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="QuickDrift/Price/PriceTags/Discount" unique_id=1007269138]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("6_5a080")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="QuickDrift/Price/PriceTags/Discount" unique_id=1734828019]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="Spin180" type="HBoxContainer" parent="." unique_id=1638768918]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Spin180" unique_id=300519256]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Spin180/ColorRect" unique_id=2007146337]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hpaw5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Spin180/ColorRect" unique_id=691125362]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 30.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+text = "Spin 180"
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar" type="ProgressBar" parent="Spin180" unique_id=1238845725]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="Spin180" unique_id=2074022551]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar2" type="ProgressBar" parent="Spin180" unique_id=1941619593]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="Spin180" unique_id=1327965574]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar3" type="ProgressBar" parent="Spin180" unique_id=1188016197]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="Spin180" unique_id=101671738]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar4" type="ProgressBar" parent="Spin180" unique_id=2131326907]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="Spin180" unique_id=2066973215]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar5" type="ProgressBar" parent="Spin180" unique_id=368605948]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="Spin180" unique_id=2145586610]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="Price" type="HBoxContainer" parent="Spin180" unique_id=1234601574]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTags" type="VBoxContainer" parent="Spin180/Price" unique_id=1509190289]
+layout_mode = 2
+
+[node name="Price" type="HBoxContainer" parent="Spin180/Price/PriceTags" unique_id=1240619466]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Spin180/Price/PriceTags/Price" unique_id=1523148277]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="Spin180/Price/PriceTags/Price" unique_id=1099498528]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="StrikePrice" type="Control" parent="Spin180/Price/PriceTags/Price/PriceTag" unique_id=1035609391]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1mg6g")
+
+[node name="Discount" type="HBoxContainer" parent="Spin180/Price/PriceTags" unique_id=1259315977]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Spin180/Price/PriceTags/Discount" unique_id=1021219065]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("6_5a080")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="Spin180/Price/PriceTags/Discount" unique_id=1040914328]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="ReverseSpin180" type="HBoxContainer" parent="." unique_id=1140058141]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="ReverseSpin180" unique_id=2036792852]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ReverseSpin180/ColorRect" unique_id=1170170634]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hpaw5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ReverseSpin180/ColorRect" unique_id=1031956474]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 30.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+text = "Reverse Spin 180"
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar" type="ProgressBar" parent="ReverseSpin180" unique_id=1221394732]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="ReverseSpin180" unique_id=1860929381]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar2" type="ProgressBar" parent="ReverseSpin180" unique_id=133707335]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="ReverseSpin180" unique_id=1137820180]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar3" type="ProgressBar" parent="ReverseSpin180" unique_id=943407278]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="ReverseSpin180" unique_id=448638551]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar4" type="ProgressBar" parent="ReverseSpin180" unique_id=1121341512]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="ReverseSpin180" unique_id=423991077]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar5" type="ProgressBar" parent="ReverseSpin180" unique_id=560744261]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="ReverseSpin180" unique_id=1205985293]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="Price" type="HBoxContainer" parent="ReverseSpin180" unique_id=1801196362]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTags" type="VBoxContainer" parent="ReverseSpin180/Price" unique_id=364952869]
+layout_mode = 2
+
+[node name="Price" type="HBoxContainer" parent="ReverseSpin180/Price/PriceTags" unique_id=304818557]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="ReverseSpin180/Price/PriceTags/Price" unique_id=1603726353]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="ReverseSpin180/Price/PriceTags/Price" unique_id=57171984]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="StrikePrice" type="Control" parent="ReverseSpin180/Price/PriceTags/Price/PriceTag" unique_id=2143284401]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1mg6g")
+
+[node name="Discount" type="HBoxContainer" parent="ReverseSpin180/Price/PriceTags" unique_id=1402549127]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="ReverseSpin180/Price/PriceTags/Discount" unique_id=1095391986]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("6_5a080")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="ReverseSpin180/Price/PriceTags/Discount" unique_id=1455242244]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="Spin360" type="HBoxContainer" parent="." unique_id=1204099294]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Spin360" unique_id=1114549836]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Spin360/ColorRect" unique_id=197813044]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hpaw5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Spin360/ColorRect" unique_id=648474324]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 30.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+text = "Spin 360"
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar" type="ProgressBar" parent="Spin360" unique_id=540696509]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="Spin360" unique_id=197161231]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar2" type="ProgressBar" parent="Spin360" unique_id=2131411303]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="Spin360" unique_id=1963758465]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar3" type="ProgressBar" parent="Spin360" unique_id=760492611]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="Spin360" unique_id=1367836715]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar4" type="ProgressBar" parent="Spin360" unique_id=704683213]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="Spin360" unique_id=1150082694]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar5" type="ProgressBar" parent="Spin360" unique_id=1199787379]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="Spin360" unique_id=960995651]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="Price" type="HBoxContainer" parent="Spin360" unique_id=1065925500]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTags" type="VBoxContainer" parent="Spin360/Price" unique_id=1368106852]
+layout_mode = 2
+
+[node name="Price" type="HBoxContainer" parent="Spin360/Price/PriceTags" unique_id=466079305]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Spin360/Price/PriceTags/Price" unique_id=386538039]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="Spin360/Price/PriceTags/Price" unique_id=1697945654]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="StrikePrice" type="Control" parent="Spin360/Price/PriceTags/Price/PriceTag" unique_id=185617447]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1mg6g")
+
+[node name="Discount" type="HBoxContainer" parent="Spin360/Price/PriceTags" unique_id=1504779644]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Spin360/Price/PriceTags/Discount" unique_id=2081986819]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("6_5a080")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="Spin360/Price/PriceTags/Discount" unique_id=1993545290]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="Donut" type="HBoxContainer" parent="." unique_id=1055205756]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Donut" unique_id=691435752]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Donut/ColorRect" unique_id=1978743796]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hpaw5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Donut/ColorRect" unique_id=1836779817]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 30.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+text = "Donut"
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar" type="ProgressBar" parent="Donut" unique_id=1622098091]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="Donut" unique_id=757360709]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar2" type="ProgressBar" parent="Donut" unique_id=523932037]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="Donut" unique_id=557982926]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar3" type="ProgressBar" parent="Donut" unique_id=1821450742]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="Donut" unique_id=2092050986]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar4" type="ProgressBar" parent="Donut" unique_id=631459632]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="Donut" unique_id=326894406]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar5" type="ProgressBar" parent="Donut" unique_id=544020754]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="Donut" unique_id=1551400814]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="Price" type="HBoxContainer" parent="Donut" unique_id=557031578]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTags" type="VBoxContainer" parent="Donut/Price" unique_id=788323873]
+layout_mode = 2
+
+[node name="Price" type="HBoxContainer" parent="Donut/Price/PriceTags" unique_id=1229216062]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Donut/Price/PriceTags/Price" unique_id=955339305]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="Donut/Price/PriceTags/Price" unique_id=1257865469]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="StrikePrice" type="Control" parent="Donut/Price/PriceTags/Price/PriceTag" unique_id=1072750799]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1mg6g")
+
+[node name="Discount" type="HBoxContainer" parent="Donut/Price/PriceTags" unique_id=1794321423]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Donut/Price/PriceTags/Discount" unique_id=1226414176]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("6_5a080")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="Donut/Price/PriceTags/Discount" unique_id=1692366506]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="Burnout" type="HBoxContainer" parent="." unique_id=1080950591]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Burnout" unique_id=596507760]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Burnout/ColorRect" unique_id=1146047542]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hpaw5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Burnout/ColorRect" unique_id=2049214392]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 30.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+text = "Burnout"
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar" type="ProgressBar" parent="Burnout" unique_id=1790946946]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="Burnout" unique_id=1224555571]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar2" type="ProgressBar" parent="Burnout" unique_id=958172231]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="Burnout" unique_id=665080831]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar3" type="ProgressBar" parent="Burnout" unique_id=554020051]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="Burnout" unique_id=786801392]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar4" type="ProgressBar" parent="Burnout" unique_id=634413960]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="Burnout" unique_id=2078925322]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar5" type="ProgressBar" parent="Burnout" unique_id=1990640710]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="Burnout" unique_id=2138738436]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="Price" type="HBoxContainer" parent="Burnout" unique_id=1820367366]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTags" type="VBoxContainer" parent="Burnout/Price" unique_id=168947122]
+layout_mode = 2
+
+[node name="Price" type="HBoxContainer" parent="Burnout/Price/PriceTags" unique_id=1270087499]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Burnout/Price/PriceTags/Price" unique_id=1336259592]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="Burnout/Price/PriceTags/Price" unique_id=643156551]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="StrikePrice" type="Control" parent="Burnout/Price/PriceTags/Price/PriceTag" unique_id=910856226]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1mg6g")
+
+[node name="Discount" type="HBoxContainer" parent="Burnout/Price/PriceTags" unique_id=1576102501]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Burnout/Price/PriceTags/Discount" unique_id=1261486955]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("6_5a080")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="Burnout/Price/PriceTags/Discount" unique_id=2138476794]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="Horn" type="HBoxContainer" parent="." unique_id=1246582529]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="Horn" unique_id=956318763]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+color = Color(0.45490196, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Horn/ColorRect" unique_id=1868277997]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hpaw5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Horn/ColorRect" unique_id=1579923776]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 30.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+text = "Horn"
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar" type="ProgressBar" parent="Horn" unique_id=2037197718]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl1" type="Label" parent="Horn" unique_id=709207109]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar2" type="ProgressBar" parent="Horn" unique_id=1842531509]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl2" type="Label" parent="Horn" unique_id=1939695331]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar3" type="ProgressBar" parent="Horn" unique_id=1392395100]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl3" type="Label" parent="Horn" unique_id=1423378442]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar4" type="ProgressBar" parent="Horn" unique_id=1649493777]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl4" type="Label" parent="Horn" unique_id=1864423669]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="ProgressBar5" type="ProgressBar" parent="Horn" unique_id=152598317]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_i78ew")
+theme_override_styles/fill = SubResource("StyleBoxFlat_srxg8")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Lvl5" type="Label" parent="Horn" unique_id=2088759170]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rchw7")
+text = "LVL 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_3k21o")
+
+[node name="Price" type="HBoxContainer" parent="Horn" unique_id=1985144732]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PriceTags" type="VBoxContainer" parent="Horn/Price" unique_id=918516251]
+layout_mode = 2
+
+[node name="Price" type="HBoxContainer" parent="Horn/Price/PriceTags" unique_id=529507674]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Horn/Price/PriceTags/Price" unique_id=462987934]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_0ie8k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceTag" type="Label" parent="Horn/Price/PriceTags/Price" unique_id=1051920984]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")
+
+[node name="StrikePrice" type="Control" parent="Horn/Price/PriceTags/Price/PriceTag" unique_id=899958558]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_1mg6g")
+
+[node name="Discount" type="HBoxContainer" parent="Horn/Price/PriceTags" unique_id=1042505151]
+layout_mode = 2
+
+[node name="BloodIcon" type="TextureRect" parent="Horn/Price/PriceTags/Discount" unique_id=93746602]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("6_5a080")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DiscountTag" type="Label" parent="Horn/Price/PriceTags/Discount" unique_id=1367850842]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kecbr")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("4_1c7ec")

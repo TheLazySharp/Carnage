@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://cjc8nfxdge48r"]
+
+[ext_resource type="Script" uid="uid://cku8sn854xxvc" path="res://Scripts/SCENES/victory_scene.gd" id="1_reks2"]
+[ext_resource type="AudioStream" uid="uid://dwrv0yy7gj1p0" path="res://Assets/Audio/SFX/Impact/sword_impact.mp3" id="2_m5qnj"]
+[ext_resource type="Script" uid="uid://clxmad88m82fv" path="res://Scripts/FONTS/GUI_title_low.gd" id="2_w7wk0"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="3_6t0ia"]
+[ext_resource type="AudioStream" uid="uid://8g53lm18egk6" path="res://Assets/Audio/SFX/Weapons/GrenadeExplosion.mp3" id="3_p3weq"]
+[ext_resource type="Script" uid="uid://dictxjasb63jo" path="res://Scripts/FONTS/GUI_text_24.gd" id="4_m5qnj"]
+[ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="5_p3weq"]
+
+[node name="Victory" type="Control" unique_id=1194626087]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_reks2")
+line_sfx = ExtResource("2_m5qnj")
+total_sfx = ExtResource("3_p3weq")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1501234886]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+
+[node name="Title" type="Label" parent="." unique_id=1242427262]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "CONGRATULATIONS !"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_w7wk0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=934280682]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatsList" type="VBoxContainer" parent="VBoxContainer" unique_id=437066702]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StatTemplate" type="HBoxContainer" parent="VBoxContainer/StatsList" unique_id=257065235]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Key" type="Label" parent="VBoxContainer/StatsList/StatTemplate" unique_id=911907415]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6t0ia")
+theme_override_font_sizes/font_size = 24
+text = "Zombies Killed"
+vertical_alignment = 1
+script = ExtResource("4_m5qnj")
+
+[node name="Value" type="Label" parent="VBoxContainer/StatsList/StatTemplate" unique_id=921391028]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6t0ia")
+theme_override_font_sizes/font_size = 24
+text = "100000"
+script = ExtResource("4_m5qnj")
+
+[node name="TotalRow" type="HBoxContainer" parent="VBoxContainer" unique_id=362004892]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Key" type="Label" parent="VBoxContainer/TotalRow" unique_id=1186508876]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6t0ia")
+theme_override_font_sizes/font_size = 24
+text = "TOTAL"
+vertical_alignment = 1
+script = ExtResource("4_m5qnj")
+
+[node name="Value" type="Label" parent="VBoxContainer/TotalRow" unique_id=18427933]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6t0ia")
+theme_override_font_sizes/font_size = 24
+text = "100000"
+script = ExtResource("4_m5qnj")
+
+[node name="OkButton" type="Button" parent="." unique_id=1719327687]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "BACK TO MENU"
+script = ExtResource("5_p3weq")

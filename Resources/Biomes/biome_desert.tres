@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BiomeData" format=3 uid="uid://fpfhwnxeu3vl"]
 
-[ext_resource type="Resource" uid="uid://b7iuj33tl7e4g" path="res://Resources/map_config/config_desert.tres" id="2_4orej"]
+[ext_resource type="Resource" uid="uid://b7iuj33tl7e4g" path="res://Resources/MapConfigs/config_desert.tres" id="2_4orej"]
 [ext_resource type="Resource" uid="uid://dce84ro16hscl" path="res://Resources/Spawners/spawn_table_desert.tres" id="3_4orej"]
 [ext_resource type="Script" uid="uid://cj3cg0ubikwxl" path="res://Resources/Scripts/biome_data.gd" id="3_23rdb"]
 

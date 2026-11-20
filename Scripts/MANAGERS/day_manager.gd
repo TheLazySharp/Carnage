@@ -15,6 +15,8 @@ var timer_stopped : bool = false
 var danger_incoming : bool = false
 var half_time : bool = false
 var danger_threshold : float = 10
+var final_hordes_time : float = 5.0     # seconds left when the final hordes are launched
+var final_hordes_launched : bool = false
 var time_remaining : float
 var critical_time : float = 0.1
 var end_day_scene : String = "uid://dkpvtoel7hhai"
@@ -66,13 +68,13 @@ func _process(delta: float) -> void:
 	if time_remaining <= TimeManager.day_lenght * critical_time and !game_paused:
 		time_animation_player.play("time_warning")
 
-	if time_remaining < TimeManager.day_lenght * 0.5 and !half_time:
-		half_time = true
-		SignalManager.emit_signal("half_time")
-		
 	if time_remaining < danger_threshold and !danger_incoming:
 		danger_incoming = true
-		SignalManager.emit_signal("coloss_incoming")
+		SignalManager.emit_signal("last_ten_secs")
+
+	if time_remaining < final_hordes_time and !final_hordes_launched:
+		final_hordes_launched = true
+		SignalManager.final_hordes.emit()
 
 func mmss_timer(total_seconds: float) -> String:
 	var seconds: float = fmod(total_seconds,60)

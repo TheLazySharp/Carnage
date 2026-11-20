@@ -15,6 +15,19 @@ var raid_perfect_hits : int = 0
 var raid_damage_taken : int = 0
 var score_extra_multiplier : float = 1.0  # free slot for a future multiplier (roadmap step, difficulty...)
 
+
+# ---- RUN TOTALS (whole run, reset by unload) ----
+var run_kills : Dictionary[EnemyManager.Enemy_Types, int] = {}
+var run_hordes_destroyed : int = 0
+var run_maneuvers : int = 0
+var run_amplified_maneuvers : int = 0
+var run_max_combo : float = 1.0
+var run_perfect_hits : int = 0
+var run_damage_taken : int = 0
+var run_raids : int = 0
+var run_score : int = 0
+
+
 var frags: int
 var current_life : int
 var total_drift : int
@@ -66,6 +79,15 @@ func unload() -> void:
 	total_car_dmg = 0
 	total_distance = 0
 	score_extra_multiplier = 1.0
+	run_kills.clear()
+	run_hordes_destroyed = 0
+	run_maneuvers = 0
+	run_amplified_maneuvers = 0
+	run_max_combo = 1.0
+	run_perfect_hits = 0
+	run_damage_taken = 0
+	run_raids = 0
+	run_score = 0
 
 func _on_distance_traveled(distance_meters: int) -> void:
 	total_distance += distance_meters
@@ -110,30 +132,37 @@ func reset_raid_score() -> void:
 
 func _on_score_enemy_dead(dead_enemy : Enemy, _horde : Array) -> void:
 	raid_kills[dead_enemy.type] = raid_kills.get(dead_enemy.type, 0) + 1
+	run_kills[dead_enemy.type] = run_kills.get(dead_enemy.type, 0) + 1
 
 
 func _on_score_horde_destroyed() -> void:
 	raid_hordes_destroyed += 1
+	run_hordes_destroyed += 1
 
 
 func _on_score_maneuver(maneuver_type : ManeuverManager.Type, _intensity : float, _drift_level : int, is_amplified : bool, _attack_angle : float) -> void:
 	if maneuver_type == ManeuverManager.Type.LOOP:
 		return
 	raid_maneuvers += 1
+	run_maneuvers += 1
 	if is_amplified:
 		raid_amplified_maneuvers += 1
+		run_amplified_maneuvers += 1
 
 
 func _on_score_combo_changed(multiplier : float, _combo_count : int) -> void:
 	raid_max_combo = maxf(raid_max_combo, multiplier)
+	run_max_combo = maxf(run_max_combo, multiplier)
 
 
 func _on_score_perfect_hit(_hit_position : Vector2) -> void:
 	raid_perfect_hits += 1
+	run_perfect_hits += 1
 
 
 func _on_score_damage_taken(damages : int) -> void:
 	raid_damage_taken += damages
+	run_damage_taken += damages
 
 
 ## { "lines": [{ "key", "count", "points", "subtotal" }], "subtotal", "combo_multiplier", "extra_multiplier", "total" }.
@@ -173,3 +202,37 @@ func _add_score_line(lines : Array[Dictionary], key : String, count : int, point
 	if count <= 0:
 		return
 	lines.append({"key": key, "count": count, "points": points, "subtotal": count * points})
+
+
+
+# ---------------- RUN TOTALS ----------------
+
+
+func close_raid() -> void:
+	run_raids += 1
+	run_score += get_raid_score()["total"]
+
+
+## [{ "key", "value" }] for the victory screen, value already formatted.
+## Lines at 0 are left out. The run score is shown apart (run_score)
+func get_run_stats() -> Array[Dictionary]:
+	var lines : Array[Dictionary] = []
+	_add_run_line(lines, "VICTORY_RAIDS", str(run_raids), run_raids)
+	# Kills in the enemy type order, like the raid score
+	for enemy_type : int in EnemyManager.Enemy_Types.values():
+		if run_kills.has(enemy_type):
+			_add_run_line(lines, "SCORE_KILLS_" + EnemyManager.Enemy_Types.keys()[enemy_type], str(run_kills[enemy_type]), run_kills[enemy_type])
+	_add_run_line(lines, "VICTORY_DISTANCE", "%d m" % total_distance, total_distance)
+	_add_run_line(lines, "SCORE_HORDES", str(run_hordes_destroyed), run_hordes_destroyed)
+	_add_run_line(lines, "SCORE_MANEUVERS", str(run_maneuvers), run_maneuvers)
+	_add_run_line(lines, "SCORE_AMPLIFIED", str(run_amplified_maneuvers), run_amplified_maneuvers)
+	_add_run_line(lines, "SCORE_PERFECT_HITS", str(run_perfect_hits), run_perfect_hits)
+	_add_run_line(lines, "VICTORY_MAX_COMBO", "x" + String.num(run_max_combo, 2), 1 if run_max_combo > 1.0 else 0)
+	_add_run_line(lines, "SCORE_DAMAGE_TAKEN", str(run_damage_taken), run_damage_taken)
+	return lines
+
+
+func _add_run_line(lines : Array[Dictionary], key : String, value : String, count : int) -> void:
+	if count <= 0:
+		return
+	lines.append({"key": key, "value": value})

@@ -8,8 +8,15 @@
 [ext_resource type="PackedScene" uid="uid://b5ymk58gfmq3l" path="res://Scenes/MENU/current_stats.tscn" id="5_vflra"]
 [ext_resource type="PackedScene" uid="uid://bunq80hdti7b0" path="res://Scenes/UI/loadout_panel.tscn" id="7_nrq64"]
 [ext_resource type="PackedScene" uid="uid://b136nu6rnr2c0" path="res://Scenes/UI/maneuvers_list.tscn" id="8_fu0im"]
+[ext_resource type="FontFile" uid="uid://clqmp3rgaclrm" path="res://Fonts/Oxanium-Bold.ttf" id="9_5k2js"]
+[ext_resource type="Texture2D" uid="uid://bhrmlxrs1w3og" path="res://Assets/UI/Controls_screenshot.png" id="10_gqj2m"]
+[ext_resource type="Texture2D" uid="uid://d2lujjqc42jgo" path="res://Assets/UI/KEYBOARD_screenshot.png" id="11_b3ydx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyn1s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l5spo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d7mxs"]
 
 [node name="Pause" type="Control" unique_id=739595383]
 z_index = 100
@@ -157,8 +164,188 @@ visible = false
 layout_mode = 1
 blocked_menu = NodePath("../VBoxContainer")
 
+[node name="Commands" type="TabContainer" parent="." unique_id=1446691174]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_5k2js")
+theme_override_font_sizes/font_size = 24
+current_tab = 0
+
+[node name="L1 <- Gamepad" type="TabBar" parent="Commands" unique_id=1852356108]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_5k2js")
+theme_override_font_sizes/font_size = 24
+metadata/_tab_index = 0
+
+[node name="Controler" type="Control" parent="Commands/L1 <- Gamepad" unique_id=1038316963]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Commands/L1 <- Gamepad/Controler" unique_id=1471334847]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Commands/L1 <- Gamepad/Controler" unique_id=1423706495]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -549.2999
+offset_top = -256.5
+offset_right = 549.2999
+offset_bottom = 307.25
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_gqj2m")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Commands/L1 <- Gamepad/Controler" unique_id=305669063]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 74.666664
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_fu0im")
+theme_override_font_sizes/font_size = 64
+text = "GAMEPAD"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("3_d5jc0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Commands/L1 <- Gamepad/Controler" unique_id=1103702446]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.5
+offset_top = -64.0
+offset_right = 90.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="GamepadOk" type="Button" parent="Commands/L1 <- Gamepad/Controler/VBoxContainer" unique_id=773968230]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fu0im")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l5spo")
+text = "OK"
+flat = true
+script = ExtResource("5_5k2js")
+
+[node name="Keyboard -> R1" type="TabBar" parent="Commands" unique_id=1901939217]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_5k2js")
+theme_override_font_sizes/font_size = 24
+metadata/_tab_index = 1
+
+[node name="Keyboard" type="Control" parent="Commands/Keyboard -> R1" unique_id=1062324503]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Commands/Keyboard -> R1/Keyboard" unique_id=750562243]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Commands/Keyboard -> R1/Keyboard" unique_id=104118216]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 151.0
+offset_top = 62.0
+offset_right = -105.0
+offset_bottom = -23.843872
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_b3ydx")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Commands/Keyboard -> R1/Keyboard" unique_id=263134933]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 9.0
+offset_bottom = 83.666664
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_fonts/font = ExtResource("2_fu0im")
+theme_override_font_sizes/font_size = 64
+text = "KEYBOARD"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 0
+justification_flags = 0
+script = ExtResource("3_d5jc0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Commands/Keyboard -> R1/Keyboard" unique_id=1733622741]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.5
+offset_top = -64.0
+offset_right = 90.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="KeyboardOk" type="Button" parent="Commands/Keyboard -> R1/Keyboard/VBoxContainer" unique_id=1652516468]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fu0im")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d7mxs")
+text = "OK"
+flat = true
+script = ExtResource("5_5k2js")
+
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="VBoxContainer/Maneuvers" to="." method="_on_maneuvers_pressed"]
 [connection signal="pressed" from="VBoxContainer/Loadout" to="." method="_on_loadout_pressed"]
 [connection signal="pressed" from="VBoxContainer/Commands" to="." method="_on_commands_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitToMenu" to="." method="_on_quit_to_menu_pressed"]
+[connection signal="pressed" from="Commands/L1 <- Gamepad/Controler/VBoxContainer/GamepadOk" to="." method="_on_gamepad_ok_pressed"]
+[connection signal="pressed" from="Commands/Keyboard -> R1/Keyboard/VBoxContainer/KeyboardOk" to="." method="_on_keyboard_ok_pressed"]

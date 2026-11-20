@@ -24,6 +24,7 @@ var type : EnemyManager.Enemy_Types
 var is_dead: bool = false
 @export var leader: Enemy = null
 var is_leader: bool = false
+var dormant : bool = false  # pre-spawned final horde: no process, no physics, not rendered until wake()
 var horde: Array
 var horde_neighbors: Array
 var velocity: Vector2 = Vector2.ZERO
@@ -160,7 +161,8 @@ func _ready() -> void:
 	night_speed_mod = Modifier.new(night_speed_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_speed_mod")
 	night_dmg_mod = Modifier.new(night_damages_boost,Modifier.Type.PERCENT_MULT,"day_end_enemy_dmg_mod")
 	night_life_mod = Modifier.new(night_max_life_boost,Modifier.Type.FLAT,"day_end_enemy_life_mod")
-	call_deferred("register_to_renderer")
+	if !dormant:
+		call_deferred("register_to_renderer")
  
 func init_stats() -> void:
 	speed = Statistic.new(enemy.base_speed)
@@ -424,6 +426,16 @@ func activate(spawn_position: Vector2) -> void:
 	current_life = int(max_life.get_value())
 	show()
  
+## Pre-spawned enemy brought into play: processing, physics, renderer slot, then activation
+func wake(spawn_position : Vector2, chase : bool) -> void:
+	dormant = false
+	global_position = spawn_position
+	process_mode = Node.PROCESS_MODE_INHERIT
+	register_to_renderer()
+	if chase:
+		state_machine.state_transition_to("chase")
+	activate(spawn_position)
+
 func _on_damage_timer_timeout() -> void:
 	damage_timer.stop()
  
@@ -512,7 +524,8 @@ func unregister_from_renderer() -> void:
 	mm_pool = null
   
 func _on_damage_timer_on_player_timeout() -> void:
-	if player == null:
+	# Frozen: no damage, but the timer keeps running so the hits resume when the freeze ends
+	if player == null or status == EnemyManager.Status.FREEZE:
 		return
 	if "get_damages_from_mob" in player:
 		player.get_damages_from_mob(dmg.get_value())
@@ -544,7 +557,7 @@ func play_animation(state_name: String, fallback_name: String = "walk") -> bool:
 	return true
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if !area.is_in_group("player"):
+	if !area.is_in_group("player") or status ==  EnemyManager.Status.FREEZE:
 		return
 	player = area.get_parent()
 	if "get_damages_from_mob" in player:
@@ -563,6 +576,8 @@ func _on_damage_flash_timer_timeout() -> void:
 	damage_flash_timer.stop()
  
 func _on_freeze() -> void :
+	if dormant:
+		return
 	apply_status(EnemyManager.Status.FREEZE, FREEZE_DURATION, 1.0)
  
 func get_enemy_stat(stat: EnemyData.Enemy_Stats) -> Statistic:

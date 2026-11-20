@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BiomeData" format=3 uid="uid://bk0xvrkuyxy8x"]
 
-[ext_resource type="Resource" uid="uid://cbsnivy66cbq2" path="res://Resources/map_config/config_country.tres" id="2_3ftv2"]
+[ext_resource type="Resource" uid="uid://cbsnivy66cbq2" path="res://Resources/MapConfigs/config_country.tres" id="2_3ftv2"]
 [ext_resource type="Script" uid="uid://cj3cg0ubikwxl" path="res://Resources/Scripts/biome_data.gd" id="3_uy11b"]
 
 [resource]

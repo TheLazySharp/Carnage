@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://8kyej0ari2gj" path="res://Scripts/MAP TOOLS/map_graphs_debug.gd" id="1_3fr1i"]
 [ext_resource type="Script" uid="uid://dvg11skp08qjj" path="res://Scripts/MAP TOOLS/map_sidewalks.gd" id="2_4bopi"]
-[ext_resource type="Resource" uid="uid://b7iuj33tl7e4g" path="res://Resources/map_config/config_desert.tres" id="2_ggnda"]
+[ext_resource type="Resource" uid="uid://b7iuj33tl7e4g" path="res://Resources/MapConfigs/config_desert.tres" id="2_ggnda"]
 [ext_resource type="Texture2D" uid="uid://bx6p35jf6jn57" path="res://Assets/Props/Ground/Slice 1.tres" id="3_ggnda"]
 [ext_resource type="Texture2D" uid="uid://cvtqp2oi6kk1p" path="res://Assets/Props/Ground/Slice 2.tres" id="4_rdt7k"]
 [ext_resource type="Texture2D" uid="uid://1maduwq3nmju" path="res://Assets/Props/Ground/Slice 3.tres" id="5_xk8o5"]
