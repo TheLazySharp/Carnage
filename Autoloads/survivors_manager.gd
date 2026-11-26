@@ -25,6 +25,7 @@ const ALL_SURVIVORS : Array = [
 	FRANCK,
 ]
 
+
 # ---- META (kept between runs) ----
 var locked_survivors : Array[SurvivorData] = []    # not available at the start of the game: unlocked by saving them on the road
 var known_survivors : Array[SurvivorData] = []     # available to start a run with (all survivors minus the locked ones)
@@ -96,9 +97,37 @@ func survivor_admninistration() -> void :
 	#locked_survivors.append(ALMA)
 	#locked_survivors.append(FRANCK)
 
-## No survivor on the map once the car is full, or when nobody is left to meet
+## A survivor can be met as long as somebody is left: a full car chooses who stays at the end of the raid
 func can_offer_survivor() -> bool:
-	return !run_pool.is_empty() and on_board_survivors.size() < CarManager.selected_car.seats
+	return !run_pool.is_empty()
+
+
+## More survivors on board than seats: someone must leave (end of raid screen)
+func is_car_overloaded() -> bool:
+	return on_board_survivors.size() > CarManager.selected_car.seats
+
+
+## A passenger leaves the car (seat given to a newcomer, or newcomer refused): job off, weapon removed,
+## gone for the rest of the run. Never the driver
+func drop_survivor(survivor : SurvivorData) -> void:
+	var index : int = on_board_survivors.find(survivor)
+	if index <= 0:
+		return  # not on board, or the driver
+	on_board_survivors.remove_at(index)
+	JobsManager.deactivate_job(survivor.job_ressource)
+	if survivor.weapon != null and !_is_weapon_on_board(survivor.weapon):
+		LoadoutManager.remove_weapon(survivor.weapon)
+		WeaponsManager.remove_weapon(survivor.weapon)
+	if rescued_survivor == survivor:
+		rescued_survivor = null  # refused: his job never starts
+	# Left on the road: never met again in this run (he left the run pool when he was saved)
+
+
+func _is_weapon_on_board(weapon : WeaponData) -> bool:
+	for survivor : SurvivorData in on_board_survivors:
+		if survivor.weapon == weapon:
+			return true
+	return false
 
 
 func _on_survivor_picked_up(new_survivor : SurvivorData) -> void:

@@ -10,9 +10,11 @@ const SELECTED_COLOR: Color = Color(1.0, 0.85, 0.2)
 const LOCKED_COLOR: Color = Color(0.5, 0.5, 0.5)
 const MASTERY_LOCKED_COLOR: Color = Color(0.25, 0.25, 0.25)  # mastery charm not granted yet
 const MANEUVERS_TAB: int = 0
-const CHARMS_TAB: int = 1
+const CREW_TAB: int = 1
+const CHARMS_TAB: int = 2
 const FOCUS_SCALE: float = 1.15  # focused charm cell
-
+const CREW_FOCUS_SCALE: float = 1.05               # selected crew card
+const CREW_DIM_COLOR: Color = Color(0.55, 0.55, 0.55)  # crew cards not selected
 
 @export var tab_container: TabContainer
 @export_group("Maneuvers tab")
@@ -29,7 +31,10 @@ const FOCUS_SCALE: float = 1.15  # focused charm cell
 @export var charm_description_label: Label        # CharmDescription: focused charm
 @export var mastery_slot_template: Control        # MasteryCharmHolder/Panel (icon TextureRect inside): hidden, duplicated per car part
 @export var charms_close_button: Button
-
+@export_group("Crew tab")
+@export var crew_template: Control   # Crew/Container/SuvivorTemplate: hidden, duplicated per survivor on board
+@export var crew_bio: Control        # Crew/SurvivorBio: details of the selected survivor
+@export_group("Other")
 @export var mastery_slot_parts: Array[CarData.Car_Upgrades] = [
 	CarData.Car_Upgrades.ENGINE,
 	CarData.Car_Upgrades.TANK,
@@ -62,12 +67,17 @@ var mastery_cells: Array[Control] = []
 var mastery_charms: Array[CharmData] = []     # charm of each cell part (granted or not, null = none set)
 var mastery_boosts: Array[BoostData] = []     # car part of each cell
 
+# ---- Crew tab (read only) ----
+var crew_cards: Array[Control] = []
+var crew_index: int = 0
+
 func _ready() -> void:
 	row_template.hide()
 	weapon_count_template.hide()
 	charm_slot_template.hide()
 	owned_charm_template.hide()
 	mastery_slot_template.hide()
+	crew_template.hide()
 	var mastery_parent: Node = mastery_slot_template.get_parent()
 	for i: int in mastery_slot_parts.size():
 		var mastery_cell: Control = mastery_slot_template.duplicate() as Control
@@ -78,6 +88,7 @@ func _ready() -> void:
 		mastery_cell.gui_input.connect(_on_charm_cell_input.bind(CharmZone.MASTERY, i))
 		mastery_cells.append(mastery_cell)
 	tab_container.set_tab_title(MANEUVERS_TAB, tr("LOADOUT_TAB_MANEUVERS"))
+	tab_container.set_tab_title(CREW_TAB, tr("LOADOUT_TAB_CREW"))
 	tab_container.set_tab_title(CHARMS_TAB, tr("LOADOUT_TAB_CHARMS"))
 	tab_container.tab_changed.connect(_on_tab_changed)
 	set_process(false)
@@ -111,6 +122,7 @@ func open(p_read_only: bool = false) -> void:
 	_build_weapon_counts()
 	_refresh()
 	_build_charms()
+	_build_crew()
 	tab_container.current_tab = MANEUVERS_TAB
 	_reset_charm_focus()
 	if hint_label != null:
@@ -178,6 +190,8 @@ func _navigate(dx: int, dy: int) -> void:
 			_move_selection(dy)
 		elif !read_only:
 			_cycle_weapon(dx)
+	elif tab_container.current_tab == CREW_TAB:
+		_move_crew_focus(dx, dy)
 	else:
 		_move_charm_focus(dx, dy)
 
@@ -190,6 +204,7 @@ func _on_tab_changed(_tab: int) -> void:
 		get_viewport().gui_release_focus()
 	_reset_charm_focus()
 	_refresh()
+	_refresh_crew()
 
 
 ## remove_child first: queue_free alone keeps the old nodes in the layout until the end of the frame
@@ -316,16 +331,88 @@ func _refresh_weapon_counts() -> void:
 		(weapon_count_nodes[i].get_node("WeaponQ") as Label).text = "%d / %d" % [
 			LoadoutManager.count_assignments(weapons[i]), LoadoutManager.car.maneuvers_per_weapon]
 
+# ---------------- CREW TAB (read only) ----------------
+
+func _build_crew() -> void:
+	_free_nodes(crew_cards)
+	var cards_parent: Node = crew_template.get_parent()
+	var survivors: Array[SurvivorData] = SurvivorsManager.on_board_survivors
+	for i: int in survivors.size():
+		var survivor: SurvivorData = survivors[i]
+		var card: Control = crew_template.duplicate() as Control
+		cards_parent.add_child(card)
+		cards_parent.move_child(card, crew_template.get_index() + 1 + i)
+		card.show()
+		(card.get_node("Icon") as TextureRect).texture = survivor.icon
+		(card.get_node("Name") as Label).text = survivor.name
+		(card.get_node("Job") as Label).text = tr(survivor.job_ressource.name) if survivor.job_ressource != null else ""
+		(card.get_node("Weapon") as Label).text = tr(survivor.weapon.weapon_name) if survivor.weapon != null else "-"
+		card.mouse_filter = Control.MOUSE_FILTER_STOP
+		card.gui_input.connect(_on_crew_card_input.bind(i))
+		crew_cards.append(card)
+	crew_index = 0
+	_refresh_crew()
+
+
+func _move_crew_focus(dx: int, dy: int) -> void:
+	if crew_cards.is_empty():
+		return
+	var columns: int = maxi((crew_template.get_parent() as GridContainer).columns, 1)
+	crew_index = clampi(crew_index + dx + dy * columns, 0, crew_cards.size() - 1)
+	_refresh_crew()
+
+
+func _on_crew_card_input(event: InputEvent, index: int) -> void:
+	var mouse_button: InputEventMouseButton = event as InputEventMouseButton
+	if mouse_button == null or !mouse_button.pressed or mouse_button.button_index != MOUSE_BUTTON_LEFT:
+		return
+	crew_index = index
+	_refresh_crew()
+
+
+## Selected card highlighted, its survivor shown in SurvivorBio
+func _refresh_crew() -> void:
+	for i: int in crew_cards.size():
+		var card: Control = crew_cards[i]
+		var is_selected: bool = i == crew_index
+		# True colors and a slight zoom for the selected card, the others dimmed
+		card.pivot_offset = card.size * 0.5
+		card.scale = Vector2.ONE * (CREW_FOCUS_SCALE if is_selected else 1.0)
+		card.modulate = Color.WHITE if is_selected else CREW_DIM_COLOR
+	var survivors: Array[SurvivorData] = SurvivorsManager.on_board_survivors
+	if crew_index >= survivors.size():
+		crew_bio.hide()
+		return
+	crew_bio.show()
+	var survivor: SurvivorData = survivors[crew_index]
+	var survivor_name: String = survivor.name
+	if crew_index == 0:
+		survivor_name += "  (%s)" % tr("CREW_DRIVER")
+	(crew_bio.get_node("Bio/Name") as Label).text = survivor_name
+	(crew_bio.get_node("Bio/Age") as Label).text = tr("SURVIVOR_AGE") % survivor.age
+	var job: JobData = survivor.job_ressource
+	(crew_bio.get_node("Bio/Job") as Label).text = tr(job.name) if job != null else ""
+	(crew_bio.get_node("Bio/JobDescr") as Label).text = tr(job.description) if job != null else ""
+	var weapon: WeaponData = survivor.weapon
+	(crew_bio.get_node("Weapon/WeaponIcon") as TextureRect).texture = weapon.weapon_icon if weapon != null else null
+	(crew_bio.get_node("Weapon/Weapon") as Label).text = tr(weapon.weapon_name) if weapon != null else "-"
+	(crew_bio.get_node("Weapon/WeaponDescr") as Label).text = tr(weapon.description) if weapon != null else ""
+
+
+func _show_tab(tab: int) -> void:
+	tab_container.current_tab = tab
+
 
 # ---------------- CHARMS TAB ----------------
 
 func _build_charms() -> void:
 	_free_nodes(slot_cells)
 	_free_nodes(owned_cells)
+	# The charm lists follow the cells: rebuilt from scratch, never appended to the previous build
+	slot_charms.clear()
+	owned_charms.clear()
 	if ShopManager.all_car_boosts.is_empty():
 		ShopManager.load_pools()
-	mastery_charms.clear()
-	mastery_boosts.clear()
 	# One cell per slot, in the equip order: the empty ones at the end
 	for i: int in CharmsManager.get_slot_count():
 		slot_charms.append(CharmsManager.holder[i] if i < CharmsManager.holder.size() else null)
@@ -342,7 +429,6 @@ func _build_charms() -> void:
 		var part_boost: BoostData = _get_part_boost(mastery_slot_parts[i]) if i < mastery_slot_parts.size() else null
 		mastery_boosts.append(part_boost)
 		mastery_charms.append(part_boost.mastery_charm if part_boost != null else null)
-	print("[MASTERY] cells: ", mastery_cells.size(), " | car boosts loaded: ", ShopManager.all_car_boosts.size())
 
 func _add_charm_cell(template: Control, charm: CharmData, zone: CharmZone, index: int) -> Control:
 	var cell: Control = template.duplicate() as Control
@@ -548,7 +634,7 @@ func _play_guide() -> void:
 	GuideManager.play(&"loadout", [
 		{"text": "GUIDE_LOADOUT_WEAPONS", "target": row_template.get_parent()},
 		{"text": "GUIDE_LOADOUT_CHANGE"},
-		{"text": "GUIDE_LOADOUT_CHARMS_R1", "action": &"go_next", "on_done": _change_tab.bind(1)},
+		{"text": "GUIDE_LOADOUT_CHARMS_R1", "on_done": _show_tab.bind(CHARMS_TAB)},
 		{"text": "GUIDE_LOADOUT_CHARMS"},
 		{"text": "GUIDE_LOADOUT_MASTERY", "target": mastery_slot_template.get_parent()},
 		{"text": "GUIDE_LOADOUT_SLOTS", "target": charm_slot_template.get_parent()},

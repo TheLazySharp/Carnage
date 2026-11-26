@@ -12,6 +12,7 @@ var knockback_force : float = 400.0
 var targets: Array[Node2D]
 var player_trigger_count : int = 0
 var damage_multiplier : float = 1.0  # set by the launcher (combo)
+var sprite_base_scale : Vector2 = Vector2.ONE  # the flight scales the sprite only, never the areas
 
 @onready var animation_mine: AnimatedSprite2D = $AnimationMine
 @onready var explosion_sfx: AudioStreamPlayer = $ExplosionSFX
@@ -29,11 +30,29 @@ func _ready() -> void:
 	explosion_sfx.stream = mine_data.weapon_sfx
 	
 	damages = int(mine_data.dmg.get_value())
+	sprite_base_scale = animation_mine.scale
 
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
 
+## Thrown by the launcher: short fake flight (top-down: the sprite grows then shrinks), armed on landing
+func throw_to(target : Vector2, duration : float, scale_peak : float) -> void:
+	trigger_area.monitoring = false  # not armed while flying
+	var tween : Tween = create_tween()
+	tween.tween_property(self, "global_position", target, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_method(_set_flight_scale.bind(scale_peak), 0.0, 1.0, duration)
+	tween.tween_callback(_arm)
+
+
+func _set_flight_scale(progress : float, scale_peak : float) -> void:
+	animation_mine.scale = sprite_base_scale * (1.0 + 4.0 * progress * (1.0 - progress) * scale_peak)
+
+
+## Landed: an enemy already standing on it is reported as entering, so it can blow up at once
+func _arm() -> void:
+	animation_mine.scale = sprite_base_scale
+	trigger_area.monitoring = true
 
 func explosion()-> void:
 	if expl_limitor >= 1:

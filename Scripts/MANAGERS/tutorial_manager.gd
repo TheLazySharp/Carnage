@@ -40,8 +40,8 @@ class_name TutorialManager
 @export var page_videos: Dictionary[String, VideoStream] = {}
 
 @export_group("Ending")
-## Shown before the colossi come (key = title, key + "_BODY" = text)
-@export var ending_page_keys: PackedStringArray = ["TUTO_COLOSS"]
+## Shown before the exit opens: the danger waiting at the end of every raid (key = title, key + "_BODY" = text)
+@export var ending_page_keys: PackedStringArray = ["TUTO_RAID_END"]
 
 @onready var hud : Control = $"/root/World/CanvasLayer/HUD"
 
@@ -323,9 +323,9 @@ func _refill_driver_if_drained() -> void:
 	BloodBars.update_survivor_blood()
 
 
-# ---------------- ENDING: COLOSS + EXTRACTION ----------------
+# ---------------- ENDING: EXTRACTION ----------------
 
-## All hordes killed, or "quit" confirmed: the colossi page, then a regular raid end
+## All hordes killed, or "quit" confirmed: the raid end page, then the exit opens
 func start_ending() -> void:
 	if ending or leaving:
 		return
@@ -355,7 +355,7 @@ func _play_clip(player: VideoStreamPlayer, video: VideoStream) -> void:
 	player.play()
 
 func _on_ending_pages_closed() -> void:
-	# Colossi, extraction and exit arrow: handled like the end of any raid
+	# Extraction and exit arrow: handled like the end of any raid (no colossi, no final hordes here)
 	SignalManager.end_raid_requested.emit()
 
 
@@ -392,8 +392,6 @@ func _input(event: InputEvent) -> void:
 
 func _on_quit_yes_pressed() -> void:
 	quit_popup.hide()
-	# First "quit": the coloss ending, the player leaves through the extraction.
-	# Once it runs, "quit" goes straight back to the menu
 	if ending:
 		_leave()
 	else:

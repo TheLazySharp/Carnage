@@ -9,10 +9,23 @@
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="6_2ym2o"]
 [ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="7_soq7b"]
 [ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="8_8xgsa"]
+[ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="10_dm6ri"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wljjq"]
 
-[node name="SurvivorResume" type="Control" unique_id=339548940 node_paths=PackedStringArray("confirm_button")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_leh2h"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.776, 0, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[node name="SurvivorResume" type="Control" unique_id=339548940 node_paths=PackedStringArray("confirm_button", "crew_choice", "crew_title", "passenger_template")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +34,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x2h2v")
 confirm_button = NodePath("Ok")
+crew_choice = NodePath("CrewChoice")
+crew_title = NodePath("CrewChoice/CrewTitle")
+passenger_template = NodePath("CrewChoice/Passengers/PassengerTemplate")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1222634454]
 layout_mode = 1
@@ -58,9 +74,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -37.0
-offset_top = -121.0
+offset_top = -91.0
 offset_right = 37.0
-offset_bottom = -64.0
+offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -82,9 +98,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 220.0
+offset_left = 11.0
 offset_top = 139.0
-offset_right = -257.0
+offset_right = -651.0
 offset_bottom = -127.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -99,7 +115,6 @@ theme_override_colors/font_color = Color(0.6862745, 0.06666667, 0.43529412, 1)
 theme_override_fonts/font = ExtResource("4_18wy5")
 theme_override_font_sizes/font_size = 64
 text = "NAME"
-horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 0
 justification_flags = 0
@@ -153,6 +168,7 @@ text = "Mechanic"
 script = ExtResource("6_2ym2o")
 
 [node name="PNJJobDescr" type="Label" parent="Resume/SurvivorBio" unique_id=2143974609]
+custom_minimum_size = Vector2(500, 60)
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -160,13 +176,14 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 119.0
 offset_top = -74.0
-offset_right = -67.0
-offset_bottom = -35.0
+offset_right = 1.0
+offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_ut0v5")
 theme_override_font_sizes/font_size = 18
 text = "Mechanic"
+autowrap_mode = 2
 script = ExtResource("6_2ym2o")
 
 [node name="PNJBio" type="Label" parent="Resume/SurvivorBio" unique_id=859623601]
@@ -176,8 +193,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -182.875
-offset_bottom = -79.0
+offset_top = -167.875
+offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_ut0v5")
@@ -226,17 +243,16 @@ texture = ExtResource("7_soq7b")
 [node name="WeaponDescr" type="Label" parent="Resume/Weapon" unique_id=1769072388]
 custom_minimum_size = Vector2(340, 70)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -261.5
-offset_top = -112.0
-offset_right = 86.5
-offset_bottom = -41.0
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 119.0
+offset_top = -35.0
+offset_right = 1.0
+offset_bottom = 35.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_ut0v5")
 theme_override_font_sizes/font_size = 18
 text = "Shot a bullet on the closest enemy"
@@ -260,3 +276,75 @@ theme_override_font_sizes/font_size = 18
 text = "Revolver"
 vertical_alignment = 1
 script = ExtResource("8_8xgsa")
+
+[node name="CrewChoice" type="VBoxContainer" parent="." unique_id=976206725]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 53.0
+offset_top = -286.5
+offset_right = 519.0
+offset_bottom = 148.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CrewTitle" type="Label" parent="CrewChoice" unique_id=2047248840]
+custom_minimum_size = Vector2(450, 50)
+layout_mode = 2
+autowrap_mode = 2
+script = ExtResource("6_2ym2o")
+
+[node name="Passengers" type="GridContainer" parent="CrewChoice" unique_id=1391222390]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="PassengerTemplate" type="Button" parent="CrewChoice/Passengers" unique_id=152997848]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_leh2h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CrewChoice/Passengers/PassengerTemplate" unique_id=1672526858]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="CrewChoice/Passengers/PassengerTemplate/VBoxContainer" unique_id=1614362782]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("10_dm6ri")
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="CrewChoice/Passengers/PassengerTemplate/VBoxContainer/Icon" unique_id=1727203121]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="CrewChoice/Passengers/PassengerTemplate/VBoxContainer" unique_id=513328824]
+layout_mode = 2
+text = "Marina"
+horizontal_alignment = 1
+script = ExtResource("6_2ym2o")
+
+[node name="Job" type="Label" parent="CrewChoice/Passengers/PassengerTemplate/VBoxContainer" unique_id=254803404]
+layout_mode = 2
+text = "Professor"
+horizontal_alignment = 1
+script = ExtResource("6_2ym2o")
+
+[node name="Weapon" type="Label" parent="CrewChoice/Passengers/PassengerTemplate/VBoxContainer" unique_id=1361253543]
+layout_mode = 2
+text = "Flame Launcher"
+horizontal_alignment = 1
+script = ExtResource("6_2ym2o")

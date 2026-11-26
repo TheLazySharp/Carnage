@@ -4,4 +4,6 @@
 
 [node name="FinalHorde" type="Node2D" unique_id=898307467]
 script = ExtResource("1_leogu")
+min_distance_from_entry_px = 800.0
+max_distance_from_car_px = 1200.0
 horde_radius_px = 64.0

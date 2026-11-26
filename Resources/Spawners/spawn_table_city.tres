@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://mtf5ix56ax8r" path="res://Scenes/SPAWNERS/horde_spawner.tscn" id="3_afre5"]
 [ext_resource type="Script" uid="uid://dtyomitcopy8b" path="res://Scripts/SPAWNERS/stream_spawn_entry.gd" id="4_wamf4"]
 [ext_resource type="PackedScene" uid="uid://cqwawv14wcbb1" path="res://Scenes/SPAWNERS/enemy_auto_spawner.tscn" id="5_wamf4"]
+[ext_resource type="PackedScene" uid="uid://bf52rpcsdyslp" path="res://Scenes/SPAWNERS/final_horde_spawner.tscn" id="6_tsa5o"]
 
 [sub_resource type="Resource" id="Resource_afre5"]
 script = ExtResource("2_i30m1")
@@ -27,7 +28,21 @@ max_enemy_end = 400
 spawner_scene = ExtResource("5_wamf4")
 metadata/_custom_type_script = "uid://dtyomitcopy8b"
 
+[sub_resource type="Resource" id="Resource_wamf4"]
+script = ExtResource("2_i30m1")
+auto_spawn = false
+trigger_signal = &"final_hordes"
+chase_on_spawn = true
+prespawn_dormant = true
+nb_horde_start = 30
+nb_horde_end = 30
+horde_size_start = 30
+horde_size_end = 30
+min_horde_spacing_px = 300.0
+spawner_scene = ExtResource("6_tsa5o")
+metadata/_custom_type_script = "uid://ccnytlk30iso3"
+
 [resource]
 script = ExtResource("2_14k3r")
-entries = Array[ExtResource("1_dbbda")]([SubResource("Resource_afre5"), SubResource("Resource_j3pel")])
+entries = Array[ExtResource("1_dbbda")]([SubResource("Resource_afre5"), SubResource("Resource_j3pel"), SubResource("Resource_wamf4")])
 metadata/_custom_type_script = "uid://c6l2gagleidjy"

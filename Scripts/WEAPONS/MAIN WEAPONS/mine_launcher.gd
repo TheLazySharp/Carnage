@@ -12,15 +12,23 @@ var cool_down_upgrade : float
 @onready var mine_marker: Marker2D = $"/root/World/Car/MineMarker"
 @onready var drop_mine_sfx: AudioStreamPlayer2D = $DropMineSfx
 @onready var flow_field : FlowFieldManager = get_node_or_null("/root/World/FlowFieldManager") as FlowFieldManager
-@onready var maneuver_manager : ManeuverManager = $"/root/World/Car/ManeuverManager"
 
 
 # ---- MANEUVER-DRIVEN FIRE -----
 @export var auto_fire : bool = false      # legacy cooldown drops
-@export var mine_spacing : float = 18.0        # spacing of the fallback line behind the car (no drift path)
-@export var mine_trail_length : float = 250.0  # length of the recent drift path the mines are spread along
+
+@export_group("Throw")
+@export var drop_interval : float = 0.25       # max seconds between two mines
+@export var max_salvo_duration : float = 1.5   # the queued mines are all thrown within this time (shorter interval when many)
+@export var throw_distance : float = 40.0      # how far behind the car a mine lands
+@export var throw_spread : float = 18.0        # random lengthwise / sideways offset: mines never stack
+@export var throw_duration : float = 0.25      # flight time
+@export var throw_scale_peak : float = 0.4     # fake flight: +40 % size at the top of the arc
 
 var combo_multiplier : float = 1.0
+var pending_multipliers : PackedFloat32Array = PackedFloat32Array()  # one entry per mine still to throw: its damage multiplier
+var drop_timer : float = 0.0
+@onready var explosives : Node = $"/root/World/Explosives"
 
 func _ready() -> void:
 	SignalManager.game_paused.connect(_on_game_paused)
@@ -35,15 +43,24 @@ func _ready() -> void:
 	cool_down.wait_time = launcher_data.cool_down.get_value()
 	launcher_data.cool_down.stat_adjusted.connect(_on_cool_down_modified)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if game_paused and !cool_down.paused:
 		cool_down.paused = true
-	
+
 	if !game_paused and cool_down.paused:
-		cool_down.paused = false 
-	
+		cool_down.paused = false
+
 	if !launcher_data.weapon_is_active:
 		desactivate()
+
+	# Queued mines: thrown one by one behind the car
+	if pending_multipliers.is_empty() or game_paused:
+		return
+	drop_timer -= delta
+	if drop_timer > 0.0:
+		return
+	_throw_next_mine()
+	drop_timer = minf(drop_interval, max_salvo_duration / maxf(float(pending_multipliers.size()), 1.0))
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause
@@ -76,40 +93,34 @@ func _on_maneuver_performed(maneuver_type: ManeuverManager.Type, intensity: floa
 		return
 	if ManeuverManager.get_pattern(maneuver_type).z < 0.0:
 		return
-	drop_mines_on_trail(launcher_data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier), maneuver_type)
-
-
-func drop_mines_on_trail(count : int, maneuver_type : ManeuverManager.Type) -> void:
-	# Recent part of the drift path recorded by the ManeuverManager (rear axle, points ~evenly spaced)
-	var trail : PackedVector2Array = maneuver_manager.trail_points
-	var trail_points_kept : int = ceili(mine_trail_length / maneuver_manager.loop_sample_distance)
-	var first : int = maxi(maneuver_manager.trail_start, trail.size() - trail_points_kept)
-	var available : int = trail.size() - first
-	# At most one mine per trail point: the extra mines go on a tight line behind the car
-	var on_trail : int = mini(count, available) if available >= 2 else 0
-	# Same for every mine of the salvo: computed once (the maneuver level raises the combo share)
+	var count : int = launcher_data.get_salvo_count(maneuver_type, intensity, drift_level, is_amplified, combo_multiplier)
+	# Same for every mine of this salvo (the maneuver level raises the combo share)
 	var damage_multiplier : float = launcher_data.get_combo_damage_multiplier(combo_multiplier, maneuver_type)
+	_queue_mines(count, damage_multiplier)
 
-	var explosives : Node = get_node("/root/World/Explosives")
+
+## The salvo joins the queue: an empty queue throws its first mine right away
+func _queue_mines(count : int, damage_multiplier : float) -> void:
+	if pending_multipliers.is_empty():
+		drop_timer = 0.0
 	for i : int in count:
-		var mine_position : Vector2
-		if i < on_trail:
-			# Evenly spread along the path: the points are evenly spaced, so by index is by length
-			var index : int = first + roundi(float(i) * (available - 1) / maxf(on_trail - 1, 1.0))
-			mine_position = trail[index]
-		else:
-			mine_position = get_fallback_position(i - on_trail)
-		var landmine : Node2D = LANDMINE.instantiate()
-		landmine.damage_multiplier = damage_multiplier
-		explosives.add_child(landmine)
-		landmine.global_position = mine_position
-	drop_mine_sfx.play()
+		pending_multipliers.append(damage_multiplier)
 
 
-func get_fallback_position(index : int) -> Vector2:
-	# No drift path (stationary burnout, horn...): tight line behind the car, for chain explosions
+func _throw_next_mine() -> void:
+	var damage_multiplier : float = pending_multipliers[0]
+	pending_multipliers.remove_at(0)
+	var start : Vector2 = mine_marker.global_position
 	var backward : Vector2 = Vector2.LEFT.rotated(car.global_rotation)
-	var candidate : Vector2 = mine_marker.global_position + backward * mine_spacing * index
-	if flow_field != null and flow_field.field_ready and flow_field.is_blocked_world(candidate):
-		return car.global_position
-	return candidate
+	var target : Vector2 = start \
+			+ backward * (throw_distance + randf_range(-throw_spread, throw_spread)) \
+			+ backward.orthogonal() * randf_range(-throw_spread, throw_spread)
+	# A wall behind the car: the mine drops on the marker instead
+	if flow_field != null and flow_field.field_ready and flow_field.is_blocked_world(target):
+		target = start
+	var landmine : Node2D = LANDMINE.instantiate()
+	landmine.damage_multiplier = damage_multiplier
+	explosives.add_child(landmine)
+	landmine.global_position = start
+	landmine.throw_to(target, throw_duration, throw_scale_peak)
+	drop_mine_sfx.play()

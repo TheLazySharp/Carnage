@@ -107,9 +107,8 @@ func _on_map_generated(data : MapData) -> void:
 func _on_lap_completed(_lap : int) -> void : 
 	time_remaining += DeadLapsManager.lap_time_bonus
 
-## Forced raid end (tutorial): same sequence as the end of the timer
+## Forced raid end (tutorial): exit and arrow like the end of the timer, without any threat
 func _on_end_raid_requested() -> void:
 	if timer_stopped:
 		return
-	SignalManager.coloss_incoming.emit()
 	on_day_end()

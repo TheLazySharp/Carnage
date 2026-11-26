@@ -3,7 +3,7 @@ extends Node2D
 
 var _built : bool = false
 ## Placeholder marking where the biome's Lands scene goes in the tree
-@onready var lands_slot : Node2D = $LandsSlot
+@onready var lands_slot : Node2D = get_node_or_null("LandsSlot") as Node2D
 
 func _ready() -> void:
 	_spawn_lands()
@@ -34,6 +34,9 @@ func _start_music() -> void:
 ## The biome's Lands scene takes the slot's place in the tree, so the draw
 ## order and the World/Lands path stay what they were
 func _spawn_lands() -> void:
+	# Scenes that keep their own Lands (sandbox...): no slot, nothing to spawn
+	if lands_slot == null:
+		return
 	var path : String = BiomesManager.current_data.lands_scene_path if BiomesManager.current_data != null else ""
 	if path.is_empty():
 		push_error("[World] no Lands scene for biome %s" % GameMaster.BIOMES.keys()[BiomesManager.current_biome])

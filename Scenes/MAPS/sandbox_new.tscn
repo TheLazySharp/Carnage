@@ -461,10 +461,7 @@ position = Vector2(18, 2141)
 
 [node name="SpawnerAuto" parent="Spawners" unique_id=210156015 instance=ExtResource("34_4v516")]
 is_active = false
-is_infinite = false
 max_enemy_count = 100
-auto_spawn = true
-spawn_rate = 0.4
 
 [node name="SpawnRate" parent="Spawners/SpawnerAuto" index="0" unique_id=2090149341]
 wait_time = 0.2

@@ -61,7 +61,7 @@ const LOWER_IS_BETTER : Dictionary = {
 @export_group("CAR PART")
 @export var car_part : CarData.Car_Upgrades = CarData.Car_Upgrades.N_A
 @export var level_bonuses : Array[float] = []
-## Granted at the max level of the part, in its own slot (loadout). Never offered in the shop
+@export var level_modifier_type : Mod_Type = Mod_Type.PERCENT_ADD
 @export var mastery_charm : CharmData
 
 func get_stats()-> Array[Dictionary]:
@@ -219,7 +219,7 @@ func get_next_bonus(current_level : int) -> float:
 
 func make_part_modifier(current_level : int) -> Modifier:
 	var source : String = "car part %s lv%d" % [CarData.Car_Upgrades.keys()[car_part], current_level + 1]
-	return Modifier.new(get_next_bonus(current_level), Modifier.Type.PERCENT_ADD, source)
+	return Modifier.new(get_next_bonus(current_level), get_modifier_type(level_modifier_type), source)
 
 
 func make_part_preview_modifier(from_level : int, to_level : int) -> Modifier:

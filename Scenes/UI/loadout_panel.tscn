@@ -5,6 +5,10 @@
 [ext_resource type="Script" uid="uid://cjxfpofcqwoy2" path="res://Scripts/FONTS/GUI_text_18.gd" id="3_ddmlh"]
 [ext_resource type="FontFile" uid="uid://bqk71gepgfgby" path="res://Fonts/Race Sport.ttf" id="4_40d8c"]
 [ext_resource type="Script" uid="uid://b8qqt5xnga56x" path="res://Scripts/FONTS/GUI_menu.gd" id="5_bfh2l"]
+[ext_resource type="Texture2D" uid="uid://byycfsj2fwupg" path="res://Assets/PNJs/marina.png" id="6_cqpr7"]
+[ext_resource type="Script" uid="uid://cxu6fbqwcqd56" path="res://Scripts/FONTS/GUI_text_24_Y.gd" id="8_phlgf"]
+[ext_resource type="Texture2D" uid="uid://bx0g56iujhr01" path="res://Assets/weapons/revolver.png" id="9_8qo72"]
+[ext_resource type="Script" uid="uid://dwvwv8qr7tqn6" path="res://Scripts/FONTS/GUI_text_title_low.gd" id="10_ku0yk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhjli"]
 
@@ -15,7 +19,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="LoadoutPanel" type="Control" unique_id=250150395 node_paths=PackedStringArray("tab_container", "row_template", "weapon_desc_label", "weapon_count_template", "hint_label", "maneuvers_close_button", "charm_slot_template", "owned_charm_template", "slots_label", "mastery_slots_label", "charm_description_label", "mastery_slot_template", "charms_close_button")]
+[node name="LoadoutPanel" type="Control" unique_id=250150395 node_paths=PackedStringArray("tab_container", "row_template", "weapon_desc_label", "weapon_count_template", "hint_label", "maneuvers_close_button", "charm_slot_template", "owned_charm_template", "slots_label", "mastery_slots_label", "charm_description_label", "mastery_slot_template", "charms_close_button", "crew_template", "crew_bio")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,19 +40,21 @@ mastery_slots_label = NodePath("PanelContainer/TabContainer/Charms - R1 >/SpecSl
 charm_description_label = NodePath("PanelContainer/TabContainer/Charms - R1 >/CharmDescription")
 mastery_slot_template = NodePath("PanelContainer/TabContainer/Charms - R1 >/MasteryCharmHolder/Panel")
 charms_close_button = NodePath("PanelContainer/TabContainer/Charms - R1 >/TipsContainer/Close")
+crew_template = NodePath("PanelContainer/TabContainer/Crew/Container/SuvivorTemplate")
+crew_bio = NodePath("PanelContainer/TabContainer/Crew/SurvivorBio")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=469199150]
-custom_minimum_size = Vector2(790, 0)
+custom_minimum_size = Vector2(1200, 750)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -631.5
-offset_top = -368.5
-offset_right = 158.5
-offset_bottom = 368.5
+offset_left = -600.0
+offset_top = -375.0
+offset_right = 600.0
+offset_bottom = 375.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -60,9 +66,10 @@ color = Color(0.06469653, 0.06469653, 0.06469653, 1)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_3v45d")
 theme_override_font_sizes/font_size = 24
-current_tab = 0
+current_tab = 1
 
 [node name="< L1 - Maneuvers" type="TabBar" parent="PanelContainer/TabContainer" unique_id=1688276251]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -176,10 +183,168 @@ flat = true
 icon_alignment = 1
 script = ExtResource("5_bfh2l")
 
+[node name="Crew" type="TabBar" parent="PanelContainer/TabContainer" unique_id=1539163729]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Container" type="GridContainer" parent="PanelContainer/TabContainer/Crew" unique_id=1913606259]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 116.0
+offset_right = 412.0
+offset_bottom = 692.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 40
+columns = 3
+
+[node name="SuvivorTemplate" type="VBoxContainer" parent="PanelContainer/TabContainer/Crew/Container" unique_id=738613349]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/TabContainer/Crew/Container/SuvivorTemplate" unique_id=1636890420]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("6_cqpr7")
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/TabContainer/Crew/Container/SuvivorTemplate/Icon" unique_id=1825935196]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="PanelContainer/TabContainer/Crew/Container/SuvivorTemplate" unique_id=616434320]
+layout_mode = 2
+text = "Marina"
+horizontal_alignment = 1
+script = ExtResource("3_ddmlh")
+
+[node name="Job" type="Label" parent="PanelContainer/TabContainer/Crew/Container/SuvivorTemplate" unique_id=528147316]
+layout_mode = 2
+text = "Professor"
+horizontal_alignment = 1
+script = ExtResource("3_ddmlh")
+
+[node name="Weapon" type="Label" parent="PanelContainer/TabContainer/Crew/Container/SuvivorTemplate" unique_id=1591821177]
+layout_mode = 2
+text = "Flame Launcher"
+horizontal_alignment = 1
+script = ExtResource("3_ddmlh")
+
+[node name="SurvivorBio" type="Control" parent="PanelContainer/TabContainer/Crew" unique_id=487419059]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -705.0
+offset_top = -230.5
+offset_right = -4.0
+offset_bottom = 201.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/TabContainer/Crew/SurvivorBio" unique_id=746762345]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13682577, 0.13682574, 0.13682571, 1)
+
+[node name="Bio" type="VBoxContainer" parent="PanelContainer/TabContainer/Crew/SurvivorBio" unique_id=169180684]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 554.0
+offset_bottom = 183.0
+
+[node name="Name" type="Label" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Bio" unique_id=379287223]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3v45d")
+theme_override_font_sizes/font_size = 24
+text = "Javier"
+script = ExtResource("8_phlgf")
+
+[node name="Age" type="Label" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Bio" unique_id=1740373038]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3v45d")
+theme_override_font_sizes/font_size = 18
+text = "42 years old"
+script = ExtResource("3_ddmlh")
+
+[node name="Job" type="Label" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Bio" unique_id=1373536226]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3v45d")
+theme_override_font_sizes/font_size = 18
+text = "Mechanic"
+script = ExtResource("3_ddmlh")
+
+[node name="JobDescr" type="Label" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Bio" unique_id=91064331]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3v45d")
+theme_override_font_sizes/font_size = 18
+autowrap_mode = 2
+script = ExtResource("3_ddmlh")
+
+[node name="Weapon" type="VBoxContainer" parent="PanelContainer/TabContainer/Crew/SurvivorBio" unique_id=1030704789]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = 23.5
+offset_right = -5.0
+offset_bottom = 206.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponIcon" type="TextureRect" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Weapon" unique_id=1930511992]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("9_8qo72")
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Weapon/WeaponIcon" unique_id=632749505]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Weapon" type="Label" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Weapon" unique_id=2051775591]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3v45d")
+theme_override_font_sizes/font_size = 18
+text = "Revolver"
+script = ExtResource("10_ku0yk")
+
+[node name="WeaponDescr" type="Label" parent="PanelContainer/TabContainer/Crew/SurvivorBio/Weapon" unique_id=1064933057]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3v45d")
+theme_override_font_sizes/font_size = 18
+text = "Shot a bullet on the closest enemy"
+autowrap_mode = 2
+script = ExtResource("3_ddmlh")
+
 [node name="Charms - R1 >" type="TabBar" parent="PanelContainer/TabContainer" unique_id=1210373520]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 1
+metadata/_tab_index = 2
 
 [node name="SpecSlots" type="Label" parent="PanelContainer/TabContainer/Charms - R1 >" unique_id=1950073553]
 custom_minimum_size = Vector2(0, 30)
@@ -220,7 +385,7 @@ layout_mode = 0
 offset_left = 10.0
 offset_top = 168.0
 offset_right = 346.0
-offset_bottom = 312.0
+offset_bottom = 234.5
 columns = 5
 
 [node name="Panel" type="Panel" parent="PanelContainer/TabContainer/Charms - R1 >/CharmHolderContainer" unique_id=192215271]
@@ -253,15 +418,16 @@ script = ExtResource("3_ddmlh")
 custom_minimum_size = Vector2(400, 300)
 layout_mode = 0
 offset_left = 9.369995
-offset_top = 340.46875
-offset_right = 49.369995
-offset_bottom = 380.46875
+offset_top = 334.46875
+offset_right = 409.37
+offset_bottom = 634.46875
 color = Color(0.019607844, 0.019607844, 0.019607844, 0.78431374)
 
 [node name="OwnedCharmContainer" type="GridContainer" parent="PanelContainer/TabContainer/Charms - R1 >/OwnedBackground" unique_id=793379658]
 layout_mode = 1
+offset_top = -2.0
 offset_right = 400.0
-offset_bottom = 300.0
+offset_bottom = 298.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 5

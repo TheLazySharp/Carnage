@@ -29,3 +29,11 @@ func unload() -> void :
 		effect.deactivate()
 	active_jobs.clear()
 	holder.clear()
+
+## A survivor left the car: his job stops
+func deactivate_job(job : JobData) -> void:
+	if job == null or !active_jobs.has(job):
+		return
+	(active_jobs[job] as JobEffect).deactivate()
+	active_jobs.erase(job)
+	holder.erase(job)

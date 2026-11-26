@@ -230,3 +230,22 @@ func god_mod_full_power() -> void :
 	var god_mod : Modifier = Modifier.new(5,Modifier.Type.FLAT,"weapons manager god mod")
 	for i in weapons.size():
 		weapons[i].nb_projectile.add_modifier(god_mod)
+
+
+## Weapon of a survivor leaving the car: out of the equipped lists (its scene is rebuilt from them at the next raid)
+func remove_weapon(p_weapon : WeaponData) -> void:
+	if !weapons.has(p_weapon):
+		return
+	unequip_weapon(p_weapon)
+	p_weapon.is_equiped = false
+	p_weapon.weapon_is_active = false
+	weapons.erase(p_weapon)
+	if !unequipped_weapons.has(p_weapon):
+		unequipped_weapons.append(p_weapon)
+	var ammo : WeaponData = p_weapon.weapon_ammo_res
+	if ammo != null:
+		ammunitions.erase(ammo)
+	for type_list : Array in WEAPONS_TYPES.values():
+		type_list.erase(p_weapon)
+		if ammo != null:
+			type_list.erase(ammo)

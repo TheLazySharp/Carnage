@@ -13,21 +13,18 @@ const ENEMY = preload("uid://c31g0smlywes2")
 @export var max_enemy_count : int
 @export var min_horde_spacing_px : float = 900.0
 @export var min_distance_from_entry_px : float = 1200.0
+@export var max_distance_from_car_px : float = 2200.0
+@export var periphery_depth_cells : int = 20
 @export var horde_radius_px : float = 128.0
 @export var use_map_seed : bool = true
 ## true = hordes spawn with the map, false = they wait for trigger_signal
 @export var auto_spawn : bool = true
 ## SignalManager signal that spawns the hordes when auto_spawn is false
 @export var trigger_signal : StringName = &"launch_horde"
-## Hordes chase the car as soon as they spawn instead of waiting idle
 @export var chase_on_spawn : bool = false
 ## Hordes instantiated with the map and kept dormant (no process, physics or rendering) until trigger_signal,
 ## then woken one per frame away from the car. Needs auto_spawn = false
 @export var prespawn_dormant : bool = false
-## Final hordes appear in the map edge band: free cells closer than this to the map border.
-## Covers the building belt + sidewalk + outer street (generator margin = 11 cells)
-@export var periphery_depth_cells : int = 20
-
 var dormant_hordes : Array[Array] = []
 var wake_index : int = 0
 
@@ -115,9 +112,11 @@ func _spawn_dormant_hordes() -> void:
 ## Centers in the map edge band, away from the car. Car distance and spacing
 ## relax pass after pass instead of failing on a small map
 func _pick_periphery_centers() -> void:
-	var periphery : Array[Vector2i] = _periphery_cells()
+	var periphery : Array[Vector2i] = _cells_within_reach(_periphery_cells())
 	if periphery.is_empty():
-		periphery = free_cells  # no edge band on this map: anywhere away from the car
+		periphery = _cells_within_reach(free_cells)
+	if periphery.is_empty():
+		periphery = free_cells
 	var car_distance : float = min_distance_from_entry_px
 	var spacing : float = min_horde_spacing_px
 	for relax_pass : int in 5:
@@ -148,6 +147,17 @@ func _periphery_cells() -> Array[Vector2i]:
 			cells.append(cell)
 	return cells
 
+## Cells closer to the car than max_distance_from_car_px (0 = no limit)
+func _cells_within_reach(cells : Array[Vector2i]) -> Array[Vector2i]:
+	if max_distance_from_car_px <= 0.0:
+		return cells
+	var max_distance_squared : float = max_distance_from_car_px * max_distance_from_car_px
+	var result : Array[Vector2i] = []
+	for cell : Vector2i in cells:
+		var pos : Vector2 = (Vector2(cell) + Vector2.ONE * 0.5) * cell_size
+		if pos.distance_squared_to(_entry_pos) <= max_distance_squared:
+			result.append(cell)
+	return result
 
 func _on_game_paused(game_on_pause : bool) -> void:
 	game_paused = game_on_pause

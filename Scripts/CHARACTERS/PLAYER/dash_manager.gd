@@ -126,6 +126,9 @@ func execute_dash(p_sustained : bool) -> void:
 		if !is_instance_valid(car) or car.game_is_over:
 			return
 
+	if !consume_survivor_blood():
+		return
+
 	is_sustained = p_sustained
 	boost_time = 0.0
 	nitro_timer = NITRO_TICK_TIME
@@ -134,8 +137,6 @@ func execute_dash(p_sustained : bool) -> void:
 	if enable_hitstop:
 		hitstop()
 	SignalManager.screen_shake_requested.emit(12.0, 0.4)
-
-	consume_survivor_blood()
 
 	car_res.dmg.add_modifier(Modifier.new(car_res.dash_dmg_bonus.get_value(), Modifier.Type.PERCENT_MULT, MOD_DMG))
 	car_res.max_speed.add_modifier(Modifier.new(dash_speed_mult, Modifier.Type.PERCENT_MULT, MOD_SPEED))
@@ -166,10 +167,13 @@ func end_dash() -> void:
 	dash_ended.emit()
 
 
+## One tick of survivor blood, taken only if he keeps at least 1 after it.
+## False = not enough: nothing taken, the caller stops (or never starts) the dash
 func consume_survivor_blood() -> bool:
-	var player_life : int = maxi(player.current_life - BLOOD_TICK_COST, 0)
-	SignalManager.emit_signal("survivor_blood_consummed",BLOOD_TICK_COST)
-	return player_life >= BLOOD_TICK_COST
+	if player.current_life <= BLOOD_TICK_COST:
+		return false
+	SignalManager.emit_signal("survivor_blood_consummed", BLOOD_TICK_COST)
+	return true
 
 
 func hitstop() -> void:

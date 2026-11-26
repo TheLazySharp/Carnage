@@ -213,7 +213,7 @@ GUIDE_LOADOUT_WEAPONS;"This is your loadout.
 Place your weapons on your maneuvers. Each weapon fits on two different maneuvers only: choose according to its affinities.";"C'est ton loadout.
 Place tes armes sur tes manœuvres. Chaque arme ne peut aller que sur deux manœuvres différentes : choisis selon ses affinités."
 GUIDE_LOADOUT_CHANGE;You can change this layout every time you come back to the roadmap.;Tu pourras modifier cette répartition à chaque passage sur la roadmap.
-GUIDE_LOADOUT_CHARMS_R1;Press R1 to see your charms.;Appuie sur R1 pour afficher tes charms.
+GUIDE_LOADOUT_CHARMS_R1;L1 / R1 switch between the tabs: maneuvers, crew and charms. Press A to see your charms.;L1 / R1 font passer d'un onglet à l'autre : manœuvres, équipage et charms. Appuie sur A pour voir tes charms.
 GUIDE_LOADOUT_CHARMS;Charms are bought at the shop. Special ones are earned by upgrading your car at the end of a raid.;Les charms s’achètent au shop. Des charms spéciaux s’obtiennent en améliorant ta voiture en fin de raid.
 GUIDE_LOADOUT_MASTERY;Special charms go here: they are added and switched on as soon as you get them.;Les charms spéciaux arrivent ici : ils sont ajoutés et activés dès que tu les obtiens.
 GUIDE_LOADOUT_SLOTS;A charm you buy is equipped here automatically, as long as there is room.;Un charm acheté s’équipe ici automatiquement, tant qu’il reste de la place.
@@ -223,7 +223,7 @@ GUIDE_LEVELUP_PARTS;Each car part improves its own stats. Pick the levels to ins
 GUIDE_LEVELUP_MASTERY;At level 5, a part gives you a powerful special charm.;Au niveau 5, une pièce te donne un charm spécial puissant.
 GUIDE_SHOP_REPAIR;Repair your car here.;Répare ta voiture ici.
 GUIDE_SHOP_CHARMS;Buy charms: their effects last for the whole run.;Achète des charms : leurs effets durent toute la partie.
-GUIDE_SHOP_MANEUVERS;Unlock maneuvers and raise their mastery level: the weapons placed on them get more out of your combo.;Débloque des manœuvres et monte leur niveau de maîtrise : les armes placées dessus profitent davantage de ton combo.
+GUIDE_SHOP_MANEUVERS;Each visit offers 3 maneuvers: NEW ones to unlock, or owned ones to upgrade to their next level. A bought card is sold until the next raid or a reroll.;Chaque visite propose 3 manœuvres : des NOUVELLES à débloquer, ou des manœuvres déjà possédées à passer au niveau suivant. Une carte achetée reste vendue jusqu'au prochain raid ou au prochain reroll.
 GUIDE_SHOP_COMBO;Each mastery level also raises your max combo.;Chaque niveau de maîtrise augmente aussi ton combo maximum.
 GUIDE_ROADMAP_RESCUE;Next raid: a survivor needs you. Find where they hide and save them by staying close to his building! At the end of the raid, you get their weapon and the effects of their job.;Au prochain raid, un survivant t’attend. Sauve-le en restant près de son immeuble. En fin de raid, tu récupères son arme et les effets de son métier.
 JOB_COP;Cop;Flic
@@ -257,3 +257,9 @@ SHOP_LEVEL_MAX;MAX;MAX
 SHOP_SOLD;Sold;Vendu
 SHOP_LEVEL_NEXT;Lvl %d -> %d;Niv %d -> %d
 SHOP_LEVEL_CURRENT;Lvl %d;Niv %d
+TUTO_RAID_END;When time runs out;Quand le temps est écoulé
+TUTO_RAID_END_BODY;A great danger awaits at the end of every raid. When the time is up, leave the zone fast: follow the arrow to the exit.;Un grand danger guette la fin de chaque raid. Quand le temps est écoulé, quitte vite la zone : suis la flèche jusqu'à la sortie.
+CREW_FULL_CHOOSE;The car is full: who stays on the road? Be carefull, this survivor will probably not stay alive.;La voiture est pleine : qui reste sur le bord de la route ? Attention, ce survivant ne survivra probablement pas.
+LOADOUT_TAB_CREW;Crew;Équipage
+CREW_DRIVER;Driver;Conducteur
+SURVIVOR_AGE;%d years old;%d ans

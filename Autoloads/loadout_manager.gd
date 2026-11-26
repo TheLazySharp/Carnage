@@ -183,6 +183,14 @@ func _unhandled_input(event : InputEvent) -> void:
 		sandbox_weapons_enabled = !sandbox_weapons_enabled
 		print("[Sandbox] weapons ", "ON" if sandbox_weapons_enabled else "OFF")
 
+## Weapon of a survivor leaving the car: off every maneuver, and no longer waiting to be placed
+func remove_weapon(weapon : WeaponData) -> void:
+	for maneuver_type : ManeuverManager.Type in weapon_by_maneuver.keys():
+		if weapon_by_maneuver[maneuver_type] == weapon:
+			weapon_by_maneuver.erase(maneuver_type)
+	pending_weapons.erase(weapon)
+
+
 func _on_sandbox_mode() -> void : 
 	sandbox_active = true
 	

@@ -5,8 +5,8 @@ extends Node
 
 ## Run order, fixed for the demo
 const BIOME_ORDER : Array[GameMaster.BIOMES] = [
-	GameMaster.BIOMES.DESERT,
 	GameMaster.BIOMES.CITY,
+	GameMaster.BIOMES.DESERT,
 	#GameMaster.BIOMES.COUNTRYSIDE,
 ]
 
